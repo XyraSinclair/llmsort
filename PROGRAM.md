@@ -12,10 +12,10 @@ the engine, the ledger, or the benchmark; it uses all three:
 
 | Surface | Role | Repo |
 |---|---|---|
-| llmsorting (engine) | pairwise-ratio elicitation, IRLS solve, uncertainty, active planning, evidence packs | this repo (`~/Projects/llmsorting`, public, GitHub) |
-| openpriors.com | the ledger: provenanced judgement records, cardinal scores fitted from ratio judgements, per-model reliability | `~/Projects/exopriors-core` (web surface `openpriors`) |
-| pairwiseratio.org | the benchmark: Judge Coherence Benchmark — does the judgement survive order swaps, polarity, paraphrase, cycles | `site/` in this repo |
-| **llmsorting.com** | methods, tricks, robustness metrics, demos, evidence packs, and the program itself | `www/` in this repo |
+| llmsort (engine) | pairwise-ratio elicitation, IRLS solve, uncertainty, active planning, evidence packs | this repo (`XyraSinclair/llmsort`, public, GitHub) |
+| openpriors.com | the ledger: provenanced judgement records, cardinal scores fitted from ratio judgements, per-model reliability | `exopriors-core` (private; web surface `openpriors`) |
+| pairwiseratio.org | the benchmark: Judge Coherence Benchmark — does the judgement survive order swaps, polarity, paraphrase, cycles | `sites/pairwiseratio.org/` in `exopriors-core` (private) |
+| **llmsorting.com** | methods, tricks, robustness metrics, demos, evidence packs, and the program itself | `sites/llmsorting.com/` in `exopriors-core` (private) |
 
 Status labels used throughout: **PLANNED** (designed, no run) · **IN FLIGHT**
 (running or under review) · **EXECUTED** (observed after-state, evidence pack
