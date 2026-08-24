@@ -85,6 +85,36 @@ the fix if a later regime needs it.
    that is not measurable here; no logprob/PMF arm (deleted in the climb —
    E7's question); the user-prompt attribute is one string.
 
+## Addendum 2026-08-23 — order-sensitivity gauge + k sweep (llmsort@328d212, $0.13)
+
+`--repeats 2` re-presents each chunk group in a second shuffled slot order;
+the **order-sensitivity readout** is the fraction of entity pairs (ordered by
+both presentations of the same subset) whose direction flips between the two
+orders — a per-(model, attribute, domain) gauge costing one duplicate pass,
+the thing to run FIRST in a new domain before trusting any k-wise sort.
+Offline synthetic judge (σ = 0.35 nats): flip rate 0.14–0.22, so the metric
+reads noise correctly. Live, deepseek-v4-flash, n = 24, m = 2, r = 2, k ∈
+{4, 6, 8, 12} (`live/order-ksweep-r2/`, $0.082; `live/bw-k8-r2/`, $0.043):
+
+| attribute | flip rate by k=4/6/8/12 (order) | ρ vs pairwise by k |
+|---|---|---|
+| impact_per_dollar | 0.28 / 0.40 / 0.36 / 0.33 | 0.67 / 0.85 / 0.81 / **0.44** |
+| theory_of_change | 0.21 / 0.13 / 0.23 / 0.24 | 0.81 / 0.77 / 0.82 / 0.87 |
+| user-prompt attr | 0.15 / 0.11 / 0.13 / 0.16 | 0.89 / 0.90 / 0.87 / 0.84 |
+
+Readings. (1) The gauge separates attributes: the judge is order-flaky on
+`impact_per_dollar` (~0.34 mean flip rate) and stable on the user-prompt
+attribute (~0.14); the one ranking collapse in the sweep (k = 12,
+impact_per_dollar, ρ 0.44) happened on the flakiest attribute — the gauge
+flags exactly where a bigger k stops being safe. (2) k = 6–8 is the band:
+k = 4 wastes calls for no reliability gain, k = 12 is fine on stable
+attributes and unsafe on flaky ones. (3) Dollars per item are ~flat in k
+(input-dominated: every item is read m·r times regardless of k), so k buys
+pairs per call, not savings — take the largest k the flip rate tolerates.
+(4) `bw` with repeats stays inadequate (ρ 0.30–0.58), unchanged verdict.
+Denominators: flip rates on 63–264 compared pairs per cell (4–12 repeated
+subsets); ρ on 24 items — single-run cells, not averaged.
+
 Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
 script mirrored in `live/run.sh`.

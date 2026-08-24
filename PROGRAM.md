@@ -189,7 +189,14 @@ RESULTS.md with denominators) and one page here.
   ranked last 2.2× fair share (order), 1.9× (bw); first slots under-picked.
   Reading: in the adequate-adjustment regime the listwise arm the climb kept
   as the denominator is the instrument; the "highest-value missing cell" is
-  not. Caveats: one model, one corpus family, no PMF arm (E7).
+  not. Addendum 2026-08-23 (llmsort@328d212, +$0.13): `--repeats` yields an
+  **order-sensitivity gauge** — direction-flip rate across shuffled
+  re-presentations of the same subset — the first thing to run in a new
+  domain; live it separates flaky attributes (impact_per_dollar ~0.34) from
+  stable ones (user-prompt ~0.14) and flags exactly the cell where k = 12
+  collapsed. k sweep: k = 6–8 is the band; $/item ~flat in k, so take the
+  largest k the flip rate tolerates. Caveats: one model, one corpus family,
+  no PMF arm (E7).
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 

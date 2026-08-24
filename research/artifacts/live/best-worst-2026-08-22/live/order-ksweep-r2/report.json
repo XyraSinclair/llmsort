@@ -1,0 +1,2840 @@
+{
+  "generated_at": "2026-08-24T00:35:10.837885909+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    4,
+    6,
+    8,
+    12
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 783
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 71
+    }
+  ],
+  "entity_ids": [
+    "precautionary-agi-governance",
+    "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+    "mox-2026-fundraiser",
+    "livingloop-the-biological-computing-engine-for-ai",
+    "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+    "visions-from-the-archive",
+    "help-two-consciousness-researchers-get-to-crete-this-summer",
+    "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+    "when-safety-testing-costs-more-than-model-training",
+    "shutdown-evaluations-for-ai-agents",
+    "bounded-uncertainty-verification-for-ai-systems",
+    "debate-training-on-llms-as-a-reward-hacking-mitigation",
+    "interactive-pdoom",
+    "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+    "manifold-tournaments",
+    "digital-animal-effective-animal-rights-news-for-global-impact",
+    "progress-studies-youtube-channel",
+    "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+    "veneton",
+    "build-a-new-nonp",
+    "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+    "manifold-corporate-blog-on-habr",
+    "terminal-boundary-systems-and-the-limits-of-self-explanation",
+    "virtue-ethical-rationality-and-training-dynamics-"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: Virtue-Ethical Rationality and Training Dynamics \nBLURB: \nASK: min $10,000 / goal $40,000\nCAUSES: none listed\nIn &apos;On Eudaimonia and Optimization&apos; I argue that the concept of eudaimonia -- active, rational flourishing -- points to a framework for rational action that differs from standard instrumental planning. In a word, I relate eudaimonic action to commitment to &apos;promoting x x \\-ingly&apos; (promoting peace peacefully, promoting mathematics mathematically, promoting democracy democratically), and argue that x- s that can materially sustain such a commitment are an important type of natural abstraction. \n\nWhen turning to AI alignment proper, I argue that: \n\n1. Human values and human ideas of prosocial behavior (what Joe Carlsmith calls &apos;being nicer than Clippy&apos;) become easier to operationalize when considered as eudaimonic practices\n2. The &apos;eudaimonic practices&apos; framework is attuned to RL and RL-related dynamics at multiple scales, from the post-training of frontier models to human sociotechnical dynamics\n3. The prospects for instilling AIs with narrowly safety-focussed values such as &apos;transparency&apos; and possibly &apos;corrigibility&apos; improve when we approach these value as analogous to eudaimonic practice\n\nThe purpose of the current project (3-4 months) is to cash out these claims in detail, begin to substantiate them empirically, and leverage the resulting analysis into testable guidelines for LLM post-training. Funding beyond $10k will go partly towards compute and partly towards freeing additional working hours. Funding beyond $20k will go towards ML engineer hours and comp\n</entity_A>\n<entity_B>\nTITLE: Inspiring 10,000+ to Embrace Plant-Based Living Through Film &amp; Advocacy\nBLURB: IVFF inspires audiences to embrace veganism through film screenings, while empowering advocates with workshops to drive the evolution of vegan activism.\nASK: min $1,000 / goal $10,000\nCAUSES: Animal welfare, EA community\nProject summary\n\nThe International Vegan Film Festival (IVFF) is dedicated to advancing the vegan movement through film and digital media, promoting compassionate living, animal rights, and environmental sustainability. In addition to our annual festival in Toronto, which showcases a diverse range of vegan-themed films, IVFF offers an annual activism workshop that empowers advocates with tools to enhance their advocacy efforts. Our World Tour and virtual screenings bring these films to global audiences year-round, spreading our message to new and diverse communities. We support filmmakers by providing opportunities for them to engage with audiences through interactive Q&amp;A sessions, promoting their work, and offering a platform to elevate their impact within the vegan movement. Through these initiatives, we not only inspire non-vegan audiences but also help strengthen the skills of activists and creators working toward a more compassionate world.\n\nWith a minimum project funding of $1,000 USD, we can expand our virtual screenings and collaborate with individual hosts to grow our World Tour program. However, with our funding goal of $10,000 USD, we will be able to fully invest in international and local partnership development, significantly amplifying our reach and impact. T\n</entity_B>\n<entity_C>\nTITLE: Build a new nonprofit thinktank that advances technological solutions to animal welfare challenges\nBLURB: \nASK: min $100,000 / goal $100,000\nCAUSES: ACX Grants 2024\nLonger description of your proposed project\n\nPolling consistently shows that farmed animal welfare is one of the most popular, least controversial issues in our culture. (E.g. here: &lt;https://www.dataforprogress.org/blog/2022/8/2/voters-demand-farm-animal-protections-from-both-politicians-and-companies%29 \n\nThis fact may come as a surprise, especially given that most omnivores find a range of common agricultural practices unacceptable. How can we explain such a large discrepancy between our individual preferences and the current state of animal agriculture?\n\nComparison to climate change can be illustrative. No one actively wants the climate to change, yet it happens anyway. Similarly, no one actively wants farmed animals to experience pain, yet it happens anyway. The underlying reason is that both carbon emissions and animal welfare are unpriced externalities - costs that are not paid by the producer or consumer, meaning they are not inherently incentivized to be mitigated.\n\nThe climate space has shown us that one of the most powerful ways to address unpriced externalities is through technology. Solar panels, electric vehicles, lithium-ion batteries, and even hydraulic fracking, are commonly considered to be some of our most powerful tools to fight climate change.\n\nTechnology is powerful because it eliminates tradeoffs. Instead of relying on consumers to choose to not fly on planes, or relying on businesse\n</entity_C>\n<entity_D>\nTITLE: Hiring AI Policy collaborators to prepare France AI Action Summit\nBLURB: \nASK: min $50,000 / goal $145,000\nCAUSES: AI governance, Long-Term Future Fund, Global catastrophic risks\nI am publishing this funding request on behalf of Tom David , with his authorization. I will collaborate with him on this project but will not receive any funding myself. \n\n Project summary\n\n6 months salary for 2 collaborators on AI governance in France ahead of the AI Action Summit.\n\n What are this project&apos;s goals? How will you achieve them?\n\nThe objective of this project is to amplify my capacity for action in France and internationally, to participate in the creation of robust governance mechanisms, and to work towards establishing conditions for solid international coordination.\n\nOn February 10th and 11th, France will host the AI Action Summit - a global AI summit following Bletchley Park and the AI Seoul Summit - where governments could make substantial commitments. Through this funding, I could form a small team to respond to more requests, write more articles, and avoid having to miss high-impact opportunities due to lack of bandwidth.\n\nBy working to ensure that AI functioning, trends, present and emerging risks, ethical questions, and governance issues are faithfully presented to decision-makers, we aim to expose them to these challenges and inform them with reliable data (and, where relevant, propose recommendations).\n\nFrance plays an important role in the trajectory of global AI governance, and efforts to participate in creating conditions for informed decision-making are still ins\n</entity_D>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which of two items has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:e849f06cd46b5eb7",
+    "prefix_bytes": 6903
+  },
+  "subsets_per_k": {
+    "4": 12,
+    "6": 8,
+    "8": 6,
+    "12": 4
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "calls": 24,
+      "calls_ok": 24,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 144,
+      "usage": {
+        "calls": 24,
+        "prompt_tokens": 40272,
+        "completion_tokens": 120,
+        "cache_read_tokens": 2048,
+        "cache_write_tokens": 0,
+        "nanodollars": 5528320
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 24,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.05069758487185003
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          11,
+          7,
+          5
+        ],
+        "last_by_slot": [
+          3,
+          8,
+          7,
+          6
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 12,
+        "presentation_pairs": 12,
+        "entity_pairs_compared": 72,
+        "direction_flips": 20,
+        "flip_rate": 0.2777777777777778
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.1007031436296415,
+          "std": 0.5070784839564527
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.2296777222597592,
+          "std": 0.4130807458673029
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.6908583414756894,
+          "std": 0.40657213260097724
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.7175193515127152,
+          "std": 0.46116869419259604
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.611588236129436,
+          "std": 0.505786498922174
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.3616125432565761,
+          "std": 0.4774517094145307
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.3561987201420367,
+          "std": 0.4539313526791934
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.006427570935894966,
+          "std": 0.4083798584711492
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.807246876268664,
+          "std": 0.48008344260774233
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.7342152889681317,
+          "std": 0.4020396061285012
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.7577274867229264,
+          "std": 0.45175552091089216
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.380587037948171,
+          "std": 0.4790592983009725
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.9756222884632147,
+          "std": 0.5070784839564527
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.4956092321735301,
+          "std": 0.4576913128856337
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.2338061773017458,
+          "std": 0.47745170941453074
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.8948548462133128,
+          "std": 0.4608590672566751
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.0090390010267798,
+          "std": 0.4230146770652664
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.9115500118279527,
+          "std": 0.4213651726567047
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.4901155390528575
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.7515097117591598,
+          "std": 0.4606949136998743
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.6316122202067536,
+          "std": 0.4985902955922172
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.4899245628538125,
+          "std": 0.4959239191795725
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.5262567818905655,
+          "std": 0.4985902955922171
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.9049128399857242,
+          "std": 0.4648142090222994
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "theory_of_change",
+      "calls": 24,
+      "calls_ok": 24,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 144,
+      "usage": {
+        "calls": 24,
+        "prompt_tokens": 39912,
+        "completion_tokens": 120,
+        "cache_read_tokens": 26624,
+        "cache_write_tokens": 0,
+        "nanodollars": 3757600
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 24,
+        "calls_with_cache_read_gt0": 21,
+        "mean_cached_fraction": 0.6690440599298744
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          4,
+          7,
+          7,
+          6
+        ],
+        "last_by_slot": [
+          4,
+          6,
+          7,
+          7
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 12,
+        "presentation_pairs": 12,
+        "entity_pairs_compared": 72,
+        "direction_flips": 15,
+        "flip_rate": 0.20833333333333334
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 2.126246724529686,
+          "std": 0.612077492012065
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.2569019759333653,
+          "std": 0.4522779749593386
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.3321114018955553,
+          "std": 0.46549559950890246
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 1.1069143299820756,
+          "std": 0.5621669661054656
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.1034815402542724,
+          "std": 0.5445783783241966
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.25682862592707334,
+          "std": 0.5438423376306247
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.9094622387773199,
+          "std": 0.5485772364970056
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.271429941483708,
+          "std": 0.48509719323023487
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 2.0438949150676935,
+          "std": 0.5368153217258455
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 2.106418448017989,
+          "std": 0.4226024226303696
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 2.2424311831001016,
+          "std": 0.5080807598392734
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.981096302934423,
+          "std": 0.5586120565752554
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.1033262946784865,
+          "std": 0.5849931265194176
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.2128359000262208,
+          "std": 0.4953924515816843
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.0,
+          "std": 0.545949012462645
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.9733658932909817,
+          "std": 0.5345185919249876
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.1275045210939976,
+          "std": 0.4418047790257439
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.9854484951734441,
+          "std": 0.44756692605762133
+        },
+        {
+          "id": "veneton",
+          "mean": 0.16245463357881285,
+          "std": 0.5579721240833567
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.2128359000262208,
+          "std": 0.49539245158168416
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.9337963524769499,
+          "std": 0.5565737129280615
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 1.080382581916775,
+          "std": 0.5946085322171872
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.936930770185639,
+          "std": 0.612077492012065
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.2535149547489253,
+          "std": 0.5206574924237035
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 24,
+      "calls_ok": 24,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 144,
+      "usage": {
+        "calls": 24,
+        "prompt_tokens": 37488,
+        "completion_tokens": 120,
+        "cache_read_tokens": 28160,
+        "cache_write_tokens": 0,
+        "nanodollars": 3310720
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 24,
+        "calls_with_cache_read_gt0": 22,
+        "mean_cached_fraction": 0.7509333003847999
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          7,
+          5,
+          8,
+          4
+        ],
+        "last_by_slot": [
+          5,
+          10,
+          6,
+          3
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 12,
+        "presentation_pairs": 12,
+        "entity_pairs_compared": 72,
+        "direction_flips": 11,
+        "flip_rate": 0.1527777777777778
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 2.045513605196443,
+          "std": 0.5050378905915556
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.6218096172381933,
+          "std": 0.4133258753822151
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.8196868078692594,
+          "std": 0.40632452187312507
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.8437574506565859,
+          "std": 0.46085600529115867
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.1795459445392369,
+          "std": 0.5043393036653799
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.9014929919351806,
+          "std": 0.47739164070380047
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.3698901799415599,
+          "std": 0.454231370791105
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.6954991679082838,
+          "std": 0.41153939609941315
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.6646067444919264,
+          "std": 0.48257952780564284
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.7540266640163948,
+          "std": 0.4066179334444497
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.251847115351394,
+          "std": 0.44689054019031677
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.4518782436897846,
+          "std": 0.4860642925345178
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.2189333936756008,
+          "std": 0.4998613290492404
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.8877070385414716,
+          "std": 0.460692954530674
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.9014929919351808,
+          "std": 0.4773916407038005
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.2998193552653243,
+          "std": 0.46147682878562274
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.7055130146471464,
+          "std": 0.4295715841923178
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.647251804518088,
+          "std": 0.43005979217319035
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.49367626785762053
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.8360145506862586,
+          "std": 0.46617710679051283
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 1.0480042108068877,
+          "std": 0.5003402033992919
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.49458500261258664,
+          "std": 0.4921892985369746
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.3359296429097829,
+          "std": 0.5050378905915556
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.8630364717111545,
+          "std": 0.46264727843045195
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 6,
+      "attribute": "impact_per_dollar",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 240,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 38112,
+        "completion_tokens": 112,
+        "cache_read_tokens": 3584,
+        "cache_write_tokens": 0,
+        "nanodollars": 5116160
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 14,
+        "mean_cached_fraction": 0.09439305011460339
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          3,
+          8,
+          1,
+          3,
+          0
+        ],
+        "last_by_slot": [
+          1,
+          3,
+          5,
+          2,
+          0,
+          5
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 8,
+        "presentation_pairs": 8,
+        "entity_pairs_compared": 120,
+        "direction_flips": 48,
+        "flip_rate": 0.4
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.8899180125078319,
+          "std": 0.35949534727267424
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.0401056936741258,
+          "std": 0.34271577061349384
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.886615855166445,
+          "std": 0.34610190348635317
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.8409117272851151,
+          "std": 0.3498606499511333
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.6697586786106754,
+          "std": 0.33792398877445395
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.4440894233431518,
+          "std": 0.3386524505009632
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.7389126901100902,
+          "std": 0.35928939594278714
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.4359668009583969,
+          "std": 0.35534689316710644
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.4812188705899012,
+          "std": 0.34695471630029345
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.2998445820460216,
+          "std": 0.3158689357231811
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.8061204459899768,
+          "std": 0.32338961964994656
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.6289541244100978,
+          "std": 0.31609038764298175
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.6064012727987187,
+          "std": 0.35949534727267424
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.2668976047562313,
+          "std": 0.3148881892574269
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.4993501906673516,
+          "std": 0.3379239887744539
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 1.045664606879304,
+          "std": 0.35036074682592555
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.7507106804224962,
+          "std": 0.3505097053300647
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.6192348610232695,
+          "std": 0.317729240847941
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.34123566621385726
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.2668976047562313,
+          "std": 0.3148881892574269
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.004714181196337375,
+          "std": 0.29109708890251046
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.2855562085624481,
+          "std": 0.3458100399813601
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.0106107046783552,
+          "std": 0.3187469134540348
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.5932551358703816,
+          "std": 0.32021110587076673
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 6,
+      "attribute": "theory_of_change",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 240,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 37872,
+        "completion_tokens": 112,
+        "cache_read_tokens": 26624,
+        "cache_write_tokens": 0,
+        "nanodollars": 3469760
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 15,
+        "mean_cached_fraction": 0.7025195293313181
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "last_by_slot": [
+          2,
+          3,
+          4,
+          2,
+          1,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 8,
+        "presentation_pairs": 8,
+        "entity_pairs_compared": 120,
+        "direction_flips": 16,
+        "flip_rate": 0.13333333333333333
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.5004376093689695,
+          "std": 0.3565153125912976
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.0599311300239964,
+          "std": 0.34478247325531236
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.328552571242791,
+          "std": 0.34300173290212116
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 1.031831700352647,
+          "std": 0.3489770488841418
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.5317060151088081,
+          "std": 0.33760140840330105
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.5293591782442465,
+          "std": 0.3374887777333181
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.2929563505892072,
+          "std": 0.35429989100321174
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.37816059456086926,
+          "std": 0.3542998910032118
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.7638648603611324,
+          "std": 0.34879821558884394
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.8958543568084623,
+          "std": 0.31743663884044354
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.7128288529646618,
+          "std": 0.3155531872103776
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 2.071261664830227,
+          "std": 0.3164149493689278
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.3380949122246413,
+          "std": 0.3565153125912976
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.457612056992817,
+          "std": 0.32051462090843824
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.09140984542860942,
+          "std": 0.3388380406234678
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.9408619630912155,
+          "std": 0.34567867413263825
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.2872544327378965,
+          "std": 0.3490046927578256
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.0388831985211626,
+          "std": 0.316759242248876
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.3457310754906103
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.8470075055568338,
+          "std": 0.31607333007411653
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.4092940645450427,
+          "std": 0.2907045196159409
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.5186927653384007,
+          "std": 0.3454770952909304
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.2663019478287885,
+          "std": 0.3167670522068285
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.026825119689414,
+          "std": 0.31778211590074174
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 6,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 240,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 36256,
+        "completion_tokens": 112,
+        "cache_read_tokens": 32256,
+        "cache_write_tokens": 0,
+        "nanodollars": 2849280
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 16,
+        "mean_cached_fraction": 0.8897965744592858
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          2,
+          5,
+          3,
+          4,
+          1,
+          1
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          4,
+          4,
+          2,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 8,
+        "presentation_pairs": 8,
+        "entity_pairs_compared": 120,
+        "direction_flips": 13,
+        "flip_rate": 0.10833333333333334
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.7503702890729333,
+          "std": 0.3515404673487746
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.2002007031059616,
+          "std": 0.3383159859025379
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.662357028825987,
+          "std": 0.335521903746786
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 1.1880432311190907,
+          "std": 0.3463748623285964
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.10106400631799772,
+          "std": 0.3345193326145328
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.3397777336610479,
+          "std": 0.3347134746295114
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.7229818051391239,
+          "std": 0.3515404673487746
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.21010793904915803,
+          "std": 0.3513847734295064
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.6868837843149118,
+          "std": 0.3431454204502458
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.5949145083722154,
+          "std": 0.3135308879057249
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.7550468806375138,
+          "std": 0.31182023521654606
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 2.031933352871496,
+          "std": 0.31319518432536125
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.4029673546524248,
+          "std": 0.3513847734295064
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.5258513798375541,
+          "std": 0.3127380857235206
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.0221047042574567,
+          "std": 0.3361507118069038
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.37233214995034114,
+          "std": 0.34006447050638766
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.8455778529724484,
+          "std": 0.3465142595531929
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.35716585079528707,
+          "std": 0.31412762247326037
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.3398271844126464
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.5886046961492728,
+          "std": 0.3127380857235206
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.8983278501250664,
+          "std": 0.2886751345166299
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.583429246275317,
+          "std": 0.3426450089697695
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.1155125867300586,
+          "std": 0.3130449680358798
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.603312378095557,
+          "std": 0.31560813784547964
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 37032,
+        "completion_tokens": 108,
+        "cache_read_tokens": 2560,
+        "cache_write_tokens": 0,
+        "nanodollars": 5035520
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.06943591474923953
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          1,
+          0,
+          3,
+          6,
+          2,
+          0
+        ],
+        "last_by_slot": [
+          1,
+          4,
+          0,
+          0,
+          0,
+          0,
+          2,
+          5
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 61,
+        "flip_rate": 0.3630952380952381
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.481045161302676,
+          "std": 0.2818603890393757
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 0.9922484992343872,
+          "std": 0.2668300036234002
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.1711333193942697,
+          "std": 0.27999401064455487
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 1.1873248878901286,
+          "std": 0.281497838684703
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.5306967541262497,
+          "std": 0.26639189223533016
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.3389872051880136,
+          "std": 0.26639189223533016
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.43746137153818876,
+          "std": 0.2791503851661183
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.43611328753129563,
+          "std": 0.2670820524781497
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.726105069357822,
+          "std": 0.2800146282533758
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.4074393954251767,
+          "std": 0.2664724393685881
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.6471803292314329,
+          "std": 0.27872180843136873
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.7764903143226904,
+          "std": 0.280835507752654
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.9836334081599246,
+          "std": 0.2668110309878335
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.1259716450899084,
+          "std": 0.2679497819001458
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.4982489674139954,
+          "std": 0.26744336103650457
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 1.5056607833848077,
+          "std": 0.27065350122853976
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.0561516822137995,
+          "std": 0.2668300036234002
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.0416766717857837,
+          "std": 0.2818603890393757
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.2665978064112504
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.3771348456638086,
+          "std": 0.2669517828215698
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.9025259149644682,
+          "std": 0.27843401820037716
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.506028987362685,
+          "std": 0.27949086435577525
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.273958697814405,
+          "std": 0.27980817972856836
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.016916265997952,
+          "std": 0.2510918701144452
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 36852,
+        "completion_tokens": 108,
+        "cache_read_tokens": 19712,
+        "cache_write_tokens": 0,
+        "nanodollars": 3809680
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 10,
+        "mean_cached_fraction": 0.5344980364495354
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          2,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          0,
+          1,
+          0,
+          1,
+          2,
+          6
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 39,
+        "flip_rate": 0.23214285714285715
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.697734399800362,
+          "std": 0.28343800120779555
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.0267977344614048,
+          "std": 0.26668664879068704
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.293868777873681,
+          "std": 0.28045379613985644
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.5047810325420512,
+          "std": 0.28253162150379774
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.6496502021656296,
+          "std": 0.2666059104458666
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.24490578346661263,
+          "std": 0.2686976739066694
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.38662714328608394,
+          "std": 0.28120308236160946
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.1332626048154153,
+          "std": 0.2682516772097645
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.374787714241726,
+          "std": 0.27983701067186406
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.4833011634549174,
+          "std": 0.26769345090455815
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.636875452378064,
+          "std": 0.2808297137317644
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.5485985205134272,
+          "std": 0.28343800120779555
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.0334710045726392,
+          "std": 0.2665440215589499
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.4432101351319155,
+          "std": 0.2676174126099757
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.5637122798512355,
+          "std": 0.2687391332126695
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.34607719757950917,
+          "std": 0.2682516772097645
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.428348025024852,
+          "std": 0.2695741172152109
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.7559973956654087,
+          "std": 0.28103766242479883
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.26794474864042467
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.229127526074018,
+          "std": 0.26768428419625323
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.09194205994595595,
+          "std": 0.27916215026979224
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.5394671285090846,
+          "std": 0.28021682121382296
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.1667699371033249,
+          "std": 0.2808559546138212
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.9973943716422492,
+          "std": 0.25103578116828423
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 35640,
+        "completion_tokens": 108,
+        "cache_read_tokens": 32768,
+        "cache_write_tokens": 0,
+        "nanodollars": 2726080
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 12,
+        "mean_cached_fraction": 0.9191815132730037
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          0,
+          2,
+          2,
+          4,
+          1,
+          2,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          1,
+          0,
+          1,
+          1,
+          3,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 21,
+        "flip_rate": 0.125
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.7533915029477156,
+          "std": 0.2853024923708258
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.5596932501879213,
+          "std": 0.2670375383538535
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.931688630664312,
+          "std": 0.2777924344772365
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.7130866866123726,
+          "std": 0.2853024923708258
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.30271274072618026,
+          "std": 0.26593104681994456
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.43051910668500404,
+          "std": 0.2659310468199446
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.537464180806271,
+          "std": 0.27861903335883065
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.2664771760804978,
+          "std": 0.2659813761452336
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.8355136942992445,
+          "std": 0.2798201372310785
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.3387960447937695,
+          "std": 0.267935231059648
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.5872011743191292,
+          "std": 0.27713721633648014
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.6392686993804917,
+          "std": 0.27873042733400677
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.1334706019246075,
+          "std": 0.26802986101620946
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.3519560819776737,
+          "std": 0.2659143214064496
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.5672114092302964,
+          "std": 0.26635356518458936
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.5203394984924861,
+          "std": 0.26598137614523365
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.9204687545444002,
+          "std": 0.2667499043463649
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.4330254603560737,
+          "std": 0.279484292863731
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.26580287497668725
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.4354876049382437,
+          "std": 0.26763629216095586
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.88322864504353,
+          "std": 0.2786916286924878
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 1.063766379952972,
+          "std": 0.28071012169327975
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.4374193760621279,
+          "std": 0.2796586973434343
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.2478252357031994,
+          "std": 0.2517083492197995
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 12,
+      "attribute": "impact_per_dollar",
+      "calls": 8,
+      "calls_ok": 8,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 528,
+      "usage": {
+        "calls": 8,
+        "prompt_tokens": 35952,
+        "completion_tokens": 104,
+        "cache_read_tokens": 1792,
+        "cache_write_tokens": 0,
+        "nanodollars": 4936960
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 8,
+        "calls_with_cache_read_gt0": 7,
+        "mean_cached_fraction": 0.04996357281128482
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          3,
+          2,
+          0,
+          1
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          1,
+          0,
+          1,
+          2,
+          1
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 4,
+        "presentation_pairs": 4,
+        "entity_pairs_compared": 264,
+        "direction_flips": 87,
+        "flip_rate": 0.32954545454545453
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.1646294940940072,
+          "std": 0.22409415089144727
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.2498863682444519,
+          "std": 0.22409415089144727
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.9350369476647236,
+          "std": 0.21361359721144996
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.36344567773116687,
+          "std": 0.2219566375729275
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.5439514072125513,
+          "std": 0.2150894994060114
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.09294991391724294,
+          "std": 0.2063449040159566
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.7110297934412217,
+          "std": 0.22321741193223874
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 1.1846259360358102,
+          "std": 0.22255010786566184
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.2393552667122925,
+          "std": 0.21362198243633995
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.4703760985820078,
+          "std": 0.20504106175604647
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.3265683089517755,
+          "std": 0.2151950699317954
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.9223763719020521,
+          "std": 0.21418577640931385
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.6796117807560706,
+          "std": 0.2133020509009957
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.1993303895896044,
+          "std": 0.21405803479547617
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.5104369192409735,
+          "std": 0.2217091737096476
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 1.3562703689318312,
+          "std": 0.22322519663633203
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.6373048039271321,
+          "std": 0.21428657635521425
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.0277215333012677,
+          "std": 0.2138181035715299
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.2058229844818908
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.1115882448063414,
+          "std": 0.2058799037545782
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 1.083383380296021,
+          "std": 0.22290939650445482
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.48698844282737574,
+          "std": 0.2070300737847708
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 0.7211848035211557,
+          "std": 0.21338804786735485
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.9363107361427119,
+          "std": 0.2138784264260804
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 12,
+      "attribute": "theory_of_change",
+      "calls": 8,
+      "calls_ok": 8,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 528,
+      "usage": {
+        "calls": 8,
+        "prompt_tokens": 35832,
+        "completion_tokens": 104,
+        "cache_read_tokens": 33280,
+        "cache_write_tokens": 0,
+        "nanodollars": 2716000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 8,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.9288609355662478
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          4,
+          2,
+          0,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          3,
+          1,
+          0,
+          0,
+          2,
+          1
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 4,
+        "presentation_pairs": 4,
+        "entity_pairs_compared": 264,
+        "direction_flips": 62,
+        "flip_rate": 0.23484848484848486
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.0461250032897802,
+          "std": 0.22762684644559225
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.0938166418265305,
+          "std": 0.22762684644559225
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.2798898402066845,
+          "std": 0.2199627087092057
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.42976573024472475,
+          "std": 0.22516928816486562
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.2528653228157941,
+          "std": 0.2191296408930725
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.15239971425702759,
+          "std": 0.20972732191067286
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.13592644808936138,
+          "std": 0.2264693664265511
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.541161193415428,
+          "std": 0.2268990473331035
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.4694925621275499,
+          "std": 0.2163386904251484
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.3145489624068887,
+          "std": 0.2083023142761635
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.6816440780466713,
+          "std": 0.21829822512636807
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.7022222201761696,
+          "std": 0.217181712595833
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.5697123395806909,
+          "std": 0.21782138123630815
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.4017684984361152,
+          "std": 0.21807067338129937
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.6129055485001395,
+          "std": 0.2252460967427327
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.6385374705904694,
+          "std": 0.22665270822143627
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.2968168545293128,
+          "std": 0.22173937455477588
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.1169816770132825,
+          "std": 0.21759740117255497
+        },
+        {
+          "id": "veneton",
+          "mean": 0.011393417659282479,
+          "std": 0.2083514693956934
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.0157341254573566,
+          "std": 0.20874593650233514
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.0,
+          "std": 0.21899938603079125
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.41341438458755,
+          "std": 0.20854317587435553
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.0897555748342638,
+          "std": 0.21589108076325747
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.8271652001733613,
+          "std": 0.22052348186391438
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 12,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 8,
+      "calls_ok": 8,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 528,
+      "usage": {
+        "calls": 8,
+        "prompt_tokens": 35024,
+        "completion_tokens": 104,
+        "cache_read_tokens": 33280,
+        "cache_write_tokens": 0,
+        "nanodollars": 2602880
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 8,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.9503043036347183
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "last_by_slot": [
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 4,
+        "presentation_pairs": 4,
+        "entity_pairs_compared": 264,
+        "direction_flips": 43,
+        "flip_rate": 0.16287878787878787
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.2740698970474094,
+          "std": 0.2228641207952967
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.1254514930558948,
+          "std": 0.2221382786730242
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.757338313387149,
+          "std": 0.2126747476802723
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.608310630064023,
+          "std": 0.22076195971150792
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.0,
+          "std": 0.21446797250063962
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.15822114806752197,
+          "std": 0.20545994014206004
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.10179706898374685,
+          "std": 0.22245387296239727
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.2659989045205551,
+          "std": 0.22271144856463948
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.6122197465115815,
+          "std": 0.21301066448803901
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.406677963416205,
+          "std": 0.20442774908490388
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.2809220058370914,
+          "std": 0.21298856899070454
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.500820618266733,
+          "std": 0.21259275339180564
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.8717710553953031,
+          "std": 0.21350565518481224
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.3253763940272736,
+          "std": 0.2128966070009418
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.0553320889520528,
+          "std": 0.22190337545250846
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.2173107649363415,
+          "std": 0.2228641207952967
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.7264407450666125,
+          "std": 0.21426513952184562
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.2639019288384754,
+          "std": 0.21537508635423197
+        },
+        {
+          "id": "veneton",
+          "mean": 0.011837806984273058,
+          "std": 0.2050891004545506
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.6457804082086852,
+          "std": 0.20473183348089063
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.24918624380635523,
+          "std": 0.21542823439076383
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.7095684396018875,
+          "std": 0.20506343549827263
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.4040108367562865,
+          "std": 0.21262028642546704
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.9488690430957675,
+          "std": 0.21330468910755343
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 9,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 111014,
+      "provider_output_tokens": 2976,
+      "nanodollars": 14117320,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.6373987912002108,
+          "std": 0.5845734539979831
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.463677450082683,
+          "std": 0.5441573717227757
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 1.4524261542928092,
+          "std": 0.7916666220619368
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.2742469852139353,
+          "std": 0.6738035585469055
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.1557594634093669,
+          "std": 0.6073489607740726
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.1472651736701276,
+          "std": 0.7916666220619368
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.1299124266897858,
+          "std": 0.7073038779156444
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.0876751195117769,
+          "std": 0.7349285850110042
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.0083815634833737,
+          "std": 0.529108801896177
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.9447731650221777,
+          "std": 0.6267173342659215
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.9404902861368711,
+          "std": 0.5588887165979183
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.9220979146492967,
+          "std": 0.5594567350500588
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 0.8808711958776803,
+          "std": 0.45387457767701705
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.8386458364753018,
+          "std": 0.6814712709628594
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.6563357752461135,
+          "std": 0.46353913661207413
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.6554974070024191,
+          "std": 0.5409181585362448
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.6435058212609448,
+          "std": 0.5081580621603701
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.5379555389756878,
+          "std": 0.694883421069681
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.5336859619568391,
+          "std": 0.5531489391246573
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.11911329284145533,
+          "std": 0.698642206949869
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.11667968081287605,
+          "std": 0.5183958930236724
+        },
+        {
+          "id": "veneton",
+          "mean": 0.09651622695184492,
+          "std": 0.6540944395376529
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.08649898435647407,
+          "std": 0.5371830191204668
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.0,
+          "std": 0.7782402709153394
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 9,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 108664,
+      "provider_output_tokens": 2976,
+      "nanodollars": 11817120,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.4446837382994966,
+          "std": 0.4784356538754244
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 1.303139190415918,
+          "std": 0.5949262772594456
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.2923093368156096,
+          "std": 0.551188169869834
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.2368016023631143,
+          "std": 0.46129512533794165
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.2274396778273442,
+          "std": 0.751968810068871
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.1804576528498751,
+          "std": 0.5663154812105051
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.1697974343209234,
+          "std": 0.6846619897820526
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.1638231964325836,
+          "std": 0.5598227805413201
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.1572753947810202,
+          "std": 0.6112432554050413
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.1525352693490638,
+          "std": 0.6235601367331256
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.125804544493597,
+          "std": 0.5267509757629653
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.0747178578199024,
+          "std": 0.751968810068871
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.0321464104925682,
+          "std": 0.5470828440075025
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.9301799239079198,
+          "std": 0.58445860465992
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 0.8899117515271239,
+          "std": 0.5559240336801218
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.7473551487039541,
+          "std": 0.4316886021943979
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.6020651546283718,
+          "std": 0.5932642142719972
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.5206764818651971,
+          "std": 0.546058914840821
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 0.519384815459603,
+          "std": 0.7115843568395108
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.481386070643372,
+          "std": 0.6769236094606603
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.2105842712362438,
+          "std": 0.6364781242371096
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.10626998057888981,
+          "std": 0.6497248482204786
+        },
+        {
+          "id": "veneton",
+          "mean": 0.011450460397778528,
+          "std": 0.5930292689430088
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.0,
+          "std": 0.6013898396874175
+        }
+      ]
+    },
+    {
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 11,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 98830,
+      "provider_output_tokens": 2976,
+      "nanodollars": 10189480,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 4.5860204328464835,
+          "std": 0.617976722044859
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 4.462418367694476,
+          "std": 0.8946456398978267
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 4.451209497030791,
+          "std": 0.8946456398978267
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 4.264004432827787,
+          "std": 0.7263476600141545
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 4.245193746137927,
+          "std": 0.8204304886999063
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 3.9050660344633923,
+          "std": 0.6179767234075745
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 3.892312297489239,
+          "std": 0.7057591911144627
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 3.8379233771531904,
+          "std": 0.8047335325980137
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 3.790585066468235,
+          "std": 0.7792189904934261
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 3.661067502518872,
+          "std": 0.7361153303177391
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 3.211516992030595,
+          "std": 0.8211467557698686
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 3.1581203641779942,
+          "std": 0.8474293939873155
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 3.152692799316707,
+          "std": 0.764275040201056
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 3.1279587677918266,
+          "std": 0.8037437220604379
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 2.7577380551305923,
+          "std": 0.7284340649436027
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 2.7333514172195867,
+          "std": 0.7344952876818036
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 2.700434649280647,
+          "std": 0.7943276646236493
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 2.6788378809873166,
+          "std": 0.8118692016073664
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 2.5613083474444576,
+          "std": 0.7987208366452336
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 2.496041584927453,
+          "std": 0.8741823128092152
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 2.3706512961709247,
+          "std": 0.7485199086054747
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.9188163161895293,
+          "std": 0.7249510467899454
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.5882057011395174,
+          "std": 0.7857599808350896
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.8155831466217172
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.668695652173913,
+      "kendall_tau": 0.47101449275362317,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 26047.696225978238,
+      "pairwise_obs_per_dollar": 6800.157536982941,
+      "setwise_dollars_per_item": 0.00023034666666666665,
+      "pairwise_dollars_per_item": 0.0005882216666666666
+    },
+    {
+      "k": 4,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.8106110215544798,
+      "kendall_tau": 0.5927272727272728,
+      "top1_agree": false,
+      "top3_overlap": 0.0,
+      "setwise_pairwise_equiv_obs_per_dollar": 38322.33340430062,
+      "pairwise_obs_per_dollar": 8123.806815873918,
+      "setwise_dollars_per_item": 0.00015656666666666666,
+      "pairwise_dollars_per_item": 0.00049238
+    },
+    {
+      "k": 4,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.8895652173913043,
+      "kendall_tau": 0.7246376811594203,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 43495.07055867001,
+      "pairwise_obs_per_dollar": 9421.481763544361,
+      "setwise_dollars_per_item": 0.00013794666666666668,
+      "pairwise_dollars_per_item": 0.0004245616666666667
+    },
+    {
+      "k": 6,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.8493150885707613,
+      "kendall_tau": 0.6945454545454546,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 46910.18263697773,
+      "pairwise_obs_per_dollar": 6800.157536982941,
+      "setwise_dollars_per_item": 0.00021317333333333333,
+      "pairwise_dollars_per_item": 0.0005882216666666666
+    },
+    {
+      "k": 6,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.7695652173913043,
+      "kendall_tau": 0.572463768115942,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 69169.0491561376,
+      "pairwise_obs_per_dollar": 8123.806815873918,
+      "setwise_dollars_per_item": 0.00014457333333333335,
+      "pairwise_dollars_per_item": 0.00049238
+    },
+    {
+      "k": 6,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.9034782608695652,
+      "kendall_tau": 0.7318840579710145,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 84231.80592991914,
+      "pairwise_obs_per_dollar": 9421.481763544361,
+      "setwise_dollars_per_item": 0.00011872,
+      "pairwise_dollars_per_item": 0.0004245616666666667
+    },
+    {
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.8060869565217391,
+      "kendall_tau": 0.6159420289855072,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 66725.97864768683,
+      "pairwise_obs_per_dollar": 6800.157536982941,
+      "setwise_dollars_per_item": 0.00020981333333333334,
+      "pairwise_dollars_per_item": 0.0005882216666666666
+    },
+    {
+      "k": 8,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.82,
+      "kendall_tau": 0.6376811594202898,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 88196.38394825812,
+      "pairwise_obs_per_dollar": 8123.806815873918,
+      "setwise_dollars_per_item": 0.00015873666666666667,
+      "pairwise_dollars_per_item": 0.00049238
+    },
+    {
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.8730434782608696,
+      "kendall_tau": 0.7246376811594203,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 123253.90304026294,
+      "pairwise_obs_per_dollar": 9421.481763544361,
+      "setwise_dollars_per_item": 0.00011358666666666667,
+      "pairwise_dollars_per_item": 0.0004245616666666667
+    },
+    {
+      "k": 12,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.43826086956521737,
+      "kendall_tau": 0.3115942028985507,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 106948.40549649988,
+      "pairwise_obs_per_dollar": 6800.157536982941,
+      "setwise_dollars_per_item": 0.00020570666666666667,
+      "pairwise_dollars_per_item": 0.0005882216666666666
+    },
+    {
+      "k": 12,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.8730434782608696,
+      "kendall_tau": 0.717391304347826,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 194403.53460972017,
+      "pairwise_obs_per_dollar": 8123.806815873918,
+      "setwise_dollars_per_item": 0.00011316666666666668,
+      "pairwise_dollars_per_item": 0.00049238
+    },
+    {
+      "k": 12,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.8434782608695652,
+      "kendall_tau": 0.6739130434782609,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 202852.22522744036,
+      "pairwise_obs_per_dollar": 9421.481763544361,
+      "setwise_dollars_per_item": 0.00010845333333333333,
+      "pairwise_dollars_per_item": 0.0004245616666666667
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 81982880,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}
