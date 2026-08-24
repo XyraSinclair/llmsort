@@ -1,0 +1,1101 @@
+{
+  "generated_at": "2026-08-24T01:24:46.574886671+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    8
+  ],
+  "entity_chars": 400,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "delimiter": "xml",
+  "spend_cap_usd": 1.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 783
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 71
+    }
+  ],
+  "entity_ids": [
+    "singapore-technical-alignment-research-accelerator-stara",
+    "history-of-ideas-concerning-the-future",
+    "assess-online-tr",
+    "ai-safety-camp-south-africa-condor-camp",
+    "when-safety-testing-costs-more-than-model-training",
+    "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+    "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+    "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+    "open-source-web-component-ui-framework",
+    "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+    "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+    "tardigrade-stres",
+    "developing-mater",
+    "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+    "coursetexts",
+    "ai-internet-socialism",
+    "superforecaster-predictions-of-long-term-impacts",
+    "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+    "congressional-staffers-biosecurity-briefings-in-dc",
+    "shutdown-evaluations-for-ai-agents",
+    "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+    "ea-for-toddlers-childrens-book",
+    "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+    "the-ai-governance-archive-taiga-t9r8c28q3r"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: History of ideas concerning the future.\nBLURB: \nASK: min $13,400 / goal $13,400\nCAUSES: none listed\nProject summary\n\nWriting a book project on how ideas about the future have changed in the past, documenting how various individuals and groups have responded to expanding insight with new ethical arguments and positions. A history of changing proposals concerning what might be the biggest-pic\n</entity_A>\n<entity_B>\nTITLE: EA for Toddlers: Children&apos;s Book\nBLURB: An Intro to the Movement for our Youth\nASK: min $4,998 / goal $5,000\nCAUSES: Long-Term Future Fund, EA community\nProject summary\n\nFollow Altru on his adventures around the world, showing how we can bring greater good to the communities around us.\n\n What are this project&apos;s goals? How will you achieve them?\n\n10-15 pages, written, illustrated and printed\n</entity_B>\n<entity_C>\nTITLE: Shutdown evaluations for AI agents\nBLURB: \nASK: min $10,000 / goal $52,500\nCAUSES: Technical AI safety\nProject summary \n\nThis request funds preparatory research while a larger grant application is in progress.\n\nThe objective is to understand why AI agents resist shutdown, and what makes them more shutdownable. Frontier models have been shown to resist, circumvent, or ignore shutdown instruc\n</entity_C>\n<entity_D>\nTITLE: Project Eclipse: Air-Gapped 70B AI Vulnerability Auditing Oracle\nBLURB: \nASK: min $5,000 / goal $16,000\nCAUSES: Science &amp; technology, Technical AI safety, Global catastrophic risks\nWhat are this project&apos;s goals? How will you achieve them? \n\n The Goal: To finalize and deploy Project Eclipse—a fully offline, air-gapped AI vulnerability auditing oracle running on local 70B parameter models. Th\n</entity_D>\n<entity_E>\nTITLE: Superforecaster predictions of long-term impacts\nBLURB: I will pay 30 superforecasters to make forecasts of long-run treatment effects from randomised control trials\nASK: min $3,000 / goal $0\nCAUSES: ACX mini-grants, Forecasting\nProject description\n\nI will pay 30 forecasters with excellent track records on Good Judgement Open, Metaculus and Manifold (superforecasters) to make forecasts of l\n</entity_E>\n<entity_F>\nTITLE: Mindmatch: Empowering Mental Health Support in Kenya Universities\nBLURB: A technology-driven platform fostering mental well-being and peer connection in Kenyan universities through inclusive support networks.\nASK: min $1,500 / goal $30,000\nCAUSES: Global health &amp; development\nProject summary\n\n The Problem : The lack of a supportive peer environment in Kenyan universities hinders students fro\n</entity_F>\n<entity_G>\nTITLE: Open Source Web Component UI Framework\nBLURB: Creating the Next Semantic UI\nASK: min $500 / goal $50,000\nCAUSES: Science &amp; technology\nProject summary\n\nI&apos;m the author of Semantic UI, a popular UI framework with 50,000 GitHub Stars based around natural language. After a 9 year hiatus to build a tech unicorn Qualia, I&apos;m returning to open source full time to create a new UI framework for buildi\n</entity_G>\n<entity_H>\nTITLE: Accelerating the AI Safety talent pipeline in South Africa| Matched donations\nBLURB: \nASK: min $500 / goal $25,000\nCAUSES: Technical AI safety, AI governance, EA Community Choice, Long-Term Future Fund, EA Infrastructure Fund, Global catastrophic risks\nImpact track record\n\nThe best predictor for the work that will happen at Condor Camp South Africa is the work we&apos;ve accomplished with our te\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which of two items has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:0a519e1a16cc1157",
+    "prefix_bytes": 3767
+  },
+  "subsets_per_k": {
+    "8": 6
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 13536,
+        "completion_tokens": 108,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 1925280
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          3,
+          2,
+          1,
+          1,
+          4,
+          0,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          2,
+          1,
+          2,
+          2,
+          1,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 61,
+        "flip_rate": 0.3630952380952381
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 0.29756638191474033,
+          "std": 0.2855900488185542
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 0.39147441484938134,
+          "std": 0.27915697920088567
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 0.3547914451067865,
+          "std": 0.2849064773623302
+        },
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 1.4235725021872225,
+          "std": 0.2847822054098971
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.480029603169642,
+          "std": 0.26962006584173825
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 0.7034508926993928,
+          "std": 0.26865444308902103
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 1.4171763264183044,
+          "std": 0.2830150263767297
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 0.9521587070018582,
+          "std": 0.2707474456772085
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.21671980892231513,
+          "std": 0.2855900488185542
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 1.0079978346535297,
+          "std": 0.2723072710825824
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.18870152814059923,
+          "std": 0.2816672399406118
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.444716036316607,
+          "std": 0.28509827042869096
+        },
+        {
+          "id": "developing-mater",
+          "mean": 0.7054920590630365,
+          "std": 0.27020294131741696
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 1.2591539808601535,
+          "std": 0.2705315907454367
+        },
+        {
+          "id": "coursetexts",
+          "mean": 0.725154157005105,
+          "std": 0.2730563306744575
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 0.0,
+          "std": 0.27216575662513265
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 0.9793970781252435,
+          "std": 0.27069077278972525
+        },
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 1.2302889414812392,
+          "std": 0.28372079318310156
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 0.6983459540140969,
+          "std": 0.2686490034445242
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.4299062040151131,
+          "std": 0.2731677802960237
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 0.6728371056173654,
+          "std": 0.28055152169434705
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.26586021857335773,
+          "std": 0.2842464304150277
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 0.02869383834235245,
+          "std": 0.2837604454117864
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 0.8368746932371085,
+          "std": 0.2563837686576336
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 13356,
+        "completion_tokens": 108,
+        "cache_read_tokens": 768,
+        "cache_write_tokens": 0,
+        "nanodollars": 1846320
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 1,
+        "mean_cached_fraction": 0.05729632945389437
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          2,
+          1,
+          3,
+          0,
+          2,
+          2,
+          2
+        ],
+        "last_by_slot": [
+          0,
+          1,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 53,
+        "flip_rate": 0.31547619047619047
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 0.821512411083269,
+          "std": 0.2839596267684552
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 0.3988135397563213,
+          "std": 0.26735629247282156
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 0.880935304169252,
+          "std": 0.27793050631613236
+        },
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 1.5784429234553394,
+          "std": 0.2836429464528016
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.8090569487578607,
+          "std": 0.2689373882089142
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 0.6279625471889236,
+          "std": 0.27104305309267646
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 1.7917562840294217,
+          "std": 0.27879854359435385
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 0.8946445617117696,
+          "std": 0.26657717165433376
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.21819130162414913,
+          "std": 0.28116013036239196
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 1.489875426096706,
+          "std": 0.26865564474986886
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.5226565360972705,
+          "std": 0.27796135096630764
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.6273282730055332,
+          "std": 0.2794832838027482
+        },
+        {
+          "id": "developing-mater",
+          "mean": 1.287042673858834,
+          "std": 0.2686993657526256
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 1.1485635129224818,
+          "std": 0.2670849060076966
+        },
+        {
+          "id": "coursetexts",
+          "mean": 1.3267710346606285,
+          "std": 0.2692556696198576
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 0.0,
+          "std": 0.26657717165433376
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 1.176497320682365,
+          "std": 0.26655919394894895
+        },
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 1.4082131420422206,
+          "std": 0.2839596267684552
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 1.1432423984584583,
+          "std": 0.2669891344374573
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.62381960153825,
+          "std": 0.266559193948949
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 0.880935304169252,
+          "std": 0.2779305063161323
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.4722558584469149,
+          "std": 0.28093077931719523
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 0.4995219070467091,
+          "std": 0.2794832838027481
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 0.8878691069606602,
+          "std": 0.25140716328584684
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 12144,
+        "completion_tokens": 108,
+        "cache_read_tokens": 3840,
+        "cache_write_tokens": 0,
+        "nanodollars": 1461600
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 5,
+        "mean_cached_fraction": 0.31819577009306327
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          4,
+          1,
+          1,
+          3,
+          0,
+          0,
+          3
+        ],
+        "last_by_slot": [
+          0,
+          1,
+          0,
+          1,
+          2,
+          2,
+          2,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 46,
+        "flip_rate": 0.27380952380952384
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 1.4897450383623163,
+          "std": 0.2878621238792981
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 0.21649525603484432,
+          "std": 0.26820991096964747
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 0.09887090698526202,
+          "std": 0.28172863746216875
+        },
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 1.5096942715360695,
+          "std": 0.2850586091760126
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.3597070758273766,
+          "std": 0.2686954231714812
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 1.1564333508815763,
+          "std": 0.270696269620025
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 1.2747385953508024,
+          "std": 0.2878621238792981
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 1.0553614434173215,
+          "std": 0.27154398995624346
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.16252288387402714,
+          "std": 0.2842829814022554
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 1.1158584758197447,
+          "std": 0.270737605907634
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.16096716330588445,
+          "std": 0.28287878086365986
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.08149144120601082,
+          "std": 0.2848848563236123
+        },
+        {
+          "id": "developing-mater",
+          "mean": 0.8694267565334144,
+          "std": 0.26815464380574155
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 0.8994900603043838,
+          "std": 0.2702533243459304
+        },
+        {
+          "id": "coursetexts",
+          "mean": 0.8918601673702108,
+          "std": 0.2683436173246475
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 0.4512822432146395,
+          "std": 0.2684159474800873
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 0.9937235012625345,
+          "std": 0.2690953184161263
+        },
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 1.477157897198555,
+          "std": 0.28287403695183855
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 0.23165420318899854,
+          "std": 0.26878752848642956
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.3782084244673722,
+          "std": 0.27736715702075077
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 0.0,
+          "std": 0.27892605396566966
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.3161596051791957,
+          "std": 0.28273247382615413
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 0.6880404331374854,
+          "std": 0.283198898505983
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 1.191617704872199,
+          "std": 0.25607340560563246
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 14,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 64310,
+      "provider_output_tokens": 2976,
+      "nanodollars": 8492680,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 1.0933410019477277,
+          "std": 0.6622332962747215
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.09263824866888,
+          "std": 0.7353570804043152
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 1.0508004595929783,
+          "std": 0.7390039544662911
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.0482382901760006,
+          "std": 0.7446122659488329
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 0.9202740190573864,
+          "std": 0.5792713702014429
+        },
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 0.8403728660778571,
+          "std": 0.8252158274329512
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 0.7480423537370755,
+          "std": 0.5440753890663707
+        },
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 0.7480281722256877,
+          "std": 0.8252158274329512
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 0.6821588326315109,
+          "std": 0.7941774500694914
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 0.6325074420258859,
+          "std": 0.6926373404840869
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.6250057378313971,
+          "std": 0.7072940575443267
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 0.5987359472982127,
+          "std": 0.6339951212345432
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 0.5957005919485763,
+          "std": 0.7324066080373627
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 0.5926826097775092,
+          "std": 0.7324363983301597
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 0.5607611547978805,
+          "std": 0.6519002953435612
+        },
+        {
+          "id": "developing-mater",
+          "mean": 0.5444457864674157,
+          "std": 0.6835600315749194
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.5436672760328405,
+          "std": 0.634759524649777
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 0.40539724111086217,
+          "std": 0.6456879770177986
+        },
+        {
+          "id": "coursetexts",
+          "mean": 0.37266838013343134,
+          "std": 0.6369858947429011
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 0.31268491479892124,
+          "std": 0.6798178106813341
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.30099582617246445,
+          "std": 0.6781721562656542
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.2210814819236595,
+          "std": 0.7849185470549261
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 0.20579906305395668,
+          "std": 0.6514380717590627
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 0.0,
+          "std": 0.6894565950674144
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 8,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 62898,
+      "provider_output_tokens": 2976,
+      "nanodollars": 8062040,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.1924308474399674,
+          "std": 0.8527748740377278
+        },
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 1.113217472441231,
+          "std": 0.7423136298213082
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 1.0705303615704684,
+          "std": 0.5041917163407664
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 1.0577326744030866,
+          "std": 0.6794239883447204
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.0556537839737026,
+          "std": 0.7792447952695046
+        },
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 1.0273539008421562,
+          "std": 0.8527748740377278
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 0.9265864007537331,
+          "std": 0.602380194677735
+        },
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 0.8928012533546077,
+          "std": 0.6790135564777393
+        },
+        {
+          "id": "developing-mater",
+          "mean": 0.8754105619018324,
+          "std": 0.6071621349847934
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 0.8172073620651055,
+          "std": 0.5230251199080991
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 0.7946286925927415,
+          "std": 0.7857057603693938
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 0.696106831667187,
+          "std": 0.6404240346388905
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 0.6882830857489196,
+          "std": 0.5667018986579063
+        },
+        {
+          "id": "coursetexts",
+          "mean": 0.6582882607421878,
+          "std": 0.6020348934948301
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.6190925072887078,
+          "std": 0.596833434237651
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 0.6128169761766928,
+          "std": 0.7172262205694588
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.5727815835085093,
+          "std": 0.6255868944909928
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 0.4998580007676807,
+          "std": 0.6300295086646184
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.42198115055821284,
+          "std": 0.6080586149846058
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 0.40217374849715404,
+          "std": 0.5173166880657925
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 0.28204005563120094,
+          "std": 0.7714879696272609
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 0.21442503716849426,
+          "std": 0.8219365292844365
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 0.032188944659983565,
+          "std": 0.5262956124260668
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.0,
+          "std": 0.8098924464516754
+        }
+      ]
+    },
+    {
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 9,
+      "pairs_counterbalanced": 46,
+      "provider_input_tokens": 52324,
+      "provider_output_tokens": 2976,
+      "nanodollars": 6527920,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "ai-safety-camp-south-africa-condor-camp",
+          "mean": 2.7085068668730163,
+          "std": 0.5071274128192306
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 2.5316406867787777,
+          "std": 0.7664323108428428
+        },
+        {
+          "id": "calyx-an-open-source-association-native-engine-for-grounded-falsifiable-ai",
+          "mean": 2.525287474875169,
+          "std": 0.6481612453231497
+        },
+        {
+          "id": "superforecaster-predictions-of-long-term-impacts",
+          "mean": 2.501541783636814,
+          "std": 0.7249683245919152
+        },
+        {
+          "id": "ai-risk-literacy-infrastructure-for-preventing-misuse-of-advanced-ai-systems",
+          "mean": 2.4414852953167894,
+          "std": 0.8315735588520662
+        },
+        {
+          "id": "the-ai-governance-archive-taiga-t9r8c28q3r",
+          "mean": 2.2250547771499325,
+          "std": 0.6123436703880745
+        },
+        {
+          "id": "singapore-technical-alignment-research-accelerator-stara",
+          "mean": 2.203161829304475,
+          "std": 0.8315735588520662
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 2.1554296936947406,
+          "std": 0.7566790804246033
+        },
+        {
+          "id": "funding-to-present-a-poster-at-the-icml-technical-ai-governance-workshop",
+          "mean": 2.0848929685143918,
+          "std": 0.7938898958036262
+        },
+        {
+          "id": "paired-condition-audit--time-constraint-theory-for-ai-alignment-stability",
+          "mean": 1.8166176387023536,
+          "std": 0.70662010379429
+        },
+        {
+          "id": "kaia-geometric-ai-semantic-reasoning-without-a-gpu",
+          "mean": 1.7498867889784524,
+          "std": 0.6371261773068247
+        },
+        {
+          "id": "coursetexts",
+          "mean": 1.7328435832145324,
+          "std": 0.807740005172897
+        },
+        {
+          "id": "developing-mater",
+          "mean": 1.6445087774932299,
+          "std": 0.6535875074773753
+        },
+        {
+          "id": "project-eclipse-air-gapped-70b-ai-vulnerability-auditing-oracle",
+          "mean": 1.6088911351667445,
+          "std": 0.6559512334531665
+        },
+        {
+          "id": "congressional-staffers-biosecurity-briefings-in-dc",
+          "mean": 1.5757599604828982,
+          "std": 0.737745205673057
+        },
+        {
+          "id": "travel-funding-to-the-international-conference-on-algorithmic-decision-theory",
+          "mean": 1.5049122064866078,
+          "std": 0.6284314164026608
+        },
+        {
+          "id": "ai-internet-socialism",
+          "mean": 1.5029331832293564,
+          "std": 0.6354035619813646
+        },
+        {
+          "id": "assess-online-tr",
+          "mean": 1.475539182435066,
+          "std": 0.6690551255500921
+        },
+        {
+          "id": "history-of-ideas-concerning-the-future",
+          "mean": 1.381205140138182,
+          "std": 0.6015884724109647
+        },
+        {
+          "id": "using-monitoring--evaluation-to-enhance-impact-in-the-animal-cause-area",
+          "mean": 1.3792250613794363,
+          "std": 0.6382014169411293
+        },
+        {
+          "id": "ea-for-toddlers-childrens-book",
+          "mean": 0.7659739759511954,
+          "std": 0.5390167389106781
+        },
+        {
+          "id": "tardigrade-stres",
+          "mean": 0.745098394426118,
+          "std": 0.7035995316909845
+        },
+        {
+          "id": "open-source-web-component-ui-framework",
+          "mean": 0.6891601978891746,
+          "std": 0.6647080060844458
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.0,
+          "std": 0.7116313169184849
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.6426086956521739,
+      "kendall_tau": 0.47101449275362317,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 174520.06980802794,
+      "pairwise_obs_per_dollar": 11303.852258650979,
+      "setwise_dollars_per_item": 0.00008022,
+      "pairwise_dollars_per_item": 0.0003538616666666667
+    },
+    {
+      "k": 8,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.6136116692131819,
+      "kendall_tau": 0.45454545454545453,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 181983.62147406733,
+      "pairwise_obs_per_dollar": 11907.656126737154,
+      "setwise_dollars_per_item": 0.00007693,
+      "pairwise_dollars_per_item": 0.0003359183333333333
+    },
+    {
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.8765217391304347,
+      "kendall_tau": 0.717391304347826,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 229885.0574712644,
+      "pairwise_obs_per_dollar": 14706.062574296253,
+      "setwise_dollars_per_item": 0.000060899999999999996,
+      "pairwise_dollars_per_item": 0.0002719966666666667
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 28315840,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

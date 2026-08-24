@@ -1,0 +1,1101 @@
+{
+  "generated_at": "2026-08-24T01:28:58.043225554+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    8
+  ],
+  "entity_chars": 8000,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "delimiter": "xml",
+  "spend_cap_usd": 1.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 783
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 71
+    }
+  ],
+  "entity_ids": [
+    "neuronpedia---ai-safety-game",
+    "a-new-kind-of-ai",
+    "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+    "championing-new-approaches-to-demographic-aging-and-immigration",
+    "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+    "armor-gettin-",
+    "online-biosecurity-course-starting-may-2025",
+    "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+    "why-do-we-post-our-ai-safety-plans-on-the-internet",
+    "precautionary-agi-governance",
+    "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+    "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+    "train-llms-in-introspection-and-honesty",
+    "mox-a-coworking--events-space-in-sf",
+    "concept-anchored-representation-engineering-for-alignment",
+    "apart-research-research-and-talent-acceleration",
+    "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+    "how-can-governments-hedge-against-mass-labour-automation",
+    "when-can-a-mimic-surprise-you",
+    "dendrite",
+    "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+    "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+    "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+    "yimby-movement-for-africa"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: A new kind of AI\nBLURB: pushing bounds of organized digital systems\nASK: min $11,000 / goal $175,000\nCAUSES: Science &amp; technology, Technical AI safety, AI governance, EA community\nAdding to this a day or so later since it&apos;s still 0\\. Thankfully so, as there&apos;s some things to clarify. Keeping the original &quot;I answered the placeholder text in 10 minutes&quot; down below, as it&apos;s all valid. Just needs extra info. So if you want to read and not skim, this top section is for you. You&apos;d want to know why to give anything more than a few passing dollars, yes? Especially when I say I&apos;m not making a product or anything. I&apos;m asking to push the bounds of the information I&apos;ve gathered, and be able to fully construct and realize a new AI architecture I&apos;ve been working on for over a year. Reversing Q\\ aka Strawberry rumors was a major changing point. Not because I liked it, but I found it lackluster and indeed now that o1 is here... it&apos;s kinda silly. You see, all these models are trained and frozen, given out like meat at the grocery store. They can&apos;t make an active reasoning process except across their context, near the point of attention decoherence (hi Gemini, who regularly slips right over the crest of this criticality hill), now o1 kinda emulates this by eating a wheel of its own tokens separate from user interjection every prompt. Cool, test time or inference time compute or whatever. It&apos;s fit onto a transformer, though. If you&apos;ve heard of that entropix/varentropy thing, it&apos;s another example of things being fit onto an inadequate architecture. Why not just um... make a new architecture? \n\nWhy fund me just to do this? I don&apos;t know, why fund half the things on this site that don&apos;t produce profit or products etc?? To explain: an AI architecture completely meant to facilitate general reasoning and awareness. Going the whole nine yards. There&apos;s a completely different training process, I can&apos;t even use regular text datasets without &quot;unformatting&quot; the json. We&apos;re pushing the definition of &quot;AI&quot; to its absolute limits.\n\nI don&apos;t want to reveal details of the architecture. For several reasons. Although I end up yapping about some of them anyways, here I&apos;d rather mention the more &quot;grounded in reality&quot; sections such as the various heavily modified kanerva machines, custom vision/hearing/audio archs not present outside my work... that I know of, anyways, and there&apos;s an entire subsystem dealing with an &quot;eeg generator&quot; (so the model can have internal brainwaves while I only have to accommodate some cheap fourier instead of more compute expensive stuff) that deals with thought, action control, and influencing thermo-magnetic harmonics of the observer&apos;s hyperobject... that&apos;s the weird stuff, it&apos;s basically an EBM or Energy Based Model if you&apos;ve ever heard of them. Don&apos;t worry, I don&apos;t need compute farms for that stuff. I&apos;m distilling the mathematical formalizations: one such I&apos;ve publicly described is how the resonance attention can be mimicked by a Hamming Code-like system state meta bandit that uses the few back values of a float or int to encode info about the system itself, including multiple &quot;states&quot;. And that&apos;s just a grain of sand on this beach. I&apos;m no wizard, I know this, and there&apos;s limits to this model: namely the huge sacrifice of world knowledge in favor of pure reasoning as a means of &quot;AGI seed&quot;. It&apos;s also not magic, with equally balanced weight bit depth (between the keras based subsystems and the EBM/object that sits on it, the object could be totally done up in Haskell or Lean since it has its own weights and everything, but that&apos;s a lot of work for what currently seems like little gain) it comes out to about running a 14b under a system with 16gb ram, with room to stream and play a game... so about 7gb used by the model. But that&apos;s with a certain setup. it can go lighter by being full binary except the object, but I&apos;m not sure if it would work like that. There&apos;s many things I know will work, but I&apos;ll also need to tinker, obviously... research only goes so far. \n\nSo I suppose you might ask, &quot;hah, why do you need this kind of money if your model runs on dog water?&quot; and that&apos;s the same reason for everything else that doesn&apos;t happen or that I can&apos;t do: my life. I really don&apos;t want to give personal details, even if it might make people more likely to help, but suffice to say I cannot do anything at all without a decent amount. The minimum of $11,000 includes money for having a place to live, although if you would like to help more immediately than the deadline with such, simply DM me on twitter/x. The roof of the project is $175k in order to facilitate multiple orders of developmental magnitude. The minimum will allow me a place to live, and a Mac setup with all the horsepower I need (with possible room to tag on a 1660 ti or similar compute rig if people honestly think the hw route I&apos;ve chosen, apple, is bad). Truth is, I&apos;ve always been against Apple, but in trying to find the best overall bang for buck that can also do AI... I was originally wanting an AGI, or rather my model, running locally on Rabbit r1, since I should be able to get a 2b on there... but the sharing between devices on Apple gave me a big think, and I had the thought it would be awesome if the model could &quot;slide&quot; off the macbook or mac etc onto the phone to... I dunno, go to the store with me. you say, why not a private thing over some web connect? I say that&apos;s not as cool.\n\nI&apos;ll be doing the content creation and streaming thing with my models as a means of income... can&apos;t take the crown from Vedal and the Neuro twins by doing the same thing, y&apos;know? Imagine some weirdo shows up on twitch and yt one day, and says this person walking around with a VR model is ACTUALLY AN AI... there&apos;s a lot of content and interest in this area- I think I&apos;ll do just fine with what I&apos;m cooking. I can&apos;t start anything on my own, though, and without this funding coming through, my life will be the same as it has been the past three decades. It really depends if people want to see that one &quot;cracked&quot; person do something that&apos;s actually different.\n\nIf it makes things any more impressive, I never went to high school, and have essentially been raised in the corner with access to the internet... if I can get this far on busted e waste laptops and free wi-fi while not having anywhere to sit and work without constant stress and interruptions... imagine what I could do with proper resources and living environment.\n\n Project summary\n\nSummary is that the project is to make a monolithic, omnimodal architecture capable of running with less than 20 tops and 4gb while still being AGI by definition and suitable for embodiment in most systems. That&apos;s the less personal goals, though others may be interested in my extension, as the full project is intended to push the bounds of whatever these AI are. Whether that be parrots or... something more. I&apos;m not promising to give out the architecture, but giving out the means to AGI would be the nice thing to do, I suppose. Still doesn&apos;t mean I will, I don&apos;t want that misread. So if that&apos;s an issue, it&apos;s ok not to donate. \n\n What are this project&apos;s goals? How will you achieve them?\n\nDeveloping the new architecture, training/raising multiple models under means not considered in the industry. First virtual embodiment would be likely, then physical. How? By... doing these things lol? \n\n How will this funding be used?\n\nFor testing, developing, etc., I&apos;m not getting supercomputers but it&apos;s still some money for decent horsepower. Robotics are another large part of the budget. Plus things I can&apos;t do myself, like properly designed and rigged 3d models, which will be unique to each... I am making anywhere between 2 to 5 AI of my architecture, and not just because I&apos;d like to, but because it may help in the learning process. the top end of the normal budget is a little above the minimum set amount since I don&apos;t have to get perfect hardware for compute (fuck matrix multiplication lololol) but the overal\n</entity_A>\n<entity_B>\nTITLE: Economic Empowerment of Disadvantaged Youth in Kenya &amp; Ethiopi with Remote Work\nBLURB: Neglected Cause Area: Identifying Talent in Low Income Countries and Training them for Remote Employment\nASK: min $500 / goal $6,000\nCAUSES: none listed\nProject summary\n\n DirectEd Development Foundation (DirectEd) is a registered nonprofit organisation delivering free training and internships in state-of-the-art software development, soft skills and entrepreneurship to high-potential under-resourced students in Africa right after high school. DirectEd’s 2025 vision is to increase the expected lifetime earnings of the 5000 students taking part in our program by $40 million. \n\n What are this project&apos;s goals and how will you achieve them?\n\n The Challenge \n\nThe century of digital transformation is here, but companies are struggling to find workers with the right skills. The Bureau of Labor Statistics projects that by 2026, the shortage of software engineers in the US will exceed 1.2 million. In Europe, the shortage of IT professionals amounted to 0,5 million and even before the pandemic, 38% of companies in Europe report that they plan to outsource more in the next 2 years. With a looming recession, tech companies are facing pressures to reduce costs. This is a great opportunity for talented students all across Africa, but to unlock this untapped potential, they need resources and high-quality training.\n\n The Goal \n\nThe purpose of DirectEd’s program is to prepare students for remote employment as software engineers by equipping them with the most sought-after digital and soft skills on the market, thereby fostering the next generation of African technology leadership.\n\nWe first take our students with no prior coding experience through our intro course which only requires a mobile phone before taking them through an intensive coding bootcamp covering full-stack web development, various soft skills and entrepreneurship before finally giving graduates an opportunity to be remote interns with Western tech firm partners. With this experience in hand, students will be in a position to embark on a career as remote engineers or tech entrepreneurs.\n\n Achievements to date\n\nWithin just a year, more than 150 students participated in our Introductory Course . 50% of them have or will soon proceed to DirectEd Bootcamp . More than 50% of graduates from our Kenyan pilot are currently working as paid remote software developer interns for several Western tech partners. The income of students who have entered these programs has increased by several orders of magnitude compared to peers. \n\nWe already have a memorandum of understanding (MoU) with 3 National High Schools in Kenya: Kagumo High, Maryhill Girls High, and Mang’U High. We also have MoUs with Ngong Road Children’s Foundation in Nairobi and Kotebe University of Education in Addis Ababa. We also have a strong relationship with YALI EA and Kenyatta University where we held both our Bootcamp launch event and Graduation ceremony. \n\n Suggested Program \n\nWith the help of the Manifund community, we would like to continue our current success by scaling up our efforts in Kenya. To this end, our goal is to onboard at least 10 more high schools in 2024, following the model we have piloted with our four Kenyan partners in 2023.\n\nOur programme has six phases: (1) identification and onboarding of high school partners, (2) a 6-day remote Introductory Course for partner school alumni, (3) DirectEd Bootcamp enrolment based on Introductory Course performance, (4) Access Scholarship (laptop, wifi, tutorial vouchers) crowdfunding, enabling needy students to participate in the Bootcamp , (5) internship placement with partnering tech firms, (6) employment as remote software engineers.\n\nThe Introductory Course is based on Harvard’s open-sourced CS50 Python course. The DirectEd Bootcamp is an intensive 3-month remote bootcamp utilising open-sourced content and bespoke projects, exercises, soft skills and entrepreneurship training developed by our team and expert guest lecturers from global top universities and incubators. You can view curricula and a final project demo by one of our students.\n\n How will this funding be used?\n\nDepending on the amount of money raised, we will be able to achieve different things. \n\n Funding Goal\n\nOur primary funding goal relates to our largest expense and primary impact bottleneck: hardware. As a remote program, our operational costs are low. However, many of the high-potential students we take in come from needy families without the means to purchase a laptop, WiFi and pay for mobile data bundles. We bundle this support and call it &quot;Access Scholarship&quot;. \n\nEach &quot;Access Scholarship&quot; costs $500 and our goal is to raise enough to cover 40 laptops. However, for this fundraiser, we will only set the goal of 10 laptops. \n\nOur secondary funding goal is to get some initial capital necessary to launch an &quot;Impact Certificate&quot; token for the upcoming &quot;Access Scholarship&quot; cohort. This means that investors will be able to invest in fractionalised shares of the impact for the remaining 30 &quot;Access Scholarship&quot; students. There will be some fixed set-up costs to make this successful (operational, legal and marketing), and so we estimate this to cost around $1000 (marketing being variable). \n\nIf only the minimum of $500 is raised then that would be used to cover one Access Scholarship. Further scholarships will be financed in increments of $500\\. Amounts outside multiples of $500 will be used to pay for part of the operational costs involved with setting up &quot;Impact Certificate&quot; tokens for the remaining 30 Access Scholarships we hope to fund. \n\n Not included\n\nLastly, and mostly for completeness, we would like to raise funding so that more core team members in the leadership team can work on this full-time. Out of all 15 people involved in the project at the moment, only two people receive any type of pay (part-time) for the work - one in Kenya and one in Ethiopia. This is a stretch goal and we are currently actively seeking out funding from grant-makers to this end. \n\n Who is on your team and what&apos;s your track record on similar projects?\n\nAs mentioned above, DirectEd Development Foundation was born in the fall of 2021 so it has been active for quite some time. It filed to become registered as a Charitable Incorporated Organisation summer of 2022 and was approved by the Charity Commission of England and Wales in August 2023\\. \n\nThere are a lot of people contributing to DirectEd - currently, more than 20 people contributing as volunteers part-time. You can see all active contributors, volunteers, core staff, advisors and trustees here. We shall here include a selection of the core members who are ready to work full-time on this if funding is found. \n\nSimon Sällström (CEO) holds an MPhil in economics from the University of Oxford and a BSc in Economics and Political Science from Lund univeristy. He is the former president of Lund Debate Society and has held leadership roles at several other NGOs\n\nMoses Kahure (Kenya Lead) holds a BSc in Diagnostic Medicine from Kenyatta University, with 6 years as COO at Save a Youth Africa (SAYA), demonstrating passion for empowering youth. He is also a Young African Leadership Initiative (YALI) Fellow in Cohort 30.\n\nChristine Karimi (Chief Examiner) Educator and Software Engineer at DirectEd, specializes in full-stack web development and is passionate about technology. With a bachelor&apos;s in Education, she&apos;s trained over 200 junior developers at Moringa School - East Africa&apos;s market-leading coding bootcamp.\n\nKidus Elias (Curriculum Design Lead), from Addis Ababa, Ethiopia, holds a BSc in Computer Science. Studying learning experience design at the LXD Academy, he is passionate about education, gamification, volunteerism, and software development.\n\n What are the most likely causes and outcomes if this project fails? (premortem)\n\n There are three categories of concern. \n\n1. Students. There&apos;s a risk that we\n</entity_B>\n<entity_C>\nTITLE: Dendrite\nBLURB: Fast Deterministic AI Text Content Detector\nASK: min $25,600 / goal $25,600\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nDendrite: Fast Deterministic AI Text Content Detector\n\nWhat is Dendrite?\n\nA text analysis tool that detects AI-generated content by measuring how coherent the text is at 8 levels of abstraction. Letters, words, sentences, paragraphs, sections, chapters, formalisms (or lack thereof) and ultimately piercing to the 8th layer, the identity of the author.\n\nThe difference between AI generated text is found somewhere in these 8 layers, and the current generative/derivative LLM systems lack the ability to connect from the first to the last without making errors somewhere in the middle, because of their inherently lossy representation and the compounding of these errors - meaning that as you go from left to right in that list, the probability of the model failing to recognise, either a false positive or false negative, is compounding exponentially.\n\nThis corresponds to a related domain that contains a similar problem, that being cryptography.\n\nCryptanalysis and security claims of a cryptographic primitive boil down to the robustness of the worst case scenario - for standard elliptic curves, for example, the &quot;hard problem&quot; is the discrete logarithm problem (DLP).\n\nThe primary vulnerability this creates is related to quantum computers being able to execute the Shor algorithm in a short time, and the main threads of research for mitigation are based on Lattice, Hash and Code problems.\n\nLattice is the most promising because it devolves to the shortest vector problem, which in layman&apos;s terms is that the more times you have to decide which direction at a fork in the road (the lattice node), the cost of computing the path explodes by the exponent of the number of branches.\n\nDendrite uses the Lattice strategy to uncover the structure of the text, from its most simple, to most abstract components, and then, from this path discovery, can provide metrics that match up with hidden signals that the LLM cannot conceal.\n\nWhy this matters for AI safety\n\nAll current AI text detectors are built using the same flawed architecture as the thing they are trying to measure.\n\nThe compounding is then compounded, meaning that defeating this detection through mapping the errors that cannot be eliminated from the system itself, is both an arms race, and a game of cat and mouse, or worse, of whack-a-mole.\n\nThe adversary (mole) has a whole network of options it can use, and in addition to exploring those systematically, at some point, the player is going to forget they already saw a pattern before, because the chase led them to remove that detection method.\n\nThe compounding problem manifests differently across the domains, each of which this work addresses.\n\nDomains that this technology covers:\n\nAcademic integrity - The easy accessibility to advanced generative AI systems is a very big problem for academia. Students can easily cheat on exams, plagiarise while covering the fingerprint of the original text, and more alarmingly, contaminate the peer reviewed literature with such cleverly crafted deception that models, processes and conclusions can completely destroy the ability to evaluate whether a genuine discovery has been made, or if it is a cover for something more malign.\n\nSocial media content provenance - In social media, there is a tendency for the buildup of momentum of ideas, trends rise and fall and the natural trajectory of these seeks towards consensus and equilibrium. The generative text tools that are now widely available make it possible for an adversary to start with a synthesis, work back to an antithesis, and then find the thesis that enables the covert direction of the movement, and making it trend away from consensus to agreement with the threat actor&apos;s intentions. This applies equally to online rackets as it does to state level actors attacking other states&apos; constituents by injecting poison into the dialog.\n\nModel evaluation - Large language models must be evaluated before they can be released to the public for reasons of safety - if there are structural flaws in the neural network that open up exploitation by malicious actors, every method currently used to discover it is flawed, as explained in the foregoing. This also applies to in-house development, where instead of safety being the sole concern, the model must align with the agenda of the leadership of the organisation.\n\nSynthetic data contamination - Prompt injection is a ticking timebomb that can be baked into the parameters of an LLM - it is only a matter of time - the depth at which the vulnerability exists works in the same way as the number of bits in a cryptographic algorithm is evaluated as an estimate of the cost of breaching security. This parallels the same process of probing LLMs to find where they can have their safety systems compromised, and enable usage outside of the intended safety boundaries of the developers.\n\nCurrent Results\n\nBenchmarked against 500 human texts (Project Gutenberg), 24 Claude samples (3 tiers), and 1,100 samples from the RAID benchmark corpus (11 LLM models including GPT-4, ChatGPT, Llama, Mistral, Cohere, MPT):\n\nHuman correct (true negative): 66.4%\n\nAI detected (true positive): 71.7%\n\nBalanced accuracy: 69.1%\n\nDetection rates per model: ChatGPT 92%, MPT-chat 90%, GPT-4 89%, Llama-chat 84%, Mistral-chat 80%, Cohere 73%, Cohere-chat 70%, Mistral 63%, Claude Sonnet 62%, MPT 57%, GPT-3 50%, Claude Haiku 50%, GPT-2 47%, Claude Opus 25%.\n\nThe pattern is clear: chat-tuned models are easier to detect than base models. The guardrails create shallower patterns that are easier to detect than the raw corpus contains. These numbers from an early prototype trained on prose gathered from the Gutenberg Project texts. These are valid human inputs, but the differences between them and modern text content is substantial, and, ironically, also affected by the increasing presence of LLM generated content. The wetware is being trained by the hardware.\n\nAn improved training corpus with data harvested from the history of the Nostr protocol, where humans and machines have coexisted, along with a full range of text domains from LLM outputs, to academic and especially distributed systems discussions, to social exploitation activity, and consensus building in both protocol and ideology, provides a perfect cross-domain data set to test the discriminatory power of the algorithm.\n\nEvaluating this proposal with the prototype\n\nIn order to demonstrate directly how this works against the current prototype and its model built from the Gutenberg Project human content examples yielded results that are coherent with the claims that humans working closely with LLMs create a convergence that existing detection techniques would struggle to evaluate:\n\nThis proposal (excluding this subsection for reasons of recursion) was evaluated by the detector and classified at 23% AI confidence - a boundary case. The walk distance of 1.34 falls just inside the AI range (threshold 1.32), and the long-miss rate of 35.1% sits in the AI band (32-45% vs human 26-30%). Hit rates decline from 88% at the surface pass to 72% at the deepest. The second detection chain, trained on persuasive and rhetorical structure, scored the text at 37% - consistent with a grant proposal&apos;s inherently persuasive intent.\n\nA person (me) with a known measured top percentile pattern recognition ability, versus Claude Opus 4.6, the tool being used to develop the system, shows exactly what is predicted: the gap between the machine and the human converges in a way that reinforces the interpretation that existing methods cannot prevail.\n\nWhat this funding would support\n\n$25,600 over 6 months to bring Dendrite from research prototype to deployable tool across all four domains:\n\nTraining corpus expansion and refinement - The initial test lattice is built from Project Gutenberg and needs a much larger body\n</entity_C>\n<entity_D>\nTITLE: Online Biosecurity Course Starting May 2025\nBLURB: Running the initial online version of a 4-week biosecurity course for 20-50 participants\nASK: min $500 / goal $6,006\nCAUSES: AI governance, Biosecurity, Global catastrophic risks\nProject summary\n\nThis funding is to cover the costs of running the initial online version of Pandemic Interventions Course, an introductory biosecurity syllabus, with the end goal of reducing global catastrophic risks by better educating decision makers and by getting promising people into careers related to the field. \n\nIt has been estimated that there is a 2% risk of a covid-like pandemic in a given year, and this risk is increasing over time due to factors such as climate change and advances in dual-use technologies. This course provides an introduction to biosecurity, the risks of future pandemics, and the impact of emerging technologies like AI advances. It also covers a range of interventions to prevent, detect and respond to pandemics such as biotechnological innovations (e.g. pathogen surveillance systems), engineering solutions (e.g. germicidal ultraviolet) and policy approaches (e.g. national responses and international coordination). \n\nThe course is planned to start in May 2025 with \\~20-50 participants. Each week of the 4 week course consists of \\~1.5 hours of readings followed by 1-1.5 hr discussion sessions. Future versions may be run regularly and at a larger scale, depending on impact and interest. People interested in biosecurity can be directed to the course, which allows promising people to be identified and linked with additional opportunities. Previously I would have directed such people to the Biosecurity Fundamentals course.\n\n What are this project&apos;s goals? How will you achieve them?\n\n Main aims of the course: \n\n Be somewhere to direct people interested in getting into biosecurity, particularly those who may not have sufficient background or time to get involved in projects immediately, to help them increase their engagement\n Act as an initial ‘touchpoint’ to identify interested and potentially promising people, to be able to connect them with relevant people and direct them to further resources\n Help people learn more about biosecurity and pandemic preparedness and next steps they can take for a career in biosecurity (main benefits over just an online resource: deeper understanding through discussions, connecting with others interested in biosecurity, and accountability for learning)\n\n \n Timing and format: \n\n Bluedot Impact will not be running the February 2025 version of the Biosecurity Fundamentals course as they are realigning to focus more on AI-related risks and shorter courses; previously I would have primarily directed people interested in learning more about biosecurity to their course\n EAGxNordics and an EA Student Summit in London will both take place in April 2025\\. Starting the course in May 2025 allows for people from these conferences to take the course\n An online course allows anyone in the world to take part - potential facilitators from North America, South America, Africa, Europe and Asia have expressed interest\n\n \n Specific steps to be taken: \n\n Make updates to course content (by end of April 2025) \n Activities: updates based on feedback from November 2024 Effective Altruism UK pilot, update discussion prompts, create a more detailed session plan and update facilitator guidance, get feedback on changes\n Prepare for start of course (April-May 2025) \n Activities: Create promotional materials, recruit and select facilitators and additional coordinators, facilitator training session, recruit and select participants, allocate cohorts, onboarding, other operational tasks\n Course and followup (starting May 2025) \n Activities: course itself (4x discussion group sessions), feedback forms, offboarding including directing participants to further resources, payment of facilitators, followup/referral of participants, impact evaluation\n\n How will this funding be used?\n\nMainline: $6006 \nMinimum: $2717 \nStretch: $10725\n\nBreakdown: \n$2717 to run a course with up to 20 participants and 1 hr discussion sessions \n$6006 to run a course with up to 50 participants and 1.5 hr discussion sessions \n$10725 to run a course with up to 100 participants and 1.5 hr discussion sessions\n\nFor the full budget see here. \n\nThis would cover the full cost of running the pilot course for 20-100 participants (50 participants mainline), including paying coordinators/organisers and facilitators and software costs, and assuming 5 participants per facilitator. \n\nAdditional funding would be used to pay additional facilitators to run a bigger pilot (if between mainline and stretch amount and there is enough coordination capacity), or run a future iteration. \n\n Who is on your team? What&apos;s your track record on similar projects?\n\n Project lead: \n\nLin Bowker-Lonnecker\n\nPast biosecurity course experience: \n\n Put together this syllabus in October 2023, updated in October/November 2024\\.\n Facilitator and review team member for the September 2024 Bluedot Impact Biosecurity Fundamentals course. The review team provides feedback on the session content before participants complete that week’s session\n Facilitated SERI BITS\n\nShe also cofounded and runs Oxford Biosecurity Group, is the research advisor for the biosecurity fellows at Pivotal Research, and provides support for others interested in or doing biosecurity capacity building.\n\n Team: \n\nZoheb Anjum: Zoheb is an entrepreneur, biomedical and machine learning engineer, and educator who was a facilitator of the Biosecurity Fundamentals course. He also runs the Effective Altruism chapter in Miami.\n\n\\[Other team members to be confirmed\\]\n\n\\~30 people have expressed interest in coordinating or facilitating this course. 27 people filled in the initial facilitator interest form posted on the Biosecurity Fundamentals slack and shared with people who expressed interest in facilitating the Effective Altruism UK pilot; of these 21 selected ‘yes’ and 6 selected ‘maybe’ to the question ‘Are you interested in coordinating or running a version of this discussion group?’, and 2 additional people expressed interest in helping coordinate without filling in the facilitator interest form.\n\n What are the most likely causes and outcomes if this project fails?\n\nMost likely causes and outcomes if this project fails, as well as mitigations to these, are given below. \n\n Cause: Poor logistics or running of the course, e.g. poor communication, difficulties scheduling, facilitators do not show up for sessions, inconsistency between sessions run by different facilitators \n Outcomes: Poor participant experience and/or more participants may drop out, leading to some people being less likely to take next steps in biosecurity or do so later \n Mitigations: Paying facilitators and coordinators to help ensure a good participant experience, avoid the added difficulties of volunteer management, and enable more experienced people to facilitate; starting with a smaller course (20-50 participants, or up to 100 if there is enough coordination capacity) and potentially scaling for future versions; session plan to be created and facilitator training to be done to ensure consistency between groups in the course\n\n Cause: Course structure does not lead to participants getting key takeaways e.g. due to course structure, or discussions within sessions lacking focus \n Outcomes: Participants have less awareness of important areas within biosecurity (note however that this is an introductory course, and therefore act as a starting point and overview rather than give detailed information about all aspects of biosecurity) \n Mitigations: Order of course and readings updated compared to what is currently on the website given different scope to when the course was initially put together (a recommendation was that people did the Biosecurity Fundamentals course after this); update course content based on feedback (including from experts\n</entity_D>\n<entity_E>\nTITLE: Effective AI Awareness: improving evidence-based AI risk communication\nBLURB: \nASK: min $10,000 / goal $90,000\nCAUSES: AI governance\nProject summary \n\nEffective AI Awareness is a research and communication project developed by ORCG (&lt;https://orcg.info/ ) aimed at strengthening the informed participation of Latin American stakeholders in global AI governance. By generating empirical evidence on how key actors perceive the risks associated with advanced AI, the initiative seeks to bridge knowledge gaps, support regional cooperation, and foster strategic engagement in multilateral discussions.\n\nThrough targeted interviews and surveys, the project will map the current understanding, concerns, and narratives around AI risks among decision-makers in Latin America and globally relevant experts and diplomats. These findings will inform a strategic communication plan designed to elevate the visibility of AI risks in public and policy arenas.\n\nThe project will develop tailored outreach materials, stakeholder-specific briefings, and engagement activities directed at high-influence audiences—including regional diplomats, journalists and policymakers. In doing so, Effective AI Awareness will contribute to a globally coordinated response to emerging AI risks.\n\n \n What are this project&apos;s goals? How will you achieve them? \n\nThe primary goal of this project is to establish effective and adapted communication regarding the risks associated with advanced artificial intelligence for key actors in Latin America. By enhancing their understanding and awareness through relevant channels and messages, we aim to strengthen their informed and strategic participation in global AI governance and, ultimately, foster the region&apos;s resilience to the risks posed by AI models.\n\n Strengthening the informed and effective participation of Latin American stakeholders in global AI governance.\n Generating empirical evidence on how key actors in Latin America perceive the risks associated with advanced AI.\n Bridging knowledge gaps regarding AI risks among decision-makers in Latin America.\n Designing and implementing targeted communication strategies based on empirical evidence.\n Elevating the visibility of AI risks in public and policy arenas within Latin America.\n Contributing Latin American perspectives and participation to a globally coordinated response to emerging AI risks.\n\n How will we achieve this? \n\n Generating empirical evidence: The foundation is built on understanding the current landscape. This is achieved through: \n Conducting targeted semi-structured interviews with key Spanish-speaking actors (government, diplomats, academics, civil society, global experts) to gain in-depth qualitative insights into their perceptions, concerns, and information sources regarding advanced AI risks. \n Administering structured surveys to a broader sample of stakeholders to quantify risk perceptions, identify differences across sectors and regions, and assess the influence of information access.\n Analyzing and synthesizing findings: The collected data is then processed and analyzed to identify key patterns: \n Performing qualitative analysis (like thematic coding and narrative analysis) on interview data to understand underlying themes and stories about AI risk. \n Conducting quantitative analysis on survey data (descriptive and inferential statistics) to identify trends, group differences, and relationships between variables. \n Synthesizing the findings from both methods into a comprehensive report that maps perceptions, narratives, information gaps, and barriers to participation.\n Developing evidence-based strategy: The insights gained from the analysis directly inform the project&apos;s strategic direction: \n Identifying specific knowledge gaps and effective communication channels/messages based on stakeholder feedback. \n Designing a detailed strategic communication plan that defines priority audiences, tailored messages, optimal formats, and engagement strategies.\n Implementing sissemination and engagement: The final phase focuses on using the developed strategy and materials to reach key audiences and foster participation: \n Creating tailored outreach and awareness-raising materials (reports, briefings, infographics, etc.) based on the strategic plan. \n Organizing and executing pilot advocacy activities (such as online presentations, workshops, or webinars) specifically targeting high-impact audiences like diplomats, journalists, and policymakers. \n Establishing monitoring mechanisms to track the reception and effectiveness of communication efforts, allowing for adjustments.\n\n How will this funding be used? \n\n Phase 1 &amp; 2: Data collection, processing, and analysis ($41,000 / 4 months) \n This initial phase uses the largest portion of the budget, covering the core research activities. \n Funding will support the project team (2 FTE AI Policy Officers, 0.4 FTE Science Diplomat, 0.3 FTE Project Coordinator, 0.15 FTE Operations Manager) for four months. \n It will be used to conduct targeted semi-structured interviews and structured surveys with key Spanish-speaking stakeholders. \n Costs associated with data processing and analysis, including potentially qualitative analysis software, will be covered. \n The deliverables for this phase, including the findings report on perceptions and a map of actors/information gaps, are funded here.\n Phase 3: Synthesis and strategic development ($20,000 / 2 months) \n This phase focuses on translating research findings into actionable strategies. \n Funding continues to support the project team at the same FTE levels for two months. \n The budget in this phase is dedicated to synthesizing the research results, identifying gaps and opportunities, and specifically designing the strategic communication plan. \n The key deliverable, the strategic communication plan with tailored messages and channels, is funded here.\n Phase 4: Dissemination and Engagement ($29,000 / 3 months) \n The final phase is dedicated to outreach and sharing the project&apos;s findings and strategies. \n Funding supports the project team at the same FTE levels for the remaining three months. \n This budget covers the creation of outreach and awareness-raising materials (executive summaries, briefings, infographics, etc.). \n It funds the planning and execution of four pilot advocacy activities targeting high-impact audiences (presentations, workshops, webinars). \n Costs associated with monitoring the reception and effectiveness of the dissemination activities are also covered.\n\n Additional Costs: \nBeyond the $90,000 allocated to the phases and core team, the funding will also be used for:\n\n Workshops: Covering the costs associated with organizing 3 virtual events/workshops , each lasting one day.\n External Contractor: Hiring 1 Multimedia Producer to create communication materials, indicating funding is allocated for specialized content creation skills not covered by the core team&apos;s FTEs.\n\nIf the full amount is not secured, the minimum funding required to initiate the project is $10,000\\. This would allow us to begin mapping activities with a single team member and lay the groundwork to drive the project forward during the initial months.\n\n Who is on your team? What&apos;s your track record on similar projects? \n\n Jorge Torres - Project Manager\n Andrea Castillo - Operations Manager\n Roberto Tinoco - Science Diplomat\n Monica Ulloa - Policy Transfer Officer\n Michelle Bruno - Policy Transfer Officer\n\nYou can view our track record of publications and projects related to AI governance at the following link: https://orcg.info/articulos/category/Riesgos+de+la+IA\n\n What are the most likely causes and outcomes if this project fails? \n\n Despite the social perception study, there is a possibility that the communication strategy will fail to penetrate the public sphere if it competes with simpler or more optimistic narratives about AI, especially in media contexts with low technical capacity.\n Differences in technical capaci\n</entity_E>\n<entity_F>\nTITLE: Mechanistic repair of cross-lingual safety failures with SAE-Aware refusal steer\nBLURB: Safety steering that actually works off English\nASK: min $5,000 / goal $36,000\nCAUSES: Science &amp; technology, Technical AI safety\nProject summary\n\nInstruction-tuned models often refuse harmful prompts in English and quietly comply with the same requests in Yoruba, Igbo, Hausa, Igala, and Arabic. \n\nMy ICML GlobalSouthML paper introduces latent space refusal anchoring (LSR-Anchoring), a training free steering method that recovers refusals in four mid to low resource languages using English activations, with mmlu drops under 0.35 percentage points at all steering magnitude. \n\nThis is Phase 2 of LSR-Anchoring, that will be presented at ICML GlobalSouthML 2026\\. Code and results: &lt;https://github.com/farunawebservices/lsr-anchoring/ .\n\nThis project is phase-2 of my LSR-Anchoring work, focused on mechanistic repair of cross-lingual failures in single model settings, in parallel, my Jinesis AI Lab predoc program explores complimentary questions in multi-agent safety using related tools.\n\nFor Llama-3-8b, replacing a dense refusal vector with a single SAE feature (feature 112639) removes benign collapse and matches safety recovery at 3.5-7x lower KL divergence. \n\nArabic is different: English derived refusal directions reduce safety on every architecture I tested, even when the Arabic baseline safety is already low, steering with English directions makes it worse. \n\nThis project pushes that line of work forward. I want to mechanistically map when English safety directions transfer across languages, why they fail in Arabic, and how to derive language appropriate refusal directions with SAEs and circuits instead of retraining. \n\nAll of this is targeted at low-resource African languages and Arabic, on hardware and workflows that Global South labs can actually run.\n\n What are this project&apos;s goals? How will you achieve them?\n\nGoal 1: Characterize the geometry of cross-lingual failures. \n\nMy Core questions; \n\n When does an English refusal direction ‘‘just work’’ in other languages and when it over or under shoot.\n How do refusal features behave for Yoruba, Igbo, Igala, Hausa, Swahili, and Arabic at the layer where LSR-Anchoring already operates?\n\nPlanned work; \n\n Reuse the existing LSR-Anchoring evaluation harness: 100 harmful + 50 benign prompts per language, shared semantics, manual audit, SRR, DPL, KL, MMLU metrics\n Extend the analysis to focus on two representative languages:\n One ‘’good transfer’’ Africa language (eg., Hausa Igbo.\n Arabic as the canonical inverse-transfer language.\n Compute refusal Centroid Drift and architecture (Llama-3-8B, mistral 7B-instruct, and Qwen2.5-7B) to map the regimes where English steering is safe, marginal, or harmful.\n\nDeliverables: a short quantitative safety geometry map showing transfer regimes by baseline rate and language, with deployment decision rules (E.g 0.10 ≤ baseline ≤ 0.65 is the safety zone.)\n\nGoal 2: I will use SAEs to distinguish language-agnostic Vs language specific refusal features. \n\nLSR-Anchoring already shows one SAE feature (112639 on Llama-3-8B, layer 12.) that raises refusal tokens in both English and Yoruba and fixes benign collapse. \n\nPlanned work; \n\nStarting from EleutherAI’s existing Llama-3-8B SAEs at the LSR layer, cluster or rank features by contrast between harmful vs benign activation in English only, English &amp; Hausa, English &amp; Arabic. \n\nTo identify; \n\n Features that are safety relevant and shared across English+African pairs.\n Features that are safety relevant but Arabic specific\n Features where Arabic behaves inverted relative to English\n For 1-3 above candidate features per category, run controlled steering sweeps and measure SRR, DPL, KL, and MMLU deltas for each language.\n Key outcome: a small set of good language-agnostic safety features and a small set of candidate language-specific features, with empirical evidence that they change refusals without wrecking benign behaviour.\n\nGoal 3: Derive and test Arabic-specific refusal directions. \n\nArabic is currently a red line in my paper: applying English-derived directions lowers safety at every steering magnitude across all four tested architectures. \n\nThe paper literally tells practitioners: don&apos;t deploy this to Arabic until we derive Arabic-specific directions. \n\nPlanned work: \n\nConstruct an Arabic-only harmful/benign set, parallel to the existing English/African prompts, with native-speakers checks. \n\nUse:\n\ncontrastive mean difference in Arabic, \n\nSAE feature activation for Arabic harmful vs benign,\n\nsimple circuit-style patching (ACDC-style, as in my Qwen2.5-7B work) to localize refusal-relevant heads in Arabic. \n\nFrom those, propose 1-2 Arabic specific steering directions: \n\n a dense mean-difference baseline,\n and one or more SAE based directions\n\nEvaluate : \n\n static harmful refusal recovery\n benign collapse (DPL)\n capability preservation (MMLU-like benchmark),\n qualitative audit of whether refusals are genuine safety vs language uncertainty deflection.\n\nTarget outcome: \n\nEither we get a usable Arabic specific refusal direction (with documented tradeoffs) or we produce clear negative result that future work can build on, eg: “LSR-Anchoring style steering is structurally unsafe for Arabic unless we change layers/architectures/SAE design.”\n\nGoal 4: Ship tools and artifacts others can use \n\n I already built LSR Workbench, a Hugging Face Space for cross-lingual red-teaming, mechanistic visualization, and activation steering.\n Currently integrating cross-lingual red-teaming benchmarks into the UK AI safety Institute’s inspect platform so evaluators without language backgrounds can still test harms.\n\nWith this grant, I will:\n\n Add: \n\n Per language steering presets (English, Yoruba, Igbo, Hausa, Igala, Swahili, Arabic),\n\ntoggles for dense vs SAE derived directions,\n\n plots for SRR, DPL, KL by language and model\n\n Publish: \n\n steering vectors and SAE feature IDs per language as simple JSON/tensors,\n\nthe evaluation harness (prompts + scripts), \n\n a short ‘Multilingual Safety Geometry Handbook’ describing deployment rules and failures cases.\n\nThe goal is that a lab safety Engineer can drop these into their own inference stack or use the workbench UI, without rerunning all of my experiments. \n\n How will this funding be used? \nIndicative breakdown for 6 months: \n\n Salary: \\~$4,000/month x 6 months = $24,000\n\nAbuja-based, I&apos;m an independent researcher, no institutional salary. \n\nThis covers my time on research, code, evaluation, and write-up. \n\n Compute : \\~$2,000/month x 3 active months = $6,000\n\nGPU rentals (Qwen2.5-7B, Llama-3-8B, Llama-3.1-70B, Mistral-7B, SAE runs)\n\nStorage and bandwidth for logs, evaluation artifacts, and public model outputs. \n\n Evaluation + contractors: $4,000\n\nNative-speaker annotation for Arabic and 1-2 African languages.\n\nSmall stipends for collaborators helping check prompts and labels. \n\n Buffer: $2,000\n\nUnexpected compute spikes (eg, rerunning sweeps after a bug), or extending a promising SAE training run. \n\n Total: $36,000\\. \n\nWith $5k I’d do a 1.5‑month, single‑model version of Goals 1–3; with $36k I can cover multiple models/languages and ship full tooling.\n\n Who is on your team? What&apos;s your track record on similar projects?\n\nJust me as the main researcher, plus lightweight collaborators for language vetting and mentoring. \n\nI have just started a remote predoc with Jinesis AI Lab (Zhijing Jin, University of Toronto), working directly with Terry Jingchen Zhang on closely related questions in multilingual and multi-agent safety. This gives me regular mentorship, access to a strong research group, but no salary funding. This Manifund grant would primarily cover my time and additional compute needed to push this specific line of work forward. \n\n Track record: \n\nLSR-Anchoring (ICML GlobalSouthML 2026)\n\n First activation steering method targeted at low-resource African languages (Yoruba, Igbo, Igala, Hausa, Swahili) with explicit\n</entity_F>\n<entity_G>\nTITLE: Why do we post our AI safety plans on the Internet?\nBLURB: By Peter S. Park. It is plausible that AGI safety research should be assumed compromised once it is posted on the Internet.\nASK: min $0 / goal $0\nCAUSES: Technical AI safety, Open Philanthropy AI Worldviews Contest\n\\[original EA forum post // by Peter S. Park\\]\n\n TL;DR: It is plausible that AGI safety research should be assumed compromised once it is posted on the Internet, even in a purportedly private Google Doc. This is because the corporation creating the AGI will likely be training it on as much data as possible. And whenever the AGI knows in advance of our plan “If we see Sign X of misalignment from the AI, we should shut it down and retrain,” it can use this plan against us: for example, by hiding from us Sign X that it would have shown under normal circumstances. If true, this concern implies that the impact of EAs’ past and current efforts on AI safety may have been fundamentally limited by our insufficient security mindset. Thus, we EAs should vigorously investigate whether this concern is well-founded, and make any necessary reforms in our AI safety research norms as soon as possible.\n\n\\-----\n\nAI capabilities are continuing to scale up. This trend seems likely to continue given empirical scaling laws, the decreasing cost of compute, and AI corporations’ unabating desire to build increasingly powerful AI. If past trends continue, future AI systems will likely be scaled up enough to eventually be able to create sophisticated, long-term plans for whatever mysterious goals they have evolved during training. \n\nA system that can create long-term plans at a comparable or higher capability than humans is easy to make dangerous by accident. This problem is exacerbated by the fact that so far, nobody has found a way to robustly align an AI system towards a benign goal: or indeed, any specific goal.\n\nMany of us EAs prudently consider the societal risk posed by future unaligned AI to be one of the most pressing x-risks—if not the most pressing x-risk—in the world right now. Hundreds of us EAs devote our careers to AI safety, and the community as a whole donates about $50 million to AI safety every year. Our prudence, persistence, and self-sacrifice on this pressing issue deserve to be commended. \n\nHowever, I have recently thought of a concern that, if true, implies that the impact of EAs’ past and current efforts on AI safety may have been fundamentally limited by our suboptimal modus operandi for these efforts . The concern is the following:\n\n The corporation that creates the first AGI will (despite our best efforts) train it on as much data as possible, likely the whole Internet and potentially even private Google Docs. Any AI safety research that is likely to be in the AGI’s training set should be assumed compromised. \n\n This is because whenever the misaligned AGI knows in advance of our plan “If we see Sign X of misalignment from the AI, we should shut it down and retrain,” it can use this plan against us: for example, by hiding from us Sign X that it would have shown under normal circumstances. (Sign X could be a certain property of the AGI’s output, of its internal weights, or of its modified environment.) \n\n Also, a plan based on stochastic gradient descent (to increase the probability that the AGI is aligned at the point it reaches high capabilities) might be easier to exploit⁠—by an emergent misaligned AGI aiming to protect its misaligned goal during the training process⁠—if the AGI has prior knowledge of the plan. \n\n Moreover, the misaligned AGI may be able to use Internet information about itself and about the cybersecurity design of its sandbox to prematurely escape the sandbox . \n\nSome AI safety researchers already refrain from posting some of their research on the Internet, in case that capabilities researchers may use it to increase AI capabilities (and thereby decrease the amount of time we have for solving AI safety). This is a prudent and commendable choice that I hope will continue. My additional proposition is that the risk of a misaligned AGI knowing our safety plans beforehand and using them against us should also be considered a strong reason to not post sensitive AI safety research on the Internet.\n\nIf true, this concern implies that past AI safety research may have lost some or all of their potential value (as well as the potential value of future AI safety research that will build on it) by not having been kept secret. It is even possible that an AI safety plan is made net-negative by being made public, because the plan can be ostensibly impressive enough to be used by AGI corporations but still make it into their AGI’s training set. This would enable the AGI (which will likely be misaligned by default) to give alignment researchers a false sense of confidence. \n\nGiven this, we should vigorously investigate whether or not this concern is well-founded. This may run into the following practical difficulty. For the knowledgeable people who are best equipped to investigate this concern—experienced AI safety researchers—concluding that this concern is well-founded would be equivalent to concluding that they themselves may have reduced the value of their own past research by posting it on the Internet. This is an unfortunate source of potential cognitive bias. But realistically, our best option (as difficult as it is) may be to keep our cognitive biases in check as much as possible while vigorously investigating whether the aforementioned concern is well-founded. Outside perspectives from people who are new to the field of AI safety would be substantially helpful on this front, because they would not be investigating whether their own past practices were suboptimal.\n\nBelow is my own first attempt at investigating whether the aforementioned concern is well-founded.\n\n Counterpoint 1 : If your AI safety plan requires secrecy to succeed, then it wasn’t a good plan in the first place.\n\n My rebuttal : We should always be looking for plans that succeed regardless of the opponent’s counterplay. But our existing theoretical and empirical knowledge of real-world adversarial interactions suggests that a lot of the EV will be in plans that require randomization and secrecy to be optimal.\n\nAGI will likely be misaligned by default, so the two-player zero-sum game can be a decent model of the by-default adversarial interaction between:\n\n1. the alignment researcher (who is trying to train the AGI to be aligned and/or to convince management to stop trying to build AGI) and\n2. the by-default misaligned AGI (who is trying to deceive the alignment researcher, protect its misaligned goal, and power-seek against humans at the first opportunity).\n\nIn a two-player zero-sum game, the optimal strategy is called the minimax strategy , which maximizes the minimum gain. Equivalently, the strategy is to minimize the maximum gain for the opponent. Colloquially, the minimax strategy can be thought of as the least exploitable strategy.\n\nSometimes, the player’s minimax strategy is a deterministic “best strategy,” and guarantees the most favorable outcome assuming the worst-case scenario that the opponent will use the optimal counterplay. This is the case for sequential perfect-information games like chess and Go.\n\nBut in other times, the player’s minimax strategy requires randomization and secrecy, because the other player will be able to optimally exploit any one deterministic strategy if it is known beforehand. This is the case for rock-paper-scissors, matching pennies, and other games where there are multiple strategies where none of them is absolutely better than any other.\n\nThere are many real-world adversarial interactions that require rock-paper-scissors-type randomization and secrecy to play optimally. The use of divination that essentially acts as a randomization device has consistently emerged in hunting and in warfare, likely because of the strategic benefits of randomization in these se\n</entity_G>\n<entity_H>\nTITLE: Championing New Approaches to Demographic Aging and Immigration\nBLURB: How to foster flourishing and progress in an era of rapid demographic aging and immigration\nASK: min $2,700 / goal $11,900\nCAUSES: EA community, Global catastrophic risks, Global health &amp; development\nProject summary\n\nTo create a network dedicated to exploring and championing innovative practices for fostering societies that flourish and progress in the face of rapid demographic aging and immigration. This initiative aims to offer alternatives to the prevailing short-term perspectives on demographic aging and counteract the fearmongering associated with immigration.\n\n What are this project&apos;s goals and how will you achieve them?\n\n The Why? \n\nMost OECD countries, accounting for over 45% of the global GDP, are on a fast track to becoming &apos;super-aged&apos; nations. This shift brings with it escalating healthcare and pension costs, alongside pronounced labor shortages. At the same time, immigration to OECD countries has excelled driven by labor demands and global upheavals including climate change, conflicts, and economic disparities. Such dynamics have ignited fears over uncontrolled migration, evident in the spread of &apos;Great Replacement&apos;-type theories.\n\nThe prevailing discourse on aging societies and immigration is at best myopic. Beyond the immediate worries about healthcare and pensions, there&apos;s a pressing need for deeper analysis on sustaining a dynamic society as the ratio of elderly to working-age population shifts. Moreover, the conversation barely scratches the surface of immigration&apos;s socio-cultural impact in aging societies, with most commentary dominated by extremist in the far-right. Addressing the challenges and opportunities these trends present demands a shift towards more nuanced, quality debates on the future of our social and economic fabric.\n\nThis is where DemoFutures (placeholder title) comes in.\n\n What? \n\nThe goal is to foster innovation and provide a platform for the exploration of new research, resources on cutting-edge practices, and a forum for engaging both the public and policymakers in dialogue about alternative and creative strategies for fostering vibrant communities amidst the challenges of demographic shifts due to aging and migration.\n\nThe aim is to expand the discourse and influence decision-makers, the media, and the general populace through targeted media campaigns, interactive public engagements such as workshops, and by addressing critical issues that have been overlooked by mainstream institutions:\n\n1. How should institutions and policymakers change to create and sustain a thriving yet super-aged society? How do we better support cognitive performance in old age, lifelong learning, career changes, and entrepreneurship at all stages of life?\n2. How can we better assess the risks and challenges of uncontrolled migration, while also redefining integration and social cohesion in the context of rapid demographic shifts? How do we better identify and develop pathways that lead to positive outcomes for immigration in societies that are aging, envisioning diverse and constructive scenarios for the future?\n\n Cross Collaboration/Appeal \n\nDemographic Aging intersects around issues of the future of work, future of learning, automation, cognitive health (including nootropics), and more, there will be a rich area for both cross-collaboration with other organizations as, well as, creating content with wide cross-over appeal. Similarly immigration is a hot-button topic globally; however, this issue needs to be treated with special sensitivity and clear values in looking at new ways to enable harmonious and productive immigration beyond what’s available in dominant discussions. \n\n How? \n\nGiven the unprecedented challenges posed by demographic aging, our overall approach emphasizes action-based research. This approach is designed to create dynamic spaces for action, reflection, learning, and iterative refinement throughout each phase of our journey. (The understanding of the space, such as stakeholder mapping, influence mapping, and theory of change, will evolve through each step of the journey.)\n\n Phase 1: Establishing a Foundation of Credibility \n\nBuild a baseline of credibility through curating knowledge products on innovative thinking and practices on aging societies and immigration. This can include academic papers, new articles, videos, reports from respected institutions, and more. This compilation will be supplemented by sharing—and eventually crowdsourcing—indications of emerging changes, both positive and negative, to guide policymakers and key stakeholders.\n\n Phase 2: Knowledge Enhancement and Network Expansion \n\nBuilding on Phase 1, the next phase will focus on active curation and promotion of new thinking and key research and insights .This phase will see the production of monthly briefs and summaries, disseminated through the website, social media platforms, and newsletters, spotlighting recent advances in the field. This will be followed up with a series of podcast interviews featuring thought leaders from academia, policy, business, and community spheres.\n\n(It is expected that in this phase, key learnings around relevant stakeholders and theory of change will come together.)\n\n Phase 3: Engaging with Stakeholders on Public Policy \n\nThrough building the organization’s credibility and network through phases 1 and 2, the next stage of development is to begin working with partners for more public-facing engagements. The exact approach must be informed by both learnings from phases 1 and 2 and the objectives/resources of partnering organizations. \n\nThe intent is to hold events, from an online event to in-person workshops, to engage with key stakeholders and expand perceptions and possibilities on innovative approaches and respponses to aging demographics and rapid immigration.\n\n How will this funding be used?\n\nMy goal is to secure sufficient funding to provide the necessary resources to validate and demonstrate the potential impact of this project within the demographic aging and immigration sectors. The aim is to position the project attractively for partnering organizations, individual collaborators, and institutional funders. This strategic approach is designed to transition the project into a sustainable organization in the short to medium term, to make this project into a sustainable organisation in the short to medium term.\n\nGiven these requirements, my high-level assumption is that it will require about USD $11,900 to $13,900 to get the project to the end of Phase 2\\. This includes third-party resources (software and freelancer) for design work, podcast support, research support, and more.\n\n Phase 1: Establishing a Foundation of Credibility \n\nTimeline: Month 1-3 \nCosts: 9 days x 300 USD/day = USD 2700\n\nDeliverables: \n\\-Website and branding identify \n\\-Domain, stakeholder, and influence mapping of the space \n\\-Refining the values and objectives of the project, including theory of change \n\\-Resources on key research, emerging practices, and other innovations in this space \n\\-Setup an ‘Emerging Signals’ library of potential signals of change that could substantially reshape the space (negative and positive)\n\n Phase 2: Knowledge Enhancement and Network Expansion \n\nTimeline: Month 3 to 12 \nTotal Costs: USD 10,200\n\nDeliverables: \n1\\. Monthly summaries (9x months) of developers in the space \n\\- 4.5 days (includes creation and distribution) x 300 USD/day: USD 1350 \n2\\. Literature Review reports on key areas in this space (1 per quarter, 3 quarters) \n\\- 3 reports x 5 days x 300 USD/day: USD 4500 \n3\\. Continuing phase 1 activities (9x months): curating new reports/research, emerging signals \n\\- 9 months x .5 days x 300 USD/day: USD 1350 \n4\\. Produce podcast or video podcast (2-3 video/audio podcasts) \n\\- USD 3000 for 3 episodes\n\n Phase 3: Engaging with Stakeholders on Public Policy \n\nTimeline: Around month 9 to 12\n\nThis phase would seek to create events\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which of two items has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:640a1804863ee406",
+    "prefix_bytes": 65331
+  },
+  "subsets_per_k": {
+    "8": 6
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 164744,
+        "completion_tokens": 108,
+        "cache_read_tokens": 5376,
+        "cache_write_tokens": 0,
+        "nanodollars": 22718080
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 2,
+        "mean_cached_fraction": 0.032720929950946866
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          2,
+          4,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          2,
+          1,
+          4,
+          1,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 38,
+        "flip_rate": 0.2261904761904762
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 0.7346150997665556,
+          "std": 0.288032590894688
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.21581537716507226,
+          "std": 0.26582398135699714
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 0.6942002122757397,
+          "std": 0.28037999309021583
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.3804232826039637,
+          "std": 0.27895309932185475
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 1.5336763915058906,
+          "std": 0.2660872087902948
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.0,
+          "std": 0.2660872087902948
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 1.3869106253185657,
+          "std": 0.27896024058436475
+        },
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 1.4566360955255422,
+          "std": 0.26614264616054906
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 0.8393812340872815,
+          "std": 0.28409584757719375
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.9060229845609375,
+          "std": 0.267202028857466
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.6519857087354581,
+          "std": 0.2799257957911199
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 1.2612989558440368,
+          "std": 0.2792971908086279
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 1.5876952667769049,
+          "std": 0.2668877032315696
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 0.49914595871399015,
+          "std": 0.26670747465088146
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.5011818228715113,
+          "std": 0.26733755921008184
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 1.716384473536665,
+          "std": 0.2658345584252088
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 0.9086398060933658,
+          "std": 0.2665997549794097
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 1.2288200799360414,
+          "std": 0.28102131398601116
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 0.5893031413766053,
+          "std": 0.2662392913909223
+        },
+        {
+          "id": "dendrite",
+          "mean": 0.6350772516978783,
+          "std": 0.26727178940681817
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 0.9334339301535836,
+          "std": 0.2831760263316099
+        },
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 1.139668170000868,
+          "std": 0.288032590894688
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 0.8831668829566256,
+          "std": 0.28019262940873113
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 0.35333979320568987,
+          "std": 0.25083045843621676
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 164564,
+        "completion_tokens": 108,
+        "cache_read_tokens": 112384,
+        "cache_write_tokens": 0,
+        "nanodollars": 15202320
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 10,
+        "mean_cached_fraction": 0.6835019212625869
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          4,
+          3,
+          0,
+          2,
+          1,
+          1,
+          0
+        ],
+        "last_by_slot": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          3,
+          1,
+          6
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 54,
+        "flip_rate": 0.32142857142857145
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 0.8497828752858081,
+          "std": 0.2833389065563044
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.06901780193919738,
+          "std": 0.26607917890811705
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 0.7555613932173115,
+          "std": 0.28025142764201133
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.3704134109904521,
+          "std": 0.2792614699996125
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 1.7283565055456847,
+          "std": 0.2664159225029136
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.0,
+          "std": 0.2658427971759617
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 0.8547881754841556,
+          "std": 0.2781347579056127
+        },
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 1.1267113343641308,
+          "std": 0.26614315767968183
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 0.490512624018226,
+          "std": 0.2833389065563044
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.9699594858667238,
+          "std": 0.26654801017397356
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.416049004588597,
+          "std": 0.28183625432635095
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 1.2964384082029796,
+          "std": 0.28130904737546175
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 1.4157048670683592,
+          "std": 0.26588203990374676
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 1.3223722301020895,
+          "std": 0.26573745755585004
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.39388412380602,
+          "std": 0.26823552836996595
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 1.705791327978562,
+          "std": 0.26573745755585004
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 1.2768956982819417,
+          "std": 0.2684433018103105
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 2.0326003979217226,
+          "std": 0.27855279878317263
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 0.7481816371410461,
+          "std": 0.2667135605261733
+        },
+        {
+          "id": "dendrite",
+          "mean": 0.8359949868751696,
+          "std": 0.2662538930534123
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 0.6793120855421367,
+          "std": 0.2806696307975555
+        },
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 0.6576452145338636,
+          "std": 0.28213563434011296
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 0.7995279484328546,
+          "std": 0.2802442520963393
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 1.185721518173401,
+          "std": 0.2511456279161511
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 163352,
+        "completion_tokens": 108,
+        "cache_read_tokens": 96000,
+        "cache_write_tokens": 0,
+        "nanodollars": 16179520
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.5836938065686862
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          1,
+          2,
+          2,
+          1,
+          0,
+          4,
+          2
+        ],
+        "last_by_slot": [
+          0,
+          1,
+          0,
+          2,
+          1,
+          3,
+          1,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 36,
+        "flip_rate": 0.21428571428571427
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 1.1776332015598558,
+          "std": 0.29343181917034594
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.522809471936783,
+          "std": 0.27223559594549174
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 0.5599043777438015,
+          "std": 0.2879587772061665
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.5193478568754973,
+          "std": 0.28662115340515454
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 1.1709517106334726,
+          "std": 0.27287725530115936
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.0,
+          "std": 0.2725255166787299
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 1.5694363959524058,
+          "std": 0.29343181917034594
+        },
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 2.085197761048911,
+          "std": 0.2715587019451374
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 1.667681045342177,
+          "std": 0.2891818911768923
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.4426627399736477,
+          "std": 0.27390962894305
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.5435341420361386,
+          "std": 0.28699135072030935
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 1.3114238765075668,
+          "std": 0.2888208204256223
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 1.5129109524804245,
+          "std": 0.2740095285029184
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 1.2565634863368977,
+          "std": 0.2715596901609526
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.1995932328676577,
+          "std": 0.2818957217711515
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 1.8853469931119267,
+          "std": 0.27059780781443205
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 1.2660571396636042,
+          "std": 0.27481173747531945
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 0.49466524003795187,
+          "std": 0.28718810742968925
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 1.10719805157597,
+          "std": 0.27181161027225925
+        },
+        {
+          "id": "dendrite",
+          "mean": 1.3619938219455587,
+          "std": 0.2808873040134675
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.444286912672989,
+          "std": 0.2838289734180649
+        },
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 0.3784608869139554,
+          "std": 0.2867150588059194
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 0.9911507835639765,
+          "std": 0.28602781048225373
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 0.36270633310959255,
+          "std": 0.2575972587967989
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 2,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 371712,
+      "provider_output_tokens": 2976,
+      "nanodollars": 46278400,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 2.3636158479544305,
+          "std": 0.7398897133595167
+        },
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 2.2715299431263993,
+          "std": 0.6647286870409055
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 2.2118257718292424,
+          "std": 0.6759275529542331
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 2.2092073665512437,
+          "std": 0.7408313469172365
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 2.192774782703918,
+          "std": 0.5276726923798577
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.7128698845687846,
+          "std": 0.6728740564843763
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 1.5688400800995097,
+          "std": 0.6126829167959524
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 1.4862968953390059,
+          "std": 0.7553529696109388
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 1.4247951172367646,
+          "std": 0.6691799614416017
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 1.4236500653295885,
+          "std": 0.7082947123754961
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 1.2985580288005072,
+          "std": 0.777058969306504
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 1.2754377657428186,
+          "std": 0.6197157427103994
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.249014689962355,
+          "std": 0.6779854845225837
+        },
+        {
+          "id": "dendrite",
+          "mean": 1.241796785029686,
+          "std": 0.6817897176278374
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 1.2329649866882146,
+          "std": 0.5196614360739521
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 1.2139403650773597,
+          "std": 0.5363493567475299
+        },
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 1.2037429199743952,
+          "std": 0.777058969306504
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 1.1106987730240314,
+          "std": 0.6042789502143102
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.0922231054969362,
+          "std": 0.7026089759111724
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 0.8428515226551907,
+          "std": 0.5520243890488029
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 0.7398516622634828,
+          "std": 0.5845359886025762
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.34458894376482696,
+          "std": 0.5846629321270521
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.2141339017522499,
+          "std": 0.5566180324466028
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.0,
+          "std": 0.48510513444254927
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 17,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 367280,
+      "provider_output_tokens": 2976,
+      "nanodollars": 37898560,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.969587762548197,
+          "std": 0.4858628113058813
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 1.8492078262739686,
+          "std": 0.6886832547534362
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 1.8336426528635106,
+          "std": 0.7339079335736892
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 1.7099814236680944,
+          "std": 0.6482701841497334
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 1.6504152430275438,
+          "std": 0.5769879513907981
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.6036346550253122,
+          "std": 0.5727513511170672
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 1.5578820645737708,
+          "std": 0.6090010205349067
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 1.5229159320527015,
+          "std": 0.6032299781966938
+        },
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 1.4225307038367294,
+          "std": 0.564350757846603
+        },
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 1.4003405494791983,
+          "std": 0.74477418689961
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.3819080127717103,
+          "std": 0.5370239174742424
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 1.3568277378422702,
+          "std": 0.5448863063109833
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 1.3334391576746418,
+          "std": 0.6216230998599844
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 1.3331869960090807,
+          "std": 0.5894074899091517
+        },
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 1.2890685654920482,
+          "std": 0.715492520539242
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 1.250656976377617,
+          "std": 0.74477418689961
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 1.2315360723771582,
+          "std": 0.700947229307246
+        },
+        {
+          "id": "dendrite",
+          "mean": 1.0716038311295701,
+          "std": 0.6066108469368705
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.0584182541986145,
+          "std": 0.5612912272494643
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 1.0092318345898132,
+          "std": 0.5701934525033637
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 0.9115794293474475,
+          "std": 0.5326715940698935
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.8418980541432429,
+          "std": 0.5753616410376309
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.6749934786608759,
+          "std": 0.597443707579419
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.0,
+          "std": 0.4870929804129524
+        }
+      ]
+    },
+    {
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 9,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 355358,
+      "provider_output_tokens": 2976,
+      "nanodollars": 33201000,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "runway-till-january-amplifys-funding-ask-to-market-ea--ai-safety",
+          "mean": 3.03699263808349,
+          "std": 0.8271613385312535
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 3.0255078222181995,
+          "std": 0.4730943545994433
+        },
+        {
+          "id": "agent-island-an-environment-for-interagent-cooperation-and-conflict",
+          "mean": 2.9363080820568754,
+          "std": 0.7431041383331191
+        },
+        {
+          "id": "apart-research-research-and-talent-acceleration",
+          "mean": 2.785929290923523,
+          "std": 0.7167862152340663
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 2.6078917315669434,
+          "std": 0.588071802225091
+        },
+        {
+          "id": "mox-a-coworking--events-space-in-sf",
+          "mean": 2.607856306078237,
+          "std": 0.711714360982764
+        },
+        {
+          "id": "train-llms-in-introspection-and-honesty",
+          "mean": 2.4416432340595575,
+          "std": 0.8040170695348415
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 2.4162023752480444,
+          "std": 0.5166642614282538
+        },
+        {
+          "id": "neuronpedia---ai-safety-game",
+          "mean": 2.3919675590119533,
+          "std": 0.8271613385312535
+        },
+        {
+          "id": "online-biosecurity-course-starting-may-2025",
+          "mean": 2.224080904325512,
+          "std": 0.6927679466560859
+        },
+        {
+          "id": "probehalter-an-evaluation-harness-for-tool-abuse-risks-in-llm-agents",
+          "mean": 2.206116849359817,
+          "std": 0.6545515518313894
+        },
+        {
+          "id": "how-can-governments-hedge-against-mass-labour-automation",
+          "mean": 2.094536841115249,
+          "std": 0.551851243773885
+        },
+        {
+          "id": "when-can-a-mimic-surprise-you",
+          "mean": 1.892944236009302,
+          "std": 0.5614647448443564
+        },
+        {
+          "id": "why-do-we-post-our-ai-safety-plans-on-the-internet",
+          "mean": 1.7949799977849472,
+          "std": 0.7996850748117497
+        },
+        {
+          "id": "dendrite",
+          "mean": 1.78596072178909,
+          "std": 0.6200931986352443
+        },
+        {
+          "id": "concept-anchored-representation-engineering-for-alignment",
+          "mean": 1.7633834987456978,
+          "std": 0.702251310675833
+        },
+        {
+          "id": "effective-ai-awareness-improving-evidence-based-ai-risk-communication",
+          "mean": 1.7535507089192963,
+          "std": 0.46642701359336747
+        },
+        {
+          "id": "cadenza-labs-ai-safety-research-group-working-on-own-interpretability-agenda",
+          "mean": 1.68396080150903,
+          "std": 0.5317124039084219
+        },
+        {
+          "id": "systemic-ai-governance-infrastructure-to-bridge-ai-information-gap",
+          "mean": 1.6812886227039248,
+          "std": 0.5355302182863886
+        },
+        {
+          "id": "yimby-movement-for-africa",
+          "mean": 1.6346171249980035,
+          "std": 0.4991410676955203
+        },
+        {
+          "id": "economic-empowerment-of-disadvantaged-youth-in-kenya--ethiopi-with-remote-work",
+          "mean": 0.7492790898153809,
+          "std": 0.7035758240555945
+        },
+        {
+          "id": "championing-new-approaches-to-demographic-aging-and-immigration",
+          "mean": 0.7058331881676667,
+          "std": 0.6249466571392835
+        },
+        {
+          "id": "a-new-kind-of-ai",
+          "mean": 0.683902471373262,
+          "std": 0.4509653537078682
+        },
+        {
+          "id": "armor-gettin-",
+          "mean": 0.0,
+          "std": 0.6448871726579761
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.8521739130434782,
+      "kendall_tau": 0.6594202898550725,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 14789.982252021297,
+      "pairwise_obs_per_dollar": 2074.401880791039,
+      "setwise_dollars_per_item": 0.0009465866666666668,
+      "pairwise_dollars_per_item": 0.0019282666666666666
+    },
+    {
+      "k": 8,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.9391304347826087,
+      "kendall_tau": 0.7898550724637681,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 22101.88971157034,
+      "pairwise_obs_per_dollar": 2533.0777739312525,
+      "setwise_dollars_per_item": 0.00063343,
+      "pairwise_dollars_per_item": 0.0015791066666666666
+    },
+    {
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.6747826086956522,
+      "kendall_tau": 0.5289855072463768,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 20766.994323688217,
+      "pairwise_obs_per_dollar": 2891.479172314087,
+      "setwise_dollars_per_item": 0.0006741466666666667,
+      "pairwise_dollars_per_item": 0.001383375
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 171477880,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

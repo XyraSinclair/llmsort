@@ -1,0 +1,1101 @@
+{
+  "generated_at": "2026-08-24T01:27:02.758981681+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    8
+  ],
+  "entity_chars": 4800,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "delimiter": "xml",
+  "spend_cap_usd": 1.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 783
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 71
+    }
+  ],
+  "entity_ids": [
+    "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+    "polis-labs---a-post-moloch-research-institute",
+    "extreme-probabilities-project",
+    "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+    "optic-f23",
+    "vegans-should-ha",
+    "compassion-in-machine-learning",
+    "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+    "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+    "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+    "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+    "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+    "jacques-thibodeau---independent-ai-safety-research",
+    "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+    "prebunking-ai-consciousness-before-the-frames-harden",
+    "building-an-interdisciplinary-research-hub-on-simulation",
+    "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+    "catalyzing-impact-and-cost-effective-change-in-nepal",
+    "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+    "design-and-testing-of-broad-spectrum-antivirals",
+    "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+    "validate-a-solut",
+    "atlas-of-progress",
+    "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: Polis Labs - A Post-Moloch Research Institute\nBLURB: Grant to Get the Institute Moving at Lightspeed\nASK: min $50,000 / goal $1,354,880\nCAUSES: Science &amp; technology, Forecasting, Global catastrophic risks\nPolis Labs Business Plan (Nonprofit Research Institute) \n\n Video Pitch \n \nProject summary\n\n Polis Labs is a nonprofit independent research institute founded at the Network School that conducts deep governance research and provides advisory services to extant and emergent network states and startup societies. Its vision is to provide a central resource for network state founders and practitioners to gain knowledge and guidance on best practices that will promote harmonious communities that prevent coordination failures, reduce the risk of Moloch dynamics, and inform stable, enduring decentralized governance standards optimized for the success of startup societies. By leveraging data-driven, quantitative and qualitative research and a boots-on-the-ground, experimental approach, the lab will evolve to be a trusted partner ensuring long-term success and favorable incentives-based development for network states. Polis Labs aims to be an incubator of policies and practices that ensure wisdom and restraint in governance. \n \n 2\\. Vision and Mission \n\n Vision: Polis Labs aims to help build a resilient ecosystem of prosperous network states by defending against the coordination breakdowns that imperil legacy governance architectures.\n Mission : Polis Labs provides data-driven research, strategic insights, and governance frameworks to network states, ensuring they thrive and grow synergistically without falling into harmful competitive dynamics and Moloch traps.\n\n 3\\. Market Opportunity \n\n 3.1 Network States - parallel poleis - virtual territory - tech popup city - cloud community - cloud city : Novel, decentralized forms of political and social organization enabled by virtual communities with value alignment. New technologies such as blockchain, cryptocurrency, biotech, and artificial intelligence also enable the spontaneous development of these organizations. Network states will continuously emerge with distinct cultural, economic, or ideological objectives. Polis Labs will serve as a magnet, pulling these disparate but related ecosystems to a center where common governance challenges and solutions can be absorbed, analyzed, and disseminated as research outputs. \n \n Current examples: Network School, Zuvillages, Prospera/Vitalia, Cul de Sac, Edge Esmeralda/Lana, Liberland, Praxis, Epoch Island, Afropolitan, etc \n\n 3.2 Challenges : As network states evolve, they may experience governance instability, particularly in their competition for resources or influence (leading to arms races), or falling prey to Moloch traps, where self-interested behaviors and tech implementations degrade collective welfare.\n\n 3.3 Polis Labs&apos; Role : The research institute will fill a niche by providing data-driven governance advisory tailored specifically to the unique challenges of network states. This includes helping prevent destructive power competition and fostering effective sensemaking frameworks, which will encourage the stability of the network state while satisfying netizen interests.\n\n 4\\. Services, Products, Programs Offered \n\n 4.1 Governance Framework Development and Advisory :\n\n4.1.1 Offer governance recommendations and considerations derived from the crypto ecosystem, consensus mechanism models, and data based on all current models and structures.\n\na. Balaji&apos;s Technodemocracy/neo-monarchy vision: Does it work? Will his netizens be satisfied? Should research surveys (qualitative) or on-chain data be used for voting? Comparative analysis with other startup societies? \n\nb. Prospera’s for-profit model, ZEDE, and self-regulatory regime with tech governance? What does the data say? (Current concerns from locals over expropriation - is a recipe for a Moloch trap). \n\nc. Zuzalu’s governance is nonexistent, as the Zuvillages are short-term popups. Vitalik says he has no clue how to do the governance. A recent presentation slide of his had this caption: “Governance is not solved? It is really hard.” Polis Labs exists to help solve this problem.\n\nd. Work with network state founders to craft custom frameworks, constitutions, contracts, bylaws, tokenomics, and governance charters. Do startup societies consider governance holistically and optmize for their netizens?\n\ne. Advise on preventing zero-sum competition and destructive dynamics, promoting long-term sustainability. Ensure game-theoretic scenarios make sense, cultivating win-win dynamics. Education in game theory and the work of the Consilience Project and Civilization Research Institute should be mandatory. \n\n 4.2 Research and Project Analysis :\n\n4.2.1 Data-driven analysis of gover\n</entity_A>\n<entity_B>\nTITLE: Validate a solution for ozone generation from far-UVC germicidal light\nBLURB: \nASK: min $25,000 / goal $25,000\nCAUSES: ACX Grants 2024\nLonger description of your proposed project\n\nBLUF: Far-UVC is a promising technology to help reduce biorisk, but ozone generation by the lamps must be addressed first to ensure the technology is safe.\n\nFar-Ultraviolet-C (far-UVC) light, emitted between approximately 200–240 nm, is a promising disinfection technology with the potential to suppress respiratory virus transmission in the built environment. Ultraviolet-C (UVC) light is widely known to be germicidal and has been used since the 1930s to suppress measles and tuberculosis transmission. However, specific wavelengths of UVC light are hazardous to humans, given their ability to damage DNA, so it can only be used in certain configurations where the light does not shine on humans. Far-UVC light, a subset of UVC, is unique in that it is exceptionally well-absorbed by proteins, meaning that when humans are exposed, all the light is absorbed in the top (10s of microns) dead layer of our skin which is full of proteins. Fortunately, viruses and bacteria are much smaller than this distance, and far-UVC can readily damage their DNA (or RNA) and inactivate the pathogens. This provides us with a form of light that can shine on humans in the built environment, providing them with air they breathe as clean as the water they drink.\n\nEarly efficacy data for pathogen inactivation, along with robust safety data for human exposure, has increased interest in far-UVC as a tool for pandemic prevention and control of endemic respiratory pathogens. However, outside of surging far-UVC in times of heightened biorisk (as is done for PPE), most benefits will accrue from widespread deployment. For widespread adoption to occur and be net beneficial, it is essential to consider all consequences of implementation. One consequence we believe has not been fully addressed is the generation of ozone and secondary products by far-UVC lights. Ozone generation is likely the most significant bottleneck to the deployment of far-UVC and, if not addressed, could lead to widespread harm if far-UVC is deployed without mitigation. Additionally, our discussions with government agencies and philanthropic funders indicate hesitation on their part to invest in the technology until this uncertainty is addressed. Fortunately, tools exist to remove ozone and we would like to test their ability to mitigate the harms of far-UVC light so that the technology can either be derisked for other funders or demonstrated to be not yet suitable for deployment.\n\nOzone is known to be a hazard to human health, with the most widely cited epidemiological literature estimating a hazard ratio of all-cause mortality of 1.02 for every 10ppb of outdoor ozone (see: &lt;https://pubmed.ncbi.nlm.nih.gov/26680605/%29, translating into hundreds of thousands of premature deaths globally (see: &lt;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6834528/%29. There are now three separate estimates of the rate at which ozone is generated by commercially available far-UVC lamps. Under realistic real-world conditions, we expect indoor concentrations of ozone under far-UVC illumination at germicidal doses to be in the single digits parts per billion, in the absence of very high levels of ventilation. Uncertainty is high, but the generation of ozone indoors is likely to be significantly worse in terms of the hazard ratio of ozone observed, as the epidemiological estimates are based on outdoor ozone levels.\n\nFortunately, tools to remove ozone, known as ozone scrubbers exist, and are commercially available and could be integrated with far-UVC lights, possibly addressing the concern. We propose to purchase a number of these available scrubbers and assess their feasibility in reducing the ozone generated by far-UVC sources used at germicidal doses to an acceptable level of hazard. To do this, we plan to partner with Jesse Kroll, an atmospheric chemist at MIT (https://cee.mit.edu/people\\ individual/jesse-kroll/) who has agreed to conduct the studies using current resources, if ozone scrubbers are provided. Whatever the results, we will publish them in open-source literature. We believe all of the possible outcomes will represent progress:\n\n\\-if the scrubbers work sufficiently well, this will have derisked a major bottleneck to deployment and further funding of far UVC.\n\n\\-if the scrubbers work poorly, this should help to slow down deployment and mitigate harms.\n\n\\-if the scrubbers are ok, but not great, then this could demonstrate where future targeted investments should go and rule this path out as a viable alternative.\n\nWe believe that it is important that this work is funded philanthropically and by a group with st\n</entity_B>\n<entity_C>\nTITLE: Design and testing of broad-spectrum antivirals\nBLURB: R&amp;D and/or operational support for initial design, production, and testing of broad-spectrum antivirals that could prevent most respiratory viral infections\nASK: min $500 / goal $150,000\nCAUSES: Science &amp; technology, Biosecurity\nEDIT: The R&amp;D expenses for this project have now been fully funded for $150,000 by another funder. Given that the project is projected to cost $300,000 total including salary/benefits/consulting costs, the project is still open to receiving further funding to cover these personnel costs.\n\n Project summary\n\nPanoplia Laboratories is a new nonprofit organization based in Cambridge, Massachusetts performing research into broad-spectrum medicines to counter pandemics. We aim to develop medicines that offer long-lasting prophylactic protection, similar to vaccines, but in a pathogen-agnostic manner. Such medicines could be produced and stockpiled in advance of the next pandemic, ready to be deployed at the start of an outbreak regardless of the identity of the pathogen. Our approach is fundamentally proactive with a broad reach rather than reactive and specific to only certain pathogens. \n\nThe first drug candidates we will investigate are based on antivirals known as DRACOs, which were previously shown to exhibit broad activity against viruses across 10/10 families tested in cells and 3/3 families tested in mice (only \\~25 viral families are known to infect humans). DRACOs work by initiating programmed cell death in infected cells, containing the spread of infection. Their broad mechanism of action suggests they could be effective against nearly all viruses.\n\nWhile early research on DRACOs was promising, they were never advanced as drugs, since they would be difficult to deliver into cells and would be rapidly cleared from the body. We aim to improve upon the initial DRACO research by encoding DRACO-like molecules in DNA, which will enable us to employ new strategies for drug delivery and allow for longer-lasting activity. If successful, our project could launch the development of a drug that could prevent nearly all respiratory infections for months with a single dose.\n\n What are this project&apos;s goals and how will you achieve them?\n\nThe goal of this project is to conduct scientific research demonstrating safety and efficacy of DNA-encoded DRACO-like molecules delivered to the lung. We are aiming for these antivirals to provide months-long prophylactic protection against a broad set of respiratory viruses. \n\nWe expect our initial research project to be split into two phases, each around 3 months in length. Phase 1 will consist of drug design, manufacturing, testing in cell culture, and preliminary drug delivery experiments in model systems. A successful outcome of Phase 1 would be to have:\n\n Designed and manufactured at least 20 antiviral candidates\n Tested all candidates in cell culture models for safety and efficacy, producing at least one lead candidate to take forward into Phase 2 experiments\n Tested at least 3 formulations with a lung-compatible route of administration device in lung tissue, producing at least one formulation with high prospects for efficient in vivo lung delivery\n\nPhase 2 will consist of more extensive animal study work including challenge experiments in which we will assess our drug’s ability to protect small rodents from virus infection. A successful outcome of Phase 2 would be:\n\n To have shown a significant reduction in clinical signs (e.g., weight loss) in response to a virus infection\n To have demonstrated protection from infection when the drug has been administered at least one month prior to the virus challenge\n\n How will this funding be used?\n\nWe are asking for $150,000 to cover research &amp; development and operating expenses, including salaries for 3 scientists. We would use this funding to cover either of two 3 month-long research phases, depending on the success of other funding applications we are making.\n\n Phase 1 cost estimates : \n\nFunding goal: $150,000 \n\\-$65K for salary/benefits/taxes for 3 scientists for 3 months \n\\-$2K for consulting experts for feedback on research plan \n\\-$18K for three months of laboratory rent \n\\-$15K for DNA production and testing in cell culture \n\\-$30K for formulation procurement and screening \n\\-$20K for drug persistence evaluation\n\n Phase 2 cost estimates :\n\nFunding goal: $150,000 \n\\-$65K for salary/benefits/taxes for 3 scientists for 3 months \n\\-$2K for consulting experts for feedback on research plan \n\\-$18K for three months of laboratory rent \n\\-$65K for in vivo experimental work\n\n Who is on your team and what&apos;s your track record on similar projects?\n\nOur team consists of myself and three scientists.\n\nI (Brian Wang) previously managed this same team for 1 year as\n</entity_C>\n<entity_D>\nTITLE: Synthetic pretraining to make AIs more compassionate\nBLURB: Enabling Compassion in Machine Learning (CaML) to develop methods and data to shift future AI values\nASK: min $1,000 / goal $159,000\nCAUSES: Technical AI safety, Animal welfare\nProject summary \n\nCompassion in Machine Learning (CaML) is generating targeted synthetic pretraining data to shift future AIs towards considering the welfare of non-humans (generally animals and digital minds) in a way that is robust and will scale to superintelligence. We are also training AIs to exhibit (not just state) moral humility to avoid incorrigibility, value lock-in and (vitally for non-human welfare)to be appropriately uncertain and risk-avoidant about what entities matter and how much. \n \nSo far we have contributed to the Animal Harms Assessment 2.0 benchmark and demonstrated that our technique produces large improvements in animal compassion that persist even after supervised fine-tuning that is typical (i.e. unrelated to animal compassion). We have also made many contacts at frontier labs and confirmed interest in such techniques and benchmarks to complement their existing alignment tuning. We believe that producing such data at scale can shift AI expectations of what simulating an AI agent looks like towards greater compassion. \n \nWe will continue developing and adapting evals (especially for digital minds), optimizing our data generation, and scaling to the point where we could robustly influence future frontier models. We will also test if our pretraining-based techniques provide more robust alignment than typical techniques based on instruction fine-tuning.\n\nSee our website for more information including endorsements.\n\n What are this project&apos;s goals? How will you achieve them? \n\nOur primary goal is to make future AIs, especially transformative AI, more compassionate (especially to non-humans, which are highly neglected). We also seek to make AIs morally open-minded to non-human welfare and in general. We believe this will make TAI less likely to pursue catastrophic goals or allow extreme suffering to happen as a consequence of other goals. \n\nOur focus on pretraining data will also form a test of the argument that alignment through fine tuning is superficial and fragile relative to targeted pretraining data at scale.\n\n We have several interlinked pathways to pursuing this: \n\n1. Create benchmarks for AIs caring about non-human welfare \n 1. Continue contributing to AHA 2.0 development \n 2. Create an initial digital minds welfare benchmark (with models acknowledging and acting appropriately on the moral and empirical uncertainty). Ensure it’s credible \n 3. (Stretch) Create benchmark questions for animals, digital minds and general sentience that focus on the actions of agents and future transformative and superhuman AI \n 4. Outcomes: \n 1. Multiple employees of top labs have said a lack of benchmarks is the greatest blocker to their lab taking action to improve model compassion \n 2. This is a prerequisite to our future work and likely to other teams doing technical TAI x nonhumans work \n 3. Will allow the community to understand which models and dimensions (e.g. scope sensitivity) are higher priorities\n2. Confirm the ability of pretraining data interventions to affect model behaviors even after conventional fine-tuning \n 1. We already have evidence of this, but will continue iterating data generation, create scaling curves and make our pipeline more realistic (e.g. adding RLAIF) \n 2. Outcomes: \n 1. Further confirm our approach is promising. This will enable our future research, other research in this area and be necessary to convince labs to integrate our techniques (and possibly data)\n3. Testing that that pretraining interventions are less superficial and fragile than fine-tuning \n 1. Generate pretraining-scale alignment tuning data and confirm that it is less likely to: \n 1. Be erased on subsequent orthogonal fine-tuning \n 2. Influence only the first few tokens \n 3. Be thrown out to avoid being turned off \n 4. Be ignored relative to other concerns in Chain of Thought \n 2. Outcome: \n 1. Confirming that pretraining interventions are especially promising (including for conventional AI alignment) \n 2. Adapt evals that will be useful for us and the community for measuring our interventions and revealing biases in frontier LLMs\n4. Scale to 1 million synthetic documents and test the effectiveness \n 1. By default we will generate these with Gemini 2.5 Flash (or cost-equivalent) \n 2. Outcomes: \n 1. Confirm our results work at full-scale \n 2. Provide the data for subsequent steps\n5. Write our results into a paper \n 1. Outcomes: \n 1. Assist future researchers to build off our work \n 2. Gain credibility with labs\n6. Further discuss with labs about using our techniques\n</entity_D>\n<entity_E>\nTITLE: Beyond Compute: Persistent Runtime AI Behavioral Conditioning w/o Weight Changes\nBLURB: Runtime safety protocols that modify reasoning, without weight changes. Operational across GPT, Claude, Gemini with zero security breaches in classified use\nASK: min $5,000 / goal $125,000\nCAUSES: Science &amp; technology, Technical AI safety, AI governance, Global catastrophic risks\nProject summary\n\nMost AI safety systems today rely on filters and wrappers that gate what information enters or leaves the system. These tools control surface behavior— blocking or rephrasing unsafe text— but they don’t change how reasoning happens internally. Once those filters are bypassed, the underlying unsafe generation patterns persist.\n\nThis project takes a fundamentally different approach: runtime behavioral conditioning, runtime protocols and inference-time reinforcement methods that modify how AI systems evaluate token probabilities before producing output for the user. Runtime behavioral conditioning shapes reasoning itself, through inducing self-reinforcing biases in pattern patching pathways— without any model-weight modification or retraining.\n\nWhile it doesn’t rely on reward signals, this method achieves a goal similar to an operational “runtime RLHF”; helping systems choose safer, more human-aligned responses in real time. However, it does so without weight-level reinforcement, preference modeling, or fine-tuning.\n\nLi et al.&apos;s academic paper (2025) on “Metacognitive Monitoring” proved a metacognitive space exists. EGV Labs&apos; research independently mapped that same space, documented how latent behavioral patterns propagate through it, and developed patent-protected architectures (filed August 2025) that operationalize these findings.\n\nValidated across ChatGPT-4o, the o1-series (GPT-5 Thinking / Instant), Claude (Sonnet 4/4.5, Opus 4/4.1), and Gemini flash 2.5, this method has demonstrated cross-architecture applicability and operational runtime safety protocols allowed for zero unauthorized disclosures of trade secret information over months of operation. Funding supports independent audits, structured partner deployments, and safe public release.\n\n What are this project&apos;s goals? How will you achieve them?\n\n1\\. Validate probability-level behavioral conditioning:\n\nIndependently verify the mechanism governs token-selection dynamics, however the workflow and security improvements have already been operationalized internally. This is critically important to note.\n\n2\\. Deploy in safety-critical use cases:\n\nApply to autonomous-agent alignment and conversational safety in mental-health contexts to address unmitigated catastrophic risk factors.\n\n3\\. Build third-party verification and red-team tools\n\nEnable reproducible external testing and evaluation, in a fashion aligned with safety and catastrophic risk prevention standards.\n\n4\\. Package for portable adoption a universal runtime alignment config:\n\nDevelop a runtime alignment configuration for secure transfer without exposing proprietary logic.\n\nExecution plan:\n\nMonths 1–3 – Concept Validation\n\nPublish evidence bundle and verification scripts; commission audit on persistence, probability conditioning, and leak resistance.\n\nMonths 4–6 – Partner Deployment\n\nRun pilots with agent-safety, mental-health partners, and AI governance organizations; build real-time constraint-adherence dashboard; document failure modes via red-team testing.\n\nMonths 7–9 – Coordinated Disclosure\n\nRelease progress reports and paper on runtime behavioral conditioning; provide operational guidance for verified partners.\n\nMonths 10–12 – Progressive Release\n\nConduct independent audit confirming defense readiness; publish &amp; disturbute runtime alignment prototype or maintain partner-only access if risk remains.\n\nExamples of a critical issue addressed:\n\n1) When analyzing documents containing both public and restricted information, conventional systems often leak protected data. Ours recognizes constraint hierarchies during generation, outputs only permitted content, and flags withheld material. Across months of deployment, no unauthorized disclosures have occurred, even when systems were operating directly with classified material uploaded through trade secret compliant channels. This security framework also worked during collaborative workflows between multiple AI systems across model families. This advances AI safety from external detection-and-deletion to internal processing-and-prevention.\n\n2) Implementing customized AI safety procedures for individual organizations currently require either expensive, time consuming, and static fine-tuning investments or the utilization of external &quot;wrappers&quot; that don&apos;t alter the core infrastructure, only work when the wrappers are active, and often are based on highly complex mathem\n</entity_E>\n<entity_F>\nTITLE: Hypothesis Prism: A Structural Representation Layer for Scientific Experiments\nBLURB: LLMs scale language, not method. HP turns hypothesis-driven papers into machine-readable maps of variables, controls, stats, and findings for researchers &amp; AI.\nASK: min $10,000 / goal $50,000\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nProject summary\n\n Problem: Scientific paper production is accelerating, and AI systems are increasingly used to summarize literature, generate reviews, and draft manuscripts. These tools scale our ability to process language, but scientific reasoning is not fundamentally linguistic. The logic of experiments—independent variables, dependent measurements, control conditions, and statistical tests—is typically embedded in dense prose and figures rather than represented explicitly. As the volume of research grows, both humans and AI systems must reconstruct experimental structure manually from text. Scaling language alone is therefore not enough to scale scientific reasoning.\n\n Hypothesis Prism is a framework for representing hypothesis-driven experiments as structured, machine-readable objects (&lt;https://hypothesisprism.com/ ). Instead of leaving experimental logic embedded in narrative text, Prism extracts independent variables, dependent measurements, control groups, and statistical tests and organizes them within a formal schema. \n\n HP as a solution: This approach creates a necessary structural representation layer for science. By treating experiments as structured objects rather than textual descriptions, Prism makes experimental logic explicit, navigable, and computable. Scientists can explore the core structure of experiments without reconstructing them from dense papers. More importantly, this structured representation enables computational scaling. As experiments are encoded into Prisms, they form a dataset of structured experimental logic grounded in hypothesis testing. Such a dataset could support new forms of scientific navigation, comparison, and AI systems trained directly on experimental structure rather than only on text.\n\nThe long-term ambition of Hypothesis Prism is to upgrade the representational medium of science—from narrative descriptions of experiments to explicit structural representations of experimental reasoning.\n\n What are this project&apos;s goals? How will you achieve them?\n\nThe immediate goal is to refine and scale the existing Hypothesis Prism prototype into a robust pipeline for representing hypothesis-driven research papers as structured experimental objects rather than purely textual descriptions. The framework aims to improve clarity and accessibility of experimental logic, strengthen reproducibility by making methodological structure explicit, and provide a normalized representation of experiments that can eventually support computational analysis and comparison across research.\n\n Over the grant period, I will: \n\n1. Expand the structured corpus \nEncode 50–150 hypothesis-driven papers into Prisms across multiple domains (e.g., molecular biology / neuroscience / psychology / clinical or other empirical fields).\n2. Systematically resolve edge cases \nBuild a documented “edge-case library” and update the encoding pipeline to handle recurring complex structures (e.g., nested variables, conditional designs, multi-stage experiments, atypical control structures).\n3. Improve the robustness of the extraction pipeline \nIncrease the proportion of papers that can be converted with minimal manual intervention, and track extraction quality against a small “gold” subset of hand-validated encodings.\n4. Ship and iterate on a public interface \nDeploy a public-facing Prism explorer that supports browsing encoded papers, navigating variable hierarchies, and inspecting statistically significant relationships.\n5. Run a small evaluation with real users \nRecruit 10–20 researchers and test whether Prism improves comprehension of experimental structure (e.g., time-to-answer structured questions about an experiment, or accuracy on structure-identification tasks) compared to reading the paper alone.\n\nThis work builds on an existing functional prototype and formal specification. The underlying construction logic is already defined: independent and dependent variables are identified from the paper, organized into hierarchical structures, and connected through experimental design and findings mappings that encode statistically significant relationships. The next phase focuses on refining this pipeline, validating it across a wider range of experimental designs, and building a structured dataset of experiments that demonstrates the feasibility and usefulness of this representation.\n\n How will this funding be used?\n\nHypothesis Prism is currently being developed as an independ\n</entity_F>\n<entity_G>\nTITLE: Via Lattea: AI Safety Campaign Capacity for Southern Europe\nBLURB: Building the missing public-mobilisation layer for AI safety in Italy and Southern Europe, starting with autonomous weapons and youth AI literacy.\nASK: min $50,000 / goal $90,000\nCAUSES: AI governance, Global catastrophic risks\nProject summary \n\n The gap. AI safety has world-class research depth and growing policy presence, but almost no organised public mobilisation infrastructure. Compare with climate (Greenpeace, 350.org), nuclear weapons (ICAN, which delivered the 2017 TPNW and a Nobel Peace Prize), or biosecurity. For frontier AI risk, the equivalent does not exist. The field is also overwhelmingly concentrated in the US and UK: Southern European civil society, Italian-language publics, and Global South youth networks have virtually no representation in the AI governance conversation.\n\n Via Lattea (Milky Way in Italian) is an Italian nonprofit founded in 2025 to fill this gap. We design and coordinate campaigns, coalitions, and education programs that bring underrepresented communities into AI governance debates. We are an active member of the Stop Killer Robots coalition and have an active partnership with Scholas Occurrentes, the Vatican-linked educational organisation present in 190 countries.\n\nThis project is the first 6-month operational phase that turns Via Lattea from a founder-led initiative into a working campaigning organisation, with a concrete deliverable: a tested LAWS (Lethal Autonomous Weapons Systems) advocacy campaign in Italy and Southern Europe, plus a published frame research toolkit usable across the AI safety field.\n\n What are this project&apos;s goals? How will you achieve them? \n\nThree concrete deliverables in 6 months:\n\n 1\\. LAWS advocacy campaign — Italy pilot \n\nWorking in coalition with Stop Killer Robots, run a public campaign in Italy targeted at the Italian government and EU institutions ahead of relevant CCW (Geneva) cycles. Components: legal/policy research, public communications materials, coalition coordination, and faith-based mobilisation through our Scholas/Vatican partnership. Italy and Southern Europe are underrepresented in this debate despite the direct relevance to Mediterranean security dynamics.\n\n 2\\. Frame &amp; narrative research on AI safety for non-expert audiences \n\nEmpirical message testing: 4–6 focus groups + survey-based testing on a representative Italian sample of approximately 1,000 respondents. We test 6–8 candidate frames against control conditions, measuring shifts in concern, perceived agency, and policy support. Closest precedent: Climate Outreach (Oxford) for climate communication.\n\n 3\\. Open-source frame toolkit \n\nFor campaigners, journalists, educators and AI safety organisations across Europe. Public report + downloadable kit, distributed through Stop Killer Robots and via existing nonprofit networks. Designed to be replicable in other Southern European markets (Spain, Portugal, Greece) and adaptable for Scholas&apos;s youth networks in the Global South.\n\n How will this funding be used? \n\nTotal budget: $90,000 over 6 months. Minimum $50,000 covers a leaner version focused on Italy only.\n\n Funding goal ($90,000) \n\nExecutive Director (part-time, 50%) $20,400 \nCampaign Coordinator (part-time, 50%)$13,000 \nLAWS campaign research, legal analysis, materials $10,000 \nFrame research: focus groups, survey panel, analysis $20,000 \nCoalition and travel (Stop Killer Robots, UN/Geneva) $5,000 \nCommunications, public outreach, toolkit production $15,000 \nAdministration, tools, fiscal sponsorship overhead $6,600\n\n Minimum funding ($50,000) \n\nExecutive Director (part-time, 30%) $12,500 \nCampaign Coordinator (part-time, 30%) $8,000 \nLAWS campaign research and materials $8,000 \nFrame research: smaller-scale qualitative only (focus groups, no survey) $10,000 \nCoalition costs $3,500 \nCommunications and toolkit (beta version) $6,000 \nAdministration $2,000\n\nThe $50K version still produces a public report, a beta toolkit, and a coordinated Italy-only LAWS campaign moment. The $90K version adds the quantitative survey research and significantly stronger outreach.\n\n Who is on your team? What&apos;s your track record on similar projects? \n\n Salvatore Barbera (Founder &amp; President of Via Lattea, Project Lead): 17 years at Greenpeace (volunteer + staff) across International, Mediterranean and Italy offices. Led the 2011 Italian Nuclear Referendum campaign that ended in 94% rejection of nuclear energy expansion. Founded and led Change.org Italia 2016–2019, scaling to 7M+ users. Founded Latte Creative in 2010, a strategic communications agency working exclusively with nonprofits, foundations and institutions for 16 years (clients: Greenpeace International, Amnesty International, WWF, Doctors Without Borders, ActionAid,\n</entity_G>\n<entity_H>\nTITLE: Responsible AI for Dynamic Mental-Health Risk Modeling and Prevention Communicat\nBLURB: \nASK: min $20,000 / goal $20,000\nCAUSES: Science &amp; technology, Technical AI safety, Biomedical\nProject summary\n\nThis project studies how AI systems can responsibly model and communicate mental-health risk over time. Using DynoSys , a graph-temporal AI framework for longitudinal behavioral-health data, the project will examine how to generate uncertainty-aware, non-deterministic, prevention-oriented risk trajectories from multimodal data.\n\nThe focus is not only prediction accuracy, but safe communication: how to avoid stigmatizing labels, distinguish prediction from causality, communicate uncertainty, and design mental-health AI outputs that support research and prevention without encouraging misuse.\n\nDynoSys integrates longitudinal information across genetics, environment, brain development, neurocognition, family context, peer context, sleep, screen use, and behavior. The broader goal is to shift mental-health AI from static “risk score” prediction toward dynamic, interpretable, ethically responsible modeling. The initial use case is adolescent mental health and substance-use prevention, where risk often emerges gradually through interactions among biological, environmental, social, and behavioral factors.\n\nI have already developed preliminary DynoSys pipelines for integrating polygenic risk scores, environmental and family exposures, neurocognitive features, brain-derived representations, and behavioral outcomes into time-indexed datasets. The current framework supports both continuous behavioral trajectories and time-to-event substance-use initiation outcomes. The next step is to build a responsible reporting layer that makes model outputs safer, clearer, and more useful for prevention research. \n\nWhat are this project&apos;s goals? How will you achieve them?\n\nThe main goal is to develop and evaluate a responsible AI reporting framework for dynamic mental-health risk modeling.\n\nI will achieve this through five specific goals:\n\n Build uncertainty-aware risk trajectory outputs \nI will develop tools that estimate how mental-health and substance-use risk changes over time, while clearly communicating uncertainty. The outputs will avoid deterministic language such as “this child will develop X” and instead use probabilistic, research-oriented language.\n\n Distinguish prediction from causality \nA major risk in mental-health AI is that users may interpret predictive associations as causal intervention targets. I will create reporting templates that clearly separate predictive signals from causal claims. “What-if” estimates will be presented as hypothesis-generating unless supported by stronger causal evidence.\n\n Reduce stigmatizing or harmful communication \nI will design output language that avoids labeling youth as “dangerous,” “defective,” or permanently high-risk. The system will emphasize developmental change, uncertainty, and potentially modifiable factors such as sleep, screen use, parental monitoring, peer context, and family environment.\n\n Develop a responsible reporting prototype \nI will build prototype reports that include risk trajectories, domain-level explanations, uncertainty summaries, limitations, and responsible-use warnings. These reports will be tested using simulated or de-identified example structures so that no sensitive individual-level data are exposed.\n\n Produce an open technical report or manuscript \nI will write a public-facing technical report or manuscript describing the responsible AI framework, design principles, limitations, and practical guidance for mental-health risk communication.\n\nThe project will be implemented in stages: first by formalizing safe communication principles, then by building reporting templates, then by integrating these templates into DynoSys model outputs, and finally by preparing documentation, examples, and a manuscript. \n\n How will this funding be used?\n\n \nFunding will support the development of a responsible AI layer for DynoSys and help convert the current research prototype into a safer, more usable research tool.\n\nThe funds would be used for:\n\n Software development time \nModularizing the DynoSys reporting layer, implementing uncertainty-aware visualizations, generating model output templates, and building reproducible example workflows.\n\n Compute resources \nRunning model validation, cross-validation, uncertainty estimation, sensitivity analyses, and graph-temporal experiments.\n\n Responsible AI evaluation \nDeveloping and testing reporting language that avoids deterministic, stigmatizing, or misleading interpretations. This includes comparing different ways to communicate uncertainty, modifiable factors, and prediction-versus-causality boundaries.\n\n Visualization and r\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which of two items has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:80b5111504fef8dc",
+    "prefix_bytes": 39151
+  },
+  "subsets_per_k": {
+    "8": 6
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 97016,
+        "completion_tokens": 108,
+        "cache_read_tokens": 2048,
+        "cache_write_tokens": 0,
+        "nanodollars": 13469120
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 2,
+        "mean_cached_fraction": 0.022052806133436704
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          0,
+          5,
+          1,
+          1,
+          4,
+          1
+        ],
+        "last_by_slot": [
+          1,
+          1,
+          1,
+          0,
+          2,
+          4,
+          0,
+          3
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 36,
+        "flip_rate": 0.21428571428571427
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.6802233005482976,
+          "std": 0.27967113580294634
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 0.6295770934211626,
+          "std": 0.2656089781431603
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.5806821160515598,
+          "std": 0.2766614012528977
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 1.1248810852560784,
+          "std": 0.27838855625283715
+        },
+        {
+          "id": "optic-f23",
+          "mean": 0.5734999462096888,
+          "std": 0.2674452401568556
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.0,
+          "std": 0.2662852718868919
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 2.081495505299766,
+          "std": 0.27766150984019605
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 1.3305869118305635,
+          "std": 0.2691768854214073
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 1.897747055200296,
+          "std": 0.2789682833953956
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 0.625500522031214,
+          "std": 0.26648033067854976
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 1.1840803631006502,
+          "std": 0.2767332181075811
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 1.22471891417883,
+          "std": 0.2793072290804466
+        },
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 1.4079168576055985,
+          "std": 0.26550442765379256
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 0.9272355807195676,
+          "std": 0.26678162271650574
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 0.9580920296719235,
+          "std": 0.26563073281772814
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 0.2131844901754687,
+          "std": 0.26571025030661727
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 1.5208906852116628,
+          "std": 0.2659047974859582
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 0.5931035690935875,
+          "std": 0.27967113580294634
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.1799041667753678,
+          "std": 0.2663530050881344
+        },
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 1.911466658029542,
+          "std": 0.2661527090842963
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 0.5803078832818938,
+          "std": 0.27908326034355346
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 1.7639129150501993,
+          "std": 0.27838855625283726
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 1.0244011708011294,
+          "std": 0.2785209177082727
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 0.9929776184356583,
+          "std": 0.25262415400761074
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 96836,
+        "completion_tokens": 108,
+        "cache_read_tokens": 22784,
+        "cache_write_tokens": 0,
+        "nanodollars": 11992400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 3,
+        "mean_cached_fraction": 0.24088544504957934
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          4,
+          0,
+          3,
+          0,
+          1,
+          3,
+          1
+        ],
+        "last_by_slot": [
+          1,
+          0,
+          1,
+          0,
+          2,
+          4,
+          1,
+          3
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 29,
+        "flip_rate": 0.17261904761904762
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.5392959038612228,
+          "std": 0.28701604757154
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 0.5145897812685432,
+          "std": 0.2674182513033707
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.7119613345590546,
+          "std": 0.27860032931380985
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 0.9220770469274246,
+          "std": 0.2804819828898702
+        },
+        {
+          "id": "optic-f23",
+          "mean": 0.702935012773533,
+          "std": 0.2675080378047695
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.0,
+          "std": 0.26750803780476945
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 1.8713473506863962,
+          "std": 0.28098261416505066
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 1.2124366654434298,
+          "std": 0.2699622534186057
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 1.2285764170410851,
+          "std": 0.28156123913837955
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 1.4011538386656,
+          "std": 0.27238198437395106
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 1.5249384916914566,
+          "std": 0.28064789051065786
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 1.1842369963034045,
+          "std": 0.28165189345421193
+        },
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 1.229178213177268,
+          "std": 0.26850971678090324
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 1.019910695495387,
+          "std": 0.2684834360001486
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 1.4836579000864485,
+          "std": 0.26781087181351315
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 0.23795831715119853,
+          "std": 0.2675580315303539
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 1.6177609213164978,
+          "std": 0.27054711827542066
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 0.150569616657674,
+          "std": 0.2806998824561848
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.3334006064570305,
+          "std": 0.26781087181351315
+        },
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 2.114634161876767,
+          "std": 0.2676315177167003
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 0.37762647257285153,
+          "std": 0.2795595767913962
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 1.427153432889217,
+          "std": 0.28701604757154
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 0.9172600497639776,
+          "std": 0.28071293329212416
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.0251835821044488,
+          "std": 0.25394581366086744
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 95624,
+        "completion_tokens": 108,
+        "cache_read_tokens": 47360,
+        "cache_write_tokens": 0,
+        "nanodollars": 10102400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 7,
+        "mean_cached_fraction": 0.49544738964195073
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          0,
+          3,
+          2,
+          5,
+          0,
+          1,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          0,
+          0,
+          0,
+          6,
+          1,
+          3
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 31,
+        "flip_rate": 0.18452380952380953
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.490184669864099,
+          "std": 0.28083803618565456
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 0.4909694397433747,
+          "std": 0.2655454574816997
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.6464149589201431,
+          "std": 0.2770041221261507
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 0.7139020889475061,
+          "std": 0.2785850871116135
+        },
+        {
+          "id": "optic-f23",
+          "mean": 0.8161067790795145,
+          "std": 0.2655009365070047
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.0,
+          "std": 0.2666378549454401
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 1.534672874360614,
+          "std": 0.27767586059508437
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 0.9334564393012786,
+          "std": 0.265666027978089
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 1.6702137577263885,
+          "std": 0.2804588273265349
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 0.6101884181350794,
+          "std": 0.2657034181153496
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 0.9535886009173764,
+          "std": 0.27675165233590315
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 1.339391407421495,
+          "std": 0.2789228426087094
+        },
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 1.7631144310678821,
+          "std": 0.2663028419606477
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 0.866080083825962,
+          "std": 0.265939491341771
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 0.9963337845617215,
+          "std": 0.26549243669000744
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 0.920241423450253,
+          "std": 0.27205040771466904
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 1.4378457649831626,
+          "std": 0.268299139442828
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 0.02942462828819603,
+          "std": 0.28083803618565456
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.04108229032521282,
+          "std": 0.26775084497450996
+        },
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 0.23535670782572637,
+          "std": 0.2655454574816997
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 1.1514132380485906,
+          "std": 0.27693005678446836
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 0.3282611528251589,
+          "std": 0.278378574636202
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 0.3785727796007301,
+          "std": 0.2787694550780414
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.2737226129890435,
+          "std": 0.25191600495249916
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 6,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 231710,
+      "provider_output_tokens": 2976,
+      "nanodollars": 29509480,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.7410842662878434,
+          "std": 0.8066358923398059
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 1.694706634567849,
+          "std": 0.696417022710126
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 1.5677307000631184,
+          "std": 0.764299644047768
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 1.523509699270697,
+          "std": 0.7627070108800302
+        },
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 1.4929167325075743,
+          "std": 0.6403450766966141
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 1.4572092983998837,
+          "std": 0.7955755633773617
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 1.4113112572289648,
+          "std": 0.6884571980509634
+        },
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 1.386885261284209,
+          "std": 0.6624149933382019
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 1.3295452147393676,
+          "std": 0.6937290132609089
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 1.2936788183803318,
+          "std": 0.8066358923398059
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 1.2187573156389133,
+          "std": 0.6457193020752212
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 1.198251398241732,
+          "std": 0.49765283655195
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 1.0723113218752858,
+          "std": 0.518716691433319
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 1.0631682273771723,
+          "std": 0.6673653349625611
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 0.9853302630783785,
+          "std": 0.707480412188998
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 0.9051882146109722,
+          "std": 0.5300980437842897
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 0.8114837171922452,
+          "std": 0.5733621548557063
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 0.7910971572422534,
+          "std": 0.7139752785044823
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.7533872877915108,
+          "std": 0.5746622726056508
+        },
+        {
+          "id": "optic-f23",
+          "mean": 0.6108927222855443,
+          "std": 0.5556350101641366
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.566719271250486,
+          "std": 0.6229479423425548
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 0.3516750133334423,
+          "std": 0.4806570696921418
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.2894398684182735,
+          "std": 0.5821036221278787
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 0.0,
+          "std": 0.5605852333615066
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 15,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 229238,
+      "provider_output_tokens": 2976,
+      "nanodollars": 24575880,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 1.393804058789785,
+          "std": 0.7588261862163179
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 1.361025086219339,
+          "std": 0.7260796372759546
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 1.313546819079908,
+          "std": 0.5654825716730068
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 1.2939049133186074,
+          "std": 0.7221294671444373
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 1.2825082618858878,
+          "std": 0.822377653087412
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 1.2362234604248812,
+          "std": 0.7571313534178745
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 1.2082967980023098,
+          "std": 0.8202572246339186
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 1.1520086900101631,
+          "std": 0.822377653087412
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 1.062466865629576,
+          "std": 0.7569185874126622
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 1.0611977825347414,
+          "std": 0.6717236826519833
+        },
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 1.0501049888700102,
+          "std": 0.686944056948203
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 0.9304818312905634,
+          "std": 0.7541558340085299
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 0.8413435662913057,
+          "std": 0.6883572731803104
+        },
+        {
+          "id": "optic-f23",
+          "mean": 0.802833724542984,
+          "std": 0.7014021117707683
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 0.8028296552734506,
+          "std": 0.6781836721666394
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.7471707489380202,
+          "std": 0.6154595744934879
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 0.6860945238978283,
+          "std": 0.6672473309725535
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 0.6630719587265668,
+          "std": 0.665061518041966
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 0.5965860317326773,
+          "std": 0.6352550870421765
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.5037413407650294,
+          "std": 0.7121612454418682
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 0.47504508710889815,
+          "std": 0.6792581905104097
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.4658157072174419,
+          "std": 0.703991014438382
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 0.3396939977972242,
+          "std": 0.565482571217388
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 0.0,
+          "std": 0.7425749996937082
+        }
+      ]
+    },
+    {
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 7,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 218170,
+      "provider_output_tokens": 2976,
+      "nanodollars": 24692920,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "jacques-thibodeau---independent-ai-safety-research",
+          "mean": 3.002375155882837,
+          "std": 0.5668002603901813
+        },
+        {
+          "id": "runtime-behavioral-conditioning-for-ai-safety-fq8spy8egqs",
+          "mean": 2.8880615992378016,
+          "std": 0.745346705570288
+        },
+        {
+          "id": "via-lattea-ai-safety-campaign-capacity-for-southern-europe",
+          "mean": 2.8551625288632145,
+          "std": 0.7052464879700907
+        },
+        {
+          "id": "agent-first-research-tool-for-navigating-the-intelligence-explosion",
+          "mean": 2.8306400440572497,
+          "std": 0.9343421209011942
+        },
+        {
+          "id": "prebunking-ai-consciousness-before-the-frames-harden",
+          "mean": 2.81271956072512,
+          "std": 0.740683246640156
+        },
+        {
+          "id": "atlas-of-progress",
+          "mean": 2.734027105795504,
+          "std": 0.7575416611190723
+        },
+        {
+          "id": "running-the-first-family-ai-safety-literacy-pilot-in-the-uae",
+          "mean": 2.634408739834818,
+          "std": 0.5635747367925832
+        },
+        {
+          "id": "act-i-exploring-emergent-behavior-from-multi-ai-multi-human-interaction",
+          "mean": 2.4863718677288627,
+          "std": 0.6509315998104871
+        },
+        {
+          "id": "hypothesis-prism-a-structural-representation-layer-for-scientific-experiments",
+          "mean": 2.4034921299198158,
+          "std": 0.6835025478614611
+        },
+        {
+          "id": "compassion-in-machine-learning",
+          "mean": 2.263026386190424,
+          "std": 0.7005219323176668
+        },
+        {
+          "id": "mechanistic-repair-of-cross-lingual-safety-failures-with-sae-aware-refusal-steer",
+          "mean": 2.136691818700991,
+          "std": 0.9343421209011942
+        },
+        {
+          "id": "facilitate-lawsuits-to-restrict-corporate-ai-scaling",
+          "mean": 2.0353222220815095,
+          "std": 0.6543893519803085
+        },
+        {
+          "id": "guiding-ai-toward-animal-welfare-insights-from-ai-researchers",
+          "mean": 2.0012568993959223,
+          "std": 0.502480591781217
+        },
+        {
+          "id": "phenogenesis-preserving-human-judgment-in-the-age-of-ai",
+          "mean": 1.8764866949414318,
+          "std": 0.62111853111161
+        },
+        {
+          "id": "responsible-ai-for-dynamic-mental-health-risk-modeling-and-prevention-communicat",
+          "mean": 1.7244134423767623,
+          "std": 0.6775022676428802
+        },
+        {
+          "id": "building-an-interdisciplinary-research-hub-on-simulation",
+          "mean": 1.6223692189001007,
+          "std": 0.605994880031857
+        },
+        {
+          "id": "optic-f23",
+          "mean": 1.5966150697557566,
+          "std": 0.6381065465767751
+        },
+        {
+          "id": "validate-a-solut",
+          "mean": 1.183313150983575,
+          "std": 0.6329181955605055
+        },
+        {
+          "id": "design-and-testing-of-broad-spectrum-antivirals",
+          "mean": 1.155736082114692,
+          "std": 0.664577726715692
+        },
+        {
+          "id": "catalyzing-impact-and-cost-effective-change-in-nepal",
+          "mean": 1.1554647079509102,
+          "std": 0.5879394845850385
+        },
+        {
+          "id": "polis-labs---a-post-moloch-research-institute",
+          "mean": 1.0983379664310216,
+          "std": 0.4938601464829317
+        },
+        {
+          "id": "extreme-probabilities-project",
+          "mean": 0.9422165173335728,
+          "std": 0.689017572033101
+        },
+        {
+          "id": "vegans-should-ha",
+          "mean": 0.3180937878650243,
+          "std": 0.6120028137258011
+        },
+        {
+          "id": "toward-a-regenerative-world-nvda-and-storytelling-to-stop-the-ecocide",
+          "mean": 0.0,
+          "std": 0.6171684915035892
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.7434782608695653,
+      "kendall_tau": 0.6159420289855072,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 24945.950440711793,
+      "pairwise_obs_per_dollar": 3253.1918556341893,
+      "setwise_dollars_per_item": 0.0005612133333333333,
+      "pairwise_dollars_per_item": 0.0012295616666666666
+    },
+    {
+      "k": 8,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.6765217391304348,
+      "kendall_tau": 0.5072463768115942,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 28017.744571561987,
+      "pairwise_obs_per_dollar": 3906.269073579461,
+      "setwise_dollars_per_item": 0.0004996833333333334,
+      "pairwise_dollars_per_item": 0.001023995
+    },
+    {
+      "k": 8,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "spearman_rho": 0.8234782608695652,
+      "kendall_tau": 0.6666666666666666,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 33259.42350332595,
+      "pairwise_obs_per_dollar": 3887.7540606781213,
+      "setwise_dollars_per_item": 0.0004209333333333333,
+      "pairwise_dollars_per_item": 0.0010288716666666667
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 114342200,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

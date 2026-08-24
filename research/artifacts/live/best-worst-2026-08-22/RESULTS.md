@@ -115,6 +115,64 @@ pairs per call, not savings — take the largest k the flip rate tolerates.
 Denominators: flip rates on 63–264 compared pairs per cell (4–12 repeated
 subsets); ρ on 24 items — single-run cells, not averaged.
 
+## Addendum 2026-08-23 — robustness matrix: delimiter × size × model × corpus (llmsort@78d2a85+37ca9e4, $0.87)
+
+Nine live runs (`live/run4.sh`), all `order` k = 8, n = 24, m = 2, r = 2,
+seed 17, $1/run caps; 9/9 completed, every graph connected. New corpus:
+`research/data/arxiv_abstracts.json` — 150 arXiv CS-2025 abstracts
+(OpenAlex via Scry; title + abstract, 1.1–2.0k chars) with paper-native
+attributes (methodological rigor / novelty / practitioner usefulness).
+Cells report flip rate (gauge) and ρ vs same-run pairwise; per-attribute
+order: impact_per_dollar / theory_of_change / user-prompt (manifund) or
+rigor / novelty / usefulness (arXiv).
+
+| run | flip rate | ρ vs pairwise | setwise $/item |
+|---|---|---|---|
+| delim-bracket (deepseek) | 0.29 / 0.18 / 0.10 | 0.85 / 0.78 / 0.88 | 1.3–2.1e-4 |
+| delim-dash (deepseek) | 0.29 / 0.13 / 0.12 | 0.73 / 0.79 / 0.78 | 1.3–2.2e-4 |
+| (xml = ksweep k=8 cell) | 0.36 / 0.23 / 0.13 | 0.81 / 0.82 / 0.87 | — |
+| size-400 (deepseek) | 0.36 / 0.32 / 0.27 | 0.64 / 0.61 / 0.88 | 0.6–0.8e-4 |
+| size-4800 (deepseek) | 0.21 / 0.17 / 0.18 | 0.74 / 0.68 / 0.82 | 4.2–5.6e-4 |
+| size-8000 (deepseek) | 0.23 / 0.32 / 0.21 | 0.85 / 0.94 / 0.67 | 6.3–9.5e-4 |
+| model-gpt41mini | 0.32 / 0.14 / 0.11 | 0.47 / 0.64 / 0.75 | 2.0–6.1e-4 |
+| model-gemini25flash | 0.24 / 0.17 / 0.00* | 0.32 / 0.79 / 0.85 | ~4.9e-4 |
+| arxiv-deepseek | 0.29 / 0.31 / 0.19 | 0.40 / 0.53 / 0.84 | 0.7–1.2e-4 |
+| arxiv-gpt41mini | 0.21 / 0.10 / 0.18 | 0.76 / 0.74 / 0.76 | 1.4–3.5e-4 |
+
+\* gemini-2.5-flash returned partial orders (4–5 letters, then stop) on
+6/12 calls of the user-prompt attribute; the strict length-k parse
+rejected them — a model-behavior finding, not silent damage (ρ 0.85 from
+the 6 clean calls; the 0.00 flip rate is over few surviving pairs).
+
+Readings.
+
+1. **Delimiter is a free parameter.** xml / bracket / dash move flip rate
+   and ρ within run-to-run noise (ρ spread ≤ 0.09 against a pairwise
+   test–retest band of ±~0.06). Keep xml as default; nothing to tune.
+2. **Entity size 400–8000 chars: the instrument holds; the gauge tracks
+   the soft end.** ~100-token entities are the order-flakiest cells
+   (flip 0.27–0.36) with the lowest rubric-attr agreement (0.61–0.64);
+   1600–8000 stay in the adequate band. $/item is ~linear in size
+   (input-dominated), so short entities are cheap AND flaky — the gauge,
+   not the price, should pick the truncation.
+3. **The instrument transfers across model families and corpora** —
+   gpt-4.1-mini and gemini-2.5-flash on manifund, deepseek and
+   gpt-4.1-mini on arXiv all produce usable sorts — but the weak cells
+   move with (model, attribute): impact_per_dollar is order-flaky on
+   every model (flip 0.24–0.36, ρ 0.32–0.47 on the new models);
+   deepseek is flaky judging rigor/novelty from abstracts (ρ 0.40/0.53)
+   where gpt-4.1-mini is uniform (0.74–0.76). Single-run pairwise
+   baselines on the new cells, so low ρ conflates both instruments'
+   noise — the flip rate is the per-cell signal that doesn't.
+4. **The gauge is a one-sided screen (38 cells, all live runs):** every
+   cell with flip < 0.20 has ρ ≥ 0.64 (median 0.79); every ρ < 0.61
+   sits at flip ≥ 0.21. Operating rule: flip < 0.2 → trust the k-wise
+   sort; ≥ 0.25 → drop k, average more presentations, or fall back to
+   pairwise for that attribute.
+
+Matrix cost $0.866; E6 running total ≈ $1.27.
+
 Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
-script mirrored in `live/run.sh`.
+scripts mirrored in `live/run.sh`, `live/run2.sh`, `live/run3.sh`,
+`live/run4.sh`.

@@ -195,8 +195,28 @@ RESULTS.md with denominators) and one page here.
   domain; live it separates flaky attributes (impact_per_dollar ~0.34) from
   stable ones (user-prompt ~0.14) and flags exactly the cell where k = 12
   collapsed. k sweep: k = 6–8 is the band; $/item ~flat in k, so take the
-  largest k the flip rate tolerates. Caveats: one model, one corpus family,
-  no PMF arm (E7).
+  largest k the flip rate tolerates. Robustness matrix 2026-08-23
+  (llmsort@78d2a85+37ca9e4+bb41bd6, +$0.87, 9 runs): delimiter
+  {xml,bracket,dash} is a free parameter; entity size 400–8000 chars holds
+  (~100-token entities are the flakiest cells and the gauge says so);
+  the instrument transfers to gpt-4.1-mini and gemini-2.5-flash and to a
+  second corpus family (150 arXiv abstracts, paper-native attributes) —
+  weak cells move with (model, attribute) and the gauge screens them
+  one-sidedly: over all 38 live cells, flip < 0.20 ⇒ ρ ≥ 0.64 (median
+  0.79); every ρ < 0.61 had flip ≥ 0.21. gemini emits partial orders on
+  one attribute (strict parse rejects; 6/36 calls). Remaining caveats:
+  single-run pairwise baselines on the new cells; no PMF arm (E7).
+  **Graduation gate** (making README's "graduates only on evidence"
+  specific for `order`): the recipe — r = 2 flip-rate gauge first, then
+  k = 6–8 listwise → tier-lowering → solver — enters the crate's promised
+  surface (a mode beside `sort_documents`) when: ≥ 2 model families at ρ
+  inside the same-model pairwise test–retest band at ≤ ½ pairwise $/item
+  on the same pool ✅(deepseek ✓; gpt-4.1-mini/gemini adequate but their
+  pairwise bands unmeasured — one repeat run closes this); ≥ 2 corpus
+  families ✅; an entity-size map ✅ (400–8000, soft at ~400); delimiter
+  verdict ✅ (free parameter); the gauge shipped as part of the recipe,
+  not an optional extra ⬜ (the crate-side implementation itself). One
+  repeat run on a second model plus the crate-side mode closes the gate.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 
