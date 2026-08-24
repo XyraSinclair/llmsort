@@ -32,6 +32,15 @@
 //! largest k the flip rate tolerates. Evidence pack:
 //! `research/artifacts/live/best-worst-2026-08-22/` (PROGRAM.md E6).
 //!
+//! The default chunk design is the **anchored ring** (E11): per round the
+//! shuffled list is tiled by cyclic windows of k at stride k−overlap, so
+//! consecutive groups share `overlap` anchors and the last window wraps —
+//! the observation graph is connected in ONE round, ⌈n/(k−o)⌉ calls
+//! instead of the 2·⌈n/k⌉ a disjoint design needs. Measured live
+//! (deepseek + gpt-5.6-luna, n = 24): ring at 8 calls matches the
+//! 12-call disjoint design's agreement; 4 calls (repeats: 1) is the
+//! connected adequacy floor at ρ 0.70–0.79 — but flying gauge-blind.
+//!
 //! Prompt geometry is cache-native: the entities block is a byte-stable
 //! prefix and the criterion arrives last, so providers with automatic
 //! prefix caching serve repeat presentations at cache-read prices
@@ -61,6 +70,18 @@ const DEFAULT_MODEL: &str = "openai/gpt-5.6-luna";
 
 const ORDER_SYSTEM: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B";
 
+/// Chunk-design family: how groups tile each shuffled round.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum SetwiseDesign {
+    /// Cyclic overlapping windows (stride k−overlap, last wraps): the
+    /// graph is ring-connected in one round. The measured default.
+    #[default]
+    Ring,
+    /// Disjoint balanced groups; needs `rounds ≥ 2` to connect when
+    /// n > k.
+    Disjoint,
+}
+
 /// Options for [`sort_texts_setwise`] / [`sort_documents_setwise`].
 #[derive(Debug, Clone)]
 pub struct SetwiseOptions {
@@ -70,9 +91,13 @@ pub struct SetwiseOptions {
     /// Slots per call. Measured band: 6–8. Clamped to the list size and to
     /// 12 (the slot alphabet). Default 8.
     pub k: usize,
-    /// Rounds of shuffle → split. Every item is judged `rounds × repeats`
-    /// times. With `rounds: 1` and n > k the observation graph cannot
-    /// connect across groups — use ≥ 2 (the default) unless n ≤ k.
+    /// Chunk-design family. Default [`SetwiseDesign::Ring`].
+    pub design: SetwiseDesign,
+    /// Ring only: anchors shared between consecutive groups. Default 2.
+    pub overlap: usize,
+    /// Rounds of shuffle → tile. Default 1 — enough for the ring design;
+    /// a `Disjoint` design with `rounds: 1` and n > k cannot connect
+    /// across groups (surfaced via `components`), use ≥ 2 there.
     pub rounds: usize,
     /// Shuffled re-presentations of each group. At ≥ 2 (the default) the
     /// order-sensitivity gauge is measured; at 1 `gauge` is `None` and you
@@ -89,7 +114,9 @@ impl Default for SetwiseOptions {
         Self {
             model: None,
             k: 8,
-            rounds: 2,
+            design: SetwiseDesign::Ring,
+            overlap: 2,
+            rounds: 1,
             repeats: 2,
             seed: None,
             concurrency: None,
@@ -183,6 +210,48 @@ fn escape_xml_chars(s: &str) -> String {
 struct SubsetPlan {
     subset: Vec<usize>,
     presentations: Vec<Vec<usize>>,
+}
+
+/// Ring design: per round, shuffle the pool and take cyclic windows of k
+/// at stride k−overlap; consecutive windows share `overlap` anchors and
+/// the final window wraps, closing the ring — connected in one round.
+fn draw_ring_design(
+    n: usize,
+    k: usize,
+    overlap: usize,
+    rounds: usize,
+    repeats: usize,
+    rng: &mut StdRng,
+) -> Vec<SubsetPlan> {
+    let stride = (k - overlap.min(k - 1)).max(1);
+    let q = n.div_ceil(stride);
+    let mut plans = Vec::with_capacity(q * rounds);
+    for _ in 0..rounds {
+        let mut pool: Vec<usize> = (0..n).collect();
+        pool.shuffle(rng);
+        for g in 0..q {
+            // A cyclic window of k over n > k distinct items never
+            // repeats an entity (stride ≥ 1).
+            let order: Vec<usize> = (0..k).map(|j| pool[(g * stride + j) % n]).collect();
+            let mut subset = order.clone();
+            subset.sort_unstable();
+            debug_assert!(subset.windows(2).all(|w| w[0] != w[1]));
+            let presentations = (0..repeats.max(1))
+                .map(|r| {
+                    let mut o = order.clone();
+                    if r > 0 {
+                        o.shuffle(rng);
+                    }
+                    o
+                })
+                .collect();
+            plans.push(SubsetPlan {
+                subset,
+                presentations,
+            });
+        }
+    }
+    plans
 }
 
 /// `rounds` seeded shuffles, each split into ⌈n/k⌉ balanced groups; each
@@ -338,7 +407,17 @@ pub async fn sort_documents_setwise(
 
     let k = opts.k.clamp(2, SLOT_LETTERS.len()).min(n);
     let mut rng = StdRng::seed_from_u64(opts.seed.unwrap_or(17));
-    let plans = draw_chunk_design(n, k, opts.rounds.max(1), opts.repeats, &mut rng);
+    let plans = match opts.design {
+        SetwiseDesign::Ring if n > k => draw_ring_design(
+            n,
+            k,
+            opts.overlap,
+            opts.rounds.max(1),
+            opts.repeats,
+            &mut rng,
+        ),
+        _ => draw_chunk_design(n, k, opts.rounds.max(1), opts.repeats, &mut rng),
+    };
     let escaped: Vec<String> = documents
         .iter()
         .map(|d| escape_xml_chars(&d.text))

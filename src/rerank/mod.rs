@@ -78,8 +78,8 @@ pub use policy_registry::{load_policy_from_path, PolicyConfig, PolicyRegistry, P
 pub use report::{build_report, render_report_markdown, RerankReport, RerankReportOptions};
 pub use sampling::{nonce_draws, NonceDrawReport};
 pub use setwise::{
-    sort_documents_setwise, sort_texts_setwise, OrderSensitivity, SetwiseOptions, SetwiseSortError,
-    SetwiseSorted,
+    sort_documents_setwise, sort_texts_setwise, OrderSensitivity, SetwiseDesign, SetwiseOptions,
+    SetwiseSortError, SetwiseSorted,
 };
 pub use simple::rerank;
 pub use sort::{
