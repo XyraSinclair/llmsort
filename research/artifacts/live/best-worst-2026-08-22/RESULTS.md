@@ -172,6 +172,19 @@ Readings.
 
 Matrix cost $0.866; E6 running total ≈ $1.27.
 
+**Repeat run, gpt-4.1-mini** (`model-gpt41mini-rep2`, $0.14): the
+same-model pairwise test–retest band is 0.61 / 0.87 / 0.94 per attribute —
+the pairwise baseline itself is unreliable on impact_per_dollar for this
+model, exactly the attribute the gauge flags (flip 0.32/0.35 across the
+two runs). Order-vs-pairwise ρ against that band: theory_of_change
+0.64–0.68 vs 0.87, user-prompt 0.75–0.82 vs 0.94 — adequate at ~⅓–⅒ the
+$/item, but genuinely a step below the band, unlike deepseek which sat at
+its ceiling. Caveat: same seed ⇒ identical setwise prompts across the two
+runs, and gpt-4.1-mini answered near-deterministically (order latents
+correlate 0.99) — so the setwise "retest" measures determinism, not
+independent stability; the flip rate over shuffled orders remains the
+honest stability gauge.
+
 Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
 scripts mirrored in `live/run.sh`, `live/run2.sh`, `live/run3.sh`,

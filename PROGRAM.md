@@ -211,12 +211,17 @@ RESULTS.md with denominators) and one page here.
   k = 6–8 listwise → tier-lowering → solver — enters the crate's promised
   surface (a mode beside `sort_documents`) when: ≥ 2 model families at ρ
   inside the same-model pairwise test–retest band at ≤ ½ pairwise $/item
-  on the same pool ✅(deepseek ✓; gpt-4.1-mini/gemini adequate but their
-  pairwise bands unmeasured — one repeat run closes this); ≥ 2 corpus
+  on the same pool ◐ (deepseek ✓ at its ceiling; gpt-4.1-mini band
+  measured by repeat run — pairwise test–retest 0.61/0.87/0.94, order ρ
+  0.64–0.82 sits a step below the band on stable attributes at ~⅓–⅒ the
+  $/item, and on the flaky attribute BOTH instruments are unreliable,
+  which the gauge flags; adequate-regime yes, at-ceiling no); ≥ 2 corpus
   families ✅; an entity-size map ✅ (400–8000, soft at ~400); delimiter
   verdict ✅ (free parameter); the gauge shipped as part of the recipe,
-  not an optional extra ⬜ (the crate-side implementation itself). One
-  repeat run on a second model plus the crate-side mode closes the gate.
+  not an optional extra ⬜ (the crate-side implementation itself).
+  Remaining: the crate-side mode, plus either a second model at-ceiling
+  or an explicit decision that adequate-regime transfer (with the gauge
+  as guard) is the bar the promised surface documents.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 
