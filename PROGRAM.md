@@ -219,10 +219,15 @@ RESULTS.md with denominators) and one page here.
   itself broke, 0.61, on the gauge-flagged attribute); ≥ 2 corpus
   families ✅; an entity-size map ✅ (400–8000, soft at ~400); delimiter
   verdict ✅ (free parameter); the gauge shipped as part of the recipe,
-  not an optional extra ⬜. Remaining: the crate-side mode alone. Bonus
-  measured on luna's repeat run: identical prefixes hit the provider
-  cache and the setwise arm cost 10× less — the cache-native prompt
-  geometry paying off live.
+  not an optional extra ✅ — **gate closed 2026-08-24**:
+  `rerank::setwise` (`sort_texts_setwise`/`sort_documents_setwise`,
+  llmsort@9eda99c) ships the recipe with the gauge built in and the
+  measured thresholds in its module docs; direct live verification
+  (`setwise_api_check`, $0.01): 12/12 parsed, connected, flip 0.04, ρ
+  0.88 against the harness's independent luna run — inside the
+  instrument's own test–retest band. Bonus measured on luna's repeat
+  run: identical prefixes hit the provider cache and the setwise arm
+  cost 10× less — the cache-native prompt geometry paying off live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 

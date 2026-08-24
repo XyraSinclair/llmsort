@@ -121,15 +121,21 @@ the observation model; `docs/WORKED_EXAMPLE.md` a full walkthrough.
 ## What is promised
 
 The stability-promised surface is deliberately small: `sort_texts` /
-`sort_documents` (library), the CLI `sort` and `judge` verbs, and the
+`sort_documents` (library), their setwise siblings `sort_texts_setwise` /
+`sort_documents_setwise`, the CLI `sort` and `judge` verbs, and the
 judgement-packet format (`src/packet.rs` — content-addressed evidence
 that fuses byte-identically). Everything else is exposed for composition
 and may change shape.
 
-Use it for list work where "how much better?" carries information:
-prompts, research ideas, candidate plans, reviewer notes, backlog items.
-Do not use it for deterministic rankings, scalar metrics, or attributes
-too incoherent to compare.
+Use the pairwise sort for list work where "how much better?" carries
+information: prompts, research ideas, candidate plans, reviewer notes,
+backlog items. Use the setwise sort when an adequate *order* under a
+custom criterion is the bar — reranking search results, triaging a
+queue — at roughly a third of the pairwise cost; it measures its own
+trustworthiness first (the order-sensitivity gauge; thresholds and the
+evidence in `src/rerank/setwise.rs` docs and PROGRAM.md E6). Do not use
+either for deterministic rankings, scalar metrics, or attributes too
+incoherent to compare.
 
 ## Evidence and experiments
 
