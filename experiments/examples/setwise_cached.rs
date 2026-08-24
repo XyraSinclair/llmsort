@@ -155,9 +155,16 @@ struct Args {
     #[arg(long, default_value_t = 1600)]
     entity_chars: usize,
     /// ratio: presentations per subset (pivot rotated, slot order permuted).
-    /// bw/order: rounds of shuffle→chunk; every item is presented this many times.
+    /// bw/order: rounds of shuffle→chunk; every item is presented
+    /// presentations × repeats times.
     #[arg(long, default_value_t = 2)]
     presentations: usize,
+    /// bw/order only: shuffled re-presentations of each chunk group. With
+    /// ≥ 2, the same k items are asked in ≥ 2 slot orders, and the
+    /// order-sensitivity readout (pair-direction flip rate across
+    /// presentations of the same subset) is measured. Ignored by ratio.
+    #[arg(long, default_value_t = 1)]
+    repeats: usize,
     /// Corpus path (array of {id,text}).
     #[arg(long, default_value = "data/manifund/items/full.json")]
     corpus: String,
@@ -338,7 +345,13 @@ fn draw_design(
 /// times; group sizes differ by at most one; slot order is the shuffled
 /// order, so slot assignment is uniform by symmetry. Each group is one
 /// SubsetPlan with a single presentation.
-fn draw_chunk_design(n: usize, k: usize, rounds: usize, rng: &mut StdRng) -> Vec<SubsetPlan> {
+fn draw_chunk_design(
+    n: usize,
+    k: usize,
+    rounds: usize,
+    repeats: usize,
+    rng: &mut StdRng,
+) -> Vec<SubsetPlan> {
     let q = n.div_ceil(k);
     let mut plans = Vec::with_capacity(q * rounds);
     for _ in 0..rounds {
@@ -348,9 +361,18 @@ fn draw_chunk_design(n: usize, k: usize, rounds: usize, rng: &mut StdRng) -> Vec
             let order: Vec<usize> = pool[g * n / q..(g + 1) * n / q].to_vec();
             let mut subset = order.clone();
             subset.sort_unstable();
+            let presentations = (0..repeats.max(1))
+                .map(|r| {
+                    let mut o = order.clone();
+                    if r > 0 {
+                        o.shuffle(rng);
+                    }
+                    o
+                })
+                .collect();
             plans.push(SubsetPlan {
                 subset,
-                presentations: vec![order],
+                presentations,
             });
         }
     }
@@ -776,6 +798,19 @@ struct SlotHistogram {
     last_by_slot: Vec<usize>,
 }
 
+/// How much presentation order matters: over subsets asked in ≥ 2 shuffled
+/// slot orders, the fraction of entity pairs (ordered by both presentations
+/// of the same subset) whose DIRECTION flips between presentations. The
+/// per-(model, attribute, domain) gauge to run first in a new domain.
+#[derive(Serialize)]
+struct OrderSensitivity {
+    subsets_with_repeats: usize,
+    presentation_pairs: usize,
+    entity_pairs_compared: usize,
+    direction_flips: usize,
+    flip_rate: Option<f64>,
+}
+
 #[derive(Serialize)]
 struct SetwiseArm {
     answer: String,
@@ -791,6 +826,7 @@ struct SetwiseArm {
     cache: CacheEvidence,
     pivot_rotation: PivotRotation,
     slot_histogram: Option<SlotHistogram>,
+    order_sensitivity: Option<OrderSensitivity>,
     /// Connected components of the observation graph over all n items; > 1
     /// means some items are not on the same scale — flagged, not silent.
     components: usize,
@@ -865,6 +901,7 @@ struct Report {
     entity_chars: usize,
     min_pair_cover: usize,
     presentations_per_subset: usize,
+    repeats: usize,
     spend_cap_usd: f64,
     corpus: String,
     attributes: Vec<AttrReport>,
@@ -1013,6 +1050,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut arm_cache: BTreeMap<(usize, String), (usize, usize, f64)> = BTreeMap::new();
     let mut arm_pairs: BTreeMap<(usize, String), PairMeans> = BTreeMap::new();
     let mut arm_slots: BTreeMap<(usize, String), (Vec<usize>, Vec<usize>)> = BTreeMap::new();
+    // (k, attr) -> subset -> per-presentation map entity -> tier rank.
+    type SubsetTiers = HashMap<Vec<usize>, Vec<HashMap<usize, usize>>>;
+    let mut arm_tiers: BTreeMap<(usize, String), SubsetTiers> = BTreeMap::new();
     let mut subsets_per_k: BTreeMap<usize, usize> = BTreeMap::new();
     let mode = args.answer;
     let system = mode.system();
@@ -1030,7 +1070,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 &mut design_rng,
             ),
             AnswerMode::Bw | AnswerMode::Order => {
-                draw_chunk_design(args.n, k, args.presentations, &mut design_rng)
+                draw_chunk_design(args.n, k, args.presentations, args.repeats, &mut design_rng)
             }
         };
         subsets_per_k.insert(k, design.len());
@@ -1169,6 +1209,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         &args.model,
                                         arm_obs.entry(key.clone()).or_default(),
                                     );
+                                    let rank_map: HashMap<usize, usize> = tiers
+                                        .iter()
+                                        .enumerate()
+                                        .flat_map(|(t, tier)| tier.iter().map(move |&e| (e, t)))
+                                        .collect();
+                                    arm_tiers
+                                        .entry(key.clone())
+                                        .or_default()
+                                        .entry(plan.subset.clone())
+                                        .or_default()
+                                        .push(rank_map);
                                     let hist = arm_slots
                                         .entry(key.clone())
                                         .or_insert_with(|| (vec![0; k], vec![0; k]));
@@ -1287,6 +1338,41 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let usage = arm_usage.remove(&key).unwrap_or_default();
             let (ok, refused, malformed, errored) = arm_counts.remove(&key).unwrap_or_default();
             let (reported, read_gt0, frac_sum) = arm_cache.remove(&key).unwrap_or((0, 0, 0.0));
+            let order_sensitivity = arm_tiers.remove(&key).map(|subsets| {
+                let (mut with_repeats, mut pres_pairs, mut compared, mut flips) = (0, 0, 0, 0);
+                for (subset, pres) in &subsets {
+                    if pres.len() >= 2 {
+                        with_repeats += 1;
+                    }
+                    for a in 0..pres.len() {
+                        for b in (a + 1)..pres.len() {
+                            pres_pairs += 1;
+                            for x in 0..subset.len() {
+                                for y in (x + 1)..subset.len() {
+                                    let (e, f) = (subset[x], subset[y]);
+                                    let d1 = pres[a].get(&e).zip(pres[a].get(&f));
+                                    let d2 = pres[b].get(&e).zip(pres[b].get(&f));
+                                    if let (Some((r1e, r1f)), Some((r2e, r2f))) = (d1, d2) {
+                                        if r1e != r1f && r2e != r2f {
+                                            compared += 1;
+                                            if (r1e < r1f) != (r2e < r2f) {
+                                                flips += 1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                OrderSensitivity {
+                    subsets_with_repeats: with_repeats,
+                    presentation_pairs: pres_pairs,
+                    entity_pairs_compared: compared,
+                    direction_flips: flips,
+                    flip_rate: (compared > 0).then(|| flips as f64 / compared as f64),
+                }
+            });
             let slot_histogram =
                 arm_slots
                     .remove(&key)
@@ -1322,6 +1408,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     mean_abs_residual_nats: mean_abs_residual,
                 },
                 slot_histogram,
+                order_sensitivity,
                 components: summary.components,
                 disconnected: summary.components > 1,
                 latents,
@@ -1459,6 +1546,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         entity_chars: args.entity_chars,
         min_pair_cover: args.min_pair_cover,
         presentations_per_subset: args.presentations,
+        repeats: args.repeats,
         spend_cap_usd: args.spend_cap_usd,
         corpus: args.corpus.clone(),
         attributes: attrs
@@ -1521,6 +1609,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
     }
     for arm in &report.setwise {
+        if let Some(o) = &arm.order_sensitivity {
+            if let Some(rate) = o.flip_rate {
+                println!(
+                    "  k={} {} order-sensitivity: flip rate {:.3} ({}/{} pairs, {} subsets repeated)",
+                    arm.k,
+                    arm.attribute,
+                    rate,
+                    o.direction_flips,
+                    o.entity_pairs_compared,
+                    o.subsets_with_repeats,
+                );
+            }
+        }
         if let Some(h) = &arm.slot_histogram {
             println!(
                 "  k={} {} slots first {:?} last {:?}{}",
