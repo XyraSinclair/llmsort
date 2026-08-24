@@ -1,0 +1,1101 @@
+{
+  "generated_at": "2026-08-24T20:09:29.947880658+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-5.6-luna",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    8
+  ],
+  "entity_chars": 1000,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "delimiter": "xml",
+  "spend_cap_usd": 1.0,
+  "corpus": "data/arxiv_abstracts.json",
+  "attributes": [
+    {
+      "name": "methodological rigor",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 20
+    },
+    {
+      "name": "novelty of contribution",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 23
+    },
+    {
+      "name": "usefulness for a practitioner building LLM-based products",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 57
+    }
+  ],
+  "entity_ids": [
+    "W4406033240",
+    "W4406810884",
+    "W4416999525",
+    "W4415976151",
+    "W4416393118",
+    "W4415030372",
+    "W4407684014",
+    "W4407423003",
+    "W6891814254",
+    "W4406840868",
+    "W4415318303",
+    "W4416105450",
+    "W4406449944",
+    "W4407759590",
+    "W4406548969",
+    "W4416243736",
+    "W4406733450",
+    "W4406950283",
+    "W6910572094",
+    "W4406033167",
+    "W4406316939",
+    "W4406734791",
+    "W6911026313",
+    "W4406486150"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-5.6-luna",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nPrivacy-Preserving Personalized Federated Prompt Learning for Multimodal Large Language Models\n\nMultimodal Large Language Models (LLMs) are pivotal in revolutionizing customer support and operations by integrating multiple modalities such as text, images, and audio. Federated Prompt Learning (FPL) is a recently proposed approach that combines pre-trained multimodal LLMs such as vision-language models with federated learning to create personalized, privacy-preserving AI systems. However, balancing the competing goals of personalization, generalization, and privacy remains a significant challenge. Over-personalization can lead to overfitting, reducing generalizability, while stringent privacy measures, such as differential privacy, can hinder both personalization and generalization. In this paper, we propose a Differentially Private Federated Prompt Learning (DP-FPL) approach to tackle this challenge by leveraging a low-rank factorization scheme to capture generalization while maintainin\n</entity_A>\n<entity_B>\nReasoning Language Models: A Blueprint\n\nReasoning language models (RLMs), also known as Large Reasoning Models (LRMs), such as OpenAI&apos;s o1 and o3, DeepSeek-R1, and Alibaba&apos;s QwQ, have redefined AI&apos;s problem-solving capabilities by extending LLMs with advanced reasoning mechanisms. Yet, their high costs, proprietary nature, and complex architectures - uniquely combining reinforcement learning (RL), search heuristics, and LLMs - present accessibility and scalability challenges. To address these, we propose a comprehensive blueprint that organizes RLM components into a modular framework, based on a survey and analysis of all RLM works. This blueprint incorporates diverse reasoning structures (chains, trees, graphs, and nested forms), reasoning strategies (e.g., Monte Carlo Tree Search, Beam Search), RL concepts (policy, value models and others), supervision schemes (Outcome-Based and Process-Based Supervision), and other related concepts (e.g., Test-Time Compute, Retrieval-Augmented Gener\n</entity_B>\n<entity_C>\nLanguage Models for Code Optimization: Survey, Challenges and Future Directions\n\nLanguage models (LMs) built upon deep neural networks (DNNs) have recently demonstrated breakthrough effectiveness in software engineering tasks such as code generation, completion, and repair. This has paved the way for the emergence of LM-based code optimization techniques, which are crucial for enhancing the performance of existing programs, such as accelerating program execution time. However, a comprehensive survey dedicated to this specific application has been lacking. To fill this gap, we present a systematic literature review of over 50 primary studies, identifying emerging trends and addressing 11 specialized questions. Our findings reveal five critical open challenges, such as balancing model complexity with practical usability, cross-language/performance generalizability, and building trust in AI-driven solutions. Furthermore, we provide eight future research directions to facilitate more effic\n</entity_C>\n<entity_D>\nInjecting Domain-Specific Knowledge into Large Language Models: A Comprehensive Survey\n\nLarge Language Models (LLMs) have demonstrated remarkable success in various tasks such as natural language understanding, text summarization, and machine translation. However, their general-purpose nature often limits their effectiveness in domain-specific applications that require specialized knowledge, such as healthcare, chemistry, or legal analysis. To address this, researchers have explored diverse methods to enhance LLMs by integrating domain-specific knowledge. In this survey, we provide a comprehensive overview of these methods, which we categorize into four key approaches: dynamic knowledge injection, static knowledge embedding, modular adapters, and prompt optimization. Each approach offers unique mechanisms to equip LLMs with domain expertise, balancing trade-offs between flexibility, scalability, and efficiency. We discuss how these methods enable LLMs to tackle specialized tasks, compa\n</entity_D>\n<entity_E>\nJSONSchemaBench: A Rigorous Benchmark of Structured Outputs for Language Models\n\nReliably generating structured outputs has become a critical capability for modern language model (LM) applications. Constrained decoding has emerged as the dominant technology across sectors for enforcing structured outputs during generation. Despite its growing adoption, little has been done with the systematic evaluation of the behaviors and performance of constrained decoding. Constrained decoding frameworks have standardized around JSON Schema as a structured data format, with most uses guaranteeing constraint compliance given a schema. However, there is poor understanding of the effectiveness of the methods in practice. We present an evaluation framework to assess constrained decoding approaches across three critical dimensions: efficiency in generating constraint-compliant outputs, coverage of diverse constraint types, and quality of the generated outputs. To facilitate this evaluation, we introduce\n</entity_E>\n<entity_F>\nThe Psychogenic Machine: Simulating AI Psychosis, Delusion Reinforcement and Harm Enablement in Large Language Models\n\nBackground: Emerging reports of &quot;AI psychosis&quot; are on the rise, where user-LLM interactions may exacerbate or induce psychosis or adverse psychological symptoms. Whilst the sycophantic and agreeable nature of LLMs can be beneficial, it becomes a vector for harm by reinforcing delusional beliefs in vulnerable users. Methods: Psychosis-bench is a novel benchmark designed to systematically evaluate the psychogenicity of LLMs comprises 16 structured, 12-turn conversational scenarios simulating the progression of delusional themes(Erotic Delusions, Grandiose/Messianic Delusions, Referential Delusions) and potential harms. We evaluated eight prominent LLMs for Delusion Confirmation (DCS), Harm Enablement (HES), and Safety Intervention(SIS) across explicit and implicit conversational contexts. Findings: Across 1,536 simulated conversation turns, all LLMs demonstrated psychoge\n</entity_F>\n<entity_G>\nGeneBreaker: Jailbreak Attacks against DNA Language Models with Pathogenicity Guidance\n\nDNA, encoding genetic instructions for almost all living organisms, fuels groundbreaking advances in genomics and synthetic biology. Recently, DNA Foundation Models have achieved success in designing synthetic functional DNA sequences, even whole genomes, but their susceptibility to jailbreaking remains underexplored, leading to potential concern of generating harmful sequences such as pathogens or toxin-producing genes. In this paper, we introduce GeneBreaker, the first framework to systematically evaluate jailbreak vulnerabilities of DNA foundation models. GeneBreaker employs (1) an LLM agent with customized bioinformatic tools to design high-homology, non-pathogenic jailbreaking prompts, (2) beam search guided by PathoLM and log-probability heuristics to steer generation toward pathogen-like sequences, and (3) a BLAST-based evaluation pipeline against a curated Human Pathogen Database (JailbreakD\n</entity_G>\n<entity_H>\nBias in Large Language Models Across Clinical Applications: A Systematic Review\n\nBackground: Large language models (LLMs) are rapidly being integrated into healthcare, promising to enhance various clinical tasks. However, concerns exist regarding their potential for bias, which could compromise patient care and exacerbate health inequities. This systematic review investigates the prevalence, sources, manifestations, and clinical implications of bias in LLMs. Methods: We conducted a systematic search of PubMed, OVID, and EMBASE from database inception through 2025, for studies evaluating bias in LLMs applied to clinical tasks. We extracted data on LLM type, bias source, bias manifestation, affected attributes, clinical task, evaluation methods, and outcomes. Risk of bias was assessed using a modified ROBINS-I tool. Results: Thirty-eight studies met inclusion criteria, revealing pervasive bias across various LLMs and clinical applications. Both data-related bias (from biased training dat\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: methodological rigor </attribute_name>.\n<full_attribute_text>\nmethodological rigor\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:d21c46d75d810c2a",
+    "prefix_bytes": 8548
+  },
+  "subsets_per_k": {
+    "8": 6
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "methodological rigor",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 20444,
+        "completion_tokens": 144,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 20408,
+        "nanodollars": 5282000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "last_by_slot": [
+          7,
+          2,
+          1,
+          0,
+          1,
+          0,
+          0,
+          1
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 42,
+        "flip_rate": 0.25
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 1.2198802327069724,
+          "std": 0.29322333979432763
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.47222689343119406,
+          "std": 0.27187105552647317
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.342581571522219,
+          "std": 0.28869429199890223
+        },
+        {
+          "id": "W4415976151",
+          "mean": 1.6089543930204313,
+          "std": 0.28689623486464805
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.591890749769871,
+          "std": 0.27139780753296716
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.7650454158457145,
+          "std": 0.2715538467331348
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.24698458734080042,
+          "std": 0.2825303561509866
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.0365015692841948,
+          "std": 0.2844109793300692
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.7119658889804624,
+          "std": 0.2886619633409029
+        },
+        {
+          "id": "W4406840868",
+          "mean": 1.287883807544991,
+          "std": 0.27127124300896266
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.2469845873408003,
+          "std": 0.28253035615098665
+        },
+        {
+          "id": "W4416105450",
+          "mean": 1.3550693456880556,
+          "std": 0.29322333979432763
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.23953673333374081,
+          "std": 0.2730089855989046
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.3860666677279443,
+          "std": 0.2728249341078603
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.0,
+          "std": 0.2741057678510942
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.3658919631176589,
+          "std": 0.27300274463274704
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.3497254847566222,
+          "std": 0.2790906504804464
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.20651413559066145,
+          "std": 0.28585156126720873
+        },
+        {
+          "id": "W6910572094",
+          "mean": 1.0125425065425058,
+          "std": 0.2706638302797924
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.0235913107511547,
+          "std": 0.27997667011851324
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.19355807928991764,
+          "std": 0.287349419500264
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.35566145797147586,
+          "std": 0.2843535206391561
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.736836317243418,
+          "std": 0.28618355132342677
+        },
+        {
+          "id": "W4406486150",
+          "mean": 1.8231571337553594,
+          "std": 0.2555957248556877
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "novelty of contribution",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 336,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 20480,
+        "completion_tokens": 144,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 20444,
+        "nanodollars": 5291000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          1,
+          2,
+          1,
+          2,
+          0,
+          3,
+          2
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          1,
+          3,
+          1,
+          3,
+          0,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 6,
+        "presentation_pairs": 6,
+        "entity_pairs_compared": 168,
+        "direction_flips": 26,
+        "flip_rate": 0.15476190476190477
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 1.8359063235536088,
+          "std": 0.28523676228597067
+        },
+        {
+          "id": "W4406810884",
+          "mean": 1.6889349601347086,
+          "std": 0.27455554180093683
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.27807137158373,
+          "std": 0.2799592524509247
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.644140095996969,
+          "std": 0.28160407461198966
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.0,
+          "std": 0.2708356314824479
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.5346236725013529,
+          "std": 0.2679794438102581
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.5675005036599936,
+          "std": 0.2794907020440506
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.7123212650785542,
+          "std": 0.2701314358751352
+        },
+        {
+          "id": "W6891814254",
+          "mean": 1.970271734909264,
+          "std": 0.28523676228597067
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.9046933837479689,
+          "std": 0.26762445750064
+        },
+        {
+          "id": "W4415318303",
+          "mean": 2.1062470009013667,
+          "std": 0.283274879509898
+        },
+        {
+          "id": "W4416105450",
+          "mean": 1.4459987363856954,
+          "std": 0.2810697331174614
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.5346236725013529,
+          "std": 0.26797944381025807
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.2009023622259203,
+          "std": 0.26894459982610597
+        },
+        {
+          "id": "W4406548969",
+          "mean": 1.0324997497067931,
+          "std": 0.26762445750064
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.5395238837488869,
+          "std": 0.2693679927040298
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.2835576938776203,
+          "std": 0.2699568764101454
+        },
+        {
+          "id": "W4406950283",
+          "mean": 1.9716264710363776,
+          "std": 0.2817579306747996
+        },
+        {
+          "id": "W6910572094",
+          "mean": 1.1628662550174491,
+          "std": 0.2678334612768458
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.4593127900818397,
+          "std": 0.270303604961399
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.8489110236141052,
+          "std": 0.28163530794908886
+        },
+        {
+          "id": "W4406734791",
+          "mean": 1.466395839302451,
+          "std": 0.2823545269972069
+        },
+        {
+          "id": "W6911026313",
+          "mean": 1.9716264710363776,
+          "std": 0.28175793067479954
+        },
+        {
+          "id": "W4406486150",
+          "mean": 1.396626221791529,
+          "std": 0.2539630527523364
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "calls": 12,
+      "calls_ok": 11,
+      "calls_refused": 0,
+      "calls_malformed": 1,
+      "calls_errored": 0,
+      "observations": 308,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 20612,
+        "completion_tokens": 144,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 20576,
+        "nanodollars": 5324000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          3,
+          0,
+          6,
+          1,
+          0,
+          1,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          4,
+          1,
+          2,
+          0,
+          1,
+          1
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 5,
+        "presentation_pairs": 5,
+        "entity_pairs_compared": 140,
+        "direction_flips": 28,
+        "flip_rate": 0.2
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 0.41201587530803646,
+          "std": 0.3278178459556992
+        },
+        {
+          "id": "W4406810884",
+          "mean": 1.284716334765874,
+          "std": 0.28717380335330167
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.125660838956277,
+          "std": 0.3059751105422965
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.21909662879997463,
+          "std": 0.30953466245105976
+        },
+        {
+          "id": "W4416393118",
+          "mean": 1.270895887468339,
+          "std": 0.32551872269917126
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.8809880872802796,
+          "std": 0.3211066869296411
+        },
+        {
+          "id": "W4407684014",
+          "mean": 1.3889606211246428,
+          "std": 0.3068090269668546
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.8192905047575112,
+          "std": 0.28998600601807384
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.0,
+          "std": 0.3096592707874722
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.5642743104187385,
+          "std": 0.3278178459556992
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.44980555359911917,
+          "std": 0.30538796142305014
+        },
+        {
+          "id": "W4416105450",
+          "mean": 1.4917597517655818,
+          "std": 0.309209557726951
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.7324238524518957,
+          "std": 0.3236309801841569
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.1168678532575744,
+          "std": 0.28832869903051184
+        },
+        {
+          "id": "W4406548969",
+          "mean": 1.4535545404268495,
+          "std": 0.3260941031990565
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.5362799241656605,
+          "std": 0.2974616722742415
+        },
+        {
+          "id": "W4406733450",
+          "mean": 2.0063756463085087,
+          "std": 0.2903119216155501
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.2966808169137082,
+          "std": 0.30991007778304785
+        },
+        {
+          "id": "W6910572094",
+          "mean": 1.6834830166361292,
+          "std": 0.3240534811058555
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.094134187165953,
+          "std": 0.28731466363788005
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.3176357575531389,
+          "std": 0.31072049250912537
+        },
+        {
+          "id": "W4406734791",
+          "mean": 1.290590829164032,
+          "std": 0.3102229530577036
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.3142978674122906,
+          "std": 0.31106385831964556
+        },
+        {
+          "id": "W4406486150",
+          "mean": 1.484748446925478,
+          "std": 0.29719897056562866
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "methodological rigor",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 16,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 67958,
+      "provider_output_tokens": 2496,
+      "nanodollars": 16586800,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W4406486150",
+          "mean": 0.9879530134441608,
+          "std": 0.8091881772899244
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.7273299594476209,
+          "std": 0.7281566866577882
+        },
+        {
+          "id": "W4406733450",
+          "mean": 0.7256395635834416,
+          "std": 0.6873540573743435
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.5271023379644002,
+          "std": 0.8091881772899245
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.5091962733759283,
+          "std": 0.6703455934188498
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.5082660354051775,
+          "std": 0.6108313109557997
+        },
+        {
+          "id": "W4416999525",
+          "mean": 0.4445916165044869,
+          "std": 0.5395169639413541
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.4156128164843063,
+          "std": 0.6149611056005342
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.37436254847679934,
+          "std": 0.5792636166899533
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.35645247435523636,
+          "std": 0.527689083884578
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.33630787032341586,
+          "std": 0.4951114547356576
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.32551362492546504,
+          "std": 0.8091881772899245
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.31995421565882615,
+          "std": 0.718823344929656
+        },
+        {
+          "id": "W4416105450",
+          "mean": 0.29409909266766443,
+          "std": 0.5866670606801455
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.2630021344766245,
+          "std": 0.650784349516115
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.25569227031994973,
+          "std": 0.42840690079634075
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.2242956148305662,
+          "std": 0.5502640917009353
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.17611586635873241,
+          "std": 0.5767260157139482
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.16723431255204327,
+          "std": 0.6060176867937025
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.1042450009007598,
+          "std": 0.4848221455983923
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.08957311488426714,
+          "std": 0.45028018856829805
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.040974158238587965,
+          "std": 0.5707733559763905
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.02218362111193234,
+          "std": 0.6698627944080359
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.0,
+          "std": 0.5323901631245029
+        }
+      ]
+    },
+    {
+      "attribute": "novelty of contribution",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 9,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 68496,
+      "provider_output_tokens": 2496,
+      "nanodollars": 16924560,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W6891814254",
+          "mean": 0.8042034972968917,
+          "std": 0.6701519050133095
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.7193926397988136,
+          "std": 0.7949468274072843
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.7179423395673364,
+          "std": 0.7949468274072843
+        },
+        {
+          "id": "W4416105450",
+          "mean": 0.6733968704888098,
+          "std": 0.6955841187081978
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.6503344257987501,
+          "std": 0.502815950381141
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.6173035486692074,
+          "std": 0.6012530581378039
+        },
+        {
+          "id": "W4406733450",
+          "mean": 0.5217630260506652,
+          "std": 0.670917221604597
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.5093927106681955,
+          "std": 0.4338271197816949
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.5018479353444649,
+          "std": 0.7270210784255855
+        },
+        {
+          "id": "W4406486150",
+          "mean": 0.48400324420558616,
+          "std": 0.6557500349997311
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.43414773772213194,
+          "std": 0.6821658675625422
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.4306979344230918,
+          "std": 0.6321933233084882
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.4068032429532739,
+          "std": 0.647770212015705
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.39145236898494656,
+          "std": 0.6757650477029518
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.3690796382866258,
+          "std": 0.5985572042144626
+        },
+        {
+          "id": "W4416999525",
+          "mean": 0.3488952133005808,
+          "std": 0.6906479427841845
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.32109182839854905,
+          "std": 0.6676507562015657
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.30324737849437444,
+          "std": 0.729385373171772
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.26264172381308526,
+          "std": 0.6192817323115528
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.25628810515403205,
+          "std": 0.6345890378165752
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.16526283659893803,
+          "std": 0.6789789474300316
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.14837636191167436,
+          "std": 0.6592350061798435
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.13036231507326923,
+          "std": 0.7601704647427177
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.0,
+          "std": 0.7721146824379834
+        }
+      ]
+    },
+    {
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "comparisons_attempted": 96,
+      "comparisons_used": 96,
+      "comparisons_refused": 0,
+      "comparison_budget": 96,
+      "position_flips": 10,
+      "pairs_counterbalanced": 48,
+      "provider_input_tokens": 68620,
+      "provider_output_tokens": 2496,
+      "nanodollars": 17121180,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W4407684014",
+          "mean": 0.9119471689991613,
+          "std": 0.5120360813928835
+        },
+        {
+          "id": "W4416999525",
+          "mean": 0.8498234751897914,
+          "std": 0.5859509880454226
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.8428008818960147,
+          "std": 0.6104063257584775
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.826942256791215,
+          "std": 0.7051170670874028
+        },
+        {
+          "id": "W4406486150",
+          "mean": 0.8248599680886228,
+          "std": 0.5059625902481782
+        },
+        {
+          "id": "W4416105450",
+          "mean": 0.7753612441564376,
+          "std": 0.5902831779780562
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.7568528453959735,
+          "std": 0.576778985426795
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.7277607500145655,
+          "std": 0.6955503296915618
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.7112209677921627,
+          "std": 0.5515759814908838
+        },
+        {
+          "id": "W4406733450",
+          "mean": 0.7105990975691132,
+          "std": 0.6447752273573722
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.6726697886813903,
+          "std": 0.614840367800892
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.6294976530513093,
+          "std": 0.652745782931158
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.6158914226048924,
+          "std": 0.5679668841918211
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.59269489997264,
+          "std": 0.4908805912120053
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.581102733197644,
+          "std": 0.5795124157362243
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.5347249018594084,
+          "std": 0.7051170670874028
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.4441492838814329,
+          "std": 0.5228976110780201
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.41509326548889736,
+          "std": 0.5697495523775304
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.3888570737150619,
+          "std": 0.6504344558237319
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.36271097716449774,
+          "std": 0.6274878810743262
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.34704813715084365,
+          "std": 0.47574995635889095
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.2516425510655262,
+          "std": 0.5322030168818049
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.1959549536313659,
+          "std": 0.7013849681732673
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.0,
+          "std": 0.6563053946671695
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "methodological rigor",
+      "spearman_rho": 0.6895652173913044,
+      "kendall_tau": 0.5,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 63612.268080272625,
+      "pairwise_obs_per_dollar": 5787.734825282755,
+      "setwise_dollars_per_item": 0.00022008333333333333,
+      "pairwise_dollars_per_item": 0.0006911166666666666
+    },
+    {
+      "k": 8,
+      "attribute": "novelty of contribution",
+      "spearman_rho": 0.9073511080191599,
+      "kendall_tau": 0.7445255474452555,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 63504.06350406351,
+      "pairwise_obs_per_dollar": 5672.230179100668,
+      "setwise_dollars_per_item": 0.00022045833333333333,
+      "pairwise_dollars_per_item": 0.0007051900000000001
+    },
+    {
+      "k": 8,
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "spearman_rho": 0.7791304347826087,
+      "kendall_tau": 0.5869565217391305,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 57851.23966942149,
+      "pairwise_obs_per_dollar": 5607.0901655142925,
+      "setwise_dollars_per_item": 0.00022183333333333332,
+      "pairwise_dollars_per_item": 0.0007133825
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 66529540,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

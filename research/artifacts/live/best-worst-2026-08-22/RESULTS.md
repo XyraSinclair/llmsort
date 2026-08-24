@@ -185,6 +185,32 @@ correlate 0.99) — so the setwise "retest" measures determinism, not
 independent stability; the flip rate over shuffled orders remains the
 honest stability gauge.
 
+## Addendum 2026-08-24 — gpt-5.6-luna (the search repo's model), $0.23
+
+Three runs (`live/run5.sh`): manifund + repeat + arXiv, same design
+(order k = 8, n = 24, m = 2, r = 2, seed 17).
+
+| run | flip rate | ρ vs pairwise |
+|---|---|---|
+| model-gpt56luna | 0.22 / 0.15 / 0.11 | 0.70 / 0.81 / 0.89 |
+| model-gpt56luna-rep2 | 0.17 / 0.11 / 0.12 | 0.74 / 0.81 / 0.92 |
+| arxiv-gpt56luna | 0.25 / 0.15 / 0.20 | 0.69 / 0.91 / 0.78 |
+
+1. **Luna's pairwise band is 0.94 / 0.95 / 0.94** — reliable on every
+   attribute, including impact_per_dollar where gpt-4.1-mini's baseline
+   broke (0.61). Order-vs-pairwise on the user-prompt attribute
+   (0.89 / 0.92) sits at that ceiling; theory_of_change (0.81) is near;
+   impact_per_dollar (0.70–0.74) below — and impact is exactly luna's
+   flakiest gauge cell (flip 0.17–0.22, still the calmest any model
+   showed on that attribute). 36/36 calls parsed per manifund run.
+2. **Cost:** order ≈ 3.8e-4 $/item vs pairwise 1.0–1.3e-3 (~⅓). The
+   rep2 run's setwise arm cost 3.8e-5 $/item — 10× less — because the
+   identical prompt prefixes hit OpenAI's provider cache: live evidence
+   of the cache-native prompt geometry paying off on repeat sorts.
+3. This closes the gate's ≥ 2-model cell in the same sense deepseek
+   held it: at/near the same-model pairwise ceiling on stable
+   attributes at ≤ ½ the price, gauge flagging the rest.
+
 Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
 scripts mirrored in `live/run.sh`, `live/run2.sh`, `live/run3.sh`,

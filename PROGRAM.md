@@ -211,17 +211,18 @@ RESULTS.md with denominators) and one page here.
   k = 6–8 listwise → tier-lowering → solver — enters the crate's promised
   surface (a mode beside `sort_documents`) when: ≥ 2 model families at ρ
   inside the same-model pairwise test–retest band at ≤ ½ pairwise $/item
-  on the same pool ◐ (deepseek ✓ at its ceiling; gpt-4.1-mini band
-  measured by repeat run — pairwise test–retest 0.61/0.87/0.94, order ρ
-  0.64–0.82 sits a step below the band on stable attributes at ~⅓–⅒ the
-  $/item, and on the flaky attribute BOTH instruments are unreliable,
-  which the gauge flags; adequate-regime yes, at-ceiling no); ≥ 2 corpus
+  on the same pool ✅ (deepseek at its 0.83–0.94 ceiling;
+  **gpt-5.6-luna** — the search repo's model — pairwise band
+  0.94/0.95/0.94 with order at that ceiling on the stable attributes,
+  0.89/0.92, at ~⅓ the $/item, gauge flagging the one below-band cell;
+  gpt-4.1-mini is the cautionary third point: its pairwise baseline
+  itself broke, 0.61, on the gauge-flagged attribute); ≥ 2 corpus
   families ✅; an entity-size map ✅ (400–8000, soft at ~400); delimiter
   verdict ✅ (free parameter); the gauge shipped as part of the recipe,
-  not an optional extra ⬜ (the crate-side implementation itself).
-  Remaining: the crate-side mode, plus either a second model at-ceiling
-  or an explicit decision that adequate-regime transfer (with the gauge
-  as guard) is the bar the promised surface documents.
+  not an optional extra ⬜. Remaining: the crate-side mode alone. Bonus
+  measured on luna's repeat run: identical prefixes hit the provider
+  cache and the setwise arm cost 10× less — the cache-native prompt
+  geometry paying off live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 
