@@ -211,7 +211,29 @@ Three runs (`live/run5.sh`): manifund + repeat + arXiv, same design
    held it: at/near the same-model pairwise ceiling on stable
    attributes at ≤ ½ the price, gauge flagging the rest.
 
+## Addendum 2026-08-24 — E11 anchored-ring design, live ($0.18)
+
+The disjoint design needs a second round only for graph connectivity; a
+ring of cyclic windows (stride k−overlap, last wraps) is connected in one.
+Live (`live/run6.sh`, n = 24, k = 8, overlap 2, seed 17, manifund):
+
+| run | calls/attr | flip rate | ρ vs pairwise |
+|---|---|---|---|
+| ring-m1r2-deepseek | 8 | 0.22 / 0.21 / 0.09 | 0.84 / 0.81 / 0.84 |
+| ring-m1r1-deepseek | 4 | — (no repeats) | 0.71 / 0.70 / 0.79 |
+| ring-m1r2-luna | 8 | 0.26 / 0.17 / 0.12 | 0.81 / 0.88 / 0.91 |
+| (disjoint m2r2 cells) | 12 | see above | deepseek 0.81–0.87, luna 0.70–0.92 |
+
+Structure substitutes for the second round: ring at 8 calls matches the
+12-call disjoint agreement on both models; 4 calls is the connected
+adequacy floor (ρ 0.70–0.79) but gauge-blind. Consequence shipped: the
+crate's `rerank::setwise` defaults to `SetwiseDesign::Ring`, rounds 1,
+repeats 2 — verified live through `setwise_api_check`: 8/8 parsed, gauge
+0.11, $0.0054 for a 24-item sort (was $0.0097 under the disjoint
+default). Caveat: single live run per cell; offline synthetic cells agree
+(ring m1r2 0.81–0.94 vs disjoint m2r2 0.89–0.92).
+
 Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
 scripts mirrored in `live/run.sh`, `live/run2.sh`, `live/run3.sh`,
-`live/run4.sh`.
+`live/run4.sh`, `live/run5.sh`, `live/run6.sh`.

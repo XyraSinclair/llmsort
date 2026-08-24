@@ -237,8 +237,13 @@ RESULTS.md with denominators) and one page here.
   (llmsort@04c299a). Offline (n = 24, k = 8, synthetic judge): ring
   m1r1 = 4 calls/attr, connected, ρ 0.78–0.89 vs disjoint m2r1's 6 calls
   at 0.78–0.90 — same adequacy, ⅔ the calls; ring m1r2 = 8 calls with
-  the gauge vs disjoint m2r2's 12 (0.81–0.94 vs 0.89–0.92). **IN
-  FLIGHT** — live cells (deepseek + luna, manifund seed 17) running.
+  the gauge vs disjoint m2r2's 12 (0.81–0.94 vs 0.89–0.92). **EXECUTED**
+  2026-08-24 (llmsort@37aba66, +$0.18): live on deepseek AND luna, ring
+  m1r2 (8 calls) matches the 12-call disjoint agreement (0.81–0.91);
+  ring m1r1 (4 calls) is the connected adequacy floor, ρ 0.70–0.79,
+  gauge-blind. Structure substitutes for the second round. Shipped: ring
+  is now the crate default (`SetwiseDesign::Ring`, llmsort@b3534f9) —
+  a 24-item sort through the promised API costs $0.0054, verified live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 
