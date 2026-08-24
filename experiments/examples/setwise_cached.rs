@@ -118,6 +118,85 @@ impl AnswerMode {
     }
 }
 
+/// How entity texts are fenced in the prompt. Same information, different
+/// visual structure — measured (flip rate + agreement) rather than assumed.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
+enum Delim {
+    /// `<entity_A>` … `</entity_A>` inside `<entities>` (the original).
+    Xml,
+    /// `[ENTITY A]` … `[/ENTITY A]` inside `[ENTITIES]`.
+    Bracket,
+    /// `--- ENTITY A ---` … `--- END ENTITY A ---` under a dashed banner.
+    Dash,
+}
+
+const DELIMS: [Delim; 3] = [Delim::Xml, Delim::Bracket, Delim::Dash];
+
+impl Delim {
+    fn label(self) -> &'static str {
+        match self {
+            Self::Xml => "xml",
+            Self::Bracket => "bracket",
+            Self::Dash => "dash",
+        }
+    }
+    fn block_open(self) -> &'static str {
+        match self {
+            Self::Xml => {
+                "<entities>
+"
+            }
+            Self::Bracket => {
+                "[ENTITIES]
+"
+            }
+            Self::Dash => {
+                "===== ENTITIES =====
+"
+            }
+        }
+    }
+    fn block_close(self) -> &'static str {
+        match self {
+            Self::Xml => "</entities>",
+            Self::Bracket => "[/ENTITIES]",
+            Self::Dash => "===== END ENTITIES =====",
+        }
+    }
+    fn open(self, letter: char) -> String {
+        match self {
+            Self::Xml => format!(
+                "<entity_{letter}>
+"
+            ),
+            Self::Bracket => format!(
+                "[ENTITY {letter}]
+"
+            ),
+            Self::Dash => format!(
+                "--- ENTITY {letter} ---
+"
+            ),
+        }
+    }
+    fn close(self, letter: char) -> String {
+        match self {
+            Self::Xml => format!(
+                "
+</entity_{letter}>"
+            ),
+            Self::Bracket => format!(
+                "
+[/ENTITY {letter}]"
+            ),
+            Self::Dash => format!(
+                "
+--- END ENTITY {letter} ---"
+            ),
+        }
+    }
+}
+
 #[derive(Parser, Debug)]
 #[command(
     name = "setwise_cached",
@@ -165,6 +244,9 @@ struct Args {
     /// presentations of the same subset) is measured. Ignored by ratio.
     #[arg(long, default_value_t = 1)]
     repeats: usize,
+    /// Entity fencing style in the prompt.
+    #[arg(long, value_enum, default_value_t = Delim::Xml)]
+    delimiter: Delim,
     /// Corpus path (array of {id,text}).
     #[arg(long, default_value = "data/manifund/items/full.json")]
     corpus: String,
@@ -219,16 +301,16 @@ struct AttributeSpec {
 
 /// The cache-stable prefix: entities block in slot order. Byte-identical
 /// across the calls sharing one subset+presentation.
-fn entities_block(entities: &[Entity], order: &[usize]) -> String {
-    let mut block = String::from("<entities>\n");
+fn entities_block(entities: &[Entity], order: &[usize], delim: Delim) -> String {
+    let mut block = String::from(delim.block_open());
     for (slot, &idx) in order.iter().enumerate() {
         let letter = SLOT_LETTERS[slot];
-        block.push_str(&format!(
-            "<entity_{letter}>\n{}\n</entity_{letter}>\n",
-            entities[idx].escaped
-        ));
+        block.push_str(&delim.open(letter));
+        block.push_str(&entities[idx].escaped);
+        block.push_str(&delim.close(letter));
+        block.push('\n');
     }
-    block.push_str("</entities>");
+    block.push_str(delim.block_close());
     block
 }
 
@@ -574,12 +656,16 @@ impl ChatGateway for SyntheticJudge {
             .join("\n");
         let z = self.find_attr(&user)?;
 
-        let (content, cache_read, cache_write) = if user.contains("<entities>") {
+        let style = DELIMS
+            .iter()
+            .copied()
+            .find(|d| user.contains(d.block_open()));
+        let (content, cache_read, cache_write) = if let Some(delim) = style {
             // Setwise prompt. Slots present, in letter order.
             let mut present: Vec<(char, usize)> = Vec::new();
             for &letter in SLOT_LETTERS.iter() {
-                let open = format!("<entity_{letter}>\n");
-                let close = format!("\n</entity_{letter}>");
+                let open = delim.open(letter);
+                let close = delim.close(letter);
                 if !user.contains(open.as_str()) {
                     break;
                 }
@@ -614,7 +700,8 @@ impl ChatGateway for SyntheticJudge {
             };
             // Simulated provider prompt cache over the exact prefix bytes
             // (system + entities block): first sight writes, repeats read.
-            let end = user.find("</entities>").expect("checked above") + "</entities>".len();
+            let end =
+                user.find(delim.block_close()).expect("checked above") + delim.block_close().len();
             let prefix = format!("{system}\n{}", &user[..end]);
             let prefix_tokens = (prefix.len() / 4) as u32;
             let mut cache = self.prefix_cache.lock().expect("prefix cache lock");
@@ -902,6 +989,7 @@ struct Report {
     min_pair_cover: usize,
     presentations_per_subset: usize,
     repeats: usize,
+    delimiter: String,
     spend_cap_usd: f64,
     corpus: String,
     attributes: Vec<AttrReport>,
@@ -1088,7 +1176,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 // Group size: k for the pair-cover design; ⌊n/q⌋ or ⌈n/q⌉
                 // for chunks.
                 let kk = order.len();
-                let block = entities_block(&entities, order);
+                let block = entities_block(&entities, order, args.delimiter);
                 let prefix = format!("{system}\n{block}");
                 let cache_key = prompt_cache_key_for_prefix(&prefix);
                 let expected_slots: Vec<String> =
@@ -1547,6 +1635,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         min_pair_cover: args.min_pair_cover,
         presentations_per_subset: args.presentations,
         repeats: args.repeats,
+        delimiter: args.delimiter.label().to_string(),
         spend_cap_usd: args.spend_cap_usd,
         corpus: args.corpus.clone(),
         attributes: attrs
