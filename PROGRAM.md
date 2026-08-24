@@ -228,6 +228,17 @@ RESULTS.md with denominators) and one page here.
   instrument's own test–retest band. Bonus measured on luna's repeat
   run: identical prefixes hit the provider cache and the setwise arm
   cost 10× less — the cache-native prompt geometry paying off live.
+- **E11 — anchored-ring chunk design.** The disjoint chunk design needs
+  ≥ 2 rounds only to connect the observation graph; a cyclic design whose
+  consecutive groups share `overlap` anchors (last window wraps) is
+  ring-connected in ONE round — ⌈n/(k−o)⌉ calls instead of 2·⌈n/k⌉.
+  Question: does structural connectivity substitute for a second round of
+  observations? `setwise_cached --design ring --overlap 2`
+  (llmsort@04c299a). Offline (n = 24, k = 8, synthetic judge): ring
+  m1r1 = 4 calls/attr, connected, ρ 0.78–0.89 vs disjoint m2r1's 6 calls
+  at 0.78–0.90 — same adequacy, ⅔ the calls; ring m1r2 = 8 calls with
+  the gauge vs disjoint m2r2's 12 (0.81–0.94 vs 0.89–0.92). **IN
+  FLIGHT** — live cells (deepseek + luna, manifund seed 17) running.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
 
