@@ -247,6 +247,12 @@ struct Args {
     /// Entity fencing style in the prompt.
     #[arg(long, value_enum, default_value_t = Delim::Xml)]
     delimiter: Delim,
+    /// bw/order chunk-design family.
+    #[arg(long, value_enum, default_value_t = ChunkDesign::Disjoint)]
+    design: ChunkDesign,
+    /// ring only: anchors shared between consecutive groups.
+    #[arg(long, default_value_t = 2)]
+    overlap: usize,
     /// Corpus path (array of {id,text}).
     #[arg(long, default_value = "data/manifund/items/full.json")]
     corpus: String,
@@ -351,6 +357,17 @@ fn prompt_cache_key_for_prefix(prefix: &str) -> String {
 //  Design: subsets + presentations
 // ---------------------------------------------------------------------
 
+/// Chunk-design family for bw/order: how groups tile the shuffled pool.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
+enum ChunkDesign {
+    /// Disjoint balanced groups per round; rounds >= 2 connect the graph.
+    Disjoint,
+    /// Cyclic overlapping groups: consecutive groups share `overlap`
+    /// anchors and the last wraps to the first, so ONE round already
+    /// yields a ring-connected graph. Calls per round: ceil(n/(k-overlap)).
+    Ring,
+}
+
 struct SubsetPlan {
     subset: Vec<usize>,
     /// Each presentation is a slot order over `subset`; order[0] is the pivot.
@@ -427,6 +444,54 @@ fn draw_design(
 /// times; group sizes differ by at most one; slot order is the shuffled
 /// order, so slot assignment is uniform by symmetry. Each group is one
 /// SubsetPlan with a single presentation.
+/// Ring design: per round, shuffle the pool and take cyclic windows of k
+/// at stride k−overlap. Consecutive windows share `overlap` anchors; the
+/// final window wraps, closing the ring — connected in one round.
+fn draw_ring_design(
+    n: usize,
+    k: usize,
+    overlap: usize,
+    rounds: usize,
+    repeats: usize,
+    rng: &mut StdRng,
+) -> Vec<SubsetPlan> {
+    let stride = k
+        .checked_sub(overlap)
+        .filter(|&s| s > 0)
+        .expect("overlap must be < k");
+    let q = n.div_ceil(stride);
+    let mut plans = Vec::with_capacity(q * rounds);
+    for _ in 0..rounds {
+        let mut pool: Vec<usize> = (0..n).collect();
+        pool.shuffle(rng);
+        for g in 0..q {
+            let order: Vec<usize> = (0..k).map(|j| pool[(g * stride + j) % n]).collect();
+            let mut subset = order.clone();
+            subset.sort_unstable();
+            subset.dedup();
+            assert_eq!(
+                subset.len(),
+                order.len(),
+                "cyclic window duplicated an entity"
+            );
+            let presentations = (0..repeats.max(1))
+                .map(|r| {
+                    let mut o = order.clone();
+                    if r > 0 {
+                        o.shuffle(rng);
+                    }
+                    o
+                })
+                .collect();
+            plans.push(SubsetPlan {
+                subset,
+                presentations,
+            });
+        }
+    }
+    plans
+}
+
 fn draw_chunk_design(
     n: usize,
     k: usize,
@@ -990,6 +1055,8 @@ struct Report {
     presentations_per_subset: usize,
     repeats: usize,
     delimiter: String,
+    design: String,
+    overlap: usize,
     spend_cap_usd: f64,
     corpus: String,
     attributes: Vec<AttrReport>,
@@ -1157,9 +1224,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 args.presentations,
                 &mut design_rng,
             ),
-            AnswerMode::Bw | AnswerMode::Order => {
-                draw_chunk_design(args.n, k, args.presentations, args.repeats, &mut design_rng)
-            }
+            AnswerMode::Bw | AnswerMode::Order => match args.design {
+                ChunkDesign::Disjoint => {
+                    draw_chunk_design(args.n, k, args.presentations, args.repeats, &mut design_rng)
+                }
+                ChunkDesign::Ring => draw_ring_design(
+                    args.n,
+                    k,
+                    args.overlap,
+                    args.presentations,
+                    args.repeats,
+                    &mut design_rng,
+                ),
+            },
         };
         subsets_per_k.insert(k, design.len());
         let calls: usize =
@@ -1636,6 +1713,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         presentations_per_subset: args.presentations,
         repeats: args.repeats,
         delimiter: args.delimiter.label().to_string(),
+        design: format!("{:?}", args.design).to_lowercase(),
+        overlap: args.overlap,
         spend_cap_usd: args.spend_cap_usd,
         corpus: args.corpus.clone(),
         attributes: attrs
