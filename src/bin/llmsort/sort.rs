@@ -43,7 +43,6 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 if policy.is_some()
                     || policy_config.is_some()
                     || budget.is_some()
-                    || top_k.is_some()
                     || two_sided
                     || !also_by.is_empty()
                     || no_counterbalance
@@ -55,7 +54,15 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     || trace.is_some()
                     || estimate
                 {
-                    return Err("--setwise supports --model, --k, --seed, --concurrency,                          --format, --scores, --reverse, --elaborate, and --quiet only;                          the pairwise path owns budgets, policies, caches, probes, and                          traces"
+                    return Err("--setwise supports --model, --k, --top-k, --seed, \
+                                --concurrency, --format, --scores, --reverse, \
+                                --elaborate, and --quiet only; the pairwise path owns \
+                                budgets, policies, caches, probes, and traces"
+                        .into());
+                }
+                if top_k.is_some_and(|t| t == 0 || t * 2 >= documents.len()) {
+                    return Err("--setwise --top-k needs 0 < K < n/2; for larger K the \
+                                funnel buys nothing - use the pairwise path directly"
                         .into());
                 }
                 let gateway = Arc::new(provider_gateway(false)?);
@@ -88,6 +95,13 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     concurrency,
                     ..Default::default()
                 };
+                let documents_by_id: std::collections::HashMap<
+                    String,
+                    llmsort::rerank::RerankDocument,
+                > = documents
+                    .iter()
+                    .map(|d| (d.id.clone(), d.clone()))
+                    .collect();
                 let mut sorted = llmsort::rerank::sort_documents_setwise(
                     documents,
                     &criterion,
@@ -95,6 +109,49 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     opts,
                 )
                 .await?;
+
+                // The funnel (E14): screen -> certified pairwise refine of the
+                // top-3K slice. The refined head replaces the screen's head;
+                // the tail keeps its screen order. Latent stats stay
+                // stage-native (the log-ratio scales differ across the
+                // splice); ranks are renumbered over the spliced list.
+                let mut refined_meta: Option<(usize, i64)> = None;
+                if let Some(target_k) = top_k {
+                    let m = (3 * target_k).min(sorted.items.len());
+                    let slice_docs: Vec<llmsort::rerank::RerankDocument> = sorted.items[..m]
+                        .iter()
+                        .map(|i| documents_by_id[&i.id].clone())
+                        .collect();
+                    let execution = llmsort::rerank::RerankExecution::new(
+                        gateway.clone(),
+                        Attribution::new("llmsort::sort::funnel"),
+                    )
+                    .run_options(RerankRunOptions {
+                        rng_seed: seed,
+                        ..RerankRunOptions::default()
+                    });
+                    let refined = llmsort::rerank::sort_documents(
+                        slice_docs,
+                        &criterion,
+                        execution,
+                        llmsort::rerank::SortOptions {
+                            model: model.clone(),
+                            top_k: Some(target_k),
+                            ..Default::default()
+                        },
+                    )
+                    .await?;
+                    refined_meta = Some((
+                        refined.meta.comparisons_used,
+                        refined.meta.provider_cost_nanodollars,
+                    ));
+                    let tail: Vec<_> = sorted.items.split_off(m);
+                    sorted.items = refined.items;
+                    sorted.items.extend(tail);
+                    for (idx, item) in sorted.items.iter_mut().enumerate() {
+                        item.rank = idx + 1;
+                    }
+                }
                 if reverse {
                     sorted.items.reverse();
                 }
@@ -126,8 +183,18 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     } else {
                         String::new()
                     };
+                    let funnel = match refined_meta {
+                        Some((cmp, nano)) => format!(
+                            " · funnel: top-{} certified over a {}-item slice, {} comparisons, ${:.4} (top-k stability across seeds is 0.3-0.7 at this budget - PROGRAM.md E14)",
+                            top_k.expect("refined implies top_k"),
+                            (3 * top_k.expect("checked")).min(sorted.items.len()),
+                            cmp,
+                            nano as f64 / 1e9,
+                        ),
+                        None => String::new(),
+                    };
                     eprintln!(
-                        "sorted {} items by \"{by}\" · setwise k={k} · {} calls ({} ok, {} malformed, {} errored) · ${cost_usd:.4} · {}{gauge}{components}",
+                        "sorted {} items by \"{by}\" · setwise k={k} · {} calls ({} ok, {} malformed, {} errored) · ${cost_usd:.4} · {}{gauge}{components}{funnel}",
                         sorted.items.len(),
                         sorted.calls,
                         sorted.calls_ok,
