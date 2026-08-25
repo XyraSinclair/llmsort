@@ -286,8 +286,12 @@ RESULTS.md with denominators) and one page here.
   the instrument triangle (ring~point 0.31–0.61) shows no arm is a clean
   gold at this budget — the 600-comparison pairwise baseline covers 5% of
   pairs. Per-item budget does not transfer across n: graph diameter grows
-  with n/(k−overlap). Next lever: `rounds: 2` (structural density), and a
-  pairwise retest at n=150 to set the ceiling before any stronger claim.
+  with n/(k−overlap). Close-out (run8, seed 18, $0.66): the n=150 pairwise
+  ceiling is itself 0.68–0.89 (test–retest at 600 comparisons), and ring
+  `rounds: 2` (100 calls/attr, ~5.3 slot-appearances/item) lands within
+  0.02–0.07 of that ceiling on every attribute for both models (luna
+  0.77/0.87/0.79 vs 0.80/0.89/0.85) at ~1/6 the pairwise cost. Scaling
+  recipe for n ≫ k: `rounds: 2`, everything else unchanged.
 
 ## 4. E1 design: setwise ratio, cached prefix
 

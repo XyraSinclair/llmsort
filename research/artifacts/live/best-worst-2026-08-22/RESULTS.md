@@ -323,3 +323,28 @@ Readings:
    transfer across n — the observation graph's diameter grows with
    n/(k−overlap); the untested lever is `rounds: 2` (structural density),
    not bigger k.
+
+### E13 close-out (2026-08-24, run8, $0.66): rounds=2 recovers n=150 — at the ceiling
+
+Seed 18 (same 150 entities; independent planner + presentations), ring k=8
+rounds=2 repeats=2 (100 calls/attr ≈ 5.3 slot-appearances/item) with an
+in-run pairwise arm (600 comparisons/attr) doubling as the seed-17 retest:
+
+| model | attribute | flip | ring2~pw18 | pw17~pw18 (ceiling) |
+|---|---|---|---|---|
+| deepseek | methodological rigor | 0.25 | 0.65 | 0.68 |
+| deepseek | novelty of contribution | 0.22 | 0.78 | 0.81 |
+| deepseek | usefulness for a practitioner | 0.24 | 0.74 | 0.81 |
+| luna | methodological rigor | 0.18 | 0.77 | 0.80 |
+| luna | novelty of contribution | 0.15 | 0.87 | 0.89 |
+| luna | usefulness for a practitioner | 0.21 | 0.79 | 0.85 |
+
+Readings: (a) the n=150 pairwise ruler is itself noisy — test–retest
+0.68–0.89 at this budget, so run7's ring r=2 numbers were read against a
+moving target; (b) structural density was the right lever: doubling rounds
+puts ring within 0.02–0.07 of the same model's pairwise ceiling on every
+attribute, at ~1/6 the pairwise cost; (c) the gauge keeps its one-sided
+ordering — lowest flip, highest agreement (luna novelty 0.15 → 0.87).
+Scaling recipe for n ≫ k: `rounds: 2`, everything else unchanged.
+600/600, 600/600, 599/600 pairwise and 100/100 ×5, 99/100 setwise calls
+parsed.

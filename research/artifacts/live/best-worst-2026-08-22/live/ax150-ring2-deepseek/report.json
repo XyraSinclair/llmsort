@@ -1,0 +1,5009 @@
+{
+  "generated_at": "2026-08-25T02:22:09.697039218+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 18,
+  "n": 150,
+  "ks": [
+    8
+  ],
+  "entity_chars": 1000,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 2,
+  "repeats": 2,
+  "delimiter": "xml",
+  "design": "ring",
+  "overlap": 2,
+  "spend_cap_usd": 1.5,
+  "corpus": "data/arxiv_abstracts.json",
+  "attributes": [
+    {
+      "name": "methodological rigor",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 20
+    },
+    {
+      "name": "novelty of contribution",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 23
+    },
+    {
+      "name": "usefulness for a practitioner building LLM-based products",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 57
+    }
+  ],
+  "entity_ids": [
+    "W6891798182",
+    "W4416393118",
+    "W6967157550",
+    "W4406033240",
+    "W4416098779",
+    "W4406734791",
+    "W4406486150",
+    "W4415080324",
+    "W7077142139",
+    "W6910518143",
+    "W4417150440",
+    "W4406316939",
+    "W4407424087",
+    "W4406604520",
+    "W4416999525",
+    "W4409601911",
+    "W4406458936",
+    "W4417313621",
+    "W4406604566",
+    "W4416875771",
+    "W4406485184",
+    "W4407184424",
+    "W4406231018",
+    "W4417006854",
+    "W4407679583",
+    "W4407759590",
+    "W4406733450",
+    "W4406603968",
+    "W4414812741",
+    "W4407185554",
+    "W4406484082",
+    "W4406032915",
+    "W4407806804",
+    "W6948050508",
+    "W4406273441",
+    "W4406840868",
+    "W4417279890",
+    "W4406316690",
+    "W4416959258",
+    "W4406880570",
+    "W6966350956",
+    "W4414801979",
+    "W4414887463",
+    "W4407310674",
+    "W4406549374",
+    "W4415085804",
+    "W6948563684",
+    "W4416042718",
+    "W6948232554",
+    "W4406549079",
+    "W4406548969",
+    "W6966614413",
+    "W4415191887",
+    "W4406449486",
+    "W4406840433",
+    "W4407093331",
+    "W4406950283",
+    "W4415318303",
+    "W4416455407",
+    "W4406699495",
+    "W4407759132",
+    "W4407124196",
+    "W4415186031",
+    "W6891935129",
+    "W6929472810",
+    "W4415198176",
+    "W7106686009",
+    "W4406121152",
+    "W4406741160",
+    "W6910566006",
+    "W4407684014",
+    "W4407128582",
+    "W6929293117",
+    "W4416365887",
+    "W6948219458",
+    "W4414895666",
+    "W6891814254",
+    "W4415979340",
+    "W6910837910",
+    "W4416524567",
+    "W6911026313",
+    "W4407759600",
+    "W4417050603",
+    "W4414876892",
+    "W4407713029",
+    "W4414888199",
+    "W4414973927",
+    "W4417305769",
+    "W4407590534",
+    "W4406741031",
+    "W4406778835",
+    "W4407425732",
+    "W6929419661",
+    "W6910483918",
+    "W4407170272",
+    "W4415102157",
+    "W6966545553",
+    "W4414974729",
+    "W4406033167",
+    "W7083695438",
+    "W6966777154",
+    "W4415319839",
+    "W4416095924",
+    "W4416284731",
+    "W6891853064",
+    "W4417223017",
+    "W4417077629",
+    "W4406810884",
+    "W4406271052",
+    "W4407569977",
+    "W6910752418",
+    "W4417161986",
+    "W7077897856",
+    "W4417288510",
+    "W4406745129",
+    "W4416105450",
+    "W4406033420",
+    "W4406937275",
+    "W4417521643",
+    "W4417080482",
+    "W4407425748",
+    "W4407384832",
+    "W4416243736",
+    "W4409594083",
+    "W4416241868",
+    "W6967424919",
+    "W4417128706",
+    "W4414834072",
+    "W6929358615",
+    "W4407012951",
+    "W4406789554",
+    "W4415030372",
+    "W6948306960",
+    "W4406033385",
+    "W4406093082",
+    "W4417266698",
+    "W4417175683",
+    "W4417326942",
+    "W4407764894",
+    "W7104010298",
+    "W4407423003",
+    "W4417423726",
+    "W4406449944",
+    "W4406975371",
+    "W4406735456",
+    "W6910572094",
+    "W4407690143",
+    "W4416176609",
+    "W4415976151",
+    "W4415130727"
+  ],
+  "engine_spec": {
+    "n": 150,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nAgroLLM: Connecting Farmers and Agricultural Practices through Large Language Models for Enhanced Knowledge Transfer and Practical Application\n\nAgroLLM is an AI-powered chatbot designed to enhance knowledge-sharing and education in agriculture using Large Language Models (LLMs) and a Retrieval-Augmented Generation (RAG) framework. By using a comprehensive open-source agricultural database, AgroLLM provides accurate, contextually relevant responses while reducing incorrect information retrieval. The system utilizes the FAISS vector database for efficient similarity searches, ensuring rapid access to agricultural knowledge. A comparative study of three advanced models: Gemini 1.5 Flash, ChatGPT-4o Mini, and Mistral-7B-Instruct-v0.2 was conducted to evaluate performance across four key agricultural domains: Agriculture and Life Sciences, Agricultural Management, Agriculture and Forestry, and Agriculture Business. Key evaluation metrics included embedding quality, search efficiency, and re\n</entity_A>\n<entity_B>\nDeepSeek-V3.2: Pushing the Frontier of Open Large Language Models\n\nWe introduce DeepSeek-V3.2, a model that harmonizes high computational efficiency with superior reasoning and agent performance. The key technical breakthroughs of DeepSeek-V3.2 are as follows: (1) DeepSeek Sparse Attention (DSA): We introduce DSA, an efficient attention mechanism that substantially reduces computational complexity while preserving model performance in long-context scenarios. (2) Scalable Reinforcement Learning Framework: By implementing a robust reinforcement learning protocol and scaling post-training compute, DeepSeek-V3.2 performs comparably to GPT-5. Notably, our high-compute variant, DeepSeek-V3.2-Speciale, surpasses GPT-5 and exhibits reasoning proficiency on par with Gemini-3.0-Pro, achieving gold-medal performance in both the 2025 International Mathematical Olympiad (IMO) and the International Olympiad in Informatics (IOI). (3) Large-Scale Agentic Task Synthesis Pipeline: To integrate reasoning\n</entity_B>\n<entity_C>\nLLM Post-Training: A Deep Dive into Reasoning Large Language Models\n\nLarge Language Models (LLMs) have transformed the natural language processing landscape and brought to life diverse applications. Pretraining on vast web-scale data has laid the foundation for these models, yet the research community is now increasingly shifting focus toward post-training techniques to achieve further breakthroughs. While pretraining provides a broad linguistic foundation, post-training methods enable LLMs to refine their knowledge, improve reasoning, enhance factual accuracy, and align more effectively with user intents and ethical considerations. Fine-tuning, reinforcement learning, and test-time scaling have emerged as critical strategies for optimizing LLMs performance, ensuring robustness, and improving adaptability across various real-world tasks. This survey provides a systematic exploration of post-training methodologies, analyzing their role in refining LLMs beyond pretraining, addressing key\n</entity_C>\n<entity_D>\nVLForgery Face Triad: Detection, Localization and Attribution via Multimodal Large Language Models\n\nFaces synthesized by diffusion models (DMs) with high-quality and controllable attributes pose a significant challenge for Deepfake detection. Most state-of-the-art detectors only yield a binary decision, incapable of forgery localization, attribution of forgery methods, and providing analysis on the cause of forgeries. In this work, we integrate Multimodal Large Language Models (MLLMs) within DM-based face forensics, and propose a fine-grained analysis triad framework called VLForgery, that can 1) predict falsified facial images; 2) locate the falsified face regions subjected to partial synthesis; and 3) attribute the synthesis with specific generators. To achieve the above goals, we introduce VLF (Visual Language Forensics), a novel and diverse synthesis face dataset designed to facilitate rich interactions between Visual and Language modalities in MLLMs. Additionally, we propose an ex\n</entity_D>\n<entity_E>\nMedical large language models are easily distracted\n\nLarge language models (LLMs) have the potential to transform medicine, but real-world clinical scenarios contain extraneous information that can hinder performance. The rise of assistive technologies like ambient dictation, which automatically generates draft notes from live patient encounters, has the potential to introduce additional noise making it crucial to assess the ability of LLM&apos;s to filter relevant data. To investigate this, we developed MedDistractQA, a benchmark using USMLE-style questions embedded with simulated real-world distractions. Our findings show that distracting statements (polysemous words with clinical meanings used in a non-clinical context or references to unrelated health conditions) can reduce LLM accuracy by up to 17.9%. Commonly proposed solutions to improve model performance such as retrieval-augmented generation (RAG) and medical fine-tuning did not change this effect and in some cases introduced their\n</entity_E>\n<entity_F>\nVision-Language-Action (VLA) Models: Concepts, Progress, Applications and Challenges\n\nVision-Language-Action (VLA) models mark a transformative advancement in artificial intelligence, aiming to unify perception, natural language understanding, and embodied action within a single computational framework. This foundational review presents a comprehensive synthesis of recent advancements in Vision-Language-Action models, systematically organized across five thematic pillars that structure the landscape of this rapidly evolving field. We begin by establishing the conceptual foundations of VLA systems, tracing their evolution from cross-modal learning architectures to generalist agents that tightly integrate vision-language models (VLMs), action planners, and hierarchical controllers. Our methodology adopts a rigorous literature review framework, covering over 80 VLA models published in the past three years. Key progress areas include architectural innovations, efficient training strategies\n</entity_F>\n<entity_G>\nPhi-4-Mini Technical Report: Compact yet Powerful Multimodal Language Models via Mixture-of-LoRAs\n\nWe introduce Phi-4-Mini and Phi-4-Multimodal, compact yet highly capable language and multimodal models. Phi-4-Mini is a 3.8-billion-parameter language model trained on high-quality web and synthetic data, significantly outperforming recent open-source models of similar size and matching the performance of models twice its size on math and coding tasks requiring complex reasoning. This achievement is driven by a carefully curated synthetic data recipe emphasizing high-quality math and coding datasets. Compared to its predecessor, Phi-3.5-Mini, Phi-4-Mini features an expanded vocabulary size of 200K tokens to better support multilingual applications, as well as group query attention for more efficient long-sequence generation. Phi-4-Multimodal is a multimodal model that integrates text, vision, and speech/audio input modalities into a single model. Its novel modality extension approach lev\n</entity_G>\n<entity_H>\nThe Great Nugget Recall: Automating Fact Extraction and RAG Evaluation with Large Language Models\n\nLarge Language Models (LLMs) have significantly enhanced the capabilities of information access systems, especially with retrieval-augmented generation (RAG). Nevertheless, the evaluation of RAG systems remains a barrier to continued progress, a challenge we tackle in this work by proposing an automatic evaluation framework that is validated against human annotations. We believe that the nugget evaluation methodology provides a solid foundation for evaluating RAG systems. This approach, originally developed for the TREC Question Answering (QA) Track in 2003, evaluates systems based on atomic facts that should be present in good answers. Our efforts focus on &quot;refactoring&quot; this methodology, where we describe the AutoNuggetizer framework that specifically applies LLMs to both automatically create nuggets and automatically assign nuggets to system answers. In the context of the TREC 2024 RAG\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: methodological rigor </attribute_name>.\n<full_attribute_text>\nmethodological rigor\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:bb359884e76ea24a",
+    "prefix_bytes": 8537
+  },
+  "subsets_per_k": {
+    "8": 50
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "methodological rigor",
+      "calls": 100,
+      "calls_ok": 100,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 2800,
+      "usage": {
+        "calls": 100,
+        "prompt_tokens": 166440,
+        "completion_tokens": 900,
+        "cache_read_tokens": 3584,
+        "cache_write_tokens": 0,
+        "nanodollars": 23302720
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 100,
+        "calls_with_cache_read_gt0": 14,
+        "mean_cached_fraction": 0.02124935143611821
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          4,
+          20,
+          12,
+          12,
+          11,
+          13,
+          18,
+          10
+        ],
+        "last_by_slot": [
+          4,
+          4,
+          9,
+          7,
+          11,
+          14,
+          13,
+          38
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 50,
+        "presentation_pairs": 50,
+        "entity_pairs_compared": 1400,
+        "direction_flips": 353,
+        "flip_rate": 0.25214285714285717
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W6891798182",
+          "mean": 0.9444348885817219,
+          "std": 0.2525520988116849
+        },
+        {
+          "id": "W4416393118",
+          "mean": 1.662470353367509,
+          "std": 0.24152804461572783
+        },
+        {
+          "id": "W6967157550",
+          "mean": 0.9967205475419046,
+          "std": 0.21891713810859287
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.6469036869043372,
+          "std": 0.2022726685437399
+        },
+        {
+          "id": "W4416098779",
+          "mean": 1.8527603717953391,
+          "std": 0.21599231622261938
+        },
+        {
+          "id": "W4406734791",
+          "mean": 2.1738901573596423,
+          "std": 0.2435025092079059
+        },
+        {
+          "id": "W4406486150",
+          "mean": 2.137257488414151,
+          "std": 0.21616758100810637
+        },
+        {
+          "id": "W4415080324",
+          "mean": 0.6016088781186555,
+          "std": 0.21524548015651776
+        },
+        {
+          "id": "W7077142139",
+          "mean": 2.2108521835839317,
+          "std": 0.23241361721173384
+        },
+        {
+          "id": "W6910518143",
+          "mean": 1.2384209108060091,
+          "std": 0.21774571573096174
+        },
+        {
+          "id": "W4417150440",
+          "mean": 0.6474944308674944,
+          "std": 0.248609715053948
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.18901882954381866,
+          "std": 0.21653894392542786
+        },
+        {
+          "id": "W4407424087",
+          "mean": 1.9025259507744687,
+          "std": 0.24292142994518418
+        },
+        {
+          "id": "W4406604520",
+          "mean": 0.7299658901391126,
+          "std": 0.24472504788622154
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.8012090005454966,
+          "std": 0.21503484572623943
+        },
+        {
+          "id": "W4409601911",
+          "mean": 1.1761426639994519,
+          "std": 0.2443436372067102
+        },
+        {
+          "id": "W4406458936",
+          "mean": 0.708803135593858,
+          "std": 0.24315124852187428
+        },
+        {
+          "id": "W4417313621",
+          "mean": 0.6893766662208255,
+          "std": 0.23259982083295455
+        },
+        {
+          "id": "W4406604566",
+          "mean": 1.1219438258206198,
+          "std": 0.23496872362019003
+        },
+        {
+          "id": "W4416875771",
+          "mean": 1.5446757239332134,
+          "std": 0.24370890745714643
+        },
+        {
+          "id": "W4406485184",
+          "mean": 0.6492696821902536,
+          "std": 0.24628840956848888
+        },
+        {
+          "id": "W4407184424",
+          "mean": 1.1863044826939004,
+          "std": 0.24539652109710014
+        },
+        {
+          "id": "W4406231018",
+          "mean": 0.6626132470026348,
+          "std": 0.20096242313876653
+        },
+        {
+          "id": "W4417006854",
+          "mean": 1.8284996396807691,
+          "std": 0.2181751664104629
+        },
+        {
+          "id": "W4407679583",
+          "mean": 1.2464475771074581,
+          "std": 0.2525520988116849
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.5249335885866333,
+          "std": 0.21782901555508902
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.9042516449066154,
+          "std": 0.20946543851264093
+        },
+        {
+          "id": "W4406603968",
+          "mean": 0.8087651589227477,
+          "std": 0.24125867922931404
+        },
+        {
+          "id": "W4414812741",
+          "mean": 1.808682615318248,
+          "std": 0.24214024470769518
+        },
+        {
+          "id": "W4407185554",
+          "mean": 1.419477977746182,
+          "std": 0.24391683215851218
+        },
+        {
+          "id": "W4406484082",
+          "mean": 1.1554668455513217,
+          "std": 0.21840335633180774
+        },
+        {
+          "id": "W4406032915",
+          "mean": 1.0182475663142156,
+          "std": 0.23267771767229095
+        },
+        {
+          "id": "W4407806804",
+          "mean": 1.4985119202211732,
+          "std": 0.21792972124771828
+        },
+        {
+          "id": "W6948050508",
+          "mean": 1.9206540624159634,
+          "std": 0.23251128569140989
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.4206905270760394,
+          "std": 0.24496185151652988
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.8185983772396137,
+          "std": 0.2450041544729017
+        },
+        {
+          "id": "W4417279890",
+          "mean": 1.4482198799542574,
+          "std": 0.23605580777752938
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.8112322476962623,
+          "std": 0.22024780973015562
+        },
+        {
+          "id": "W4416959258",
+          "mean": 1.8027552374665832,
+          "std": 0.20737896293737645
+        },
+        {
+          "id": "W4406880570",
+          "mean": 0.03552528789530418,
+          "std": 0.21601774430121504
+        },
+        {
+          "id": "W6966350956",
+          "mean": 0.3996636860169911,
+          "std": 0.2496980580976076
+        },
+        {
+          "id": "W4414801979",
+          "mean": 1.4521059509037424,
+          "std": 0.24624258793285214
+        },
+        {
+          "id": "W4414887463",
+          "mean": 2.271272979178088,
+          "std": 0.21695514449161238
+        },
+        {
+          "id": "W4407310674",
+          "mean": 1.316285093756913,
+          "std": 0.24457466626820792
+        },
+        {
+          "id": "W4406549374",
+          "mean": 1.5051792299188032,
+          "std": 0.21560436892822454
+        },
+        {
+          "id": "W4415085804",
+          "mean": 0.7350036632376692,
+          "std": 0.19533222805393202
+        },
+        {
+          "id": "W6948563684",
+          "mean": 1.0729330710813658,
+          "std": 0.24652457632862665
+        },
+        {
+          "id": "W4416042718",
+          "mean": 0.6507332785650244,
+          "std": 0.21692382398372423
+        },
+        {
+          "id": "W6948232554",
+          "mean": 1.0543062749675296,
+          "std": 0.19945035404894448
+        },
+        {
+          "id": "W4406549079",
+          "mean": 0.5900378900087386,
+          "std": 0.24258898272754462
+        },
+        {
+          "id": "W4406548969",
+          "mean": 1.1206935283157125,
+          "std": 0.20103116940429325
+        },
+        {
+          "id": "W6966614413",
+          "mean": 1.3840001566820117,
+          "std": 0.24489468755903449
+        },
+        {
+          "id": "W4415191887",
+          "mean": 1.0416216379605234,
+          "std": 0.24806533536651484
+        },
+        {
+          "id": "W4406449486",
+          "mean": 0.5299977254524677,
+          "std": 0.24658729650806008
+        },
+        {
+          "id": "W4406840433",
+          "mean": 1.5085495197487329,
+          "std": 0.24432235601572144
+        },
+        {
+          "id": "W4407093331",
+          "mean": 0.545956232799863,
+          "std": 0.21659101596297875
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.9952237676589113,
+          "std": 0.21996740100364082
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.9631984659712012,
+          "std": 0.20301230531272238
+        },
+        {
+          "id": "W4416455407",
+          "mean": 2.1591992483046667,
+          "std": 0.21395778548069494
+        },
+        {
+          "id": "W4406699495",
+          "mean": 0.308575462470573,
+          "std": 0.24279608014780787
+        },
+        {
+          "id": "W4407759132",
+          "mean": 0.9288643237997506,
+          "std": 0.21758277864347172
+        },
+        {
+          "id": "W4407124196",
+          "mean": 2.171633240350028,
+          "std": 0.24389315001405298
+        },
+        {
+          "id": "W4415186031",
+          "mean": 1.5368844867677005,
+          "std": 0.21690724336032852
+        },
+        {
+          "id": "W6891935129",
+          "mean": 1.064704646232396,
+          "std": 0.21478344083309203
+        },
+        {
+          "id": "W6929472810",
+          "mean": 1.725953546643499,
+          "std": 0.24598444367773414
+        },
+        {
+          "id": "W4415198176",
+          "mean": 0.9998775353753525,
+          "std": 0.21813805932344013
+        },
+        {
+          "id": "W7106686009",
+          "mean": 1.4246129971556443,
+          "std": 0.24482463646178762
+        },
+        {
+          "id": "W4406121152",
+          "mean": 0.4946911298606839,
+          "std": 0.1934907466395345
+        },
+        {
+          "id": "W4406741160",
+          "mean": 1.171922848831087,
+          "std": 0.20842604193941344
+        },
+        {
+          "id": "W6910566006",
+          "mean": 0.9268168783292097,
+          "std": 0.22074651322700994
+        },
+        {
+          "id": "W4407684014",
+          "mean": 1.0764105562101847,
+          "std": 0.2117911784298865
+        },
+        {
+          "id": "W4407128582",
+          "mean": 1.0887103266030285,
+          "std": 0.217305261485123
+        },
+        {
+          "id": "W6929293117",
+          "mean": 1.0941907857880733,
+          "std": 0.19648610710490297
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.7806360012174489,
+          "std": 0.24531291048063616
+        },
+        {
+          "id": "W6948219458",
+          "mean": 0.8130226401894636,
+          "std": 0.21696072184105697
+        },
+        {
+          "id": "W4414895666",
+          "mean": 1.3324772247245686,
+          "std": 0.21701668306236344
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.8482951186916713,
+          "std": 0.2175406711993159
+        },
+        {
+          "id": "W4415979340",
+          "mean": 0.5921319473963422,
+          "std": 0.24984048095192166
+        },
+        {
+          "id": "W6910837910",
+          "mean": 0.8058158809211946,
+          "std": 0.21644024617785876
+        },
+        {
+          "id": "W4416524567",
+          "mean": 1.080554208285539,
+          "std": 0.20983736252109825
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.9107092798415197,
+          "std": 0.2479613794333912
+        },
+        {
+          "id": "W4407759600",
+          "mean": 1.3254086763289776,
+          "std": 0.2079897818108582
+        },
+        {
+          "id": "W4417050603",
+          "mean": 1.9317637672125223,
+          "std": 0.24457902632807324
+        },
+        {
+          "id": "W4414876892",
+          "mean": 1.0060934147494036,
+          "std": 0.20235757252131806
+        },
+        {
+          "id": "W4407713029",
+          "mean": 0.6481861763166701,
+          "std": 0.2078082787139532
+        },
+        {
+          "id": "W4414888199",
+          "mean": 0.5995407740908824,
+          "std": 0.2179110033795075
+        },
+        {
+          "id": "W4414973927",
+          "mean": 1.0492904098437061,
+          "std": 0.24224658131975407
+        },
+        {
+          "id": "W4417305769",
+          "mean": 1.6582445371203849,
+          "std": 0.2458101682232155
+        },
+        {
+          "id": "W4407590534",
+          "mean": 1.58738255333501,
+          "std": 0.24384716299095724
+        },
+        {
+          "id": "W4406741031",
+          "mean": 0.6977301408773352,
+          "std": 0.24162115021812958
+        },
+        {
+          "id": "W4406778835",
+          "mean": 0.5139447605073622,
+          "std": 0.23319662342669428
+        },
+        {
+          "id": "W4407425732",
+          "mean": 1.4088659233550638,
+          "std": 0.24555137141919373
+        },
+        {
+          "id": "W6929419661",
+          "mean": 0.3858178151886975,
+          "std": 0.21866942694831307
+        },
+        {
+          "id": "W6910483918",
+          "mean": 1.9495634347128457,
+          "std": 0.2471657967856917
+        },
+        {
+          "id": "W4407170272",
+          "mean": 1.1674934605168699,
+          "std": 0.20302605072011165
+        },
+        {
+          "id": "W4415102157",
+          "mean": 0.5396236336740002,
+          "std": 0.21735978871506198
+        },
+        {
+          "id": "W6966545553",
+          "mean": 1.27332821457257,
+          "std": 0.24558284577192982
+        },
+        {
+          "id": "W4414974729",
+          "mean": 1.305467644313062,
+          "std": 0.24730209470696693
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.3954294551940096,
+          "std": 0.2425894130577276
+        },
+        {
+          "id": "W7083695438",
+          "mean": 1.307971269781846,
+          "std": 0.21531194412720603
+        },
+        {
+          "id": "W6966777154",
+          "mean": 0.9224073630196564,
+          "std": 0.24243965068490292
+        },
+        {
+          "id": "W4415319839",
+          "mean": 1.1391133325473939,
+          "std": 0.2042043612695591
+        },
+        {
+          "id": "W4416095924",
+          "mean": 1.3070043656490125,
+          "std": 0.24413946529345296
+        },
+        {
+          "id": "W4416284731",
+          "mean": 0.9631242111427676,
+          "std": 0.19598805751014456
+        },
+        {
+          "id": "W6891853064",
+          "mean": 2.060497452780012,
+          "std": 0.21761816341772705
+        },
+        {
+          "id": "W4417223017",
+          "mean": 1.0638344960931863,
+          "std": 0.19026598323535832
+        },
+        {
+          "id": "W4417077629",
+          "mean": 1.265955023766819,
+          "std": 0.24240640079311185
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.5612332461787011,
+          "std": 0.24833004805581865
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.0,
+          "std": 0.2420780346796124
+        },
+        {
+          "id": "W4407569977",
+          "mean": 1.60092633002022,
+          "std": 0.24257411655505262
+        },
+        {
+          "id": "W6910752418",
+          "mean": 1.8253990733568988,
+          "std": 0.24166585656219605
+        },
+        {
+          "id": "W4417161986",
+          "mean": 1.9383976149365512,
+          "std": 0.19394527583497195
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.27501129396012414,
+          "std": 0.2480285973146601
+        },
+        {
+          "id": "W4417288510",
+          "mean": 1.7060930942356491,
+          "std": 0.21707303769231792
+        },
+        {
+          "id": "W4406745129",
+          "mean": 0.8625304290183213,
+          "std": 0.20145929481270683
+        },
+        {
+          "id": "W4416105450",
+          "mean": 1.6802623535517993,
+          "std": 0.21931421706641915
+        },
+        {
+          "id": "W4406033420",
+          "mean": 1.3135104795572394,
+          "std": 0.2458251111337509
+        },
+        {
+          "id": "W4406937275",
+          "mean": 1.7933943078695025,
+          "std": 0.24446865611768273
+        },
+        {
+          "id": "W4417521643",
+          "mean": 1.3931518427117149,
+          "std": 0.23412702826661358
+        },
+        {
+          "id": "W4417080482",
+          "mean": 1.1898234431556003,
+          "std": 0.20478196204438104
+        },
+        {
+          "id": "W4407425748",
+          "mean": 0.5128854982358538,
+          "std": 0.2180169480217074
+        },
+        {
+          "id": "W4407384832",
+          "mean": 0.5696738037028768,
+          "std": 0.24249929432051995
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.712101456091845,
+          "std": 0.2427532387455802
+        },
+        {
+          "id": "W4409594083",
+          "mean": 0.2828779909122049,
+          "std": 0.21646684044735134
+        },
+        {
+          "id": "W4416241868",
+          "mean": 0.8366597490575209,
+          "std": 0.2108619007014824
+        },
+        {
+          "id": "W6967424919",
+          "mean": 1.4908029558407982,
+          "std": 0.245480860820896
+        },
+        {
+          "id": "W4417128706",
+          "mean": 0.43882853671618094,
+          "std": 0.231949562444308
+        },
+        {
+          "id": "W4414834072",
+          "mean": 1.3369804421364306,
+          "std": 0.2181226876903206
+        },
+        {
+          "id": "W6929358615",
+          "mean": 0.738649011194675,
+          "std": 0.21615098767517468
+        },
+        {
+          "id": "W4407012951",
+          "mean": 0.971554249578034,
+          "std": 0.20409285135578767
+        },
+        {
+          "id": "W4406789554",
+          "mean": 0.7458762680389346,
+          "std": 0.24545885927692393
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.9793643493609766,
+          "std": 0.24392046391902322
+        },
+        {
+          "id": "W6948306960",
+          "mean": 1.195754308255862,
+          "std": 0.21783819761824968
+        },
+        {
+          "id": "W4406033385",
+          "mean": 0.8368799429396294,
+          "std": 0.2162674336942409
+        },
+        {
+          "id": "W4406093082",
+          "mean": 0.40999793804143314,
+          "std": 0.24421200894964326
+        },
+        {
+          "id": "W4417266698",
+          "mean": 0.5812372060448219,
+          "std": 0.24894843198965685
+        },
+        {
+          "id": "W4417175683",
+          "mean": 1.4507948819402816,
+          "std": 0.2437936718944846
+        },
+        {
+          "id": "W4417326942",
+          "mean": 0.5347165095320472,
+          "std": 0.2156592336282585
+        },
+        {
+          "id": "W4407764894",
+          "mean": 0.6397045239468886,
+          "std": 0.24579913033570439
+        },
+        {
+          "id": "W7104010298",
+          "mean": 0.5785373758542836,
+          "std": 0.20331189203695155
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.343449048845516,
+          "std": 0.19688684620554164
+        },
+        {
+          "id": "W4417423726",
+          "mean": 1.1192144774473454,
+          "std": 0.20122848285790437
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.9809435964425796,
+          "std": 0.21916866218580192
+        },
+        {
+          "id": "W4406975371",
+          "mean": 0.32629202081103525,
+          "std": 0.2151190694909975
+        },
+        {
+          "id": "W4406735456",
+          "mean": 0.41247991679231477,
+          "std": 0.20978977152404207
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.9636829354674068,
+          "std": 0.2166603407392959
+        },
+        {
+          "id": "W4407690143",
+          "mean": 0.9265591062084085,
+          "std": 0.2158534343606277
+        },
+        {
+          "id": "W4416176609",
+          "mean": 0.7081290413270686,
+          "std": 0.24800436739049292
+        },
+        {
+          "id": "W4415976151",
+          "mean": 2.0048831198789636,
+          "std": 0.19995898228954806
+        },
+        {
+          "id": "W4415130727",
+          "mean": 0.15424506150361095,
+          "std": 0.2151405236206804
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "novelty of contribution",
+      "calls": 100,
+      "calls_ok": 100,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 2800,
+      "usage": {
+        "calls": 100,
+        "prompt_tokens": 166740,
+        "completion_tokens": 900,
+        "cache_read_tokens": 124672,
+        "cache_write_tokens": 0,
+        "nanodollars": 14868560
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 100,
+        "calls_with_cache_read_gt0": 84,
+        "mean_cached_fraction": 0.7476770500859411
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          8,
+          15,
+          18,
+          11,
+          18,
+          9,
+          10,
+          11
+        ],
+        "last_by_slot": [
+          3,
+          11,
+          6,
+          9,
+          13,
+          23,
+          14,
+          21
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 50,
+        "presentation_pairs": 50,
+        "entity_pairs_compared": 1400,
+        "direction_flips": 304,
+        "flip_rate": 0.21714285714285714
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W6891798182",
+          "mean": 0.7265478950305637,
+          "std": 0.25696254667216845
+        },
+        {
+          "id": "W4416393118",
+          "mean": 1.0850785529413844,
+          "std": 0.24426220050808442
+        },
+        {
+          "id": "W6967157550",
+          "mean": 0.8231350978881751,
+          "std": 0.21702605987465828
+        },
+        {
+          "id": "W4406033240",
+          "mean": 1.2810746769405572,
+          "std": 0.202848026174819
+        },
+        {
+          "id": "W4416098779",
+          "mean": 2.0194695807378285,
+          "std": 0.21628843962910393
+        },
+        {
+          "id": "W4406734791",
+          "mean": 2.4031926567326614,
+          "std": 0.2440584053124746
+        },
+        {
+          "id": "W4406486150",
+          "mean": 0.5622538836653443,
+          "std": 0.21538148129875062
+        },
+        {
+          "id": "W4415080324",
+          "mean": 1.0462289914437077,
+          "std": 0.21998672722253837
+        },
+        {
+          "id": "W7077142139",
+          "mean": 0.4089853149880597,
+          "std": 0.23990845678892744
+        },
+        {
+          "id": "W6910518143",
+          "mean": 1.992906313672716,
+          "std": 0.21761328835020202
+        },
+        {
+          "id": "W4417150440",
+          "mean": 1.5447610937212408,
+          "std": 0.24751306113207858
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.4176189907846066,
+          "std": 0.21608477104805948
+        },
+        {
+          "id": "W4407424087",
+          "mean": 1.8389696775065378,
+          "std": 0.24363180013132651
+        },
+        {
+          "id": "W4406604520",
+          "mean": 0.9571370727920486,
+          "std": 0.2440042645801439
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.2005429611714058,
+          "std": 0.21909283570440813
+        },
+        {
+          "id": "W4409601911",
+          "mean": 1.4795588723495428,
+          "std": 0.24315191514808024
+        },
+        {
+          "id": "W4406458936",
+          "mean": 0.30296268021386313,
+          "std": 0.24192725788251676
+        },
+        {
+          "id": "W4417313621",
+          "mean": 0.8388666068736097,
+          "std": 0.23647044799650893
+        },
+        {
+          "id": "W4406604566",
+          "mean": 0.8712673820195298,
+          "std": 0.23476658653943144
+        },
+        {
+          "id": "W4416875771",
+          "mean": 1.8493444545261832,
+          "std": 0.24559900085084058
+        },
+        {
+          "id": "W4406485184",
+          "mean": 0.7573586908277816,
+          "std": 0.24554783079611872
+        },
+        {
+          "id": "W4407184424",
+          "mean": 1.8944311439925539,
+          "std": 0.24363599433030758
+        },
+        {
+          "id": "W4406231018",
+          "mean": 0.44521455892851436,
+          "std": 0.20099766773748462
+        },
+        {
+          "id": "W4417006854",
+          "mean": 2.253334014111296,
+          "std": 0.2169093274723113
+        },
+        {
+          "id": "W4407679583",
+          "mean": 2.2864154034807145,
+          "std": 0.24560479271176175
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.65463922739351,
+          "std": 0.21830395188795326
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.208638060957182,
+          "std": 0.21129657191654924
+        },
+        {
+          "id": "W4406603968",
+          "mean": 0.6345255744527245,
+          "std": 0.24333045299835343
+        },
+        {
+          "id": "W4414812741",
+          "mean": 1.108579265739086,
+          "std": 0.2477476741653091
+        },
+        {
+          "id": "W4407185554",
+          "mean": 1.8399788941988708,
+          "std": 0.24580430384987423
+        },
+        {
+          "id": "W4406484082",
+          "mean": 1.2078401766371054,
+          "std": 0.21506514266646456
+        },
+        {
+          "id": "W4406032915",
+          "mean": 1.865373753439497,
+          "std": 0.23476185105512
+        },
+        {
+          "id": "W4407806804",
+          "mean": 0.8081169099250122,
+          "std": 0.2167937490168315
+        },
+        {
+          "id": "W6948050508",
+          "mean": 1.4445397436605236,
+          "std": 0.23517892271053417
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.5148016841734571,
+          "std": 0.24409763231433804
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.5970839322542695,
+          "std": 0.2432664929125875
+        },
+        {
+          "id": "W4417279890",
+          "mean": 1.6754118560044327,
+          "std": 0.23249751106644923
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.8681811568619018,
+          "std": 0.21856070876457634
+        },
+        {
+          "id": "W4416959258",
+          "mean": 1.3968337237239836,
+          "std": 0.20824304968809595
+        },
+        {
+          "id": "W4406880570",
+          "mean": 0.0,
+          "std": 0.215977553504723
+        },
+        {
+          "id": "W6966350956",
+          "mean": 0.8865960338011454,
+          "std": 0.25340957778251566
+        },
+        {
+          "id": "W4414801979",
+          "mean": 1.2865523928706244,
+          "std": 0.2467747288260571
+        },
+        {
+          "id": "W4414887463",
+          "mean": 1.3200482940682172,
+          "std": 0.21784952533305538
+        },
+        {
+          "id": "W4407310674",
+          "mean": 0.9094077047043819,
+          "std": 0.24514739213730607
+        },
+        {
+          "id": "W4406549374",
+          "mean": 1.5966781487612485,
+          "std": 0.2153560799727459
+        },
+        {
+          "id": "W4415085804",
+          "mean": 1.6805606561862731,
+          "std": 0.19431944188117198
+        },
+        {
+          "id": "W6948563684",
+          "mean": 0.8812240767044544,
+          "std": 0.24988249226683737
+        },
+        {
+          "id": "W4416042718",
+          "mean": 0.6159212377547149,
+          "std": 0.21650066153676437
+        },
+        {
+          "id": "W6948232554",
+          "mean": 1.102360023664159,
+          "std": 0.20021975975560577
+        },
+        {
+          "id": "W4406549079",
+          "mean": 0.1686356580528986,
+          "std": 0.24369343575299307
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.9560692084984662,
+          "std": 0.20163612756886673
+        },
+        {
+          "id": "W6966614413",
+          "mean": 1.8157201050268734,
+          "std": 0.24519112974230617
+        },
+        {
+          "id": "W4415191887",
+          "mean": 1.3544564272075375,
+          "std": 0.2433699439839165
+        },
+        {
+          "id": "W4406449486",
+          "mean": 0.9609351089273435,
+          "std": 0.24157341649262765
+        },
+        {
+          "id": "W4406840433",
+          "mean": 0.9976813064202288,
+          "std": 0.24991239410484803
+        },
+        {
+          "id": "W4407093331",
+          "mean": 0.6891459678251276,
+          "std": 0.216519324603041
+        },
+        {
+          "id": "W4406950283",
+          "mean": 1.4833375385722527,
+          "std": 0.21953766259656143
+        },
+        {
+          "id": "W4415318303",
+          "mean": 1.981901224919549,
+          "std": 0.20231666088080366
+        },
+        {
+          "id": "W4416455407",
+          "mean": 0.8614486038056608,
+          "std": 0.2173228345150867
+        },
+        {
+          "id": "W4406699495",
+          "mean": 0.5998350351550373,
+          "std": 0.24498420679908897
+        },
+        {
+          "id": "W4407759132",
+          "mean": 1.904104132699582,
+          "std": 0.21685854731321869
+        },
+        {
+          "id": "W4407124196",
+          "mean": 2.306623789655461,
+          "std": 0.24299397592000274
+        },
+        {
+          "id": "W4415186031",
+          "mean": 1.7734297849408989,
+          "std": 0.2170957154384739
+        },
+        {
+          "id": "W6891935129",
+          "mean": 1.6785796058620657,
+          "std": 0.2206303324141021
+        },
+        {
+          "id": "W6929472810",
+          "mean": 1.7361364650553184,
+          "std": 0.24592836960782632
+        },
+        {
+          "id": "W4415198176",
+          "mean": 1.9898629592250698,
+          "std": 0.21746105063218918
+        },
+        {
+          "id": "W7106686009",
+          "mean": 1.7590622177494475,
+          "std": 0.24456370103736946
+        },
+        {
+          "id": "W4406121152",
+          "mean": 0.7247733332185536,
+          "std": 0.19289968421672798
+        },
+        {
+          "id": "W4406741160",
+          "mean": 1.4736166622091025,
+          "std": 0.20807221926635106
+        },
+        {
+          "id": "W6910566006",
+          "mean": 1.9608122456504309,
+          "std": 0.2174447124864525
+        },
+        {
+          "id": "W4407684014",
+          "mean": 1.083153833554315,
+          "std": 0.20999461682075907
+        },
+        {
+          "id": "W4407128582",
+          "mean": 1.7399684692763993,
+          "std": 0.21678250346961345
+        },
+        {
+          "id": "W6929293117",
+          "mean": 1.2403642059077309,
+          "std": 0.19523609920143842
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.9937750820993141,
+          "std": 0.24671928368221738
+        },
+        {
+          "id": "W6948219458",
+          "mean": 1.157695750571312,
+          "std": 0.21619402343935104
+        },
+        {
+          "id": "W4414895666",
+          "mean": 1.4397976476961318,
+          "std": 0.21813905360263383
+        },
+        {
+          "id": "W6891814254",
+          "mean": 2.298940299538544,
+          "std": 0.2150144685603881
+        },
+        {
+          "id": "W4415979340",
+          "mean": 1.2039502244201716,
+          "std": 0.24952661453280686
+        },
+        {
+          "id": "W6910837910",
+          "mean": 0.6992730226481751,
+          "std": 0.21651036299558699
+        },
+        {
+          "id": "W4416524567",
+          "mean": 0.9242961549376927,
+          "std": 0.20922424074133397
+        },
+        {
+          "id": "W6911026313",
+          "mean": 1.335262447978292,
+          "std": 0.24703048032621455
+        },
+        {
+          "id": "W4407759600",
+          "mean": 1.7735420256128767,
+          "std": 0.206814018995131
+        },
+        {
+          "id": "W4417050603",
+          "mean": 2.3370855969099953,
+          "std": 0.24480205302449573
+        },
+        {
+          "id": "W4414876892",
+          "mean": 0.6744357079018488,
+          "std": 0.20365960424239588
+        },
+        {
+          "id": "W4407713029",
+          "mean": 1.1841660830107466,
+          "std": 0.21048723417055112
+        },
+        {
+          "id": "W4414888199",
+          "mean": 0.5402963502182483,
+          "std": 0.21903847985276076
+        },
+        {
+          "id": "W4414973927",
+          "mean": 2.079311189495472,
+          "std": 0.2434215647544629
+        },
+        {
+          "id": "W4417305769",
+          "mean": 1.08376977244357,
+          "std": 0.2462045753916378
+        },
+        {
+          "id": "W4407590534",
+          "mean": 1.5951555765571959,
+          "std": 0.24445099058609213
+        },
+        {
+          "id": "W4406741031",
+          "mean": 1.7859983105090937,
+          "std": 0.24482135682329936
+        },
+        {
+          "id": "W4406778835",
+          "mean": 0.855750359781185,
+          "std": 0.23777191541181578
+        },
+        {
+          "id": "W4407425732",
+          "mean": 2.155846426762761,
+          "std": 0.24599756630174063
+        },
+        {
+          "id": "W6929419661",
+          "mean": 0.5763664770420711,
+          "std": 0.21927739181113104
+        },
+        {
+          "id": "W6910483918",
+          "mean": 1.842862455424139,
+          "std": 0.2479537750452626
+        },
+        {
+          "id": "W4407170272",
+          "mean": 1.4207747156239146,
+          "std": 0.20082185911098235
+        },
+        {
+          "id": "W4415102157",
+          "mean": 0.8256689921567694,
+          "std": 0.21934641615442296
+        },
+        {
+          "id": "W6966545553",
+          "mean": 0.8164372241146461,
+          "std": 0.2472556885489425
+        },
+        {
+          "id": "W4414974729",
+          "mean": 2.0494568931855364,
+          "std": 0.24752487417776825
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.069389221575646,
+          "std": 0.24335756597723718
+        },
+        {
+          "id": "W7083695438",
+          "mean": 0.5077264646245726,
+          "std": 0.21478381938024724
+        },
+        {
+          "id": "W6966777154",
+          "mean": 0.9551529375144324,
+          "std": 0.24522553982062079
+        },
+        {
+          "id": "W4415319839",
+          "mean": 1.0766483699119591,
+          "std": 0.20441298540648659
+        },
+        {
+          "id": "W4416095924",
+          "mean": 1.6506759094591046,
+          "std": 0.2435420041198508
+        },
+        {
+          "id": "W4416284731",
+          "mean": 1.992199633008137,
+          "std": 0.1937318689043889
+        },
+        {
+          "id": "W6891853064",
+          "mean": 1.3521063987772064,
+          "std": 0.22016303191031067
+        },
+        {
+          "id": "W4417223017",
+          "mean": 0.46891738258088894,
+          "std": 0.18998891442667992
+        },
+        {
+          "id": "W4417077629",
+          "mean": 0.7840562209251822,
+          "std": 0.24282583906237834
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.8254002556126039,
+          "std": 0.24426562355514422
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.23356185884836472,
+          "std": 0.24162296798807542
+        },
+        {
+          "id": "W4407569977",
+          "mean": 1.6421389970308293,
+          "std": 0.24372543594777
+        },
+        {
+          "id": "W6910752418",
+          "mean": 1.8199880788808531,
+          "std": 0.24201935700481486
+        },
+        {
+          "id": "W4417161986",
+          "mean": 1.9400234178494493,
+          "std": 0.19448643814666908
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.40511723954514817,
+          "std": 0.25069886264045027
+        },
+        {
+          "id": "W4417288510",
+          "mean": 1.1941239027868367,
+          "std": 0.2194348241174269
+        },
+        {
+          "id": "W4406745129",
+          "mean": 0.5430922919892713,
+          "std": 0.20211220416645248
+        },
+        {
+          "id": "W4416105450",
+          "mean": 2.1287524557323554,
+          "std": 0.2165741760498399
+        },
+        {
+          "id": "W4406033420",
+          "mean": 1.671151470436735,
+          "std": 0.24361987573629842
+        },
+        {
+          "id": "W4406937275",
+          "mean": 1.3945494739332354,
+          "std": 0.24330939506787805
+        },
+        {
+          "id": "W4417521643",
+          "mean": 0.6606535792832328,
+          "std": 0.23605545187764443
+        },
+        {
+          "id": "W4417080482",
+          "mean": 1.1882961308011812,
+          "std": 0.20545393255873584
+        },
+        {
+          "id": "W4407425748",
+          "mean": 1.4471723417634967,
+          "std": 0.2174697996217448
+        },
+        {
+          "id": "W4407384832",
+          "mean": 1.5952575335993062,
+          "std": 0.24326394929903095
+        },
+        {
+          "id": "W4416243736",
+          "mean": 1.0181358393910922,
+          "std": 0.25696254667216845
+        },
+        {
+          "id": "W4409594083",
+          "mean": 0.3439804751305679,
+          "std": 0.21581045772676616
+        },
+        {
+          "id": "W4416241868",
+          "mean": 1.4413935155824622,
+          "std": 0.20957894597778853
+        },
+        {
+          "id": "W6967424919",
+          "mean": 1.8554832678649522,
+          "std": 0.24408733349985404
+        },
+        {
+          "id": "W4417128706",
+          "mean": 0.8414686907618022,
+          "std": 0.23344285394795744
+        },
+        {
+          "id": "W4414834072",
+          "mean": 0.7675347113650788,
+          "std": 0.2164781965845458
+        },
+        {
+          "id": "W6929358615",
+          "mean": 1.5671371963780325,
+          "std": 0.21591021453071063
+        },
+        {
+          "id": "W4407012951",
+          "mean": 1.2749607435760053,
+          "std": 0.19997016130342668
+        },
+        {
+          "id": "W4406789554",
+          "mean": 1.0394862951952886,
+          "std": 0.24425505845446369
+        },
+        {
+          "id": "W4415030372",
+          "mean": 1.5320260329546422,
+          "std": 0.24441718354119885
+        },
+        {
+          "id": "W6948306960",
+          "mean": 0.9565168619961172,
+          "std": 0.21700153161796765
+        },
+        {
+          "id": "W4406033385",
+          "mean": 0.5156773988052364,
+          "std": 0.216831345683467
+        },
+        {
+          "id": "W4406093082",
+          "mean": 0.5586138309858045,
+          "std": 0.24402341056583227
+        },
+        {
+          "id": "W4417266698",
+          "mean": 1.2934292685941688,
+          "std": 0.24416780404465255
+        },
+        {
+          "id": "W4417175683",
+          "mean": 1.4365922249377547,
+          "std": 0.2443039259122295
+        },
+        {
+          "id": "W4417326942",
+          "mean": 0.3173881308198981,
+          "std": 0.21610912815009847
+        },
+        {
+          "id": "W4407764894",
+          "mean": 0.7595533662719959,
+          "std": 0.24567007323629733
+        },
+        {
+          "id": "W7104010298",
+          "mean": 1.2092067355196328,
+          "std": 0.20052440474039449
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.1154818665393542,
+          "std": 0.1955749987678928
+        },
+        {
+          "id": "W4417423726",
+          "mean": 1.1378321222374326,
+          "std": 0.2007411317470914
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.8766144641531635,
+          "std": 0.21828897172151204
+        },
+        {
+          "id": "W4406975371",
+          "mean": 1.1469753783230752,
+          "std": 0.21749095107660335
+        },
+        {
+          "id": "W4406735456",
+          "mean": 0.545204170680686,
+          "std": 0.2091449252312527
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.9566979940450261,
+          "std": 0.21690387042498505
+        },
+        {
+          "id": "W4407690143",
+          "mean": 0.9050682806415253,
+          "std": 0.21621614649441437
+        },
+        {
+          "id": "W4416176609",
+          "mean": 1.0774303983218934,
+          "std": 0.2451457218866413
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.7497914931428632,
+          "std": 0.20004109062361533
+        },
+        {
+          "id": "W4415130727",
+          "mean": 1.569699522994585,
+          "std": 0.21702252604553435
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "calls": 100,
+      "calls_ok": 100,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 2800,
+      "usage": {
+        "calls": 100,
+        "prompt_tokens": 167940,
+        "completion_tokens": 900,
+        "cache_read_tokens": 132864,
+        "cache_write_tokens": 0,
+        "nanodollars": 14463120
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 100,
+        "calls_with_cache_read_gt0": 87,
+        "mean_cached_fraction": 0.7902805866011708
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          7,
+          14,
+          11,
+          16,
+          12,
+          13,
+          16,
+          11
+        ],
+        "last_by_slot": [
+          4,
+          6,
+          11,
+          6,
+          13,
+          24,
+          19,
+          17
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 50,
+        "presentation_pairs": 50,
+        "entity_pairs_compared": 1400,
+        "direction_flips": 330,
+        "flip_rate": 0.2357142857142857
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W6891798182",
+          "mean": 0.6753902796303642,
+          "std": 0.25165294433898433
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.8281745736920172,
+          "std": 0.24655177965292693
+        },
+        {
+          "id": "W6967157550",
+          "mean": 1.2322650277579892,
+          "std": 0.21831376837561156
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.7376216812432747,
+          "std": 0.20381923739134564
+        },
+        {
+          "id": "W4416098779",
+          "mean": 0.8596447056560853,
+          "std": 0.21814248726684887
+        },
+        {
+          "id": "W4406734791",
+          "mean": 1.9040831588698564,
+          "std": 0.24614272404314705
+        },
+        {
+          "id": "W4406486150",
+          "mean": 1.412990165759815,
+          "std": 0.21643972742372766
+        },
+        {
+          "id": "W4415080324",
+          "mean": 0.7175357438173069,
+          "std": 0.21798939730064917
+        },
+        {
+          "id": "W7077142139",
+          "mean": 2.0737957352575807,
+          "std": 0.2341409572820496
+        },
+        {
+          "id": "W6910518143",
+          "mean": 1.1866957097477655,
+          "std": 0.21882933849778569
+        },
+        {
+          "id": "W4417150440",
+          "mean": 1.541487013755996,
+          "std": 0.24400828820372
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.46456380345437,
+          "std": 0.21765782689045785
+        },
+        {
+          "id": "W4407424087",
+          "mean": 1.170002135646285,
+          "std": 0.24880256002933854
+        },
+        {
+          "id": "W4406604520",
+          "mean": 0.4950659869808382,
+          "std": 0.24511940115825676
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.7550937356980016,
+          "std": 0.21613746412327126
+        },
+        {
+          "id": "W4409601911",
+          "mean": 1.3878238235096494,
+          "std": 0.2456993436051709
+        },
+        {
+          "id": "W4406458936",
+          "mean": 1.2204326751101697,
+          "std": 0.24598978442633063
+        },
+        {
+          "id": "W4417313621",
+          "mean": 0.34584430606414274,
+          "std": 0.23855113683084184
+        },
+        {
+          "id": "W4406604566",
+          "mean": 1.4311468184867278,
+          "std": 0.23656748634094485
+        },
+        {
+          "id": "W4416875771",
+          "mean": 1.070028691368878,
+          "std": 0.2473317007739436
+        },
+        {
+          "id": "W4406485184",
+          "mean": 0.5337823253896697,
+          "std": 0.24534188762414758
+        },
+        {
+          "id": "W4407184424",
+          "mean": 0.49620171833258275,
+          "std": 0.24566397642615243
+        },
+        {
+          "id": "W4406231018",
+          "mean": 1.0771781350368377,
+          "std": 0.2025655671796322
+        },
+        {
+          "id": "W4417006854",
+          "mean": 2.127530370805706,
+          "std": 0.21828750168885197
+        },
+        {
+          "id": "W4407679583",
+          "mean": 1.0275472202827562,
+          "std": 0.24756071061186075
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.2820007209414062,
+          "std": 0.21884936810741382
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.826097957772514,
+          "std": 0.21075508644830562
+        },
+        {
+          "id": "W4406603968",
+          "mean": 0.582363791025679,
+          "std": 0.24279673679256722
+        },
+        {
+          "id": "W4414812741",
+          "mean": 0.7529996502433309,
+          "std": 0.245971697591939
+        },
+        {
+          "id": "W4407185554",
+          "mean": 0.9582763640078025,
+          "std": 0.2470831478747272
+        },
+        {
+          "id": "W4406484082",
+          "mean": 1.2936055139589753,
+          "std": 0.21815328874527493
+        },
+        {
+          "id": "W4406032915",
+          "mean": 0.38157801446470735,
+          "std": 0.23433857160366947
+        },
+        {
+          "id": "W4407806804",
+          "mean": 0.6928099426219287,
+          "std": 0.21977653008183684
+        },
+        {
+          "id": "W6948050508",
+          "mean": 1.1871192348355846,
+          "std": 0.23520922957556153
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.35220865054338607,
+          "std": 0.2448368478425519
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.10881555226714035,
+          "std": 0.2455040550368674
+        },
+        {
+          "id": "W4417279890",
+          "mean": 1.2669616469621237,
+          "std": 0.23712402404349206
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.4550939832670852,
+          "std": 0.22026328264807674
+        },
+        {
+          "id": "W4416959258",
+          "mean": 1.643944102630488,
+          "std": 0.2091619385379083
+        },
+        {
+          "id": "W4406880570",
+          "mean": 1.0263931531676782,
+          "std": 0.21922746605276552
+        },
+        {
+          "id": "W6966350956",
+          "mean": 0.6083001293877779,
+          "std": 0.249240912719883
+        },
+        {
+          "id": "W4414801979",
+          "mean": 1.4908153922017262,
+          "std": 0.24705065518668493
+        },
+        {
+          "id": "W4414887463",
+          "mean": 1.8264324724674128,
+          "std": 0.21839638546578835
+        },
+        {
+          "id": "W4407310674",
+          "mean": 1.0536452789496595,
+          "std": 0.2446837044060708
+        },
+        {
+          "id": "W4406549374",
+          "mean": 1.1264663438257392,
+          "std": 0.21665368614590025
+        },
+        {
+          "id": "W4415085804",
+          "mean": 1.5020916906991943,
+          "std": 0.19532518022705156
+        },
+        {
+          "id": "W6948563684",
+          "mean": 0.22925334447802598,
+          "std": 0.24538350670180978
+        },
+        {
+          "id": "W4416042718",
+          "mean": 0.5788545621319521,
+          "std": 0.21841076880455854
+        },
+        {
+          "id": "W6948232554",
+          "mean": 1.0959157281479885,
+          "std": 0.20197637489767656
+        },
+        {
+          "id": "W4406549079",
+          "mean": 0.46317629753001077,
+          "std": 0.24273635290599097
+        },
+        {
+          "id": "W4406548969",
+          "mean": 1.3015814994681447,
+          "std": 0.2009701469477715
+        },
+        {
+          "id": "W6966614413",
+          "mean": 1.3791946871926002,
+          "std": 0.2461919972077891
+        },
+        {
+          "id": "W4415191887",
+          "mean": 0.2009412077468915,
+          "std": 0.24567791478377088
+        },
+        {
+          "id": "W4406449486",
+          "mean": 0.5431876670379301,
+          "std": 0.243832001009889
+        },
+        {
+          "id": "W4406840433",
+          "mean": 1.7679693161018517,
+          "std": 0.24500904175571214
+        },
+        {
+          "id": "W4407093331",
+          "mean": 1.4524295687314446,
+          "std": 0.21770016146222845
+        },
+        {
+          "id": "W4406950283",
+          "mean": 1.3526653737775307,
+          "std": 0.2206774379366112
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.2870371790303477,
+          "std": 0.20579094306246934
+        },
+        {
+          "id": "W4416455407",
+          "mean": 1.660445447847478,
+          "std": 0.2161753639126004
+        },
+        {
+          "id": "W4406699495",
+          "mean": 1.942481329340386,
+          "std": 0.2439191538596207
+        },
+        {
+          "id": "W4407759132",
+          "mean": 0.944667989188055,
+          "std": 0.218036008690278
+        },
+        {
+          "id": "W4407124196",
+          "mean": 1.337657171537621,
+          "std": 0.24537790571761406
+        },
+        {
+          "id": "W4415186031",
+          "mean": 1.2216508828849202,
+          "std": 0.2186409618037425
+        },
+        {
+          "id": "W6891935129",
+          "mean": 0.25989186061308056,
+          "std": 0.21589804019446862
+        },
+        {
+          "id": "W6929472810",
+          "mean": 1.167911130049444,
+          "std": 0.24835047848891564
+        },
+        {
+          "id": "W4415198176",
+          "mean": 1.8660981954911375,
+          "std": 0.21897096379948575
+        },
+        {
+          "id": "W7106686009",
+          "mean": 0.9406002356635041,
+          "std": 0.2480444442623046
+        },
+        {
+          "id": "W4406121152",
+          "mean": 1.4539603042470164,
+          "std": 0.19510674070808334
+        },
+        {
+          "id": "W4406741160",
+          "mean": 1.0439793233607688,
+          "std": 0.20981937540806078
+        },
+        {
+          "id": "W6910566006",
+          "mean": 1.9945215417451663,
+          "std": 0.22043142378696604
+        },
+        {
+          "id": "W4407684014",
+          "mean": 1.7646086009131423,
+          "std": 0.21000677174561283
+        },
+        {
+          "id": "W4407128582",
+          "mean": 0.9859402306275848,
+          "std": 0.2175257751737619
+        },
+        {
+          "id": "W6929293117",
+          "mean": 1.0736731512665394,
+          "std": 0.19717029317252815
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.32672088059364746,
+          "std": 0.24793411794273792
+        },
+        {
+          "id": "W6948219458",
+          "mean": 1.617106573150091,
+          "std": 0.21786586650274117
+        },
+        {
+          "id": "W4414895666",
+          "mean": 1.3835075965239638,
+          "std": 0.21904833486995595
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.2187558015067187,
+          "std": 0.21593872289932325
+        },
+        {
+          "id": "W4415979340",
+          "mean": 0.22811537246338226,
+          "std": 0.25165294433898433
+        },
+        {
+          "id": "W6910837910",
+          "mean": 0.5969618423241659,
+          "std": 0.21781802631774408
+        },
+        {
+          "id": "W4416524567",
+          "mean": 1.1580101003362802,
+          "std": 0.21146345209126524
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.4524681905436377,
+          "std": 0.24984610387103992
+        },
+        {
+          "id": "W4407759600",
+          "mean": 0.6145228583136498,
+          "std": 0.20934461667951212
+        },
+        {
+          "id": "W4417050603",
+          "mean": 1.8298100476978005,
+          "std": 0.24761230788764768
+        },
+        {
+          "id": "W4414876892",
+          "mean": 1.4912180146815828,
+          "std": 0.203635564650722
+        },
+        {
+          "id": "W4407713029",
+          "mean": 1.936989508455503,
+          "std": 0.2086081295866203
+        },
+        {
+          "id": "W4414888199",
+          "mean": 0.7784037536135305,
+          "std": 0.22009083326472495
+        },
+        {
+          "id": "W4414973927",
+          "mean": 0.4825850869186119,
+          "std": 0.2431344790505652
+        },
+        {
+          "id": "W4417305769",
+          "mean": 1.7514951958528209,
+          "std": 0.24598619327356405
+        },
+        {
+          "id": "W4407590534",
+          "mean": 1.821057177882809,
+          "std": 0.24511431250260543
+        },
+        {
+          "id": "W4406741031",
+          "mean": 0.3464945014593051,
+          "std": 0.24289076819897862
+        },
+        {
+          "id": "W4406778835",
+          "mean": 0.7303219747108058,
+          "std": 0.24188918966341455
+        },
+        {
+          "id": "W4407425732",
+          "mean": 0.9787640320124535,
+          "std": 0.24565009161635226
+        },
+        {
+          "id": "W6929419661",
+          "mean": 0.9704449341287831,
+          "std": 0.2205163564586975
+        },
+        {
+          "id": "W6910483918",
+          "mean": 1.484666709942374,
+          "std": 0.2467540656196317
+        },
+        {
+          "id": "W4407170272",
+          "mean": 1.6536308017725985,
+          "std": 0.2014920915956949
+        },
+        {
+          "id": "W4415102157",
+          "mean": 1.2742413365384402,
+          "std": 0.22192482452369522
+        },
+        {
+          "id": "W6966545553",
+          "mean": 1.7782324251262076,
+          "std": 0.24643004461491427
+        },
+        {
+          "id": "W4414974729",
+          "mean": 1.0879256270325266,
+          "std": 0.2492703047338563
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.5895222837255425,
+          "std": 0.24348110001793458
+        },
+        {
+          "id": "W7083695438",
+          "mean": 0.9111327558482455,
+          "std": 0.21834024520533768
+        },
+        {
+          "id": "W6966777154",
+          "mean": 0.314301660328957,
+          "std": 0.24370549024753288
+        },
+        {
+          "id": "W4415319839",
+          "mean": 1.5908645032851343,
+          "std": 0.2053409769504397
+        },
+        {
+          "id": "W4416095924",
+          "mean": 0.8108351614081217,
+          "std": 0.24422308096877032
+        },
+        {
+          "id": "W4416284731",
+          "mean": 0.7026365241609003,
+          "std": 0.19539827561066742
+        },
+        {
+          "id": "W6891853064",
+          "mean": 1.7460052127949295,
+          "std": 0.2193121366633801
+        },
+        {
+          "id": "W4417223017",
+          "mean": 0.7844810606704591,
+          "std": 0.1903030630396924
+        },
+        {
+          "id": "W4417077629",
+          "mean": 0.95226027983793,
+          "std": 0.2473964181454749
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.4021186102162921,
+          "std": 0.24599167693756754
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.0,
+          "std": 0.2408418785298905
+        },
+        {
+          "id": "W4407569977",
+          "mean": 1.5925316132870861,
+          "std": 0.24452822344128186
+        },
+        {
+          "id": "W6910752418",
+          "mean": 1.7505282879506283,
+          "std": 0.24472358261634716
+        },
+        {
+          "id": "W4417161986",
+          "mean": 1.3158022586665776,
+          "std": 0.1962051600709707
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.24902442266595903,
+          "std": 0.2503052010445328
+        },
+        {
+          "id": "W4417288510",
+          "mean": 1.6358982973216207,
+          "std": 0.2193764372401607
+        },
+        {
+          "id": "W4406745129",
+          "mean": 1.3699182972671236,
+          "std": 0.20266889391975504
+        },
+        {
+          "id": "W4416105450",
+          "mean": 1.7354493901260133,
+          "std": 0.21794013343258306
+        },
+        {
+          "id": "W4406033420",
+          "mean": 0.8058400240264622,
+          "std": 0.24901285720338395
+        },
+        {
+          "id": "W4406937275",
+          "mean": 0.842061295779353,
+          "std": 0.24517518986994224
+        },
+        {
+          "id": "W4417521643",
+          "mean": 1.0233085271197853,
+          "std": 0.23642336113386136
+        },
+        {
+          "id": "W4417080482",
+          "mean": 0.2562481958766011,
+          "std": 0.20473853806059356
+        },
+        {
+          "id": "W4407425748",
+          "mean": 0.6625021066033506,
+          "std": 0.21778403346637198
+        },
+        {
+          "id": "W4407384832",
+          "mean": 1.3989499950919413,
+          "std": 0.2435371169980918
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.18281063812713993,
+          "std": 0.24674481895151834
+        },
+        {
+          "id": "W4409594083",
+          "mean": 0.7064518058784974,
+          "std": 0.2166347543318529
+        },
+        {
+          "id": "W4416241868",
+          "mean": 0.6226765894350359,
+          "std": 0.21277986174337735
+        },
+        {
+          "id": "W6967424919",
+          "mean": 0.660973563983304,
+          "std": 0.24427323730669626
+        },
+        {
+          "id": "W4417128706",
+          "mean": 0.6567864651377314,
+          "std": 0.23563197802990582
+        },
+        {
+          "id": "W4414834072",
+          "mean": 1.0957733778699992,
+          "std": 0.21813008337568332
+        },
+        {
+          "id": "W6929358615",
+          "mean": 0.9005056739017301,
+          "std": 0.21764851188045753
+        },
+        {
+          "id": "W4407012951",
+          "mean": 0.9035635204825304,
+          "std": 0.20267382201259182
+        },
+        {
+          "id": "W4406789554",
+          "mean": 1.0263355431096572,
+          "std": 0.24653989947904384
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.8722813940804635,
+          "std": 0.24399024256334764
+        },
+        {
+          "id": "W6948306960",
+          "mean": 1.3061684475397843,
+          "std": 0.217364528952978
+        },
+        {
+          "id": "W4406033385",
+          "mean": 0.736122505077313,
+          "std": 0.2189538139725401
+        },
+        {
+          "id": "W4406093082",
+          "mean": 1.6455531040223437,
+          "std": 0.24678400385211813
+        },
+        {
+          "id": "W4417266698",
+          "mean": 0.1524225212388418,
+          "std": 0.2460143589995815
+        },
+        {
+          "id": "W4417175683",
+          "mean": 0.7535564667514195,
+          "std": 0.24489552582265006
+        },
+        {
+          "id": "W4417326942",
+          "mean": 0.972038330126088,
+          "std": 0.21699083464705618
+        },
+        {
+          "id": "W4407764894",
+          "mean": 0.5313821320573394,
+          "std": 0.24428105633699115
+        },
+        {
+          "id": "W7104010298",
+          "mean": 0.22599035939621148,
+          "std": 0.20135726300241485
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.7040425388386629,
+          "std": 0.19568116538319358
+        },
+        {
+          "id": "W4417423726",
+          "mean": 1.9548457156831986,
+          "std": 0.2016768788018532
+        },
+        {
+          "id": "W4406449944",
+          "mean": 1.2458688595613139,
+          "std": 0.21807451140514825
+        },
+        {
+          "id": "W4406975371",
+          "mean": 0.6879149476290041,
+          "std": 0.22059810137697558
+        },
+        {
+          "id": "W4406735456",
+          "mean": 0.7111350241475474,
+          "std": 0.21334761000809488
+        },
+        {
+          "id": "W6910572094",
+          "mean": 1.6076261272620775,
+          "std": 0.21751301743899426
+        },
+        {
+          "id": "W4407690143",
+          "mean": 0.845219254141079,
+          "std": 0.2189204969804752
+        },
+        {
+          "id": "W4416176609",
+          "mean": 0.8327937820348769,
+          "std": 0.24420679798970255
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.5604214909136519,
+          "std": 0.20074313633601465
+        },
+        {
+          "id": "W4415130727",
+          "mean": 2.0403409277713163,
+          "std": 0.21668498079304288
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "methodological rigor",
+      "comparisons_attempted": 600,
+      "comparisons_used": 600,
+      "comparisons_refused": 0,
+      "comparison_budget": 600,
+      "position_flips": 128,
+      "pairs_counterbalanced": 299,
+      "provider_input_tokens": 420518,
+      "provider_output_tokens": 18600,
+      "nanodollars": 53686920,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W6929472810",
+          "mean": 1.186851480452317,
+          "std": 0.49162047637586204
+        },
+        {
+          "id": "W7077142139",
+          "mean": 1.133552692169671,
+          "std": 0.40078751274929986
+        },
+        {
+          "id": "W7083695438",
+          "mean": 1.1107105450255488,
+          "std": 0.6033349826054456
+        },
+        {
+          "id": "W6948050508",
+          "mean": 1.1049758435789383,
+          "std": 0.6106105833465252
+        },
+        {
+          "id": "W4414887463",
+          "mean": 1.084048200887288,
+          "std": 0.46585938279413397
+        },
+        {
+          "id": "W4417050603",
+          "mean": 1.0823341121437053,
+          "std": 0.5270087104810819
+        },
+        {
+          "id": "W4414801979",
+          "mean": 1.0305529520033156,
+          "std": 0.5205814953864175
+        },
+        {
+          "id": "W4407124196",
+          "mean": 1.0114392648323354,
+          "std": 0.5340078540131556
+        },
+        {
+          "id": "W4417161986",
+          "mean": 0.9806963193734398,
+          "std": 0.6991402610693112
+        },
+        {
+          "id": "W6891853064",
+          "mean": 0.9798726612198914,
+          "std": 0.6279956695781681
+        },
+        {
+          "id": "W4416959258",
+          "mean": 0.9758236766073002,
+          "std": 0.48045067268364544
+        },
+        {
+          "id": "W4417423726",
+          "mean": 0.9564042579137166,
+          "std": 0.6320014171127647
+        },
+        {
+          "id": "W4407424087",
+          "mean": 0.9492904239962816,
+          "std": 0.35832901082997315
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.9422758686504136,
+          "std": 0.6612883455279545
+        },
+        {
+          "id": "W4416455407",
+          "mean": 0.940256400872614,
+          "std": 0.5007108218225093
+        },
+        {
+          "id": "W6910483918",
+          "mean": 0.9400082599596024,
+          "std": 0.5903703831452314
+        },
+        {
+          "id": "W4406486150",
+          "mean": 0.9372336794218055,
+          "std": 0.41493437149971324
+        },
+        {
+          "id": "W4416098779",
+          "mean": 0.9351969287017461,
+          "std": 0.46013857057107066
+        },
+        {
+          "id": "W4416105450",
+          "mean": 0.9237012291274674,
+          "std": 0.721247516382896
+        },
+        {
+          "id": "W4417006854",
+          "mean": 0.9209607709448737,
+          "std": 0.741144899893132
+        },
+        {
+          "id": "W6910566006",
+          "mean": 0.9160514677200069,
+          "std": 0.5562327794314161
+        },
+        {
+          "id": "W4417080482",
+          "mean": 0.913397979117667,
+          "std": 0.45798667886553557
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.9091445246563266,
+          "std": 0.47684545663281896
+        },
+        {
+          "id": "W6910752418",
+          "mean": 0.9052108471045295,
+          "std": 0.7140067660706677
+        },
+        {
+          "id": "W4407184424",
+          "mean": 0.8935423815038662,
+          "std": 0.6118455081264793
+        },
+        {
+          "id": "W4406733450",
+          "mean": 0.8717667808618936,
+          "std": 0.42405631842843194
+        },
+        {
+          "id": "W6948306960",
+          "mean": 0.8693229881108246,
+          "std": 0.6656605314277818
+        },
+        {
+          "id": "W6948563684",
+          "mean": 0.8675297971739089,
+          "std": 0.5360852106304141
+        },
+        {
+          "id": "W6967424919",
+          "mean": 0.8587500471049714,
+          "std": 0.6837960500098901
+        },
+        {
+          "id": "W4416999525",
+          "mean": 0.8531337685074258,
+          "std": 0.48795557555829033
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.843683715490236,
+          "std": 0.5108986211465049
+        },
+        {
+          "id": "W4406549374",
+          "mean": 0.8406640978257016,
+          "std": 0.4972739962457182
+        },
+        {
+          "id": "W6966614413",
+          "mean": 0.8252259707244376,
+          "std": 0.6064739587316207
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.8151421116809877,
+          "std": 0.7035215794510017
+        },
+        {
+          "id": "W4415979340",
+          "mean": 0.8076006671812784,
+          "std": 0.5591011437215869
+        },
+        {
+          "id": "W6929358615",
+          "mean": 0.8061371437983744,
+          "std": 0.6445055750517812
+        },
+        {
+          "id": "W4417313621",
+          "mean": 0.8036431688659392,
+          "std": 0.5189225411316325
+        },
+        {
+          "id": "W7106686009",
+          "mean": 0.7930557207819684,
+          "std": 0.5854928382904813
+        },
+        {
+          "id": "W4417288510",
+          "mean": 0.7883232763608352,
+          "std": 0.6599019630135969
+        },
+        {
+          "id": "W4414973927",
+          "mean": 0.7882259931454203,
+          "std": 0.6441915650422904
+        },
+        {
+          "id": "W6966545553",
+          "mean": 0.7803186495322524,
+          "std": 0.5927801379256178
+        },
+        {
+          "id": "W6910518143",
+          "mean": 0.7791946184627286,
+          "std": 0.4595430093657237
+        },
+        {
+          "id": "W6967157550",
+          "mean": 0.7783006618893762,
+          "std": 0.418220553155089
+        },
+        {
+          "id": "W4417175683",
+          "mean": 0.7749784199979373,
+          "std": 0.7061563111009638
+        },
+        {
+          "id": "W4407310674",
+          "mean": 0.7685905721865962,
+          "std": 0.450245320728538
+        },
+        {
+          "id": "W4407679583",
+          "mean": 0.761730846914958,
+          "std": 0.5365699112956561
+        },
+        {
+          "id": "W4415186031",
+          "mean": 0.7188092347493148,
+          "std": 0.5220505287122276
+        },
+        {
+          "id": "W4417077629",
+          "mean": 0.7166054178326597,
+          "std": 0.6968984542539562
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.7125339729537914,
+          "std": 0.48147932928222736
+        },
+        {
+          "id": "W4414812741",
+          "mean": 0.7124342512112107,
+          "std": 0.4014362462921305
+        },
+        {
+          "id": "W4415085804",
+          "mean": 0.7099759889081781,
+          "std": 0.5245132160872221
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.7077592338750304,
+          "std": 0.6545775819095201
+        },
+        {
+          "id": "W4406121152",
+          "mean": 0.707587691970451,
+          "std": 0.5769826518861104
+        },
+        {
+          "id": "W4406778835",
+          "mean": 0.7060110529267459,
+          "std": 0.5908482293844617
+        },
+        {
+          "id": "W4406937275",
+          "mean": 0.7038334110503797,
+          "std": 0.6088353730494351
+        },
+        {
+          "id": "W4406603968",
+          "mean": 0.6995321225346083,
+          "std": 0.4520357617312256
+        },
+        {
+          "id": "W6966350956",
+          "mean": 0.6972613403192429,
+          "std": 0.6317752054619487
+        },
+        {
+          "id": "W4407759132",
+          "mean": 0.6971605903396951,
+          "std": 0.5478156850036803
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.6953630252559616,
+          "std": 0.5637086501365026
+        },
+        {
+          "id": "W4407185554",
+          "mean": 0.6952325709184801,
+          "std": 0.3993300596970228
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.69307660669237,
+          "std": 0.5010431483937453
+        },
+        {
+          "id": "W4406741160",
+          "mean": 0.686424927814552,
+          "std": 0.5476768068754183
+        },
+        {
+          "id": "W4416524567",
+          "mean": 0.6851923838154881,
+          "std": 0.5356806680035578
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.6851276974822338,
+          "std": 0.6493106815936286
+        },
+        {
+          "id": "W4417223017",
+          "mean": 0.6849174228001281,
+          "std": 0.5829173972492574
+        },
+        {
+          "id": "W4416284731",
+          "mean": 0.6848223231096213,
+          "std": 0.519223349939584
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.6831113199056429,
+          "std": 0.5787138428977513
+        },
+        {
+          "id": "W4415319839",
+          "mean": 0.6805651339612336,
+          "std": 0.6517837574989843
+        },
+        {
+          "id": "W4417305769",
+          "mean": 0.6756116380948582,
+          "std": 0.5201889599821757
+        },
+        {
+          "id": "W4414876892",
+          "mean": 0.6745251142471,
+          "std": 0.688778024597228
+        },
+        {
+          "id": "W4406789554",
+          "mean": 0.6708271380335951,
+          "std": 0.6656032333176536
+        },
+        {
+          "id": "W6891935129",
+          "mean": 0.6703009152353474,
+          "std": 0.6145111716319411
+        },
+        {
+          "id": "W6929293117",
+          "mean": 0.6680536612473946,
+          "std": 0.493478790855216
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.6664937680903614,
+          "std": 0.4936075481857526
+        },
+        {
+          "id": "W4407806804",
+          "mean": 0.6664350966026246,
+          "std": 0.49700743205925635
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.6642814776356724,
+          "std": 0.6411523247368801
+        },
+        {
+          "id": "W4407012951",
+          "mean": 0.6611697546337166,
+          "std": 0.4370758386973451
+        },
+        {
+          "id": "W4406549079",
+          "mean": 0.6611650761150674,
+          "std": 0.5568813781981649
+        },
+        {
+          "id": "W4407590534",
+          "mean": 0.6595965787782324,
+          "std": 0.624752920557093
+        },
+        {
+          "id": "W4407690143",
+          "mean": 0.6529576196120412,
+          "std": 0.5570012186257429
+        },
+        {
+          "id": "W4407425748",
+          "mean": 0.6497091606376434,
+          "std": 0.6561089623099324
+        },
+        {
+          "id": "W4406033420",
+          "mean": 0.6465047965099763,
+          "std": 0.522405972810825
+        },
+        {
+          "id": "W4406745129",
+          "mean": 0.6464217051611383,
+          "std": 0.5854616567261686
+        },
+        {
+          "id": "W6891798182",
+          "mean": 0.6459704999179312,
+          "std": 0.8063897923619213
+        },
+        {
+          "id": "W4415198176",
+          "mean": 0.6453139037750012,
+          "std": 0.5141114076190687
+        },
+        {
+          "id": "W4416875771",
+          "mean": 0.6447558283519019,
+          "std": 0.48890237218947885
+        },
+        {
+          "id": "W7104010298",
+          "mean": 0.6445763117364672,
+          "std": 0.5089611474650869
+        },
+        {
+          "id": "W4407569977",
+          "mean": 0.6423781418996998,
+          "std": 0.6551953162738785
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.6409289603416027,
+          "std": 0.49485773743511524
+        },
+        {
+          "id": "W4407759600",
+          "mean": 0.6378498177373221,
+          "std": 0.6022742578770857
+        },
+        {
+          "id": "W4406032915",
+          "mean": 0.6360301134119648,
+          "std": 0.5699532860236638
+        },
+        {
+          "id": "W4406741031",
+          "mean": 0.63333038436202,
+          "std": 0.5391721549467372
+        },
+        {
+          "id": "W4417279890",
+          "mean": 0.6293580507060376,
+          "std": 0.4455086086548734
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.6279189697546375,
+          "std": 0.7206887745399376
+        },
+        {
+          "id": "W4417266698",
+          "mean": 0.6260957230991226,
+          "std": 0.633306898915515
+        },
+        {
+          "id": "W4407128582",
+          "mean": 0.6252475802090043,
+          "std": 0.49918449348450245
+        },
+        {
+          "id": "W4406840433",
+          "mean": 0.6140841533567851,
+          "std": 0.4553518686984457
+        },
+        {
+          "id": "W4407425732",
+          "mean": 0.6114521143586055,
+          "std": 0.5912401537875362
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.6112624858467053,
+          "std": 0.42830616384306797
+        },
+        {
+          "id": "W4414834072",
+          "mean": 0.6074259219410757,
+          "std": 0.6530508276477038
+        },
+        {
+          "id": "W4409594083",
+          "mean": 0.6066871927816074,
+          "std": 0.6473391331139536
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.5990769250193813,
+          "std": 0.5574045908897949
+        },
+        {
+          "id": "W4409601911",
+          "mean": 0.5941494946722711,
+          "std": 0.4351622363759176
+        },
+        {
+          "id": "W4406485184",
+          "mean": 0.5896042636538749,
+          "std": 0.48237639216619427
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.5891187219969132,
+          "std": 0.6483704666839549
+        },
+        {
+          "id": "W6910837910",
+          "mean": 0.5886824601562308,
+          "std": 0.6221001599870603
+        },
+        {
+          "id": "W4407713029",
+          "mean": 0.5872101115205238,
+          "std": 0.5342068968985234
+        },
+        {
+          "id": "W4406484082",
+          "mean": 0.5864669759302882,
+          "std": 0.473340350053499
+        },
+        {
+          "id": "W4415191887",
+          "mean": 0.585343483787724,
+          "std": 0.6015675931695831
+        },
+        {
+          "id": "W6891814254",
+          "mean": 0.5754269429782823,
+          "std": 0.6495999862056371
+        },
+        {
+          "id": "W4406604566",
+          "mean": 0.5747534015047462,
+          "std": 0.5224805394908669
+        },
+        {
+          "id": "W4414895666",
+          "mean": 0.569633218872159,
+          "std": 0.4943265111446679
+        },
+        {
+          "id": "W4417326942",
+          "mean": 0.5682123780568468,
+          "std": 0.5858751697491696
+        },
+        {
+          "id": "W4407384832",
+          "mean": 0.5659516075110117,
+          "std": 0.6888620273248492
+        },
+        {
+          "id": "W4406033385",
+          "mean": 0.5641156662448337,
+          "std": 0.7727424958778939
+        },
+        {
+          "id": "W4416095924",
+          "mean": 0.5628187235298455,
+          "std": 0.5626422184423359
+        },
+        {
+          "id": "W4406604520",
+          "mean": 0.5626926431517026,
+          "std": 0.4452097857799215
+        },
+        {
+          "id": "W6948232554",
+          "mean": 0.5567043912490217,
+          "std": 0.5309000757004573
+        },
+        {
+          "id": "W4406231018",
+          "mean": 0.555900049647719,
+          "std": 0.5506207394177554
+        },
+        {
+          "id": "W4417521643",
+          "mean": 0.5537921596385096,
+          "std": 0.6853283423809936
+        },
+        {
+          "id": "W4417150440",
+          "mean": 0.5528613276062209,
+          "std": 0.5263606204083853
+        },
+        {
+          "id": "W4407093331",
+          "mean": 0.5527703305611801,
+          "std": 0.626728366594135
+        },
+        {
+          "id": "W6948219458",
+          "mean": 0.5518014773584131,
+          "std": 0.6433628628236387
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.5501879012196338,
+          "std": 0.6298190239238783
+        },
+        {
+          "id": "W4416241868",
+          "mean": 0.5464376999425904,
+          "std": 0.6281455482941051
+        },
+        {
+          "id": "W4414974729",
+          "mean": 0.533710060264761,
+          "std": 0.6238475255991219
+        },
+        {
+          "id": "W4406735456",
+          "mean": 0.5286076509395072,
+          "std": 0.6348126193017336
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.5201258283138583,
+          "std": 0.5777669128764201
+        },
+        {
+          "id": "W4416042718",
+          "mean": 0.47922959909570145,
+          "std": 0.5368138295279399
+        },
+        {
+          "id": "W4416176609",
+          "mean": 0.4758620637602809,
+          "std": 0.6103993446697118
+        },
+        {
+          "id": "W4406449486",
+          "mean": 0.4753597967011013,
+          "std": 0.6158909970865148
+        },
+        {
+          "id": "W4406458936",
+          "mean": 0.4659360077672977,
+          "std": 0.396189323515302
+        },
+        {
+          "id": "W4415080324",
+          "mean": 0.4301891575864456,
+          "std": 0.5661407947344063
+        },
+        {
+          "id": "W4407764894",
+          "mean": 0.4249201271750337,
+          "std": 0.6506479924942375
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.419889875688109,
+          "std": 0.8063897923619213
+        },
+        {
+          "id": "W6966777154",
+          "mean": 0.41547474405012164,
+          "std": 0.6532883067693
+        },
+        {
+          "id": "W4415130727",
+          "mean": 0.39516997357258654,
+          "std": 0.6210389958628487
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.39158488034431643,
+          "std": 0.4891599817310796
+        },
+        {
+          "id": "W4417128706",
+          "mean": 0.38600876856185123,
+          "std": 0.6681935491622106
+        },
+        {
+          "id": "W4407170272",
+          "mean": 0.3699901423208945,
+          "std": 0.6413503556495799
+        },
+        {
+          "id": "W4406093082",
+          "mean": 0.3695337196562338,
+          "std": 0.5860474172752951
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.3640142810592585,
+          "std": 0.7106708574157721
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.3622351656049666,
+          "std": 0.6553750473097846
+        },
+        {
+          "id": "W4415102157",
+          "mean": 0.34788784156534114,
+          "std": 0.47977431140010174
+        },
+        {
+          "id": "W4406975371",
+          "mean": 0.34733427304780595,
+          "std": 0.6452819079564107
+        },
+        {
+          "id": "W4414888199",
+          "mean": 0.335828890249762,
+          "std": 0.5037697434623474
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.3018767645023596,
+          "std": 0.4250175815578835
+        },
+        {
+          "id": "W6929419661",
+          "mean": 0.2789579528338284,
+          "std": 0.5686990804778977
+        },
+        {
+          "id": "W4406880570",
+          "mean": 0.27764776129925617,
+          "std": 0.5825734159484817
+        },
+        {
+          "id": "W4406699495",
+          "mean": 0.0,
+          "std": 0.5061081261033485
+        }
+      ]
+    },
+    {
+      "attribute": "novelty of contribution",
+      "comparisons_attempted": 600,
+      "comparisons_used": 600,
+      "comparisons_refused": 0,
+      "comparison_budget": 600,
+      "position_flips": 156,
+      "pairs_counterbalanced": 300,
+      "provider_input_tokens": 422156,
+      "provider_output_tokens": 18600,
+      "nanodollars": 52948560,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W4417050603",
+          "mean": 1.4846174679771473,
+          "std": 0.4333485570173884
+        },
+        {
+          "id": "W4417161986",
+          "mean": 1.1867804784683529,
+          "std": 0.7582720531715466
+        },
+        {
+          "id": "W4414974729",
+          "mean": 1.1758790419510428,
+          "std": 0.775651687061645
+        },
+        {
+          "id": "W6891814254",
+          "mean": 1.1155354450091504,
+          "std": 0.5754452554457603
+        },
+        {
+          "id": "W4407679583",
+          "mean": 1.0697861320123256,
+          "std": 0.4300861697854488
+        },
+        {
+          "id": "W6929472810",
+          "mean": 1.0468779435414381,
+          "std": 0.5018747820589123
+        },
+        {
+          "id": "W4406549374",
+          "mean": 1.0424865420368046,
+          "std": 0.4210001285598691
+        },
+        {
+          "id": "W4414973927",
+          "mean": 1.0360019115412324,
+          "std": 0.6234223140581325
+        },
+        {
+          "id": "W4407124196",
+          "mean": 1.0322015749372833,
+          "std": 0.47129453074670435
+        },
+        {
+          "id": "W4407425732",
+          "mean": 1.0015843218416396,
+          "std": 0.6172864687719453
+        },
+        {
+          "id": "W4406734791",
+          "mean": 0.9829627107428481,
+          "std": 0.3452208243921216
+        },
+        {
+          "id": "W4415186031",
+          "mean": 0.9820563370035666,
+          "std": 0.4562291746229452
+        },
+        {
+          "id": "W4417266698",
+          "mean": 0.9760676020018538,
+          "std": 0.6766430344981375
+        },
+        {
+          "id": "W6910518143",
+          "mean": 0.9518570287484709,
+          "std": 0.4116621289187189
+        },
+        {
+          "id": "W4407759132",
+          "mean": 0.949107052072466,
+          "std": 0.5411561964874108
+        },
+        {
+          "id": "W4415318303",
+          "mean": 0.9244739771747584,
+          "std": 0.6387760917480325
+        },
+        {
+          "id": "W4417006854",
+          "mean": 0.9168098798553932,
+          "std": 0.4572314633727803
+        },
+        {
+          "id": "W4415198176",
+          "mean": 0.9147038745184725,
+          "std": 0.5609800788662812
+        },
+        {
+          "id": "W4407759600",
+          "mean": 0.913895888082712,
+          "std": 0.628184703242004
+        },
+        {
+          "id": "W4416098779",
+          "mean": 0.9123695121090387,
+          "std": 0.43263674941412045
+        },
+        {
+          "id": "W4414887463",
+          "mean": 0.9078811934114619,
+          "std": 0.5422394354693677
+        },
+        {
+          "id": "W6948050508",
+          "mean": 0.9022684462587063,
+          "std": 0.5132667996622137
+        },
+        {
+          "id": "W6910566006",
+          "mean": 0.9000479151011603,
+          "std": 0.6388342749747706
+        },
+        {
+          "id": "W6966614413",
+          "mean": 0.8877230508882323,
+          "std": 0.6096025833284439
+        },
+        {
+          "id": "W6910483918",
+          "mean": 0.8713760720043993,
+          "std": 0.6813047144630986
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.8671406232353676,
+          "std": 0.43148255881858977
+        },
+        {
+          "id": "W4414801979",
+          "mean": 0.8605085599121388,
+          "std": 0.4399829551540428
+        },
+        {
+          "id": "W6911026313",
+          "mean": 0.8563090410609673,
+          "std": 0.5403759627173854
+        },
+        {
+          "id": "W4417279890",
+          "mean": 0.8532426959408392,
+          "std": 0.5053753146650004
+        },
+        {
+          "id": "W6910752418",
+          "mean": 0.8367887208829148,
+          "std": 0.6091702880617121
+        },
+        {
+          "id": "W4406033420",
+          "mean": 0.8332827020671258,
+          "std": 0.6369712595371274
+        },
+        {
+          "id": "W6929293117",
+          "mean": 0.831349722528947,
+          "std": 0.5600552270473632
+        },
+        {
+          "id": "W4407170272",
+          "mean": 0.8272417316320505,
+          "std": 0.5907465366234516
+        },
+        {
+          "id": "W6948306960",
+          "mean": 0.8158437758983373,
+          "std": 0.712945333675684
+        },
+        {
+          "id": "W4417150440",
+          "mean": 0.8149521840574477,
+          "std": 0.39157520191955203
+        },
+        {
+          "id": "W4406741031",
+          "mean": 0.8137110118497941,
+          "std": 0.4804476990248581
+        },
+        {
+          "id": "W4406937275",
+          "mean": 0.8091123972115202,
+          "std": 0.5812343630901021
+        },
+        {
+          "id": "W4406093082",
+          "mean": 0.8075593027547956,
+          "std": 0.6864877007708068
+        },
+        {
+          "id": "W4416105450",
+          "mean": 0.7934810213907298,
+          "std": 0.5765124350379717
+        },
+        {
+          "id": "W4415191887",
+          "mean": 0.7913818125956407,
+          "std": 0.5722340055872659
+        },
+        {
+          "id": "W6967424919",
+          "mean": 0.7910202836650242,
+          "std": 0.6579401965786786
+        },
+        {
+          "id": "W4407128582",
+          "mean": 0.7865356361669985,
+          "std": 0.4824953508500295
+        },
+        {
+          "id": "W4416095924",
+          "mean": 0.7798510670729526,
+          "std": 0.5956819427910336
+        },
+        {
+          "id": "W4416875771",
+          "mean": 0.7796308532370452,
+          "std": 0.46585528640003493
+        },
+        {
+          "id": "W7104010298",
+          "mean": 0.7716747594953967,
+          "std": 0.48489971277721
+        },
+        {
+          "id": "W4416241868",
+          "mean": 0.7708399209787771,
+          "std": 0.5909003953628896
+        },
+        {
+          "id": "W4406810884",
+          "mean": 0.7669521431595907,
+          "std": 0.6295060463570911
+        },
+        {
+          "id": "W7106686009",
+          "mean": 0.7665737019453774,
+          "std": 0.5216475719909649
+        },
+        {
+          "id": "W4407424087",
+          "mean": 0.7611946499741098,
+          "std": 0.42443380905928396
+        },
+        {
+          "id": "W4407384832",
+          "mean": 0.7579979377524131,
+          "std": 0.6777036106891614
+        },
+        {
+          "id": "W4406604520",
+          "mean": 0.7524632366083399,
+          "std": 0.4088943795508342
+        },
+        {
+          "id": "W4406741160",
+          "mean": 0.7498075550035161,
+          "std": 0.5572864059954229
+        },
+        {
+          "id": "W4407590534",
+          "mean": 0.7449461483407974,
+          "std": 0.4714479214300453
+        },
+        {
+          "id": "W6948563684",
+          "mean": 0.7432092359168897,
+          "std": 0.6005968864935041
+        },
+        {
+          "id": "W4406840433",
+          "mean": 0.7398534268505907,
+          "std": 0.4635120563255062
+        },
+        {
+          "id": "W4406121152",
+          "mean": 0.7383786745684007,
+          "std": 0.546122300136246
+        },
+        {
+          "id": "W4416524567",
+          "mean": 0.727618454282272,
+          "std": 0.5740081795421332
+        },
+        {
+          "id": "W4407806804",
+          "mean": 0.7240177986150514,
+          "std": 0.48861843397315174
+        },
+        {
+          "id": "W4407423003",
+          "mean": 0.7232871541891429,
+          "std": 0.6574290327903093
+        },
+        {
+          "id": "W4406032915",
+          "mean": 0.7216098727538234,
+          "std": 0.44439541844931746
+        },
+        {
+          "id": "W4416959258",
+          "mean": 0.7209166271287178,
+          "std": 0.5591430560891525
+        },
+        {
+          "id": "W4407184424",
+          "mean": 0.7191865760313286,
+          "std": 0.5687899482446656
+        },
+        {
+          "id": "W4417313621",
+          "mean": 0.7173145332681141,
+          "std": 0.4475150888602204
+        },
+        {
+          "id": "W6891935129",
+          "mean": 0.7092427179454895,
+          "std": 0.5831208893265114
+        },
+        {
+          "id": "W4415085804",
+          "mean": 0.7032445107101584,
+          "std": 0.4247892238817694
+        },
+        {
+          "id": "W4415030372",
+          "mean": 0.7003413687558389,
+          "std": 0.6191304148265003
+        },
+        {
+          "id": "W4417288510",
+          "mean": 0.6916394600423398,
+          "std": 0.6136716363280241
+        },
+        {
+          "id": "W6929358615",
+          "mean": 0.6883118289624632,
+          "std": 0.5666858648082882
+        },
+        {
+          "id": "W4415080324",
+          "mean": 0.6759558169885265,
+          "std": 0.46522980141644743
+        },
+        {
+          "id": "W4407713029",
+          "mean": 0.6724586424781324,
+          "std": 0.48034607678835817
+        },
+        {
+          "id": "W4406033167",
+          "mean": 0.6709009625112725,
+          "std": 0.6075436277739176
+        },
+        {
+          "id": "W4416284731",
+          "mean": 0.6681779612207113,
+          "std": 0.6629603976821172
+        },
+        {
+          "id": "W4406950283",
+          "mean": 0.6677612319040487,
+          "std": 0.5655155391978791
+        },
+        {
+          "id": "W4417175683",
+          "mean": 0.6597538977386026,
+          "std": 0.6598386140411209
+        },
+        {
+          "id": "W4406548969",
+          "mean": 0.6572809753546791,
+          "std": 0.48542811841046574
+        },
+        {
+          "id": "W4406975371",
+          "mean": 0.6563668752876088,
+          "std": 0.5819130354391945
+        },
+        {
+          "id": "W4407569977",
+          "mean": 0.6497728279203584,
+          "std": 0.47444105995598834
+        },
+        {
+          "id": "W4406733450",
+          "mean": 0.6487753404767369,
+          "std": 0.43151752123674375
+        },
+        {
+          "id": "W4407185554",
+          "mean": 0.6410416090138852,
+          "std": 0.46470867526088455
+        },
+        {
+          "id": "W4406486150",
+          "mean": 0.6403215889640856,
+          "std": 0.43472429561350034
+        },
+        {
+          "id": "W4407012951",
+          "mean": 0.6383136906532546,
+          "std": 0.6616791906298903
+        },
+        {
+          "id": "W6966545553",
+          "mean": 0.6382370735995204,
+          "std": 0.4793029453187948
+        },
+        {
+          "id": "W6948232554",
+          "mean": 0.633701532407942,
+          "std": 0.47106599769485114
+        },
+        {
+          "id": "W4414812741",
+          "mean": 0.6318594440430464,
+          "std": 0.40033155498890816
+        },
+        {
+          "id": "W4406603968",
+          "mean": 0.626579231604993,
+          "std": 0.40677520798496447
+        },
+        {
+          "id": "W4417423726",
+          "mean": 0.6216740589704227,
+          "std": 0.7006660590770653
+        },
+        {
+          "id": "W4407759590",
+          "mean": 0.6102650775915344,
+          "std": 0.44115083395599114
+        },
+        {
+          "id": "W4406484082",
+          "mean": 0.5977989229201476,
+          "std": 0.41841511263758324
+        },
+        {
+          "id": "W4417080482",
+          "mean": 0.5957119637706327,
+          "std": 0.5984890982916137
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.5942164466598037,
+          "std": 0.42392789405797454
+        },
+        {
+          "id": "W4416042718",
+          "mean": 0.5921591570231646,
+          "std": 0.4803384847425252
+        },
+        {
+          "id": "W4414895666",
+          "mean": 0.5921060853647385,
+          "std": 0.5126616123234399
+        },
+        {
+          "id": "W4406735456",
+          "mean": 0.5918725245609942,
+          "std": 0.5873310255215703
+        },
+        {
+          "id": "W4417305769",
+          "mean": 0.5806409949203009,
+          "std": 0.6238102119888324
+        },
+        {
+          "id": "W4414834072",
+          "mean": 0.5802164107238403,
+          "std": 0.6400825730022153
+        },
+        {
+          "id": "W6891853064",
+          "mean": 0.5779327302852104,
+          "std": 0.6320027011715754
+        },
+        {
+          "id": "W4406549079",
+          "mean": 0.5770657957049669,
+          "std": 0.521587591800366
+        },
+        {
+          "id": "W4417223017",
+          "mean": 0.5762171983377348,
+          "std": 0.5812225438546148
+        },
+        {
+          "id": "W4415979340",
+          "mean": 0.5655702905710034,
+          "std": 0.6204081475331964
+        },
+        {
+          "id": "W4406778835",
+          "mean": 0.553874648999185,
+          "std": 0.5664920165171405
+        },
+        {
+          "id": "W4417521643",
+          "mean": 0.5478750133753691,
+          "std": 0.4224375880360681
+        },
+        {
+          "id": "W6948219458",
+          "mean": 0.5459052234706238,
+          "std": 0.5293959058401064
+        },
+        {
+          "id": "W4407764894",
+          "mean": 0.5429553197644729,
+          "std": 0.6387754096436803
+        },
+        {
+          "id": "W4406789554",
+          "mean": 0.5408662861109949,
+          "std": 0.6811779067034109
+        },
+        {
+          "id": "W6891798182",
+          "mean": 0.5401157122248286,
+          "std": 0.775651687061645
+        },
+        {
+          "id": "W4414876892",
+          "mean": 0.5365983273972715,
+          "std": 0.6229184290426336
+        },
+        {
+          "id": "W4409601911",
+          "mean": 0.5360556477229194,
+          "std": 0.3689823570318248
+        },
+        {
+          "id": "W4406604566",
+          "mean": 0.527782854048836,
+          "std": 0.4973462531356184
+        },
+        {
+          "id": "W4415130727",
+          "mean": 0.5256845479916917,
+          "std": 0.6240832651586201
+        },
+        {
+          "id": "W4407684014",
+          "mean": 0.5202226410623951,
+          "std": 0.6660512311206178
+        },
+        {
+          "id": "W4409594083",
+          "mean": 0.5181734859226885,
+          "std": 0.5768783155137439
+        },
+        {
+          "id": "W4417077629",
+          "mean": 0.5110222121580285,
+          "std": 0.6293307319817295
+        },
+        {
+          "id": "W6966350956",
+          "mean": 0.5097701328915134,
+          "std": 0.506314023563203
+        },
+        {
+          "id": "W4407310674",
+          "mean": 0.5009353164185255,
+          "std": 0.6530078493639742
+        },
+        {
+          "id": "W4416393118",
+          "mean": 0.4984818669545725,
+          "std": 0.4125145719884419
+        },
+        {
+          "id": "W4415319839",
+          "mean": 0.4976506280152421,
+          "std": 0.6079067186240706
+        },
+        {
+          "id": "W7077142139",
+          "mean": 0.4937514825072008,
+          "std": 0.4599712355176409
+        },
+        {
+          "id": "W7083695438",
+          "mean": 0.4900949992750172,
+          "std": 0.6241015306793026
+        },
+        {
+          "id": "W4416243736",
+          "mean": 0.47870464834512627,
+          "std": 0.6077669255787919
+        },
+        {
+          "id": "W4416999525",
+          "mean": 0.4738058978690634,
+          "std": 0.4131293203104167
+        },
+        {
+          "id": "W4407690143",
+          "mean": 0.47125195933759567,
+          "std": 0.557370504973011
+        },
+        {
+          "id": "W4406449486",
+          "mean": 0.4662928910801215,
+          "std": 0.4727989627741631
+        },
+        {
+          "id": "W4407425748",
+          "mean": 0.46612946461513455,
+          "std": 0.739001446303019
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.4660723003698874,
+          "std": 0.5414005263651026
+        },
+        {
+          "id": "W6966777154",
+          "mean": 0.4645179714663049,
+          "std": 0.5690805956465341
+        },
+        {
+          "id": "W6967157550",
+          "mean": 0.44497862859654325,
+          "std": 0.3858908934445715
+        },
+        {
+          "id": "W6910572094",
+          "mean": 0.444527355066902,
+          "std": 0.5646194511098725
+        },
+        {
+          "id": "W4406449944",
+          "mean": 0.44425193212379166,
+          "std": 0.47635194244839285
+        },
+        {
+          "id": "W4406840868",
+          "mean": 0.4407695102871699,
+          "std": 0.5405462458516228
+        },
+        {
+          "id": "W4415102157",
+          "mean": 0.43220876191840946,
+          "std": 0.5569407830175622
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.4303822717343013,
+          "std": 0.4349599530429084
+        },
+        {
+          "id": "W4406231018",
+          "mean": 0.3705241358915478,
+          "std": 0.47378945509344494
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.3701425167774113,
+          "std": 0.5753595765308118
+        },
+        {
+          "id": "W4417128706",
+          "mean": 0.35979872277763636,
+          "std": 0.49121634519941776
+        },
+        {
+          "id": "W4407093331",
+          "mean": 0.33664315513134796,
+          "std": 0.6348699780610709
+        },
+        {
+          "id": "W4406033385",
+          "mean": 0.2912411525603937,
+          "std": 0.6282162797334818
+        },
+        {
+          "id": "W4416176609",
+          "mean": 0.289232260241876,
+          "std": 0.5874575152829832
+        },
+        {
+          "id": "W4406745129",
+          "mean": 0.2891697996667249,
+          "std": 0.5660636169649521
+        },
+        {
+          "id": "W4416455407",
+          "mean": 0.28328903587355264,
+          "std": 0.513898845279253
+        },
+        {
+          "id": "W6910837910",
+          "mean": 0.2715954044123481,
+          "std": 0.6702085096525936
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.2560110528180607,
+          "std": 0.49009907946251
+        },
+        {
+          "id": "W4415976151",
+          "mean": 0.249115647688881,
+          "std": 0.6001895580404919
+        },
+        {
+          "id": "W4414888199",
+          "mean": 0.24685322435184093,
+          "std": 0.6150451976529103
+        },
+        {
+          "id": "W4406485184",
+          "mean": 0.2303068388586214,
+          "std": 0.5355539797556109
+        },
+        {
+          "id": "W4406458936",
+          "mean": 0.22974338414887197,
+          "std": 0.4101733869433235
+        },
+        {
+          "id": "W4406880570",
+          "mean": 0.20612207526192405,
+          "std": 0.4501432768733797
+        },
+        {
+          "id": "W6929419661",
+          "mean": 0.10982370069496206,
+          "std": 0.5764839224120676
+        },
+        {
+          "id": "W4417326942",
+          "mean": 0.07148853526364762,
+          "std": 0.5308970832850579
+        },
+        {
+          "id": "W4406699495",
+          "mean": 0.060844040275951417,
+          "std": 0.5676672767084936
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.0,
+          "std": 0.5527135341408207
+        }
+      ]
+    },
+    {
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "comparisons_attempted": 600,
+      "comparisons_used": 600,
+      "comparisons_refused": 0,
+      "comparison_budget": 600,
+      "position_flips": 123,
+      "pairs_counterbalanced": 300,
+      "provider_input_tokens": 425492,
+      "provider_output_tokens": 18600,
+      "nanodollars": 53415600,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "W4417006854",
+          "mean": 2.378362988500357,
+          "std": 0.36972692602348856
+        },
+        {
+          "id": "W4406734791",
+          "mean": 2.3273189618300387,
+          "std": 0.4032185920992938
+        },
+        {
+          "id": "W6891853064",
+          "mean": 2.2731917693687027,
+          "std": 0.7289204780629743
+        },
+        {
+          "id": "W4417305769",
+          "mean": 2.24541478626825,
+          "std": 0.5870776019120921
+        },
+        {
+          "id": "W4417423726",
+          "mean": 2.2378902020929043,
+          "std": 0.7044034205208595
+        },
+        {
+          "id": "W4415085804",
+          "mean": 2.1830709851066255,
+          "std": 0.6806099502242268
+        },
+        {
+          "id": "W6929293117",
+          "mean": 2.1693916127300534,
+          "std": 0.579206052655303
+        },
+        {
+          "id": "W7077142139",
+          "mean": 2.1396762846340716,
+          "std": 0.45944883400287717
+        },
+        {
+          "id": "W4414887463",
+          "mean": 2.128749193444166,
+          "std": 0.5531596892735762
+        },
+        {
+          "id": "W4416105450",
+          "mean": 2.012508921363288,
+          "std": 0.6632370892680794
+        },
+        {
+          "id": "W6948219458",
+          "mean": 1.9825109177762141,
+          "std": 0.44138852763113606
+        },
+        {
+          "id": "W4416959258",
+          "mean": 1.9791315529924822,
+          "std": 0.49028070802367135
+        },
+        {
+          "id": "W4417288510",
+          "mean": 1.9666453007858973,
+          "std": 0.6472754938633135
+        },
+        {
+          "id": "W4409594083",
+          "mean": 1.9639971157547658,
+          "std": 0.6542492992442814
+        },
+        {
+          "id": "W4415130727",
+          "mean": 1.9521317379062357,
+          "std": 0.6179698502071957
+        },
+        {
+          "id": "W6910572094",
+          "mean": 1.947486289519274,
+          "std": 0.5607649832442446
+        },
+        {
+          "id": "W4417050603",
+          "mean": 1.938997019768398,
+          "std": 0.5138411367178479
+        },
+        {
+          "id": "W4407713029",
+          "mean": 1.9369795407795585,
+          "std": 0.6670294013502073
+        },
+        {
+          "id": "W6966545553",
+          "mean": 1.886247643945794,
+          "std": 0.5995562658481222
+        },
+        {
+          "id": "W4417161986",
+          "mean": 1.885490424127093,
+          "std": 0.6268627261006281
+        },
+        {
+          "id": "W6910566006",
+          "mean": 1.884633078844383,
+          "std": 0.6401802066580595
+        },
+        {
+          "id": "W4406840433",
+          "mean": 1.875993448654886,
+          "std": 0.5946703179639077
+        },
+        {
+          "id": "W6929472810",
+          "mean": 1.8708067982572927,
+          "std": 0.5261278966187878
+        },
+        {
+          "id": "W4406733450",
+          "mean": 1.8650171249995777,
+          "std": 0.4629036854655991
+        },
+        {
+          "id": "W4414801979",
+          "mean": 1.8559415605204124,
+          "std": 0.5540734987048342
+        },
+        {
+          "id": "W4407690143",
+          "mean": 1.8554454621989789,
+          "std": 0.5578627777129658
+        },
+        {
+          "id": "W4407590534",
+          "mean": 1.8381190459415886,
+          "std": 0.6582917410768275
+        },
+        {
+          "id": "W4417521643",
+          "mean": 1.8345587693755516,
+          "std": 0.6882712411964742
+        },
+        {
+          "id": "W6948306960",
+          "mean": 1.830847970197384,
+          "std": 0.6675773789602729
+        },
+        {
+          "id": "W4415976151",
+          "mean": 1.826749034193102,
+          "std": 0.5697420884019472
+        },
+        {
+          "id": "W4407569977",
+          "mean": 1.8103404253446835,
+          "std": 0.5784857604084565
+        },
+        {
+          "id": "W6910483918",
+          "mean": 1.7998920758280383,
+          "std": 0.6674839487225133
+        },
+        {
+          "id": "W4417150440",
+          "mean": 1.7862810161772043,
+          "std": 0.44733815273454336
+        },
+        {
+          "id": "W4406549374",
+          "mean": 1.7763056121615808,
+          "std": 0.4940208243673951
+        },
+        {
+          "id": "W6910752418",
+          "mean": 1.7751973234965512,
+          "std": 0.6912831350015046
+        },
+        {
+          "id": "W4407310674",
+          "mean": 1.7736473912674975,
+          "std": 0.5886419388029733
+        },
+        {
+          "id": "W6967157550",
+          "mean": 1.7553532386994735,
+          "std": 0.4359273463555712
+        },
+        {
+          "id": "W4407679583",
+          "mean": 1.7470017924097583,
+          "std": 0.568906866566888
+        },
+        {
+          "id": "W4417175683",
+          "mean": 1.732058018924103,
+          "std": 0.5257438315351008
+        },
+        {
+          "id": "W4407170272",
+          "mean": 1.7220444047883157,
+          "std": 0.5735215475603627
+        },
+        {
+          "id": "W4415186031",
+          "mean": 1.7183939075952437,
+          "std": 0.513571025765013
+        },
+        {
+          "id": "W4406231018",
+          "mean": 1.7174454865362527,
+          "std": 0.49652276001164936
+        },
+        {
+          "id": "W4417279890",
+          "mean": 1.7165558126511828,
+          "std": 0.6519228358801368
+        },
+        {
+          "id": "W6910518143",
+          "mean": 1.7092487703201396,
+          "std": 0.4467014579789843
+        },
+        {
+          "id": "W4406603968",
+          "mean": 1.69828815828687,
+          "std": 0.4982870034027625
+        },
+        {
+          "id": "W4416393118",
+          "mean": 1.6969472575013973,
+          "std": 0.45637043360372714
+        },
+        {
+          "id": "W4407424087",
+          "mean": 1.6848470138619147,
+          "std": 0.46492841546301206
+        },
+        {
+          "id": "W4414895666",
+          "mean": 1.6840097183109544,
+          "std": 0.5587110635958968
+        },
+        {
+          "id": "W4416098779",
+          "mean": 1.6810972116406862,
+          "std": 0.42864206013809825
+        },
+        {
+          "id": "W4406778835",
+          "mean": 1.679253387237431,
+          "std": 0.6718445697986136
+        },
+        {
+          "id": "W4415319839",
+          "mean": 1.6750007664013336,
+          "std": 0.6668160274304246
+        },
+        {
+          "id": "W4416455407",
+          "mean": 1.6692645670311217,
+          "std": 0.5443972820811543
+        },
+        {
+          "id": "W4415198176",
+          "mean": 1.6562260440680032,
+          "std": 0.5246803401532881
+        },
+        {
+          "id": "W4406950283",
+          "mean": 1.654341721324324,
+          "std": 0.5468519212454989
+        },
+        {
+          "id": "W4406699495",
+          "mean": 1.6528042991347065,
+          "std": 0.4909626204421661
+        },
+        {
+          "id": "W6948050508",
+          "mean": 1.6505958511008627,
+          "std": 0.5424422721291705
+        },
+        {
+          "id": "W7106686009",
+          "mean": 1.6466937445701215,
+          "std": 0.5962617178045091
+        },
+        {
+          "id": "W4406486150",
+          "mean": 1.6428148637075553,
+          "std": 0.42532310586085786
+        },
+        {
+          "id": "W4406033385",
+          "mean": 1.6292903142736608,
+          "std": 0.5993613308755997
+        },
+        {
+          "id": "W6966614413",
+          "mean": 1.6263747225844076,
+          "std": 0.5372391874166663
+        },
+        {
+          "id": "W4407759132",
+          "mean": 1.6252044484514212,
+          "std": 0.5789068374070516
+        },
+        {
+          "id": "W4406745129",
+          "mean": 1.6241869554644204,
+          "std": 0.654811576145806
+        },
+        {
+          "id": "W4407423003",
+          "mean": 1.6213048852872798,
+          "std": 0.6430646567205657
+        },
+        {
+          "id": "W4406093082",
+          "mean": 1.6208843543706672,
+          "std": 0.6750795644692259
+        },
+        {
+          "id": "W4407684014",
+          "mean": 1.6019707290223837,
+          "std": 0.5503469369684655
+        },
+        {
+          "id": "W4416999525",
+          "mean": 1.5654176977162095,
+          "std": 0.5391567651692283
+        },
+        {
+          "id": "W4407093331",
+          "mean": 1.5609777176176611,
+          "std": 0.5513372270150041
+        },
+        {
+          "id": "W4406735456",
+          "mean": 1.5596300606141784,
+          "std": 0.6082726857401443
+        },
+        {
+          "id": "W4407185554",
+          "mean": 1.558068725862159,
+          "std": 0.44438745999209595
+        },
+        {
+          "id": "W4417223017",
+          "mean": 1.546885142442155,
+          "std": 0.6130357837150305
+        },
+        {
+          "id": "W4407759590",
+          "mean": 1.537750525962652,
+          "std": 0.5726983608872976
+        },
+        {
+          "id": "W4409601911",
+          "mean": 1.536742520945347,
+          "std": 0.43739992645065995
+        },
+        {
+          "id": "W4406484082",
+          "mean": 1.5323086230950371,
+          "std": 0.5196383788600353
+        },
+        {
+          "id": "W4406458936",
+          "mean": 1.5282344410605193,
+          "std": 0.5024327565127381
+        },
+        {
+          "id": "W4416284731",
+          "mean": 1.522749053131535,
+          "std": 0.5079676169151495
+        },
+        {
+          "id": "W4416176609",
+          "mean": 1.5197838395480623,
+          "std": 0.5718070634158375
+        },
+        {
+          "id": "W4406121152",
+          "mean": 1.509115076974312,
+          "std": 0.6381869943060445
+        },
+        {
+          "id": "W4407759600",
+          "mean": 1.5070458971875043,
+          "std": 0.6079146631040453
+        },
+        {
+          "id": "W4406741031",
+          "mean": 1.505992033346071,
+          "std": 0.5812417750451192
+        },
+        {
+          "id": "W4406604566",
+          "mean": 1.5052781161625082,
+          "std": 0.5678738205598569
+        },
+        {
+          "id": "W4407124196",
+          "mean": 1.497486949471022,
+          "std": 0.5038249127137969
+        },
+        {
+          "id": "W4406937275",
+          "mean": 1.4871433551931632,
+          "std": 0.6777496706543721
+        },
+        {
+          "id": "W6948232554",
+          "mean": 1.4865890782292146,
+          "std": 0.6111755835971059
+        },
+        {
+          "id": "W4406449944",
+          "mean": 1.480762515414078,
+          "std": 0.6363976196873511
+        },
+        {
+          "id": "W4417326942",
+          "mean": 1.4793679404704305,
+          "std": 0.6408415414154413
+        },
+        {
+          "id": "W4416042718",
+          "mean": 1.4742952802619742,
+          "std": 0.616876722348687
+        },
+        {
+          "id": "W4415030372",
+          "mean": 1.4738345209462076,
+          "std": 0.6747614393142563
+        },
+        {
+          "id": "W4407012951",
+          "mean": 1.464351924696209,
+          "std": 0.6457447724425806
+        },
+        {
+          "id": "W4416095924",
+          "mean": 1.4583576887908642,
+          "std": 0.5707363223371409
+        },
+        {
+          "id": "W6966350956",
+          "mean": 1.457007780021026,
+          "std": 0.565848620394929
+        },
+        {
+          "id": "W4407806804",
+          "mean": 1.4516950954303194,
+          "std": 0.46786949949161255
+        },
+        {
+          "id": "W4406880570",
+          "mean": 1.4496496056592643,
+          "std": 0.5689841429384334
+        },
+        {
+          "id": "W4415102157",
+          "mean": 1.4458779589739879,
+          "std": 0.6380867085582951
+        },
+        {
+          "id": "W7083695438",
+          "mean": 1.440254064055503,
+          "std": 0.5972727134967638
+        },
+        {
+          "id": "W4406033167",
+          "mean": 1.4299411698677942,
+          "std": 0.6545776597231182
+        },
+        {
+          "id": "W4406840868",
+          "mean": 1.429683661451641,
+          "std": 0.5360208048266997
+        },
+        {
+          "id": "W4406810884",
+          "mean": 1.427905972925378,
+          "std": 0.5841782940264542
+        },
+        {
+          "id": "W4414876892",
+          "mean": 1.427723693341127,
+          "std": 0.5149115741648049
+        },
+        {
+          "id": "W4406741160",
+          "mean": 1.418496494859059,
+          "std": 0.5995411132702337
+        },
+        {
+          "id": "W4406975371",
+          "mean": 1.4122253934534312,
+          "std": 0.7469577783493959
+        },
+        {
+          "id": "W4414834072",
+          "mean": 1.401928290984718,
+          "std": 0.5826636525174733
+        },
+        {
+          "id": "W4406789554",
+          "mean": 1.3969069958518794,
+          "std": 0.6976470028442185
+        },
+        {
+          "id": "W6929419661",
+          "mean": 1.3926178601035024,
+          "std": 0.4907690546732493
+        },
+        {
+          "id": "W4417313621",
+          "mean": 1.3792401903026053,
+          "std": 0.46786051894508474
+        },
+        {
+          "id": "W4407384832",
+          "mean": 1.3774519971672843,
+          "std": 0.6523301880347394
+        },
+        {
+          "id": "W4406548969",
+          "mean": 1.371951074297095,
+          "std": 0.6614466190275795
+        },
+        {
+          "id": "W4414974729",
+          "mean": 1.3663591600686769,
+          "std": 0.6136351505546755
+        },
+        {
+          "id": "W4407184424",
+          "mean": 1.364985762753838,
+          "std": 0.5011682838685121
+        },
+        {
+          "id": "W6910837910",
+          "mean": 1.3583624467048907,
+          "std": 0.5072984105824649
+        },
+        {
+          "id": "W4407764894",
+          "mean": 1.3510947563323419,
+          "std": 0.7156180491067499
+        },
+        {
+          "id": "W4415191887",
+          "mean": 1.3414639992667325,
+          "std": 0.4623645728629926
+        },
+        {
+          "id": "W4406549079",
+          "mean": 1.3252615990115837,
+          "std": 0.55104006212488
+        },
+        {
+          "id": "W6891935129",
+          "mean": 1.3210351205719488,
+          "std": 0.5605053935039714
+        },
+        {
+          "id": "W4406032915",
+          "mean": 1.2883103808709286,
+          "std": 0.4812508199350472
+        },
+        {
+          "id": "W4415080324",
+          "mean": 1.286894368666068,
+          "std": 0.43472710284521454
+        },
+        {
+          "id": "W6929358615",
+          "mean": 1.2844795550961698,
+          "std": 0.717439124970286
+        },
+        {
+          "id": "W4416875771",
+          "mean": 1.2779975588691355,
+          "std": 0.488667135046844
+        },
+        {
+          "id": "W4417128706",
+          "mean": 1.2381289602334875,
+          "std": 0.6857241040905869
+        },
+        {
+          "id": "W6967424919",
+          "mean": 1.228710799942105,
+          "std": 0.6251114469173126
+        },
+        {
+          "id": "W4406033420",
+          "mean": 1.227027264353632,
+          "std": 0.6634329961128658
+        },
+        {
+          "id": "W4406485184",
+          "mean": 1.2251108766189098,
+          "std": 0.4702800891449486
+        },
+        {
+          "id": "W6966777154",
+          "mean": 1.195221665605361,
+          "std": 0.6821198347039208
+        },
+        {
+          "id": "W6948563684",
+          "mean": 1.19510712486892,
+          "std": 0.5623102735985271
+        },
+        {
+          "id": "W4416243736",
+          "mean": 1.1874887738375801,
+          "std": 0.5608099275724887
+        },
+        {
+          "id": "W4407425732",
+          "mean": 1.186304126206843,
+          "std": 0.6140157262973638
+        },
+        {
+          "id": "W6891798182",
+          "mean": 1.1861431808321254,
+          "std": 0.7469577783493959
+        },
+        {
+          "id": "W4406449486",
+          "mean": 1.1852357234264406,
+          "std": 0.5342100440642319
+        },
+        {
+          "id": "W6891814254",
+          "mean": 1.1793846475245557,
+          "std": 0.559571427626758
+        },
+        {
+          "id": "W4407425748",
+          "mean": 1.1789798082942164,
+          "std": 0.5835163804258818
+        },
+        {
+          "id": "W4417077629",
+          "mean": 1.157941779612328,
+          "std": 0.6928858308486867
+        },
+        {
+          "id": "W4415318303",
+          "mean": 1.1358008957263834,
+          "std": 0.5192035345291647
+        },
+        {
+          "id": "W4414812741",
+          "mean": 1.1129532324825904,
+          "std": 0.5242505657132208
+        },
+        {
+          "id": "W4416524567",
+          "mean": 1.1067522141148076,
+          "std": 0.6224542511077837
+        },
+        {
+          "id": "W4414888199",
+          "mean": 1.0968478878111452,
+          "std": 0.6107923143477939
+        },
+        {
+          "id": "W4407128582",
+          "mean": 1.090870639297746,
+          "std": 0.6615118138687992
+        },
+        {
+          "id": "W4414973927",
+          "mean": 1.0777494006839818,
+          "std": 0.5890877091527599
+        },
+        {
+          "id": "W4416241868",
+          "mean": 1.054112759534878,
+          "std": 0.6694955429865538
+        },
+        {
+          "id": "W6911026313",
+          "mean": 1.050087218888235,
+          "std": 0.5346008746865599
+        },
+        {
+          "id": "W4406604520",
+          "mean": 1.0112175627801658,
+          "std": 0.5153702294988709
+        },
+        {
+          "id": "W4406316690",
+          "mean": 0.9851668377517699,
+          "std": 0.5245983081575857
+        },
+        {
+          "id": "W4406033240",
+          "mean": 0.961207299688687,
+          "std": 0.43873808640837325
+        },
+        {
+          "id": "W4406273441",
+          "mean": 0.9439031343941552,
+          "std": 0.5743958360662411
+        },
+        {
+          "id": "W4406316939",
+          "mean": 0.9350518196545279,
+          "std": 0.5218971058238768
+        },
+        {
+          "id": "W4417080482",
+          "mean": 0.926949762838902,
+          "std": 0.5086098937248432
+        },
+        {
+          "id": "W4415979340",
+          "mean": 0.8429262233686232,
+          "std": 0.5900994146496736
+        },
+        {
+          "id": "W4416365887",
+          "mean": 0.7458402091822842,
+          "std": 0.5624985746420769
+        },
+        {
+          "id": "W7104010298",
+          "mean": 0.7144830526326225,
+          "std": 0.5107014516901904
+        },
+        {
+          "id": "W4417266698",
+          "mean": 0.7098245001876795,
+          "std": 0.5418743330146637
+        },
+        {
+          "id": "W7077897856",
+          "mean": 0.6464623195146616,
+          "std": 0.5105105131744399
+        },
+        {
+          "id": "W4406271052",
+          "mean": 0.0,
+          "std": 0.5462620495215821
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "methodological rigor",
+      "spearman_rho": 0.6545730921374283,
+      "kendall_tau": 0.4777628635346756,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 120157.64683264443,
+      "pairwise_obs_per_dollar": 11175.906533658477,
+      "setwise_dollars_per_item": 0.00015535146666666665,
+      "pairwise_dollars_per_item": 0.0003579128
+    },
+    {
+      "k": 8,
+      "attribute": "novelty of contribution",
+      "spearman_rho": 0.7769394195297569,
+      "kendall_tau": 0.5812080536912752,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 188316.82422507627,
+      "pairwise_obs_per_dollar": 11331.752931524483,
+      "setwise_dollars_per_item": 0.00009912373333333333,
+      "pairwise_dollars_per_item": 0.0003529904
+    },
+    {
+      "k": 8,
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "spearman_rho": 0.7441592959687097,
+      "kendall_tau": 0.5495302013422819,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 193595.8493049909,
+      "pairwise_obs_per_dollar": 11232.673600970504,
+      "setwise_dollars_per_item": 0.00009642079999999999,
+      "pairwise_dollars_per_item": 0.000356104
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 212685480,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}
