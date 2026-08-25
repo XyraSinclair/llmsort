@@ -66,12 +66,16 @@ use llmsort::rerank::{JsonlTraceSink, RerankExecution, RerankRunOptions};
 use llmsort::seriate::atom::RATIO_LADDER;
 use llmsort::seriate::instrument::ordinal::FIXED_BUCKET;
 
-const SLOT_LETTERS: [char; 12] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+const SLOT_LETTERS: [char; 26] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+    'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+];
 const SETWISE_MAX_OUTPUT_TOKENS: u32 = 400;
 const SLOTS_MAX_OUTPUT_TOKENS: u32 = 64;
 /// Tail markers the synthetic judge keys on; byte-stable by construction.
 const BW_MARKER: &str = "Answer with exactly two letters";
 const ORDER_MARKER: &str = "Order every slot";
+const POINT_MARKER: &str = "one integer from 0 to 100";
 const SYNTHETIC_NOISE_SIGMA: f64 = 0.35;
 /// Synthetic pricing (per-token nanodollars) so the offline path exercises
 /// the cost accounting: gpt-4.1-mini list price $0.40/M in, $1.60/M out.
@@ -91,6 +95,9 @@ const BW_SYSTEM: &str = "You are an expert subjective evaluator. You read a smal
 /// Fixed system message for the full-order (listwise) answer mode.
 const ORDER_SYSTEM: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B";
 
+/// Fixed system message for the pointwise (absolute rating) answer mode.
+const POINT_SYSTEM: &str = "You are an expert subjective evaluator. You read one entity in a lettered slot, then an attribute. You answer with one integer from 0 to 100: the entity's level of the attribute, where 50 is a typical entity of this kind, 0 far below all peers, 100 far above all peers. Nothing else — no words, no punctuation, no explanation.\nExample: 62";
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
 enum AnswerMode {
     /// Pivot-ratio JSON on the pair-cover design (the original arm).
@@ -99,6 +106,8 @@ enum AnswerMode {
     Bw,
     /// Full order of the slot letters on the chunk design.
     Order,
+    /// Absolute 0–100 rating of one entity per call (the folk default).
+    Point,
 }
 
 impl AnswerMode {
@@ -107,6 +116,7 @@ impl AnswerMode {
             Self::Ratio => SETWISE_SYSTEM,
             Self::Bw => BW_SYSTEM,
             Self::Order => ORDER_SYSTEM,
+            Self::Point => POINT_SYSTEM,
         }
     }
     fn label(self) -> &'static str {
@@ -114,6 +124,7 @@ impl AnswerMode {
             Self::Ratio => "ratio",
             Self::Bw => "bw",
             Self::Order => "order",
+            Self::Point => "point",
         }
     }
 }
@@ -206,7 +217,8 @@ struct Args {
     /// Deterministic synthetic judge; no network, $0.
     #[arg(long)]
     offline: bool,
-    /// Answer mode: ratio (pair-cover design), bw or order (chunk design).
+    /// Answer mode: ratio (pair-cover design), bw or order (chunk design),
+    /// point (one entity per call, absolute 0–100; run with --ks 1).
     #[arg(long, value_enum, default_value_t = AnswerMode::Ratio)]
     answer: AnswerMode,
     /// OpenRouter model slug (OpenAI-family for automatic prefix caching).
@@ -233,6 +245,10 @@ struct Args {
     /// Truncate each entity text to this many chars (k=3 must clear the ~1024-token cache floor).
     #[arg(long, default_value_t = 1600)]
     entity_chars: usize,
+    /// Minimum chars for corpus eligibility (default: entity_chars). Set low
+    /// for intrinsically short corpora (anchor names, snippets).
+    #[arg(long)]
+    min_entity_chars: Option<usize>,
     /// ratio: presentations per subset (pivot rotated, slot order permuted).
     /// bw/order: rounds of shuffle→chunk; every item is presented
     /// presentations × repeats times.
@@ -345,6 +361,9 @@ fn attribute_tail(attr: &AttributeSpec, k: usize, mode: AnswerMode) -> String {
             "{head}{ORDER_MARKER} from {{{}}} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
             all.join(", ")
         ),
+        AnswerMode::Point => {
+            format!("{head}Rate the entity in slot A on the attribute: {POINT_MARKER}.\nanswer:")
+        }
     }
 }
 
@@ -544,6 +563,8 @@ enum SetwiseAnswer {
     },
     /// bw: [best, worst]; order: most→least. Slot positions.
     Slots(Vec<usize>),
+    /// point: one absolute 0–100 rating.
+    Score(f64),
     Refused,
 }
 
@@ -626,6 +647,16 @@ fn parse_slots(raw: &str, k: usize, want: usize) -> Result<Vec<usize>, String> {
         ));
     }
     Ok(slots)
+}
+
+/// Pointwise answer: one integer 0–100. Anything else is malformed — never
+/// a default.
+fn parse_point(raw: &str) -> Result<f64, String> {
+    let t = raw.trim().trim_end_matches('.');
+    match t.parse::<i64>() {
+        Ok(v) if (0..=100).contains(&v) => Ok(v as f64),
+        _ => Err(format!("expected one integer 0..=100, got {raw:?}")),
+    }
 }
 
 /// Lower an ordered tier list (most → least; entity indices) to one ordinal
@@ -736,7 +767,12 @@ impl ChatGateway for SyntheticJudge {
                 }
                 present.push((letter, self.entity_between(&user, &open, &close)?));
             }
-            let content = if user.contains(BW_MARKER) || user.contains(ORDER_MARKER) {
+            let content = if user.contains(POINT_MARKER) {
+                // point: one slot; 50 + 15·(z + noise), clamped to 0–100.
+                let (_, idx) = present[0];
+                let z_pert = z[idx] + self.noise(&[&user]);
+                format!("{}", ((50.0 + 15.0 * z_pert).round() as i64).clamp(0, 100))
+            } else if user.contains(BW_MARKER) || user.contains(ORDER_MARKER) {
                 // bw/order: perturb each slot's latent, sort once; emit the
                 // two ends (bw) or the full order.
                 let mut perturbed: Vec<(f64, char)> = present
@@ -899,6 +935,8 @@ struct TraceRow {
     parsed_ratios: Option<BTreeMap<String, f64>>,
     /// bw: [best, worst]; order: most→least (slot positions). None for ratio.
     parsed_slots: Option<Vec<usize>>,
+    /// point: the 0–100 rating. None for other modes.
+    parsed_score: Option<f64>,
     confidence: Option<f64>,
     input_tokens: u32,
     output_tokens: u32,
@@ -1104,10 +1142,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .split(',')
         .map(|s| s.trim().parse::<usize>())
         .collect::<Result<_, _>>()?;
+    let k_floor = if matches!(args.answer, AnswerMode::Point) {
+        1
+    } else {
+        2
+    };
     for &k in &ks {
         assert!(
-            (2..=args.n).contains(&k) && k <= SLOT_LETTERS.len(),
-            "k must be in 2..=n and fit the slot alphabet"
+            (k_floor..=args.n).contains(&k) && k <= SLOT_LETTERS.len(),
+            "k must be in {k_floor}..=n and fit the slot alphabet"
         );
     }
     std::fs::create_dir_all(&args.out_dir)?;
@@ -1117,14 +1160,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let corpus: Vec<CorpusItem> = serde_json::from_str(&corpus_raw)?;
     let mut eligible: Vec<&CorpusItem> = corpus
         .iter()
-        .filter(|item| item.text.trim().chars().count() >= args.entity_chars)
+        .filter(|item| {
+            item.text.trim().chars().count() >= args.min_entity_chars.unwrap_or(args.entity_chars)
+        })
         .collect();
     let mut rng = StdRng::seed_from_u64(args.seed);
     eligible.shuffle(&mut rng);
     assert!(
         eligible.len() >= args.n,
         "corpus has too few items of at least {} chars",
-        args.entity_chars
+        args.min_entity_chars.unwrap_or(args.entity_chars)
     );
     let entities: Vec<Entity> = eligible[..args.n]
         .iter()
@@ -1208,6 +1253,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // (k, attr) -> subset -> per-presentation map entity -> tier rank.
     type SubsetTiers = HashMap<Vec<usize>, Vec<HashMap<usize, usize>>>;
     let mut arm_tiers: BTreeMap<(usize, String), SubsetTiers> = BTreeMap::new();
+    // point: per (k, attribute) → entity → parsed 0–100 draws.
+    let mut arm_point: BTreeMap<(usize, String), BTreeMap<usize, Vec<f64>>> = BTreeMap::new();
+    let mut point_caveats: Vec<String> = Vec::new();
     let mut subsets_per_k: BTreeMap<usize, usize> = BTreeMap::new();
     let mode = args.answer;
     let system = mode.system();
@@ -1237,6 +1285,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     &mut design_rng,
                 ),
             },
+            AnswerMode::Point => (0..args.n)
+                .map(|i| SubsetPlan {
+                    subset: vec![i],
+                    presentations: vec![vec![i]; args.presentations.max(1)],
+                })
+                .collect(),
         };
         subsets_per_k.insert(k, design.len());
         let calls: usize =
@@ -1268,8 +1322,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     request = match mode {
                         AnswerMode::Ratio => request.max_tokens(SETWISE_MAX_OUTPUT_TOKENS).json(),
                         AnswerMode::Bw | AnswerMode::Order => {
-                            request.max_tokens(SLOTS_MAX_OUTPUT_TOKENS)
+                            request.max_tokens(SLOTS_MAX_OUTPUT_TOKENS.max(6 * kk as u32))
                         }
+                        AnswerMode::Point => request.max_tokens(8),
                     };
                     request.prompt_cache_key = Some(cache_key.clone());
 
@@ -1306,6 +1361,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         raw_response: None,
                         parsed_ratios: None,
                         parsed_slots: None,
+                        parsed_score: None,
                         confidence: None,
                         input_tokens: 0,
                         output_tokens: 0,
@@ -1352,6 +1408,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         .map(SetwiseAnswer::Slots),
                                     AnswerMode::Order => parse_slots(&response.content, kk, kk)
                                         .map(SetwiseAnswer::Slots),
+                                    AnswerMode::Point => {
+                                        parse_point(&response.content).map(SetwiseAnswer::Score)
+                                    }
                                 };
                             match parsed {
                                 Ok(SetwiseAnswer::Slots(slots)) => {
@@ -1390,6 +1449,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         .or_insert_with(|| (vec![0; k], vec![0; k]));
                                     hist.0[slots[0]] += 1;
                                     hist.1[slots[slots.len() - 1]] += 1;
+                                }
+                                Ok(SetwiseAnswer::Score(v)) => {
+                                    row.status = "ok".to_string();
+                                    row.parsed_score = Some(v);
+                                    counts.0 += 1;
+                                    arm_point
+                                        .entry(key.clone())
+                                        .or_default()
+                                        .entry(order[0])
+                                        .or_default()
+                                        .push(v);
                                 }
                                 Ok(SetwiseAnswer::Ratios { ratios, confidence }) => {
                                     row.status = "ok".to_string();
@@ -1461,6 +1531,90 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for &k in &ks {
         for attr in &attrs {
             let key = (k, attr.name.clone());
+            if matches!(mode, AnswerMode::Point) {
+                // Scores ARE the latents — no graph, no solver. Repeat draws
+                // (≥ 2 presentations) pool by mean; std is the draw spread.
+                if engine_spec.is_none() {
+                    engine_spec = Some(
+                        RatingEngine::new(
+                            args.n,
+                            AttributeParams::default(),
+                            raters.clone(),
+                            None,
+                        )?
+                        .spec(),
+                    );
+                }
+                let draws = arm_point.remove(&key).unwrap_or_default();
+                let mut means: Vec<Option<f64>> = vec![None; args.n];
+                let mut stds: Vec<f64> = vec![0.0; args.n];
+                let mut observations = 0usize;
+                for (&entity, vals) in &draws {
+                    observations += vals.len();
+                    let m = vals.iter().sum::<f64>() / vals.len() as f64;
+                    means[entity] = Some(m);
+                    if vals.len() > 1 {
+                        stds[entity] = (vals.iter().map(|v| (v - m).powi(2)).sum::<f64>()
+                            / (vals.len() - 1) as f64)
+                            .sqrt();
+                    }
+                }
+                let present: Vec<f64> = means.iter().filter_map(|m| *m).collect();
+                let grand = if present.is_empty() {
+                    50.0
+                } else {
+                    present.iter().sum::<f64>() / present.len() as f64
+                };
+                let missing = means.iter().filter(|m| m.is_none()).count();
+                if missing > 0 {
+                    point_caveats.push(format!(
+                        "point {}: {missing}/{} entities had no parsed score; the arm mean {grand:.1} was imputed — those ranks are NOT measurements",
+                        attr.name, args.n
+                    ));
+                }
+                let scores: Vec<f64> = means.iter().map(|m| m.unwrap_or(grand)).collect();
+                let latents: Vec<ItemLatent> = entities
+                    .iter()
+                    .enumerate()
+                    .map(|(idx, entity)| ItemLatent {
+                        id: entity.id.clone(),
+                        mean: scores[idx],
+                        std: stds[idx],
+                    })
+                    .collect();
+                setwise_latents.insert(key.clone(), scores);
+                let usage = arm_usage.remove(&key).unwrap_or_default();
+                let (ok, refused, malformed, errored) = arm_counts.remove(&key).unwrap_or_default();
+                let (reported, read_gt0, frac_sum) = arm_cache.remove(&key).unwrap_or((0, 0, 0.0));
+                setwise_arms.push(SetwiseArm {
+                    answer: mode.label().to_string(),
+                    k,
+                    attribute: attr.name.clone(),
+                    calls: usage.calls,
+                    calls_ok: ok,
+                    calls_refused: refused,
+                    calls_malformed: malformed,
+                    calls_errored: errored,
+                    observations,
+                    usage,
+                    cache: CacheEvidence {
+                        calls_with_cache_fields_reported: reported,
+                        calls_with_cache_read_gt0: read_gt0,
+                        mean_cached_fraction: (reported > 0).then(|| frac_sum / reported as f64),
+                    },
+                    pivot_rotation: PivotRotation {
+                        pairs_with_both_orientations: 0,
+                        sign_flips: 0,
+                        mean_abs_residual_nats: None,
+                    },
+                    slot_histogram: None,
+                    order_sensitivity: None,
+                    components: 1,
+                    disconnected: false,
+                    latents,
+                });
+                continue;
+            }
             let obs = arm_obs.remove(&key).unwrap_or_default();
             let mut engine =
                 RatingEngine::new(args.n, AttributeParams::default(), raters.clone(), None)?;
@@ -1737,7 +1891,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         caveats: vec![
             "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.".to_string(),
             "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero.".to_string(),
-        ],
+        ]
+        .into_iter()
+        .chain(point_caveats)
+        .collect(),
     };
     let report_path = args.out_dir.join("report.json");
     std::fs::write(&report_path, serde_json::to_string_pretty(&report)?)?;

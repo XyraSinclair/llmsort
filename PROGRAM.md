@@ -246,6 +246,29 @@ RESULTS.md with denominators) and one page here.
   a 24-item sort through the promised API costs $0.0054, verified live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
+- **E12 — the folk baselines, measured + truth anchors.** What a person
+  tries first is pointwise "rate 0–100" (one entity per call) and
+  single-call listwise (paste the whole list, one call); the book of tricks
+  §1 asserts their failure modes on authority, with no measurement. Harness
+  (llmsort, 2026-08-24): `--answer point` (strict integer 0–100 parse;
+  scores ARE the latents, no solver; `--ks 1`; missing scores imputed
+  loudly, never silently) and `order --ks n` (slot alphabet extended A–Z,
+  order output cap scales with k), plus `--min-entity-chars` so
+  intrinsically short corpora don't collide with the truncation knob. The
+  truth arm: the E2 anchor pools (countries by population, rivers by
+  length — bare names, ultra-short entities) as harness corpora with
+  committed truth files (`data/anchors_*.json`), so every instrument gets
+  an ACCURACY reading against external truth, not just agreement with the
+  same model's pairwise sort. Cells: {point, single-call listwise, ring
+  k=8 r=2, pairwise} × {manifund n=24, countries n=16, rivers n=16} ×
+  {deepseek-v4-flash, gpt-5.6-luna}. **IN FLIGHT** (run7).
+- **E13 — n-scaling.** Every prior cell is n=16–24; people's lists are
+  50–500. Ring k=8 r=2 and pointwise at n=150 (the full arXiv corpus,
+  3 paper attributes) against the full pairwise baseline (600
+  comparisons/attr): does the recipe hold at 6× the n, what does the cost
+  curve do, and single-call listwise cannot even express n=150 (26 slot
+  letters) — that boundary is itself the table-stakes reading. **IN
+  FLIGHT** (run7).
 
 ## 4. E1 design: setwise ratio, cached prefix
 
