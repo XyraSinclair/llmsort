@@ -346,7 +346,22 @@ RESULTS.md with denominators) and one page here.
   screen extends to degenerate pools as-is, or the docs gain a named
   precondition ("gauge assumes distinguishable items") with the measured
   counterexample. Budget ≤ $1 (6 corrupted cells × ~100 calls at E13 unit
-  costs). **PLANNED.**
+  costs). **EXECUTED** 2026-08-25 (run11, 13 cells, $1.07, pack
+  `research/artifacts/live/e15-degenerate-2026-08-25/`): (1) the gauge does
+  NOT notice — corrupted-pool flips 0.11–0.24 sit at/below the clean run8
+  baseline (0.15–0.25); ~45 degenerate pairs cannot move an aggregate over
+  ~1,300 re-presented pairs. (2) Within-cluster order is seed noise: twin
+  sign agreement across seeds 21–29/45 (chance 22.5), stub-cluster
+  across-seed ρ ≈ 0, identical texts a median 10–17 ranks apart — while
+  kept-105 across-seed ρ stays 0.73–0.92 and stubs sort to mean rank
+  126/150. (3) σ covers it: twin gaps exceed joint 2σ in only 0–4/45 pairs
+  per cell; mean σ unchanged vs clean (setwise 0.226 vs 0.227, pairwise
+  ~0.57 both). Verdict: gauge thresholds unchanged; named precondition —
+  the gauge certifies pool-level order, never item-level distinctions.
+  Rank gaps smaller than the error bars are presentation, not measurement;
+  read ±σ before trusting adjacent-pair distinctions. Anomaly logged:
+  luna dup cells lost 4–24% of calls to transport errors (unattributed);
+  para/stub clean.
 
 ## 4. E1 design: setwise ratio, cached prefix
 

@@ -32,6 +32,16 @@
 //! largest k the flip rate tolerates. Evidence pack:
 //! `research/artifacts/live/best-worst-2026-08-22/` (PROGRAM.md E6).
 //!
+//! Precondition (E15): the gauge certifies POOL-level order, never
+//! item-level distinctions. On pools with duplicates / near-duplicates /
+//! boilerplate the flip rate stays at the clean baseline while the
+//! relative order inside a degenerate cluster is seed noise (identical
+//! texts a median ~13 ranks apart at n = 150, direction coin-flipping
+//! across seeds) — but inside joint 2σ (twin gaps exceeded it in only
+//! 0–4/45 pairs per cell). Read `latent_std`: rank gaps smaller than the
+//! error bars are presentation, not measurement. Pack:
+//! `research/artifacts/live/e15-degenerate-2026-08-25/`.
+//!
 //! The default chunk design is the **anchored ring** (E11): per round the
 //! shuffled list is tiled by cyclic windows of k at stride k−overlap, so
 //! consecutive groups share `overlap` anchors and the last window wraps —
