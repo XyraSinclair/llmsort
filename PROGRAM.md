@@ -245,7 +245,17 @@ RESULTS.md with denominators) and one page here.
   is now the crate default (`SetwiseDesign::Ring`, llmsort@b3534f9) —
   a 24-item sort through the promised API costs $0.0054, verified live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
-  separation per dollar versus point answers, per instrument. **PLANNED.**
+  separation per dollar versus point answers, per instrument. For the
+  `order` instrument (2026-08-24, `--logprobs`): each implied pair enters
+  the solver through the measured-precision channel
+  (`Observation::from_log_ratio_moments`) as a two-point mixture at the
+  fixed magnitude m — right with probability q = max(0.5, √(p_i·p_j))
+  from the emitted letters' token probabilities — mean m(2q−1), variance
+  4m²q(1−q); deterministic emission recovers the point lowering, hesitant
+  positions shrink with inflated variance. The q form is a stated modeling
+  choice; the experiment measures whether it buys agreement or gauge
+  robustness per dollar against the unweighted twins (E11 ring-m1r2,
+  run8 ax150-ring2). **IN FLIGHT** (run10, after run9).
 - **E14 — the funnel (screen → refine), the top-k product recipe.** What
   reranking users actually want is "the best 10 of 150", not a full order.
   Two-stage: a whole-pool screen (setwise ring rounds=2 — or pointwise, the

@@ -266,6 +266,12 @@ struct Args {
     /// bw/order chunk-design family.
     #[arg(long, value_enum, default_value_t = ChunkDesign::Disjoint)]
     design: ChunkDesign,
+    /// order only: request answer-token logprobs and lower each implied pair
+    /// through the PMF channel (two-point mixture: mean m(2q−1), variance
+    /// 4m²q(1−q), q = max(0.5, √(p_i·p_j)) from the emitted letters' token
+    /// probabilities). Deterministic emission recovers the point lowering.
+    #[arg(long)]
+    logprobs: bool,
     /// ring only: anchors shared between consecutive groups.
     #[arg(long, default_value_t = 2)]
     overlap: usize,
@@ -649,6 +655,38 @@ fn parse_slots(raw: &str, k: usize, want: usize) -> Result<Vec<usize>, String> {
     Ok(slots)
 }
 
+/// Lower a full order (singleton tiers, most → least) through the PMF
+/// channel: each cross pair (position i beats position j) enters as a
+/// two-point mixture at the fixed magnitude m — right with probability
+/// q = max(0.5, √(p_i·p_j)) — so mean = m(2q−1), variance = 4m²·q(1−q),
+/// precision = 1/variance. Deterministic emission (p → 1) recovers the
+/// plain point lowering; hesitant positions shrink toward zero with
+/// inflated variance. The q form is a stated modeling choice, not a
+/// calibration; E7 measures whether it buys separation per dollar.
+fn lower_order_with_probs(
+    order_entities: &[usize],
+    probs: &[f64],
+    rater: &str,
+    out: &mut Vec<Observation>,
+) {
+    let m = RATIO_LADDER[usize::from(FIXED_BUCKET) - 1].ln();
+    for i in 0..order_entities.len() {
+        for j in (i + 1)..order_entities.len() {
+            let q = (probs[i] * probs[j]).sqrt().clamp(0.5, 1.0);
+            let mean = m * (2.0 * q - 1.0);
+            let var = 4.0 * m * m * q * (1.0 - q);
+            out.push(Observation::from_log_ratio_moments(
+                order_entities[i],
+                order_entities[j],
+                mean,
+                var.max(1e-6),
+                rater.to_string(),
+                1.0,
+            ));
+        }
+    }
+}
+
 /// Pointwise answer: one integer 0–100. Anything else is malformed — never
 /// a default.
 fn parse_point(raw: &str) -> Result<f64, String> {
@@ -1021,6 +1059,10 @@ struct SetwiseArm {
     /// means some items are not on the same scale — flagged, not silent.
     components: usize,
     disconnected: bool,
+    /// order + --logprobs: calls whose pairs entered via the PMF channel.
+    calls_pmf_weighted: Option<usize>,
+    /// Mean emitted-letter token probability over PMF-weighted calls.
+    mean_answer_token_prob: Option<f64>,
     latents: Vec<ItemLatent>,
 }
 
@@ -1255,6 +1297,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut arm_tiers: BTreeMap<(usize, String), SubsetTiers> = BTreeMap::new();
     // point: per (k, attribute) → entity → parsed 0–100 draws.
     let mut arm_point: BTreeMap<(usize, String), BTreeMap<usize, Vec<f64>>> = BTreeMap::new();
+    // order + --logprobs: (calls weighted through the PMF channel, sum of
+    // mean emitted-letter probability over those calls).
+    let mut arm_probs: BTreeMap<(usize, String), (usize, f64)> = BTreeMap::new();
     let mut point_caveats: Vec<String> = Vec::new();
     let mut subsets_per_k: BTreeMap<usize, usize> = BTreeMap::new();
     let mode = args.answer;
@@ -1322,7 +1367,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     request = match mode {
                         AnswerMode::Ratio => request.max_tokens(SETWISE_MAX_OUTPUT_TOKENS).json(),
                         AnswerMode::Bw | AnswerMode::Order => {
-                            request.max_tokens(SLOTS_MAX_OUTPUT_TOKENS.max(6 * kk as u32))
+                            let mut r =
+                                request.max_tokens(SLOTS_MAX_OUTPUT_TOKENS.max(6 * kk as u32));
+                            if args.logprobs {
+                                r.logprobs = true;
+                                r.top_logprobs = Some(5);
+                            }
+                            r
                         }
                         AnswerMode::Point => request.max_tokens(8),
                     };
@@ -1417,6 +1468,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                     row.status = "ok".to_string();
                                     row.parsed_slots = Some(slots.clone());
                                     counts.0 += 1;
+                                    // order + --logprobs: align emitted
+                                    // single-letter tokens to the parsed
+                                    // sequence; any mismatch = no weighting
+                                    // for this call (counted, not defaulted).
+                                    let slot_probs: Option<Vec<f64>> = (args.logprobs
+                                        && matches!(mode, AnswerMode::Order))
+                                    .then(|| {
+                                        response.output_logprobs.as_ref().and_then(|tokens| {
+                                            let letters: Vec<f64> = tokens
+                                                .iter()
+                                                .filter(|t| {
+                                                    let tr = t.token.trim();
+                                                    let mut c = tr.chars();
+                                                    matches!(
+                                                        (c.next(), c.next()),
+                                                        (Some(ch), None)
+                                                            if SLOT_LETTERS[..kk].contains(&ch)
+                                                    )
+                                                })
+                                                .map(|t| t.logprob.exp().clamp(0.0, 1.0))
+                                                .collect();
+                                            (letters.len() == kk).then_some(letters)
+                                        })
+                                    })
+                                    .flatten();
                                     let tiers: Vec<Vec<usize>> = match mode {
                                         AnswerMode::Bw => {
                                             let (best, worst) = (slots[0], slots[1]);
@@ -1428,11 +1504,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         }
                                         _ => slots.iter().map(|&s| vec![order[s]]).collect(),
                                     };
-                                    lower_tiers(
-                                        &tiers,
-                                        &args.model,
-                                        arm_obs.entry(key.clone()).or_default(),
-                                    );
+                                    if let Some(probs) = &slot_probs {
+                                        let order_entities: Vec<usize> =
+                                            tiers.iter().map(|t| t[0]).collect();
+                                        lower_order_with_probs(
+                                            &order_entities,
+                                            probs,
+                                            &args.model,
+                                            arm_obs.entry(key.clone()).or_default(),
+                                        );
+                                        let stats = arm_probs.entry(key.clone()).or_default();
+                                        stats.0 += 1;
+                                        stats.1 += probs.iter().sum::<f64>() / probs.len() as f64;
+                                    } else {
+                                        if args.logprobs && matches!(mode, AnswerMode::Order) {
+                                            arm_probs.entry(key.clone()).or_default();
+                                        }
+                                        lower_tiers(
+                                            &tiers,
+                                            &args.model,
+                                            arm_obs.entry(key.clone()).or_default(),
+                                        );
+                                    }
                                     let rank_map: HashMap<usize, usize> = tiers
                                         .iter()
                                         .enumerate()
@@ -1611,6 +1704,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     order_sensitivity: None,
                     components: 1,
                     disconnected: false,
+                    calls_pmf_weighted: None,
+                    mean_answer_token_prob: None,
                     latents,
                 });
                 continue;
@@ -1657,6 +1752,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let usage = arm_usage.remove(&key).unwrap_or_default();
             let (ok, refused, malformed, errored) = arm_counts.remove(&key).unwrap_or_default();
             let (reported, read_gt0, frac_sum) = arm_cache.remove(&key).unwrap_or((0, 0, 0.0));
+            let pmf_stats = arm_probs.remove(&key);
             let order_sensitivity = arm_tiers.remove(&key).map(|subsets| {
                 let (mut with_repeats, mut pres_pairs, mut compared, mut flips) = (0, 0, 0, 0);
                 for (subset, pres) in &subsets {
@@ -1730,6 +1826,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 order_sensitivity,
                 components: summary.components,
                 disconnected: summary.components > 1,
+                calls_pmf_weighted: pmf_stats.map(|(c, _)| c),
+                mean_answer_token_prob: pmf_stats
+                    .and_then(|(c, sum)| (c > 0).then(|| sum / c as f64)),
                 latents,
             });
         }
