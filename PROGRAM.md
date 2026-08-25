@@ -255,7 +255,15 @@ RESULTS.md with denominators) and one page here.
   positions shrink with inflated variance. The q form is a stated modeling
   choice; the experiment measures whether it buys agreement or gauge
   robustness per dollar against the unweighted twins (E11 ring-m1r2,
-  run8 ax150-ring2). **IN FLIGHT** (run10, after run9).
+  run8 ax150-ring2). **EXECUTED — REFUTED** 2026-08-24 (run10, $0.21,
+  RESULTS.md addendum): logprob coverage was total (344/344 calls, both
+  models), and the weighting made agreement WORSE in 10 of 12 cells
+  (median −0.09, worst −0.30; flips unchanged). Sequence-position token
+  probability measures continuation confidence, not judgment correctness;
+  mid-list pairs get systematically down-weighted. PMF evidence stays
+  where E9 measured it paying: single-token answer rails. The order
+  instrument keeps its plain lowering; `--logprobs` stays in the harness
+  as the recorded refutation apparatus.
 - **E14 — the funnel (screen → refine), the top-k product recipe.** What
   reranking users actually want is "the best 10 of 150", not a full order.
   Two-stage: a whole-pool screen (setwise ring rounds=2 — or pointwise, the

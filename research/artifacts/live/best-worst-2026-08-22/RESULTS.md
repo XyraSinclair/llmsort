@@ -394,3 +394,40 @@ Readings:
    slice → pairwise top_k refine`; ~0.5× full-pairwise cost, ceiling-level
    quality, gauge on the screen, certification on the refine. 12/12 cells
    parsed; stage-1 luna had 1 malformed call of 100 in one cell.
+
+## E7 addendum (2026-08-24, run10, $0.21): PMF weighting REFUTED for multi-token order answers
+
+Twins of the E11 ring-m1r2 (manifund n=24) and run8 ax150-ring2 (n=150)
+cells with `--logprobs`: every implied pair entered the solver through the
+measured-precision channel as a two-point mixture weighted by the emitted
+letters' token probabilities (q = max(0.5, √(p_i·p_j))). Coverage was
+total — 344/344 parsed calls carried logprobs on both models.
+
+```
+cell                       attr                                   pmf    p̄ flip_lp flip_pl rho_lp rho_pl
+lp-mf-ring-deepseek        impact_per_dollar                    8/8    0.70    0.19    0.22   0.86   0.84
+lp-mf-ring-deepseek        theory_of_change                     8/8    0.69    0.25    0.21   0.68   0.81
+lp-mf-ring-deepseek        fit for a funder who wants cheap h   8/8    0.77    0.07    0.09   0.81   0.84
+lp-ax150-ring2-deepseek    methodological rigor               100/100  0.62    0.26    0.25   0.53   0.65
+lp-ax150-ring2-deepseek    novelty of contribution            100/100  0.63    0.23    0.22   0.69   0.78
+lp-ax150-ring2-deepseek    usefulness for a practitioner buil 100/100  0.62    0.23    0.24   0.66   0.74
+
+lp-mf-ring-luna            impact_per_dollar                    8/8    0.88    0.19    0.26   0.72   0.81
+lp-mf-ring-luna            theory_of_change                     8/8    0.88    0.12    0.17   0.58   0.88
+lp-mf-ring-luna            fit for a funder who wants cheap h   8/8    0.93    0.16    0.12   0.70   0.91
+lp-ax150-ring2-luna        methodological rigor               100/100  0.87    0.18    0.18   0.60   0.77
+lp-ax150-ring2-luna        novelty of contribution            100/100  0.89    0.15    0.15   0.73   0.87
+lp-ax150-ring2-luna        usefulness for a practitioner buil  96/96   0.86    0.20    0.21   0.69   0.79
+```
+
+Verdict: the weighting HURTS — ρ vs the same pairwise reference drops in
+10 of 12 cells (median −0.09, worst −0.30) with flip rates unchanged.
+Mechanism: a letter's token probability inside an emitted sequence
+measures autoregressive continuation confidence, not judgment
+correctness — mid-order positions are low-probability even when the
+relative order is right (mean emitted prob 0.62–0.93), so q
+systematically down-weights mid-list pairs and distorts the solve. This
+sharpens E9's lesson: PMF evidence pays on single-token answer rails
+(the whole judgment in one token position, 23× stat-error win), and does
+not transfer to multi-token sequence answers. The order instrument keeps
+its plain fixed-magnitude lowering.
