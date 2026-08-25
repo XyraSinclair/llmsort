@@ -16,6 +16,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             two_sided,
             also_by,
             no_counterbalance,
+            setwise,
+            k,
             template,
             elaborate,
             prune_below,
@@ -35,6 +37,106 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             let documents = parse_sort_items(&raw)?;
             if documents.is_empty() {
                 return Err("no items to sort: input is empty".into());
+            }
+
+            if setwise {
+                if policy.is_some()
+                    || policy_config.is_some()
+                    || budget.is_some()
+                    || top_k.is_some()
+                    || two_sided
+                    || !also_by.is_empty()
+                    || no_counterbalance
+                    || template.is_some()
+                    || prune_below.is_some()
+                    || cache_only
+                    || no_cache
+                    || cache.is_some()
+                    || trace.is_some()
+                    || estimate
+                {
+                    return Err("--setwise supports --model, --k, --seed, --concurrency,                          --format, --scores, --reverse, --elaborate, and --quiet only;                          the pairwise path owns budgets, policies, caches, probes, and                          traces"
+                        .into());
+                }
+                let gateway = Arc::new(provider_gateway(false)?);
+                let criterion = if elaborate {
+                    let rubric = llmsort::rerank::elaborate_criterion(
+                        gateway.as_ref(),
+                        model.as_deref(),
+                        &by,
+                        Attribution::new("llmsort::sort::elaborate"),
+                    )
+                    .await?;
+                    if !quiet {
+                        eprintln!(
+                            "elaborated criterion ({}, ${:.4}):
+{}
+",
+                            rubric.model_used,
+                            rubric.provider_cost_nanodollars as f64 / 1e9,
+                            rubric.elaborated
+                        );
+                    }
+                    rubric.elaborated
+                } else {
+                    by.clone()
+                };
+                let opts = llmsort::rerank::SetwiseOptions {
+                    model: model.clone(),
+                    k,
+                    seed,
+                    concurrency,
+                    ..Default::default()
+                };
+                let mut sorted = llmsort::rerank::sort_documents_setwise(
+                    documents,
+                    &criterion,
+                    gateway.clone(),
+                    opts,
+                )
+                .await?;
+                if reverse {
+                    sorted.items.reverse();
+                }
+                let stdout = io::stdout();
+                let mut out = stdout.lock();
+                render_setwise(&mut out, &sorted, format, scores)?;
+                if !quiet {
+                    let cost_usd = sorted.cost_nanodollars as f64 / 1e9;
+                    let gauge = match &sorted.gauge {
+                        Some(g) => match g.flip_rate {
+                            Some(f) if f < 0.20 => format!(
+                                " · gauge: flip {f:.2} — trust (measured: flip < 0.20 ⇒ ρ ≥ 0.64 vs pairwise)"
+                            ),
+                            Some(f) if f < 0.25 => {
+                                format!(" · gauge: flip {f:.2} — CAUTION (0.20–0.25)")
+                            }
+                            Some(f) => format!(
+                                " · gauge: flip {f:.2} — DO NOT TRUST: shrink --k, or use the pairwise path"
+                            ),
+                            None => " · gauge: no repeated pairs measured".to_string(),
+                        },
+                        None => String::new(),
+                    };
+                    let components = if sorted.components > 1 {
+                        format!(
+                            " · DISCONNECTED: {} components — ranks are only defined within components",
+                            sorted.components
+                        )
+                    } else {
+                        String::new()
+                    };
+                    eprintln!(
+                        "sorted {} items by \"{by}\" · setwise k={k} · {} calls ({} ok, {} malformed, {} errored) · ${cost_usd:.4} · {}{gauge}{components}",
+                        sorted.items.len(),
+                        sorted.calls,
+                        sorted.calls_ok,
+                        sorted.calls_malformed,
+                        sorted.calls_errored,
+                        sorted.model_used,
+                    );
+                }
+                return Ok(());
             }
 
             if estimate {

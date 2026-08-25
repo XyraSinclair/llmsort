@@ -87,9 +87,38 @@ pub(super) fn render_sorted(
     format: SortFormatArg,
     scores: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if matches!(format, SortFormatArg::Json) {
+        serde_json::to_writer_pretty(&mut *out, sorted)?;
+        writeln!(out)?;
+        return Ok(());
+    }
+    render_items(out, &sorted.items, format, scores)
+}
+
+/// Setwise result rendering: same item shape, setwise accounting in Json.
+pub(super) fn render_setwise(
+    out: &mut impl Write,
+    sorted: &llmsort::rerank::SetwiseSorted,
+    format: SortFormatArg,
+    scores: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
+    if matches!(format, SortFormatArg::Json) {
+        serde_json::to_writer_pretty(&mut *out, sorted)?;
+        writeln!(out)?;
+        return Ok(());
+    }
+    render_items(out, &sorted.items, format, scores)
+}
+
+fn render_items(
+    out: &mut impl Write,
+    items: &[llmsort::rerank::SortedItem],
+    format: SortFormatArg,
+    scores: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
     match format {
         SortFormatArg::Text => {
-            for item in &sorted.items {
+            for item in items {
                 if scores {
                     writeln!(
                         out,
@@ -101,12 +130,9 @@ pub(super) fn render_sorted(
                 }
             }
         }
-        SortFormatArg::Json => {
-            serde_json::to_writer_pretty(&mut *out, sorted)?;
-            writeln!(out)?;
-        }
+        SortFormatArg::Json => unreachable!("handled by the callers"),
         SortFormatArg::Jsonl => {
-            for item in &sorted.items {
+            for item in items {
                 serde_json::to_writer(&mut *out, item)?;
                 writeln!(out)?;
             }
@@ -116,7 +142,7 @@ pub(super) fn render_sorted(
                 out,
                 "rank,id,latent_mean,latent_std,z_score,percentile,text"
             )?;
-            for item in &sorted.items {
+            for item in items {
                 writeln!(
                     out,
                     "{},{},{:.6},{:.6},{:.6},{:.6},{}",

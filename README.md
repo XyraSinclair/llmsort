@@ -131,7 +131,8 @@ Use the pairwise sort for list work where "how much better?" carries
 information: prompts, research ideas, candidate plans, reviewer notes,
 backlog items. Use the setwise sort when an adequate *order* under a
 custom criterion is the bar — reranking search results, triaging a
-queue — at roughly a third of the pairwise cost; it measures its own
+queue — at roughly a third of the pairwise cost (CLI: `llmsort sort
+--setwise`); it measures its own
 trustworthiness first (the order-sensitivity gauge; thresholds and the
 evidence in `src/rerank/setwise.rs` docs and PROGRAM.md E6). Do not use
 either for deterministic rankings, scalar metrics, or attributes too
