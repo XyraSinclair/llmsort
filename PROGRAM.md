@@ -246,6 +246,15 @@ RESULTS.md with denominators) and one page here.
   a 24-item sort through the promised API costs $0.0054, verified live.
 - **E7 — PMF evidence per instrument.** Where providers expose logprobs,
   separation per dollar versus point answers, per instrument. **PLANNED.**
+- **E14 — the funnel (screen → refine), the top-k product recipe.** What
+  reranking users actually want is "the best 10 of 150", not a full order.
+  Two-stage: a whole-pool screen (setwise ring rounds=2 — or pointwise, the
+  folk contender whose tie blocks should hurt exactly at the slice cut),
+  then the pairwise path with certified `top_k` on the top-30 slice.
+  Composed from the promised surface (`experiments/examples/funnel_topk.rs`),
+  judged against run7/run8's full-pairwise references and the pw17~pw18
+  top-10 overlap ceiling. 12 cells: 2 stage-1 kinds × 3 attributes ×
+  {deepseek, luna}, n=150, seed 18. **IN FLIGHT** (run9).
 - **E12 — the folk baselines, measured + truth anchors.** What a person
   tries first is pointwise "rate 0–100" (one entity per call) and
   single-call listwise (paste the whole list, one call); the book of tricks
