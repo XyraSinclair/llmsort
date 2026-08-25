@@ -55,7 +55,7 @@ use rand::seq::SliceRandom;
 use rand::SeedableRng;
 use serde::{Deserialize, Serialize};
 
-use crate::gateway::{Attribution, ChatGateway, ChatModel, ChatRequest, Message};
+use crate::gateway::{Attribution, ChatGateway, ChatModel, ChatRequest, Message, ReasoningConfig};
 use crate::rating_engine::{AttributeParams, Observation, RaterParams, RatingEngine};
 use crate::seriate::atom::RATIO_LADDER;
 use crate::seriate::instrument::ordinal::FIXED_BUCKET;
@@ -449,6 +449,15 @@ pub async fn sort_documents_setwise(
                 attribution.clone(),
             )
             .max_tokens(MAX_OUTPUT_TOKENS);
+            // A two-token-per-slot answer never wants hybrid reasoning: on
+            // reasoning-by-default providers the whole output budget burns as
+            // thought and the content comes back empty (100% malformed,
+            // measured 2026-08-24 — the CLI smoke failed exactly this way
+            // whenever OPENROUTER_DISABLE_REASONING was not exported).
+            let request = ChatRequest {
+                reasoning: Some(ReasoningConfig::disabled()),
+                ..request
+            };
             let gateway = Arc::clone(&gateway);
             async move { (pi, order, gateway.chat(request).await) }
         }))
