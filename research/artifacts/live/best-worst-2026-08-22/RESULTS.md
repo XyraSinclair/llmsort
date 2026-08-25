@@ -237,3 +237,89 @@ Replay: `report.json` + `trace.jsonl` (+ `pairwise_trace.jsonl`) per run
 under `live/<mode>-m<m>[-s23]/`; offline packs under `offline/`. Runner
 scripts mirrored in `live/run.sh`, `live/run2.sh`, `live/run3.sh`,
 `live/run4.sh`, `live/run5.sh`, `live/run6.sh`.
+
+## E12/E13 addendum (2026-08-24, run7, $0.79): the folk baselines, truth anchors, and n=150
+
+20 cells, deepseek-v4-flash + gpt-5.6-luna, seed 17 throughout. `rho_pw` is
+Spearman vs the same model's pairwise sort (own arm, or the sibling run's);
+`rho_tru` is vs external truth (UN population / river km); `ties` is distinct
+score values per n (pointwise's resolution); flips per the r=2 gauge.
+
+```
+cell                               attr                                        ok  flip rho_pw rho_tru  ties   $/item
+mf-point-deepseek                  impact_per_dollar                       24/24          0.62     nan   7/24   0.00009
+mf-point-deepseek                  theory_of_change                        24/24          0.87     nan  10/24   0.00007
+mf-point-deepseek                  fit for a funder who wants cheap high-  24/24          0.86     nan   8/24   0.00005
+mf-list24-deepseek                 impact_per_dollar                        2/2    0.31   0.61     nan  23/24   0.00010
+mf-list24-deepseek                 theory_of_change                         2/2    0.17   0.91     nan  23/24   0.00005
+mf-list24-deepseek                 fit for a funder who wants cheap high-   2/2    0.13   0.72     nan  23/24   0.00005
+anch-countries-ring-deepseek       population                               6/6    0.17   0.89    0.91  16/16   0.00001
+anch-countries-ring-deepseek [pairwise] population                                                     0.87
+anch-countries-point-deepseek      population                              16/16          0.71    0.68   4/16   0.00002
+anch-countries-list16-deepseek     population                               2/2    0.27   0.75    0.61  16/16   0.00001
+anch-rivers-ring-deepseek          length in kilometres                     6/6    0.36   0.41    0.55  16/16   0.00001
+anch-rivers-ring-deepseek [pairwise] length in kilometres                                           0.31
+anch-rivers-point-deepseek         length in kilometres                    16/16          0.29   -0.19   3/16   0.00002
+anch-rivers-list16-deepseek        length in kilometres                     2/2    0.17   0.56    0.68  15/16   0.00001
+ax150-ring-deepseek                methodological rigor                    50/50   0.28   0.53     nan 147/150  0.00008
+ax150-ring-deepseek                novelty of contribution                 50/50   0.27   0.63     nan 143/150  0.00005
+ax150-ring-deepseek                usefulness for a practitioner building  50/50   0.24   0.65     nan 148/150  0.00005
+ax150-point-deepseek               methodological rigor                   150/150         0.54     nan  10/150  0.00005
+ax150-point-deepseek               novelty of contribution                150/150         0.63     nan  14/150  0.00003
+ax150-point-deepseek               usefulness for a practitioner building 150/150         0.34     nan  10/150  0.00003
+
+mf-point-luna                      impact_per_dollar                       24/24          0.75     nan  18/24   0.00013
+mf-point-luna                      theory_of_change                        24/24          0.86     nan  12/24   0.00013
+mf-point-luna                      fit for a funder who wants cheap high-  24/24          0.93     nan  14/24   0.00011
+mf-list24-luna                     impact_per_dollar                        2/2    0.20   0.77     nan  24/24   0.00018
+mf-list24-luna                     theory_of_change                         2/2    0.13   0.75     nan  22/24   0.00018
+mf-list24-luna                     fit for a funder who wants cheap high-   1/2           0.88     nan  24/24   0.00018
+anch-countries-ring-luna           population                               6/6    0.08   0.85    0.86  15/16   0.00002
+anch-countries-ring-luna [pairwise] population                                                     0.97
+anch-countries-point-luna          population                              16/16          0.82    0.80  10/16   0.00004
+anch-countries-list16-luna         population                               2/2    0.26   0.88    0.79  15/16   0.00001
+anch-rivers-ring-luna              length in kilometres                     6/6    0.29   0.35    0.71  16/16   0.00002
+anch-rivers-ring-luna [pairwise]   length in kilometres                                           0.10
+anch-rivers-point-luna             length in kilometres                    16/16          0.36    0.33  10/16   0.00004
+anch-rivers-list16-luna            length in kilometres                     2/2    0.16   0.33    0.71  16/16   0.00001
+ax150-ring-luna                    methodological rigor                    50/50   0.23   0.64     nan 145/150  0.00015
+ax150-ring-luna                    novelty of contribution                 50/50   0.15   0.71     nan 149/150  0.00015
+ax150-ring-luna                    usefulness for a practitioner building  49/50   0.19   0.55     nan 149/150  0.00015
+ax150-point-luna                   methodological rigor                   150/150         0.73     nan  26/150  0.00007
+ax150-point-luna                   novelty of contribution                150/150         0.77     nan  31/150  0.00007
+ax150-point-luna                   usefulness for a practitioner building 150/150         0.51     nan  38/150  0.00008
+```
+
+Readings:
+
+1. **Pointwise ("rate 0–100"), the folk default — the tie pathology is now
+   measured, not asserted.** deepseek compresses to 3–14 distinct values
+   (rivers: 3 distinct over 16 items, truth-ρ −0.19 — worse than random on
+   a close-packed pool). luna is finer-grained (10–38 distinct) and
+   competitive on stable attributes (manifund 0.75–0.93 vs pairwise) at the
+   lowest $/item on the board. It cannot say *how much* better, and its
+   top-k is a tie block.
+2. **Single-call listwise ("paste the whole list") holds at n=24 only when
+   the gauge is clean** — luna 0.75–0.88; deepseek 0.61–0.91 where flip
+   0.31 correctly flags the 0.61 cell. Parse fragility appears at k=24
+   (luna returned one malformed order of 2 calls on one attribute — and
+   with it the gauge dies for that cell). It cannot express n=150 at all
+   (26 slot letters). The folk method is a special case of the instrument,
+   k=n, minus the design that makes it trustworthy.
+3. **The accuracy claim is now external.** Countries: ring truth-ρ
+   0.91/0.86 (deepseek/luna) vs pairwise's own 0.87/0.97 — the graduated
+   recipe reads truth as well as the flagship path at a fraction of the
+   calls. Rivers (close-packed, the E2 hard pool): *pairwise itself*
+   collapses vs truth (0.31/0.10); ring and list16 degrade more gracefully
+   (0.55–0.71); the gauge flags the worst ring cell (flip 0.36 → ρ_pw
+   0.41). On hard pools no instrument is safe, and only the setwise arms
+   carry their own warning light.
+4. **n=150 at the same per-item budget as n=24 (2.67 slot-appearances per
+   item) loses real agreement** — luna ring falls from 0.81–0.91 (n=24,
+   E11) to 0.55–0.71; flips rise to 0.15–0.28 and say so. The instrument
+   triangle (ring~point 0.31–0.61, each ~pairwise 0.34–0.77) shows no
+   arm is a clean gold at this budget: the 600-comparison pairwise
+   baseline covers 5% of pairs. Reading: per-item budget does not
+   transfer across n — the observation graph's diameter grows with
+   n/(k−overlap); the untested lever is `rounds: 2` (structural density),
+   not bigger k.

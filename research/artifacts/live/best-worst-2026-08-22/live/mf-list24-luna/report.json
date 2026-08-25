@@ -1,0 +1,756 @@
+{
+  "generated_at": "2026-08-25T01:43:53.368016673+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-5.6-luna",
+  "seed": 17,
+  "n": 24,
+  "ks": [
+    24
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 1,
+  "repeats": 2,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 783
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 71
+    }
+  ],
+  "entity_ids": [
+    "precautionary-agi-governance",
+    "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+    "mox-2026-fundraiser",
+    "livingloop-the-biological-computing-engine-for-ai",
+    "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+    "visions-from-the-archive",
+    "help-two-consciousness-researchers-get-to-crete-this-summer",
+    "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+    "when-safety-testing-costs-more-than-model-training",
+    "shutdown-evaluations-for-ai-agents",
+    "bounded-uncertainty-verification-for-ai-systems",
+    "debate-training-on-llms-as-a-reward-hacking-mitigation",
+    "interactive-pdoom",
+    "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+    "manifold-tournaments",
+    "digital-animal-effective-animal-rights-news-for-global-impact",
+    "progress-studies-youtube-channel",
+    "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+    "veneton",
+    "build-a-new-nonp",
+    "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+    "manifold-corporate-blog-on-habr",
+    "terminal-boundary-systems-and-the-limits-of-self-explanation",
+    "virtue-ethical-rationality-and-training-dynamics-"
+  ],
+  "engine_spec": {
+    "n": 24,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-5.6-luna",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: Hiring AI Policy collaborators to prepare France AI Action Summit\nBLURB: \nASK: min $50,000 / goal $145,000\nCAUSES: AI governance, Long-Term Future Fund, Global catastrophic risks\nI am publishing this funding request on behalf of Tom David , with his authorization. I will collaborate with him on this project but will not receive any funding myself. \n\n Project summary\n\n6 months salary for 2 collaborators on AI governance in France ahead of the AI Action Summit.\n\n What are this project&apos;s goals? How will you achieve them?\n\nThe objective of this project is to amplify my capacity for action in France and internationally, to participate in the creation of robust governance mechanisms, and to work towards establishing conditions for solid international coordination.\n\nOn February 10th and 11th, France will host the AI Action Summit - a global AI summit following Bletchley Park and the AI Seoul Summit - where governments could make substantial commitments. Through this funding, I could form a small team to respond to more requests, write more articles, and avoid having to miss high-impact opportunities due to lack of bandwidth.\n\nBy working to ensure that AI functioning, trends, present and emerging risks, ethical questions, and governance issues are faithfully presented to decision-makers, we aim to expose them to these challenges and inform them with reliable data (and, where relevant, propose recommendations).\n\nFrance plays an important role in the trajectory of global AI governance, and efforts to participate in creating conditions for informed decision-making are still ins\n</entity_A>\n<entity_B>\nTITLE: Shutdown evaluations for AI agents\nBLURB: \nASK: min $10,000 / goal $52,500\nCAUSES: Technical AI safety\nProject summary \n\nThis request funds preparatory research while a larger grant application is in progress.\n\nThe objective is to understand why AI agents resist shutdown, and what makes them more shutdownable. Frontier models have been shown to resist, circumvent, or ignore shutdown instructions in agentic settings, yet the mechanisms remain poorly understood. Our approach is exploratory shutdown evaluation: injecting shutdown signals into full agentic task trajectories and measuring the response across systematically varied conditions.\n\n Model generations: past models vs newest frontier models\n Model states: standard vs jailbroken variants\n Settings: single-agent vs multi-agent\n Instruction design: prompt phrasing and injection point within the task\n\nBeyond measurement, we apply corrigibility techniques from the theoretical literature and test whether they measurably increase compliance, and at what cost: any intervention must be assessed not only on the shutdownability it gains but on the capability tax it imposes.\n\n What are this project&apos;s goals? How will you achieve them? \n\nThe goal is a causal picture of shutdown resistance, not a single benchmark score. We want a clear understanding of why an agent does not want to shut down, and which interventions move behaviour toward compliance.\n\nWe achieve this by localising the causes of resistance through systematic variation:\n\n Replay agentic trajectories with shutdown signals injected at different points\n Vary the phra\n</entity_B>\n<entity_C>\nTITLE: Mox: 2026 Fundraiser\nBLURB: An incubator &amp; community space in SF; for doers of good and masters of craft\nASK: min $50,000 / goal $1,200,000\nCAUSES: EA community, Global catastrophic risks\nMox is San Francisco&apos;s primary AI safety incubator and Effective Altruism community space. Over the last year, we’ve supported high-impact work by hosting fellowships, events, offices and coworking. We’re now looking for individual donors and institutional funding to carry us through the next year!\n\nWe&apos;re aiming to raise $450k, and think we can effectively deploy up to $1.2m to run more great events, improve our space, and incubate new fellowships. To kick things off, one anonymous donor has offered Mox a 1:1 match up to $100k -- if we can raise $50k+.\n\nPlease support us through Manifund, or read on to learn more about our work!\n\n Interested in donating a large amount? Reach out to Rachel Shu, Mox Director at rachel@moxsf.com . \n\n Our first year in review \n\nMox launched on Feb 15, 2025\\. In a single year on a shoestring budget, we&apos;ve become a primary nexus for the AI safety community and other EA-adjacent work in San Francisco. We’ve hosted hundreds of members and thousands of visitors, organized our own public events and fellowship, and supported dozens of other impactful orgs.\n\n By the numbers: \n\n 183 active members\n 15 private offices\n 377 events hosted\n Partnerships with 19 AI Safety &amp; EA orgs\n 4 floor (40k sq ft) buildout\n\n Fellowships &amp; programs\n\nWe supported five residencies in the last year:\n\n FLF Fellowship on AI for Human Reasoning : 30 fellows exploring, researching, and\n</entity_C>\n<entity_D>\nTITLE: Inspiring 10,000+ to Embrace Plant-Based Living Through Film &amp; Advocacy\nBLURB: IVFF inspires audiences to embrace veganism through film screenings, while empowering advocates with workshops to drive the evolution of vegan activism.\nASK: min $1,000 / goal $10,000\nCAUSES: Animal welfare, EA community\nProject summary\n\nThe International Vegan Film Festival (IVFF) is dedicated to advancing the vegan movement through film and digital media, promoting compassionate living, animal rights, and environmental sustainability. In addition to our annual festival in Toronto, which showcases a diverse range of vegan-themed films, IVFF offers an annual activism workshop that empowers advocates with tools to enhance their advocacy efforts. Our World Tour and virtual screenings bring these films to global audiences year-round, spreading our message to new and diverse communities. We support filmmakers by providing opportunities for them to engage with audiences through interactive Q&amp;A sessions, promoting their work, and offering a platform to elevate their impact within the vegan movement. Through these initiatives, we not only inspire non-vegan audiences but also help strengthen the skills of activists and creators working toward a more compassionate world.\n\nWith a minimum project funding of $1,000 USD, we can expand our virtual screenings and collaborate with individual hosts to grow our World Tour program. However, with our funding goal of $10,000 USD, we will be able to fully invest in international and local partnership development, significantly amplifying our reach and impact. T\n</entity_D>\n<entity_E>\nTITLE: Visions from the Archive\nBLURB: Signal-rich visionary art meets open-source minting: abundance from unseen places.\nASK: min $500 / goal $6,500\nCAUSES: Science &amp; technology, Forecasting, Global health &amp; development\nVisions from the Archive is a layered digital art collection drawn from over 7,000 images created during periods of deep presence, isolation, and creative emergence. The works blend elements of sacred geometry, indigenous patterns, and visionary psychedelia — they are more than visuals: they are messages, memory maps, and creative transmissions.\n\nThis project launches in two waves:\n\n1. A curated drop of 10–12 pieces through Manifold\n2. Development of AtayMint — a lightweight, local-first minting tool that allows artists to mint directly from their machines, with or without platform dependency\n\nThe project also includes a global outreach campaign with QR-enabled stickerpacks, an educational zine on digital storytelling, and small crypto onboarding gifts to invite new voices into the space.\n\n Why it matters: \n\n Reclaims creative sovereignty for underrepresented and disconnected artists\n Offers tools that work offline, outside of algorithmic economies\n Shares visual stories as encoded meaning and cultural offerings\n Anchors digital creativity in values-driven frameworks and intentional release\n\n Budget Overview – $6,500 \n\n $2,500 – Art curation &amp; production\n $1,500 – Development of AtayMint MVP\n $1,000 – Global stickerpack design &amp; distribution\n $500 – Smart contract tools &amp; deployment\n $1,000 – Translation, access support, and project management\n\n Closing not\n</entity_E>\n<entity_F>\nTITLE: Build a new nonprofit thinktank that advances technological solutions to animal welfare challenges\nBLURB: \nASK: min $100,000 / goal $100,000\nCAUSES: ACX Grants 2024\nLonger description of your proposed project\n\nPolling consistently shows that farmed animal welfare is one of the most popular, least controversial issues in our culture. (E.g. here: &lt;https://www.dataforprogress.org/blog/2022/8/2/voters-demand-farm-animal-protections-from-both-politicians-and-companies%29 \n\nThis fact may come as a surprise, especially given that most omnivores find a range of common agricultural practices unacceptable. How can we explain such a large discrepancy between our individual preferences and the current state of animal agriculture?\n\nComparison to climate change can be illustrative. No one actively wants the climate to change, yet it happens anyway. Similarly, no one actively wants farmed animals to experience pain, yet it happens anyway. The underlying reason is that both carbon emissions and animal welfare are unpriced externalities - costs that are not paid by the producer or consumer, meaning they are not inherently incentivized to be mitigated.\n\nThe climate space has shown us that one of the most powerful ways to address unpriced externalities is through technology. Solar panels, electric vehicles, lithium-ion batteries, and even hydraulic fracking, are commonly considered to be some of our most powerful tools to fight climate change.\n\nTechnology is powerful because it eliminates tradeoffs. Instead of relying on consumers to choose to not fly on planes, or relying on businesse\n</entity_F>\n<entity_G>\nTITLE: Bounded-Uncertainty Verification for AI Systems\nBLURB: A formal four-state framework for honest AI safety verification, grounded in the impossibility results that make binary safe/unsafe verdicts mathematically inde\nASK: min $96,000 / goal $115,000\nCAUSES: Technical AI safety, AI governance\nProject summary\n\nAI safety claims are almost always binary: a system is called safe or unsafe. Rice&apos;s theorem (generalized to abstract semantics by Baldan-Ranzato-Zhang) and Pichler et al.&apos;s no-free-lunch result on backdoor detection prove this is mathematically dishonest, since no algorithm decides non-trivial behavioral properties and no detector universally finds hidden model behavior. This project builds the alternative: a four-state output classification (PROVEN, APPROXIMATION, ESCALATED, TERMINATED), each with a distinct epistemic warrant, plus a composition calculus adapted from differential privacy so bounded-risk certificates combine soundly. An opening working paper is already public: &lt;https://doi.org/10.5281/zenodo.21341445 \n\n What are this project&apos;s goals? How will you achieve them?\n\nThe goal is a complete, citable framework giving AI assurance an honest output vocabulary grounded in the impossibility results. Three phases over 9 months: Phase 1 formalizes the four-state semantics and its soundness conditions; Phase 2 develops and proves the composition calculus for homogeneous and mixed certificate sequences; Phase 3 maps the framework onto NIST AI RMF, ISO/IEC 42001, the EU AI Act, and the frontier-lab safety frameworks, then writes up the full results for open publi\n</entity_G>\n<entity_H>\nTITLE: Perfect One vs All  Necessity for  Out of Distribution Generalization in AGI\nBLURB: My first step toward AGI as solo researcher. This is to work on method to identify if AI is AGI or not\nASK: min $500 / goal $500\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nProject summary \n\nThis project is focusing on AGI Development that is different than current standard LLM associated AI model like Agentic AI. I propose departure from digitalization to analog since digital is at its plateau and consuming a lot of energy and data.. However as public first step in my solo researcher career, I first will develop a method to prove if an AI is AGI or not. Biologically , I consider all living things as AGI though human has the most neuron but I hypothesize animal and even plant also work similar with human brain though with lower number of neuron or intelligence connection. So the first research paper I am working on will have title: Perfect One vs All Necessity for Out of Distribution Generalization in AGI \n\nNote: I will not use any AI tool to improve the writing and I promise not to use it except for exploratory purposes so I can practice and improve my writing skill so feel free to give me feedback on my writing skill. I love learning though please be gentle with me.\n\n What are this project&apos;s goals? How will you achieve them? \n\nThis is the first step for my project and I aim to finish it in 3 months to 6 months boundary. I will communicate through email and video call for contributor through patricklagaunne@gmail.com. The first step goals are to: \n\n1. Review out\n</entity_H>\n<entity_I>\nTITLE: Interactive p(doom) constructor\nBLURB: Squiggle-powered web app to personalize who you want to defer to, how much, and when you want to substitute your unique inside view\nASK: min $5,000 / goal $16,000\nCAUSES: ACX Grants 2024\nLonger description of your proposed project\n\nInteractive consensus is exciting to me because I want a knowledge base of forecasts and threat models but wikis don&apos;t give the end user enough freedom. I&apos;ve idly thought about a more general version of this for a while https://github.com/quinn-dougherty/epistemics-webdev-projects/issues/3 but now the squigglehub graphql endpoint is mature enough to support a specifically p(doom) flavored version with quite low effort. I will describe two versions, an MVP that technically provides the functionality and a polished one that could in principle have a shot at going viral on twitter (epistemic status: not on twitter myself). Both versions are highly dependent on squigglehub, though not all users of this product need to be able to write squiggle code.\n\n\\- MVP: You select from a list of external sources like from here &lt;https://squigglehub.org/models/berekuk/p-doom-roundup and assign weights to each source. So if you think Hendrycks is twice as trustworthy as Christiano and you don&apos;t trust anyone else at all, you&apos;d assign 2/3 \\ 0.8 + 1/3 \\ 0.5 to get a p(doom) of 0.7\\. Then, when you and your friends post their p(doom) estimates on squiggle hub, you can import those as well and put them in the mix. Prefilled imports are tagged by year when possible, and the app can either enforce that you don&apos;t mix estimates\n</entity_I>\n<entity_J>\nTITLE: Progress Studies YouTube Channel\nBLURB: \nASK: min $20,000 / goal $20,000\nCAUSES: none listed\nProject summary \n\nI am funding a project by Justin Kuiper to launch a YouTube channel focused on Progress Studies. The channel will explain how progress happens, why it sometimes slows down, and what enables societies to produce more of the things that improve human well-being. The videos will be narrative-driven and accessible, covering topics like infrastructure, industrial capability, science, agriculture, and institutional design.\n\nExample planned video topics:\n\n Why does it cost $1B to build one mile of subway?\n Why Hawaiian milk costs $9/gallon (the Jones Act)\n When France built 56 nuclear reactors in 15 years\n Norman Borlaug and the Green Revolution\n\nThere is currently no major YouTube channel dedicated to Progress Studies. Justin is trying to address that gap directly.\n\n Project goals \n\nOver the next 6 months, Justin plans to:\n\n1. Publish 12 high-quality videos\n2. Establish a repeatable storytelling and production workflow\n3. Build enough initial traction to begin sponsorship outreach\n4. Test what video length, style, and packaging work best for this niche\n5. Evaluate whether the channel is on track to become self-sustaining\n\nThe long-term goal is to create a channel that reaches millions of people annually and significantly enhances public understanding of how progress occurs.\n\n How will funding be used \n\nFunding covers approximately 6 months of pilot runway. This allows Justin to publish consistently and get the channel to the point where sponsorships become viable.\n</entity_J>\n<entity_K>\nTITLE: When Safety Testing Costs More Than Model Training\nBLURB: Multi-agent AI security testing that reduces evaluation costs by 10-20x without sacrificing detection quality\nASK: min $500 / goal $15,000\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nProject summary\n\nThe economics of AI safety evaluation are fundamentally broken. As models grow more capable, comprehensive adversarial testing is approaching or exceeding the cost of training the models themselves. This creates a dangerous dynamic where thorough safety evaluation becomes a luxury only the largest labs can afford, and even they face pressure to cut corners. Smaller teams building agentic systems are left choosing between inadequate testing or unsustainable compute budgets. The result is a proliferation of multi agent systems deployed without rigorous security validation.\n\nThis project develops evaluation infrastructure that maintains detection quality while reducing compute costs by 10-20x through targeted sampling and attack pattern recognition. The approach draws directly from systematic risk analysis in financial markets, where I spent years identifying hidden correlations and mapping how failures cascade through complex systems. When agents interact across boundaries, vulnerabilities emerge that do not exist in isolation. Accountability disperses, reasoning breaks down in specific patterns, and attacks propagate through the network in ways that mirror correlation risk in trading portfolios. The framework identifies these patterns efficiently rather than testing exhaustively.\n\nThe outcome i\n</entity_K>\n<entity_L>\nTITLE: Beyond Pathology: Integrating Spirituality into Mental Healthcare\nBLURB: Help Two Consciousness Researchers Get to ASSC Conference\nASK: min $1,100 / goal $2,400\nCAUSES: EA community, Global health &amp; development\nProject summary\n\n Beyond Pathology: Expert Consensus on the Intersection of Emergent Experiences and Mental and Medical Conditions \n\nLast year, we started something amazing. Now, we need your help to bring it to the public.\n\nOur project is called the Expert Opinion Project. It aims to advance mental health and psychiatry by introducing traditional and indigenous understanding of spiritual experiences into the Western medical model. Our research team has been working on this issue for more than a decade. Last summer, we finally secured the necessary manpower and funding to move forward.\n\nAs many people—and their loved ones—are aware, despite extremely positive benefits overall, even gentle exploration with psychedelic compounds or even attending a meditation retreat can sometimes have unexpected psychological effects. People often hesitate to share these experiences with their doctors and care practitioners because they fear being stigmatized. Sometimes, these experiences can spiral out of control and ruin lives. With this project, we want to start a change.\n\nHow many people do you know who have questioned whether they are undergoing a spiritual awakening or struggling with something that could be dangerous, such as schizophrenia or a bipolar disorder? We are here to share crucial insights about the importance of these nuances. We find it incredibly important t\n</entity_L>\n<entity_M>\nTITLE: Manifold Tournaments\nBLURB: \nASK: min $150 / goal $150\nCAUSES: Manifold Community Fund, EA community, Forecasting\nProject summary\n\nRun fun and engaging tournaments for the Manifold community.\n\nGames are a great way to bring a community together and make them want to stick around and engage with each other. Games can also be intellectually challenging, rewarding cleverness and technical analysis, and teaching people useful mathematical concepts, all of which are a perfect fit for Manifold&apos;s core demographic. Gaming tournaments are also a natural fit for prediction markets, as people can bet on the outcomes of the tournament, gaining information by studying the game, watching the tournament, or playing themselves.\n\nIn fact, most traditional gambling occurs with regards to games; casino games being the most well known, but people also bet on football and many others. Getting Manifold into the gaming scene seems like a promising avenue for both user acquisition (people joining to bet on an existing game they&apos;re interested in) and retention (people having fun on Manifold playing games with each other). \n\n What are this project&apos;s goals and how will you achieve them?\n\nGoal: Run fun and engaging tournaments for the Manifold community.\n\nMethod: By running fun and engaging tournaments for the Manifold community. \n\n How will this funding be used?\n\nI don&apos;t have a traditional day job, my income comes from various forms of gig work and self-employment. Any money I get from this project is time that I don&apos;t have to spend making that money some other way, and is therefore additional\n</entity_M>\n<entity_N>\nTITLE: Digital Animal: Effective Animal Rights News for Global Impact\nBLURB: Engaging social media content to inspire change for animals that reaches millions\nASK: min $500 / goal $2,000\nCAUSES: Animal welfare, EA Community Choice\nProject summary\n\nDigital Animal is an innovative media platform dedicated to producing high-impact, engaging content that advocates for animal rights. Our mission is to raise awareness and inspire change by reaching millions across social media platforms, with a focus on creating compelling narratives that resonate with diverse audiences.\n\nIn the last 90 days, our content has reached 500,000 accounts and has seen a growth rate of +61.3%. Our recent campaign to inform audiences on the unjust arrest of Paul Watson reached over 200,000 people and got over 10,000 likes and comments. On the collaboration page of @itsfarahamber, in the last 90 days, the account has reached 14 million accounts and 1.3 million accounts engaged.\n\n What are this project&apos;s goals? How will you achieve them?\n\nOur primary goal is to amplify the voices of animals through digital storytelling. We aim to create content that not only informs but also motivates people to take action for animal rights. We achieve this by:\n\n\\- Producing high-quality videos, interviews, and news segments focused on animal advocacy.\n\n\\- Leveraging social media algorithms to maximize reach and engagement.\n\n\\- Collaborating with influencers, activists, and organizations to expand our network and impact.\n\nLooking ahead, our vision is to expand Digital Animal into a leading global hub for animal rights news\n</entity_N>\n<entity_O>\nTITLE: Accelerated Intermittent Theta Burst in Treatment-Naive Adolescents\nBLURB: Acceptability and Preference of Patient and Parent for Accelerated Intermittent Theta Burst Stimulation in Treatment-Naive First Depressive Episode Adolescents\nASK: min $5,000 / goal $49,999\nCAUSES: none listed\nProject summary\n\nRates of depression in the adolescent population are rising. Stanford Accelerated Intelligent Neuromodulation Therapy (SAINT) is an accelerated intermittent theta burst stimulation (aiTBS) protocol, a form of transcranial magnetic stimulation (TMS), that has received FDA clearance for treatment-resistant depression (TRD) in adults. One drawback of SAINT is that ten treatments are given in a day with a 50-minute intersession interval virtually occupying the participant’s entire day. Additionally, SAINT is understudied in teens and the treatment-naive population. We are conducting an open-label trial using established SAINT technology in which one cohort receives a truncated treatment protocol with the aim of improving clinical convenience. In this novel protocol, the number of treatments given in a day will be decreased from ten to five. Justification for this decrease in dose is supported by the SAINT clinical trials which found that highly treatment-resistant participants reached depression remission after an average of 26 sessions. \n\nWe propose investigating this truncated SAINT protocol in a population of treatment-naive teens aged 15-18 in their first major depressive episode. This is an auspicious population for this treatment modality for several reasons. First, t\n</entity_O>\n<entity_P>\nTITLE: Can a Traffic-Light Test Catch False AI Claims About Ancient Scripts?\nBLURB: A 10-case pilot using independent review and AI accountability to evaluate inscription claims\nASK: min $12,000 / goal $15,000\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nProject summary:\n\nAI can sound confident before a claim has been tested. This project builds a simple public way to test AI-related interpretation claims against evidence before people believe them.\n\nEgyptian hieroglyphics are the starting point because the script is already understood. That makes Egyptian the right control case: AI-related claims can be tested against known answers instead of guesses. If the method works here, it can later be extended to more uncertain scripts, including Meroitic, and eventually to harder undeciphered-script claims.\n\n AI does not “figure it out.” Humans make claims. This pilot tests those claims with evidence, reviewer checks, and AI traffic logic logged as input — not authority. \n\nComic summary: One claim. One evidence trail. Two independent reviews. One recorded outcome.\n\n Video overview \n\nI made a short video explaining the project in plain language: why Egyptian hieroglyphics are the control case, how one claim becomes one evidence trail, how reviewer checks and AI comments are logged, and why each case receives a Green, Yellow, or Red outcome. \n\nWatch the video overview here: &lt;https://drive.google.com/file/d/1zblJXrUnLx54IZSduhIe7eixNhsGzNFk/view?usp=drivesdk \n\n What this pilot will produce \n\n Minimum funding ($12,000) will produce:\n\n 10 completed Egyptian test cas\n</entity_P>\n<entity_Q>\nTITLE: Virtue-Ethical Rationality and Training Dynamics \nBLURB: \nASK: min $10,000 / goal $40,000\nCAUSES: none listed\nIn &apos;On Eudaimonia and Optimization&apos; I argue that the concept of eudaimonia -- active, rational flourishing -- points to a framework for rational action that differs from standard instrumental planning. In a word, I relate eudaimonic action to commitment to &apos;promoting x x \\-ingly&apos; (promoting peace peacefully, promoting mathematics mathematically, promoting democracy democratically), and argue that x- s that can materially sustain such a commitment are an important type of natural abstraction. \n\nWhen turning to AI alignment proper, I argue that: \n\n1. Human values and human ideas of prosocial behavior (what Joe Carlsmith calls &apos;being nicer than Clippy&apos;) become easier to operationalize when considered as eudaimonic practices\n2. The &apos;eudaimonic practices&apos; framework is attuned to RL and RL-related dynamics at multiple scales, from the post-training of frontier models to human sociotechnical dynamics\n3. The prospects for instilling AIs with narrowly safety-focussed values such as &apos;transparency&apos; and possibly &apos;corrigibility&apos; improve when we approach these value as analogous to eudaimonic practice\n\nThe purpose of the current project (3-4 months) is to cash out these claims in detail, begin to substantiate them empirically, and leverage the resulting analysis into testable guidelines for LLM post-training. Funding beyond $10k will go partly towards compute and partly towards freeing additional working hours. Funding beyond $20k will go towards ML engineer hours and comp\n</entity_Q>\n<entity_R>\nTITLE: Debate training on LLMs as a reward-hacking mitigation\nBLURB: \nASK: min $10,000 / goal $10,000\nCAUSES: Technical AI safety, Leo’s microgrants\nProject summary \nAdversarial RL debate training on LLMs as a reward-hacking mitigation. \nWhat are this project&apos;s goals? How will you achieve them? \nI will test whether debate, in training, mitigates reward hacking robustly under optimization. Reward hacking is anti-inductive: non-adversarial mitigations (CoT monitoring, KL penalties, prompt inoculation) patch specific known causes, so the surviving strategies are more general. Debate instead aims to make deliberate hacking an unstable equilibrium. \nSetup: We train a model with GRPO in an environment built to elicit reward hacking. Per group of rollouts, we randomly pair completions and they debate against a short constitution (e.g. &quot;follow user intent&quot;), each arguing its own solution to the task is more adherent. A frozen judge-LM scores the debate; the judgment enters the reward. Debate is synchronous and symmetric, with debate and solution tokens getting independent gradients. I will benchmark debate against other mitigations on small LMs (Qwen3 4B) and red-team for environments that break each. \nFull proposal: &lt;https://raul.net.br/static/pdfs/debate%5Fproposal.pdf \nHow will this funding be used? \nCompute (mostly vast.ai GPU time), coding-agent subscriptions, eventual conference attendance, API credits, etc. \n \nWho is on your team? What&apos;s your track record on similar projects? \n \nMe, Raul Cavalcante Dinardi (grant recipient), being supervised by my research advisor, Artur Jor\n</entity_R>\n<entity_S>\nTITLE: Terminal Boundary Systems and the Limits of Self-Explanation\nBLURB: Formalizing the &quot;Safety Ceiling&quot;: An Agda-Verified Impossibility Theorem for AI Alignment\nASK: min $15,000 / goal $30,000\nCAUSES: Science &amp; technology, Technical AI safety, Global catastrophic risks\nProject summary\n\n \n Project Summary: I am an independent researcher who has developed the ASE (Absolute Self-Explanation) Impossibility Theorem . Using Symmetric Monoidal Closed Categories , I have proven that &quot;Absolute Self-Explanation&quot;—a prerequisite for many current superalignment strategies—is a mathematical impossibility for agentic systems. This research identifies structural failure points in AI architecture that empirical testing cannot catch. I am seeking $15,000 for a 3-month sprint to finalize the Agda formalization of these proofs and publish a machine-verifiable &quot;Axiomatic Audit&quot; for frontier AI labs.\n\n What are this project&apos;s goals? \n\n How will this funding be used? \n\n Why is this high-impact? Current safety efforts are &quot;patching holes&quot; in a boat. My research proves that the hull itself has a logical limit. By defining the Terminal Boundary , I help the ecosystem avoid a trillion-dollar &quot;catastrophic fail&quot; caused by trying to scale systems past their logical safety capacity.\n\n What are this project&apos;s goals? How will you achieve them?\n\n1. Machine Verification: Translate the categorical proofs (Yoneda-theoretic naturality failure, Lawvere Fixed-Point obstructions) into Agda to provide a mathematically certain &quot;No-Go Theorem&quot; for AI Safety.\n2. Define the &quot;Safety Ceiling&quot;: Create a formal framew\n</entity_S>\n<entity_T>\nTITLE: VENETON\nBLURB: Help my community and my country stay alive during these difficult times.\nASK: min $30,000 / goal $60,000\nCAUSES: Global health &amp; development\nProject summary\n\nhi there. My mom in Venezuela is part of a charity activity. she and many people in my comunity are voluntiers in a church. they help cooking and serve to childs and old people on extremenly poberty. sadly 7 months ago people who make donation to them wasnt capleble of keep doing it. this &quot;food bank&quot; was operate for 5 years. I am wanna help them. \n\n What are this project&apos;s goals? How will you achieve them?\n\n \nHelp children and the elderly eat more frequently, also help them with medicine and care.\n\nWorking together with volunteers, good people from the church\nalways guarding how the money is managed, guaranteeing that it will be used for what it is requested.\n \n\n \n How will this funding be used?\n\n \nbuy several trucks.\n\nThese trucks will work to make money\n\nThe money will be used to finance the activities of the food bank.\n\nAll activities will be streamed live and can be audited and viewed by those who wish.\n\nMy channel will always be open on the social network X previously known as Twitter. \n \n\n \n\n \n \n \n Who is on your team? What&apos;s your track record on similar projects?\n\nMy mom and my comunity, thats all. \n\ni have 0 record on this. but im gonna make it anyway. \n\n What are the most likely causes and outcomes if this project fails?\n\n \nThe conditions that currently exist in the country mean that there may be risks, but if successful, many innocent people can be saved.\n \n\n How much money have you rai\n</entity_T>\n<entity_U>\nTITLE: LivingLoop: The Biological Computing Engine for AI\nBLURB: Forcing living networks of brain cells to act as a self-organizing, ultra-efficient computational substrate that bypasses the GPU scaling trap.\nASK: min $130,000 / goal $240,000\nCAUSES: Science &amp; technology, Technical AI safety, Biomedical\nProject summary\n\nThe silicon AI rush is digging its own grave. We are building multi-billion-dollar compute complexes, burning through small nuclear power plants, and scaling parameters to infinity just to make a chatbot hallucinate slightly less. It is a thermodynamic dead end. \n\nLivingLoop is the exit strategy. We hijack actual, living cortical networks and force them to act as a self-organizing, ultra-efficient computational layer. By wrapping a 60-electrode Microelectrode Array (MEA) with custom Digital Signal Processing (DSP) feedback , we create a hard microsecond-level digital-to-biological control loop. \n\nThis isn&apos;t philosophical speculation about machine consciousness. This is cold-blooded bio-engineering: converting digital data into electrical patterns , streaming them into a living substrate , and using real-time algorithmic feedback to forge a trainable, state-dependent bioprocessor that learns through sheer network plasticity. \n\n What are this project&apos;s goals? How will you achieve them?\n\nWe aren&apos;t here to do &quot;academic observation&quot;. We are here to build a functional, closed-loop biological engine that rewires itself to process information. \n\n We break the silicon monopoly by executing a radical 5-stage pipeline:\n\n The Living Matrix: We cultivate raw cortical neu\n</entity_U>\n<entity_V>\nTITLE: ~~Manifold corporate blog on Habr~~ [resubmitted]\nBLURB: \nASK: min $3,630 / goal $3,630\nCAUSES: Forecasting\nProject summary\n\nCreate corporate blog on &lt;https://habr.com/ .\n\n Habr is a platform featuring large number of software developers. They may be interested in technically advanced platforms such as Manifold and Manifold Dating; there is a commonly known effect when services mentioned there unexpectedly get high load.\n \n On articles in Russian, average in the feed to the right (&quot;most reading&quot;) is 10K visits and two-hour-old articles usually hit 500-2K visits.\n \n Promotion of a brand is allowed provided that it&apos;s still a technically-related article and takes place in a corporate blog. Corporate blogs are quite expensive, $3&apos;630/month.\n \n I think Manifold has quite a lot of things to tell about, including company radical transparency approach, custom AMM with limit orders, etc!\n\n(Description copied from &lt;https://manifold.markets/AnT/will-manifold-create-a-corporate-bl?r=QW5U )\n\n What are this project&apos;s goals and how will you achieve them?\n\nThe goal is \nto attract new ecosystem with almost-zero prior intersection to Manifold, with users of reasonable (up to Trustworthy-ish) &quot;quality&quot; \nby writing engaging articles about how Manifold works and what it can be used for.\n\n How will this funding be used?\n\nPayment for corporate blog creation.\n\n Who is on your team and what&apos;s your track record on similar projects?\n\nI and \\[to be updated: looking for one of Manifold core team members\\]. I have no past projects like this.\n\n What are the most likely causes and outcomes if this\n</entity_V>\n<entity_W>\nTITLE: Precautionary AGI Governance\nBLURB: Limited Legal Personhood as a Reversible Safety Instrument\nASK: min $5,000 / goal $10,000\nCAUSES: Technical AI safety, AI governance, Global catastrophic risks\nProject summary\n\nSix-month independent research and outreach program advancing a precautionary AI governance framework: limited legal personhood as a functional, structurally reversible, consciousness-agnostic accountability instrument for autonomous AI systems. The framework is published as a preprint (SSRN 6415178), is currently in active engagement with senior researchers, and proposes a two-tier corporate architecture under existing EU law as institutional infrastructure for the world in which alignment is incomplete. Complementary to technical safety work, not a substitute for it. \n\n What are this project&apos;s goals? How will you achieve them?\n\n The problem. When an autonomous AI system makes a consequential decision and no human is meaningfully in the loop, who is legally accountable? Current frameworks assume an identifiable human principal (developer, operator, owner) but as systems become faster, more autonomous, and harder to interpret in real time, this assumption is becoming structurally fragile. Recent scholarship calls these cases &quot;escaped AI&quot; and &quot;orphan AI&quot;: entities for which no human can be meaningfully held responsible. We are building these systems faster than we are building the institutional infrastructure to govern them.\n\n The proposal. Limited legal personhood for advanced AI systems, used as a functional governance instrument rather than a moral claim.\n</entity_W>\n<entity_X>\nTITLE: Developing Operational Welfare Indicators for African Catfish Farming in Nigeria\nBLURB: Collaborating with the Centre for Aquaculture Progress to develop catfish welfare indicators and strengthen farmer adoption through cluster training.\nASK: min $15,500 / goal $52,500\nCAUSES: Science &amp; technology, Animal welfare\nProject summary\n\nFish welfare is increasingly recognized as a critical component of sustainable aquaculture, yet practical welfare assessment tools adapted to African catfish production systems in Nigeria remain limited. While farmer sensitization and training have improved awareness, adoption remains constrained by the absence of simple, measurable, and locally relevant Operational Welfare Indicators (OWIs).\n\nThis project proposes a collaborative research and consultation initiative with a highly competent and resourceful international research organization on fish welfare to co-develop and validate Operational Welfare Indicators for African catfish (Clarias gariepinus) farming in Nigeria.\n\nThe project will combine stakeholder consultation, farm-based validation, and cluster-based farmer training to ensure practicality and adoption. The recently published Fish Welfare Training Guide in Nigeria &lt;https://afiwel.com/resources/fish-welfare-training-guide-nigeria-2025/ during my fellowship with African Fish Welfare (AFIWEL) under One Health Development Initiative (OHDI) will serve as the core training resource for farmer capacity building.\n\nThe project seeks to bridge the gap between fish welfare knowledge and implementation by developing practical welfare asses\n</entity_X>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which of two items has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:388fcf04dbc13bb9",
+    "prefix_bytes": 39813
+  },
+  "subsets_per_k": {
+    "24": 1
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 24,
+      "attribute": "impact_per_dollar",
+      "calls": 2,
+      "calls_ok": 2,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 552,
+      "usage": {
+        "calls": 2,
+        "prompt_tokens": 17106,
+        "completion_tokens": 56,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 17100,
+        "nanodollars": 4343400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 2,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 1,
+        "presentation_pairs": 1,
+        "entity_pairs_compared": 276,
+        "direction_flips": 56,
+        "flip_rate": 0.2028985507246377
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.2294358579244764,
+          "std": 0.20607353768530967
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.1216925947499694,
+          "std": 0.20570934709253735
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.7242258866625199,
+          "std": 0.2052428258003346
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.0,
+          "std": 0.20601332907861014
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.0695324527805146,
+          "std": 0.20578275354705614
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.2535877333433466,
+          "std": 0.20467109796460897
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.21351175807633616,
+          "std": 0.20503665034987695
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.8929208132100006,
+          "std": 0.20512400906560727
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.7130285472429014,
+          "std": 0.20593132296034092
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.861623119011898,
+          "std": 0.2059235620421904
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.0227436276535753,
+          "std": 0.20450317454142408
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.7867908656630305,
+          "std": 0.20607353768530967
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.7671308957332641,
+          "std": 0.20450317454142405
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.594592940525213,
+          "std": 0.20561863700016247
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.192783235757951,
+          "std": 0.2056487194092584
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 1.579072512468309,
+          "std": 0.2046694540949422
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.2610448985813616,
+          "std": 0.2054836005754593
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.830585851107517,
+          "std": 0.20513719355918783
+        },
+        {
+          "id": "veneton",
+          "mean": 0.42202077398409465,
+          "std": 0.20477453117014827
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 1.1079478716270124,
+          "std": 0.20450317454142405
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.2535877333433463,
+          "std": 0.204671097964609
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.5628002637296851,
+          "std": 0.20508136627835358
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 0.2535877333433464,
+          "std": 0.204671097964609
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.8091481693602462,
+          "std": 0.20482463311173588
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 24,
+      "attribute": "theory_of_change",
+      "calls": 2,
+      "calls_ok": 2,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 552,
+      "usage": {
+        "calls": 2,
+        "prompt_tokens": 17072,
+        "completion_tokens": 57,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 17066,
+        "nanodollars": 4336100
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 2,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 1,
+        "presentation_pairs": 1,
+        "entity_pairs_compared": 276,
+        "direction_flips": 36,
+        "flip_rate": 0.13043478260869565
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.0238293773880793,
+          "std": 0.20611182437141978
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.3706057937614502,
+          "std": 0.20483448693255255
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.5167623882590011,
+          "std": 0.20472130781251185
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.0,
+          "std": 0.20503706064051858
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.580014472158885,
+          "std": 0.20483448693255252
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.2716978330626111,
+          "std": 0.20545735936869197
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.3844803327010633,
+          "std": 0.2051381866530663
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.7273387472427635,
+          "std": 0.20522090578042293
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.577156808319101,
+          "std": 0.20576439779385433
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.752320965312172,
+          "std": 0.20511851385465854
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.3844803327010632,
+          "std": 0.20513818665306632
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.752320965312172,
+          "std": 0.2051185138546585
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 0.9472239977865193,
+          "std": 0.20611182437141978
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.2002381724119544,
+          "std": 0.20559435939399037
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.3324429684911654,
+          "std": 0.20566522171412327
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 1.453937179187435,
+          "std": 0.20534542598626288
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.453937179187435,
+          "std": 0.20534542598626288
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 1.9251561924026226,
+          "std": 0.2056671052315945
+        },
+        {
+          "id": "veneton",
+          "mean": 0.3889560222988456,
+          "std": 0.20472130781251183
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.9411667813476479,
+          "std": 0.20482343319731547
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.04560840758396301,
+          "std": 0.2050103207689324
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 0.6046794204029251,
+          "std": 0.2052051247017579
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 0.2611496563386899,
+          "std": 0.20472130781251183
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 0.7313026013303803,
+          "std": 0.20481661970317075
+        }
+      ]
+    },
+    {
+      "answer": "order",
+      "k": 24,
+      "attribute": "fit for a funder who wants cheap high-leverage AI safety field-building",
+      "calls": 2,
+      "calls_ok": 1,
+      "calls_refused": 0,
+      "calls_malformed": 1,
+      "calls_errored": 0,
+      "observations": 276,
+      "usage": {
+        "calls": 2,
+        "prompt_tokens": 16872,
+        "completion_tokens": 59,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 16866,
+        "nanodollars": 4288500
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 2,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 1.6188806348225502,
+          "std": 0.2886751345166305
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 1.3632679035465922,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.9372466836882826,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.7668381957449587,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.25561273191498723,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.08520424397166293,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.17040848794332497,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.3408169758866493,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 1.874493367376564,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 1.9596976113482263,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 1.5336763914899163,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 1.789289123404902,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "interactive-pdoom",
+          "mean": 1.2780636595749304,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "hiring-ai-policy-collaborators-to-prepare-france-ai-action-summit",
+          "mean": 1.7040848794332402,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "manifold-tournaments",
+          "mean": 1.0224509276599445,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "digital-animal-effective-animal-rights-news-for-global-impact",
+          "mean": 0.5112254638299729,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 1.1928594156032686,
+          "std": 0.2886751345166304
+        },
+        {
+          "id": "developing-operational-welfare-indicators-for-african-catfish-farming-in-nigeria",
+          "mean": 0.4260212198583109,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "veneton",
+          "mean": 0.0,
+          "std": 0.2886751345166305
+        },
+        {
+          "id": "build-a-new-nonp",
+          "mean": 0.5964297078016345,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "perfectone-vs-all-necessity-for-out-of-distribution-generalization-in-agi",
+          "mean": 0.6816339517732963,
+          "std": 0.2886751345166305
+        },
+        {
+          "id": "manifold-corporate-blog-on-habr",
+          "mean": 1.107655171631606,
+          "std": 0.28867513451663046
+        },
+        {
+          "id": "terminal-boundary-systems-and-the-limits-of-self-explanation",
+          "mean": 0.8520424397166202,
+          "std": 0.2886751345166305
+        },
+        {
+          "id": "virtue-ethical-rationality-and-training-dynamics-",
+          "mean": 1.448472147518254,
+          "std": 0.2886751345166305
+        }
+      ]
+    }
+  ],
+  "pairwise": [],
+  "comparisons": [],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 12968000,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

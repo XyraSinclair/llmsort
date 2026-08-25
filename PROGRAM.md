@@ -261,14 +261,33 @@ RESULTS.md with denominators) and one page here.
   an ACCURACY reading against external truth, not just agreement with the
   same model's pairwise sort. Cells: {point, single-call listwise, ring
   k=8 r=2, pairwise} × {manifund n=24, countries n=16, rivers n=16} ×
-  {deepseek-v4-flash, gpt-5.6-luna}. **IN FLIGHT** (run7).
+  {deepseek-v4-flash, gpt-5.6-luna}. **EXECUTED** 2026-08-24 (run7 with
+  E13, $0.79 total, pack `research/artifacts/live/best-worst-2026-08-22/`
+  RESULTS.md addendum): pointwise's tie pathology measured (deepseek: 3
+  distinct values over 16 rivers, truth-ρ −0.19; luna finer, 0.75–0.93 vs
+  pairwise on manifund — competitive on stable attributes, no magnitudes,
+  tie-block top-k); single-call listwise holds at n=24 only where the
+  gauge is clean and broke parse once at k=24; truth anchors: ring
+  truth-ρ 0.91/0.86 vs pairwise's own 0.87/0.97 on countries, and on the
+  close-packed rivers pool pairwise itself collapses (0.31/0.10 vs truth)
+  while setwise arms degrade gracefully (0.55–0.71) with the gauge
+  flagging the worst cell. The folk methods are special cases the
+  instrument dominates: same or worse accuracy, no warning light.
 - **E13 — n-scaling.** Every prior cell is n=16–24; people's lists are
   50–500. Ring k=8 r=2 and pointwise at n=150 (the full arXiv corpus,
   3 paper attributes) against the full pairwise baseline (600
   comparisons/attr): does the recipe hold at 6× the n, what does the cost
   curve do, and single-call listwise cannot even express n=150 (26 slot
-  letters) — that boundary is itself the table-stakes reading. **IN
-  FLIGHT** (run7).
+  letters) — that boundary is itself the table-stakes reading. **EXECUTED**
+  2026-08-24 (run7): at the SAME per-item budget as n=24 (2.67
+  slot-appearances/item), ring agreement falls (luna 0.81–0.91 → 0.55–0.71)
+  and the gauge says so (flips 0.15–0.28); pointwise at n=150 is
+  ρ-competitive with ring (luna 0.51–0.77) but with 26–38-way tie blocks;
+  the instrument triangle (ring~point 0.31–0.61) shows no arm is a clean
+  gold at this budget — the 600-comparison pairwise baseline covers 5% of
+  pairs. Per-item budget does not transfer across n: graph diameter grows
+  with n/(k−overlap). Next lever: `rounds: 2` (structural density), and a
+  pairwise retest at n=150 to set the ceiling before any stronger claim.
 
 ## 4. E1 design: setwise ratio, cached prefix
 

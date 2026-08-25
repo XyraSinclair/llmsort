@@ -1,0 +1,254 @@
+{
+  "generated_at": "2026-08-25T01:45:38.025516408+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-5.6-luna",
+  "seed": 17,
+  "n": 16,
+  "ks": [
+    16
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 1,
+  "repeats": 2,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/anchors_rivers.json",
+  "attributes": [
+    {
+      "name": "length in kilometres",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 20
+    }
+  ],
+  "entity_ids": [
+    "Ob",
+    "Mississippi",
+    "Danube",
+    "Mackenzie",
+    "Amazon",
+    "Congo",
+    "Niger",
+    "Lena",
+    "Yellow",
+    "Rhine",
+    "Yangtze",
+    "Paraná",
+    "Mekong",
+    "Nile",
+    "Amur",
+    "Yenisei"
+  ],
+  "engine_spec": {
+    "n": 16,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-5.6-luna",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nMackenzie\n</entity_A>\n<entity_B>\nNiger\n</entity_B>\n<entity_C>\nAmazon\n</entity_C>\n<entity_D>\nCongo\n</entity_D>\n<entity_E>\nNile\n</entity_E>\n<entity_F>\nMississippi\n</entity_F>\n<entity_G>\nRhine\n</entity_G>\n<entity_H>\nMekong\n</entity_H>\n<entity_I>\nYellow\n</entity_I>\n<entity_J>\nDanube\n</entity_J>\n<entity_K>\nYangtze\n</entity_K>\n<entity_L>\nLena\n</entity_L>\n<entity_M>\nOb\n</entity_M>\n<entity_N>\nYenisei\n</entity_N>\n<entity_O>\nParaná\n</entity_O>\n<entity_P>\nAmur\n</entity_P>\n</entities>\n\nCompare the entities by <attribute_name>: length in kilometres </attribute_name>.\n<full_attribute_text>\nlength in kilometres\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:42bcbf2dea6ccc8f",
+    "prefix_bytes": 809
+  },
+  "subsets_per_k": {
+    "16": 1
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 16,
+      "attribute": "length in kilometres",
+      "calls": 2,
+      "calls_ok": 2,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 240,
+      "usage": {
+        "calls": 2,
+        "prompt_tokens": 684,
+        "completion_tokens": 40,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 184800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 2,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "last_by_slot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 1,
+        "presentation_pairs": 1,
+        "entity_pairs_compared": 120,
+        "direction_flips": 19,
+        "flip_rate": 0.15833333333333333
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "Ob",
+          "mean": 0.8442644564231004,
+          "std": 0.2519701044131465
+        },
+        {
+          "id": "Mississippi",
+          "mean": 1.4193755771405896,
+          "std": 0.250475788882984
+        },
+        {
+          "id": "Danube",
+          "mean": 0.3377864764328985,
+          "std": 0.2508128000083645
+        },
+        {
+          "id": "Mackenzie",
+          "mean": 0.39400749079824304,
+          "std": 0.2502386867653357
+        },
+        {
+          "id": "Amazon",
+          "mean": 1.9378520596557545,
+          "std": 0.25119829583641956
+        },
+        {
+          "id": "Congo",
+          "mean": 1.66811146098016,
+          "std": 0.2508287834336626
+        },
+        {
+          "id": "Niger",
+          "mean": 0.5102821693026676,
+          "std": 0.25112537708350613
+        },
+        {
+          "id": "Lena",
+          "mean": 1.2936186880912972,
+          "std": 0.2514713051688303
+        },
+        {
+          "id": "Yellow",
+          "mean": 0.2764640854556273,
+          "std": 0.25122170549811956
+        },
+        {
+          "id": "Rhine",
+          "mean": 0.0,
+          "std": 0.251163295062127
+        },
+        {
+          "id": "Yangtze",
+          "mean": 1.601348385211216,
+          "std": 0.25075592200961655
+        },
+        {
+          "id": "Paraná",
+          "mean": 0.9124278515182691,
+          "std": 0.2507767096507389
+        },
+        {
+          "id": "Mekong",
+          "mean": 0.4503130871897939,
+          "std": 0.2508072999975803
+        },
+        {
+          "id": "Nile",
+          "mean": 1.3525552354894246,
+          "std": 0.25023868676533567
+        },
+        {
+          "id": "Amur",
+          "mean": 1.0927198975503583,
+          "std": 0.2519701044131465
+        },
+        {
+          "id": "Yenisei",
+          "mean": 1.415051280630268,
+          "std": 0.2517624188540148
+        }
+      ]
+    }
+  ],
+  "pairwise": [],
+  "comparisons": [],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 184800,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

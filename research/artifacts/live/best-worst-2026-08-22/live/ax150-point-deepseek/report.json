@@ -1,0 +1,2595 @@
+{
+  "generated_at": "2026-08-25T01:40:45.394866239+00:00",
+  "offline": false,
+  "answer": "point",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 150,
+  "ks": [
+    1
+  ],
+  "entity_chars": 1000,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 1,
+  "repeats": 1,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/arxiv_abstracts.json",
+  "attributes": [
+    {
+      "name": "methodological rigor",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 20
+    },
+    {
+      "name": "novelty of contribution",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 23
+    },
+    {
+      "name": "usefulness for a practitioner building LLM-based products",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 57
+    }
+  ],
+  "entity_ids": [
+    "W4406033240",
+    "W4406810884",
+    "W4416999525",
+    "W4415976151",
+    "W4416393118",
+    "W4415030372",
+    "W4407684014",
+    "W4407423003",
+    "W6891814254",
+    "W4406840868",
+    "W4415318303",
+    "W4416105450",
+    "W4406449944",
+    "W4407759590",
+    "W4406548969",
+    "W4416243736",
+    "W4406733450",
+    "W4406950283",
+    "W6910572094",
+    "W4406033167",
+    "W4406316939",
+    "W4406734791",
+    "W6911026313",
+    "W4406486150",
+    "W4417006854",
+    "W4406485184",
+    "W4406603968",
+    "W4409601911",
+    "W6891935129",
+    "W4414888199",
+    "W4415319839",
+    "W6910518143",
+    "W4406937275",
+    "W4407425748",
+    "W4417077629",
+    "W6891853064",
+    "W4417313621",
+    "W4407170272",
+    "W4417279890",
+    "W7083695438",
+    "W4407590534",
+    "W4406549079",
+    "W7106686009",
+    "W4406033420",
+    "W4407690143",
+    "W4406032915",
+    "W6910837910",
+    "W4407425732",
+    "W4407713029",
+    "W4406789554",
+    "W4407093331",
+    "W6966350956",
+    "W6948306960",
+    "W6910483918",
+    "W4406273441",
+    "W4415186031",
+    "W4416098779",
+    "W4406604566",
+    "W4415085804",
+    "W4407384832",
+    "W4416095924",
+    "W4407759600",
+    "W6929472810",
+    "W4417326942",
+    "W4417175683",
+    "W4415191887",
+    "W4406735456",
+    "W4417150440",
+    "W4406549374",
+    "W4416524567",
+    "W4416284731",
+    "W4417050603",
+    "W6948219458",
+    "W4407759132",
+    "W4414834072",
+    "W4406316690",
+    "W4415130727",
+    "W4407012951",
+    "W4415979340",
+    "W4409594083",
+    "W4414801979",
+    "W4407806804",
+    "W4416365887",
+    "W4406484082",
+    "W4406093082",
+    "W6967157550",
+    "W4415198176",
+    "W4414974729",
+    "W6910752418",
+    "W6891798182",
+    "W4407679583",
+    "W4414812741",
+    "W4416875771",
+    "W4406121152",
+    "W4406880570",
+    "W4416455407",
+    "W4406699495",
+    "W6948232554",
+    "W4406840433",
+    "W4416176609",
+    "W4407310674",
+    "W4407184424",
+    "W4406271052",
+    "W4406741160",
+    "W4417288510",
+    "W6966614413",
+    "W7077142139",
+    "W6948050508",
+    "W4417223017",
+    "W4406745129",
+    "W4417423726",
+    "W4414887463",
+    "W4407124196",
+    "W4406231018",
+    "W4417161986",
+    "W6929293117",
+    "W4406778835",
+    "W6948563684",
+    "W4407185554",
+    "W4407424087",
+    "W6966545553",
+    "W6910566006",
+    "W4417128706",
+    "W4417305769",
+    "W7104010298",
+    "W4414876892",
+    "W4414895666",
+    "W4407569977",
+    "W6929358615",
+    "W4406449486",
+    "W4416959258",
+    "W6967424919",
+    "W4406975371",
+    "W4406033385",
+    "W4416241868",
+    "W4415080324",
+    "W6929419661",
+    "W4406604520",
+    "W4406458936",
+    "W4415102157",
+    "W4414973927",
+    "W4417521643",
+    "W4417080482",
+    "W7077897856",
+    "W4417266698",
+    "W4406741031",
+    "W6966777154",
+    "W4416042718",
+    "W4407128582",
+    "W4407764894"
+  ],
+  "engine_spec": {
+    "n": 150,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read one entity in a lettered slot, then an attribute. You answer with one integer from 0 to 100: the entity's level of the attribute, where 50 is a typical entity of this kind, 0 far below all peers, 100 far above all peers. Nothing else — no words, no punctuation, no explanation.\nExample: 62",
+    "user": "<entities>\n<entity_A>\nCultureVLM: Characterizing and Improving Cultural Understanding of Vision-Language Models for over 100 Countries\n\nVision-language models (VLMs) have advanced human-AI interaction but struggle with cultural understanding, often misinterpreting symbols, gestures, and artifacts due to biases in predominantly Western-centric training data. In this paper, we construct CultureVerse, a large-scale multimodal benchmark covering 19, 682 cultural concepts, 188 countries/regions, 15 cultural concepts, and 3 question types, with the aim of characterizing and improving VLMs&apos; multicultural understanding capabilities. Then, we propose CultureVLM, a series of VLMs fine-tuned on our dataset to achieve significant performance improvement in cultural understanding. Our evaluation of 16 models reveals significant disparities, with a stronger performance in Western concepts and weaker results in African and Asian contexts. Fine-tuning on our CultureVerse enhances cultural perception, demonstrating cross-cu\n</entity_A>\n</entities>\n\nCompare the entities by <attribute_name>: methodological rigor </attribute_name>.\n<full_attribute_text>\nmethodological rigor\n</full_attribute_text>\n\nRate the entity in slot A on the attribute: one integer from 0 to 100.\nanswer:",
+    "prompt_cache_key": "setwise:af78588454797054",
+    "prefix_bytes": 1392
+  },
+  "subsets_per_k": {
+    "1": 150
+  },
+  "setwise": [
+    {
+      "answer": "point",
+      "k": 1,
+      "attribute": "methodological rigor",
+      "calls": 150,
+      "calls_ok": 150,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 150,
+      "usage": {
+        "calls": 150,
+        "prompt_tokens": 49877,
+        "completion_tokens": 300,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 7066780
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 150,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": null,
+      "order_sensitivity": null,
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406810884",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416999525",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415976151",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416393118",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415030372",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407684014",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407423003",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891814254",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840868",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415318303",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416105450",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449944",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759590",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406548969",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416243736",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406733450",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406950283",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910572094",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033167",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316939",
+          "mean": 45.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406734791",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6911026313",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406486150",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417006854",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406485184",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406603968",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409601911",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891935129",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414888199",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415319839",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910518143",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406937275",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425748",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417077629",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891853064",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417313621",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407170272",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417279890",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7083695438",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407590534",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549079",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7106686009",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033420",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407690143",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406032915",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910837910",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425732",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407713029",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406789554",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407093331",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966350956",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948306960",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910483918",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406273441",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415186031",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416098779",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604566",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415085804",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407384832",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416095924",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759600",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929472810",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417326942",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417175683",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415191887",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406735456",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417150440",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549374",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416524567",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416284731",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417050603",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948219458",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759132",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414834072",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316690",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415130727",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407012951",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415979340",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409594083",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414801979",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407806804",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416365887",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406484082",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406093082",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967157550",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415198176",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414974729",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910752418",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891798182",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407679583",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414812741",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416875771",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406121152",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406880570",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416455407",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406699495",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948232554",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840433",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416176609",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407310674",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407184424",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406271052",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741160",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417288510",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966614413",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077142139",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948050508",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417223017",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406745129",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417423726",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414887463",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407124196",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406231018",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417161986",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929293117",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406778835",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948563684",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407185554",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407424087",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966545553",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910566006",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417128706",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417305769",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7104010298",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414876892",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414895666",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407569977",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929358615",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449486",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416959258",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967424919",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406975371",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033385",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416241868",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415080324",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929419661",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604520",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406458936",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415102157",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414973927",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417521643",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417080482",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077897856",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417266698",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741031",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966777154",
+          "mean": 45.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416042718",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407128582",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407764894",
+          "mean": 50.0,
+          "std": 0.0
+        }
+      ]
+    },
+    {
+      "answer": "point",
+      "k": 1,
+      "attribute": "novelty of contribution",
+      "calls": 150,
+      "calls_ok": 150,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 150,
+      "usage": {
+        "calls": 150,
+        "prompt_tokens": 50327,
+        "completion_tokens": 300,
+        "cache_read_tokens": 28672,
+        "cache_write_tokens": 0,
+        "nanodollars": 5122740
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 150,
+        "calls_with_cache_read_gt0": 112,
+        "mean_cached_fraction": 0.5686592769330945
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": null,
+      "order_sensitivity": null,
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406810884",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416999525",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415976151",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416393118",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415030372",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407684014",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407423003",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891814254",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840868",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415318303",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416105450",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449944",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759590",
+          "mean": 100.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406548969",
+          "mean": 45.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416243736",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406733450",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406950283",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910572094",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033167",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316939",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406734791",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6911026313",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406486150",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417006854",
+          "mean": 100.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406485184",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406603968",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409601911",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891935129",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414888199",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415319839",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910518143",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406937275",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425748",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417077629",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891853064",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417313621",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407170272",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417279890",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7083695438",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407590534",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549079",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7106686009",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033420",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407690143",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406032915",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910837910",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425732",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407713029",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406789554",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407093331",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966350956",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948306960",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910483918",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406273441",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415186031",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416098779",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604566",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415085804",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407384832",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416095924",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759600",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929472810",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417326942",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417175683",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415191887",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406735456",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417150440",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549374",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416524567",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416284731",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417050603",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948219458",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759132",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414834072",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316690",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415130727",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407012951",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415979340",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409594083",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414801979",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407806804",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416365887",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406484082",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406093082",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967157550",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415198176",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414974729",
+          "mean": 78.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910752418",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891798182",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407679583",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414812741",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416875771",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406121152",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406880570",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416455407",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406699495",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948232554",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840433",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416176609",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407310674",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407184424",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406271052",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741160",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417288510",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966614413",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077142139",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948050508",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417223017",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406745129",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417423726",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414887463",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407124196",
+          "mean": 95.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406231018",
+          "mean": 0.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417161986",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929293117",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406778835",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948563684",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407185554",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407424087",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966545553",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910566006",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417128706",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417305769",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7104010298",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414876892",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414895666",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407569977",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929358615",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449486",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416959258",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967424919",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406975371",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033385",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416241868",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415080324",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929419661",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604520",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406458936",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415102157",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414973927",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417521643",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417080482",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077897856",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417266698",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741031",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966777154",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416042718",
+          "mean": 20.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407128582",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407764894",
+          "mean": 20.0,
+          "std": 0.0
+        }
+      ]
+    },
+    {
+      "answer": "point",
+      "k": 1,
+      "attribute": "usefulness for a practitioner building LLM-based products",
+      "calls": 150,
+      "calls_ok": 150,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 150,
+      "usage": {
+        "calls": 150,
+        "prompt_tokens": 52127,
+        "completion_tokens": 300,
+        "cache_read_tokens": 30976,
+        "cache_write_tokens": 0,
+        "nanodollars": 5213460
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 150,
+        "calls_with_cache_read_gt0": 121,
+        "mean_cached_fraction": 0.5940211291356788
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": null,
+      "order_sensitivity": null,
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "W4406033240",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406810884",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416999525",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415976151",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416393118",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415030372",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407684014",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407423003",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891814254",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840868",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415318303",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416105450",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449944",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759590",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406548969",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416243736",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406733450",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406950283",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910572094",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033167",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316939",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406734791",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6911026313",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406486150",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417006854",
+          "mean": 90.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406485184",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406603968",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409601911",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891935129",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414888199",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415319839",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910518143",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406937275",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425748",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417077629",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891853064",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417313621",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407170272",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417279890",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7083695438",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407590534",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549079",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7106686009",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033420",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407690143",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406032915",
+          "mean": 55.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910837910",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407425732",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407713029",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406789554",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407093331",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966350956",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948306960",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910483918",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406273441",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415186031",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416098779",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604566",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415085804",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407384832",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416095924",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759600",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929472810",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417326942",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417175683",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415191887",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406735456",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417150440",
+          "mean": 55.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406549374",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416524567",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416284731",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417050603",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948219458",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407759132",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414834072",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406316690",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415130727",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407012951",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415979340",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4409594083",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414801979",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407806804",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416365887",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406484082",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406093082",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967157550",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415198176",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414974729",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910752418",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6891798182",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407679583",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414812741",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416875771",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406121152",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406880570",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416455407",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406699495",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948232554",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406840433",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416176609",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407310674",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407184424",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406271052",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741160",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417288510",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966614413",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077142139",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948050508",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417223017",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406745129",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417423726",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414887463",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407124196",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406231018",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417161986",
+          "mean": 80.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929293117",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406778835",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6948563684",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407185554",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407424087",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966545553",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6910566006",
+          "mean": 85.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417128706",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417305769",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7104010298",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414876892",
+          "mean": 55.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414895666",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407569977",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929358615",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406449486",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416959258",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6967424919",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406975371",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406033385",
+          "mean": 50.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416241868",
+          "mean": 55.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415080324",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6929419661",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406604520",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406458936",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4415102157",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4414973927",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417521643",
+          "mean": 60.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417080482",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W7077897856",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4417266698",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4406741031",
+          "mean": 65.0,
+          "std": 0.0
+        },
+        {
+          "id": "W6966777154",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4416042718",
+          "mean": 30.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407128582",
+          "mean": 70.0,
+          "std": 0.0
+        },
+        {
+          "id": "W4407764894",
+          "mean": 30.0,
+          "std": 0.0
+        }
+      ]
+    }
+  ],
+  "pairwise": [],
+  "comparisons": [],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 17402980,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

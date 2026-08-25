@@ -1,0 +1,347 @@
+{
+  "generated_at": "2026-08-25T01:29:08.473172283+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "deepseek/deepseek-v4-flash",
+  "seed": 17,
+  "n": 16,
+  "ks": [
+    8
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 1,
+  "repeats": 2,
+  "delimiter": "xml",
+  "design": "ring",
+  "overlap": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/anchors_countries.json",
+  "attributes": [
+    {
+      "name": "population",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 10
+    }
+  ],
+  "entity_ids": [
+    "Japan",
+    "Indonesia",
+    "Netherlands",
+    "Kenya",
+    "India",
+    "Germany",
+    "Australia",
+    "United Kingdom",
+    "Nigeria",
+    "New Zealand",
+    "United States",
+    "Mexico",
+    "Italy",
+    "China",
+    "France",
+    "Brazil"
+  ],
+  "engine_spec": {
+    "n": 16,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "deepseek/deepseek-v4-flash",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nFrance\n</entity_A>\n<entity_B>\nKenya\n</entity_B>\n<entity_C>\nChina\n</entity_C>\n<entity_D>\nGermany\n</entity_D>\n<entity_E>\nUnited States\n</entity_E>\n<entity_F>\nJapan\n</entity_F>\n<entity_G>\nNetherlands\n</entity_G>\n<entity_H>\nItaly\n</entity_H>\n</entities>\n\nCompare the entities by <attribute_name>: population </attribute_name>.\n<full_attribute_text>\npopulation\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:8e38e3e1f680604c",
+    "prefix_bytes": 580
+  },
+  "subsets_per_k": {
+    "8": 3
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 8,
+      "attribute": "population",
+      "calls": 6,
+      "calls_ok": 6,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 168,
+      "usage": {
+        "calls": 6,
+        "prompt_tokens": 1348,
+        "completion_tokens": 54,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 203840
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 6,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          0,
+          1,
+          1,
+          0,
+          3,
+          0,
+          1,
+          0
+        ],
+        "last_by_slot": [
+          2,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 3,
+        "presentation_pairs": 3,
+        "entity_pairs_compared": 84,
+        "direction_flips": 14,
+        "flip_rate": 0.16666666666666666
+      },
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "Japan",
+          "mean": 1.159619312173416,
+          "std": 0.42708994976698944
+        },
+        {
+          "id": "Indonesia",
+          "mean": 1.0411857717968667,
+          "std": 0.3554352345748941
+        },
+        {
+          "id": "Netherlands",
+          "mean": 0.06811209463489476,
+          "std": 0.33789585965904595
+        },
+        {
+          "id": "Kenya",
+          "mean": 0.0,
+          "std": 0.33519331239987243
+        },
+        {
+          "id": "India",
+          "mean": 1.6099812666236897,
+          "std": 0.41572334099351715
+        },
+        {
+          "id": "Germany",
+          "mean": 0.8935938937104295,
+          "std": 0.33564412376074493
+        },
+        {
+          "id": "Australia",
+          "mean": 0.1922611191023621,
+          "std": 0.42708994976698944
+        },
+        {
+          "id": "United Kingdom",
+          "mean": 0.39257573487544584,
+          "std": 0.4240138737868238
+        },
+        {
+          "id": "Nigeria",
+          "mean": 1.0327765637105986,
+          "std": 0.42256592097025847
+        },
+        {
+          "id": "New Zealand",
+          "mean": 0.01722307232402831,
+          "std": 0.4028480441268806
+        },
+        {
+          "id": "United States",
+          "mean": 1.7121050369405992,
+          "std": 0.37455267000085984
+        },
+        {
+          "id": "Mexico",
+          "mean": 0.8318575742300476,
+          "std": 0.40563034841560874
+        },
+        {
+          "id": "Italy",
+          "mean": 0.3125817275778283,
+          "std": 0.3346803528883524
+        },
+        {
+          "id": "China",
+          "mean": 1.6238843484981689,
+          "std": 0.33537559690243063
+        },
+        {
+          "id": "France",
+          "mean": 0.8935938937104296,
+          "std": 0.3356441237607449
+        },
+        {
+          "id": "Brazil",
+          "mean": 1.054580417826952,
+          "std": 0.35548880937734606
+        }
+      ]
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "population",
+      "comparisons_attempted": 64,
+      "comparisons_used": 64,
+      "comparisons_refused": 0,
+      "comparison_budget": 64,
+      "position_flips": 7,
+      "pairs_counterbalanced": 32,
+      "provider_input_tokens": 21684,
+      "provider_output_tokens": 1984,
+      "nanodollars": 2444400,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "China",
+          "mean": 4.499246370105803,
+          "std": 0.7540239221384177
+        },
+        {
+          "id": "United States",
+          "mean": 3.787432073478925,
+          "std": 0.6958711520000842
+        },
+        {
+          "id": "Nigeria",
+          "mean": 3.4432186806319227,
+          "std": 0.7860835370320239
+        },
+        {
+          "id": "India",
+          "mean": 3.419583606331434,
+          "std": 0.8772977732454347
+        },
+        {
+          "id": "Indonesia",
+          "mean": 3.2264315279316103,
+          "std": 0.5773902566968099
+        },
+        {
+          "id": "Brazil",
+          "mean": 2.8924619322866096,
+          "std": 0.5770374620441047
+        },
+        {
+          "id": "United Kingdom",
+          "mean": 2.0892590675931464,
+          "std": 0.530922751891656
+        },
+        {
+          "id": "Japan",
+          "mean": 1.9661412375527167,
+          "std": 0.8772977732454347
+        },
+        {
+          "id": "France",
+          "mean": 1.956689493510623,
+          "std": 0.5760980218896354
+        },
+        {
+          "id": "Australia",
+          "mean": 1.7115715024258917,
+          "std": 0.6053318046984343
+        },
+        {
+          "id": "Germany",
+          "mean": 1.6795118136496434,
+          "std": 0.6586015380843043
+        },
+        {
+          "id": "Mexico",
+          "mean": 1.1487749756483794,
+          "std": 0.6507306777019114
+        },
+        {
+          "id": "Italy",
+          "mean": 1.077197342112549,
+          "std": 0.6449327967341839
+        },
+        {
+          "id": "New Zealand",
+          "mean": 0.5363524755306226,
+          "std": 0.8278767366287373
+        },
+        {
+          "id": "Netherlands",
+          "mean": 0.3141069173954163,
+          "std": 0.5775102029664855
+        },
+        {
+          "id": "Kenya",
+          "mean": 0.0,
+          "std": 0.616040600710131
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 8,
+      "attribute": "population",
+      "spearman_rho": 0.8911764705882353,
+      "kendall_tau": 0.7333333333333333,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 824175.8241758242,
+      "pairwise_obs_per_dollar": 26182.29422353134,
+      "setwise_dollars_per_item": 0.00001274,
+      "pairwise_dollars_per_item": 0.000152775
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 2648240,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

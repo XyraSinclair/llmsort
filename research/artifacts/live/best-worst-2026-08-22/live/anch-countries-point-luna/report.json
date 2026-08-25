@@ -1,0 +1,211 @@
+{
+  "generated_at": "2026-08-25T01:44:43.133845998+00:00",
+  "offline": false,
+  "answer": "point",
+  "model": "openai/gpt-5.6-luna",
+  "seed": 17,
+  "n": 16,
+  "ks": [
+    1
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 1,
+  "repeats": 1,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 1.0,
+  "corpus": "data/anchors_countries.json",
+  "attributes": [
+    {
+      "name": "population",
+      "rubric_source": "plain attribute name (no rubric file)",
+      "rubric_chars": 10
+    }
+  ],
+  "entity_ids": [
+    "Japan",
+    "Indonesia",
+    "Netherlands",
+    "Kenya",
+    "India",
+    "Germany",
+    "Australia",
+    "United Kingdom",
+    "Nigeria",
+    "New Zealand",
+    "United States",
+    "Mexico",
+    "Italy",
+    "China",
+    "France",
+    "Brazil"
+  ],
+  "engine_spec": {
+    "n": 16,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-5.6-luna",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read one entity in a lettered slot, then an attribute. You answer with one integer from 0 to 100: the entity's level of the attribute, where 50 is a typical entity of this kind, 0 far below all peers, 100 far above all peers. Nothing else — no words, no punctuation, no explanation.\nExample: 62",
+    "user": "<entities>\n<entity_A>\nJapan\n</entity_A>\n</entities>\n\nCompare the entities by <attribute_name>: population </attribute_name>.\n<full_attribute_text>\npopulation\n</full_attribute_text>\n\nRate the entity in slot A on the attribute: one integer from 0 to 100.\nanswer:",
+    "prompt_cache_key": "setwise:b4a1d3188bdb6bcb",
+    "prefix_bytes": 392
+  },
+  "subsets_per_k": {
+    "1": 16
+  },
+  "setwise": [
+    {
+      "answer": "point",
+      "k": 1,
+      "attribute": "population",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 16,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 2469,
+        "completion_tokens": 80,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 589800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": null,
+      "order_sensitivity": null,
+      "components": 1,
+      "disconnected": false,
+      "latents": [
+        {
+          "id": "Japan",
+          "mean": 59.0,
+          "std": 0.0
+        },
+        {
+          "id": "Indonesia",
+          "mean": 84.0,
+          "std": 0.0
+        },
+        {
+          "id": "Netherlands",
+          "mean": 68.0,
+          "std": 0.0
+        },
+        {
+          "id": "Kenya",
+          "mean": 58.0,
+          "std": 0.0
+        },
+        {
+          "id": "India",
+          "mean": 100.0,
+          "std": 0.0
+        },
+        {
+          "id": "Germany",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "Australia",
+          "mean": 78.0,
+          "std": 0.0
+        },
+        {
+          "id": "United Kingdom",
+          "mean": 62.0,
+          "std": 0.0
+        },
+        {
+          "id": "Nigeria",
+          "mean": 84.0,
+          "std": 0.0
+        },
+        {
+          "id": "New Zealand",
+          "mean": 27.0,
+          "std": 0.0
+        },
+        {
+          "id": "United States",
+          "mean": 100.0,
+          "std": 0.0
+        },
+        {
+          "id": "Mexico",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "Italy",
+          "mean": 78.0,
+          "std": 0.0
+        },
+        {
+          "id": "China",
+          "mean": 100.0,
+          "std": 0.0
+        },
+        {
+          "id": "France",
+          "mean": 75.0,
+          "std": 0.0
+        },
+        {
+          "id": "Brazil",
+          "mean": 80.0,
+          "std": 0.0
+        }
+      ]
+    }
+  ],
+  "pairwise": [],
+  "comparisons": [],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 589800,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}
