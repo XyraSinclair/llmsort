@@ -327,6 +327,26 @@ RESULTS.md with denominators) and one page here.
   0.02–0.07 of that ceiling on every attribute for both models (luna
   0.77/0.87/0.79 vs 0.80/0.89/0.85) at ~1/6 the pairwise cost. Scaling
   recipe for n ≫ k: `rounds: 2`, everything else unchanged.
+- **E15 — degenerate pools: does the gauge stay one-sided?** Every measured
+  cell so far is a pool of genuinely distinct items; real user lists carry
+  near-duplicates, boilerplate, and mixed quality. The gauge's promise
+  (flip < 0.20 ⇒ trust) was measured only on distinguishable pools — a
+  near-duplicate cluster could produce *stable-but-arbitrary* orders (low
+  flips, meaningless ρ inside the cluster), which would break the
+  one-sidedness silently. Design: take the arXiv n=150 frame, build three
+  corrupted variants — (a) 30% exact-duplicate items under new ids, (b) 30%
+  paraphrase near-duplicates (one cheap model pass, committed to the pack so
+  the corpus is frozen), (c) 30% empty/boilerplate stubs — and run ring k=8
+  rounds=2 + the gauge on each, same seeds/models as E13 (deepseek, luna).
+  Readings: (1) does flip-rate rise on the corrupted cells (the gauge
+  noticing) or stay low (the failure mode); (2) within-cluster order
+  stability across seeds vs across-cluster ρ — the honest split; (3) does
+  ±σ from the solver widen on duplicates (the pairwise path's answer to the
+  same corruption, for the decision table). Verdict shape: either the gauge
+  screen extends to degenerate pools as-is, or the docs gain a named
+  precondition ("gauge assumes distinguishable items") with the measured
+  counterexample. Budget ≤ $1 (6 corrupted cells × ~100 calls at E13 unit
+  costs). **PLANNED.**
 
 ## 4. E1 design: setwise ratio, cached prefix
 
