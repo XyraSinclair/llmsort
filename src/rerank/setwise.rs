@@ -95,9 +95,13 @@ pub struct SetwiseOptions {
     pub design: SetwiseDesign,
     /// Ring only: anchors shared between consecutive groups. Default 2.
     pub overlap: usize,
-    /// Rounds of shuffle → tile. Default 1 — enough for the ring design;
-    /// a `Disjoint` design with `rounds: 1` and n > k cannot connect
-    /// across groups (surfaced via `components`), use ≥ 2 there.
+    /// Rounds of shuffle → tile. Default 1 — enough for the ring design at
+    /// n ≲ 3k; for n ≫ k use `rounds: 2` (measured at n = 150: rounds 1
+    /// falls to ρ 0.55–0.71 vs pairwise while rounds 2 lands within
+    /// 0.02–0.07 of the pairwise test–retest ceiling at ~1/6 its cost —
+    /// PROGRAM.md E13). A `Disjoint` design with `rounds: 1` and n > k
+    /// cannot connect across groups (surfaced via `components`), use ≥ 2
+    /// there.
     pub rounds: usize,
     /// Shuffled re-presentations of each group. At ≥ 2 (the default) the
     /// order-sensitivity gauge is measured; at 1 `gauge` is `None` and you
