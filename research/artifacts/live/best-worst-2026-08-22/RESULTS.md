@@ -348,3 +348,49 @@ ordering — lowest flip, highest agreement (luna novelty 0.15 → 0.87).
 Scaling recipe for n ≫ k: `rounds: 2`, everything else unchanged.
 600/600, 600/600, 599/600 pairwise and 100/100 ×5, 99/100 setwise calls
 parsed.
+
+## E14 addendum (2026-08-24, run9, $0.42): the funnel — and the top-10 ceiling nobody states
+
+Screen all 150 (setwise ring rounds=2, or pointwise 0–100) → pairwise
+certified top-10 on the top-30 slice; seed 18; judged against the two
+independent full-pairwise runs (pw17, pw18). `ceil` = the full pairwise
+path's OWN top-10 overlap across seeds; `slice_recall` = how much of the
+reference top-10 the screen kept in its top-30; `s1top10` = screen-alone
+top-10 overlap; `funnel` = final top-10 overlap (vs pw18/pw17).
+
+```
+cell                         ceil slice_recall s1top10 funnel    $fun    $pw
+rigor-setwise-deepseek   0.7  0.8/ 0.8       0.5/0.5  0.6/0.5   0.034  0.054
+rigor-point-deepseek   0.7  0.7/ 0.9       0.2/0.4  0.6/0.7   0.017  0.054
+novelty-setwise-deepseek   0.7  0.9/ 0.9       0.4/0.5  0.8/0.7   0.030  0.053
+novelty-point-deepseek   0.7  0.8/ 0.6       0.4/0.3  0.6/0.5   0.015  0.053
+useful-setwise-deepseek   0.6  0.9/ 0.9       0.6/0.5  0.5/0.7   0.026  0.053
+useful-point-deepseek   0.6  0.3/ 0.3       0.1/0.1  0.3/0.3   0.015  0.053
+rigor-setwise-luna       0.3  0.7/ 0.9       0.3/0.4  0.4/0.5   0.063  0.103
+rigor-point-luna       0.3  0.6/ 0.4       0.3/0.2  0.4/0.2   0.028  0.103
+novelty-setwise-luna       0.7  0.8/ 0.9       0.4/0.3  0.4/0.6   0.062  0.106
+novelty-point-luna       0.7  0.9/ 1.0       0.3/0.2  0.8/0.8   0.031  0.106
+useful-setwise-luna       0.6  0.8/ 0.5       0.5/0.3  0.6/0.4   0.064  0.103
+useful-point-luna       0.6  0.6/ 0.6       0.3/0.2  0.5/0.4   0.031  0.103
+```
+
+Readings:
+
+1. **The ceiling is the finding.** The flagship 600-comparison pairwise
+   sort reproduces its own top-10 at only 0.3–0.7 across planner seeds.
+   "Give me the best 10 of 150" on subjective attributes at a 4n budget is
+   intrinsically unstable — for every method. Any top-k product claim
+   without this error bar is overclaiming; the funnel's job is to hit the
+   ceiling cheaply, not to beat it.
+2. **The funnel hits the ceiling at 0.3–0.6× the cost.** Funnel top-10
+   overlap (0.3–0.8) brackets `ceil` in every cell; refinement clearly
+   adds value over the screen alone (s1top10 0.1–0.6).
+3. **The screen must be setwise.** Setwise slice recall is 0.7–0.9 in
+   every cell; the pointwise screen is half the price but erratic
+   (0.3–1.0) — on useful-deepseek its tie blocks dropped 70% of the
+   reference top-10 before refinement could see them. The E12 tie
+   pathology bites exactly at the slice cut, as predicted.
+4. Recipe shipped by these numbers: `setwise rounds:2 screen → top-M=3k
+   slice → pairwise top_k refine`; ~0.5× full-pairwise cost, ceiling-level
+   quality, gauge on the screen, certification on the refine. 12/12 cells
+   parsed; stage-1 luna had 1 malformed call of 100 in one cell.

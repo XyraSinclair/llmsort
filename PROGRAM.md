@@ -264,7 +264,15 @@ RESULTS.md with denominators) and one page here.
   Composed from the promised surface (`experiments/examples/funnel_topk.rs`),
   judged against run7/run8's full-pairwise references and the pw17~pw18
   top-10 overlap ceiling. 12 cells: 2 stage-1 kinds × 3 attributes ×
-  {deepseek, luna}, n=150, seed 18. **IN FLIGHT** (run9).
+  {deepseek, luna}, n=150, seed 18. **EXECUTED** 2026-08-24 (run9, $0.42,
+  RESULTS.md addendum): the meta-finding is the ceiling — full pairwise
+  reproduces its own top-10 at only 0.3–0.7 across seeds, so top-10-of-150
+  on subjective attributes is intrinsically unstable at a 4n budget for
+  every method. The funnel brackets that ceiling in every cell at 0.3–0.6×
+  the cost; refinement beats screen-alone everywhere; the screen must be
+  setwise (slice recall 0.7–0.9 vs pointwise's erratic 0.3–1.0 — the E12
+  tie blocks bite exactly at the slice cut). Recipe: setwise rounds:2
+  screen → top-3k slice → pairwise `top_k` refine.
 - **E12 — the folk baselines, measured + truth anchors.** What a person
   tries first is pointwise "rate 0–100" (one entity per call) and
   single-call listwise (paste the whole list, one call); the book of tricks
