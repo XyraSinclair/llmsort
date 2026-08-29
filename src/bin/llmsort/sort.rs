@@ -9,6 +9,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             policy,
             policy_config,
             budget,
+            max_dollars,
+            max_seconds,
             top_k,
             format,
             scores,
@@ -43,6 +45,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 if policy.is_some()
                     || policy_config.is_some()
                     || budget.is_some()
+                    || max_dollars.is_some()
+                    || max_seconds.is_some()
                     || two_sided
                     || !also_by.is_empty()
                     || no_counterbalance
@@ -108,7 +112,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     gateway.clone(),
                     opts,
                 )
-                .await?;
+                .await
+                .map_err(|e| e.to_string())?;
 
                 // The funnel (E14): screen -> certified pairwise refine of the
                 // top-3K slice. The refined head replaces the screen's head;
@@ -193,8 +198,18 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                         ),
                         None => String::new(),
                     };
+                    let degraded = {
+                        let mut s = String::new();
+                        if let Some(e) = &sorted.first_error {
+                            s.push_str(&format!(" · first error: {e}"));
+                        }
+                        if let Some(sample) = sorted.malformed_samples.first() {
+                            s.push_str(&format!(" · malformed sample: {sample:?}"));
+                        }
+                        s
+                    };
                     eprintln!(
-                        "sorted {} items by \"{by}\" · setwise k={k} · {} calls ({} ok, {} malformed, {} errored) · ${cost_usd:.4} · {}{gauge}{components}{funnel}",
+                        "sorted {} items by \"{by}\" · setwise k={k} · {} calls ({} ok, {} malformed, {} errored) · ${cost_usd:.4} · {}{gauge}{components}{funnel}{degraded}",
                         sorted.items.len(),
                         sorted.calls,
                         sorted.calls_ok,
@@ -206,10 +221,15 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 return Ok(());
             }
 
+            let max_cost_nanodollars = max_dollars.map(dollars_to_nanodollars).transpose()?;
+            let latency_budget_ms = max_seconds.map(seconds_to_milliseconds).transpose()?;
+
             if estimate {
                 let opts = llmsort::rerank::SortOptions {
                     model: model.clone(),
                     comparison_budget: budget,
+                    max_cost_nanodollars,
+                    latency_budget_ms,
                     top_k,
                     counterbalance: !no_counterbalance,
                     two_sided,
@@ -221,8 +241,11 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 let simple = llmsort::rerank::sort::sort_request(documents.clone(), &by, &opts);
                 let multi = llmsort::rerank::simple::to_multi_request(&simple);
                 let charge = llmsort::rerank::estimate_max_rerank_charge(&multi);
+                let cost_cap = max_dollars
+                    .map(|dollars| format!(" · capped at ${dollars:.2} by --max-dollars"))
+                    .unwrap_or_default();
                 println!(
-                    "estimate: {} comparisons · ~{} input + ~{} output tokens each · ~${:.4} typical · ${:.2} hard max (provider output cap)",
+                    "estimate: {} comparisons · ~{} input + ~{} output tokens each · ~${:.4} typical · ${:.2} hard max (provider output cap){cost_cap}",
                     charge.comparison_budget,
                     charge.input_tokens_per_comparison,
                     charge.typical_output_tokens_per_comparison,
@@ -275,6 +298,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             let opts = llmsort::rerank::SortOptions {
                 model: model.clone(),
                 comparison_budget: budget,
+                max_cost_nanodollars,
+                latency_budget_ms,
                 top_k,
                 counterbalance: !no_counterbalance,
                 two_sided,
@@ -455,4 +480,32 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
     }
 
     Ok(())
+}
+
+fn dollars_to_nanodollars(dollars: f64) -> Result<i64, &'static str> {
+    if !dollars.is_finite() || dollars <= 0.0 {
+        return Err("--max-dollars must be finite and greater than 0");
+    }
+    let nanodollars = (dollars * 1e9).floor();
+    if nanodollars < 1.0 {
+        return Err("--max-dollars must be at least $0.000000001");
+    }
+    if nanodollars > i64::MAX as f64 {
+        return Err("--max-dollars is too large");
+    }
+    Ok(nanodollars as i64)
+}
+
+fn seconds_to_milliseconds(seconds: f64) -> Result<u64, &'static str> {
+    if !seconds.is_finite() || seconds <= 0.0 {
+        return Err("--max-seconds must be finite and greater than 0");
+    }
+    let milliseconds = (seconds * 1e3).ceil();
+    if milliseconds < 1.0 {
+        return Err("--max-seconds must be at least 0.001");
+    }
+    if milliseconds > u64::MAX as f64 {
+        return Err("--max-seconds is too large");
+    }
+    Ok(milliseconds as u64)
 }

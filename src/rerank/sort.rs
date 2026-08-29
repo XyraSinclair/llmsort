@@ -55,6 +55,10 @@ pub struct SortOptions {
     /// Maximum pairwise comparisons to spend. Note: with `counterbalance`
     /// (the default) each planned pair costs two comparisons.
     pub comparison_budget: Option<usize>,
+    /// Maximum provider-reported spend in nanodollars.
+    pub max_cost_nanodollars: Option<i64>,
+    /// Maximum wall-clock time in milliseconds.
+    pub latency_budget_ms: Option<u64>,
     /// Certify only the top k of the list; the tail is still returned,
     /// ordered by posterior mean, but the stopping rule targets the top-k
     /// boundary. Default: the whole list.
@@ -92,6 +96,8 @@ impl Default for SortOptions {
         Self {
             model: None,
             comparison_budget: None,
+            max_cost_nanodollars: None,
+            latency_budget_ms: None,
             top_k: None,
             tolerated_error: None,
             comparison_concurrency: None,
@@ -375,7 +381,8 @@ async fn sort_with_probes(
         },
         gates: Vec::new(),
         comparison_budget: opts.comparison_budget,
-        latency_budget_ms: None,
+        latency_budget_ms: opts.latency_budget_ms,
+        max_cost_nanodollars: opts.max_cost_nanodollars,
         model: opts.model.clone(),
         rater_id: None,
         comparison_concurrency: opts.comparison_concurrency,
@@ -535,7 +542,8 @@ pub fn sort_request(
         attribute_prompt: criterion.to_string(),
         top_k,
         comparison_budget: opts.comparison_budget,
-        latency_budget_ms: None,
+        latency_budget_ms: opts.latency_budget_ms,
+        max_cost_nanodollars: opts.max_cost_nanodollars,
         tolerated_error: opts.tolerated_error.unwrap_or(0.1),
         model: opts.model.clone(),
         rater_id: None,

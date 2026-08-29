@@ -48,6 +48,12 @@ pub struct RerankRequest {
     #[serde(default)]
     pub latency_budget_ms: Option<u64>,
 
+    /// Provider-reported spend cap. Batches shrink to fit the remaining
+    /// cap (measured mean cost per comparison), so overshoot is bounded by
+    /// one counterbalanced pair, not a full batch.
+    #[serde(default)]
+    pub max_cost_nanodollars: Option<i64>,
+
     /// Stop when top-k error falls below this threshold.
     #[serde(default = "default_tolerated_error")]
     pub tolerated_error: f64,
@@ -222,6 +228,8 @@ pub enum RerankStopReason {
     BudgetExhausted,
     /// latency_budget_ms exceeded.
     LatencyBudgetExceeded,
+    /// max_cost_nanodollars reached.
+    CostBudgetExhausted,
     /// Cancellation requested (async worker).
     Cancelled,
     /// Planner produced no proposals.
@@ -388,6 +396,12 @@ pub struct MultiRerankRequest {
     /// Maximum time budget in milliseconds.
     #[serde(default)]
     pub latency_budget_ms: Option<u64>,
+
+    /// Provider-reported spend cap. Batches shrink to fit the remaining
+    /// cap (measured mean cost per comparison), so overshoot is bounded by
+    /// one counterbalanced pair, not a full batch.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub max_cost_nanodollars: Option<i64>,
 
     /// Model to use.
     #[serde(default)]

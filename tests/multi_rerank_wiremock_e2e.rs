@@ -154,6 +154,7 @@ fn test_request(prompt_template_slug: &str) -> MultiRerankRequest {
         gates: vec![],
         comparison_budget: Some(10),
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: Some("openai/gpt-5-mini".into()),
         rater_id: None,
         comparison_concurrency: Some(1),

@@ -174,6 +174,15 @@ pub struct SetwiseSorted {
     pub calls_malformed: usize,
     /// Calls that failed at the provider.
     pub calls_errored: usize,
+    /// First provider error observed, so errored calls are never
+    /// unattributed (E15 logged 4–24% transport-error loss with no cause
+    /// on record — this field is that cause).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub first_error: Option<String>,
+    /// Up to three raw malformed answers (truncated), the debugging
+    /// surface for parse failures without a trace file.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub malformed_samples: Vec<String>,
     /// Connected components of the observation graph. 1 means every item
     /// is comparable to every other; more means the ranking is only
     /// defined within components (raise `rounds`).
@@ -198,7 +207,7 @@ pub enum SetwiseSortError {
     #[error("duplicate document id: {0}")]
     DuplicateId(String),
     /// Every judge call failed or was malformed; there is nothing to solve.
-    #[error("no usable judge calls ({malformed} malformed, {errored} errored of {attempted})")]
+    #[error("no usable judge calls ({malformed} malformed, {errored} errored of {attempted}); first error: {}", .first_error.as_deref().unwrap_or("all answers malformed"))]
     NoUsableCalls {
         /// Calls attempted.
         attempted: usize,
@@ -206,6 +215,8 @@ pub enum SetwiseSortError {
         malformed: usize,
         /// Calls that failed at the provider.
         errored: usize,
+        /// First provider error observed, if any call errored (vs parsed wrong).
+        first_error: Option<String>,
     },
     /// The solver rejected the configuration.
     #[error("rating engine: {0}")]
@@ -411,6 +422,8 @@ pub async fn sort_documents_setwise(
             calls_ok: 0,
             calls_malformed: 0,
             calls_errored: 0,
+            first_error: None,
+            malformed_samples: Vec::new(),
             components: 1,
             input_tokens: 0,
             output_tokens: 0,
@@ -485,16 +498,28 @@ pub async fn sort_documents_setwise(
     let mut subset_ranks: HashMap<Vec<usize>, Vec<HashMap<usize, usize>>> = HashMap::new();
     let (mut calls_ok, mut calls_malformed, mut calls_errored) = (0usize, 0usize, 0usize);
     let (mut input_tokens, mut output_tokens, mut cost) = (0u64, 0u64, 0i64);
+    let mut first_error: Option<String> = None;
+    let mut malformed_samples: Vec<String> = Vec::new();
 
     for (pi, order, outcome) in results {
         match outcome {
-            Err(_) => calls_errored += 1,
+            Err(e) => {
+                calls_errored += 1;
+                if first_error.is_none() {
+                    first_error = Some(e.to_string());
+                }
+            }
             Ok(resp) => {
                 input_tokens += u64::from(resp.input_tokens);
                 output_tokens += u64::from(resp.output_tokens);
                 cost += resp.cost_nanodollars;
                 match parse_slots(&resp.content, order.len(), order.len()) {
-                    None => calls_malformed += 1,
+                    None => {
+                        calls_malformed += 1;
+                        if malformed_samples.len() < 3 {
+                            malformed_samples.push(resp.content.chars().take(120).collect());
+                        }
+                    }
                     Some(slots) => {
                         calls_ok += 1;
                         // slots: slot indices most → least; map to entities.
@@ -528,6 +553,7 @@ pub async fn sort_documents_setwise(
             attempted: calls,
             malformed: calls_malformed,
             errored: calls_errored,
+            first_error,
         });
     }
 
@@ -608,6 +634,8 @@ pub async fn sort_documents_setwise(
         calls_ok,
         calls_malformed,
         calls_errored,
+        first_error,
+        malformed_samples,
         components: summary.components,
         input_tokens,
         output_tokens,

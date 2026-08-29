@@ -82,6 +82,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         gates: vec![],                // no hard filters on any attribute
         comparison_budget: None,      // no cap on number of LLM calls
         latency_budget_ms: None,      // no wall-clock time limit
+        max_cost_nanodollars: None,   // no provider-reported spend cap
         model: None,                  // use the model ladder's default
         rater_id: None,               // no logical rater grouping
         comparison_concurrency: None, // use internal default parallelism

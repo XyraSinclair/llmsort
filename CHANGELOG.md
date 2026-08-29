@@ -7,6 +7,27 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- Hard spend and wall caps in the run loop: `RerankRequest` /
+  `MultiRerankRequest` gain `max_cost_nanodollars` (serde-defaulted,
+  validated ≥ 1) and the CLI gains `--max-dollars` / `--max-seconds`
+  (pairwise path; `SortOptions` also exposes `latency_budget_ms`). The
+  orchestrator sizes each batch to the remaining cost cap using the
+  measured mean cost per comparison (typical estimate before any data),
+  so overshoot is bounded by one counterbalanced pair — not a full
+  32-comparison batch — and stops with `stop_reason:
+  cost_budget_exhausted` (verified live: $0.004 cap → 12 of 32
+  comparisons, $0.0047). `--estimate` names the cap it will honor.
+  `--max-seconds` still checks between batches only; a long in-flight
+  batch can overshoot the wall cap.
+- 429 backpressure is shared and `retry_after` is honored: a rate-limited
+  worker extends one gateway-wide cooldown (never shortens it) that every
+  dispatch waits out, instead of each worker retrying independently;
+  retry delay is `max(backoff, retry_after)` capped at 30s.
+- Setwise error parity: `SetwiseSorted` gains `first_error` and up to
+  three truncated `malformed_samples`; the CLI summary appends them when
+  nonzero, and an all-failed run says why ("no usable judge calls …;
+  first error: openrouter error: User not found.") instead of bare
+  counts.
 - First-run honesty (measured 2026-08-29 on the 8-item demo): `sort`
   reports the first comparison error in its failure message and stops after
   five consecutive non-retryable failures (`stop_reason:

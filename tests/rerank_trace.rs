@@ -239,6 +239,7 @@ fn make_request(model: &str) -> MultiRerankRequest {
         gates: vec![],
         comparison_budget: Some(1),
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: Some(model.into()),
         rater_id: None,
         comparison_concurrency: Some(1),

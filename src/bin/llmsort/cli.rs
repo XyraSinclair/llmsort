@@ -57,6 +57,12 @@ pub(super) enum Commands {
         /// Maximum pairwise comparisons to spend
         #[arg(long)]
         budget: Option<usize>,
+        /// Maximum provider-reported spend in dollars (pairwise only)
+        #[arg(long)]
+        max_dollars: Option<f64>,
+        /// Maximum wall-clock runtime in seconds (pairwise only)
+        #[arg(long)]
+        max_seconds: Option<f64>,
         /// Certify only the top K items (default: whole list)
         #[arg(long)]
         top_k: Option<usize>,

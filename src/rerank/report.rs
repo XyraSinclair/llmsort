@@ -432,6 +432,7 @@ fn stop_reason_label(reason: RerankStopReason) -> &'static str {
         RerankStopReason::CertifiedStop => "certified_stop",
         RerankStopReason::BudgetExhausted => "budget_exhausted",
         RerankStopReason::LatencyBudgetExceeded => "latency_budget_exceeded",
+        RerankStopReason::CostBudgetExhausted => "cost_budget_exhausted",
         RerankStopReason::Cancelled => "cancelled",
         RerankStopReason::NoProposals => "no_proposals",
         RerankStopReason::NoNewPairs => "no_new_pairs",
@@ -452,6 +453,9 @@ fn stop_reason_interpretation(reason: RerankStopReason) -> &'static str {
         }
         RerankStopReason::LatencyBudgetExceeded => {
             "The run stopped because it hit the configured latency budget; inspect the top-k error before treating the frontier as settled."
+        }
+        RerankStopReason::CostBudgetExhausted => {
+            "The run stopped because accrued provider spend reached the configured cost cap; inspect the top-k error before treating the frontier as settled."
         }
         RerankStopReason::Cancelled => "The run was cancelled before normal convergence.",
         RerankStopReason::NoProposals => {

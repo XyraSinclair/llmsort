@@ -274,6 +274,11 @@ pub fn validate_multi_rerank_request(req: &MultiRerankRequest) -> Result<(), Mul
             "comparison_budget must be >= 1".into(),
         ));
     }
+    if req.max_cost_nanodollars.is_some_and(|cap| cap <= 0) {
+        return Err(MultiRerankError::InvalidRequest(
+            "max_cost_nanodollars must be >= 1".into(),
+        ));
+    }
 
     if let Some(concurrency) = req.comparison_concurrency {
         if concurrency == 0 {
@@ -341,6 +346,39 @@ pub fn validate_multi_rerank_request(req: &MultiRerankRequest) -> Result<(), Mul
     validate_gate_specs(&req.gates, &attribute_ids)?;
 
     Ok(())
+}
+
+/// Batch size permitted by the cost cap: `None` once accrued spend has
+/// reached the cap, otherwise `DEFAULT_BATCH_SIZE.min(remaining_budget)`
+/// shrunk so the batch's projected spend stays inside the cap — measured
+/// mean cost per attempted comparison once data exists, the typical-cost
+/// estimate before any. Floor 2 (one counterbalanced pair), so overshoot
+/// is bounded by ~2 comparisons, never a whole 32-comparison batch.
+/// Unknown pricing estimates as 0 and degrades to the uncapped size.
+pub(super) fn cost_capped_batch_size(
+    req: &MultiRerankRequest,
+    accrued: i64,
+    attempted: usize,
+    remaining_budget: usize,
+) -> Option<usize> {
+    let uncapped = DEFAULT_BATCH_SIZE.min(remaining_budget);
+    let Some(cap) = req.max_cost_nanodollars else {
+        return Some(uncapped);
+    };
+    if accrued >= cap {
+        return None;
+    }
+    let per_comparison = if attempted > 0 && accrued > 0 {
+        accrued as f64 / attempted as f64
+    } else {
+        let est = estimate_max_rerank_charge(req);
+        est.provider_cost_typical_nanodollars as f64 / est.comparison_budget.max(1) as f64
+    };
+    if per_comparison <= 0.0 {
+        return Some(uncapped);
+    }
+    let affordable = ((cap - accrued) as f64 / per_comparison).floor() as usize;
+    Some(affordable.clamp(2, uncapped))
 }
 
 pub(super) fn finite_or_zero(x: f64) -> f64 {

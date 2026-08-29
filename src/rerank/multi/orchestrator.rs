@@ -19,7 +19,7 @@ use super::super::trace::{now_epoch_ms, ComparisonTrace};
 use super::super::types::{HigherRanked, MultiRerankRequest, PairwiseJudgement, RerankStopReason};
 use super::execution::{build_engine_config, build_trait_search_config, RerankExecution};
 use super::request::{
-    default_comparison_budget, validate_multi_rerank_request, MultiRerankError, DEFAULT_BATCH_SIZE,
+    default_comparison_budget, validate_multi_rerank_request, MultiRerankError,
     DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
 };
 use super::response::{build_response, BuiltResponse, ResponseContext};
@@ -59,7 +59,6 @@ pub(crate) async fn multi_rerank_with_failures(
 
     let (config, topk_cfg) = build_trait_search_config(&req);
 
-    // Create engines for each attribute
     let mut engines: HashMap<String, RatingEngine> = HashMap::new();
     let mut raters: HashMap<String, RaterParams> = HashMap::new();
     raters.insert(rater_id.to_string(), RaterParams::default());
@@ -144,11 +143,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     };
 
                     for obs in &observations {
-                        let (a, b) = if obs.i <= obs.j {
-                            (obs.i, obs.j)
-                        } else {
-                            (obs.j, obs.i)
-                        };
+                        let (a, b) = (obs.i.min(obs.j), obs.i.max(obs.j));
                         let key = (attr_idx, a, b);
                         let reps = if obs.reps.is_finite() && obs.reps > 0.0 {
                             obs.reps
@@ -219,16 +214,20 @@ pub(crate) async fn multi_rerank_with_failures(
                 break 'rerank RerankStopReason::LatencyBudgetExceeded;
             }
         }
-
         let remaining_budget = comparison_budget.saturating_sub(comparisons_attempted);
         if remaining_budget == 0 {
             break 'rerank RerankStopReason::BudgetExhausted;
         }
-
-        let batch_size = DEFAULT_BATCH_SIZE.min(remaining_budget);
+        let Some(batch_size) = super::request::cost_capped_batch_size(
+            &req,
+            provider_cost_nanodollars,
+            comparisons_attempted,
+            remaining_budget,
+        ) else {
+            break 'rerank RerankStopReason::CostBudgetExhausted;
+        };
         if req.counterbalance_pairs && batch_size < 2 {
-            // A counterbalanced pair needs two calls; one slot of budget
-            // cannot start a pair.
+            // A counterbalanced pair needs two calls; one slot cannot start one.
             break 'rerank RerankStopReason::BudgetExhausted;
         }
         let proposal_request_size = (batch_size.saturating_mul(3)).max(batch_size);

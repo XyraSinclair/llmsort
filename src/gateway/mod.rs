@@ -12,7 +12,8 @@ pub mod usage;
 use std::sync::Arc;
 use std::time::Duration;
 
-use tokio::time::sleep;
+use tokio::sync::Mutex;
+use tokio::time::{sleep, sleep_until, Instant};
 
 use claude_code::{ClaudeCodeAdapter, ClaudeCodeConfig};
 use codex::{CodexAdapter, CodexConfig};
@@ -45,6 +46,11 @@ impl Default for GatewayConfig {
     }
 }
 
+/// Ceiling on any single retry sleep, including provider `retry_after` hints.
+/// Operational plumbing, not a user knob: a provider asking for more than this
+/// is better served by the caller's failure accounting than by a silent stall.
+const MAX_RETRY_DELAY: Duration = Duration::from_secs(30);
+
 pub struct ProviderGateway<U: UsageSinkTrait> {
     openrouter: Option<OpenRouterAdapter>,
     claude_code: ClaudeCodeAdapter,
@@ -52,6 +58,9 @@ pub struct ProviderGateway<U: UsageSinkTrait> {
     gemini_cli: GeminiCliAdapter,
     usage_sink: Arc<U>,
     config: GatewayConfig,
+    /// Shared rate-limit cooldown: when a provider says 429, every in-flight
+    /// worker waits out one cooldown instead of retrying independently.
+    cooldown_until: Mutex<Option<Instant>>,
 }
 
 #[async_trait::async_trait]
@@ -88,6 +97,7 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
             gemini_cli,
             usage_sink,
             config: GatewayConfig::default(),
+            cooldown_until: Mutex::new(None),
         })
     }
 
@@ -103,6 +113,7 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
             gemini_cli: GeminiCliAdapter::default(),
             usage_sink,
             config,
+            cooldown_until: Mutex::new(None),
         }
     }
 
@@ -114,6 +125,7 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
             gemini_cli: GeminiCliAdapter::default(),
             usage_sink,
             config: GatewayConfig::default(),
+            cooldown_until: Mutex::new(None),
         }
     }
 
@@ -130,6 +142,7 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
             gemini_cli: GeminiCliAdapter::default(),
             usage_sink,
             config,
+            cooldown_until: Mutex::new(None),
         }
     }
 
@@ -141,11 +154,13 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
             gemini_cli: GeminiCliAdapter::default(),
             usage_sink,
             config: GatewayConfig::default(),
+            cooldown_until: Mutex::new(None),
         }
     }
 
     pub async fn chat(&self, req: ChatRequest) -> Result<ChatResponse, ProviderError> {
         for attempt in 0..=self.config.max_retries {
+            self.wait_for_cooldown().await;
             let result = match &req.model {
                 ChatModel::OpenRouter(_) => match self.openrouter.as_ref() {
                     Some(openrouter) => openrouter.chat(&req).await,
@@ -172,13 +187,38 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
                         return Err(err);
                     }
 
-                    let delay = backoff_delay(self.config.retry_base_delay, attempt);
-                    sleep(delay).await;
+                    let mut delay = backoff_delay(self.config.retry_base_delay, attempt);
+                    if let ProviderError::RateLimited { retry_after, .. } = &err {
+                        delay = delay.max(*retry_after).min(MAX_RETRY_DELAY);
+                        // Shared backpressure: park every worker behind one
+                        // cooldown; the gate at the top of the loop sleeps.
+                        self.extend_cooldown(Instant::now() + delay).await;
+                    } else {
+                        delay = delay.min(MAX_RETRY_DELAY);
+                        sleep(delay).await;
+                    }
                 }
             }
         }
 
         unreachable!("gateway retry loop must return within configured attempts")
+    }
+
+    /// Sleep until the shared rate-limit cooldown (if any) has passed.
+    async fn wait_for_cooldown(&self) {
+        let wait = {
+            let guard = self.cooldown_until.lock().await;
+            guard.filter(|until| *until > Instant::now())
+        };
+        if let Some(until) = wait {
+            sleep_until(until).await;
+        }
+    }
+
+    /// Push the shared cooldown out to at least `until` (never shortens it).
+    async fn extend_cooldown(&self, until: Instant) {
+        let mut guard = self.cooldown_until.lock().await;
+        *guard = Some(guard.map_or(until, |existing| existing.max(until)));
     }
 
     async fn record_usage(

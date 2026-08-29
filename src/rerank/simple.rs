@@ -62,6 +62,7 @@ pub fn to_multi_request(req: &RerankRequest) -> MultiRerankRequest {
         gates: Vec::new(), // No gates in simple mode
         comparison_budget: req.comparison_budget,
         latency_budget_ms: req.latency_budget_ms,
+        max_cost_nanodollars: req.max_cost_nanodollars,
         model: req.model.clone(),
         rater_id: req.rater_id.clone(),
         comparison_concurrency: req.comparison_concurrency,
