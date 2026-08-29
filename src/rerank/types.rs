@@ -127,6 +127,12 @@ pub struct RerankMeta {
     pub tolerated_error: f64,
     /// Total comparisons attempted (including refusals).
     pub comparisons_attempted: usize,
+    /// Comparisons that failed before producing a judgement.
+    #[serde(default)]
+    pub comparisons_failed: usize,
+    /// First comparison error observed during the run.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub first_error: Option<String>,
     /// Comparisons that produced observations.
     pub comparisons_used: usize,
     /// Comparisons where model refused.
@@ -222,6 +228,8 @@ pub enum RerankStopReason {
     NoProposals,
     /// Proposals existed but none were eligible to run.
     NoNewPairs,
+    /// Too many consecutive non-retryable comparison failures.
+    ConsecutiveFailures,
 }
 
 /// Input entity for multi-attribute reranking.

@@ -3,7 +3,7 @@
 //! This is syntactic sugar over multi-attribute reranking with a single attribute.
 //! Guarantees identical semantics while providing a simpler request shape.
 
-use super::multi::{multi_rerank, MultiRerankError, RerankExecution};
+use super::multi::{multi_rerank_with_failures, MultiRerankError, RerankExecution};
 use super::types::{
     MultiRerankAttributeSpec, MultiRerankEntity, MultiRerankRequest, MultiRerankTopKSpec,
     RerankMeta, RerankRequest, RerankResponse, RerankResult,
@@ -80,7 +80,8 @@ pub async fn rerank(
 ) -> Result<RerankResponse, MultiRerankError> {
     let multi_req = to_multi_request(&req);
 
-    let multi_resp = multi_rerank(multi_req, execution).await?;
+    let outcome = multi_rerank_with_failures(multi_req, execution).await?;
+    let multi_resp = outcome.response;
 
     // Map response to simple format
     let results: Vec<RerankResult> = multi_resp
@@ -103,17 +104,27 @@ pub async fn rerank(
         })
         .collect();
 
-    let meta = meta_from_multi(multi_resp.meta);
+    let meta = meta_from_multi(
+        multi_resp.meta,
+        outcome.comparisons_failed,
+        outcome.first_error,
+    );
 
     Ok(RerankResponse { results, meta })
 }
 
 /// Flatten multi-rerank run metadata into the single-attribute meta shape.
-pub(crate) fn meta_from_multi(meta: super::types::MultiRerankMeta) -> RerankMeta {
+pub(crate) fn meta_from_multi(
+    meta: super::types::MultiRerankMeta,
+    comparisons_failed: usize,
+    first_error: Option<String>,
+) -> RerankMeta {
     RerankMeta {
         topk_error: meta.global_topk_error,
         tolerated_error: meta.tolerated_error,
         comparisons_attempted: meta.comparisons_attempted,
+        comparisons_failed,
+        first_error,
         comparisons_used: meta.comparisons_used,
         comparisons_refused: meta.comparisons_refused,
         comparisons_cached: meta.comparisons_cached,

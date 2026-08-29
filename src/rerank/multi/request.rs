@@ -6,6 +6,7 @@ use crate::text_chunking::count_tokens;
 
 use super::super::comparison::{
     estimate_pairwise_input_tokens, ComparisonError, PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT,
+    PAIRWISE_TYPICAL_OUTPUT_TOKENS,
 };
 use super::super::gates::validate_gate_specs;
 use super::super::trace::TraceError;
@@ -82,6 +83,8 @@ pub struct RerankChargeEstimate {
     pub comparison_budget: usize,
     pub input_tokens_per_comparison: u32,
     pub output_tokens_per_comparison: u32,
+    pub typical_output_tokens_per_comparison: u32,
+    pub provider_cost_typical_nanodollars: i64,
     pub provider_cost_max_nanodollars: i64,
     pub user_charge_max_nanodollars: i64,
 }
@@ -98,6 +101,8 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
             comparison_budget,
             input_tokens_per_comparison: 0,
             output_tokens_per_comparison: PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT,
+            typical_output_tokens_per_comparison: PAIRWISE_TYPICAL_OUTPUT_TOKENS,
+            provider_cost_typical_nanodollars: 0,
             provider_cost_max_nanodollars: 0,
             user_charge_max_nanodollars: 0,
         };
@@ -160,9 +165,19 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
         output_tokens_per_comparison,
     )
     .saturating_mul(i64::from(calls_per_comparison));
+    let typical_output_tokens_per_call =
+        PAIRWISE_TYPICAL_OUTPUT_TOKENS.min(output_tokens_per_comparison);
+    let provider_cost_typical_per_comparison = provider_pricing::chat_cost(
+        model,
+        input_tokens_per_comparison,
+        typical_output_tokens_per_call,
+    )
+    .saturating_mul(i64::from(calls_per_comparison));
 
     let provider_cost_max_nanodollars =
         provider_cost_per_comparison.saturating_mul(comparison_budget as i64);
+    let provider_cost_typical_nanodollars =
+        provider_cost_typical_per_comparison.saturating_mul(comparison_budget as i64);
     let user_charge_max_nanodollars = apply_rerank_markup(provider_cost_max_nanodollars);
 
     RerankChargeEstimate {
@@ -171,6 +186,9 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
             .saturating_mul(calls_per_comparison),
         output_tokens_per_comparison: output_tokens_per_comparison
             .saturating_mul(calls_per_comparison),
+        typical_output_tokens_per_comparison: typical_output_tokens_per_call
+            .saturating_mul(calls_per_comparison),
+        provider_cost_typical_nanodollars,
         provider_cost_max_nanodollars,
         user_charge_max_nanodollars,
     }

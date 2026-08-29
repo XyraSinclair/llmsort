@@ -222,10 +222,11 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 let multi = llmsort::rerank::simple::to_multi_request(&simple);
                 let charge = llmsort::rerank::estimate_max_rerank_charge(&multi);
                 println!(
-                    "worst case: {} comparisons · ~{} input + {} output tokens each · provider max ${:.4}",
+                    "estimate: {} comparisons · ~{} input + ~{} output tokens each · ~${:.4} typical · ${:.2} hard max (provider output cap)",
                     charge.comparison_budget,
                     charge.input_tokens_per_comparison,
-                    charge.output_tokens_per_comparison,
+                    charge.typical_output_tokens_per_comparison,
+                    charge.provider_cost_typical_nanodollars as f64 / 1e9,
                     charge.provider_cost_max_nanodollars as f64 / 1e9,
                 );
                 eprintln!(
@@ -316,8 +317,14 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             // A sort where every comparison failed or was refused is not a
             // sort; refuse to emit uninformative output on stdout.
             if sorted.meta.comparisons_attempted > 0 && sorted.meta.comparisons_used == 0 {
+                let first_error = sorted
+                    .meta
+                    .first_error
+                    .as_deref()
+                    .map(|error| format!("; first error: {error}"))
+                    .unwrap_or_default();
                 return Err(format!(
-                    "all {} comparison attempts failed ({} refused); output would be \
+                    "all {} comparison attempts failed ({} refused){first_error}; output would be \
                      uninformative. Re-run with --trace <path> to see per-comparison \
                      errors (bad model slug and invalid API key are the usual causes).",
                     sorted.meta.comparisons_attempted, sorted.meta.comparisons_refused,
@@ -374,6 +381,17 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     meta.comparisons_refused,
                     serde_json::to_value(meta.stop_reason)?.as_str().unwrap_or("unknown"),
                 );
+                if meta.comparisons_attempted > 0 {
+                    let unresolved = adjacent_ranks_within_one_sigma(&sorted.items);
+                    if unresolved == 0 {
+                        eprintln!("resolution: every adjacent rank is separated by more than 1σ");
+                    } else {
+                        eprintln!(
+                            "resolution: {unresolved} of {} adjacent ranks are within 1σ of each other — the order is coarse at this budget; raise --budget or set --top-k to focus it",
+                            sorted.items.len().saturating_sub(1),
+                        );
+                    }
+                }
                 // Error budget, experimentalist-style: statistical and
                 // systematic components side by side, each in its native
                 // unit — never silently pooled.

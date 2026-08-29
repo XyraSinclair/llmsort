@@ -7,6 +7,10 @@ use super::*;
 /// empty visible output on OpenRouter.
 pub const PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT: u32 = 8192;
 pub const PAIRWISE_MAX_OUTPUT_TOKENS_GPT5: u32 = PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT;
+/// Measured 27 mean / 32 max on gpt-5.4-mini canonical_v2, 2026-08-29.
+/// 48 leaves headroom; reasoning-mode models can exceed it, while the cap
+/// still bounds the worst case.
+pub const PAIRWISE_TYPICAL_OUTPUT_TOKENS: u32 = 48;
 pub const PAIRWISE_LOGPROBS_TOP_N_DEFAULT: u32 = 20;
 pub const PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS: usize = 3;
 
@@ -50,6 +54,20 @@ pub enum ComparisonError {
     Cache(#[from] CacheError),
     #[error("Cache miss: {0}")]
     CacheMiss(String),
+}
+
+impl ComparisonError {
+    pub(crate) fn next_non_retryable_streak(&self, current: usize) -> usize {
+        let retryable = match self {
+            Self::Provider(error) => error.is_retryable(),
+            Self::Parse(_) | Self::Cache(_) | Self::CacheMiss(_) => false,
+        };
+        if retryable {
+            0
+        } else {
+            current.saturating_add(1)
+        }
+    }
 }
 
 /// Usage info for a single LLM comparison call.

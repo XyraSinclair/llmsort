@@ -80,6 +80,17 @@ pub(super) fn parse_sort_items(
     }
 }
 
+pub(super) fn adjacent_ranks_within_one_sigma(items: &[llmsort::rerank::SortedItem]) -> usize {
+    items
+        .windows(2)
+        .filter(|pair| {
+            let gap = (pair[0].latent_mean - pair[1].latent_mean).abs();
+            let joint_std = pair[0].latent_std.hypot(pair[1].latent_std);
+            gap < joint_std
+        })
+        .count()
+}
+
 /// Render sorted output in the requested format.
 pub(super) fn render_sorted(
     out: &mut impl Write,

@@ -7,6 +7,15 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- First-run honesty (measured 2026-08-29 on the 8-item demo): `sort`
+  reports the first comparison error in its failure message and stops after
+  five consecutive non-retryable failures (`stop_reason:
+  consecutive_failures`; `RerankMeta` gains `comparisons_failed` and
+  `first_error`, both serde-defaulted); `--estimate` prints a typical cost
+  (48 output tokens/comparison, measured 27 mean) beside the hard max it
+  used to print alone (the cap-based figure overquoted the demo 94x); the
+  run summary gains a `resolution:` line counting adjacent ranks inside
+  joint 1σ, so an order that is statistically noise says so.
 - One repo, all names, all history (operator decisions 2026-08-19):
   the GitHub repo is `llmsort`; the legacy names `cardinal-harness`,
   `ratiometer`, and `llmsorting` all redirect here (each was walked

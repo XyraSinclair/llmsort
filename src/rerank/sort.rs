@@ -237,6 +237,8 @@ pub async fn sort_documents(
                 topk_error: 0.0,
                 tolerated_error: opts.tolerated_error.unwrap_or(0.1),
                 comparisons_attempted: 0,
+                comparisons_failed: 0,
+                first_error: None,
                 comparisons_used: 0,
                 comparisons_refused: 0,
                 comparisons_cached: 0,
@@ -382,7 +384,8 @@ async fn sort_with_probes(
         counterbalance_pairs: opts.counterbalance,
     };
 
-    let response = super::multi::multi_rerank(request, execution).await?;
+    let outcome = super::multi::multi_rerank_with_failures(request, execution).await?;
+    let response = outcome.response;
 
     // Primary latent vectors (entity order) for probe consistency.
     let primary: Vec<Option<f64>> = response
@@ -450,7 +453,11 @@ async fn sort_with_probes(
 
     Ok(SortedTexts {
         items,
-        meta: simple::meta_from_multi(response.meta),
+        meta: simple::meta_from_multi(
+            response.meta,
+            outcome.comparisons_failed,
+            outcome.first_error,
+        ),
         probes,
     })
 }

@@ -13,6 +13,8 @@ use super::request::{finite_or_zero, MultiRerankError};
 pub(super) struct ResponseContext<'a> {
     pub(super) topk_cfg: &'a TopKConfig,
     pub(super) comparisons_attempted: usize,
+    pub(super) comparisons_failed: usize,
+    pub(super) first_error: Option<String>,
     pub(super) comparisons_used: usize,
     pub(super) comparisons_refused: usize,
     pub(super) comparisons_cached: usize,
@@ -37,14 +39,22 @@ pub(super) struct ResponseContext<'a> {
     pub(super) stop_reason: RerankStopReason,
 }
 
+pub(crate) struct BuiltResponse {
+    pub(crate) response: MultiRerankResponse,
+    pub(crate) comparisons_failed: usize,
+    pub(crate) first_error: Option<String>,
+}
+
 pub(super) fn build_response(
     req: &MultiRerankRequest,
     manager: &mut TraitSearchManager,
     context: ResponseContext<'_>,
-) -> Result<MultiRerankResponse, MultiRerankError> {
+) -> Result<BuiltResponse, MultiRerankError> {
     let ResponseContext {
         topk_cfg,
         comparisons_attempted,
+        comparisons_failed,
+        first_error,
         comparisons_used,
         comparisons_refused,
         comparisons_cached,
@@ -292,11 +302,15 @@ pub(super) fn build_response(
     // matrix (do the attributes measure different things?).
     let (pareto_front, attribute_correlations) = multi_objective_summary(req, &entities_out);
 
-    Ok(MultiRerankResponse {
-        entities: entities_out,
-        meta,
-        pareto_front,
-        attribute_correlations,
+    Ok(BuiltResponse {
+        response: MultiRerankResponse {
+            entities: entities_out,
+            meta,
+            pareto_front,
+            attribute_correlations,
+        },
+        comparisons_failed,
+        first_error,
     })
 }
 

@@ -39,7 +39,8 @@ pub use types::{
     ComparisonUsage, EvidenceMoments, PairwiseComparisonAttribute, PairwiseComparisonEntity,
     PairwiseComparisonRequest, PairwiseComparisonSpec, DECIMAL_LEDGER_SLUG, ORDINAL_LETTER_SLUG,
     PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS, PAIRWISE_LOGPROBS_TOP_N_DEFAULT,
-    PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT, PAIRWISE_MAX_OUTPUT_TOKENS_GPT5, RATIO_LETTER_SLUG,
+    PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT, PAIRWISE_MAX_OUTPUT_TOKENS_GPT5,
+    PAIRWISE_TYPICAL_OUTPUT_TOKENS, RATIO_LETTER_SLUG,
 };
 
 use decimal_ledger_path::compare_pair_decimal_ledger;

@@ -16,24 +16,24 @@ use super::super::comparison::{
 use super::super::hooks::ComparisonEvent;
 use super::super::model_policy::ModelPolicyContext;
 use super::super::trace::{now_epoch_ms, ComparisonTrace};
-use super::super::types::{
-    HigherRanked, MultiRerankRequest, MultiRerankResponse, PairwiseJudgement, RerankStopReason,
-};
+use super::super::types::{HigherRanked, MultiRerankRequest, PairwiseJudgement, RerankStopReason};
 use super::execution::{build_engine_config, build_trait_search_config, RerankExecution};
 use super::request::{
     default_comparison_budget, validate_multi_rerank_request, MultiRerankError, DEFAULT_BATCH_SIZE,
     DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
 };
-use super::response::{build_response, ResponseContext};
+use super::response::{build_response, BuiltResponse, ResponseContext};
 use super::task::{CompareTask, TraceFields};
+
+const CONSECUTIVE_FAILURE_LIMIT: usize = 5;
 /// Run a multi-attribute reranking session.
 ///
 /// If a cache is provided, cached pairwise judgements are reused and new
 /// judgements are written back to the cache.
-pub async fn multi_rerank(
+pub(crate) async fn multi_rerank_with_failures(
     req: MultiRerankRequest,
     execution: RerankExecution<'_>,
-) -> Result<MultiRerankResponse, MultiRerankError> {
+) -> Result<BuiltResponse, MultiRerankError> {
     validate_multi_rerank_request(&req)?;
 
     let n_entities = req.entities.len();
@@ -95,6 +95,9 @@ pub async fn multi_rerank(
     let mut pair_repeats: HashMap<(usize, usize, usize), f64> = HashMap::new();
 
     let mut comparisons_attempted: usize = 0;
+    let mut comparisons_failed: usize = 0;
+    let mut first_error: Option<String> = None;
+    let mut consecutive_failures: usize = 0;
     let mut comparisons_used: usize = 0;
     let mut comparisons_refused: usize = 0;
     let mut comparisons_cached: usize = 0;
@@ -492,6 +495,7 @@ pub async fn multi_rerank(
 
             match judgement {
                 Ok((PairwiseJudgement::Refused, usage)) => {
+                    consecutive_failures = 0;
                     if usage.cached {
                         comparisons_cached += 1;
                     }
@@ -551,6 +555,7 @@ pub async fn multi_rerank(
                     },
                     usage,
                 )) => {
+                    consecutive_failures = 0;
                     if usage.cached {
                         comparisons_cached += 1;
                     }
@@ -732,6 +737,9 @@ pub async fn multi_rerank(
                     }
                 }
                 Err(e) => {
+                    comparisons_failed = comparisons_failed.saturating_add(1);
+                    first_error.get_or_insert_with(|| e.to_string());
+                    consecutive_failures = e.next_non_retryable_streak(consecutive_failures);
                     if let Some(trace) = execution.trace {
                         let event = build_trace(false, 0, 0, 0, false, None, Some(e.to_string()));
                         trace.record(event)?;
@@ -749,6 +757,10 @@ pub async fn multi_rerank(
                 }
             }
         }
+
+        if consecutive_failures >= CONSECUTIVE_FAILURE_LIMIT {
+            break 'rerank RerankStopReason::ConsecutiveFailures;
+        }
     };
 
     build_response(
@@ -757,6 +769,8 @@ pub async fn multi_rerank(
         ResponseContext {
             topk_cfg: &topk_cfg,
             comparisons_attempted,
+            comparisons_failed,
+            first_error,
             comparisons_used,
             comparisons_refused,
             comparisons_cached,

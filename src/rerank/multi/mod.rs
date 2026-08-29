@@ -25,11 +25,21 @@ mod task;
 pub use execution::{
     build_engine_config, build_trait_search_config, JudgementRunInstrumentation, RerankExecution,
 };
-pub use orchestrator::multi_rerank;
+pub(crate) use orchestrator::multi_rerank_with_failures;
 pub use request::{
     apply_rerank_markup, estimate_max_rerank_charge, validate_multi_rerank_request,
     MultiRerankError, RerankChargeEstimate, EVIDENCE_VAR_FLOOR,
 };
+
+/// Run a multi-attribute reranking session.
+pub async fn multi_rerank(
+    request: super::types::MultiRerankRequest,
+    execution: RerankExecution<'_>,
+) -> Result<super::types::MultiRerankResponse, MultiRerankError> {
+    Ok(multi_rerank_with_failures(request, execution)
+        .await?
+        .response)
+}
 
 #[cfg(test)]
 mod tests;

@@ -8,7 +8,7 @@
 //! ranking into named, weighted, reusable criteria — or to discover that
 //! none of your candidate attributes explains your own taste.
 
-use super::multi::{multi_rerank, MultiRerankError, RerankExecution};
+use super::multi::{multi_rerank_with_failures, MultiRerankError, RerankExecution};
 use super::simple;
 use super::sort::{average_ranks, spearman};
 use super::types::{
@@ -158,7 +158,8 @@ pub async fn explain_ranking(
         counterbalance_pairs: opts.counterbalance,
     };
 
-    let response = multi_rerank(request, execution).await?;
+    let outcome = multi_rerank_with_failures(request, execution).await?;
+    let response = outcome.response;
 
     // Reference scores: input order, best first -> descending scores.
     // Entity order in the response matches ranking, so look up by id.
@@ -228,7 +229,11 @@ pub async fn explain_ranking(
     Ok(Explanation {
         attributes,
         combined_spearman,
-        meta: simple::meta_from_multi(response.meta),
+        meta: simple::meta_from_multi(
+            response.meta,
+            outcome.comparisons_failed,
+            outcome.first_error,
+        ),
     })
 }
 
@@ -507,7 +512,8 @@ pub async fn differentiation_profile(
         counterbalance_pairs: opts.counterbalance,
     };
 
-    let response = multi_rerank(request, execution).await?;
+    let outcome = multi_rerank_with_failures(request, execution).await?;
+    let response = outcome.response;
 
     let focal = response
         .entities
@@ -544,7 +550,11 @@ pub async fn differentiation_profile(
     Ok(DifferentiationProfile {
         focal_id: focal_id.to_string(),
         attributes: profile,
-        meta: simple::meta_from_multi(response.meta),
+        meta: simple::meta_from_multi(
+            response.meta,
+            outcome.comparisons_failed,
+            outcome.first_error,
+        ),
     })
 }
 

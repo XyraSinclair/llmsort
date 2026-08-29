@@ -435,6 +435,7 @@ fn stop_reason_label(reason: RerankStopReason) -> &'static str {
         RerankStopReason::Cancelled => "cancelled",
         RerankStopReason::NoProposals => "no_proposals",
         RerankStopReason::NoNewPairs => "no_new_pairs",
+        RerankStopReason::ConsecutiveFailures => "consecutive_failures",
     }
 }
 
@@ -458,6 +459,9 @@ fn stop_reason_interpretation(reason: RerankStopReason) -> &'static str {
         }
         RerankStopReason::NoNewPairs => {
             "The planner found candidate comparisons, but all eligible pairs were already known or blocked."
+        }
+        RerankStopReason::ConsecutiveFailures => {
+            "The run stopped after repeated non-retryable comparison failures."
         }
     }
 }
