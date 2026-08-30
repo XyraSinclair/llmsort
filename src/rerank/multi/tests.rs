@@ -119,7 +119,9 @@ fn validate_rejects_duplicate_attribute_definitions() {
     req.attributes.push(MultiRerankAttributeSpec {
         id: "attr-copy".to_string(),
         prompt: req.attributes[0].prompt.clone(),
-        prompt_template_slug: Some("canonical_v2".to_string()),
+        // Same slug = same instrument. (`None` vs an explicit slug is NOT a
+        // duplicate: `None` resolves per model, usually to a PMF rail.)
+        prompt_template_slug: req.attributes[0].prompt_template_slug.clone(),
         weight: 1.0,
     });
     let err = validate_multi_rerank_request(&req).unwrap_err();

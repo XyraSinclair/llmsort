@@ -14,13 +14,6 @@ pub(super) async fn compare_pair_seriate(
     cache: Option<&dyn PairwiseCache>,
     request: PairwiseComparisonRequest<'_>,
 ) -> Result<(PairwiseJudgement, ComparisonUsage), ComparisonError> {
-    let instrument = evidence_instrument_for_slug(
-        request
-            .spec
-            .attribute
-            .prompt_template_slug
-            .unwrap_or(RATIO_LETTER_SLUG),
-    );
     let rendered = request.spec.prompt_instance();
     let rendered_prompt_digest = rendered.rendered_digest();
     let cache_key = cache.map(|_| request.spec.cache_key());
@@ -93,9 +86,6 @@ pub(super) async fn compare_pair_seriate(
     // error) and pin reasoning off where the route requires it. Unknown
     // models keep the optimistic 20 and rely on the loud degradation below.
     let route = super::types::seriate_logprob_route(request.spec.model);
-    if route.is_some_and(|r| r.pin_reasoning_off) {
-        base_request.reasoning = Some(ReasoningConfig::disabled());
-    }
 
     let mut input_tokens_total = 0u32;
     let mut cache_read_tokens_total: Option<u32> = None;
@@ -110,18 +100,14 @@ pub(super) async fn compare_pair_seriate(
     // with the judge's own reasoning in context. Same system + user bytes,
     // so the provider prefix cache serves the re-sent turn-1 prompt warm.
     if rendered.template_slug == RATIO_LETTER_2P_SLUG {
-        let mut analysis_request = base_request
+        // Runs at provider-default effort by construction: the reasoning pin
+        // is applied below, after this clone, so the judge reasons here.
+        let analysis_request = base_request
             .clone()
             .max_tokens(super::types::TWO_PHASE_ANALYSIS_MAX_TOKENS);
-        // Let the judge reason where its route says reasoning exists; the
-        // measured two-phase shape runs turn 1 at provider-default effort.
-        analysis_request.reasoning = None;
         let analysis_response = gateway.chat(analysis_request).await?;
         input_tokens_total = input_tokens_total.saturating_add(analysis_response.input_tokens);
-        if let Some(read) = analysis_response.cache_read_tokens {
-            cache_read_tokens_total =
-                Some(cache_read_tokens_total.unwrap_or(0).saturating_add(read));
-        }
+        cache_read_tokens_total = analysis_response.cache_read_tokens;
         output_tokens_total = output_tokens_total.saturating_add(analysis_response.output_tokens);
         provider_cost_total =
             provider_cost_total.saturating_add(analysis_response.cost_nanodollars);
@@ -142,6 +128,10 @@ pub(super) async fn compare_pair_seriate(
                 .messages
                 .push(Message::user(ratio_letter::TWO_PHASE_ANSWER_PROMPT));
         }
+    }
+
+    if route.is_some_and(|r| r.pin_reasoning_off) {
+        base_request.reasoning = Some(ReasoningConfig::disabled());
     }
 
     // Attempt 1: with logprobs. If the provider rejects the PARAMETER
@@ -184,7 +174,9 @@ pub(super) async fn compare_pair_seriate(
         ledger_draws: None,
     };
 
-    let parsed = match instrument.parse(&response.content, response.output_logprobs.as_deref()) {
+    let parsed = match evidence_instrument_for_slug(&rendered.template_slug)
+        .parse(&response.content, response.output_logprobs.as_deref())
+    {
         Ok(parsed) => parsed,
         Err(err) => {
             warn!(error = %err, "ratio-letter parse failed; treating as refusal");

@@ -188,7 +188,7 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
             (
                 a.id.as_str(),
                 a.prompt.as_str(),
-                Some(a.prompt_template_slug.as_deref().unwrap_or(default_slug)),
+                a.prompt_template_slug.as_deref(),
             )
         })
         .max_by_key(|(_, p, _)| count_tokens(p))
@@ -359,7 +359,7 @@ pub fn validate_multi_rerank_request(req: &MultiRerankRequest) -> Result<(), Mul
     }
 
     let mut attribute_ids: HashSet<&str> = HashSet::new();
-    let mut attribute_definitions: HashSet<(&str, &str)> = HashSet::new();
+    let mut attribute_definitions: HashSet<(&str, Option<&str>)> = HashSet::new();
     for a in &req.attributes {
         if !a.weight.is_finite() {
             return Err(MultiRerankError::InvalidRequest(format!(
@@ -381,8 +381,7 @@ pub fn validate_multi_rerank_request(req: &MultiRerankRequest) -> Result<(), Mul
                 a.id
             )));
         }
-        let template = a.prompt_template_slug.as_deref().unwrap_or("canonical_v2");
-        if !attribute_definitions.insert((a.prompt.as_str(), template)) {
+        if !attribute_definitions.insert((a.prompt.as_str(), a.prompt_template_slug.as_deref())) {
             return Err(MultiRerankError::InvalidRequest(format!(
                 "duplicate attribute definition: prompt and template match attribute {}",
                 a.id
