@@ -67,6 +67,9 @@ text. Do not put free-text analysis before the answer tokens in a PMF instrument
 
 ## Two-phase elicitation: reasoning context, then a logprob read
 
+Productized 2026-08-30 as `ratio_letter_2p_v1` (src/rerank/comparison/seriate.rs;
+default for the reasoning-native 5.5/5.6 families via `default_template_slug`).
+
 There is no direct way to get a PMF from a reasoning pass. There is a two-phase way.
 Phase 1 asks the model for an analysis at `reasoning_effort: "medium"` without a
 verdict. Phase 2 sends a new request at `effort: "none"` with the analysis in the

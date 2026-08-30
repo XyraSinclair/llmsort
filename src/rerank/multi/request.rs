@@ -99,10 +99,18 @@ pub struct RerankChargeEstimate {
 /// `None` model means the library default model.
 pub fn default_template_slug(model: Option<&str>) -> &'static str {
     let model = model.unwrap_or(DEFAULT_MODEL);
-    if crate::rerank::comparison::seriate_logprob_route(model).is_some() {
-        crate::rerank::comparison::RATIO_LETTER_SLUG
-    } else {
-        "canonical_v2"
+    match crate::rerank::comparison::seriate_logprob_route(model) {
+        // Reasoning-native judges (logprobs only at effort none) do their
+        // consistency work in reasoning the logprob gate forbids; they get
+        // the two-phase read — reasoned analysis, then a reasoning-off
+        // one-token PMF verdict with the analysis in context. Families
+        // where unset effort also serves logprobs measured worse under
+        // two-phase and keep the plain rail (route doc, NORTH spine 3).
+        Some(route) if route.requires_effort_none => {
+            crate::rerank::comparison::RATIO_LETTER_2P_SLUG
+        }
+        Some(_) => crate::rerank::comparison::RATIO_LETTER_SLUG,
+        None => "canonical_v2",
     }
 }
 
@@ -148,18 +156,26 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
                 a.prompt_template_slug.as_deref().unwrap_or(default_slug),
             )
         });
-    let output_tokens_per_comparison = if all_evidence {
+    let any_two_phase = req.attributes.iter().any(|a| {
+        a.prompt_template_slug.as_deref().unwrap_or(default_slug)
+            == crate::rerank::comparison::RATIO_LETTER_2P_SLUG
+    });
+    let output_tokens_per_comparison = if any_two_phase {
+        // Analysis turn cap plus the one-token verdict call's floor.
+        crate::rerank::comparison::TWO_PHASE_ANALYSIS_MAX_TOKENS + 16
+    } else if all_evidence {
         16
     } else {
         PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT
     };
-    // The decimal-ledger instrument makes K gateway calls per comparison
-    // (each resending the full prompt); reserve for the worst case when any
-    // attribute uses it, matching the worst-case prompt selection below.
+    // Instruments that make several gateway calls per comparison (each
+    // resending the full prompt): decimal ledger K draws, two-phase 2.
     let calls_per_comparison = if req.attributes.iter().any(|a| {
         a.prompt_template_slug.as_deref() == Some(crate::rerank::comparison::DECIMAL_LEDGER_SLUG)
     }) {
         crate::rerank::comparison::DECIMAL_LEDGER_DRAWS as u32
+    } else if any_two_phase {
+        2
     } else {
         1
     };

@@ -120,6 +120,72 @@ impl Instrument for RatioLetterAttrLastInstrument {
     }
 }
 
+/// The fixed second-turn instruction of the two-phase instrument. Part of
+/// the template identity (folded into the template hash below).
+pub const TWO_PHASE_ANSWER_PROMPT: &str =
+    "Answer now: exactly one character — the ladder letter (or '!') — as the first and only \
+     thing you output.";
+
+fn two_phase_system_prompt() -> String {
+    let mut s = system_prompt();
+    s.push_str(
+        "\nThis judgement happens in two turns. Turn 1: give a brief concrete analysis \
+         (2-4 sentences) weighing the two entities on the attribute — cite what in each entity \
+         drives your judgement. Do NOT state a letter, a ratio, or any final verdict in turn 1. \
+         Turn 2: when asked to answer, output exactly one character as specified above.\n",
+    );
+    s
+}
+
+/// Two-phase variant of [`RatioLetterInstrument`] for reasoning-class
+/// judges: turn 1 elicits a reasoned analysis with the verdict token
+/// forbidden (a visible verdict collapses the turn-2 PMF — measured,
+/// docs/LOGPROBS.md), turn 2 re-sends the conversation with the analysis
+/// as an assistant message and reads the single ladder letter at
+/// reasoning-off with answer logprobs. The judge's consistency work
+/// happens where it actually lives (its reasoning), while the posterior
+/// still arrives as one token position's PMF. `render` returns the turn-1
+/// prompt (the deterministic part); the executing path appends the
+/// analysis and [`TWO_PHASE_ANSWER_PROMPT`].
+#[derive(Clone, Copy, Debug, Default)]
+pub struct RatioLetterTwoPhaseInstrument;
+
+impl Instrument for RatioLetterTwoPhaseInstrument {
+    fn kind(&self) -> InstrumentKind {
+        InstrumentKind::RatioLetterPairwise
+    }
+
+    fn parser_version(&self) -> ParserVersion {
+        ParserVersion(PARSER_VERSION.to_string())
+    }
+
+    fn render(&self, attribute: &Attribute, slot_a: &Entity, slot_b: &Entity) -> RenderedPrompt {
+        let system = two_phase_system_prompt();
+        let user = render_user(attribute, &slot_a.body, &slot_b.body);
+        // The fixed turn-2 instruction is part of the instrument's identity:
+        // fold it into the skeleton so changing it changes the hash.
+        let skeleton = format!(
+            "{}\u{1f}{TWO_PHASE_ANSWER_PROMPT}",
+            render_user(attribute, SLOT_A_PLACEHOLDER, SLOT_B_PLACEHOLDER)
+        );
+        RenderedPrompt {
+            template: template_hash(&system, &skeleton),
+            system,
+            user,
+            response_format_json: false,
+            answer_alphabet: ratio_letter_alphabet(),
+        }
+    }
+
+    fn parse(
+        &self,
+        content: &str,
+        answer_logprobs: Option<&[TokenLogprob]>,
+    ) -> Result<ParseOutcome, InstrumentError> {
+        RatioLetterInstrument.parse(content, answer_logprobs)
+    }
+}
+
 /// The 52 single-character tokens whose logprobs constitute the answer PMF
 /// (the refusal token `!` is intentionally excluded: it is not part of the
 /// informative alphabet, only a health signal).

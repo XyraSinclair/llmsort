@@ -7,6 +7,22 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Two-phase PMF rail (`ratio_letter_2p_v1`), default for reasoning-native
+  judges**: turn 1 elicits a brief reasoned analysis with the verdict token
+  forbidden (a visible verdict collapses the answer PMF — docs/LOGPROBS.md);
+  turn 2 re-sends the conversation with the analysis as an assistant
+  message and reads the single ladder letter at reasoning-off with clamped
+  answer logprobs (same system+user bytes, so the provider prefix cache
+  serves the re-sent turn warm). Measured on gpt-5.6-terra (8×32, seed 7):
+  cyclic energy 21.6% → 2.4% and frustration 0.216 → 0.024 vs the
+  single-phase rail — beating the JSON rail's consistency (7.6%/0.076)
+  while keeping PMF precision (stat ±0.050) — at $0.124 vs $0.034. The
+  default follows the measured line: families whose logprobs REQUIRE
+  effort none (5.5/5.6, reasoning-native) get the two-phase read;
+  families where unset effort also serves logprobs measured worse under
+  it (5.4-mini: cyclic 11.7% vs 2.9%) and keep the plain rail; the
+  charge estimate prices the two-call protocol. Empty analysis degrades
+  loudly to the single-phase verdict.
 - **Default judge is now `openai/gpt-5.6-terra`** (was gpt-5.4-mini; the
   current family's mid class, at gpt-5.4's price). One constant
   (`llmsort::rerank::DEFAULT_MODEL`) now feeds sort/rerank, `judge`,

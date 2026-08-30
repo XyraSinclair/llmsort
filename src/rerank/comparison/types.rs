@@ -13,6 +13,9 @@ pub const PAIRWISE_MAX_OUTPUT_TOKENS_GPT5: u32 = PAIRWISE_MAX_OUTPUT_TOKENS_DEFA
 /// (16-token single-letter answers).
 pub const PAIRWISE_TYPICAL_OUTPUT_TOKENS: u32 = 96;
 pub const PAIRWISE_LOGPROBS_TOP_N_DEFAULT: u32 = 20;
+/// Output cap for the two-phase analysis turn: 2-4 visible sentences plus
+/// hidden-reasoning headroom on reasoning-by-default judges.
+pub const TWO_PHASE_ANALYSIS_MAX_TOKENS: u32 = 768;
 pub const PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS: usize = 3;
 
 pub fn pairwise_max_output_tokens(model: &str) -> u32 {
@@ -42,10 +45,18 @@ pub struct SeriateLogprobRoute {
     /// 400s over-cap, but many OpenRouter hosts return 200 with
     /// `logprobs: null` — a silent loss of the whole PMF.
     pub top_n: u32,
-    /// Pin `reasoning: disabled` on the call: the 5.5/5.6 families 400 on
-    /// logprobs at any other effort, and on a reasoning-by-default model
-    /// the 16-token single-letter budget burns as hidden reasoning.
+    /// Pin `reasoning: disabled` on the verdict call: the 5.5/5.6 families
+    /// 400 on logprobs at any other effort, and on a reasoning-by-default
+    /// model the 16-token single-letter budget burns as hidden reasoning.
     pub pin_reasoning_off: bool,
+    /// Logprobs are reachable ONLY at effort none (5.5/5.6) — the measured
+    /// marker of a reasoning-native judge. These default to the two-phase
+    /// read: single-phase on terra showed 3x its JSON rail's cyclic energy
+    /// and 9x its frustration, and two-phase collapsed both to best-in-class
+    /// (2.4% cyclic, 0.024 frustration; NORTH spine 3). Families where
+    /// unset effort also serves logprobs (5.1/5.2/5.4) measured WORSE under
+    /// two-phase (5.4-mini: cyclic 11.7% vs 2.9%) and keep the plain rail.
+    pub requires_effort_none: bool,
 }
 
 pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
@@ -54,6 +65,7 @@ pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
         return Some(SeriateLogprobRoute {
             top_n: 20,
             pin_reasoning_off: false,
+            requires_effort_none: false,
         });
     }
     // 5.x families serve exactly 5 alternatives at reasoning effort "none"
@@ -70,6 +82,8 @@ pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
         return Some(SeriateLogprobRoute {
             top_n: 5,
             pin_reasoning_off: true,
+            requires_effort_none: m.starts_with("openai/gpt-5.5")
+                || m.starts_with("openai/gpt-5.6"),
         });
     }
     None
@@ -264,6 +278,14 @@ pub const RATIO_LETTER_SLUG: &str = "ratio_letter_v1";
 /// currency; distinct template hash and cache identity (NORTH E10).
 pub const RATIO_LETTER_ATTR_LAST_SLUG: &str = "ratio_letter_attrlast_v1";
 
+/// Two-phase ratio-letter: reasoned analysis first (verdict forbidden),
+/// then a reasoning-off single-token logprob verdict with the analysis in
+/// context. The default for reasoning-class judges: the single-phase rail
+/// measured 3x their JSON rail's order residual and cyclic energy on
+/// gpt-5.6-terra (NORTH spine 3) because it forbids the reasoning those
+/// judges do their consistency work in.
+pub const RATIO_LETTER_2P_SLUG: &str = "ratio_letter_2p_v1";
+
 /// Prompt-template slug for the seriate single-token ORDINAL instrument:
 /// a three-token alphabet (A / B / =) whose answer-position logprobs give
 /// a calibrated direction PMF. The cheapest evidence instrument; direction
@@ -273,7 +295,10 @@ pub const ORDINAL_LETTER_SLUG: &str = "ordinal_letter_v1";
 
 /// True when the slug routes through the seriate evidence path.
 pub fn is_evidence_slug(slug: &str) -> bool {
-    slug == RATIO_LETTER_SLUG || slug == RATIO_LETTER_ATTR_LAST_SLUG || slug == ORDINAL_LETTER_SLUG
+    slug == RATIO_LETTER_SLUG
+        || slug == RATIO_LETTER_ATTR_LAST_SLUG
+        || slug == RATIO_LETTER_2P_SLUG
+        || slug == ORDINAL_LETTER_SLUG
 }
 
 /// The one slug → seriate instrument map (rendering, parsing, and
@@ -285,6 +310,7 @@ pub(super) fn evidence_instrument_for_slug(
     match slug {
         ORDINAL_LETTER_SLUG => Box::new(ordinal::OrdinalInstrument),
         RATIO_LETTER_ATTR_LAST_SLUG => Box::new(ratio_letter::RatioLetterAttrLastInstrument),
+        RATIO_LETTER_2P_SLUG => Box::new(ratio_letter::RatioLetterTwoPhaseInstrument),
         _ => Box::new(ratio_letter::RatioLetterInstrument),
     }
 }
@@ -338,6 +364,7 @@ pub(super) fn seriate_template_fingerprint(slug: &str) -> &'static str {
     use std::sync::OnceLock;
     static RATIO: OnceLock<String> = OnceLock::new();
     static RATIO_ATTR_LAST: OnceLock<String> = OnceLock::new();
+    static RATIO_2P: OnceLock<String> = OnceLock::new();
     static ORDINAL: OnceLock<String> = OnceLock::new();
     fn compute(slug: &str) -> String {
         let attribute = crate::seriate::Attribute::new("fingerprint", "fingerprint");
@@ -353,6 +380,7 @@ pub(super) fn seriate_template_fingerprint(slug: &str) -> &'static str {
     let cell = match slug {
         ORDINAL_LETTER_SLUG => &ORDINAL,
         RATIO_LETTER_ATTR_LAST_SLUG => &RATIO_ATTR_LAST,
+        RATIO_LETTER_2P_SLUG => &RATIO_2P,
         _ => &RATIO,
     };
     cell.get_or_init(|| compute(slug))

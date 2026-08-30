@@ -1,5 +1,7 @@
 use super::types::evidence_instrument_for_slug;
 use super::*;
+use crate::gateway::Message;
+use crate::seriate::instrument::ratio_letter;
 
 /// The seriate ratio-letter path: one single-token call whose answer-position
 /// top-k logprobs are parsed into a judgement PMF. The point judgement
@@ -96,9 +98,53 @@ pub(super) async fn compare_pair_seriate(
     }
 
     let mut input_tokens_total = 0u32;
+    let mut cache_read_tokens_total: Option<u32> = None;
     let mut output_tokens_total = 0u32;
     let mut provider_cost_total = 0i64;
     let mut provider_cost_is_estimate = false;
+    let mut prompt_text = format!("{}\n---\n{}", rendered.system, rendered.user);
+
+    // Two-phase protocol: a reasoned analysis turn (verdict forbidden — a
+    // visible verdict collapses the answer PMF, docs/LOGPROBS.md), appended
+    // as an assistant message so the verdict call reads a one-token PMF
+    // with the judge's own reasoning in context. Same system + user bytes,
+    // so the provider prefix cache serves the re-sent turn-1 prompt warm.
+    if rendered.template_slug == RATIO_LETTER_2P_SLUG {
+        let mut analysis_request = base_request
+            .clone()
+            .max_tokens(super::types::TWO_PHASE_ANALYSIS_MAX_TOKENS);
+        // Let the judge reason where its route says reasoning exists; the
+        // measured two-phase shape runs turn 1 at provider-default effort.
+        analysis_request.reasoning = None;
+        analysis_request.logprobs = false;
+        analysis_request.top_logprobs = None;
+        let analysis_response = gateway.chat(analysis_request).await?;
+        input_tokens_total = input_tokens_total.saturating_add(analysis_response.input_tokens);
+        if let Some(read) = analysis_response.cache_read_tokens {
+            cache_read_tokens_total =
+                Some(cache_read_tokens_total.unwrap_or(0).saturating_add(read));
+        }
+        output_tokens_total = output_tokens_total.saturating_add(analysis_response.output_tokens);
+        provider_cost_total =
+            provider_cost_total.saturating_add(analysis_response.cost_nanodollars);
+        provider_cost_is_estimate |= analysis_response.cost_is_estimate;
+        let analysis = analysis_response.content.trim().to_string();
+        if analysis.is_empty() {
+            warn!(
+                model = request.spec.model,
+                "two-phase analysis came back empty; degrading to single-phase verdict"
+            );
+        } else {
+            prompt_text = format!(
+                "{prompt_text}\n---[analysis]\n{analysis}\n---\n{}",
+                ratio_letter::TWO_PHASE_ANSWER_PROMPT
+            );
+            base_request.messages.push(Message::assistant(analysis));
+            base_request
+                .messages
+                .push(Message::user(ratio_letter::TWO_PHASE_ANSWER_PROMPT));
+        }
+    }
 
     // Attempt 1: with logprobs. If the provider rejects the PARAMETER
     // (reasoning-class models 400 on it), degrade loudly to a sampled call.
@@ -119,10 +165,12 @@ pub(super) async fn compare_pair_seriate(
     provider_cost_total = provider_cost_total.saturating_add(response.cost_nanodollars);
     provider_cost_is_estimate |= response.cost_is_estimate;
 
-    let prompt_text = format!("{}\n---\n{}", rendered.system, rendered.user);
+    if let Some(read) = response.cache_read_tokens {
+        cache_read_tokens_total = Some(cache_read_tokens_total.unwrap_or(0).saturating_add(read));
+    }
     let mut usage = ComparisonUsage {
         input_tokens: input_tokens_total,
-        cache_read_tokens: response.cache_read_tokens,
+        cache_read_tokens: cache_read_tokens_total,
         output_tokens: output_tokens_total,
         provider_cost_nanodollars: provider_cost_total,
         provider_cost_is_estimate,

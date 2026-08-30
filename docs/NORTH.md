@@ -133,9 +133,22 @@ on a later one)
    Reading: the reasoning-off single-token rail exposes terra's own
    inconsistency that 74 tokens of JSON-rail reasoning smooths over; the
    measurement is far more precise and the systematic axes are reported
-   instead of hidden. The two-phase read (reasoning context, then a
-   logprob verdict — LOGPROBS.md) is the named path to both at once and
-   is now motivated by a default-judge number, not only E10's.
+   instead of hidden. **RESOLVED 2026-08-30 — the two-phase read is
+   productized** (`ratio_letter_2p_v1`): turn 1 elicits a reasoned
+   analysis with the verdict token forbidden, turn 2 re-sends the
+   conversation with the analysis as an assistant message and reads the
+   one-letter PMF at effort none. Terra, same 8×32 cell: cyclic 21.6% →
+   2.4% (beats its own JSON rail's 7.6%), frustration 0.216 → 0.024,
+   stat ±0.050, visible mass 0.97, order residual 0.391 → 0.277 nats
+   (counterbalancing cancels it in the fit; it stays the dominant
+   reported term), $0.124 vs $0.034. The default draws the line the
+   matrix measures: reasoning-NATIVE families (logprobs only at effort
+   none — 5.5/5.6) default to the two-phase read; families where unset
+   effort also serves logprobs measured WORSE under it (5.4-mini:
+   cyclic 11.7% vs 2.9%, frustration 0.117 vs 0.029 — its analyses
+   inject noise) and keep the plain single-token rail; 4.1/4o plain;
+   no route → canonical JSON. Each judge gets the instrument that
+   measures its best self.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +
