@@ -7,6 +7,24 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Default instrument flip (NORTH spine 3)**: when no prompt template is
+  chosen, `sort`/rerank now resolve it per model (`default_template_slug`)
+  — `ratio_letter_v1`, the single-token PMF rail, wherever the measured
+  logprob matrix (docs/LOGPROBS.md) serves answer alternatives
+  (gpt-4.1/gpt-4o: 20; gpt-5.1/5.2/5.4/5.5/5.6 families: 5 at reasoning
+  off), `canonical_v2` JSON elsewhere. The default is materialized into
+  the request before validation, so cache keys, trace rows, dispatch, and
+  the charge estimate all carry the instrument that actually runs, and
+  the CLI summary names it. The seriate call now clamps `top_logprobs`
+  to the route's cap — over-cap on OpenRouter returned 200 with
+  `logprobs: null`, silently discarding the whole PMF on 5.x models —
+  and pins reasoning off where required (5.5/5.6 400 otherwise; a
+  16-token single-letter budget burns as hidden reasoning). Consistency
+  probes (`--two-sided`, `--also-by`) inherit the criterion's instrument
+  instead of always running canonical JSON. Live A/B on the default
+  model (gpt-5.4-mini, 32 comparisons, identical cost): stat error
+  ±0.019 vs ±0.521, order residual 0.031 vs 0.192 nats, frustration
+  0.029 vs 0.107.
 - The family-sweep rail (NORTH E10): `ratio_letter_attrlast_v1` — the
   attribute-LAST twin of the ratio-letter instrument (entities first, so
   the pair prefix is byte-stable across attribute variants and provider

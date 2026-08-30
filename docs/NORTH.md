@@ -112,7 +112,19 @@ on a later one)
    prompt shape is a measured trade, not a free lunch; recovering
    attr-first accuracy at attr-last prices is E10's open problem.
 3. Flip `sort` to the PMF rail by default where the matrix allows;
-   JSON path demoted to explicit fallback.
+   JSON path demoted to explicit fallback. **LANDED 2026-08-29**: a
+   `None` template now resolves per model (`default_template_slug`) —
+   `ratio_letter_v1` wherever the measured logprob matrix
+   (docs/LOGPROBS.md) serves answer alternatives, `canonical_v2`
+   elsewhere; the seriate call clamps `top_logprobs` to the route's cap
+   (over-cap on OpenRouter was a silent 200 + `logprobs:null` — the
+   whole PMF lost) and pins reasoning off on the 5.x families. Live
+   A/B on the default model (gpt-5.4-mini, 8 items × 32 comparisons,
+   seed 7): PMF rail stat ±0.019 vs JSON ±0.521 at identical cost
+   ($0.0128 vs $0.0123), order residual 0.031 vs 0.192 nats, cyclic
+   2.9% vs 10.7%, frustration 0.029 vs 0.107 — E9's one flag
+   (higher frustration on the letter rail) does not reproduce on this
+   cell. Probes now inherit the criterion's instrument.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

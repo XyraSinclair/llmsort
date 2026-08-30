@@ -85,9 +85,12 @@ pub struct SortOptions {
     /// of reaching the top-k falls below this threshold. Saves queries when
     /// only the top of the list matters. Off by default.
     pub prune_p_topk_below: Option<f64>,
-    /// Prompt template slug: `canonical_v2` (default), `canonical_bucket_v1`,
-    /// or `ratio_letter_v1` — the seriate single-token evidence path, where
-    /// answer-token logprobs enter the solver as measured variance.
+    /// Prompt template slug. `None` resolves per model
+    /// ([`super::default_template_slug`]): `ratio_letter_v1` — the
+    /// single-token PMF rail, answer-token logprobs entering the solver as
+    /// measured variance — wherever the logprob matrix serves it, and the
+    /// `canonical_v2` JSON rail elsewhere. Explicit values also accept
+    /// `canonical_bucket_v1`.
     pub prompt_template_slug: Option<String>,
 }
 
@@ -341,7 +344,10 @@ async fn sort_with_probes(
         attributes.push(MultiRerankAttributeSpec {
             id: id.clone(),
             prompt: prompt.clone(),
-            prompt_template_slug: None,
+            // Probes run on the same instrument as the criterion: a
+            // consistency probe on a different template measures the
+            // template, not the judge.
+            prompt_template_slug: opts.prompt_template_slug.clone(),
             weight: -1.0,
         });
         probe_specs.push((id, prompt, SortProbeKind::Opposite));
@@ -351,7 +357,7 @@ async fn sort_with_probes(
         attributes.push(MultiRerankAttributeSpec {
             id: id.clone(),
             prompt: alt.clone(),
-            prompt_template_slug: None,
+            prompt_template_slug: opts.prompt_template_slug.clone(),
             weight: 1.0,
         });
         probe_specs.push((id, alt.clone(), SortProbeKind::Paraphrase));

@@ -86,6 +86,14 @@ pub(super) async fn compare_pair_seriate(
     // responses path rejects smaller — logprob reality map, 2026-07-04).
     .max_tokens(16);
     base_request.prompt_cache_key = Some(prompt_cache_key);
+    // Route by the measured logprob matrix: clamp to the model's alternative
+    // cap (over-cap on OpenRouter is a silent 200 with logprobs:null, not an
+    // error) and pin reasoning off where the route requires it. Unknown
+    // models keep the optimistic 20 and rely on the loud degradation below.
+    let route = super::types::seriate_logprob_route(request.spec.model);
+    if route.is_some_and(|r| r.pin_reasoning_off) {
+        base_request.reasoning = Some(ReasoningConfig::disabled());
+    }
 
     let mut input_tokens_total = 0u32;
     let mut output_tokens_total = 0u32;
@@ -94,7 +102,9 @@ pub(super) async fn compare_pair_seriate(
 
     // Attempt 1: with logprobs. If the provider rejects the PARAMETER
     // (reasoning-class models 400 on it), degrade loudly to a sampled call.
-    let with_logprobs = base_request.clone().with_logprobs(20);
+    let with_logprobs = base_request
+        .clone()
+        .with_logprobs(route.map_or(20, |r| r.top_n));
     let response = match gateway.chat(with_logprobs).await {
         Ok(response) => response,
         Err(err) if format!("{err}").to_ascii_lowercase().contains("logprob") => {

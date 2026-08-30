@@ -289,6 +289,10 @@ fn texts_of(sorted: &SortedTexts) -> Vec<String> {
 fn budgeted(budget: usize) -> SortOptions {
     SortOptions {
         comparison_budget: Some(budget),
+        // The mock judges answer canonical JSON; pin that instrument so the
+        // per-model template default (which would route the default model to
+        // the single-token PMF rail) never applies to a mocked judge.
+        prompt_template_slug: Some("canonical_v2".into()),
         ..Default::default()
     }
 }
@@ -382,6 +386,7 @@ async fn input_order_invariance_survives_top_k_and_pruning() {
         comparison_budget: Some(32),
         top_k: Some(2),
         prune_p_topk_below: Some(0.15),
+        prompt_template_slug: Some("canonical_v2".into()),
         ..Default::default()
     };
 
@@ -659,6 +664,7 @@ async fn irrelevant_alternative_stability_strong_full_order_survives_adversarial
         comparison_budget: Some(8),
         top_k: Some(2),
         prune_p_topk_below: Some(0.3),
+        prompt_template_slug: Some("canonical_v2".into()),
         ..Default::default()
     };
 
@@ -785,6 +791,7 @@ async fn reversed_criterion_antisymmetry_holds_without_counterbalance() {
     let opts = SortOptions {
         comparison_budget: Some(24),
         counterbalance: false,
+        prompt_template_slug: Some("canonical_v2".into()),
         ..Default::default()
     };
 

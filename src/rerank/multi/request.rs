@@ -89,6 +89,32 @@ pub struct RerankChargeEstimate {
     pub user_charge_max_nanodollars: i64,
 }
 
+/// The template a `None` `prompt_template_slug` resolves to for `model`:
+/// the single-token PMF rail wherever the measured logprob matrix serves it
+/// (docs/LOGPROBS.md; E9 head-to-head at identical cost: stat error ±0.020
+/// vs ±0.464, rank agreement ρ 0.886), the canonical JSON rail elsewhere.
+/// `None` model means the library default model.
+pub fn default_template_slug(model: Option<&str>) -> &'static str {
+    let model = model.unwrap_or(DEFAULT_MODEL);
+    if crate::rerank::comparison::seriate_logprob_route(model).is_some() {
+        crate::rerank::comparison::RATIO_LETTER_SLUG
+    } else {
+        "canonical_v2"
+    }
+}
+
+/// Materialize the per-model template default into every attribute that
+/// didn't choose one, so dispatch, cache keys, and trace rows all carry the
+/// concrete instrument that actually ran.
+pub(super) fn materialize_template_defaults(req: &mut MultiRerankRequest) {
+    let slug = default_template_slug(req.model.as_deref());
+    for attr in &mut req.attributes {
+        if attr.prompt_template_slug.is_none() {
+            attr.prompt_template_slug = Some(slug.to_string());
+        }
+    }
+}
+
 pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstimate {
     let n_entities = req.entities.len();
     let n_attributes = req.attributes.len();
@@ -110,12 +136,14 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
 
     let model = req.model.as_deref().unwrap_or(DEFAULT_MODEL);
     // Evidence-path templates answer with a single token; their call cap is
-    // 16 output tokens, not the JSON path's reasoning-sized ceiling.
+    // 16 output tokens, not the JSON path's reasoning-sized ceiling. A `None`
+    // slug prices what it will actually run: the per-model default.
+    let default_slug = default_template_slug(req.model.as_deref());
     let all_evidence = !req.attributes.is_empty()
         && req.attributes.iter().all(|a| {
-            a.prompt_template_slug
-                .as_deref()
-                .is_some_and(crate::rerank::comparison::is_evidence_slug)
+            crate::rerank::comparison::is_evidence_slug(
+                a.prompt_template_slug.as_deref().unwrap_or(default_slug),
+            )
         });
     let output_tokens_per_comparison = if all_evidence {
         16
@@ -141,7 +169,7 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
             (
                 a.id.as_str(),
                 a.prompt.as_str(),
-                a.prompt_template_slug.as_deref(),
+                Some(a.prompt_template_slug.as_deref().unwrap_or(default_slug)),
             )
         })
         .max_by_key(|(_, p, _)| count_tokens(p))

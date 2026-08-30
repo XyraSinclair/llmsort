@@ -223,6 +223,9 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
 
             let max_cost_nanodollars = max_dollars.map(dollars_to_nanodollars).transpose()?;
             let latency_budget_ms = max_seconds.map(seconds_to_milliseconds).transpose()?;
+            let template_used = template.clone().unwrap_or_else(|| {
+                llmsort::rerank::default_template_slug(model.as_deref()).to_string()
+            });
 
             if estimate {
                 let opts = llmsort::rerank::SortOptions {
@@ -399,7 +402,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     String::new()
                 };
                 eprintln!(
-                    "sorted {} items by \"{by}\" · {} comparisons ({} cached, {} refused) · {estimate}${cost_usd:.4}{flips}{evidence}{frustration} · stop: {}",
+                    "sorted {} items by \"{by}\" · {template_used} · {} comparisons ({} cached, {} refused) · {estimate}${cost_usd:.4}{flips}{evidence}{frustration} · stop: {}",
                     sorted.items.len(),
                     meta.comparisons_used,
                     meta.comparisons_cached,

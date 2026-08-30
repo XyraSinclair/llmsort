@@ -27,8 +27,8 @@ pub use execution::{
 };
 pub(crate) use orchestrator::multi_rerank_with_failures;
 pub use request::{
-    apply_rerank_markup, estimate_max_rerank_charge, validate_multi_rerank_request,
-    MultiRerankError, RerankChargeEstimate, EVIDENCE_VAR_FLOOR,
+    apply_rerank_markup, default_template_slug, estimate_max_rerank_charge,
+    validate_multi_rerank_request, MultiRerankError, RerankChargeEstimate, EVIDENCE_VAR_FLOOR,
 };
 
 /// Run a multi-attribute reranking session.

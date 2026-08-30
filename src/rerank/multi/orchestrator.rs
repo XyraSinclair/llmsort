@@ -19,8 +19,8 @@ use super::super::trace::{now_epoch_ms, ComparisonTrace};
 use super::super::types::{HigherRanked, MultiRerankRequest, PairwiseJudgement, RerankStopReason};
 use super::execution::{build_engine_config, build_trait_search_config, RerankExecution};
 use super::request::{
-    default_comparison_budget, validate_multi_rerank_request, MultiRerankError,
-    DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
+    default_comparison_budget, materialize_template_defaults, validate_multi_rerank_request,
+    MultiRerankError, DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
 };
 use super::response::{build_response, BuiltResponse, ResponseContext};
 use super::task::{CompareTask, TraceFields};
@@ -31,9 +31,10 @@ const CONSECUTIVE_FAILURE_LIMIT: usize = 5;
 /// If a cache is provided, cached pairwise judgements are reused and new
 /// judgements are written back to the cache.
 pub(crate) async fn multi_rerank_with_failures(
-    req: MultiRerankRequest,
+    mut req: MultiRerankRequest,
     execution: RerankExecution<'_>,
 ) -> Result<BuiltResponse, MultiRerankError> {
+    materialize_template_defaults(&mut req);
     validate_multi_rerank_request(&req)?;
 
     let n_entities = req.entities.len();

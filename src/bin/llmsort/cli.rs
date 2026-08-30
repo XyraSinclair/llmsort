@@ -99,9 +99,11 @@ pub(super) enum Commands {
         /// position-bias diagnostic)
         #[arg(long)]
         no_counterbalance: bool,
-        /// Prompt template: canonical_v2 (default), canonical_bucket_v1, or
-        /// ratio_letter_v1 (single-token PMF evidence via answer logprobs;
-        /// degrades loudly to sampled mode where providers hide them)
+        /// Prompt template. Default: auto — ratio_letter_v1 (single-token
+        /// PMF evidence via answer logprobs) where the model's measured
+        /// logprob route serves it, canonical_v2 (JSON) elsewhere. Explicit:
+        /// canonical_v2, canonical_bucket_v1, or ratio_letter_v1 (degrades
+        /// loudly to sampled mode where providers hide logprobs)
         #[arg(long)]
         template: Option<String>,
         /// First expand the criterion into a precise judging rubric with one

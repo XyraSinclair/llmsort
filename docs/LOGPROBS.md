@@ -25,7 +25,9 @@ OpenRouter (2026-07-19, provider Azure, n=10 for each cell).
 Each 5.x model that serves logprobs serves 5 alternatives, and not more. A request
 for 6 or more gets HTTP 400 from OpenAI. Many OpenRouter hosts do not reject an
 over-cap request. They return HTTP 200 with `logprobs: null`. Thus the request layer
-must clamp `top_logprobs` to the known cap for each route. The 2026-04 census
+must clamp `top_logprobs` to the known cap for each route — the seriate rail does,
+via `seriate_logprob_route` (src/rerank/comparison/types.rs), which also pins
+reasoning off where the 5.x unlock requires it. The 2026-04 census
 (`diamond` archive) measured caps of 5 for Alibaba hosts and 20 for Cerebras.
 
 ## The reasoning gate

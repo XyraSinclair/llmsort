@@ -31,6 +31,49 @@ pub fn pairwise_max_output_tokens(model: &str) -> u32 {
     }
 }
 
+/// The seriate single-token rail's measured logprob route for a model
+/// (docs/LOGPROBS.md matrix: probed 2026-07-18/19, re-census 2026-08-13).
+/// `None`: no measured path — the PMF rail is never the *default* there,
+/// and an explicit evidence slug degrades loudly to sampled mode.
+#[derive(Clone, Copy, Debug)]
+pub struct SeriateLogprobRoute {
+    /// Provider alternative-count cap. Requests must clamp to it: OpenAI
+    /// 400s over-cap, but many OpenRouter hosts return 200 with
+    /// `logprobs: null` — a silent loss of the whole PMF.
+    pub top_n: u32,
+    /// Pin `reasoning: disabled` on the call: the 5.5/5.6 families 400 on
+    /// logprobs at any other effort, and on a reasoning-by-default model
+    /// the 16-token single-letter budget burns as hidden reasoning.
+    pub pin_reasoning_off: bool,
+}
+
+pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
+    let m = model.to_ascii_lowercase();
+    if m.starts_with("openai/gpt-4.1") || m.starts_with("openai/gpt-4o") {
+        return Some(SeriateLogprobRoute {
+            top_n: 20,
+            pin_reasoning_off: false,
+        });
+    }
+    // 5.x families serve exactly 5 alternatives at reasoning effort "none"
+    // (10/10 on 5.5 and 5.6-sol with the unlock, 0/1 without; 20/20 on
+    // 5.4 either way). gpt-5.5-pro, the gpt-5 base family, and the
+    // o-series have no path at all.
+    let serves_five = ["gpt-5.1", "gpt-5.2", "gpt-5.4", "gpt-5.5", "gpt-5.6"]
+        .iter()
+        .any(|family| {
+            m.strip_prefix("openai/")
+                .is_some_and(|m| m.starts_with(family))
+        });
+    if serves_five && !m.starts_with("openai/gpt-5.5-pro") {
+        return Some(SeriateLogprobRoute {
+            top_n: 5,
+            pin_reasoning_off: true,
+        });
+    }
+    None
+}
+
 pub fn pairwise_logprobs_top_n() -> u32 {
     std::env::var("CARDINAL_PAIRWISE_LOGPROBS_TOP_N")
         .ok()

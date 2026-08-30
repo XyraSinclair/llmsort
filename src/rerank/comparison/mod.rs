@@ -35,9 +35,10 @@ pub use execution::{compare_pair, estimate_pairwise_input_tokens};
 pub use parsing::parse_pairwise_response;
 pub(crate) use types::DECIMAL_LEDGER_DRAWS;
 pub use types::{
-    is_evidence_slug, pairwise_logprobs_top_n, pairwise_max_output_tokens, ComparisonError,
-    ComparisonUsage, EvidenceMoments, PairwiseComparisonAttribute, PairwiseComparisonEntity,
-    PairwiseComparisonRequest, PairwiseComparisonSpec, DECIMAL_LEDGER_SLUG, ORDINAL_LETTER_SLUG,
+    is_evidence_slug, pairwise_logprobs_top_n, pairwise_max_output_tokens, seriate_logprob_route,
+    ComparisonError, ComparisonUsage, EvidenceMoments, PairwiseComparisonAttribute,
+    PairwiseComparisonEntity, PairwiseComparisonRequest, PairwiseComparisonSpec,
+    SeriateLogprobRoute, DECIMAL_LEDGER_SLUG, ORDINAL_LETTER_SLUG,
     PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS, PAIRWISE_LOGPROBS_TOP_N_DEFAULT,
     PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT, PAIRWISE_MAX_OUTPUT_TOKENS_GPT5,
     PAIRWISE_TYPICAL_OUTPUT_TOKENS, RATIO_LETTER_ATTR_LAST_SLUG, RATIO_LETTER_SLUG,
