@@ -43,7 +43,11 @@ mirrors retained as belt-and-braces.
 ceilings but not from discipline: CI green at every commit (fmt + clippy
 `-D warnings` + tests + docs run workspace-wide), python confined to
 `research/`, and the crate must never depend on `experiments/` — the
-dependency points one way.
+dependency points one way. NOTE: a bare `cargo check`/`cargo test` at
+the root does NOT build `experiments/`; any change to a `pub` item the
+experiments binaries consume needs `cargo check --workspace` before
+landing (2026-08-30: a parameter deletion broke `cardinald.rs`
+invisibly through a green default test run).
 
 ## Research norms
 
