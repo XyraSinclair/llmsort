@@ -100,12 +100,8 @@ pub struct RerankChargeEstimate {
 pub fn default_template_slug(model: Option<&str>) -> &'static str {
     let model = model.unwrap_or(DEFAULT_MODEL);
     match crate::rerank::comparison::seriate_logprob_route(model) {
-        // Reasoning-native judges (logprobs only at effort none) do their
-        // consistency work in reasoning the logprob gate forbids; they get
-        // the two-phase read — reasoned analysis, then a reasoning-off
-        // one-token PMF verdict with the analysis in context. Families
-        // where unset effort also serves logprobs measured worse under
-        // two-phase and keep the plain rail (route doc, NORTH spine 3).
+        // Two-phase for reasoning-native judges; rationale and measured
+        // numbers on `SeriateLogprobRoute::requires_effort_none`.
         Some(route) if route.requires_effort_none => {
             crate::rerank::comparison::RATIO_LETTER_2P_SLUG
         }
@@ -160,12 +156,16 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
         a.prompt_template_slug.as_deref().unwrap_or(default_slug)
             == crate::rerank::comparison::RATIO_LETTER_2P_SLUG
     });
-    let output_tokens_per_comparison = if any_two_phase {
-        // Analysis turn cap plus the one-token verdict call's floor.
-        crate::rerank::comparison::TWO_PHASE_ANALYSIS_MAX_TOKENS + 16
-    } else if all_evidence {
-        16
+    let output_tokens_per_comparison = if all_evidence {
+        if any_two_phase {
+            // Analysis turn cap plus the one-token verdict call's floor.
+            crate::rerank::comparison::TWO_PHASE_ANALYSIS_MAX_TOKENS + 16
+        } else {
+            16
+        }
     } else {
+        // A mixed pool prices the JSON ceiling; the 2-call multiplier below
+        // then strictly dominates the two-phase shape as well.
         PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT
     };
     // Instruments that make several gateway calls per comparison (each

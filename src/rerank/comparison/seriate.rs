@@ -116,8 +116,6 @@ pub(super) async fn compare_pair_seriate(
         // Let the judge reason where its route says reasoning exists; the
         // measured two-phase shape runs turn 1 at provider-default effort.
         analysis_request.reasoning = None;
-        analysis_request.logprobs = false;
-        analysis_request.top_logprobs = None;
         let analysis_response = gateway.chat(analysis_request).await?;
         input_tokens_total = input_tokens_total.saturating_add(analysis_response.input_tokens);
         if let Some(read) = analysis_response.cache_read_tokens {

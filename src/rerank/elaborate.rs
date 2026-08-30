@@ -10,8 +10,6 @@
 use crate::gateway::{Attribution, ChatGateway, ChatModel, ChatRequest, Message};
 use serde::Serialize;
 
-/// Default model for elaboration when none is given.
-
 /// The elaboration meta-prompt. Second person, judgement-ready output.
 const ELABORATION_SYSTEM: &str = "You write judging rubrics for pairwise comparison. \
 Given a terse attribute, produce a rubric that a careful judge will read before \

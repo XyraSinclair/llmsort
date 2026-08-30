@@ -280,10 +280,8 @@ pub const RATIO_LETTER_ATTR_LAST_SLUG: &str = "ratio_letter_attrlast_v1";
 
 /// Two-phase ratio-letter: reasoned analysis first (verdict forbidden),
 /// then a reasoning-off single-token logprob verdict with the analysis in
-/// context. The default for reasoning-class judges: the single-phase rail
-/// measured 3x their JSON rail's order residual and cyclic energy on
-/// gpt-5.6-terra (NORTH spine 3) because it forbids the reasoning those
-/// judges do their consistency work in.
+/// context. Default for reasoning-class judges — evidence on
+/// [`SeriateLogprobRoute::requires_effort_none`].
 pub const RATIO_LETTER_2P_SLUG: &str = "ratio_letter_2p_v1";
 
 /// Prompt-template slug for the seriate single-token ORDINAL instrument:

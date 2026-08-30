@@ -85,11 +85,8 @@ pub struct SortOptions {
     /// of reaching the top-k falls below this threshold. Saves queries when
     /// only the top of the list matters. Off by default.
     pub prune_p_topk_below: Option<f64>,
-    /// Prompt template slug. `None` resolves per model
-    /// ([`super::default_template_slug`]): `ratio_letter_v1` — the
-    /// single-token PMF rail, answer-token logprobs entering the solver as
-    /// measured variance — wherever the logprob matrix serves it, and the
-    /// `canonical_v2` JSON rail elsewhere. Explicit values also accept
+    /// Prompt template slug. `None` resolves per model — see
+    /// [`super::default_template_slug`]. Explicit values also accept
     /// `canonical_bucket_v1`.
     pub prompt_template_slug: Option<String>,
 }
