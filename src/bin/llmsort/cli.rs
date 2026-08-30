@@ -60,7 +60,9 @@ pub(super) enum Commands {
         /// Maximum provider-reported spend in dollars (pairwise only)
         #[arg(long)]
         max_dollars: Option<f64>,
-        /// Maximum wall-clock runtime in seconds (pairwise only)
+        /// Maximum wall-clock runtime in seconds (pairwise only; checked
+        /// between batches — may overshoot by one in-flight batch,
+        /// including any rate-limit cooldown waits)
         #[arg(long)]
         max_seconds: Option<f64>,
         /// Certify only the top K items (default: whole list)

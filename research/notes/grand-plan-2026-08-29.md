@@ -78,6 +78,11 @@ hard-max estimate; a one-line adjacent-rank resolution readout.
    setwise screen → pairwise boundary refine). Then harden exactly what
    unattended use needs: spend/wall cap, auth/backoff sanity, setwise
    trace/cache/error parity, progress/cancel, dedup/size hygiene.
+   Named acceptance criterion for progress/cancel (guardian escalation
+   2026-08-29): in-flight cancellation closes the wall-cap overshoot —
+   `--max-seconds` is checked between batches and can overshoot by one
+   in-flight batch including rate-limit cooldown waits; until it lands,
+   no unattended execution of the CLI (concierge runs are attended).
 5. **Build whichever recurrence the returning user reveals** —
    incremental insert, search rerank, criterion ensembles, or pure
    selection. Cost: demand-contingent. Proves: what llmsort is.
