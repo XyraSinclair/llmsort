@@ -55,9 +55,9 @@ pub struct ModelLadderPolicy {
 impl Default for ModelLadderPolicy {
     fn default() -> Self {
         Self {
-            high_model: "anthropic/claude-opus-4.6".to_string(),
-            mid_model: Some("anthropic/claude-opus-4.5".to_string()),
-            low_model: "openai/gpt-5.4-mini".to_string(),
+            high_model: "anthropic/claude-fable-5".to_string(),
+            mid_model: Some("anthropic/claude-opus-4.6".to_string()),
+            low_model: "openai/gpt-5.6-luna".to_string(),
             global_error_switch: 0.10,
             similarity_ln_ratio: 0.12,
             max_pair_std: 0.60,

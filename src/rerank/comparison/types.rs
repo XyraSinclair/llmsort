@@ -7,10 +7,11 @@ use super::*;
 /// empty visible output on OpenRouter.
 pub const PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT: u32 = 8192;
 pub const PAIRWISE_MAX_OUTPUT_TOKENS_GPT5: u32 = PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT;
-/// Measured 27 mean / 32 max on gpt-5.4-mini canonical_v2, 2026-08-29.
-/// 48 leaves headroom; reasoning-mode models can exceed it, while the cap
-/// still bounds the worst case.
-pub const PAIRWISE_TYPICAL_OUTPUT_TOKENS: u32 = 48;
+/// Measured on canonical_v2, 2026-08-29: gpt-5.4-mini 27 mean / 32 max;
+/// gpt-5.6-terra (the default judge) 74 mean / 96 max. Sized to terra's
+/// max; the cap still bounds the worst case. The PMF rail ignores this
+/// (16-token single-letter answers).
+pub const PAIRWISE_TYPICAL_OUTPUT_TOKENS: u32 = 96;
 pub const PAIRWISE_LOGPROBS_TOP_N_DEFAULT: u32 = 20;
 pub const PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS: usize = 3;
 

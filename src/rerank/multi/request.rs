@@ -24,8 +24,11 @@ pub const EVIDENCE_VAR_FLOOR: f64 = 1e-3;
 /// Default batch size for proposed comparisons.
 pub(super) const DEFAULT_BATCH_SIZE: usize = 32;
 
-/// Default model if not specified.
-pub(super) const DEFAULT_MODEL: &str = "openai/gpt-5.4-mini";
+/// Default judge when the caller names none: the current family's
+/// mid class (terra sits at gpt-5.4's price and dominates gpt-5.4-mini).
+/// Every other default in the crate derives from this constant; when the
+/// family turns over, this is the one line that moves.
+pub const DEFAULT_MODEL: &str = "openai/gpt-5.6-terra";
 
 /// Default maximum number of comparisons to run concurrently.
 pub(super) const DEFAULT_COMPARISON_CONCURRENCY: usize = 8;

@@ -44,7 +44,7 @@ impl Default for PolicyRegistry {
         );
         policies.insert(
             "fast_only".to_string(),
-            Arc::new(FixedPolicy::new("openai/gpt-5.4-mini")),
+            Arc::new(FixedPolicy::new("openai/gpt-5.6-luna")),
         );
         policies.insert(
             "cost_aware_fast".to_string(),
@@ -52,14 +52,14 @@ impl Default for PolicyRegistry {
         );
         policies.insert(
             "quality_only".to_string(),
-            Arc::new(FixedPolicy::new("anthropic/claude-opus-4.6")),
+            Arc::new(FixedPolicy::new("anthropic/claude-fable-5")),
         );
         policies.insert(
             "frontier_ladder".to_string(),
             Arc::new(ModelLadderPolicy {
-                high_model: "anthropic/claude-opus-4.6".to_string(),
+                high_model: "anthropic/claude-fable-5".to_string(),
                 mid_model: Some("google/gemini-3.1-pro-preview".to_string()),
-                low_model: "openai/gpt-5.4-mini".to_string(),
+                low_model: "openai/gpt-5.6-luna".to_string(),
                 ..ModelLadderPolicy::default()
             }),
         );

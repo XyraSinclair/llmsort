@@ -7,6 +7,17 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Default judge is now `openai/gpt-5.6-terra`** (was gpt-5.4-mini; the
+  current family's mid class, at gpt-5.4's price). One constant
+  (`llmsort::rerank::DEFAULT_MODEL`) now feeds sort/rerank, `judge`,
+  `research`, and criterion elaboration; policy ladders move to
+  claude-fable-5 / opus-4.6 / gpt-5.6-luna and `fast_only` to luna.
+  Typical-output-token estimate re-measured on terra (74 mean / 96 max on
+  canonical_v2; constant sized to 96). Terra on the PMF rail: stat
+  ±0.061 vs JSON ±0.491, rank risk 0.95 vs 6.59, but order residual
+  0.391 vs 0.120 nats and cyclic 21.6% vs 7.6% — the reasoning-off rail
+  exposes judge inconsistency the JSON rail's reasoning smooths over;
+  see docs/NORTH.md spine 3.
 - **Default instrument flip (NORTH spine 3)**: when no prompt template is
   chosen, `sort`/rerank now resolve it per model (`default_template_slug`)
   — `ratio_letter_v1`, the single-token PMF rail, wherever the measured

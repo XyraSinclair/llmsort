@@ -125,6 +125,17 @@ on a later one)
    2.9% vs 10.7%, frustration 0.029 vs 0.107 — E9's one flag
    (higher frustration on the letter rail) does not reproduce on this
    cell. Probes now inherit the criterion's instrument.
+   Default judge moved to gpt-5.6-terra the same day (operator: stop
+   defaulting to old models). Terra on the same 8×32 cell, PMF vs JSON:
+   stat ±0.061 vs ±0.491, rank risk 0.95 vs 6.59, $0.034 vs $0.051 —
+   but order residual 0.391 vs 0.120 nats, cyclic 21.6% vs 7.6%,
+   frustration 0.216 vs 0.076, visible mass 0.89 at 5 alternatives.
+   Reading: the reasoning-off single-token rail exposes terra's own
+   inconsistency that 74 tokens of JSON-rail reasoning smooths over; the
+   measurement is far more precise and the systematic axes are reported
+   instead of hidden. The two-phase read (reasoning context, then a
+   logprob verdict — LOGPROBS.md) is the named path to both at once and
+   is now motivated by a default-judge number, not only E10's.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

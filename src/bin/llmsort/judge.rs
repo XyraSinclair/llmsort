@@ -25,7 +25,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             let text_b = read_item_arg(&item_b)?;
             let model = model
                 .as_deref()
-                .unwrap_or("openai/gpt-5.4-mini")
+                .unwrap_or(llmsort::rerank::DEFAULT_MODEL)
                 .to_string();
 
             if let Some(consortium) = consortium {

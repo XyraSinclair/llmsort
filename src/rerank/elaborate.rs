@@ -11,7 +11,6 @@ use crate::gateway::{Attribution, ChatGateway, ChatModel, ChatRequest, Message};
 use serde::Serialize;
 
 /// Default model for elaboration when none is given.
-const DEFAULT_ELABORATION_MODEL: &str = "openai/gpt-5.4-mini";
 
 /// The elaboration meta-prompt. Second person, judgement-ready output.
 const ELABORATION_SYSTEM: &str = "You write judging rubrics for pairwise comparison. \
@@ -73,7 +72,7 @@ pub async fn elaborate_criterion(
     if criterion.is_empty() {
         return Err(ElaborateError::EmptyCriterion);
     }
-    let model = model.unwrap_or(DEFAULT_ELABORATION_MODEL);
+    let model = model.unwrap_or(super::DEFAULT_MODEL);
 
     let response = gateway
         .chat(ChatRequest {

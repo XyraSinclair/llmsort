@@ -27,7 +27,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             if let Some(count) = propose {
                 let (proposed, usage) = llmsort::rerank::propose_candidates(
                     gateway.as_ref(),
-                    model.as_deref().unwrap_or("openai/gpt-5.4-mini"),
+                    model.as_deref().unwrap_or(llmsort::rerank::DEFAULT_MODEL),
                     &documents,
                     count,
                     Attribution::new("llmsort::explain::propose"),

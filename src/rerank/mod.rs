@@ -71,6 +71,7 @@ pub use model_policy::ModelLadderPolicy;
 pub use multi::{
     apply_rerank_markup, default_template_slug, estimate_max_rerank_charge, multi_rerank,
     validate_multi_rerank_request, MultiRerankError, RerankChargeEstimate, RerankExecution,
+    DEFAULT_MODEL,
 };
 pub use options::RerankRunOptions;
 pub use orbit::{orbit_transform, OrbitReport, CHARACTERS};
