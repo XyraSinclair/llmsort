@@ -26,8 +26,6 @@ pub(super) const DEFAULT_BATCH_SIZE: usize = 32;
 
 /// Default judge when the caller names none: the current family's
 /// mid class (terra sits at gpt-5.4's price and dominates gpt-5.4-mini).
-/// Every other default in the crate derives from this constant; when the
-/// family turns over, this is the one line that moves.
 pub const DEFAULT_MODEL: &str = "openai/gpt-5.6-terra";
 
 /// Default maximum number of comparisons to run concurrently.
@@ -146,12 +144,11 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
     // 16 output tokens, not the JSON path's reasoning-sized ceiling. A `None`
     // slug prices what it will actually run: the per-model default.
     let default_slug = default_template_slug(req.model.as_deref());
-    let all_evidence = !req.attributes.is_empty()
-        && req.attributes.iter().all(|a| {
-            crate::rerank::comparison::is_evidence_slug(
-                a.prompt_template_slug.as_deref().unwrap_or(default_slug),
-            )
-        });
+    let all_evidence = req.attributes.iter().all(|a| {
+        crate::rerank::comparison::is_evidence_slug(
+            a.prompt_template_slug.as_deref().unwrap_or(default_slug),
+        )
+    });
     let any_two_phase = req.attributes.iter().any(|a| {
         a.prompt_template_slug.as_deref().unwrap_or(default_slug)
             == crate::rerank::comparison::RATIO_LETTER_2P_SLUG

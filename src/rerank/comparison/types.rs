@@ -6,7 +6,6 @@ use super::*;
 /// visible JSON answer. A small cap suppresses judgement quality and can yield
 /// empty visible output on OpenRouter.
 pub const PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT: u32 = 8192;
-pub const PAIRWISE_MAX_OUTPUT_TOKENS_GPT5: u32 = PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT;
 /// Measured on canonical_v2, 2026-08-29: gpt-5.4-mini 27 mean / 32 max;
 /// gpt-5.6-terra (the default judge) 74 mean / 96 max. Sized to terra's
 /// max; the cap still bounds the worst case. The PMF rail ignores this
@@ -18,7 +17,7 @@ pub const PAIRWISE_LOGPROBS_TOP_N_DEFAULT: u32 = 20;
 pub const TWO_PHASE_ANALYSIS_MAX_TOKENS: u32 = 768;
 pub const PAIRWISE_BUCKET_LOGPROB_MAX_ATTEMPTS: usize = 3;
 
-pub fn pairwise_max_output_tokens(model: &str) -> u32 {
+pub fn pairwise_max_output_tokens(_model: &str) -> u32 {
     // Serve-side contexts can be smaller than the default budget (e.g. a local
     // vLLM judge with a tight KV pool rejects max_tokens > max_model_len).
     if let Some(cap) = std::env::var("CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS")
@@ -28,11 +27,7 @@ pub fn pairwise_max_output_tokens(model: &str) -> u32 {
     {
         return cap;
     }
-    if model.starts_with("openai/gpt-5") {
-        PAIRWISE_MAX_OUTPUT_TOKENS_GPT5
-    } else {
-        PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT
-    }
+    PAIRWISE_MAX_OUTPUT_TOKENS_DEFAULT
 }
 
 /// The seriate single-token rail's measured logprob route for a model
