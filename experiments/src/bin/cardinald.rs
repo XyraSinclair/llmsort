@@ -1044,6 +1044,8 @@ fn stop_reason_name(reason: RerankStopReason) -> &'static str {
         RerankStopReason::CertifiedStop => "certified_stop",
         RerankStopReason::BudgetExhausted => "budget_exhausted",
         RerankStopReason::LatencyBudgetExceeded => "latency_budget_exceeded",
+        RerankStopReason::CostBudgetExhausted => "cost_budget_exhausted",
+        RerankStopReason::ConsecutiveFailures => "consecutive_failures",
         RerankStopReason::Cancelled => "cancelled",
         RerankStopReason::NoProposals => "no_proposals",
         RerankStopReason::NoNewPairs => "no_new_pairs",

@@ -27,6 +27,7 @@ pub async fn compare_pair(
                 if let Some(judgement) = cached_to_judgement(&hit, LADDER_RATIO_CAP) {
                     let usage = ComparisonUsage {
                         input_tokens: 0,
+                        cache_read_tokens: None,
                         output_tokens: 0,
                         provider_cost_nanodollars: 0,
                         provider_cost_is_estimate: false,
@@ -99,16 +100,22 @@ pub async fn compare_pair(
     let mut output_tokens_total = 0u32;
     let mut provider_cost_total = 0i64;
     let mut provider_cost_is_estimate = false;
+    let mut cache_read_tokens_total: Option<u32> = None;
 
     for attempt_index in 0..max_live_attempts {
         let response = gateway.chat(chat_request.clone()).await?;
         input_tokens_total = input_tokens_total.saturating_add(response.input_tokens);
+        if let Some(read) = response.cache_read_tokens {
+            cache_read_tokens_total =
+                Some(cache_read_tokens_total.unwrap_or(0).saturating_add(read));
+        }
         output_tokens_total = output_tokens_total.saturating_add(response.output_tokens);
         provider_cost_total = provider_cost_total.saturating_add(response.cost_nanodollars);
         provider_cost_is_estimate |= response.cost_is_estimate;
 
         let mut usage = ComparisonUsage {
             input_tokens: input_tokens_total,
+            cache_read_tokens: cache_read_tokens_total,
             output_tokens: output_tokens_total,
             provider_cost_nanodollars: provider_cost_total,
             provider_cost_is_estimate,

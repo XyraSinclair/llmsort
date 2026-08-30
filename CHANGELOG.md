@@ -7,6 +7,16 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- The family-sweep rail (NORTH E10): `ratio_letter_attrlast_v1` — the
+  attribute-LAST twin of the ratio-letter instrument (entities first, so
+  the pair prefix is byte-stable across attribute variants and provider
+  prefix caches serve {A, A′, ¬A} sweeps at cached-input prices; same
+  alphabet, parser, and evidence currency; pair-keyed cache routing).
+  `ComparisonUsage` gains `cache_read_tokens` so cache economics are
+  measurable per call. Measured (E10, 960 calls): 38.5% cached input and
+  −29% cost on long entities — at a real accuracy price on this judge
+  (truth ρ roughly halves); the trade is documented in docs/NORTH.md and
+  the default template is unchanged.
 - Hard spend and wall caps in the run loop: `RerankRequest` /
   `MultiRerankRequest` gain `max_cost_nanodollars` (serde-defaulted,
   validated ≥ 1) and the CLI gains `--max-dollars` / `--max-seconds`

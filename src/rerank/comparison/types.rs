@@ -74,6 +74,9 @@ impl ComparisonError {
 #[derive(Debug, Clone)]
 pub struct ComparisonUsage {
     pub input_tokens: u32,
+    /// Provider-reported cache-read (discounted) input tokens, when the
+    /// provider surfaces them. The family sweep's economics live here.
+    pub cache_read_tokens: Option<u32>,
     pub output_tokens: u32,
     pub provider_cost_nanodollars: i64,
     pub provider_cost_is_estimate: bool,
@@ -135,12 +138,7 @@ impl PairwiseComparisonSpec<'_> {
             .prompt_template_slug
             .filter(|slug| is_evidence_slug(slug))
         {
-            let instrument: Box<dyn crate::seriate::instrument::Instrument> =
-                if slug == ORDINAL_LETTER_SLUG {
-                    Box::new(crate::seriate::instrument::ordinal::OrdinalInstrument)
-                } else {
-                    Box::new(crate::seriate::instrument::ratio_letter::RatioLetterInstrument)
-                };
+            let instrument = evidence_instrument_for_slug(slug);
             let attribute =
                 crate::seriate::Attribute::new(self.attribute.id, self.attribute.prompt);
             let entity_a = crate::seriate::Entity::new(self.entity_a.text);
@@ -215,6 +213,13 @@ pub struct PairwiseComparisonRequest<'a> {
 /// duplicates the prompt text, so the two cannot drift.
 pub const RATIO_LETTER_SLUG: &str = "ratio_letter_v1";
 
+/// Attribute-LAST twin of [`RATIO_LETTER_SLUG`]: entities first, attribute
+/// last, so the pair prefix is byte-stable across attribute variants and
+/// provider prefix caches serve family sweeps ({A, A′, ¬A} on one judged
+/// pair) at cached-input prices. Same alphabet, parser, and evidence
+/// currency; distinct template hash and cache identity (NORTH E10).
+pub const RATIO_LETTER_ATTR_LAST_SLUG: &str = "ratio_letter_attrlast_v1";
+
 /// Prompt-template slug for the seriate single-token ORDINAL instrument:
 /// a three-token alphabet (A / B / =) whose answer-position logprobs give
 /// a calibrated direction PMF. The cheapest evidence instrument; direction
@@ -224,7 +229,20 @@ pub const ORDINAL_LETTER_SLUG: &str = "ordinal_letter_v1";
 
 /// True when the slug routes through the seriate evidence path.
 pub fn is_evidence_slug(slug: &str) -> bool {
-    slug == RATIO_LETTER_SLUG || slug == ORDINAL_LETTER_SLUG
+    slug == RATIO_LETTER_SLUG || slug == RATIO_LETTER_ATTR_LAST_SLUG || slug == ORDINAL_LETTER_SLUG
+}
+
+/// The one slug → seriate instrument map (rendering, parsing, and
+/// fingerprinting all route through here so a new instrument is one arm).
+pub(super) fn evidence_instrument_for_slug(
+    slug: &str,
+) -> Box<dyn crate::seriate::instrument::Instrument> {
+    use crate::seriate::instrument::{ordinal, ratio_letter};
+    match slug {
+        ORDINAL_LETTER_SLUG => Box::new(ordinal::OrdinalInstrument),
+        RATIO_LETTER_ATTR_LAST_SLUG => Box::new(ratio_letter::RatioLetterAttrLastInstrument),
+        _ => Box::new(ratio_letter::RatioLetterInstrument),
+    }
 }
 
 /// Prompt-template slug for the decimal-ledger evidence instrument
@@ -275,18 +293,23 @@ pub struct EvidenceMoments {
 pub(super) fn seriate_template_fingerprint(slug: &str) -> &'static str {
     use std::sync::OnceLock;
     static RATIO: OnceLock<String> = OnceLock::new();
+    static RATIO_ATTR_LAST: OnceLock<String> = OnceLock::new();
     static ORDINAL: OnceLock<String> = OnceLock::new();
-    fn compute(instrument: &dyn crate::seriate::instrument::Instrument) -> String {
+    fn compute(slug: &str) -> String {
         let attribute = crate::seriate::Attribute::new("fingerprint", "fingerprint");
         let a = crate::seriate::Entity::new("A");
         let b = crate::seriate::Entity::new("B");
-        instrument.render(&attribute, &a, &b).template.0 .0.clone()
+        evidence_instrument_for_slug(slug)
+            .render(&attribute, &a, &b)
+            .template
+            .0
+             .0
+            .clone()
     }
-    if slug == ORDINAL_LETTER_SLUG {
-        ORDINAL.get_or_init(|| compute(&crate::seriate::instrument::ordinal::OrdinalInstrument))
-    } else {
-        RATIO.get_or_init(|| {
-            compute(&crate::seriate::instrument::ratio_letter::RatioLetterInstrument)
-        })
-    }
+    let cell = match slug {
+        ORDINAL_LETTER_SLUG => &ORDINAL,
+        RATIO_LETTER_ATTR_LAST_SLUG => &RATIO_ATTR_LAST,
+        _ => &RATIO,
+    };
+    cell.get_or_init(|| compute(slug))
 }

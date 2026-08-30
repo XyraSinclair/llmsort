@@ -99,6 +99,31 @@ RESULTS.md with denominators) and one page here.
   directions (pairwise positional flips: 6–38%). Agreement ρ 0.29–0.81
   by attribute. Next: reciprocal-frame prompt or per-call pivot-effect
   term in the solver before k-wise earns a promotion.
+- **E10 — the family sweep instrument (NORTH's native unit of work).** Per
+  pair over one prefix: {A, A′, ¬A} × both orders; the scaling evidence and
+  the reliability reading (paraphrase ρ, negation ρ, order residual, null
+  calibration) from the SAME calls. Mechanical gate closed: attribute-LAST
+  ratio-letter twin (`ratio_letter_attrlast_v1`, same alphabet/parser,
+  pair-keyed provider cache routing). **EXECUTED** 2026-08-29
+  (`experiments/examples/family_sweep.rs`, pack
+  `research/artifacts/live/e10-family-sweep-2026-08-29/`, 960 calls,
+  $0.25, gpt-4.1-mini, 3 pools × 2 template orders): (1) cache economics
+  CONFIRMED where the floor allows — long entities (arxiv12) attr-last
+  reads 38.5% cached input, $0.046 vs $0.065 attr-first (−29%); short
+  pools cache 0% under the ~1024 floor either way, and attr-first can
+  never cache long-entity pools (its shared prefix is only
+  system+attribute). (2) The cache-native shape is NOT free: attr-last
+  roughly halves truth accuracy on countries (ρ 0.28 vs 0.64, replicated
+  0.30/0.74), drops arxiv paraphrase coherence (0.23 vs 0.55), and is the
+  only variant that refuses (21–25 battery refusals vs 0) — the judge
+  attends worse when the question follows the entities. (3) The reading
+  works: nulls exactly 0.000, order residual 0.04–0.28 nats, negation
+  coherence exposed as the weakest judge axis (wrong-signed on countries
+  attr-last), with visible run-to-run ρ noise at n=20–32 pairs. Next: can
+  a cheap attribute PREVIEW line (before entities, byte-stable across the
+  family? it is not — measure the trade instead) or a two-phase read
+  recover attr-first accuracy at attr-last prices; negation-coherence
+  cell on a stronger judge.
 - **E9 — NORTH head-to-head: single-token PMF vs JSON rail.** The 10x-core
   decree's premise, measured (design: docs/NORTH.md). `llmsort sort` on 6
   items x 24 comparisons, gpt-4.1-mini, both templates, pack-local

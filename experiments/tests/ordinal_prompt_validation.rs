@@ -24,6 +24,7 @@ fn base_request() -> MultiRerankRequest {
         gates: vec![],
         comparison_budget: Some(4),
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: None,
         rater_id: None,
         comparison_concurrency: Some(1),

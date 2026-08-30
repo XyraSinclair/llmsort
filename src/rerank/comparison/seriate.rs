@@ -1,3 +1,4 @@
+use super::types::evidence_instrument_for_slug;
 use super::*;
 
 /// The seriate ratio-letter path: one single-token call whose answer-position
@@ -11,12 +12,13 @@ pub(super) async fn compare_pair_seriate(
     cache: Option<&dyn PairwiseCache>,
     request: PairwiseComparisonRequest<'_>,
 ) -> Result<(PairwiseJudgement, ComparisonUsage), ComparisonError> {
-    let instrument: Box<dyn crate::seriate::instrument::Instrument> =
-        if request.spec.attribute.prompt_template_slug == Some(ORDINAL_LETTER_SLUG) {
-            Box::new(crate::seriate::instrument::ordinal::OrdinalInstrument)
-        } else {
-            Box::new(crate::seriate::instrument::ratio_letter::RatioLetterInstrument)
-        };
+    let instrument = evidence_instrument_for_slug(
+        request
+            .spec
+            .attribute
+            .prompt_template_slug
+            .unwrap_or(RATIO_LETTER_SLUG),
+    );
     let rendered = request.spec.prompt_instance();
     let rendered_prompt_digest = rendered.rendered_digest();
     let cache_key = cache.map(|_| request.spec.cache_key());
@@ -26,6 +28,7 @@ pub(super) async fn compare_pair_seriate(
                 if let Some(judgement) = cached_to_judgement(&hit, LADDER_RATIO_CAP) {
                     let usage = ComparisonUsage {
                         input_tokens: 0,
+                        cache_read_tokens: None,
                         output_tokens: 0,
                         provider_cost_nanodollars: 0,
                         provider_cost_is_estimate: false,
@@ -58,11 +61,21 @@ pub(super) async fn compare_pair_seriate(
         ));
     }
 
-    // Per-attribute system-prefix key; see compare_pair for the rationale.
-    let prompt_cache_key = super::super::prompt_cache_key_from_parts(
-        &rendered.template_slug,
-        &[request.spec.attribute.prompt],
-    );
+    // Key on the shared prefix (see prompt_cache_key_from_parts): the
+    // attribute-first template shares (system + attribute) across pairs;
+    // the attr-last template shares (system + entity pair) across
+    // attribute variants — the family sweep's cache economics (NORTH E10).
+    let prompt_cache_key = if rendered.template_slug == RATIO_LETTER_ATTR_LAST_SLUG {
+        super::super::prompt_cache_key_from_parts(
+            &rendered.template_slug,
+            &[request.spec.entity_a.text, request.spec.entity_b.text],
+        )
+    } else {
+        super::super::prompt_cache_key_from_parts(
+            &rendered.template_slug,
+            &[request.spec.attribute.prompt],
+        )
+    };
     let messages = rendered.to_messages();
     let mut base_request = ChatRequest::new(
         ChatModel::parse(request.spec.model),
@@ -99,6 +112,7 @@ pub(super) async fn compare_pair_seriate(
     let prompt_text = format!("{}\n---\n{}", rendered.system, rendered.user);
     let mut usage = ComparisonUsage {
         input_tokens: input_tokens_total,
+        cache_read_tokens: response.cache_read_tokens,
         output_tokens: output_tokens_total,
         provider_cost_nanodollars: provider_cost_total,
         provider_cost_is_estimate,

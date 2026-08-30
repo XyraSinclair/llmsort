@@ -105,6 +105,12 @@ on a later one)
    renders attribute FIRST, entities after — zero shared prefix across
    attribute variants. E10 starts with an attribute-LAST prompt variant
    (new slug; same alphabet, same PMF read) so the pair-prefix caches.
+   E10 measured (2026-08-29): the caching is real (38.5% cached input,
+   −29% cost on long entities) but the attr-last shape roughly halves
+   truth accuracy and drops paraphrase coherence — the judge attends
+   worse when the question follows the entities. The cache-native
+   prompt shape is a measured trade, not a free lunch; recovering
+   attr-first accuracy at attr-last prices is E10's open problem.
 3. Flip `sort` to the PMF rail by default where the matrix allows;
    JSON path demoted to explicit fallback.
 4. The deletion campaign, one room at a time, blind-defended

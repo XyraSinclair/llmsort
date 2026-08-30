@@ -135,6 +135,7 @@ async fn pareto_front_and_correlations_reflect_a_planted_trade_off() {
         gates: vec![],
         comparison_budget: Some(60),
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: Some("test/judge".into()),
         rater_id: None,
         comparison_concurrency: Some(1),

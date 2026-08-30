@@ -344,6 +344,7 @@ pub async fn anp(
         gates: Vec::new(),
         comparison_budget: opts.comparison_budget,
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: opts.model.clone(),
         rater_id: None,
         comparison_concurrency: None,

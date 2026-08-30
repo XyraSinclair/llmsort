@@ -1219,6 +1219,7 @@ fn build_rerank_request(request: &NormalizedJudgementRunRequest) -> MultiRerankR
         gates: Vec::new(),
         comparison_budget: Some(max_judgement_run_comparisons(request)),
         latency_budget_ms: None,
+        max_cost_nanodollars: None,
         model: Some(request.model.clone()),
         rater_id: Some(request.model.clone()),
         comparison_concurrency: Some(COMPARISON_CONCURRENCY),

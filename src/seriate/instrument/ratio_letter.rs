@@ -71,6 +71,55 @@ fn render_user(attribute: &Attribute, entity_a: &str, entity_b: &str) -> String 
     )
 }
 
+fn render_user_attr_last(attribute: &Attribute, entity_a: &str, entity_b: &str) -> String {
+    format!(
+        "<entity_A>\n{}\n</entity_A>\n\n<entity_B>\n{}\n</entity_B>\n\n\
+         <attribute>\n<name>{}</name>\n<text>\n{}\n</text>\n</attribute>",
+        entity_a, entity_b, attribute.name, attribute.text
+    )
+}
+
+/// Attribute-LAST variant of [`RatioLetterInstrument`]: entities render
+/// first, the attribute arrives last, so the (system + entity pair) token
+/// prefix is byte-stable across attribute variants and provider prefix
+/// caches serve a family sweep — {A, A′, ¬A} over one judged pair — at
+/// cached-input prices (NORTH E10's mechanical gate: the attribute-first
+/// order shares zero prefix across variants). Same alphabet, same parser,
+/// same evidence; only the template hash and slug differ.
+#[derive(Clone, Copy, Debug, Default)]
+pub struct RatioLetterAttrLastInstrument;
+
+impl Instrument for RatioLetterAttrLastInstrument {
+    fn kind(&self) -> InstrumentKind {
+        InstrumentKind::RatioLetterPairwise
+    }
+
+    fn parser_version(&self) -> ParserVersion {
+        ParserVersion(PARSER_VERSION.to_string())
+    }
+
+    fn render(&self, attribute: &Attribute, slot_a: &Entity, slot_b: &Entity) -> RenderedPrompt {
+        let system = system_prompt();
+        let user = render_user_attr_last(attribute, &slot_a.body, &slot_b.body);
+        let skeleton = render_user_attr_last(attribute, SLOT_A_PLACEHOLDER, SLOT_B_PLACEHOLDER);
+        RenderedPrompt {
+            template: template_hash(&system, &skeleton),
+            system,
+            user,
+            response_format_json: false,
+            answer_alphabet: ratio_letter_alphabet(),
+        }
+    }
+
+    fn parse(
+        &self,
+        content: &str,
+        answer_logprobs: Option<&[TokenLogprob]>,
+    ) -> Result<ParseOutcome, InstrumentError> {
+        RatioLetterInstrument.parse(content, answer_logprobs)
+    }
+}
+
 /// The 52 single-character tokens whose logprobs constitute the answer PMF
 /// (the refusal token `!` is intentionally excluded: it is not part of the
 /// informative alphabet, only a health signal).

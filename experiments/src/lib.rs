@@ -26,7 +26,7 @@ pub use anp::{anp, AnpAlternative, AnpCriterion, AnpError, AnpOptions, AnpReport
 pub use battery::{
     core_pairs, doubling_strides, orbit_pairs, perturb_pairs, ring_stride_pairs, BatteryError,
     BatteryScale, BatterySpec, EntityPool, PoolAttribute, PoolItem, CORPUS, HARMONIC_BLOCK,
-    HARMONIC_CYCLE, OPPOSITE_ATTRIBUTE, PARAPHRASE_ATTRIBUTE, PRIMARY_ATTRIBUTE,
+    HARMONIC_CYCLE, NULL_INDICES, OPPOSITE_ATTRIBUTE, PARAPHRASE_ATTRIBUTE, PRIMARY_ATTRIBUTE,
 };
 pub use bench::{
     render_report as render_bench_report, run_judge_bench, BenchCall, DimensionStat,

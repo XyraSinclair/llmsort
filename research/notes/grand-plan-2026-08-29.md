@@ -1,5 +1,12 @@
 # Grand plan — from research instrument to something real (2026-08-29)
 
+> **Operator redirect (2026-08-29, same day):** the distribution-first
+> framing below is dropped — the mandate is the artifact itself: the most
+> useful, powerful, landscape-descriptive, parsimonious LLM sorting /
+> annotation / prior-elicitation API (docs/NORTH.md is the governing
+> derivation). The §6 freeze is dissolved; the send/concierge material
+> stays as record, not plan.
+
 Four independent voices on one brief (`/tmp/llmsort-consult/brief.md`,
 reproduced in §4): Oracle (GPT-5.6 Sol, Extra High — the Pro tier was not
 reachable in the picker this run; disclosed by the launcher), Kimi K3
