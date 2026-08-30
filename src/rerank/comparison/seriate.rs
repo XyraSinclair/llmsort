@@ -138,7 +138,7 @@ pub(super) async fn compare_pair_seriate(
     // (reasoning-class models 400 on it), degrade loudly to a sampled call.
     let with_logprobs = base_request
         .clone()
-        .with_logprobs(route.map_or(20, |r| r.top_n));
+        .with_logprobs(route.map_or(PAIRWISE_LOGPROBS_TOP_N_DEFAULT, |r| r.top_n));
     let response = match gateway.chat(with_logprobs).await {
         Ok(response) => response,
         Err(err) if format!("{err}").to_ascii_lowercase().contains("logprob") => {
