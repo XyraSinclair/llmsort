@@ -87,9 +87,12 @@ Target: core ≤ ~6k lines from ~19k, with MORE capability surfaced
   (795/870 ratios < 1, rotation flips 80–93% of directions) — k-wise
   prefixes stay experimental until that is solved. The measured-safe
   shape is pair-in-prefix, attribute-in-tail.
-- **Two-phase where depth is needed**: reason at effort-medium, read the
-  one-token PMF at effort-none with the analysis in context — measured
-  evidence-tracking, not verdict-copying (LOGPROBS.md).
+- **Two-phase where depth is needed**: elicit a written analysis with
+  the verdict token forbidden AND reasoning off — hidden reasoning
+  behind the analysis is measured verdict jitter, not consistency
+  (sigma-eps-knobs pack) — then read the one-token PMF at effort-none
+  with the analysis in context; the read tracks the analysis text, not
+  a copied verdict (LOGPROBS.md).
 - Packet identity, cost truth, calibration honesty: unchanged invariants.
 
 ## Migration spine (every step lands green with a pack; no step depends
@@ -141,7 +144,10 @@ on a later one)
    2.4% (beats its own JSON rail's 7.6%), frustration 0.216 → 0.024,
    stat ±0.050, visible mass 0.97, order residual 0.391 → 0.277 nats
    (counterbalancing cancels it in the fit; it stays the dominant
-   reported term), $0.124 vs $0.034. The default draws the line the
+   reported term), $0.124 vs $0.034. (That cell's 2.4%/±0.050 later
+   proved a lucky draw — fresh same-config cells ran 12–26% cyclic, and
+   the ±0.050 predates the honest-σ refit; the standing scoreboard is
+   in the 2026-08-31 block below.) The default draws the line the
    matrix measures: reasoning-NATIVE families (logprobs only at effort
    none — 5.5/5.6) default to the two-phase read; families where unset
    effort also serves logprobs measured WORSE under it (5.4-mini:
@@ -187,6 +193,11 @@ on a later one)
    hidden reasoning on top adds only stochasticity. The 2p analysis call
    now pins reasoning off. Corollary measured at both ends: single-phase
    verdict reads are nonce-deterministic (σ_w 0.004 on 5.4-mini).
+   Standing terra 2p scoreboard with the pin (means over 3 fresh seeds,
+   8×32, no cache): order residual 0.141 nats, σ_w 0.125 nats/call,
+   stat ±0.079 (posterior incl σ_w), cyclic 7–18%, flips 6/48, visible
+   0.97–0.99, $0.105 — every axis better than default-effort's paired
+   cells, and the reported σ is now believed.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

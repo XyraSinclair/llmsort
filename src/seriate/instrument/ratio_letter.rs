@@ -138,13 +138,14 @@ fn two_phase_system_prompt() -> String {
 }
 
 /// Two-phase variant of [`RatioLetterInstrument`] for reasoning-class
-/// judges: turn 1 elicits a reasoned analysis with the verdict token
+/// judges: turn 1 elicits a WRITTEN analysis with the verdict token
 /// forbidden (a visible verdict collapses the turn-2 PMF — measured,
-/// docs/LOGPROBS.md), turn 2 re-sends the conversation with the analysis
-/// as an assistant message and reads the single ladder letter at
-/// reasoning-off with answer logprobs. The judge's consistency work
-/// happens where it actually lives (its reasoning), while the posterior
-/// still arrives as one token position's PMF. `render` returns the turn-1
+/// docs/LOGPROBS.md) and reasoning off (the consistency lives in the
+/// analysis text; hidden reasoning behind it is measured verdict
+/// jitter — sigma-eps-knobs pack, 2026-08-31), turn 2 re-sends the
+/// conversation with the analysis as an assistant message and reads the
+/// single ladder letter at reasoning-off with answer logprobs. The
+/// posterior still arrives as one token position's PMF. `render` returns the turn-1
 /// prompt (the deterministic part); the executing path appends the
 /// analysis and [`TWO_PHASE_ANSWER_PROMPT`].
 #[derive(Clone, Copy, Debug, Default)]

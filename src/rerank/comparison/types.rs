@@ -279,9 +279,11 @@ pub const RATIO_LETTER_SLUG: &str = "ratio_letter_v1";
 /// currency; distinct template hash and cache identity (NORTH E10).
 pub const RATIO_LETTER_ATTR_LAST_SLUG: &str = "ratio_letter_attrlast_v1";
 
-/// Two-phase ratio-letter: reasoned analysis first (verdict forbidden),
-/// then a reasoning-off single-token logprob verdict with the analysis in
-/// context. Default for reasoning-class judges — evidence on
+/// Two-phase ratio-letter: a written analysis first (verdict forbidden,
+/// reasoning off — hidden reasoning behind the analysis is measured
+/// verdict jitter, sigma-eps-knobs pack), then a reasoning-off
+/// single-token logprob verdict with the analysis in context. Default
+/// for reasoning-class judges — evidence on
 /// [`SeriateLogprobRoute::requires_effort_none`].
 pub const RATIO_LETTER_2P_SLUG: &str = "ratio_letter_2p_v1";
 

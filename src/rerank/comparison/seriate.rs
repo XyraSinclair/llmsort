@@ -102,10 +102,10 @@ pub(super) async fn compare_pair_seriate(
     let mut provider_cost_is_estimate = false;
     let mut prompt_text = format!("{}\n---\n{}", rendered.system, rendered.user);
 
-    // Two-phase protocol: a reasoned analysis turn (verdict forbidden — a
+    // Two-phase protocol: a written analysis turn (verdict forbidden — a
     // visible verdict collapses the answer PMF, docs/LOGPROBS.md), appended
     // as an assistant message so the verdict call reads a one-token PMF
-    // with the judge's own reasoning in context. Same system + user bytes,
+    // with the judge's own analysis in context. Same system + user bytes,
     // so the provider prefix cache serves the re-sent turn-1 prompt warm.
     if rendered.template_slug == RATIO_LETTER_2P_SLUG {
         // The analysis turn runs with reasoning DISABLED: the verdict's

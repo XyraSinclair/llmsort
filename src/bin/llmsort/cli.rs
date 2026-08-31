@@ -99,7 +99,7 @@ pub(super) enum Commands {
         /// position-bias diagnostic)
         #[arg(long)]
         no_counterbalance: bool,
-        /// Prompt template. Default: auto — ratio_letter_2p_v1 (reasoned
+        /// Prompt template. Default: auto — ratio_letter_2p_v1 (written
         /// analysis, then a one-token PMF verdict via answer logprobs) for
         /// reasoning-class judges, ratio_letter_v1 (single-token PMF) for
         /// non-reasoning logprob models, canonical_v2 (JSON) elsewhere.
