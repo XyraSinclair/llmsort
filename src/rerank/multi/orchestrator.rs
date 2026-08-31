@@ -117,6 +117,10 @@ pub(crate) async fn multi_rerank_with_failures(
         .map(|(idx, a)| (a.id.as_str(), idx))
         .collect();
     let mut warm_start_observations = 0usize;
+    // Complete per-attribute observation log, mirroring everything ingested
+    // incrementally. The end-of-run honest-σ refit re-ingests from here with
+    // context noise folded into each evidence observation's variance.
+    let mut observation_log: HashMap<String, Vec<Observation>> = HashMap::new();
 
     if let Some(provider) = execution.warm_start {
         match provider.warm_start(&req, rater_id).await {
@@ -138,6 +142,10 @@ pub(crate) async fn multi_rerank_with_failures(
                     }
 
                     total_loaded = total_loaded.saturating_add(observations.len());
+                    observation_log
+                        .entry(attribute_id.clone())
+                        .or_default()
+                        .extend_from_slice(&observations);
 
                     let Some(&attr_idx) = attr_id_to_index.get(attribute_id.as_str()) else {
                         continue;
@@ -657,6 +665,7 @@ pub(crate) async fn multi_rerank_with_failures(
                         Observation::new(obs_i, obs_j, ratio, confidence, rater_id, 1.0)
                     };
                     let trace_observation = execution.trace.is_some().then(|| obs.clone());
+                    let logged_observation = obs.clone();
                     let solver_error = manager
                         .add_observation(attr_id, obs)
                         .err()
@@ -671,6 +680,10 @@ pub(crate) async fn multi_rerank_with_failures(
                         comparisons_used += 1;
                         attribute_used[task.attr_idx] =
                             attribute_used[task.attr_idx].saturating_add(1);
+                        observation_log
+                            .entry(attr_id.to_string())
+                            .or_default()
+                            .push(logged_observation);
                     }
                     *pair_repeats.entry(task.key).or_insert(0.0) += 1.0;
 
@@ -763,6 +776,49 @@ pub(crate) async fn multi_rerank_with_failures(
         }
     };
 
+    // Honest-σ refit. PMF-internal variance understates true per-observation
+    // uncertainty: the phase-1 analysis is stochastic even at temperature 0,
+    // and that within-call noise never shows up inside a single verdict PMF
+    // (slot-hetero pack, 2026-08-30: σε = 0.215 nats/call on the terra 2p
+    // rail, ~1× signal scale, while the PMF-weighted posterior reported
+    // ±0.050). The run's own counterbalance residual is a self-calibrating
+    // estimate: with slot bias ≈ 0 (measured), m_fwd + m_rev ~ N(0, 2σε²)
+    // per pair at one draw each, so σε = mean|m_fwd + m_rev| · √π / 2
+    // (validated: 0.245 predicted vs 0.215 measured directly). Where real
+    // slot bias exists the residual includes it and the refit over-widens —
+    // conservative, never overconfident. Evidence observations get
+    // var + σ_w²; point observations keep unit precision (their weighting
+    // never claimed calibration). Without counterbalancing there is no
+    // estimator: σ_w stays None and nothing is inflated.
+    let evidence_sigma_w = (evidence_order_residual_pairs > 0 && evidence_judgements > 0)
+        .then(|| {
+            (evidence_order_residual_sum_abs / evidence_order_residual_pairs as f64)
+                * std::f64::consts::PI.sqrt()
+                / 2.0
+        })
+        .filter(|sigma| sigma.is_finite() && *sigma > 0.0);
+    if let Some(sigma_w) = evidence_sigma_w {
+        for (attribute_id, observations) in &observation_log {
+            if !observations.iter().any(|ob| ob.precision.is_some()) {
+                continue; // pure point-path attribute: nothing to widen
+            }
+            let inflated: Vec<Observation> = observations
+                .iter()
+                .map(|ob| match ob.precision {
+                    Some(p) if p.is_finite() && p > 0.0 => {
+                        let mut ob = ob.clone();
+                        ob.precision = Some(1.0 / (1.0 / p + sigma_w * sigma_w));
+                        ob
+                    }
+                    _ => ob.clone(),
+                })
+                .collect();
+            manager
+                .reingest(attribute_id, &inflated)
+                .map_err(|e| MultiRerankError::RatingEngine(e.to_string()))?;
+        }
+    }
+
     build_response(
         &req,
         &mut manager,
@@ -792,6 +848,7 @@ pub(crate) async fn multi_rerank_with_failures(
             visible_mass_sum,
             evidence_order_residual_sum_abs,
             evidence_order_residual_pairs,
+            evidence_sigma_w,
             stop_reason,
         },
     )

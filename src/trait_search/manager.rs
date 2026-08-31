@@ -656,4 +656,20 @@ impl TraitSearchManager {
         let observations = [observation];
         self.add_observations(attr_id, &observations)
     }
+
+    /// Rebuild an attribute's edge set from a complete observation log,
+    /// replacing (not appending to) what was ingested incrementally. The
+    /// end-of-run honest-σ refit uses this to re-weight evidence
+    /// observations once the run's own noise estimate exists.
+    pub fn reingest(&mut self, attr_id: &str, observations: &[Observation]) -> Result<()> {
+        let engine =
+            self.engines
+                .get_mut(attr_id)
+                .ok_or_else(|| TraitSearchError::MissingEngine {
+                    attribute_id: attr_id.to_string(),
+                })?;
+        engine.ingest(observations);
+        self.invalidate();
+        Ok(())
+    }
 }

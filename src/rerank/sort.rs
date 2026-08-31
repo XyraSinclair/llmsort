@@ -263,6 +263,7 @@ pub async fn sort_documents(
                 logprob_mode_judgements: 0,
                 evidence_visible_mass_mean: None,
                 evidence_order_residual_mean_abs: None,
+                evidence_sigma_w: None,
                 judgement_frustration_mean: None,
                 stop_reason: super::types::RerankStopReason::ToleratedErrorMet,
             },

@@ -168,6 +168,13 @@ on a later one)
    σ needs a σ_w (context-noise) term, and repeat-averaging (cache-
    priced) is the cost knob. The JSON rail's lower residual (0.120) is
    lower per-call noise (σε ≈ 0.13), not better symmetry.
+   **LANDED 2026-08-30 — the honest-σ refit**: σ_w = residual·√π/2 is
+   estimated from the run's own counterbalance diagnostic (no constants,
+   no knobs; conservative where real slot bias exists) and folded into
+   every evidence observation's variance by an end-of-run re-ingest, so
+   posterior stds carry it; `noise sigma_w` joins the error budget and
+   `evidence_sigma_w` the meta. Un-counterbalanced runs have no
+   estimator and stay un-widened, loudly None.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

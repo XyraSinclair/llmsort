@@ -7,6 +7,20 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Honest-σ refit (σ_w): posterior stds now include measured per-call
+  context noise.** The counterbalance residual the run already computes is
+  a self-calibrating noise estimator (σ_w = mean|m_fwd + m_rev|·√π/2, exact
+  when slot bias ≈ 0 — measured true on terra's 2p and JSON rails,
+  slot-hetero pack; conservative where real bias exists, since the residual
+  then includes it and the refit only widens). At end of run every evidence
+  observation is re-ingested with `var + σ_w²`, so `latent_std` and the
+  error-budget `stat` line stop understating uncertainty the PMF cannot
+  see (the 2p rail reported ±0.050 while true per-call noise was 0.215
+  nats). Reported as `noise sigma_w … nats/call` in the error budget and
+  `evidence_sigma_w` in meta; traces keep the raw per-comparison PMF
+  variance; `--no-counterbalance` runs have no estimator and are left
+  un-widened (σ_w = None). No new knobs.
+
 - **`judge --draws` rejects evidence-rail slugs loudly** instead of silently
   measuring `canonical_v2`: `nonce_draws` used to fall back to
   `DEFAULT_PROMPT` for any slug `prompt_by_slug` didn't know, so a draws run

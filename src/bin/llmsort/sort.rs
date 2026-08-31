@@ -434,7 +434,15 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     };
                     let mut parts: Vec<String> = Vec::new();
                     if let Some(stat) = stat {
-                        parts.push(format!("stat ±{stat:.3} (posterior, mean)"));
+                        let honest = if meta.evidence_sigma_w.is_some() {
+                            " incl sigma_w"
+                        } else {
+                            ""
+                        };
+                        parts.push(format!("stat ±{stat:.3} (posterior{honest}, mean)"));
+                    }
+                    if let Some(sigma_w) = meta.evidence_sigma_w {
+                        parts.push(format!("noise sigma_w {sigma_w:.3} nats/call"));
                     }
                     if let Some(residual) = meta.evidence_order_residual_mean_abs {
                         parts.push(format!("syst order {residual:.3} nats/pair"));

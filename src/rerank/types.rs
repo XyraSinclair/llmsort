@@ -192,6 +192,15 @@ pub struct RerankMeta {
     /// the statistical posterior stds.
     #[serde(default)]
     pub evidence_order_residual_mean_abs: Option<f64>,
+    /// Per-call context-noise sigma (nats), estimated from the run's own
+    /// counterbalance residual (sigma_w = mean|m_fwd + m_rev| * sqrt(pi)/2 —
+    /// exact when slot bias is ~0, conservative where real bias exists) and
+    /// folded into every evidence observation's variance by an end-of-run
+    /// refit, so posterior stds are honest about within-call stochasticity
+    /// the PMF cannot see. None when nothing was folded: no counterbalanced
+    /// pairs (no estimator) or no evidence observations (nothing to widen).
+    #[serde(default)]
+    pub evidence_sigma_w: Option<f64>,
     /// Mean curl fraction across attributes: the share of judgement energy
     /// that is cyclically inconsistent (A>B>C>A structure) and cannot be
     /// explained by ANY scores. 0 = transitive judge; the Hodge residual
@@ -586,6 +595,15 @@ pub struct MultiRerankMeta {
     /// the statistical posterior stds.
     #[serde(default)]
     pub evidence_order_residual_mean_abs: Option<f64>,
+    /// Per-call context-noise sigma (nats), estimated from the run's own
+    /// counterbalance residual (sigma_w = mean|m_fwd + m_rev| * sqrt(pi)/2 —
+    /// exact when slot bias is ~0, conservative where real bias exists) and
+    /// folded into every evidence observation's variance by an end-of-run
+    /// refit, so posterior stds are honest about within-call stochasticity
+    /// the PMF cannot see. None when nothing was folded: no counterbalanced
+    /// pairs (no estimator) or no evidence observations (nothing to widen).
+    #[serde(default)]
+    pub evidence_sigma_w: Option<f64>,
     /// Mean curl fraction across attributes: the share of judgement energy
     /// that is cyclically inconsistent (A>B>C>A structure) and cannot be
     /// explained by ANY scores. 0 = transitive judge; the Hodge residual

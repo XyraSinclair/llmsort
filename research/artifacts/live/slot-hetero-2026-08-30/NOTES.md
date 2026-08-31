@@ -76,6 +76,13 @@ the default.
    double-count).
 4. The JSON rail's lower residual (0.120–0.158) reflects lower per-call
    noise (σε ≈ 0.13), not better symmetry.
+5. **Landed same day (honest-σ refit):** consequence 3's design seed is
+   in the core — σ_w = residual·√π/2 from the run's own counterbalance
+   diagnostic, folded into every evidence observation's variance by an
+   end-of-run re-ingest. Live re-run of the same smoke cell: residual
+   0.290 → sigma_w 0.257, stat ±0.050-class → ±0.133 labeled
+   `posterior incl sigma_w`, rank risk honestly 3.4 (adjacent ranks
+   within 1σ at this budget, said out loud). $0.12.
 
 ## Rerun
 

@@ -36,6 +36,7 @@ pub(super) struct ResponseContext<'a> {
     pub(super) visible_mass_sum: f64,
     pub(super) evidence_order_residual_sum_abs: f64,
     pub(super) evidence_order_residual_pairs: usize,
+    pub(super) evidence_sigma_w: Option<f64>,
     pub(super) stop_reason: RerankStopReason,
 }
 
@@ -76,6 +77,7 @@ pub(super) fn build_response(
         visible_mass_sum,
         evidence_order_residual_sum_abs,
         evidence_order_residual_pairs,
+        evidence_sigma_w,
         stop_reason,
     } = context;
     // Final recompute and response assembly
@@ -282,6 +284,7 @@ pub(super) fn build_response(
         } else {
             None
         },
+        evidence_sigma_w,
         judgement_frustration_mean: {
             let values: Vec<f64> = req
                 .attributes

@@ -144,6 +144,7 @@ pub(crate) fn meta_from_multi(
         logprob_mode_judgements: meta.logprob_mode_judgements,
         evidence_visible_mass_mean: meta.evidence_visible_mass_mean,
         evidence_order_residual_mean_abs: meta.evidence_order_residual_mean_abs,
+        evidence_sigma_w: meta.evidence_sigma_w,
         judgement_frustration_mean: meta.judgement_frustration_mean,
         stop_reason: meta.stop_reason,
     }
