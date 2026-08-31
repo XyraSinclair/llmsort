@@ -208,7 +208,10 @@ pub struct RerankMeta {
     #[serde(default)]
     pub judgement_frustration_mean: Option<f64>,
 
-    /// Why the rerank loop stopped.
+    /// Why the rerank loop stopped. Stop decisions are made on the
+    /// in-run (pre-refit) fit; after the honest-σ refit the reported
+    /// error budget can exceed the tolerance that triggered the stop —
+    /// read `topk_error`, not `stop_reason`, as the certification.
     pub stop_reason: RerankStopReason,
 }
 
@@ -611,7 +614,10 @@ pub struct MultiRerankMeta {
     #[serde(default)]
     pub judgement_frustration_mean: Option<f64>,
 
-    /// Why the rerank loop stopped.
+    /// Why the rerank loop stopped. Stop decisions are made on the
+    /// in-run (pre-refit) fit; after the honest-σ refit the reported
+    /// error budget can exceed the tolerance that triggered the stop —
+    /// read `topk_error`, not `stop_reason`, as the certification.
     pub stop_reason: RerankStopReason,
 }
 

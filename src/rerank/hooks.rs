@@ -23,6 +23,10 @@ pub enum WarmStartError {
     Message(String),
 }
 
+/// Suppliers must provide RAW observations (per-comparison variance as
+/// measured, e.g. reconstructed from a trace) — never post-refit state.
+/// The honest-σ refit widens warm-started evidence observations with the
+/// consuming run's own σ_w; pre-inflated input would be widened twice.
 #[async_trait::async_trait]
 pub trait WarmStartProvider: Send + Sync {
     async fn warm_start(

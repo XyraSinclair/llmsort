@@ -789,7 +789,12 @@ pub(crate) async fn multi_rerank_with_failures(
     // conservative, never overconfident. Evidence observations get
     // var + σ_w²; point observations keep unit precision (their weighting
     // never claimed calibration). Without counterbalancing there is no
-    // estimator: σ_w stays None and nothing is inflated.
+    // estimator: σ_w stays None and nothing is inflated. In a
+    // mixed-instrument run the residual pools evidence and point pairs
+    // (matching `evidence_order_residual_mean_abs`'s declared "ANY
+    // instrument" semantics), so σ_w is then partly estimated from
+    // point-path residuals while applied only to evidence observations —
+    // homogeneous pools, the normal case, are unaffected.
     let evidence_sigma_w = (evidence_order_residual_pairs > 0 && evidence_judgements > 0)
         .then(|| {
             (evidence_order_residual_sum_abs / evidence_order_residual_pairs as f64)
