@@ -236,6 +236,7 @@ pub async fn run_probe_battery(
                         spec,
                         cache_only: false,
                         attribution: attribution.clone(),
+                        nonce: None,
                     },
                 )
                 .await

@@ -258,6 +258,12 @@ pub struct PairwiseComparisonRequest<'a> {
     pub spec: PairwiseComparisonSpec<'a>,
     pub cache_only: bool,
     pub attribution: Attribution,
+    /// Draw nonce for cache-friendly repeat sampling: when set, the line
+    /// `draw-token: <nonce>` is appended after every stable byte of the
+    /// rendered user message (provider prefix caches stay warm) and the
+    /// pairwise SQLite cache is bypassed in both directions — a draw is
+    /// deliberately fresh. See `rerank::sampling::nonce_draws`.
+    pub nonce: Option<String>,
 }
 
 /// Prompt-template slug for the seriate single-token ratio-letter

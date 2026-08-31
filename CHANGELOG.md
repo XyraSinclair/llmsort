@@ -7,6 +7,19 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **`judge --draws` now speaks the evidence rails** (`ratio_letter_v1`,
+  attr-last, and the two-phase protocol): a draw nonce threads through
+  `PairwiseComparisonRequest` into the real comparison path — identical
+  bytes to sort's own calls plus one `draw-token` line after every stable
+  byte, pairwise SQLite cache bypassed both directions — so a draws cell
+  measures the rail it names (the slot-hetero incident class, closed at
+  the seam). Live: terra 2p σ_w 0.146 (n=4, consistent with the measured
+  0.215), and the single-phase rail measures σ_w 0.004 — direct
+  confirmation the 2p rail's noise lives in the stochastic analysis turn,
+  not the verdict read. Evidence draws run the rail's native temperature
+  and unpadded prompts (fidelity over cache savings; short pairs bill
+  fresh under the ~1024-token provider floor).
+
 - **Honest-σ refit (σ_w): posterior stds now include measured per-call
   context noise.** The counterbalance residual the run already computes is
   a self-calibrating noise estimator (σ_w = mean|m_fwd + m_rev|·√π/2, exact

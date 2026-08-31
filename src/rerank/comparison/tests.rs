@@ -414,6 +414,7 @@ async fn compare_pair_retries_bucket_prompt_until_pmf_available() {
         },
         cache_only: false,
         attribution: Attribution::new("test::bucket_retry"),
+        nonce: None,
     };
 
     let (judgement, usage) = compare_pair(&gateway, None, request).await.unwrap();

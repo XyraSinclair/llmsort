@@ -42,6 +42,18 @@ pub struct PromptInstance {
     pub system: String,
     pub user: String,
 }
+
+impl PromptInstance {
+    /// Append the draw-token nonce line for cache-friendly repeat sampling
+    /// (`rerank::sampling`): everything before this line stays
+    /// byte-identical across draws, which is what keeps the provider's
+    /// prefix cache warm. The single home of the draw-token format —
+    /// every rail appends it through here so the elicitation group's null
+    /// transformation cannot drift between instruments.
+    pub fn push_draw_token(&mut self, nonce: &str) {
+        self.user = format!("{}\ndraw-token: {nonce}", self.user);
+    }
+}
 // FROZEN: this domain-separation string is baked into every content-addressed
 // prompt digest (cache keys, packet ids). The crate was renamed to `ratiometer`
 // (2026-08-12) and again to `llmsorting` (2026-08-15), but this constant keeps

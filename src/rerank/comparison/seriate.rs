@@ -14,7 +14,15 @@ pub(super) async fn compare_pair_seriate(
     cache: Option<&dyn PairwiseCache>,
     request: PairwiseComparisonRequest<'_>,
 ) -> Result<(PairwiseJudgement, ComparisonUsage), ComparisonError> {
-    let rendered = request.spec.prompt_instance();
+    // A draw is deliberately fresh: the nonce bypasses the pairwise SQLite
+    // cache in both directions. The provider PREFIX cache stays warm by
+    // construction — the nonce line lands after every stable byte, and
+    // `prompt_cache_key` below is derived from stable content only.
+    let cache = if request.nonce.is_some() { None } else { cache };
+    let mut rendered = request.spec.prompt_instance();
+    if let Some(nonce) = &request.nonce {
+        rendered.push_draw_token(nonce);
+    }
     let rendered_prompt_digest = rendered.rendered_digest();
     let cache_key = cache.map(|_| request.spec.cache_key());
     if let (Some(cache), Some(ref key)) = (cache, &cache_key) {

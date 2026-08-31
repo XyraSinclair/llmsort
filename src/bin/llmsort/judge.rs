@@ -501,6 +501,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     spec,
                     cache_only: false,
                     attribution: Attribution::new("llmsort::judge"),
+                    nonce: None,
                 },
             )
             .await?;

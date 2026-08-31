@@ -146,6 +146,7 @@ pub async fn spin_probe(
                     spec,
                     cache_only: false,
                     attribution: attribution.clone(),
+                    nonce: None,
                 },
             )
             .await?;
@@ -335,6 +336,7 @@ pub async fn spin_sweep(
                     spec,
                     cache_only: false,
                     attribution: attribution.clone(),
+                    nonce: None,
                 },
             )
             .await?;

@@ -25,6 +25,10 @@
 use serde::Serialize;
 
 use super::comparison::parse_pairwise_response;
+use super::comparison::{
+    compare_pair, is_evidence_slug, PairwiseComparisonAttribute, PairwiseComparisonEntity,
+    PairwiseComparisonRequest, PairwiseComparisonSpec,
+};
 use super::types::{signed_log_ratio_toward_first, PairwiseJudgement};
 use crate::gateway::{Attribution, ChatGateway, ChatModel, ChatRequest, Message};
 use crate::prompts::prompt_by_slug;
@@ -103,17 +107,38 @@ pub async fn nonce_draws(
     seed: u64,
     attribution: Attribution,
 ) -> Result<NonceDrawReport, super::comparison::ComparisonError> {
-    // The draws instrument speaks the canonical JSON templates only. An
-    // unknown slug must fail LOUDLY: the old silent DEFAULT_PROMPT fallback
-    // rewrote an evidence-slug request into a canonical_v2 JSON measurement
-    // without saying so (caught 2026-08-30 — a slot-bias cell measured the
-    // wrong rail; slot-hetero pack). Evidence-rail draw support would need
-    // the seriate render + logprob read inside this loop.
+    // Evidence rails draw through the real comparison path (seriate render,
+    // 2p protocol, logprob read) with the nonce threaded into the request —
+    // the identical code path sort runs, so a draws cell measures the rail
+    // it names. (The old silent DEFAULT_PROMPT fallback rewrote an
+    // evidence-slug request into a canonical_v2 JSON measurement without
+    // saying so — caught 2026-08-30, slot-hetero pack.)
+    if is_evidence_slug(template_slug) {
+        if temperature != 0.0 {
+            return Err(super::comparison::ComparisonError::Parse(format!(
+                "evidence rails run at their native temperature; \
+                 --temperature {temperature} has no channel into the \
+                 seriate path"
+            )));
+        }
+        return evidence_nonce_draws(
+            gateway,
+            model,
+            template_slug,
+            criterion,
+            first,
+            second,
+            k,
+            seed,
+            attribution,
+        )
+        .await;
+    }
+    // Unknown slugs still fail LOUDLY (never a silent template fallback).
     let Some(template) = prompt_by_slug(template_slug) else {
         return Err(super::comparison::ComparisonError::Parse(format!(
-            "nonce draws support only the canonical JSON templates; \
-             '{template_slug}' is not one of them (evidence rails: run \
-             repeat single judgements instead)"
+            "nonce draws support the canonical JSON templates and the \
+             evidence rails; '{template_slug}' is neither"
         )));
     };
     let instance = template.render(
@@ -144,7 +169,11 @@ pub async fn nonce_draws(
         );
         // Suffix placement: everything before this line is byte-identical
         // across draws — the cache-critical invariant.
-        let user = format!("{}\ndraw-token: {nonce}", instance.user);
+        let user = {
+            let mut inst = instance.clone();
+            inst.push_draw_token(&nonce);
+            inst.user
+        };
         let request = ChatRequest {
             model: ChatModel::parse(model),
             messages: vec![Message::system(padded_system.clone()), Message::user(user)],
@@ -170,6 +199,96 @@ pub async fn nonce_draws(
                 refusals += 1;
                 draws.push(None);
             }
+        }
+        nonces.push(nonce);
+    }
+
+    let usable: Vec<f64> = draws.iter().flatten().copied().collect();
+    let mean = (!usable.is_empty()).then(|| usable.iter().sum::<f64>() / usable.len() as f64);
+    let sigma_w = (usable.len() >= 2).then(|| {
+        let m = mean.unwrap();
+        (usable.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (usable.len() - 1) as f64).sqrt()
+    });
+
+    Ok(NonceDrawReport {
+        draws,
+        nonces,
+        mean,
+        sigma_w,
+        cache_read_tokens_total,
+        input_tokens_total,
+        refusals,
+        comparisons: k,
+        cost_nanodollars: cost,
+    })
+}
+
+/// Evidence-rail draws: k fresh passes through the real comparison path
+/// (single-token PMF or the two-phase protocol), each distinguished only
+/// by the draw-token nonce in the phase-1 user message. The draw value is
+/// the PMF's E[log-ratio] toward the first item; sigma_w over draws is the
+/// within-pair context noise of the WHOLE rail (for 2p: dominated by the
+/// stochastic analysis turn — slot-hetero pack, 2026-08-30). The system
+/// prompt is the rail's own render, deliberately UNPADDED — the instrument
+/// must measure the exact bytes sort runs (the slot-hetero incident was an
+/// instrument drifting from its rail) — so prefix-cache savings engage
+/// only when the pair itself clears the provider floor (~1024 tokens;
+/// short pairs bill fresh, measured 0/4995 cached on a proverb pair).
+#[expect(clippy::too_many_arguments)]
+async fn evidence_nonce_draws(
+    gateway: &dyn ChatGateway,
+    model: &str,
+    template_slug: &str,
+    criterion: &str,
+    first: (&str, &str),
+    second: (&str, &str),
+    k: usize,
+    seed: u64,
+    attribution: Attribution,
+) -> Result<NonceDrawReport, super::comparison::ComparisonError> {
+    let mut draws = Vec::with_capacity(k);
+    let mut nonces = Vec::with_capacity(k);
+    let mut refusals = 0usize;
+    let mut cost = 0i64;
+    let mut cache_read_tokens_total = 0u64;
+    let mut input_tokens_total = 0u64;
+
+    for i in 0..k {
+        let nonce = format!(
+            "{:016x}",
+            splitmix(seed ^ (i as u64).wrapping_mul(0x2545F4914F6CDD1D))
+        );
+        let request = PairwiseComparisonRequest {
+            spec: PairwiseComparisonSpec {
+                model,
+                attribute: PairwiseComparisonAttribute {
+                    id: "draws",
+                    prompt: criterion,
+                    prompt_template_slug: Some(template_slug),
+                },
+                entity_a: PairwiseComparisonEntity {
+                    id: first.0,
+                    text: first.1,
+                },
+                entity_b: PairwiseComparisonEntity {
+                    id: second.0,
+                    text: second.1,
+                },
+            },
+            cache_only: false,
+            attribution: attribution.clone(),
+            nonce: Some(nonce.clone()),
+        };
+        let (judgement, usage) = compare_pair(gateway, None, request).await?;
+        cost += usage.provider_cost_nanodollars;
+        cache_read_tokens_total += u64::from(usage.cache_read_tokens.unwrap_or(0));
+        input_tokens_total += u64::from(usage.input_tokens);
+        match (&judgement, usage.evidence_moments) {
+            (PairwiseJudgement::Refused, _) | (_, None) => {
+                refusals += 1;
+                draws.push(None);
+            }
+            (_, Some(moments)) => draws.push(Some(moments.log_ratio_mean)),
         }
         nonces.push(nonce);
     }

@@ -15,9 +15,23 @@ pub async fn compare_pair(
         return compare_pair_seriate(gateway, cache, request).await;
     }
     if request.spec.attribute.prompt_template_slug == Some(DECIMAL_LEDGER_SLUG) {
+        if request.nonce.is_some() {
+            return Err(ComparisonError::Parse(
+                "nonce draws are unsupported on the decimal-ledger rail \
+                 (it is its own multi-draw instrument)"
+                    .to_string(),
+            ));
+        }
         return compare_pair_decimal_ledger(gateway, cache, request).await;
     }
-    let prompt_instance = request.spec.prompt_instance();
+    // A draw is deliberately fresh: the nonce bypasses the pairwise SQLite
+    // cache in both directions (a nonce result must never pollute the
+    // pair's cached judgement, and a cached judgement is not a draw).
+    let cache = if request.nonce.is_some() { None } else { cache };
+    let mut prompt_instance = request.spec.prompt_instance();
+    if let Some(nonce) = &request.nonce {
+        prompt_instance.push_draw_token(nonce);
+    }
     let rendered_prompt_digest = prompt_instance.rendered_digest();
     let cache_key = cache.map(|_| request.spec.cache_key());
 

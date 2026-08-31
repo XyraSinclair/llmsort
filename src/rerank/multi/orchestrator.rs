@@ -393,6 +393,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     },
                     cache_only,
                     attribution,
+                    nonce: None,
                 };
                 let judgement = compare_pair(gateway.as_ref(), execution.cache, comparison).await;
                 (task, judgement, selected_model)
