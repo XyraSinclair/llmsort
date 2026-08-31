@@ -108,11 +108,17 @@ pub(super) async fn compare_pair_seriate(
     // with the judge's own reasoning in context. Same system + user bytes,
     // so the provider prefix cache serves the re-sent turn-1 prompt warm.
     if rendered.template_slug == RATIO_LETTER_2P_SLUG {
-        // Runs at provider-default effort by construction: the reasoning pin
-        // is applied below, after this clone, so the judge reasons here.
+        // The analysis turn runs with reasoning DISABLED: the verdict's
+        // structure comes from the written, verdict-forbidden analysis
+        // text, and hidden reasoning on top of it is a measured noise
+        // source, not a quality source (sigma-eps-knobs pack, 2026-08-31:
+        // terra sigma_eps 0.260 -> 0.181 nats/call and every sort axis
+        // improved across 3 paired seeds — order residual 0.238 -> 0.141,
+        // flips 14/48 -> 6/48, -13% cost; luna unchanged within noise).
         let analysis_request = base_request
             .clone()
-            .max_tokens(super::types::TWO_PHASE_ANALYSIS_MAX_TOKENS);
+            .max_tokens(super::types::TWO_PHASE_ANALYSIS_MAX_TOKENS)
+            .reasoning(ReasoningConfig::disabled());
         let analysis_response = gateway.chat(analysis_request).await?;
         input_tokens_total = input_tokens_total.saturating_add(analysis_response.input_tokens);
         cache_read_tokens_total = analysis_response.cache_read_tokens;

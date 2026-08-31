@@ -175,6 +175,18 @@ on a later one)
    posterior stds carry it; `noise sigma_w` joins the error budget and
    `evidence_sigma_w` the meta. Un-counterbalanced runs have no
    estimator and stay un-widened, loudly None.
+   **RESOLVED 2026-08-31 (sigma-eps-knobs pack) — the analysis turn's
+   REASONING was the noise.** With `judge --draws` extended to the
+   evidence rails (nonce through the real comparison path), a phase-1
+   effort sweep on terra measured σε 0.260 (default) / 0.209 (low) /
+   0.238 (minimal) / 0.181 (disabled); paired 8×32 sort cells across 3
+   seeds: disabling analysis reasoning cut order residual 0.238 → 0.141,
+   flips 14/48 → 6/48, rank risk 3.9 → 2.4, cost −13%, frustration
+   0.185 → 0.113 (2/3 seeds). Luna unchanged within noise (σε 0.047 →
+   0.060). The verdict-forbidden written analysis carries the 2p win;
+   hidden reasoning on top adds only stochasticity. The 2p analysis call
+   now pins reasoning off. Corollary measured at both ends: single-phase
+   verdict reads are nonce-deterministic (σ_w 0.004 on 5.4-mini).
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

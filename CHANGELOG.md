@@ -7,6 +7,15 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **2p analysis turn now runs with reasoning disabled** — measured with
+  the new evidence-rail draws instrument (sigma-eps-knobs pack): on terra
+  the phase-1 hidden reasoning was the rail's dominant noise source
+  (σε 0.260 → 0.181 nats/call disabled; paired 3-seed sort cells: order
+  residual −41%, flips 14/48 → 6/48, rank risk 3.9 → 2.4, −13% cost,
+  frustration better 2/3), while luna is unchanged within noise. The
+  verdict-forbidden written analysis is what carries the two-phase
+  quality win; reasoning on top of it only jitters the verdict.
+
 - **`judge --draws` now speaks the evidence rails** (`ratio_letter_v1`,
   attr-last, and the two-phase protocol): a draw nonce threads through
   `PairwiseComparisonRequest` into the real comparison path — identical
