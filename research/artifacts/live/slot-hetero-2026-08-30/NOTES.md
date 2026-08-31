@@ -65,7 +65,15 @@ the default.
    PMF-internal spread that yields reported stat ±0.050 — the honest
    per-observation variance needs a σ_w term (the DL-floor concept already
    in the codebase). This replaces symmetrization as the top open lever,
-   with repeat-averaging (cache-priced) as the cost knob.
+   with repeat-averaging (cache-priced) as the cost knob. Design seed:
+   with zero slot bias, the run's own counterbalance diagnostic is a
+   self-calibrating σ_w estimator — b ~ N(0, σε²/2) at 1 draw/order gives
+   σε = (order residual)·√π/2 ≈ 0.886·residual (validated here:
+   0.886 × 0.277 = 0.245 vs 0.215 measured directly). No hardcoded
+   constants; per-run, per-rail. Caveat: only valid where the bias term
+   is ≈ 0 (measured true for terra 2p/JSON; NOT verified for judges with
+   real global bias, where residual ≠ pure noise and inflation would
+   double-count).
 4. The JSON rail's lower residual (0.120–0.158) reflects lower per-call
    noise (σε ≈ 0.13), not better symmetry.
 
