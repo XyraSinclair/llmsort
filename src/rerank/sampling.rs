@@ -103,7 +103,19 @@ pub async fn nonce_draws(
     seed: u64,
     attribution: Attribution,
 ) -> Result<NonceDrawReport, super::comparison::ComparisonError> {
-    let template = prompt_by_slug(template_slug).unwrap_or(crate::prompts::DEFAULT_PROMPT);
+    // The draws instrument speaks the canonical JSON templates only. An
+    // unknown slug must fail LOUDLY: the old silent DEFAULT_PROMPT fallback
+    // rewrote an evidence-slug request into a canonical_v2 JSON measurement
+    // without saying so (caught 2026-08-30 — a slot-bias cell measured the
+    // wrong rail; slot-hetero pack). Evidence-rail draw support would need
+    // the seriate render + logprob read inside this loop.
+    let Some(template) = prompt_by_slug(template_slug) else {
+        return Err(super::comparison::ComparisonError::Parse(format!(
+            "nonce draws support only the canonical JSON templates; \
+             '{template_slug}' is not one of them (evidence rails: run \
+             repeat single judgements instead)"
+        )));
+    };
     let instance = template.render(
         "draws",
         criterion,

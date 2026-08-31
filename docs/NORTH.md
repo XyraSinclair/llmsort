@@ -149,6 +149,25 @@ on a later one)
    inject noise) and keep the plain single-token rail; 4.1/4o plain;
    no route → canonical JSON. Each judge gets the instrument that
    measures its best self.
+   **RESOLVED 2026-08-30 (slot-hetero pack) — the 0.277 "order
+   residual" on the 2p rail is NOT position bias.** Full decomposition
+   on the same corpus (28 pairs × 2 orders × 2 repeats through the real
+   rail): global slot bias +0.013 nats (sign-unstable across corpora),
+   per-pair slot-bias variance 0.0000 — within-call noise σε = 0.215
+   nats/call covers the entire residual (noise-only prediction 0.243 vs
+   0.277 observed at 16 pairs). Both symmetrization instruments (global
+   slot-term fit, slot-name randomization) are dead: there is nothing to
+   correct. Naming caveat: on this rail "syst order" in the run summary
+   measures per-call analysis stochasticity (present at temperature 0),
+   not systematic asymmetry. Counterbalancing stays the default — with
+   zero bias it is exactly repeat-averaging plus a free noise gauge, and
+   at equal cost it ties single-order repeats (measured ρ 0.938 vs
+   0.970, theoretically identical error variance). The successor lever:
+   per-call noise/signal = 1.06, so the PMF-internal variance the solver
+   weights by understates true per-observation uncertainty — the honest
+   σ needs a σ_w (context-noise) term, and repeat-averaging (cache-
+   priced) is the cost knob. The JSON rail's lower residual (0.120) is
+   lower per-call noise (σε ≈ 0.13), not better symmetry.
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

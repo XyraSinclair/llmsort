@@ -7,6 +7,20 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **`judge --draws` rejects evidence-rail slugs loudly** instead of silently
+  measuring `canonical_v2`: `nonce_draws` used to fall back to
+  `DEFAULT_PROMPT` for any slug `prompt_by_slug` didn't know, so a draws run
+  with `--template ratio_letter_2p_v1` quietly characterized the wrong rail
+  (caught 2026-08-30 when a slot-bias cell's numbers didn't match the rail
+  it claimed; slot-hetero pack). Measuring an evidence rail's sigma_w =
+  repeat plain `judge` calls.
+- **Measured (slot-hetero pack): the 2p rail's order residual is per-call
+  noise, not position bias** — global slot bias +0.013 nats, per-pair
+  slot-bias variance 0.0000, within-call σε 0.215 nats/call explains the
+  whole 0.277; symmetrization instruments are dead, counterbalancing stays
+  (it is repeat-averaging plus a free noise gauge), and the honest
+  per-observation σ on this rail needs a σ_w term (docs/NORTH.md).
+
 - **Two-phase PMF rail (`ratio_letter_2p_v1`), default for reasoning-native
   judges**: turn 1 elicits a brief reasoned analysis with the verdict token
   forbidden (a visible verdict collapses the answer PMF — docs/LOGPROBS.md);

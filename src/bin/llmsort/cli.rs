@@ -199,7 +199,9 @@ pub(super) enum Commands {
         /// provider prompt caching bills it at the cached rate) and report
         /// the mean, the spread sigma_w — the within-pair
         /// context-sensitivity noise the DL floor consumes — and the
-        /// provider's cached-token count
+        /// provider's cached-token count. Canonical JSON templates only
+        /// (evidence slugs are rejected loudly; repeat plain judgements
+        /// to measure an evidence rail's sigma_w)
         #[arg(long)]
         draws: Option<usize>,
         /// Sampling temperature for --draws (default 0: spread = pure
