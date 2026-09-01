@@ -1,5 +1,5 @@
 {
-  "note": "Diverse-judges campaign over the refreshed Manifund pool (data/manifund_latest.txt, 135 proposals: 127 created since 2026-08-08 + delisted 40-pool lines; 59/135 had ZERO judgments at seal time). Priority calculus, in phase order: (1) COVERAGE first — a grant absent from the ledger is absent from every ranking, so the classic-32 battery over the full 135 pool with a local judge outranks everything; (2) AHP IMPORTANCE + POLARITY replication — w_G(a) and orient(a) multiply every entity judgment, and both currently rest on a single judge (gemma4-31b, 2026-08-16), so a second and third diverse judge on the attribute plane buys more ranking-robustness per judgment than any entity-plane spend; (3) JUDGE DIVERSITY on the entity plane — new-model lanes valued by decorrelation from the existing panel (cross_judge_agreement.py), each gated by family fitness (qwen38-27b non-thinking cannot hold ratio_letter case convention -> canonical_v2; gemma family runs canonical_bucket_v1); (4) PROMPTING-STYLE variance slab — template contrast and seed retest on the fixed pool separate wording variance from judge variance before we blame either; (5) FABLE-1000 breadth last — highest volume, lowest marginal info per judgment, free on the local lane. Serve rotation: one judge at a time on the judge box :8023 (RTX PRO 6000 co-tenant; stop scry-voyage-embed-aux@{8015,8016,8017} first, documented reversible debt); the runner SKIPs unserved models, so restart cycles (Restart=always) activate each judge's phases as its serve comes up. Remote continuity lanes (dsv4flash, glm-4.7) extend the 2026-08-21 panel to the new pool at pennies-scale budget. no_cache everywhere: cache-on loops the planner on its critical pair (manifund-deepseek lesson, commit 3c7caeb).",
+  "note": "Diverse-judges campaign over the refreshed Manifund pool (data/manifund_latest.txt, 135 proposals: 127 created since 2026-08-08 + delisted 40-pool lines; 59/135 had ZERO judgments at seal time). Priority calculus, in phase order: (1) COVERAGE first — a grant absent from the ledger is absent from every ranking, so the classic-32 battery over the full 135 pool with a local judge outranks everything; (2) AHP IMPORTANCE + POLARITY replication — w_G(a) and orient(a) multiply every entity judgment, and both currently rest on a single judge (gemma4-31b, 2026-08-16), so a second and third diverse judge on the attribute plane buys more ranking-robustness per judgment than any entity-plane spend; (3) JUDGE DIVERSITY on the entity plane — new-model lanes valued by decorrelation from the existing panel (cross_judge_agreement.py), each gated by family fitness (qwen38-27b non-thinking cannot hold ratio_letter case convention -> canonical_v2; gemma family runs canonical_bucket_v1); (4) PROMPTING-STYLE variance slab — template contrast and seed retest on the fixed pool separate wording variance from judge variance before we blame either; (5) FABLE-1000 breadth last — highest volume, lowest marginal info per judgment, free on the local lane. Serve rotation: one judge at a time on the judge box :8023 (RTX PRO 6000 co-tenant; stop scry-voyage-embed-aux@{8015,8016,8017} first, documented reversible debt); the runner SKIPs unserved models, so restart cycles (Restart=always) activate each judge's phases as its serve comes up. Remote continuity lanes (dsv4flash, glm-4.7) extend the 2026-08-21 panel to the new pool at pennies-scale budget. no_cache everywhere: cache-on loops the planner on its critical pair (manifund-deepseek lesson, commit 3c7caeb). Fable breadth phase runs batteries/fable_top700.txt, not the full 1000: ranked by max_G w_G(a)*|orient(a)| from the landed gemma31b AHP+polarity, top-700 carries 92.1% of contribution mass at 70% of the comparisons (measured flat-ish weight distribution: top-400 holds only 60% — Kimi's heavy-tail assumption did not survive contact with the compose).",
   "phases": [
     {
       "run_tag": "manifund135-classic-qwen38-2026-08-31",
@@ -82,9 +82,9 @@
       "parallel_cells": 2
     },
     {
-      "run_tag": "fable1000-135pool-qwen38-2026-08-31",
+      "run_tag": "fable700-135pool-qwen38-2026-08-31",
       "corpus": "data/manifund_latest.txt",
-      "attributes": "batteries/fable_subtle_1000.txt",
+      "attributes": "batteries/fable_top700.txt",
       "model": "qwen38-27b",
       "base_url": "http://127.0.0.1:8023/v1",
       "template": "canonical_v2",
@@ -146,9 +146,9 @@
       "parallel_cells": 2
     },
     {
-      "run_tag": "fable1000-135pool-gemma26ba4b-2026-08-31",
+      "run_tag": "fable700-135pool-gemma26ba4b-2026-08-31",
       "corpus": "data/manifund_latest.shuf2.txt",
-      "attributes": "batteries/fable_subtle_1000.txt",
+      "attributes": "batteries/fable_top700.txt",
       "model": "gemma4-26b-a4b",
       "base_url": "http://127.0.0.1:8023/v1",
       "template": "canonical_bucket_v1",

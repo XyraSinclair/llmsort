@@ -1,0 +1,700 @@
+epistemic humility
+calibration of stated confidence
+falsifiability of core claims
+liveness of its central hypothesis
+evidence-to-assertion ratio
+awareness of its own weakest point
+resistance to motivated reasoning
+crux legibility
+degree to which uncertainty is quantified rather than gestured at
+honest accounting of prior failures
+epistemic trespassing
+first-principles reasoning over deference to authority
+reasoning transparency
+cherry-picking scent
+steelmanning of the opposition
+base-rate awareness
+numeracy under pressure
+causal-claim discipline
+overfitting to a single anecdote
+robustness of the argument to one deleted premise
+explicit consideration of alternatives
+distinguishing observation from interpretation
+self-skepticism
+epistemic courage
+precision of its probability language
+appetite for disconfirming evidence
+degree to which conclusions precede arguments
+hedging density
+unearned certainty
+conflation of is and ought
+respect for measurement error
+load-bearing-ness of its citations
+willingness to quantify the embarrassing number
+sensitivity-analysis instinct
+survivorship-bias vulnerability
+metacognitive candor
+quiet prestige
+striving energy
+name-dropping density
+outsider-artist energy
+establishment coding
+social confidence
+having-nothing-to-prove energy
+class markers in diction
+old-money understatement
+new-money exuberance
+scene-membership legibility
+aspirational register
+self-mythologizing
+borrowed authority
+prestige-economy fluency
+cool-kid detachment
+eagerness to please
+comfort punching up
+comfort punching down
+patronage-seeking posture
+court-politics awareness
+reputational risk appetite
+embarrassability
+meritocratic earnestness
+aristocratic ease
+arriviste polish
+social-ladder awareness
+economy of expression
+how worked-over it reads
+first-draft freshness
+architectural intentionality
+ornamentation restraint
+paragraph-level rhythm
+control of emphasis
+momentum management
+precision of word choice
+cliche avoidance
+transitions earning their keep
+throat-clearing fraction
+ending strength
+opening-hook honesty
+redundancy discipline
+signposting without condescension
+density without airlessness
+quotable-line frequency
+sentence-length variance control
+verb strength
+nominalization disease
+list discipline
+title aptness
+evidence of killed darlings
+craftsman's pride
+suppressed anger
+anxious energy
+serenity
+wistfulness
+defiance
+contempt leakage
+bitterness residue
+hopefulness that survives contact with detail
+emotional flatness
+forced cheerfulness
+melancholy undertow
+awe capacity
+dread proximity
+emotional granularity
+sentimentality risk
+vulnerability that isn't performance
+resentment management
+longing
+coldness as a choice
+heat without light
+light without heat
+affect-content congruence
+numbness scent
+era legibility
+futureproofing instinct
+nostalgia load
+presentism
+long-now sensibility
+deadline scent
+patience of composition
+seasonal transience
+trend-surfing
+five-year re-read survivability
+week-one obsolescence
+generational coding
+evergreen fraction
+anachronism comfort
+velocity of the underlying idea
+punctuality of the intervention
+ripeness
+overdue-ness
+temporal humility
+need to be right
+need to be interesting
+exhaustion between the lines
+obsessiveness
+monomania depth
+imposter-syndrome leakage
+grandiosity containment
+discipline under playfulness
+procrastination scars
+flow-state evidence
+autodidact texture
+formal-training texture
+midlife-reinvention energy
+wunderkind energy
+veteran weariness
+mercenary undertone
+sincerity of stated motivation
+private-notebook intimacy
+id visibility
+superego dominance
+appetite disclosed
+self-knowledge depth
+predictability of its blind spots
+caffeination level
+hunger
+burden-of-proof placement
+concession strategy
+objection anticipation
+syllogistic tightness
+enthymeme reliance
+induction discipline
+example-to-principle ratio
+definition hygiene
+equivocation risk
+strawman temptation resisted
+adversarial-collaboration spirit
+dialectical fairness
+persuasion versus demonstration balance
+appeal-to-consequences leakage
+agenda-setting subtlety
+presupposition smuggling
+opening-statement fairness
+cross-examination survivability
+tu-quoque avoidance
+respect for the reader's time
+condescension risk
+flattery of the reader
+on-ramp gentleness
+generosity of explanation
+deliberate difficulty
+esotericism as filter
+invitation versus initiation
+parasocial warmth
+direct-address comfort
+second-person risk tolerance
+cliffhanger ethics
+spoiler discipline
+reread invitation
+skimmability by design
+exit-ramp courtesy
+bureaucratic sediment
+startup metabolism
+committee-authorship scent
+org-chart legibility
+founder-authored directness
+legal-review flattening
+internal-memo candor
+external-facing guardedness
+process maturity
+personnel-dependence risk
+succession thoughtfulness
+governance seriousness
+accountability plumbing
+budget-line honesty
+overhead candor
+coalition breadth
+empire-building scent
+official-channel fatigue
+moonshot sincerity
+incrementalism honesty
+downside acknowledgment
+upside-modeling discipline
+variance embrace
+ruin-risk awareness
+optionality preservation
+pivot readiness
+theory-of-victory clarity
+endgame specificity
+minimum-viable honesty
+moonshot-to-milestone ratio
+ambition-to-resources ratio
+bet-sizing wisdom
+kelly-criterion instinct
+asymmetry hunting
+cheap-experiment bias
+expensive-conviction bias
+irreversibility caution
+fast-follower realism
+contrarian courage
+consensus comfort
+operational specificity
+named-owner accountability
+date-stamped commitment
+number-bearing claim fraction
+gears-level mechanism
+abstraction-altitude control
+agility on the ladder of abstraction
+example vividness
+case-study depth
+prototype evidence
+demo-over-memo spirit
+artifact concreteness
+verb actionability
+checklist readiness
+measurable-outcome discipline
+proxy-metric awareness
+timeline granularity
+budget-line specificity
+failure-mode enumeration
+dependency mapping
+critical-path clarity
+resource-requirement honesty
+who-does-what-when completeness
+handoff explicitness
+definition-of-done clarity
+acceptance-test thinking
+edge-case appetite
+implementation-detail respect
+ground-contact frequency
+recombination cleverness
+first-principles freshness
+idea-provenance candor
+old-idea-new-clothes detection
+frontier proximity
+adjacent-possible instinct
+paradigm loyalty
+heterodoxy authenticity
+originality per paragraph
+surprise per page
+predictability of its next move
+template escape velocity
+genre-subversion intent
+format innovation
+homage versus theft
+invention density
+discipline of its unprecedented-ness claims
+moral seriousness without sanctimony
+sanctimony risk
+guilt mobilization
+harm-accounting completeness
+beneficiary-voice presence
+moral-circle radius
+future-generations weight
+animal-inclusion instinct
+virtue-signaling cost awareness
+integrity under trade-offs
+moral-luck awareness
+complicity mapping
+ethics-washing scent
+deontological rigidity
+consequentialist coldness
+moral-uncertainty handling
+values-pluralism respect
+moral imagination
+prerequisite stack height
+notation burden
+formalism payoff ratio
+cognitive-load budgeting
+deep-work requirement
+spaced-repetition friendliness
+mental-model transferability
+insight-per-effort ratio
+aha-moment density
+confusion-then-clarity design
+deliberate-ambiguity fraction
+garden-path risk
+backtracking cost
+glossary dependence
+diagram necessity
+worked-example sufficiency
+exercise-to-exposition ratio
+plateau-warning honesty
+primary-source proximity
+anecdote-to-data ratio
+effect-size emphasis over significance
+replication awareness
+preregistration spirit
+data-availability instinct
+methods transparency
+instrument-validity care
+confound acknowledgment
+natural-experiment cleverness
+triangulation breadth
+cherry-picked-window risk
+graph integrity
+missing-data disclosure
+publication-bias awareness
+evidence-hierarchy respect
+mechanistic-plus-statistical coverage
+checkable-detail density
+unit-economics awareness
+marginal thinking
+fixed-versus-variable clarity
+break-even realism
+cost-disease awareness
+cheap-to-try instinct
+capital-efficiency pride
+burn-rate candor
+revenue-model believability
+willingness-to-pay evidence
+TAM inflation risk
+competitive-moat realism
+incentive-design sophistication
+principal-agent awareness
+externality accounting
+public-goods framing fitness
+funding-model sustainability
+grant-dependence honesty
+cross-subsidy clarity
+scale-economics understanding
+diseconomies-of-scale caution
+protagonist energy
+main-character restraint
+victimhood-framing avoidance
+empowerment authenticity
+learned-helplessness scent
+initiative density
+permission-asking reflex
+bottleneck self-identification
+delegation maturity
+control-surrender wisdom
+leverage awareness
+force-multiplier instinct
+veto-player mapping
+power-analysis candor
+theory-of-change ownership
+bystander-assumption avoidance
+responsibility absorption
+credit-sharing generosity
+comfort behind the throne
+academic coding
+policy-wonk coding
+effective-altruism dialect
+silicon-valley dialect
+east-coast-establishment dialect
+continental-theory perfume
+analytic-philosophy dryness
+science-fair earnestness
+zine energy
+substack-native voice
+twitter-native compression
+longform-native patience
+forum-native informality
+seminar-room register
+boardroom register
+field-notes register
+manifesto register
+white-paper register
+skin-in-the-game visibility
+accountability invitation
+references offered unprompted
+public-changelog spirit
+promise-keeping architecture
+under-promise discipline
+over-delivery evidence
+incentive-alignment disclosure
+insurance against its own motivated cognition
+adversarial-review invitation
+red-team welcome
+transparency depth versus transparency theater
+verifiability of central claims
+reputation collateral posted
+long-game evidence
+self-imposed cost of betrayal
+grift adjacency
+buzzword load
+moving-goalposts history
+blame-preemption architecture
+excuse scaffolding
+complexity as concealment
+credential substitution for argument
+urgency manufacture
+MLM structural echo
+ponzi temporal signature
+regulatory-arbitrage scent
+jurisdiction shopping
+accountability-free upside
+comfort with other people's money
+porosity
+viscosity
+temperature
+buoyancy
+friction coefficient
+tensile strength
+fatigue resistance
+corrosion resistance
+amorphousness
+granularity
+laminarity
+turbulence
+damping
+moment of inertia
+surface tension
+capillary pull
+phase-transition proximity
+entropy
+protagonist believability
+antagonist fairness
+conflict authenticity
+earned-ness of its resolution
+pacing control
+in-medias-res courage
+show-don't-tell ratio
+dramatic-irony deployment
+foreshadowing subtlety
+twist fairness
+denouement patience
+character-arc completeness
+canon consistency
+origin-story polish
+hero's-journey template dependence
+anticlimax risk
+second-order-effect anticipation
+third-order humility
+game-theoretic literacy
+commitment-device usage
+credible-threat architecture
+mechanism-design taste
+incentive-compatibility checking
+defection robustness
+exploitability audit
+minimax prudence
+maximin generosity
+negotiation-position awareness
+cheap-talk discount
+costly-signal investment
+reputation-stake sizing
+iterated-game patience
+endgame awareness
+mentorship pay-forward
+rivalry sublimation
+community-building instinct
+newcomer welcome
+succession planning
+knowledge-transfer diligence
+documentation as care
+bus-factor reduction effort
+translation across camps
+bridge-building patience
+parasocial boundary health
+fermi-estimate courage
+scaling-law awareness
+bottleneck-migration anticipation
+amortization instinct
+batch-size wisdom
+granularity-choice fitness
+ecological-fallacy avoidance
+simpson's-paradox vigilance
+log-scale comfort
+heavy-tail respect
+black-swan humility
+respect for the law of small numbers
+omission wisdom
+negative-space usage
+less-is-more conviction
+maximalism executed well
+kitsch awareness
+camp intentionality
+irony-budget discipline
+quality-floor enforcement
+quality-ceiling ambition
+connoisseurship depth
+philistine honesty
+larval promise
+adolescent overreach
+early-career hunger
+juvenilia charm
+apprentice diligence
+journeyman reliability
+growth-edge visibility
+plateau honesty
+second-act reinvention
+comeback energy
+swan-song poignancy
+seasoning evidence
+wit density
+humor risk tolerance
+irony load
+absurdism discipline
+pun forgiveness required
+joke-tax fairness
+satire fairness
+whimsy authenticity
+mischief energy
+earned-ness of its gallows humor
+in-joke generosity
+laugh-line frequency
+comedy-tragedy balance
+field-experience residue
+armchair altitude
+boots-on-ground credibility
+practitioner fluency
+user-contact frequency
+customer-voice presence
+real-name accountability
+place attachment
+local-knowledge depth
+terroir
+embodied-knowledge scent
+craft-apprenticeship residue
+tool-wear authenticity
+workshop-floor vocabulary
+lived-experience weight
+map-territory discipline
+meta-commentary budget
+self-citation restraint
+cartography of its own limitations
+scope-disclaimer honesty
+genre self-knowledge
+audience self-knowledge
+purpose clarity to itself
+mission drift within the document
+thesis fidelity
+promise-keeping within the text
+title-content contract fulfillment
+abstract-body consistency
+self-undermining risk
+reflexivity depth
+exegesis invitation
+voice distinctiveness
+voice consistency
+persona-author gap
+ventriloquism skill
+code-switching smoothness
+idiolect strength
+style-guide independence
+imitability resistance
+parody vulnerability
+signature-move reliance
+verbal-fingerprint stability
+translation survivability
+read-aloud quality
+inner-voice intimacy
+broadcast-voice projection
+fireside register
+bedside manner
+attention respect
+headline-body integrity
+dwell time deserved
+notification worthiness
+interruption justification
+memorability per minute
+quotability without context collapse
+screenshot survivability
+virality-design scent
+doomscroll contribution
+deep-attention reward
+feedback-loop identification
+delay appreciation
+leverage-point targeting
+unintended-consequence appetite
+equilibrium-shift realism
+path-dependence awareness
+lock-in caution
+emergence respect
+reductionism discipline
+holism discipline
+endogeneity vigilance
+root-cause depth
+symptom-treatment candor
+intervention-point wisdom
+homeostasis respect
+cascade-risk mapping
+single-point-of-failure hunting
+graceful-degradation design
+maintenance glamour
+janitorial respect
+upkeep budgeting
+deferred-maintenance honesty
+technical-debt candor
+gardening patience
+pruning courage
+weeding diligence
+composting of failures
+stewardship ethic
+custodial pride
+repair-over-replace instinct
+patch-quality conscience
+deprecation courtesy
+sunsetting dignity
+legacy-system respect
+entropy-fighting stamina
+bad-news delivery speed
+hard-truth appetite
+elephant-naming promptness
+whistle-blowing spine
+self-incrimination honesty
+awkwardness tolerance
+sacred-cow inspection
+room-reading versus truth-telling balance
+diplomatic honesty
+candor with care
+dissent-expression skill
+career-risk truth-telling
+apology quality
+misconception anticipation
+productive-struggle design
+scaffolding-removal timing
+first-principles rebuilding
+memorization honesty
+intuition-first sequencing
+motivation before mechanism
+mechanism before motivation
+telling when telling helps
+feedback specificity
+learning-in-public generosity
+triage clarity
+prioritization ruthlessness
+constraint acknowledgment
+trade-off explicitness
+pareto-frontier awareness
+satisficing wisdom
+optimization-target sanity
+perfectionism containment
+corner-cutting disclosure
+quality-triangle honesty
+deadline realism
+scope-cut wisdom
+gold-plating avoidance
+essentialism
+acronym hospitality
+term-of-art precision
+plain-language courage
+latinate-anglo balance
+sentence-opening variety
+adverb restraint
+nominal-style stiffness
+verbal-style vigor
+concrete-noun density
+dead-metaphor reliance
+idiom freshness
+punctuation confidence
+parenthetical discipline
+bureaucratic wildness
+disciplined chaos
+cold passion
+humble swagger
+rigorous whimsy
+patient urgency
+ambitious modesty
+reckless precision
+intimate formality
+chaotic diligence
+serene intensity
+minimalist abundance
+skeptical faith
+detached devotion
+complicated simplicity
+quiet loudness
+spine of the argument visible through the prose
+gravitational pull on the reader's attention
+willingness to bore the reader for the right reasons
+smell of a real deadline survived
+confidence that comes from having checked
+generosity toward its own predecessors
+appetite for being fact-checked
+capacity to change a smart skeptic's mind
+residue of real conversations behind it
+sense that the author would do this unpaid
+degree to which it would survive its author's absence
