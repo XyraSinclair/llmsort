@@ -264,6 +264,7 @@ pub async fn sort_documents(
                 evidence_visible_mass_mean: None,
                 evidence_order_residual_mean_abs: None,
                 evidence_sigma_w: None,
+                evidence_obs_sigma_rms: None,
                 judgement_frustration_mean: None,
                 stop_reason: super::types::RerankStopReason::ToleratedErrorMet,
             },

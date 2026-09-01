@@ -430,8 +430,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                         let noise_floor = meta
                             .evidence_sigma_w
                             .or(meta.evidence_order_residual_mean_abs);
-                        let converged =
-                            noise_floor.is_some_and(|floor| mean_std <= floor * 1.5);
+                        let converged = noise_floor.is_some_and(|floor| mean_std <= floor * 1.5);
                         let still_at_4x = adjacent_ranks_within_sigma(&sorted.items, 0.5);
                         let fixable = unresolved.saturating_sub(still_at_4x);
                         if !converged {
@@ -448,9 +447,24 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                             );
                         }
                     }
-                    if let Some((all_pairs, adjacent_pairs)) = rerun_agreement(&sorted.items) {
+                    // kappa: the aleatoric share of posterior uncertainty —
+                    // only sigma_w-noise resamples on rerun; the judge's
+                    // expressed PMF spread reproduces (so does any error it
+                    // encodes: this line is reproducibility, not
+                    // correctness — stat/resolution carry correctness).
+                    let kappa = match (meta.evidence_sigma_w, meta.evidence_obs_sigma_rms) {
+                        (Some(sw), Some(rms)) if rms > 0.0 => Some(sw / rms),
+                        _ => None,
+                    };
+                    if let Some((all_pairs, adjacent_pairs)) = rerun_agreement(&sorted.items, kappa)
+                    {
+                        let basis = if kappa.is_some() {
+                            "noise-scaled estimate"
+                        } else {
+                            "posterior floor"
+                        };
                         eprintln!(
-                            "consistency: an independent rerun would agree with ~{:.0}% of this order's pairwise calls ({:.0}% between adjacent neighbors; posterior estimate)",
+                            "consistency: an independent rerun would reproduce ~{:.0}% of this order's pairwise calls ({:.0}% between adjacent neighbors; {basis})",
                             all_pairs * 100.0,
                             adjacent_pairs * 100.0,
                         );

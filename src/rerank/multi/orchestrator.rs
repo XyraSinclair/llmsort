@@ -803,6 +803,23 @@ pub(crate) async fn multi_rerank_with_failures(
                 / 2.0
         })
         .filter(|sigma| sigma.is_finite() && *sigma > 0.0);
+    // Companion to sigma_w: the RMS total per-observation sigma. The ratio
+    // sigma_w / obs_sigma_rms is the aleatoric share of each observation's
+    // model variance — the part that actually resamples on an independent
+    // rerun (the PMF component is the judge's reproducible expressed
+    // spread; measured on luna seeds 11-15: posterior-based rerun-agreement
+    // predictions ran 54-69% while measured cross-run agreement held at
+    // 74%, and empirical rerun sigma was ~0.3x posterior sigma — the
+    // consistency surface needs this split to be honest).
+    let evidence_obs_sigma_rms = evidence_sigma_w.and_then(|sigma_w| {
+        let (sum_var, n) = observation_log
+            .values()
+            .flatten()
+            .filter_map(|ob| ob.precision)
+            .filter(|p| p.is_finite() && *p > 0.0)
+            .fold((0.0f64, 0usize), |(s, n), p| (s + 1.0 / p, n + 1));
+        (n > 0).then(|| (sum_var / n as f64 + sigma_w * sigma_w).sqrt())
+    });
     if let Some(sigma_w) = evidence_sigma_w {
         for (attribute_id, observations) in &observation_log {
             if !observations.iter().any(|ob| ob.precision.is_some()) {
@@ -855,6 +872,7 @@ pub(crate) async fn multi_rerank_with_failures(
             evidence_order_residual_sum_abs,
             evidence_order_residual_pairs,
             evidence_sigma_w,
+            evidence_obs_sigma_rms,
             stop_reason,
         },
     )

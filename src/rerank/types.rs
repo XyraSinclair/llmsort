@@ -201,6 +201,16 @@ pub struct RerankMeta {
     /// pairs (no estimator) or no evidence observations (nothing to widen).
     #[serde(default)]
     pub evidence_sigma_w: Option<f64>,
+    /// RMS total per-observation sigma (nats) over evidence observations
+    /// after the sigma_w refit: sqrt(mean PMF variance + sigma_w^2). With
+    /// `evidence_sigma_w` this splits the posterior's uncertainty into
+    /// aleatoric (resamples on rerun: sigma_w) and epistemic (the judge's
+    /// reproducible expressed spread: the rest) — the ratio
+    /// sigma_w / obs_sigma_rms rescales posterior stds into honest
+    /// rerun-variability stds (the consistency line). None whenever
+    /// `evidence_sigma_w` is None.
+    #[serde(default)]
+    pub evidence_obs_sigma_rms: Option<f64>,
     /// Mean curl fraction across attributes: the share of judgement energy
     /// that is cyclically inconsistent (A>B>C>A structure) and cannot be
     /// explained by ANY scores. 0 = transitive judge; the Hodge residual
@@ -607,6 +617,16 @@ pub struct MultiRerankMeta {
     /// pairs (no estimator) or no evidence observations (nothing to widen).
     #[serde(default)]
     pub evidence_sigma_w: Option<f64>,
+    /// RMS total per-observation sigma (nats) over evidence observations
+    /// after the sigma_w refit: sqrt(mean PMF variance + sigma_w^2). With
+    /// `evidence_sigma_w` this splits the posterior's uncertainty into
+    /// aleatoric (resamples on rerun: sigma_w) and epistemic (the judge's
+    /// reproducible expressed spread: the rest) — the ratio
+    /// sigma_w / obs_sigma_rms rescales posterior stds into honest
+    /// rerun-variability stds (the consistency line). None whenever
+    /// `evidence_sigma_w` is None.
+    #[serde(default)]
+    pub evidence_obs_sigma_rms: Option<f64>,
     /// Mean curl fraction across attributes: the share of judgement energy
     /// that is cyclically inconsistent (A>B>C>A structure) and cannot be
     /// explained by ANY scores. 0 = transitive judge; the Hodge residual

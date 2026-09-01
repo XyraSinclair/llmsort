@@ -119,18 +119,32 @@ fn normal_cdf(z: f64) -> f64 {
 /// p = Phi(|gap| / sigma_diff). Plug-in on the posterior; returns
 /// (mean over all pairs, mean over adjacent pairs), None when the
 /// posterior carries no uncertainty information.
-pub(super) fn rerun_agreement(items: &[llmsort::rerank::SortedItem]) -> Option<(f64, f64)> {
+/// Expected fraction of this order's pairwise calls an independent rerun
+/// would reproduce. Per pair: this run's call is sign(gap); a fresh run's
+/// gap estimate, conditioned on this one, is N(gap, 2*sigma_n^2) (both
+/// runs share the true gap, each adds rerun noise sigma_n), so the match
+/// probability is Phi(|gap| / (sqrt(2)*sigma_n)). `kappa` scales posterior
+/// stds down to rerun stds (sigma_w / obs_sigma_rms — only the aleatoric
+/// share of an observation's variance resamples on rerun; the judge's
+/// expressed PMF spread reproduces). kappa None = no sigma_w estimator:
+/// posterior stds stand in for rerun stds, a conservative floor
+/// (calibration cell 2026-08-31: floor predicted 54-69% vs 74% measured
+/// across luna seed pairs; kappa-scaled prediction tracks the measurement).
+pub(super) fn rerun_agreement(
+    items: &[llmsort::rerank::SortedItem],
+    kappa: Option<f64>,
+) -> Option<(f64, f64)> {
     if items.len() < 2 || !items.iter().any(|i| i.latent_std > 0.0) {
         return None;
     }
+    let kappa = kappa.map_or(1.0, |k| k.clamp(0.0, 1.0));
     let agree = |a: &llmsort::rerank::SortedItem, b: &llmsort::rerank::SortedItem| -> f64 {
         let gap = (a.latent_mean - b.latent_mean).abs();
-        let sigma_diff = a.latent_std.hypot(b.latent_std);
-        if sigma_diff <= 0.0 {
-            return 1.0; // measured-exact pair: any rerun reproduces it
+        let sigma_n = a.latent_std.hypot(b.latent_std) * kappa;
+        if sigma_n <= 0.0 {
+            return 1.0; // no rerun noise: any rerun reproduces the call
         }
-        let p = normal_cdf(gap / sigma_diff);
-        p * p + (1.0 - p) * (1.0 - p)
+        normal_cdf(gap / (std::f64::consts::SQRT_2 * sigma_n))
     };
     let mut sum_all = 0.0;
     let mut n_all = 0usize;
