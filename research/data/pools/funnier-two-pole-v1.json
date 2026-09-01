@@ -1,0 +1,65 @@
+{
+ "slug": "funnier-two-pole-v1",
+ "_comment": "Two-pole scale-existence pilot, taste pole. 12 one-liners spanning intended quality from crafted to deliberately flat; NO truth field by design - 'funnier' is the paradigm taste attribute and the question is whether a shared scale exists at all. Styles deliberately mixed (misdirection, absurdist, pun, observational, anti-joke) so pairs trade off plural criteria. Harmonic block: four DIFFERENT humor styles (pun, absurdist, observational, dark) at similar mid-tier intended quality - if plurality is real, judge-stable curl should concentrate here. Some items are known joke shapes, some original; noted so memorized ratings can be discussed, not hidden.",
+ "attribute": {
+  "primary": "how funny it is",
+  "opposite": "how unfunny it is: how thoroughly it fails to amuse",
+  "paraphrases": [
+   "how much it makes you laugh",
+   "the strength of its comedic effect",
+   "how amusing it is"
+  ]
+ },
+ "items": [
+  {
+   "id": "vengeance",
+   "text": "My therapist says I have a preoccupation with vengeance. We'll see about that."
+  },
+  {
+   "id": "elephant",
+   "text": "I have the memory of an elephant. I remember one time an elephant."
+  },
+  {
+   "id": "ocean",
+   "text": "Whoever named it 'the deep' really left room for improvement, which is more than I can say for the ocean."
+  },
+  {
+   "id": "doorbell",
+   "text": "I bought a doorbell that just announces 'it's probably fine.' Anxiety-as-a-service."
+  },
+  {
+   "id": "crows",
+   "text": "A group of crows is called a murder, which is why I never invite more than one."
+  },
+  {
+   "id": "coffee",
+   "text": "I like my coffee like I like my mornings: unavoidable."
+  },
+  {
+   "id": "clock",
+   "text": "Yesterday I ate a clock. It was very time-consuming."
+  },
+  {
+   "id": "groceries",
+   "text": "Why did the man walk to the store? Because he needed groceries."
+  }
+ ],
+ "harmonic": [
+  {
+   "id": "dawned",
+   "text": "I stayed up all night wondering where the sun went. Then it dawned on me."
+  },
+  {
+   "id": "map",
+   "text": "I finally got a map of the world at 1:1 scale. Folding it is the hard part."
+  },
+  {
+   "id": "alarm",
+   "text": "Every alarm clock is a bet you placed against your future self, and you always pay out."
+  },
+  {
+   "id": "morbid",
+   "text": "My family says I'm morbid, but I'll outlive that opinion."
+  }
+ ]
+}

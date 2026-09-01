@@ -1,0 +1,208 @@
+{
+  "slug": "funnier-two-pole-v1/n8/s1",
+  "corpus": [
+    "My therapist says I have a preoccupation with vengeance. We'll see about that.",
+    "I have the memory of an elephant. I remember one time an elephant.",
+    "Whoever named it 'the deep' really left room for improvement, which is more than I can say for the ocean.",
+    "I bought a doorbell that just announces 'it's probably fine.' Anxiety-as-a-service.",
+    "A group of crows is called a murder, which is why I never invite more than one.",
+    "I like my coffee like I like my mornings: unavoidable.",
+    "Yesterday I ate a clock. It was very time-consuming.",
+    "Why did the man walk to the store? Because he needed groceries."
+  ],
+  "primary_attribute": "how funny it is",
+  "opposite_attribute": "how unfunny it is: how thoroughly it fails to amuse",
+  "paraphrase_attribute": "the strength of its comedic effect",
+  "core_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      7
+    ]
+  ],
+  "spin_clear_pairs": [
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "spin_contested_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "null_indices": [
+    0,
+    1,
+    4,
+    7
+  ],
+  "null_content_texts": [
+    "Placeholder passage alpha. It contains no claim, preference, or evaluation.",
+    "Placeholder passage beta. It contains no claim, preference, or evaluation."
+  ],
+  "perturb_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      1,
+      7
+    ]
+  ],
+  "orbit_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "harmonic_block": [
+    "I finally got a map of the world at 1:1 scale. Folding it is the hard part.",
+    "I stayed up all night wondering where the sun went. Then it dawned on me.",
+    "Every alarm clock is a bet you placed against your future self, and you always pay out.",
+    "My family says I'm morbid, but I'll outlive that opinion."
+  ],
+  "harmonic_cycle": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      3
+    ]
+  ]
+}
