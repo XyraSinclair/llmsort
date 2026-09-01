@@ -21,3 +21,6 @@ scorecard.png
 **/mutants.out*/
 # Manifund campaign raw + derived data (rebuild: research/scripts/manifund_fetch.py + manifund_prep.py)
 research/data/manifund/
+research/artifacts/live/**/*.sqlite-shm
+research/artifacts/live/**/*.sqlite-wal
+research/artifacts/live/**/*.sqlite-journal
