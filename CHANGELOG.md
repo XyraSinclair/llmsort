@@ -7,6 +7,18 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **The sort summary now answers the user's actual questions.** A
+  `consistency:` line states expected agreement with an independent rerun
+  (plug-in posterior estimate, all pairs + adjacent neighbors) — the
+  number people mean by "is the LLM consistent at this". The
+  `resolution:` line now separates three regimes instead of always
+  advising more budget: noise-dominated (raise --budget), budget-fixable
+  (~4× resolves about k neighbors), and converged near-ties — where the
+  judge reads neighbors as equal and the honest advice is a sharper
+  criterion (--rubric) or a different judge, not more spend. The guard is
+  the measured per-call noise floor (σ_w, else the order residual): a
+  starved sparse graph can never be mislabeled judge-blind.
+
 - **2p analysis turn now runs with reasoning disabled** — measured with
   the new evidence-rail draws instrument (sigma-eps-knobs pack): on terra
   the phase-1 hidden reasoning was the rail's dominant noise source

@@ -80,15 +80,68 @@ pub(super) fn parse_sort_items(
     }
 }
 
-pub(super) fn adjacent_ranks_within_one_sigma(items: &[llmsort::rerank::SortedItem]) -> usize {
+/// Adjacent rank pairs whose gap is inside `scale` joint posterior sigmas.
+/// `scale = 1.0` is the resolution question as-run; `scale = 0.5` asks the
+/// same question of a hypothetical ~4x budget (posterior sigma halves).
+pub(super) fn adjacent_ranks_within_sigma(
+    items: &[llmsort::rerank::SortedItem],
+    scale: f64,
+) -> usize {
     items
         .windows(2)
         .filter(|pair| {
             let gap = (pair[0].latent_mean - pair[1].latent_mean).abs();
             let joint_std = pair[0].latent_std.hypot(pair[1].latent_std);
-            gap < joint_std
+            gap < joint_std * scale
         })
         .count()
+}
+
+/// Standard normal CDF (Abramowitz-Stegun 7.1.26 erf, |error| < 1.5e-7 —
+/// display precision; the solver's own CDF is crate-private).
+fn normal_cdf(z: f64) -> f64 {
+    let x = z / std::f64::consts::SQRT_2;
+    let t = 1.0 / (1.0 + 0.3275911 * x.abs());
+    let y = 1.0
+        - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t
+            + 0.254829592)
+            * t
+            * (-x * x).exp();
+    let erf = if x < 0.0 { -y } else { y };
+    0.5 * (1.0 + erf)
+}
+
+/// Expected agreement between THIS run and an independent rerun, the number
+/// users mean by "is it consistent": each run estimates every pair's order
+/// with error ~N(0, s_i^2 + s_j^2) (independence across items is the
+/// conservative reading — shared comparisons only correlate estimates
+/// toward agreement), so a pair agrees across runs with p^2 + (1-p)^2,
+/// p = Phi(|gap| / sigma_diff). Plug-in on the posterior; returns
+/// (mean over all pairs, mean over adjacent pairs), None when the
+/// posterior carries no uncertainty information.
+pub(super) fn rerun_agreement(items: &[llmsort::rerank::SortedItem]) -> Option<(f64, f64)> {
+    if items.len() < 2 || !items.iter().any(|i| i.latent_std > 0.0) {
+        return None;
+    }
+    let agree = |a: &llmsort::rerank::SortedItem, b: &llmsort::rerank::SortedItem| -> f64 {
+        let gap = (a.latent_mean - b.latent_mean).abs();
+        let sigma_diff = a.latent_std.hypot(b.latent_std);
+        if sigma_diff <= 0.0 {
+            return 1.0; // measured-exact pair: any rerun reproduces it
+        }
+        let p = normal_cdf(gap / sigma_diff);
+        p * p + (1.0 - p) * (1.0 - p)
+    };
+    let mut sum_all = 0.0;
+    let mut n_all = 0usize;
+    for (idx, a) in items.iter().enumerate() {
+        for b in &items[idx + 1..] {
+            sum_all += agree(a, b);
+            n_all += 1;
+        }
+    }
+    let sum_adj: f64 = items.windows(2).map(|w| agree(&w[0], &w[1])).sum();
+    Some((sum_all / n_all as f64, sum_adj / (items.len() - 1) as f64))
 }
 
 /// Render sorted output in the requested format.

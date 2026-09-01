@@ -410,13 +410,49 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     serde_json::to_value(meta.stop_reason)?.as_str().unwrap_or("unknown"),
                 );
                 if meta.comparisons_attempted > 0 {
-                    let unresolved = adjacent_ranks_within_one_sigma(&sorted.items);
+                    let unresolved = adjacent_ranks_within_sigma(&sorted.items, 1.0);
                     if unresolved == 0 {
                         eprintln!("resolution: every adjacent rank is separated by more than 1σ");
                     } else {
+                        // Separate the causes of coarseness honestly — the
+                        // wrong advice wastes the user's money in either
+                        // direction. Three regimes: (1) the posterior is
+                        // still noise-dominated (mean σ above the measured
+                        // per-call noise floor) — budget genuinely helps,
+                        // and the 1/√budget projection UNDERSTATES the gain
+                        // while the graph is sparse; (2) converged, and 4×
+                        // budget (σ halves) resolves most stragglers;
+                        // (3) converged near-ties — the judge reads the
+                        // neighbors as equal, and no sane budget moves them.
+                        let adjacent = sorted.items.len().saturating_sub(1);
+                        let mean_std = sorted.items.iter().map(|i| i.latent_std).sum::<f64>()
+                            / sorted.items.len() as f64;
+                        let noise_floor = meta
+                            .evidence_sigma_w
+                            .or(meta.evidence_order_residual_mean_abs);
+                        let converged =
+                            noise_floor.is_some_and(|floor| mean_std <= floor * 1.5);
+                        let still_at_4x = adjacent_ranks_within_sigma(&sorted.items, 0.5);
+                        let fixable = unresolved.saturating_sub(still_at_4x);
+                        if !converged {
+                            eprintln!(
+                                "resolution: {unresolved} of {adjacent} adjacent ranks are within 1σ — budget-limited (posterior σ is still above the judge's per-call noise): raise --budget, or set --top-k to focus spend",
+                            );
+                        } else if fixable * 2 >= unresolved {
+                            eprintln!(
+                                "resolution: {unresolved} of {adjacent} adjacent ranks are within 1σ — ~4× --budget would resolve about {fixable} of them (or set --top-k to focus spend)",
+                            );
+                        } else {
+                            eprintln!(
+                                "resolution: {unresolved} of {adjacent} adjacent ranks are within 1σ, and ~{still_at_4x} would remain so even at 4× budget — the judge reads those neighbors as nearly tied on this criterion; a sharper criterion (--rubric) or a different judge will move more than budget",
+                            );
+                        }
+                    }
+                    if let Some((all_pairs, adjacent_pairs)) = rerun_agreement(&sorted.items) {
                         eprintln!(
-                            "resolution: {unresolved} of {} adjacent ranks are within 1σ of each other — the order is coarse at this budget; raise --budget or set --top-k to focus it",
-                            sorted.items.len().saturating_sub(1),
+                            "consistency: an independent rerun would agree with ~{:.0}% of this order's pairwise calls ({:.0}% between adjacent neighbors; posterior estimate)",
+                            all_pairs * 100.0,
+                            adjacent_pairs * 100.0,
                         );
                     }
                 }
