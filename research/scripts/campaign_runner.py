@@ -85,6 +85,8 @@ def main():
             cmd += ["--elaborate"]
         if ph.get("concurrency"):
             cmd += ["--concurrency", str(ph["concurrency"])]
+        if ph.get("parallel_cells"):
+            cmd += ["--parallel-cells", str(ph["parallel_cells"])]
         if ph.get("no_cache"):
             cmd += ["--no-cache"]
         t = time.time()

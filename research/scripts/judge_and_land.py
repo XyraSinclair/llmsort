@@ -161,6 +161,12 @@ def main():
     ap.add_argument("--resume-ledger", action="store_true",
                     help="skip attributes already landed (>= 90%% of budget rows) "
                          "under this run_tag+model — idempotent supervisor restarts")
+    ap.add_argument("--parallel-cells", type=int, default=1,
+                    help="attribute cells in flight at once. The planner issues "
+                         "comparisons in waves and drains the engine to zero at "
+                         "every wave tail (measured 2026-08-31: 48->0->48); two "
+                         "interleaved cells fill each other's drains. Landing "
+                         "stays one INSERT per attribute.")
     a = ap.parse_args()
     os.makedirs(a.outdir, exist_ok=True)
     corpus_lines = [l.rstrip("\n") for l in open(a.corpus) if l.strip()]
@@ -179,17 +185,27 @@ def main():
               flush=True)
     landed_total = 0
     t0 = time.time()
-    for i, attr in enumerate(attrs):
-        if i < a.start_at or attr in done:
-            continue
+    todo = [(i, attr) for i, attr in enumerate(attrs)
+            if i >= a.start_at and attr not in done]
+
+    def cell(i, attr):
         t = time.time()
         out, trace = run_cell(a.corpus, attr, a.model, a.budget, a.seed, a.outdir, i,
                               template=a.template, elaborate=a.elaborate,
                               concurrency=a.concurrency, no_cache=a.no_cache)
         n = land(trace, corpus_lines, corpus_name, attr, a.seed, a.run_tag)
-        landed_total += n
         print(f"[{i+1}/{len(attrs)}] {attr!r}: {n} judgments landed "
               f"({time.time()-t:.1f}s)", flush=True)
+        return n
+
+    if a.parallel_cells <= 1:
+        for i, attr in todo:
+            landed_total += cell(i, attr)
+    else:
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor(max_workers=a.parallel_cells) as ex:
+            for n in ex.map(lambda ia: cell(*ia), todo):
+                landed_total += n
     print(f"done: {landed_total} judgments in {time.time()-t0:.0f}s -> ratiometer.judgments")
 
 
