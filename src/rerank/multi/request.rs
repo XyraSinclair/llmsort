@@ -404,7 +404,13 @@ pub(super) fn cost_capped_batch_size(
     attempted: usize,
     remaining_budget: usize,
 ) -> Option<usize> {
-    let uncapped = DEFAULT_BATCH_SIZE.min(remaining_budget);
+    // A planner wave must never be smaller than the requested comparison
+    // concurrency, or the extra parallelism can never leave the station
+    // (measured 2026-08-31: --concurrency 48 pinned at 32 in-flight, engine
+    // draining to ~5 at every wave tail).
+    let uncapped = DEFAULT_BATCH_SIZE
+        .max(req.comparison_concurrency.unwrap_or(0))
+        .min(remaining_budget);
     let Some(cap) = req.max_cost_nanodollars else {
         return Some(uncapped);
     };
