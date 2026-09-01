@@ -10,9 +10,11 @@
       "template": "canonical_v2",
       "budget": 600,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "ahp-grant-goals-qwen38-2026-08-31",
@@ -23,9 +25,11 @@
       "template": "canonical_v2",
       "budget": 12000,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "ahp-polarity-qwen38-2026-08-31",
@@ -36,9 +40,11 @@
       "template": "canonical_v2",
       "budget": 12000,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "manifund135-classic-qwen38-bucket-2026-08-31",
@@ -49,9 +55,11 @@
       "template": "canonical_bucket_v1",
       "budget": 600,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "manifund135-classic-qwen38-s2-2026-08-31",
@@ -62,9 +70,11 @@
       "template": "canonical_v2",
       "budget": 600,
       "seed": 2,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "fable1000-135pool-qwen38-2026-08-31",
@@ -75,9 +85,11 @@
       "template": "canonical_v2",
       "budget": 240,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "manifund135-classic-gemma26ba4b-2026-08-31",
@@ -88,9 +100,11 @@
       "template": "canonical_bucket_v1",
       "budget": 600,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "ahp-grant-goals-gemma26ba4b-2026-08-31",
@@ -101,9 +115,11 @@
       "template": "canonical_bucket_v1",
       "budget": 12000,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "ahp-polarity-gemma26ba4b-2026-08-31",
@@ -114,9 +130,11 @@
       "template": "canonical_bucket_v1",
       "budget": 12000,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "fable1000-135pool-gemma26ba4b-2026-08-31",
@@ -127,9 +145,11 @@
       "template": "canonical_bucket_v1",
       "budget": 240,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "manifund135-classic-gemma431b-2026-08-31",
@@ -140,9 +160,11 @@
       "template": "canonical_bucket_v1",
       "budget": 600,
       "seed": 1,
-      "concurrency": 24,
+      "concurrency": 48,
       "no_cache": true,
-      "env": { "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024 }
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024
+      }
     },
     {
       "run_tag": "manifund135-classic-dsv4flash-2026-08-31",
