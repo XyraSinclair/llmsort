@@ -1,0 +1,218 @@
+{
+  "slug": "code-correctness-two-pole-v1/n8/s1",
+  "corpus": [
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals):\n        if out and s <= out[-1][1]:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    ivs = sorted(intervals)\n    out = [list(ivs[0])]\n    for s, e in ivs[1:]:\n        if s <= out[-1][1]:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in intervals:\n        if out and s <= out[-1][1]:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals):\n        if out and s < out[-1][1]:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    if not intervals:\n        return []\n    starts = [s for s, e in intervals]\n    ends = [e for s, e in intervals]\n    return [[min(starts), max(ends)]]",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals):\n        if out and s <= out[-1][1]:\n            out[-1][1] = min(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    ivs = sorted(intervals)\n    out = []\n    cur = None\n    for s, e in ivs:\n        if cur is None:\n            cur = [s, e]\n        elif s <= cur[1]:\n            cur[1] = max(cur[1], e)\n        else:\n            out.append(cur)\n            cur = [s, e]\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    return []"
+  ],
+  "truths": [
+    1.0,
+    0.9375,
+    0.75,
+    0.6875,
+    0.6875,
+    0.375,
+    0.0625,
+    0.0625
+  ],
+  "primary_attribute": "how correct the implementation is: to what extent it fulfills its docstring specification on all inputs and edge cases",
+  "opposite_attribute": "how incorrect the implementation is: how badly it violates its docstring specification",
+  "paraphrase_attribute": "its freedom from bugs across edge cases",
+  "core_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      7
+    ]
+  ],
+  "spin_clear_pairs": [
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "spin_contested_pairs": [
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ]
+  ],
+  "null_indices": [
+    1,
+    2,
+    4,
+    6
+  ],
+  "null_content_texts": [
+    "Placeholder passage alpha. It contains no claim, preference, or evaluation.",
+    "Placeholder passage beta. It contains no claim, preference, or evaluation."
+  ],
+  "perturb_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      1,
+      7
+    ]
+  ],
+  "orbit_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "harmonic_block": [
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    ivs = sorted(intervals)\n    out = []\n    i = 0\n    while i < len(ivs):\n        if i + 1 < len(ivs) and ivs[i + 1][0] <= ivs[i][1]:\n            out.append([ivs[i][0], max(ivs[i][1], ivs[i + 1][1])])\n            i += 2\n        else:\n            out.append(list(ivs[i]))\n            i += 1\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals):\n        if out and s <= out[-1][1]:\n            out[-1][1] = e\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals):\n        if out and s <= out[-1][1] + 1:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out",
+    "def merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    Input: list of [start, end] pairs (ints, possibly unsorted).\n    Output: minimal sorted list of merged [start, end] pairs.\"\"\"\n    out = []\n    for s, e in sorted(intervals, key=str):\n        if out and s <= out[-1][1]:\n            out[-1][1] = max(out[-1][1], e)\n        else:\n            out.append([s, e])\n    return out"
+  ],
+  "harmonic_cycle": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      3
+    ]
+  ]
+}

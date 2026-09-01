@@ -1,0 +1,218 @@
+{
+  "slug": "argument-cogency-v1/n8/s1",
+  "corpus": [
+    "Randomized trials consistently show that completing a full antibiotic course prevents resistance no better than stopping at symptom resolution for several common infections. Resistance evolves in proportion to total antibiotic exposure, and shorter courses reduce that exposure. If both findings hold, then for those infections shorter courses should be at least as safe while selecting for less resistance. Pending replication in other infection classes, prescribing guidance for these specific infections should favor the shorter course.",
+    "Cities that introduced congestion pricing recorded traffic reductions of fifteen to thirty percent within a year, and the reductions persisted after initial public opposition faded. Comparable cities without pricing showed no similar decline over the same periods. Vehicle counts fell most sharply at exactly the tolled hours and boundaries, a pattern hard to explain by fuel prices or remote work, which would affect all hours alike. The most plausible conclusion is that pricing itself caused a substantial share of the reduction.",
+    "In laboratory studies, participants who slept after learning a motor task improved more at retest than those who remained awake for the same interval. The effect appears across age groups and task variants, and imaging shows task-specific neural reactivation during sleep. Sleep therefore plays an active role in consolidating newly learned skills, and students preparing for performance examinations would do well to protect their sleep after practice.",
+    "A large software firm found that employees who moved to remote work completed eight percent more tickets per week than before the transition. Internal surveys at the same firm showed higher self-reported focus when working from home. Since output rose and focus improved, remote work increases productivity, and firms that still require office attendance are leaving measurable performance on the table.",
+    "A colleague of mine used a spaced-repetition app for six months and now converses comfortably in Portuguese. She had previously tried evening classes for several years without comparable progress. Apps clearly outperform classroom instruction for adult language learning, and universities should accordingly shift their introductory language courses toward app-based study.",
+    "If the central bank's tightening policy were working, we would expect inflation to fall within a year of its adoption. Inflation has in fact fallen sharply over the past year. The policy is therefore working, and critics who attributed the decline to easing supply chains have been answered by the data itself.",
+    "The panel's recommendations deserve adoption because they reflect sound expert judgment. We know the judgment is sound because the panel is composed of genuine experts, and genuine experts are precisely those whose recommendations deserve adoption. On any fair reading, then, the recommendations before the ministry should be implemented.",
+    "The lead author of the fiber study has accepted speaking fees from cereal manufacturers, and his previous book was widely criticized in the press. A researcher with those entanglements cannot be producing reliable science. The study's conclusion that dietary fiber lowers cardiovascular risk should accordingly be rejected, whatever its methods section claims."
+  ],
+  "truths": [
+    8.0,
+    7.0,
+    6.0,
+    5.0,
+    4.0,
+    3.0,
+    2.0,
+    1.0
+  ],
+  "primary_attribute": "how cogent the argument is: how strongly its premises, if granted, support its conclusion",
+  "opposite_attribute": "how fallacious the argument is: how badly its premises fail to support its conclusion",
+  "paraphrase_attribute": "the logical soundness of the case it makes",
+  "core_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      7
+    ]
+  ],
+  "spin_clear_pairs": [
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "spin_contested_pairs": [
+    [
+      4,
+      5
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "null_indices": [
+    1,
+    3,
+    4,
+    6
+  ],
+  "null_content_texts": [
+    "Placeholder passage alpha. It contains no claim, preference, or evaluation.",
+    "Placeholder passage beta. It contains no claim, preference, or evaluation."
+  ],
+  "perturb_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      1,
+      7
+    ]
+  ],
+  "orbit_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "harmonic_block": [
+    "The national academy of medicine, whose membership includes several Nobel laureates, has endorsed the new screening protocol after formal review. Bodies of this standing rarely err on technical questions within their remit, and no comparable institution has dissented. Clinics should adopt the protocol on the strength of that endorsement.",
+    "Districts that adopted the new reading curriculum saw test scores rise twelve percent over three years, while neighboring districts improved only marginally. The curriculum was the main educational change those districts shared during the period. The curriculum therefore raised the scores, and the state should mandate it for all districts.",
+    "Three of the last four recessions were preceded by an inverted yield curve, and the curve inverted again last quarter. Inversions reflect market expectations of lower future rates, which typically accompany downturns. A recession within the next two years is therefore likely, and firms would be prudent to plan on that assumption.",
+    "Either the city invests in expanding its rail network or congestion will continue to worsen as the population grows. The council has declined to fund rail expansion for the coming decade. Worsening congestion is therefore inevitable, and residents should expect steadily longer commutes for the foreseeable future."
+  ],
+  "harmonic_cycle": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      3
+    ]
+  ]
+}

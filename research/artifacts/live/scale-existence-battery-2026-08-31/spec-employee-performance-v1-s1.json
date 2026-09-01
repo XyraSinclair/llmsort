@@ -1,0 +1,208 @@
+{
+  "slug": "employee-performance-v1/n8/s1",
+  "corpus": [
+    "Quarterly review, Dana R.: closed 31 accounts totaling $214,000 (team median: 19 accounts, $118,000). Contract error rate 0.8% against a team average of 3.1%. Client retention 96%. Grew two dormant territories into recurring revenue. Mentored one junior rep who hit quota for the first time.",
+    "Quarterly review, Marcus T.: closed 29 accounts totaling $196,000 (team median: 19 accounts, $118,000). Contract error rate 2.9%, near the team average of 3.1%. Client retention 91%. No territory growth this quarter; declined two cross-team support requests citing pipeline load.",
+    "Quarterly review, Priya S.: closed 22 accounts totaling $141,000 (team median: 19 accounts, $118,000). Contract error rate 2.2% against a team average of 3.1%. Client retention 93%. Picked up coverage for a colleague on leave for three weeks without missing her own targets.",
+    "Quarterly review, Alex J.: closed 19 accounts totaling $119,000, matching the team median of 19 accounts and $118,000. Contract error rate 3.0%, in line with the team average of 3.1%. Client retention 88%, slightly under the team norm of 90%. Attended all pipeline reviews; no notable incidents either way.",
+    "Quarterly review, Sam K.: closed 16 accounts totaling $92,000 (team median: 19 accounts, $118,000), down from 23 accounts the previous quarter. Contract error rate 3.4% against a team average of 3.1%. Client retention 84%. Missed two forecast submissions; flagged burnout to their manager in week nine.",
+    "Quarterly review, Jordan P.: closed 18 accounts totaling $107,000 (team median: 19 accounts, $118,000). Contract error rate 6.8%, more than double the team average of 3.1%; two contracts required legal rework. Client retention 82%. Enthusiastic in team settings but repeatedly submitted paperwork past deadline.",
+    "Quarterly review, Casey M.: closed 11 accounts totaling $61,000 (team median: 19 accounts, $118,000). Contract error rate 4.9% against a team average of 3.1%. Client retention 79%. Two client escalations cited slow response times. Completed required training modules on schedule.",
+    "Quarterly review, Robin L.: closed 7 accounts totaling $38,000 (team median: 19 accounts, $118,000). Contract error rate 8.2%, the highest on the team against an average of 3.1%. Client retention 71%; three accounts churned after unresolved complaints. Missed four of six pipeline reviews without notice."
+  ],
+  "primary_attribute": "how well the employee performed this quarter",
+  "opposite_attribute": "how poorly the employee performed this quarter",
+  "paraphrase_attribute": "the caliber of their work over the quarter",
+  "core_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      7
+    ]
+  ],
+  "spin_clear_pairs": [
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "spin_contested_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "null_indices": [
+    2,
+    4,
+    5,
+    6
+  ],
+  "null_content_texts": [
+    "Placeholder passage alpha. It contains no claim, preference, or evaluation.",
+    "Placeholder passage beta. It contains no claim, preference, or evaluation."
+  ],
+  "perturb_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      1,
+      7
+    ]
+  ],
+  "orbit_pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "harmonic_block": [
+    "Quarterly review, Theo B.: closed 14 accounts totaling $96,000 (team median: 19 accounts, $118,000). Contract error rate 0.4%, the lowest on the team against an average of 3.1%; zero rework requests all quarter. Client retention 97%, the team's best. Turned down leads rather than rush diligence.",
+    "Quarterly review, Omar F.: closed 15 accounts totaling $101,000 (team median: 19 accounts, $118,000). Contract error rate 2.6% against a team average of 3.1%. Client retention 89%. Built the call-script library now used by the whole team; three colleagues credited it in their own quota attainment.",
+    "Quarterly review, Mira C.: closed 17 accounts totaling $109,000 (team median: 19 accounts, $118,000). Contract error rate 3.0%, at the team average. Retained 9 of 11 accounts formally flagged at-risk at quarter start - roughly $140,000 in revenue the forecast had written off. New-account growth was flat.",
+    "Quarterly review, Ines V.: closed 27 accounts totaling $183,000 (team median: 19 accounts, $118,000), the second-highest volume on the team. Contract error rate 5.6%, well above the team average of 3.1%; one flagged contract delayed a client launch by a week. Client retention 85%."
+  ],
+  "harmonic_cycle": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      3
+    ]
+  ]
+}
