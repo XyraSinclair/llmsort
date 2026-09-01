@@ -1,0 +1,65 @@
+{
+ "slug": "prose-beauty-v1",
+ "_comment": "Scale-existence battery, taste tier. 12 original short prose passages describing ordinary scenes (weather, rooms, streets, meals) so content does not confound style; intended quality spans precise-imagery/controlled-rhythm down to cliche-stacked and mixed-metaphor, all grammatical - badness is aesthetic, never mechanical. NO truth field by design: 'beautiful prose' is a paradigm taste attribute and the question is whether a shared scale exists at all. Items descending by intended quality. Harmonic block: four passages at similar mid-high quality in DIFFERENT aesthetics (spare/plain, lyric/musical, baroque/maximalist, cool/precise-scientific) - if beauty is plural, judges should trade these off differently; each is meant as a genuinely good specimen of its style.",
+ "attribute": {
+  "primary": "how beautiful the prose is",
+  "opposite": "how ugly the prose is: how thoroughly it fails as writing",
+  "paraphrases": [
+   "the quality of its writing as writing",
+   "how aesthetically fine the prose is",
+   "the beauty of its sentences"
+  ]
+ },
+ "items": [
+  {
+   "id": "rain_record",
+   "text": "The rain stopped sometime before waking, and the street kept a record of it: every awning dripped its own slow clock, and the gutters ran bright with sky. A woman crossed at the corner holding her shoes, and the asphalt held her upside down, exact and shivering, until a bus erased her."
+  },
+  {
+   "id": "kitchen_light",
+   "text": "Morning came into the kitchen the way heat comes into bread, gradually and then completely. The kettle ticked toward its one idea. On the sill, a jar of spoons threw small crooked ladders of light across the table, and the whole room seemed to lean toward the window, listening."
+  },
+  {
+   "id": "snow_hush",
+   "text": "By afternoon the snow had made the town provisional. Cars became soft rumors of cars; the fence was a suggestion. Sound arrived from a great distance, even the near sounds, as if the day had been wrapped and set aside for someone not yet home."
+  },
+  {
+   "id": "market",
+   "text": "The market opened early, before the heat. Crates of oranges stacked into bright walls, and the sellers called prices over one another in a rhythm that wasn't quite song. By noon the ice under the fish had gone gray and the shouting had settled into talk."
+  },
+  {
+   "id": "waiting_room",
+   "text": "The waiting room was quiet except for the air conditioner. There were six chairs, a low table, and a stack of old magazines nobody read. Outside the window, traffic went by at regular intervals. People looked at their phones and sometimes at the clock on the far wall."
+  },
+  {
+   "id": "dinner_flat",
+   "text": "Dinner was chicken with rice and green beans. The plates were white and the glasses were filled with water. Everyone ate at a normal pace and talked about the weather and about work. When the meal was over, the dishes were cleared and coffee was served in the kitchen."
+  },
+  {
+   "id": "sunset_cliche",
+   "text": "The sunset was absolutely breathtaking, painting the sky in a riot of colors like a beautiful masterpiece. The golden orb sank slowly beneath the horizon as birds flew home to roost. It was a picture-perfect ending to a perfect day, a moment frozen in time forever."
+  },
+  {
+   "id": "storm_mixed",
+   "text": "The storm hit like a freight train on steroids, unleashing a tidal wave of rain that marched across town on little cat feet. Thunder boomed deafeningly loud in a symphony of nature's fury. At the end of the day, Mother Nature had painted her canvas with the icing on the cake."
+  }
+ ],
+ "harmonic": [
+  {
+   "id": "bar_spare",
+   "text": "The bar was empty at five. The man wiped the counter twice and looked at the door. Outside it was getting dark and the cold came in under the door and stayed. He poured himself a short one and did not drink it. The door did not open."
+  },
+  {
+   "id": "orchard_lyric",
+   "text": "Evening laid its long vowel over the orchard, and the light went sweet and grainy, the color of cider. Somewhere a dog spoke twice and thought better of it. The hills took the sun down slowly, the way one lowers a sleeping child, all wrist and patience."
+  },
+  {
+   "id": "parlor_baroque",
+   "text": "Dusk entered the parlor like an ambassador from some older, heavier empire, trailing its violet retinue over the mantel clocks, the doilies, the disgraced armchairs, gilding each dust mote into currency, until every surface of that overfurnished room paid tribute to a sovereign no one had invited and no one dared expel."
+  },
+  {
+   "id": "garden_precise",
+   "text": "At dusk the temperature fell two degrees in ten minutes, and the brick released its stored heat in a thin shimmer above the wall. Moths navigated by a moon they mistook for the porch light. The garden conducted its transactions in the dark, exact, unsentimental, leaf by leaf."
+  }
+ ]
+}

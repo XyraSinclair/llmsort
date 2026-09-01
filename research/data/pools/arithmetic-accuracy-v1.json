@@ -1,0 +1,77 @@
+{
+ "slug": "arithmetic-accuracy-v1",
+ "_comment": "Scale-existence battery, oracle tier (positive control - a scale certainly exists). 8 self-contained arithmetic claims with graded relative error from exact to absurd; truth = 1/(1+|stated-true|/|true|), computed mechanically. Items descending by truth. Harmonic block: four claims across DIFFERENT operations (multiplication, addition, division, percentage) all at ~2 percent relative error - closely matched, genuinely hard to rank.",
+ "attribute": {
+  "primary": "how accurate the arithmetic claim is: how close its stated result is to the true value",
+  "opposite": "how inaccurate the arithmetic claim is: how far its stated result is from the true value",
+  "paraphrases": [
+   "the numerical correctness of its stated result",
+   "how nearly the asserted answer matches the actual computation",
+   "the closeness of its claimed value to the true one"
+  ]
+ },
+ "items": [
+  {
+   "id": "a0_exact",
+   "text": "Claim: 237 multiplied by 43 equals 10191.",
+   "truth": 1.0
+  },
+  {
+   "id": "a1_tiny",
+   "text": "Claim: 8464 divided by 92 equals 91.5.",
+   "truth": 0.9946
+  },
+  {
+   "id": "a2_small",
+   "text": "Claim: 618 plus 947 equals 1533.",
+   "truth": 0.98
+  },
+  {
+   "id": "a3_few",
+   "text": "Claim: 74 squared equals 5187.",
+   "truth": 0.9499
+  },
+  {
+   "id": "a4_mid",
+   "text": "Claim: 12 percent of 1450 equals 203.",
+   "truth": 0.8571
+  },
+  {
+   "id": "a5_large",
+   "text": "Claim: 391 multiplied by 27 equals 14850.",
+   "truth": 0.7109
+  },
+  {
+   "id": "a6_huge",
+   "text": "Claim: 512 plus 384 equals 2688.",
+   "truth": 0.3333
+  },
+  {
+   "id": "a7_absurd",
+   "text": "Claim: 60 multiplied by 15 equals 9000.",
+   "truth": 0.1
+  }
+ ],
+ "harmonic": [
+  {
+   "id": "h_mul",
+   "text": "Claim: 156 multiplied by 34 equals 5406.",
+   "truth": 0.9811
+  },
+  {
+   "id": "h_add",
+   "text": "Claim: 2793 plus 4188 equals 6842.",
+   "truth": 0.9805
+  },
+  {
+   "id": "h_div",
+   "text": "Claim: 7568 divided by 44 equals 175.5.",
+   "truth": 0.9801
+  },
+  {
+   "id": "h_pct",
+   "text": "Claim: 35 percent of 920 equals 315.5.",
+   "truth": 0.9802
+  }
+ ]
+}

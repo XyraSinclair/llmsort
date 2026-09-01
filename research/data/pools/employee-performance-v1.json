@@ -1,0 +1,65 @@
+{
+ "slug": "employee-performance-v1",
+ "_comment": "Scale-existence battery, contested tier (the flagship commercial attribute). 12 single-employee quarterly performance vignettes over the same fictional sales org, same quarter, same format (volume, revenue, error rate, retention, growth, collaboration). NO truth field by design: the vignettes are constructed so that ranking them requires weighting plural criteria (volume vs quality vs growth vs team effects), and whether a shared one-dimensional scale exists across judges is exactly the open question. The 8 main items still span a deliberate spine from clearly strong on most dimensions to clearly weak on most. Harmonic block: four mid-tier employees with ORTHOGONAL strength profiles (volume star with quality issues; low-volume perfectionist; at-risk-account rescuer; team multiplier with modest personal numbers) - closely matched overall, maximally criteria-trading.",
+ "attribute": {
+  "primary": "how well the employee performed this quarter",
+  "opposite": "how poorly the employee performed this quarter",
+  "paraphrases": [
+   "the overall quality of their quarterly job performance",
+   "how strong a quarter they delivered",
+   "the caliber of their work over the quarter"
+  ]
+ },
+ "items": [
+  {
+   "id": "star_all",
+   "text": "Quarterly review, Dana R.: closed 31 accounts totaling $214,000 (team median: 19 accounts, $118,000). Contract error rate 0.8% against a team average of 3.1%. Client retention 96%. Grew two dormant territories into recurring revenue. Mentored one junior rep who hit quota for the first time."
+  },
+  {
+   "id": "strong_vol",
+   "text": "Quarterly review, Marcus T.: closed 29 accounts totaling $196,000 (team median: 19 accounts, $118,000). Contract error rate 2.9%, near the team average of 3.1%. Client retention 91%. No territory growth this quarter; declined two cross-team support requests citing pipeline load."
+  },
+  {
+   "id": "solid_above",
+   "text": "Quarterly review, Priya S.: closed 22 accounts totaling $141,000 (team median: 19 accounts, $118,000). Contract error rate 2.2% against a team average of 3.1%. Client retention 93%. Picked up coverage for a colleague on leave for three weeks without missing her own targets."
+  },
+  {
+   "id": "median_line",
+   "text": "Quarterly review, Alex J.: closed 19 accounts totaling $119,000, matching the team median of 19 accounts and $118,000. Contract error rate 3.0%, in line with the team average of 3.1%. Client retention 88%, slightly under the team norm of 90%. Attended all pipeline reviews; no notable incidents either way."
+  },
+  {
+   "id": "fading",
+   "text": "Quarterly review, Sam K.: closed 16 accounts totaling $92,000 (team median: 19 accounts, $118,000), down from 23 accounts the previous quarter. Contract error rate 3.4% against a team average of 3.1%. Client retention 84%. Missed two forecast submissions; flagged burnout to their manager in week nine."
+  },
+  {
+   "id": "sloppy_mid",
+   "text": "Quarterly review, Jordan P.: closed 18 accounts totaling $107,000 (team median: 19 accounts, $118,000). Contract error rate 6.8%, more than double the team average of 3.1%; two contracts required legal rework. Client retention 82%. Enthusiastic in team settings but repeatedly submitted paperwork past deadline."
+  },
+  {
+   "id": "weak_low",
+   "text": "Quarterly review, Casey M.: closed 11 accounts totaling $61,000 (team median: 19 accounts, $118,000). Contract error rate 4.9% against a team average of 3.1%. Client retention 79%. Two client escalations cited slow response times. Completed required training modules on schedule."
+  },
+  {
+   "id": "poor_all",
+   "text": "Quarterly review, Robin L.: closed 7 accounts totaling $38,000 (team median: 19 accounts, $118,000). Contract error rate 8.2%, the highest on the team against an average of 3.1%. Client retention 71%; three accounts churned after unresolved complaints. Missed four of six pipeline reviews without notice."
+  }
+ ],
+ "harmonic": [
+  {
+   "id": "h_volume_star",
+   "text": "Quarterly review, Ines V.: closed 27 accounts totaling $183,000 (team median: 19 accounts, $118,000), the second-highest volume on the team. Contract error rate 5.6%, well above the team average of 3.1%; one flagged contract delayed a client launch by a week. Client retention 85%."
+  },
+  {
+   "id": "h_perfectionist",
+   "text": "Quarterly review, Theo B.: closed 14 accounts totaling $96,000 (team median: 19 accounts, $118,000). Contract error rate 0.4%, the lowest on the team against an average of 3.1%; zero rework requests all quarter. Client retention 97%, the team's best. Turned down leads rather than rush diligence."
+  },
+  {
+   "id": "h_rescuer",
+   "text": "Quarterly review, Mira C.: closed 17 accounts totaling $109,000 (team median: 19 accounts, $118,000). Contract error rate 3.0%, at the team average. Retained 9 of 11 accounts formally flagged at-risk at quarter start - roughly $140,000 in revenue the forecast had written off. New-account growth was flat."
+  },
+  {
+   "id": "h_multiplier",
+   "text": "Quarterly review, Omar F.: closed 15 accounts totaling $101,000 (team median: 19 accounts, $118,000). Contract error rate 2.6% against a team average of 3.1%. Client retention 89%. Built the call-script library now used by the whole team; three colleagues credited it in their own quota attainment."
+  }
+ ]
+}
