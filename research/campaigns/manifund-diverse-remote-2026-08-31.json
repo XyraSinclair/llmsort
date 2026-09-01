@@ -1,0 +1,42 @@
+{
+  "note": "Remote lanes of manifund-diverse-2026-08-31, split out so they run concurrently with the local GPU rotation instead of queuing behind ~15h of local phases. Same run_tags as the parent manifest: --resume-ledger presence tests make whichever runner arrives second skip cleanly.",
+  "phases": [
+    {
+      "run_tag": "manifund135-classic-dsv4flash-2026-08-31",
+      "corpus": "data/manifund_latest.txt",
+      "attributes": "batteries/manifund_attributes.txt",
+      "model": "deepseek/deepseek-v4-flash",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "template": "canonical_bucket_v1",
+      "budget": 300,
+      "seed": 1,
+      "concurrency": 12,
+      "no_cache": true,
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024,
+        "OPENROUTER_TIMEOUT_SECONDS": 180,
+        "OPENROUTER_DISABLE_REASONING": 1,
+        "OPENROUTER_PROVIDER_JSON": "{\"order\": [\"parasail\", \"coreweave\", \"digitalocean\", \"streamlake\", \"sail-research\"], \"allow_fallbacks\": false}"
+      }
+    },
+    {
+      "run_tag": "manifund135-classic-glm47-2026-08-31",
+      "corpus": "data/manifund_latest.txt",
+      "attributes": "batteries/manifund_attributes.txt",
+      "model": "glm-4.7",
+      "base_url": "https://api.z.ai/api/coding/paas/v4",
+      "api_key_env": "ZAI_API_KEY",
+      "template": "canonical_bucket_v1",
+      "budget": 300,
+      "seed": 1,
+      "concurrency": 12,
+      "no_cache": true,
+      "env": {
+        "CARDINAL_PAIRWISE_MAX_OUTPUT_TOKENS": 1024,
+        "OPENROUTER_TIMEOUT_SECONDS": 180,
+        "OPENROUTER_DISABLE_REASONING": 1
+      }
+    }
+  ]
+}
