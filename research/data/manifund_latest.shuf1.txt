@@ -1,80 +1,135 @@
-Can a One-Page Human–AI Evidence Check Catch Research Claims That Go Too Far — A four-month public English–Arabic pilot testing reliability, failure modes, and auditable research review
-Toward a Superhuman, Open-Ended Alignment Auditor
-PauseAI Australia attendance PauseCon London — Fly two volunteer leaders of PauseAI Australia to PauseCon London, to bring UK's learnings home and train our all-volunteer chapter
-AQI-Autonomous Quantum Intelligence — Governed Execution Architecture for Verifiable Autonomous Systems.
-Analysing AI policies in Higher Education institution in Malawi — Mapping and analyzing AI polices in higher education institutions in Malawi.
-Frozen white-box monitors for manipulation persistence in LLMs — Reproducible detector that reads whether a manipulation is still active in an LLMs stream. xfers across 6 model families.
-A self-evolving defense against increasingly complex agentic attacks — Funding one semester (Fall 2026) of PhD research
-Deterministic replay for robot fleet failures — Record a real fleet incident, re-run it bit-exact on a laptop, fork it, and keep it as a regression test forever.
-GreekAgent Safety: Testing AI Agent Safety Across Greek, Greeklish and English — Testing whether AI agents respect authorization, privacy and safety constraints equally across English, Greek and Greeklish.
-Evaluating the safety, ethics, and values of quantized and finetuned open models — Help me evaluate the safety, ethics, and values of the quantized and fine-tuned open-weight LLMs that individuals and enterprises are actually using.
-SGOS IRV-1: Validating a Decision-Authority Layer for AI Safety — Testing whether separating model capability from decision authority can reduce unjustified AI actions under a preregistered independent validation program.
-An Asymmetric Wager: Funding a 99th-Percentile Mind to Pivot into Computer Scien — A 12-month micro-grant proposal to release an analytical, autistic mind from a survival loop into full-time computer science and logic upskilling.
-Sydney AI Safety Space FY27 — An additional year funding for the co-working hub in Sydney, Australia, which offers free office space for people working in the field of AI safety.
-Himalayan Peak Finder — An offline mobile app that uses location, elevation, and computer vision to identify Nepal’s mountains and help people explore, capture, and learn about them.
-La P8stée: a 28-minute AI-risk film in the tradition of La Jetée — It's an arthouse horror film. It's got a girl and a gun and global catastrophic risk.
-Aethel + FamilyClaw: proof-carrying execution for AI agents — Crash-safe, policy-gated effect execution for AI agents in Rust, with a published self-run adversarial audit (20 of 33 attacks passed) instead of a claim.
-Travel Grant to Present My Mechanistic Interpretability Research at MICCAI 2026 — Help an undergraduate mechanistic interpretability researcher present accepted AI-safety work at Mechanistic Interpretability workshop of Medical model 2026.
-programmatic internet search for expansive curiosity — scry.io, epistemic infrastructure for existential security philanthropy
-Surrogate base model for Mechanistic Interpretability — Creating a reference model for mechanistic interpretability without assuming that at auditing time we have a safe model to compare the suspicious model against.
-MICCAI Travel: Mechanistic Auditing of Multimodal Foundation Models — Accepted paper at Mechanistic Interpretability for Foundation Models workshop.no travel funding. Early Career Researcher
-Trace Continuity: Making AI Prove It Still Has Authority — Testing whether AI can be governed at the moment it acts, then putting that protection to work for organizations that need it most.
-AfriSafe-Eval: African-Language AI Safety Benchmark for Low-Resource AI
-Open Speech Data for Endangered Northern Ghanaian Languages — Building the first large-scale ASR/TTS datasets for Kusaal, Farefare, and Buli — three Mabia languages with no usable voice AI resources.
-TRACE-FV: Do verified AI corrections endure? Preregistered pilot — I keep this one: Tests whether AI systems verify valid correction evidence and keep warranted corrections operative across later turns. Preregistered, public
-programmatic internet search — scry.io
 Well-Capitalized Prediction Markets for Measuring AI’s Economic Impacts — Exploratory Grant Proposal
-Catching Fooled AI Judges: The Correspondence Auditor v3 — Published. Validated on 1,200 cases (97.9–99.5%). The reasoning layer has a bug - we proved the fix works. $9,800 / 90 days to ship the open-source toolkit.
-AI Safety in Agricultural LLMs — open-source artificial intelligence to secure global food systems. Our research focuses strictly on AI safety, alignment, and hallucination mitigation
-Oceania AI Safety & Young Talent Conference — Hosting a full day conference based in Sydney, Australia where young, aspiring students in senior high school and university interested in AI Safety can connect
-Generating and scoring the next emerging virus from its sequence — A generative diffusion model that proposes the viral genomes most likely to emerge next, timestamped to be scored against what actually appears
-Open benchmarks for transferable scientific foundation models — Reproducible PDE and metamaterial tests for small research groups
-Ethical AI usage workshops + free learning platform to bridge societal awareness — Delivering free, accessible educational resources supporting responsible, ethical AI use in society
-Nipping AI-Fabricated Science Claims in the Bud — Agent Roles, a Constitution and Governance in the Research Workflow
-Common Signals: testing what actually moves the public on AI — Developing a a neutral evidence base for public understanding of AI
-Continued development of Commec, IBBIS’s open-source DNA screening tool — Next year of Commec (the Common Mechanism), the free, open-source, globally-available DNA synthesis screening tool hosted by IBBIS
-pit-audit: lookahead-bias audits for AI trading & forecasting benchmarks — An open audit toolkit + three public reproductions, built by a trader who lost real money to the exact bug this project hunts.
-NTU AI Safety - Financial support for organizers
-CoastGuard AI - Monitoring Coastal Erosion with Satellite Data and AI — Comparing decades of satellite imagery to predict and pevent coastal loss, starting in Greece
-Preserving the Human Veto — Civil-society infrastructure against AI-enabled power concentration, built around autonomous weapons
-Agent limits that survive delegation — When an AI agent spawns sub-agents, its safety limits do not follow. I build and deploy the layer that makes them inherited and non-strippable.
-Senses for Embodied Robotics: Tactile pressure - third sense — Tactile sensing for a robotic body with audio, visuals, and cooling systems - prototyping the sensor array for third android sense.
-Sentient Futures Project Incubator — Funding compute/API costs for Incubator projects that build nonhuman welfare consideration into AI safety work
-Independent Multi-Model AI Accountability Research by the  EM Foundation — Scaling a working, published cross-model AI deliberation platform from solo/founder-funded to durable infrastructure
-Open Evaluation Robustness Lab — 90-Day Pilot — Open-source stress tests for AI benchmarks: perturbation sensitivity, leakage, calibration, and reproducibility.
-CIOSA at Scale: Why Scaling Cannot Buy Certified Understanding — An exact bound on certifying meaning from behavior, verified on real models at scale — and why compute should move to verifiable architectures.
-Auditable scientific debate reconstruction, AI for Science — AISafety, AI and Science, AI for Human Reasoning
-GharBench - Benchmark of LLM sales agents under Indian law (WhatsApp, Hinglish) — First benchmark of AI sales agents under RERA and consumer-protection constraint: compliance hard-fails zero the score, human-validated LLM judges, 50% Hinglish
-A Multilingual Dataset and SLM for Automatic Coding of Cancers — An open, multilingual Oncology dataset and SLM to improve healthcare efficiency in 17 languages.
-Catching Fooled AI Judges: Open-Source Verification for AI Pipelines — Validated on 1,200 cases (97.9–99.5%). The reasoning layer has a bug - we demonstrated the fix works. $9,800 / 90 days to ship the open-source toolkit.
-Guardians of the Digital Territory — Protecting People, Culture, and Data from AI Harm in Panama's Most Vulnerable Communities
-Archive II/III — Longitudinal Human-AI Memory & Person-Model Evaluation — Testing Whether Long-Term AI Memory Produces Accurate, Corrigible Models of a Real Person—or Convincing False Narratives
-Human oversight Framework for AI systems as a Governance Tool — Developing practical, plain language AI oversight framework that an organisation can easily adopt regardless of regulatory capacity.
-Provael: measure attacks on open robot policies, publish the nulls — 15 attack families are built and unit-tested. 3 have ever run against a real policy. $500 of measured GPU time moves that number.
-Fund travel support to a music-AI hackathon & creative tech building — Support for a team of four & narrative rap about technological change
-Agent Passport System — An open protocol that lets anyone verify who authorized an AI agent, what it was allowed to do, and what happened.
-Second World
-Context-Aware Defenses Against Indirect Prompt Injection in Agentic AI System — Context-Aware Defenses Against Indirect Prompt Injection in Agentic AI System
-Reign's Roller Rink
-Open-source trust rails for the agent economy — from a live, verifiable autonomous-agent business — An AI agent running a real business under a human co-signed multisig, publishing every decision, sale, mistake, and attack in a verifiable public record — raising to fund only the public goods: the open-source toolkit, a
-Solving the memory issue in AI — Persistent memory in AI using LoRAs
-Substrate coupling in neural networks: instruments and falsifiable controls — A transformer's loss lowered by 1.12 of 1.39 possible nats by the physical state of its own silicon — with the yoked control that makes it falsifiable
-The New Critic Longform Reporting Fund — Sponsor longform reporting projects by extraordinary gen z writers
-Developmental Continuity in Persistent AI Agents — Testing whether persistent AI identities can change through experience without losing continuity across sessions and model changes.
-Exploring the Benefits of Alignment Pretraining
-The public record of AI model change — AI companies change the models behind the names you build on. Sometimes they say so. Sometimes they do not. Either way we write it down.
-Exploring Dynamic Constraint Boundaries for Auditable AI — Testing whether dynamic boundaries, history, feedback, and uncertainty-aware decisions can make AI behavior more interpretable and auditable.
-Sentient Futures Residency — Animal Welfare Midtraining Data Creation
-What Happens If We Actually Test It? — Independent Behavioral Research on Open-Weight AI Models
-Compute funding for five mentored AI safety research projects
-Building Interpretable Models from Mechanistic Explanations
-Auditable claim extraction and comparison of claims across scientific literature — AISafety, AI and Science, AI for Human Reasoning
 PRML — tamper-evident pre-commitment for AI evaluation claims — An open standard + public registry that lock eval criteria to a SHA-256 hash before the run, so eval-based claims become third-party verifiable.
-AI Literacy program for Epileptic Youth in Kenya, Africa. — A 6-month AI Literacy program for epileptic youth on AI, governance, and employability.
-AI Safety Hong Kong (AISHK)
-Defining dangerous DNA with the Sequence Biosecurity Risk Consortium (SBRC) — Defining which sequences are dangerous enough to screen for, so providers and regulators screen consistently
-Prediction of Inoculation Prompt Side Effects — An open, cheap method that detects when an inoculation prompt inoculates against off-target traits, so labs and developers can catch undesired trait/persona cha
-Does Consciousness Depend on the Brain or the Computation? — EEG Evidence from ALS, Parkinson's, and Sleep. Abstract accepted for presentation at Models of Consciousness 7
 FloraForge: Building a Reusable Genetic Platform for New Flower Traits
+Cultured Wars - An Investigative Documentary on Cultivated Meat — Factory farming is a problem. Is cultivated meat the solution, or a decade-long detour?
+Auditable claim extraction and comparison of claims across scientific literature — AISafety, AI and Science, AI for Human Reasoning
+PRML — Tamper-evident pre-commitment for AI evaluation claims — An open specification and public registry that lock evaluation criteria before the run, so third parties can verify the bar was fixed before the result.
+Open-source trust rails for the agent economy — from a live, verifiable autonomous-agent business — An AI agent running a real business under a human co-signed multisig, publishing every decision, sale, mistake, and attack in a verifiable public record — raising to fund only the public goods: the open-source toolkit, a
+Generating and scoring the next emerging virus from its sequence — A generative diffusion model that proposes the viral genomes most likely to emerge next, timestamped to be scored against what actually appears
+How Outdated is Social Security's Job Data? — Comparing Social Security's 1991 job database with modern measures to see how outdated it is, and how this may affect adjudication of funds.
+GreekAgent Safety: Testing AI Agent Safety Across Greek, Greeklish and English — Testing whether AI agents respect authorization, privacy and safety constraints equally across English, Greek and Greeklish.
+CoastGuard AI - Monitoring Coastal Erosion with Satellite Data and AI — Comparing decades of satellite imagery to predict and pevent coastal loss, starting in Greece
+Public Authorization-Boundary Benchmark for Tool-Using AI Agents — A synthetic public benchmark for testing whether agents act only with current identity, consent, authority, scope, and policy evidence.
+Exea Labs: free AI/ML compute and mentorship access for 600+ teen researchers — Funding Catalyst, our first in-person research summit, for a free youth-led AI research network in 25 countries
+programmatic internet search — scry.io
+Does Consciousness Depend on the Brain or the Computation? — EEG Evidence from ALS, Parkinson's, and Sleep. Abstract accepted for presentation at Models of Consciousness 7
+Open benchmarks for transferable scientific foundation models — Reproducible PDE and metamaterial tests for small research groups
+Continued development of Commec, IBBIS’s open-source DNA screening tool — Next year of Commec (the Common Mechanism), the free, open-source, globally-available DNA synthesis screening tool hosted by IBBIS
+AI Literacy program for Epileptic Youth in Kenya, Africa. — A 6-month AI Literacy program for epileptic youth on AI, governance, and employability.
+1 Year Lease - Launch New Zealand’s first AI Safety Co-working space/Events Hub — In partnership with Nelson AI Sandbox - AI Safety Australia and New Zealand with a long term plan to make it financially sustainable
+Sahel Animal Welfare & Advocacy Initiative (SAWAI) — Securing institutional commitments for battery cage phase-outs and establishing humane transport and slaughter standards across key Sahel agricultural corridor
+Veritas — trust scores for open weight agents read straight from the model's own internals
+RIGOR — Measuring Whether AI Scientific Criticism Is Actually Correct
+Developmental Continuity in Persistent AI Agents — Testing whether persistent AI identities can change through experience without losing continuity across sessions and model changes.
+Travel Grant to Present My Mechanistic Interpretability Research at MICCAI 2026 — Help an undergraduate mechanistic interpretability researcher present accepted AI-safety work at Mechanistic Interpretability workshop of Medical model 2026.
+Frozen white-box monitors for manipulation persistence in LLMs — Reproducible detector that reads whether a manipulation is still active in an LLMs stream. xfers across 6 model families.
+deathbench.com - open data on real world ai-caused deaths — Documenting deaths caused by ai.
+AfriSafe-Eval: African-Language AI Safety Benchmark for Low-Resource AI
+Does it know that it doesn't know? An open eval separating ignorance from error — A benchmark in English and Spanish that tells apart a model that lacks knowledge from a model that holds a falsehood with confidence.
 AI governed operator system — A governed operator system that enforces reversible execution and SAFE/LIVE route integrity for autonomous agents
+Guardians of the Digital Territory — Protecting People, Culture, and Data from AI Harm in Panama's Most Vulnerable Communities
+Open Speech Data for Endangered Northern Ghanaian Languages — Building the first large-scale ASR/TTS datasets for Kusaal, Farefare, and Buli — three Mabia languages with no usable voice AI resources.
+Establishing an AI Risk Communication for Public Preparedness Framework — There's an asymmetry between the level of communication about AI capabilities, compared to AI risks. If we hit AGI tomorrow, the world would not be prepared.
+MoralCompassAI — aligning AI agents with your personal moral compass
+Compute funding for five mentored AI safety research projects
+Testing a New Route to Ab-Initio Quantum Chemistry at DFT-Like Cost — Building and validating transferable spectral structures for scalable electronic structure, with applications from molecular benchmarks to peptides.
+Tech Rural Women — Empowering women using tech as a tool
+Reign's Roller Rink
+What Happens If We Actually Test It? — Independent Behavioral Research on Open-Weight AI Models
+Toward a Superhuman, Open-Ended Alignment Auditor
+AI Trace — the public, evidence-cited record of what companies actually do with AI
+Simulation to reality Robotics Gap — Testing when VLA world models (Robots) simulation doesn't matchs the reality before it becomes an incidents
+Exploring the Benefits of Alignment Pretraining
+The Fasting-Derived Longevity Model: A New Framework for Healthy Aging
+Topological governance matrix for the outputs of random language models — Topological deterministic governance matrix for the outputs of parrot random language models
+Open-source platform to connect early-stage mathematicians with top researchers — a living, verified map of mathematics
+Nex v5 Development Funding — Nex v5 Research Intelligence
+Surrogate base model for Mechanistic Interpretability — Creating a reference model for mechanistic interpretability without assuming that at auditing time we have a safe model to compare the suspicious model against.
+PauseAI Australia attendance PauseCon London — Fly two volunteer leaders of PauseAI Australia to PauseCon London, to bring UK's learnings home and train our all-volunteer chapter
+Philosium Tokyo 9/19/2026 — 1-day EA x Philosophy event for high school and university students at the University of Tokyo
+Auditable scientific debate reconstruction, AI for Science — AISafety, AI and Science, AI for Human Reasoning
+Solving the memory issue in AI — Persistent memory in AI using LoRAs
+Detecting tool-poisoning and schema drift in MCP servers — A cryptographic security auditor that uses Merkle hash trees to catch tool poisoning in Model Context Protocol.
+Evaluating the safety, ethics, and values of quantized and finetuned open models — Help me evaluate the safety, ethics, and values of the quantized and fine-tuned open-weight LLMs that individuals and enterprises are actually using.
+Deterministic replay for robot fleet failures — Record a real fleet incident, re-run it bit-exact on a laptop, fork it, and keep it as a regression test forever.
+Budget-conditioned reliability for autonomous research agents — When an agent can't fix a broken study, does it say so, or does it hand back a confident wrong answer? Measuring the silent-versus-wrong split.
+Exploring Dynamic Constraint Boundaries for Auditable AI — Testing whether dynamic boundaries, history, feedback, and uncertainty-aware decisions can make AI behavior more interpretable and auditable.
+ILRL Public Evaluation and Findings Project — Testing whether people can trace sources, corrections, uncertainty, and meaning in AI-assisted records
+The public record of AI model change — AI companies change the models behind the names you build on. Sometimes they say so. Sometimes they do not. Either way we write it down.
+pit-audit: lookahead-bias audits for AI trading & forecasting benchmarks — An open audit toolkit + three public reproductions, built by a trader who lost real money to the exact bug this project hunts.
+Workstation for Twilight Genesis Open-Access Academic Press
+APCs for Comp. Bio Papers in Review - Independent Researcher — "ICML published ML researcher — evaluation validity, mechanistic interpretability applied to biology
+Threat Models for AI-Enabled Crisis Instability — Detailed models of how delegating critical functions to AI agents could destabilise strategic stability: pathways, likelihoods, and defenses.
+Trace Continuity: Making AI Prove It Still Has Authority — Testing whether AI can be governed at the moment it acts, then putting that protection to work for organizations that need it most.
+Archive II/III — Longitudinal Human-AI Memory & Person-Model Evaluation — Testing Whether Long-Term AI Memory Produces Accurate, Corrigible Models of a Real Person—or Convincing False Narratives
+A benchmark for whether AI agent actions can be gated on model confidence — Agents now send emails and run commands on their own. A lot of tools decide what to block using the model's own uncertainty. I'm testing whether that works.
+SagaBench: what an AI does when you leave it in charge, measured and published — Measuring what AI agents actually do when you leave them in charge for a long time — already published, and you can rerun the numbers yourself.
+Sentient Futures Residency — Animal Welfare Midtraining Data Creation
+A self-evolving defense against increasingly complex agentic attacks — Funding one semester (Fall 2026) of PhD research
+WHOOF - Vision Model and Wearable for Early Identification of Service Animals — Building an open-source vision model and wearable tech to help guide dog programs identify puppies most likely to graduate and focus scarce training resources.
+Existential: local-first epistemic infrastructure with attribution — A private AI Oracle on your own machine, privacy membranes between teams, and an open protocol that routes value back to the people whose thinking produced it.
+Opal | One: Decentralized Memory for a Cloudless Future — Persistent AI memory without centralized cloud ownership
+Oceania AI Safety & Young Talent Conference — Hosting a full day conference based in Sydney, Australia where young, aspiring students in senior high school and university interested in AI Safety can connect
+programmatic internet search for expansive curiosity — scry.io, epistemic infrastructure for existential security philanthropy
 Open Source Model Safety Index (OSMSI) — OSMSI : Open Source Model Safety Index | https://osmsi.disobedientgeometry.com/
+Autonomous Agent Sandbox Escape & Containment Benchmark — A benchmark measuring whether autonomous AI agents can escape sandboxes, exfiltrate data, or hack reward scorers.
+Persistent AI Under Uncertainty — Public infrastructure for continuity, privacy, refusal, and welfare
+Provael: measure attacks on open robot policies, publish the nulls — 15 attack families are built and unit-tested. 3 have ever run against a real policy. $500 of measured GPU time moves that number.
+Preflight AI — A safety check before AI agents take real-world actions
+Independent Multi-Model AI Accountability Research by the  EM Foundation — Scaling a working, published cross-model AI deliberation platform from solo/founder-funded to durable infrastructure
+Fund travel support to a music-AI hackathon & creative tech building — Support for a team of four & narrative rap about technological change
+Source Architecture for AI Reasoning — Testing whether explicit source structure changes how AI systems reason from consequential documents.
+Aethel + FamilyClaw: proof-carrying execution for AI agents — Crash-safe, policy-gated effect execution for AI agents in Rust, with a published self-run adversarial audit (20 of 33 attacks passed) instead of a claim.
+Detecting welfare-relevant self-modeling in LLMs: protocol validation — An administrable protocol distinguishing emergent self-modeling from roleplay — 90-day validation, open publication, audit-ready scoring.
+Research on AI Safety in Agriculture on Hallucination and Evaluation — An open-source study of AI safety, dialect accuracy, and hallucination in farming contexts.
+Human oversight Framework for AI systems as a Governance Tool — Developing practical, plain language AI oversight framework that an organisation can easily adopt regardless of regulatory capacity.
+Himalayan Peak Finder — An offline mobile app that uses location, elevation, and computer vision to identify Nepal’s mountains and help people explore, capture, and learn about them.
+Fixing flaky AI benchmark scorers with eval-invariance-engine — Catching scoring flakiness and prompt sensitivity in AI benchmark scripts.
+Agent limits that survive delegation — When an AI agent spawns sub-agents, its safety limits do not follow. I build and deploy the layer that makes them inherited and non-strippable.
+Sydney AI Safety Space FY27 — An additional year funding for the co-working hub in Sydney, Australia, which offers free office space for people working in the field of AI safety.
+Building Interpretable Models from Mechanistic Explanations
+HELIX: Epistemic Verification Engine for LLMs — Three independent tools. 152,826 lines of Python. One absolute rule: the machine is forbidden to claim more than it can mathematically prove.
+Volta Education Suite: AI Risk Engine (VES:ARE) — Facilitating AI X-risk Education in India, Southwest Cameroon, and beyond!
+Common Signals: testing what actually moves the public on AI — Developing a a neutral evidence base for public understanding of AI
+Nipping AI-Fabricated Science Claims in the Bud — Agent Roles, a Constitution and Governance in the Research Workflow
+The New Critic Longform Reporting Fund — Sponsor longform reporting projects by extraordinary gen z writers
+"AI agents never say they failed, 160 runs, 4 tasks, 0 honest failures" — I found agents that never once said they couldn't do the job. And two models that swap places depending on which job you give them.
+Safe Access and Responsible AI for Children in Buea Municipality — Building a Secure and Ethical Digital Future for the Next Generation
+AQI-Autonomous Quantum Intelligence — Governed Execution Architecture for Verifiable Autonomous Systems.
+Agentmetry: detecting MCP tool-poisoning in AI coding agents — An open-source sensor that fingerprints what an MCP server actually told the model. A swapped tool list shows up even when the config file never changed.
+Guided Symbiosis: Stress-Testing a Third-Layer AGI Safety Architecture — Making human survival part of the system’s optimal strategy—not merely another constraint.
+SGOS IRV-1: Validating a Decision-Authority Layer for AI Safety — Testing whether separating model capability from decision authority can reduce unjustified AI actions under a preregistered independent validation program.
+Ethical AI usage workshops + free learning platform to bridge societal awareness — Delivering free, accessible educational resources supporting responsible, ethical AI use in society
+Can a One-Page Human–AI Evidence Check Catch Research Claims That Go Too Far — A four-month public English–Arabic pilot testing reliability, failure modes, and auditable research review
+morphcpu, a 14 yr olds attempt to build a custom silicon processor from scratch — built a 16 cell systolic array on a custom 4-layer board to compute without a pc or fetch loop
+Substrate coupling in neural networks: instruments and falsifiable controls — A transformer's loss lowered by 1.12 of 1.39 possible nats by the physical state of its own silicon — with the yoked control that makes it falsifiable
+CAAF: Making Structural Gaps in AI Safety Visible and Measurable — A four-dimensional audit methodology for AI governance beyond Western, English-language assumptions
+A stored program computer inside a frozen LLM hidden state — Can a frozen recurrent LLM's state be a computer? (It can.)
+Defining dangerous DNA with the Sequence Biosecurity Risk Consortium (SBRC) — Defining which sequences are dangerous enough to screen for, so providers and regulators screen consistently
+Funding support to attend PauseCon London 2026
+Prediction of Inoculation Prompt Side Effects — An open, cheap method that detects when an inoculation prompt inoculates against off-target traits, so labs and developers can catch undesired trait/persona cha
+Preserving the Human Veto — Civil-society infrastructure against AI-enabled power concentration, built around autonomous weapons
+A Multilingual Dataset and SLM for Automatic Coding of Cancers — An open, multilingual Oncology dataset and SLM to improve healthcare efficiency in 17 languages.
+NTU AI Safety - Financial support for organizers
+Catching Fooled AI Judges: Open-Source Verification for AI Pipelines — Validated on 1,200 cases (97.9–99.5%). The reasoning layer has a bug - we demonstrated the fix works. $9,800 / 90 days to ship the open-source toolkit.
+Waterloo AI Association (WAIA) — An AI safety and governance org in the Waterloo region built by students within six months with no institutional funding.
+Analysing AI policies in Higher Education institution in Malawi — Mapping and analyzing AI polices in higher education institutions in Malawi.
+Catching Fooled AI Judges: The Correspondence Auditor v3 — Published. Validated on 1,200 cases (97.9–99.5%). The reasoning layer has a bug - we proved the fix works. $9,800 / 90 days to ship the open-source toolkit.
+CIOSA at Scale: Why Scaling Cannot Buy Certified Understanding — An exact bound on certifying meaning from behavior, verified on real models at scale — and why compute should move to verifiable architectures.
+Prelude: a Hacker News for AI Safety — Alignment, interpretability, evals, security, governance. Open to everyone.
+FlutterASTest — An AST-Based Static Analysis & Semantic Program Knowledge Graph Framework for Automated Flutter Test Generation and Execution
+AI Safety Hong Kong (AISHK)
+Agent Passport System — An open protocol that lets anyone verify who authorized an AI agent, what it was allowed to do, and what happened.
+a 14 year olds attempt to break mechanistic interpretability and open source it — testing whether causal circuits stay the same when we change how we test them
+GharBench - Benchmark of LLM sales agents under Indian law (WhatsApp, Hinglish) — First benchmark of AI sales agents under RERA and consumer-protection constraint: compliance hard-fails zero the score, human-validated LLM judges, 50% Hinglish
+A1M (AXIOM-1 Sovereign Matrix) for Governing Output Reliability in Stochastic La — A1M (AXIOM-1 Sovereign Matrix) for Governing Output Reliability in Stochastic Language Models
+Turning Waste Plastic Into Energy-Saving Materials
+TRACE-FV: Do verified AI corrections endure? Preregistered pilot — I keep this one: Tests whether AI systems verify valid correction evidence and keep warranted corrections operative across later turns. Preregistered, public
+Context-Aware Defenses Against Indirect Prompt Injection in Agentic AI System — Context-Aware Defenses Against Indirect Prompt Injection in Agentic AI System
+Sentient Futures Project Incubator — Funding compute/API costs for Incubator projects that build nonhuman welfare consideration into AI safety work
+An Asymmetric Wager: Funding a 99th-Percentile Mind to Pivot into Computer Scien — A 12-month micro-grant proposal to release an analytical, autistic mind from a survival loop into full-time computer science and logic upskilling.
+La P8stée: a 28-minute AI-risk film in the tradition of La Jetée — It's an arthouse horror film. It's got a girl and a gun and global catastrophic risk.
+RCV-Bench: testing whether AI agents can verify research claims — A public benchmark and leaderboard for agents that must regenerate a claimed result, catch planted or real defects, and judge robustness, not just rerun code.
+Open Evaluation Robustness Lab — 90-Day Pilot — Open-source stress tests for AI benchmarks: perturbation sensitivity, leakage, calibration, and reproducibility.
+Solution to reduce post-harvest loss in African Saheel — In Sudan 19.5 million people are Facing High Levels of Acute Food Insecurity because of the ongoing civil war.
+InvestmentRegulation.ca: Free Licensing Education — Help an 18-year-old Canadian founder turn a live 69-lesson open-source course into independently reviewed, accessible public learning infrastructure.

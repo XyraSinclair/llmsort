@@ -25,9 +25,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 JL = os.path.join(HERE, "judge_and_land.py")
 
 
-def model_served(base_url, model):
+def model_served(base_url, model, api_key=None):
     try:
-        with urllib.request.urlopen(base_url.rstrip("/") + "/models", timeout=10) as r:
+        req = urllib.request.Request(base_url.rstrip("/") + "/models")
+        if api_key:
+            req.add_header("Authorization", "Bearer " + api_key)
+        with urllib.request.urlopen(req, timeout=10) as r:
             data = json.load(r)
         return any(m.get("id") == model for m in data.get("data", []))
     except Exception as e:
@@ -48,13 +51,23 @@ def main():
         if not os.path.exists(attrs):
             print(f"  SKIP: attributes file missing: {attrs}", flush=True)
             continue
-        if not model_served(ph["base_url"], ph["model"]):
+        api_key = None
+        if ph.get("api_key_env"):
+            api_key = os.environ.get(ph["api_key_env"])
+            if not api_key:
+                print(f"  SKIP: api_key_env {ph['api_key_env']} not set in environment",
+                      flush=True)
+                continue
+        if not model_served(ph["base_url"], ph["model"], api_key):
             print(f"  SKIP: model {ph['model']} not served at {ph['base_url']}",
                   flush=True)
             continue
         env = dict(os.environ)
         env["OPENROUTER_BASE_URL"] = ph["base_url"]
-        env.setdefault("OPENROUTER_API_KEY", "local")
+        if api_key:
+            env["OPENROUTER_API_KEY"] = api_key
+        else:
+            env.setdefault("OPENROUTER_API_KEY", "local")
         for k, v in ph.get("env", {}).items():
             env[k] = str(v)
         cmd = [sys.executable, JL,
