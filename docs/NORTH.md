@@ -198,6 +198,20 @@ on a later one)
    stat ±0.079 (posterior incl σ_w), cyclic 7–18%, flips 6/48, visible
    0.97–0.99, $0.105 — every axis better than default-effort's paired
    cells, and the reported σ is now believed.
+   **CALIBRATED 2026-08-31 — reproducibility ≠ correctness, and the
+   surfaces now say which is which.** 11 independent luna reruns of one
+   cell measured 74% cross-run pairwise agreement where the posterior
+   plug-in consistency line predicted 54–69%: posterior σ mixes the
+   judge's REPRODUCIBLE expressed PMF spread (epistemic — it re-renders
+   identically on rerun, errors included) with the σ_w noise that
+   actually resamples (empirical rerun σ ≈ 0.3× posterior σ_diff). The
+   consistency line now rescales posterior stds by κ = σ_w /
+   obs_sigma_rms (`evidence_obs_sigma_rms` joins the meta) and predicts
+   fresh-vs-this-run call reproduction as Φ(|gap|/(√2·κ·σ_diff)) —
+   validated 66% predicted vs 74% measured on a fresh seed, residual
+   conservatism from σ_w's own small-sample noise. Correctness stays
+   with stat±/resolution; the line says "reproduce", never "right"
+   (pack consistency-calibration-2026-08-31).
 4. The deletion campaign, one room at a time, blind-defended
    (parsimony law); ceilings ratchet down as rooms shrink.
 5. Reliability reading enters the promised surface (sort output +

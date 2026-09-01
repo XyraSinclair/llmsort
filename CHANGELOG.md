@@ -7,6 +7,21 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Consistency line calibrated against reality — and made honest about
+  what it measures.** 11 independent luna reruns of one cell measured 74%
+  cross-run pairwise agreement where the posterior plug-in predicted
+  54–69%. Two fixes: the correct fresh-vs-this-run form
+  (Φ(|gap|/(√2·σ)), not p²+(1−p)²), and the correct σ — posterior stds
+  mix the judge's reproducible expressed PMF spread (which re-renders
+  identically on rerun, errors included) with the σ_w context noise that
+  actually resamples (empirical rerun σ ≈ 0.3× posterior). The line now
+  rescales by κ = σ_w / obs_sigma_rms (`evidence_obs_sigma_rms` joins
+  the meta beside the refit) and says "reproduce", not "agree": it
+  certifies reproducibility, never correctness — stat±/resolution keep
+  correctness. Validated on a fresh seed: 66% predicted vs 74% measured;
+  remaining conservatism is σ_w's own small-sample noise (pack
+  consistency-calibration-2026-08-31).
+
 - **The sort summary now answers the user's actual questions.** A
   `consistency:` line states expected agreement with an independent rerun
   (plug-in posterior estimate, all pairs + adjacent neighbors) — the
