@@ -23,6 +23,21 @@ optional per-judgement trace.
 $ llmsort sort ideas.txt --by "expected impact on retention"
 ```
 
+## Install
+
+```console
+$ cargo install llmsort          # CLI
+$ cargo add llmsort              # library
+$ export OPENROUTER_API_KEY=...  # any OpenRouter model slug works
+```
+
+The default judge is `openai/gpt-5.6-terra`; the setwise path
+(`--setwise`, below) defaults to the cheaper `openai/gpt-5.6-luna`, and
+`--model` / `SortOptions.model` takes any OpenRouter slug. For scale: a
+measured n=8 sort at the default 4·n budget is 32 comparisons ≈ $0.11
+on the default judge (the `--no-cache` quality-gate cells in
+`research/artifacts/live/sigma-eps-knobs-2026-08-31/`).
+
 This repo is the one home of the whole effort; every earlier repo
 (`cardinal-harness`, `ratiometer`, `llmsorting`, `llmsort-lab`,
 `seriate`) redirects here or is grafted into this history. It keeps
@@ -51,14 +66,6 @@ latent scores over the whole comparison graph with a robust solver (IRLS,
 Huber loss), reads uncertainty off the posterior, and plans the next
 comparison by effective resistance on the graph. Default budget is 4·n
 comparisons — O(n), not O(n²).
-
-## Install
-
-```console
-$ cargo install llmsort          # CLI
-$ cargo add llmsort              # library
-$ export OPENROUTER_API_KEY=...  # any OpenRouter model slug works
-```
 
 ## CLI
 

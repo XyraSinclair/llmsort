@@ -26,6 +26,9 @@ pub(super) const DEFAULT_BATCH_SIZE: usize = 32;
 
 /// Default judge when the caller names none: the current family's
 /// mid class (terra sits at gpt-5.4's price and dominates gpt-5.4-mini).
+/// The setwise path keeps its own deliberately cheaper authority
+/// (`setwise.rs` `DEFAULT_MODEL`, luna): an adequate order needs less
+/// judge than cardinal magnitudes.
 pub const DEFAULT_MODEL: &str = "openai/gpt-5.6-terra";
 
 /// Default maximum number of comparisons to run concurrently.

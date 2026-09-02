@@ -76,6 +76,10 @@ use super::types::RerankDocument;
 
 const SLOT_LETTERS: [char; 12] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
 const MAX_OUTPUT_TOKENS: u32 = 64;
+// Deliberately cheaper than the pairwise default (`multi/request.rs`
+// `DEFAULT_MODEL`, terra): luna is measured at its own pairwise ceiling on
+// stable attributes (PROGRAM.md E6), and setwise promises an adequate
+// order, not cardinal magnitudes.
 const DEFAULT_MODEL: &str = "openai/gpt-5.6-luna";
 
 const ORDER_SYSTEM: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B";

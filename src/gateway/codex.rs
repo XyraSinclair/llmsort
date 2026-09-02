@@ -2,7 +2,8 @@
 //!
 //! Calls use the pooled local Codex subscription session and have zero marginal API cost.
 //! Each child runs from a fresh scratch directory so repository `AGENTS.md` files cannot affect
-//! judgments. `CODEX_HOME` is deliberately left untouched because the codexpool shim owns auth.
+//! judgments. `CODEX_HOME` is deliberately left untouched because the resolved Codex binary
+//! (often a pooling shim) owns auth.
 
 use std::path::PathBuf;
 use std::process::Stdio;
@@ -28,7 +29,10 @@ const SAFEGUARD_MARKERS: &[&str] = &[
 /// Process configuration for [`CodexAdapter`].
 #[derive(Debug, Clone)]
 pub struct CodexConfig {
-    /// The pooled Codex shim path.
+    /// The Codex CLI binary. `Default` resolves `codex` on `PATH`, falling
+    /// back to the codexpool shim (`~/.codexpool/bin/codex`); the
+    /// `CARDINAL_CODEX_BINARY` env var overrides both (see
+    /// [`super::ProviderGateway::from_env`]).
     pub binary: PathBuf,
     /// An optional Codex reasoning effort level.
     pub effort: Option<String>,
@@ -36,10 +40,17 @@ pub struct CodexConfig {
 
 impl Default for CodexConfig {
     fn default() -> Self {
-        let binary = std::env::var_os("HOME")
-            .map(PathBuf::from)
-            .unwrap_or_else(|| PathBuf::from("/nonexistent"))
-            .join(".codexpool/bin/codex");
+        let on_path = std::env::var_os("PATH").and_then(|path| {
+            std::env::split_paths(&path)
+                .map(|dir| dir.join("codex"))
+                .find(|candidate| candidate.is_file())
+        });
+        let binary = on_path.unwrap_or_else(|| {
+            std::env::var_os("HOME")
+                .map(PathBuf::from)
+                .unwrap_or_else(|| PathBuf::from("/nonexistent"))
+                .join(".codexpool/bin/codex")
+        });
         Self {
             binary,
             effort: None,
