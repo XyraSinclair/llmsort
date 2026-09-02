@@ -70,14 +70,14 @@ by all pairs).
 
 ## Debts / open
 
-- colo2 `scry-voyage-embed-aux@{8015,8016,8017}` are STOPPED for VRAM
-  (reversible; embed backfill runs on the remaining 9 servers). Heal =
-  relocate aux shards onto the three 5090s (~9GB free each, shard ~7.9GB —
-  tight, measure before trusting) or accept the capacity dip. Restarting
-  them while qwen38-27b serves will OOM one side.
-- Serve is lab-launched (`setsid nohup`), not a systemd unit. Unit-ify in
-  exopriors-core `units.toml` (mirror `scry-rerank-4b.service`: UUID pin,
-  `Restart=always`) + probes.toml health probe once the GPU budget settles.
+- Three co-tenant aux embed shards are STOPPED for VRAM (reversible; the
+  embed backfill runs on the remaining fleet). Heal = relocate the aux
+  shards onto smaller cards (~9GB free each, shard ~7.9GB — tight, measure
+  before trusting) or accept the capacity dip. Restarting them while
+  qwen38-27b serves will OOM one side.
+- Serve is lab-launched (`setsid nohup`), not a systemd unit. Unit-ify
+  (UUID pin, `Restart=always`) + a health probe once the GPU budget
+  settles.
 - Thinking-mode fitness unmeasured: does `enable_thinking:true` fix the case
   convention (at 300x the latency), and does `reasoning_effort:"low"` buy
   direction coherence at acceptable speed?
