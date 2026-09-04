@@ -1,19 +1,30 @@
 //! freelane — free-token elicitation driver for cardinald.
 //!
 //! Continuously re-elicits the public ledger's existing (lens, axis) cells
-//! across OpenRouter's free-model pool, one cardinald run at a time, paced to
-//! free-tier limits. Every run lands PRIVATE (`scry_judgements_private`): the
-//! public `scores_current` projection is a ReplacingMergeTree keyed
-//! (lens, axis_key, entity_id, entity_hash) with no model in the key, so a
-//! public free-model run would displace curated board scores. Promotion of
-//! free-judge output to any public surface is an editorial decision made
-//! elsewhere, with rank-agreement evidence in hand.
+//! across OpenRouter's free-model pool, up to FREELANE_CONCURRENT_RUNS
+//! cardinald runs at a time (one per distinct model), paced so the combined
+//! request floor stays at FREELANE_RPM. Every run lands PRIVATE
+//! (`scry_judgements_private`): the public `scores_current` projection is a
+//! ReplacingMergeTree keyed (lens, axis_key, entity_id, entity_hash) with no
+//! model in the key, so a public free-model run would displace curated board
+//! scores. Promotion of free-judge output to any public surface is an
+//! editorial decision made elsewhere, with rank-agreement evidence in hand.
+//!
+//! Throughput honesty: OpenRouter's free-tier limits are account-wide
+//! (20 req/min, 1000 req/day — verified 2026-09-04), so concurrency across
+//! models does not multiply throughput on one account; the daily budget is
+//! the binding constraint. What concurrency buys: several judges accrue
+//! evenly at all times, one slow or wedged model never stalls the lane, and
+//! the shape is already right when more quota (BYOK, other services, account
+//! toggles) arrives.
 //!
 //! State lives in the ledger, never in local files: a (lens, axis, model)
 //! cell is done iff `scry_judgements_private.comparisons` holds rows for it
 //! under our owner scope. Restart is therefore always safe, and killing the
-//! process loses at most the in-flight run (cardinald itself persists and
-//! lands completed runs).
+//! process loses at most the in-flight runs (cardinald itself persists and
+//! lands completed runs). The daily bucket is likewise seeded from the
+//! ledger's last-day landed comparisons at boot, so restarts cannot mint
+//! fresh budget.
 //!
 //! Config is environment-only (systemd `EnvironmentFile` is the intended
 //! carrier): see `docs/FREELANE.md`.
@@ -31,6 +42,7 @@ const DEFAULT_CARDINALD_URL: &str = "http://127.0.0.1:8093";
 // gateway retries disabled on paced runs, the paced rate is the real rate.
 const DEFAULT_RPM: u64 = 10;
 const DEFAULT_DAILY_BUDGET: f64 = 900.0;
+const DEFAULT_CONCURRENT_RUNS: usize = 4;
 const DEFAULT_OWNER_SCOPE: &str = "freelane";
 const DEFAULT_MAX_ENTITIES: usize = 60;
 /// Attempt budget cardinald enforces per run: 8 comparisons per entity.
@@ -45,6 +57,7 @@ struct Config {
     clickhouse_url: String,
     rpm: u64,
     daily_budget: f64,
+    concurrent_runs: usize,
     owner_scope: String,
     model_denylist: HashSet<String>,
     max_entities: usize,
@@ -72,6 +85,9 @@ impl Config {
         let daily_budget = parse("FREELANE_DAILY_BUDGET")?
             .map(|value| value as f64)
             .unwrap_or(DEFAULT_DAILY_BUDGET);
+        let concurrent_runs = parse("FREELANE_CONCURRENT_RUNS")?
+            .map(|value| (value as usize).clamp(1, 12))
+            .unwrap_or(DEFAULT_CONCURRENT_RUNS);
         let max_entities = parse("FREELANE_MAX_ENTITIES")?
             .map(|value| (value as usize).clamp(2, 200))
             .unwrap_or(DEFAULT_MAX_ENTITIES);
@@ -88,6 +104,7 @@ impl Config {
             clickhouse_url,
             rpm,
             daily_budget,
+            concurrent_runs,
             owner_scope: std::env::var("FREELANE_OWNER_SCOPE")
                 .unwrap_or_else(|_| DEFAULT_OWNER_SCOPE.to_string()),
             model_denylist,
@@ -96,8 +113,13 @@ impl Config {
         })
     }
 
+    /// Per-run paced interval. Each of up to `concurrent_runs` runs is spaced
+    /// at K×(60s/rpm), so the combined floor stays at `rpm` no matter how many
+    /// are actually in flight. cardinald validates intervals ≤ 60s; the clamp
+    /// can push the combined floor slightly above `rpm` at high K, where real
+    /// model latency binds anyway.
     fn min_request_interval_ms(&self) -> u64 {
-        (60_000f64 / self.rpm as f64).ceil() as u64
+        (((60_000f64 * self.concurrent_runs as f64) / self.rpm as f64).ceil() as u64).min(60_000)
     }
 }
 
@@ -111,9 +133,11 @@ struct Bucket {
 }
 
 impl Bucket {
-    fn new(capacity: f64) -> Self {
+    /// `initial` seeds the level (clamped to [0, capacity]) so a restart can
+    /// account for spend the ledger already witnessed.
+    fn new(capacity: f64, initial: f64) -> Self {
         Self {
-            level: capacity,
+            level: initial.clamp(0.0, capacity),
             capacity,
             refill_per_sec: capacity / 86_400.0,
             last: std::time::Instant::now(),
@@ -285,6 +309,32 @@ async fn done_cells(
         .collect()
 }
 
+/// Requests the ledger witnessed landing in the trailing day under our scope.
+/// Failed runs' attempts are invisible here, so this undercounts true spend;
+/// cool-downs bound that error, and the alternative (a state file) is worse.
+async fn landed_last_day(ch: &ClickHouse, owner_scope: &str) -> Result<f64, String> {
+    let rows = ch
+        .query(
+            "SELECT count() AS n \
+             FROM scry_judgements_private.comparisons \
+             WHERE owner_scope = {scope:String} \
+               AND observed_at > now64(3) - INTERVAL 1 DAY \
+             FORMAT JSONEachRow",
+            &[("scope", owner_scope)],
+        )
+        .await?;
+    let Some(row) = rows.first() else {
+        return Ok(0.0);
+    };
+    let value = row
+        .get("n")
+        .ok_or_else(|| "ClickHouse count row missing n".to_string())?;
+    value
+        .as_f64()
+        .or_else(|| value.as_str().and_then(|s| s.parse().ok()))
+        .ok_or_else(|| "ClickHouse count not numeric".to_string())
+}
+
 #[derive(Deserialize)]
 struct ModelsPage {
     data: Vec<serde_json::Value>,
@@ -349,12 +399,19 @@ enum RunOutcome {
     Failed(String),
 }
 
-async fn run_cell(config: &Config, axis: &Axis, model: &str) -> Result<RunOutcome, String> {
-    let client = reqwest::Client::builder()
-        .no_proxy()
-        .timeout(Duration::from_secs(60))
-        .build()
-        .map_err(|error| format!("could not build HTTP client: {error}"))?;
+struct InFlight {
+    run_ref: String,
+    model_index: usize,
+    axis_index: usize,
+    deadline: std::time::Instant,
+}
+
+async fn submit_cell(
+    client: &reqwest::Client,
+    config: &Config,
+    axis: &Axis,
+    model: &str,
+) -> Result<(String, std::time::Instant), String> {
     let body = json!({
         "entities": axis
             .entities
@@ -387,10 +444,11 @@ async fn run_cell(config: &Config, axis: &Axis, model: &str) -> Result<RunOutcom
     }
     let run_ref = str_field(&submitted, "run_ref")?;
     println!(
-        "freelane: submitted {run_ref} lens={} axis={} model={model} n={}",
+        "freelane: submitted {run_ref} lens={} axis={} model={model} n={} interval={}ms",
         axis.lens,
         axis.axis_key,
-        axis.entities.len()
+        axis.entities.len(),
+        config.min_request_interval_ms(),
     );
 
     // 8·n serial comparisons, each costing the paced interval OR the model's
@@ -403,36 +461,57 @@ async fn run_cell(config: &Config, axis: &Axis, model: &str) -> Result<RunOutcom
     let deadline = std::time::Instant::now()
         + Duration::from_millis(per_comparison_ms * 8 * axis.entities.len() as u64)
         + Duration::from_secs(600);
-    loop {
-        tokio::time::sleep(POLL_INTERVAL).await;
-        let polled: serde_json::Value = client
-            .get(format!("{}/v1/runs/{run_ref}", config.cardinald_url))
-            .send()
-            .await
-            .map_err(|error| format!("cardinald poll failed: {error}"))?
-            .json()
-            .await
-            .map_err(|error| format!("cardinald poll response unreadable: {error}"))?;
-        match polled.get("status").and_then(|value| value.as_str()) {
-            Some("completed") => return Ok(RunOutcome::Completed),
-            Some("cancelled") => return Ok(RunOutcome::Failed("cancelled".to_string())),
-            Some("failed") => {
-                let error = polled
-                    .get("error")
-                    .and_then(|value| value.as_str())
-                    .unwrap_or("unknown")
-                    .to_string();
-                return Ok(RunOutcome::Failed(error));
-            }
-            _ => {
-                if std::time::Instant::now() > deadline {
-                    return Ok(RunOutcome::Failed(format!(
-                        "poll deadline exceeded for {run_ref}; leaving it to cardinald"
-                    )));
-                }
-            }
+    Ok((run_ref, deadline))
+}
+
+/// One status probe: `None` while the run is still going.
+async fn poll_run(
+    client: &reqwest::Client,
+    config: &Config,
+    run_ref: &str,
+) -> Result<Option<RunOutcome>, String> {
+    let polled: serde_json::Value = client
+        .get(format!("{}/v1/runs/{run_ref}", config.cardinald_url))
+        .send()
+        .await
+        .map_err(|error| format!("cardinald poll failed: {error}"))?
+        .json()
+        .await
+        .map_err(|error| format!("cardinald poll response unreadable: {error}"))?;
+    match polled.get("status").and_then(|value| value.as_str()) {
+        Some("completed") => Ok(Some(RunOutcome::Completed)),
+        Some("cancelled") => Ok(Some(RunOutcome::Failed("cancelled".to_string()))),
+        Some("failed") => {
+            let error = polled
+                .get("error")
+                .and_then(|value| value.as_str())
+                .unwrap_or("unknown")
+                .to_string();
+            Ok(Some(RunOutcome::Failed(error)))
         }
+        _ => Ok(None),
     }
+}
+
+fn cool(
+    cooldown: &mut HashMap<String, (std::time::Instant, u32)>,
+    model: &str,
+    lens: &str,
+    axis_key: &str,
+    error: &str,
+) {
+    let failures = cooldown.get(model).map(|(_, count)| *count).unwrap_or(0) + 1;
+    let pause = COOLDOWN_BASE
+        .saturating_mul(1u32 << (failures - 1).min(3))
+        .min(COOLDOWN_CAP);
+    println!(
+        "freelane: failed lens={lens} axis={axis_key} model={model} ({error}); cooling {}s (failure #{failures})",
+        pause.as_secs()
+    );
+    cooldown.insert(
+        model.to_string(),
+        (std::time::Instant::now() + pause, failures),
+    );
 }
 
 #[tokio::main]
@@ -446,8 +525,20 @@ async fn main() {
 async fn drive() -> Result<(), String> {
     let config = Config::from_env()?;
     let ch = ClickHouse::from_url(&config.clickhouse_url)?;
-    let mut bucket = Bucket::new(config.daily_budget);
+    let spent = landed_last_day(&ch, &config.owner_scope).await?;
+    let mut bucket = Bucket::new(config.daily_budget, config.daily_budget - spent);
+    if spent > 0.0 {
+        println!(
+            "freelane: {spent:.0} requests landed in the trailing day; bucket starts at {:.0}/{:.0}",
+            bucket.level, config.daily_budget
+        );
+    }
     let mut cooldown: HashMap<String, (std::time::Instant, u32)> = HashMap::new();
+    let client = reqwest::Client::builder()
+        .no_proxy()
+        .timeout(Duration::from_secs(60))
+        .build()
+        .map_err(|error| format!("could not build HTTP client: {error}"))?;
 
     loop {
         let axes = discover_axes(&ch, config.max_entities).await?;
@@ -477,13 +568,14 @@ async fn drive() -> Result<(), String> {
             .map(|(_, axis_index)| axes[*axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY)
             .sum();
         println!(
-            "freelane: {} axes × {} free models → {} pending cells (~{:.0} requests, ~{:.1} days at {:.0}/day)",
+            "freelane: {} axes × {} free models → {} pending cells (~{:.0} requests, ~{:.1} days at {:.0}/day, concurrency {})",
             axes.len(),
             models.len(),
             pending.len(),
             estimated_requests,
             estimated_requests / config.daily_budget,
             config.daily_budget,
+            config.concurrent_runs,
         );
 
         if config.plan_only {
@@ -506,46 +598,111 @@ async fn drive() -> Result<(), String> {
             continue;
         }
 
-        for (model_index, axis_index) in pending {
-            let axis = &axes[axis_index];
-            let model = &models[model_index];
-            if let Some((until, _)) = cooldown.get(model) {
-                if *until > std::time::Instant::now() {
+        let mut in_flight: Vec<InFlight> = Vec::new();
+        loop {
+            // Fill toward the concurrency target: one run per distinct model,
+            // skipping cooling models and cells the bucket cannot yet afford
+            // (a cheaper cell further down may still fit).
+            let now = std::time::Instant::now();
+            let mut idx = 0;
+            while in_flight.len() < config.concurrent_runs && idx < pending.len() {
+                let (model_index, axis_index) = pending[idx];
+                let model_busy = in_flight.iter().any(|run| run.model_index == model_index);
+                let model_cooling = cooldown
+                    .get(&models[model_index])
+                    .is_some_and(|(until, _)| *until > now);
+                if model_busy || model_cooling {
+                    idx += 1;
                     continue;
                 }
+                let cost = axes[axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                if bucket.wait_for(cost) > 0.0 {
+                    idx += 1;
+                    continue;
+                }
+                bucket.charge(cost);
+                let (run_ref, deadline) =
+                    submit_cell(&client, &config, &axes[axis_index], &models[model_index]).await?;
+                in_flight.push(InFlight {
+                    run_ref,
+                    model_index,
+                    axis_index,
+                    deadline,
+                });
+                pending.remove(idx);
             }
-            let cost = axis.entities.len() as f64 * COMPARISONS_PER_ENTITY;
-            let wait = bucket.wait_for(cost);
-            if wait > 0.0 {
-                println!("freelane: budget wait {:.0}s before next cell", wait);
+
+            if in_flight.is_empty() {
+                if pending.is_empty() {
+                    break;
+                }
+                // Everything is cooling or budget-starved: wait for the nearer
+                // of the cheapest affordable submit or a cool-down expiry.
+                let now = std::time::Instant::now();
+                let min_cost = pending
+                    .iter()
+                    .filter(|(model_index, _)| {
+                        cooldown
+                            .get(&models[*model_index])
+                            .is_none_or(|(until, _)| *until <= now)
+                    })
+                    .map(|(_, axis_index)| {
+                        axes[*axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY
+                    })
+                    .fold(f64::INFINITY, f64::min);
+                let budget_wait = if min_cost.is_finite() {
+                    bucket.wait_for(min_cost)
+                } else {
+                    f64::INFINITY
+                };
+                let cool_wait = cooldown
+                    .values()
+                    .map(|(until, _)| until.saturating_duration_since(now).as_secs_f64())
+                    .fold(f64::INFINITY, f64::min);
+                let wait = budget_wait.min(cool_wait).clamp(15.0, 3600.0);
+                println!("freelane: nothing submittable; waiting {wait:.0}s (budget/cool-down)");
                 tokio::time::sleep(Duration::from_secs_f64(wait)).await;
-                bucket.wait_for(cost);
+                continue;
             }
-            bucket.charge(cost);
-            match run_cell(&config, axis, model).await? {
-                RunOutcome::Completed => {
-                    println!(
-                        "freelane: completed lens={} axis={} model={model}",
-                        axis.lens, axis.axis_key
-                    );
-                    cooldown.remove(model);
+
+            tokio::time::sleep(POLL_INTERVAL).await;
+
+            let mut i = 0;
+            while i < in_flight.len() {
+                let outcome = poll_run(&client, &config, &in_flight[i].run_ref).await?;
+                let run = &in_flight[i];
+                let axis = &axes[run.axis_index];
+                let model = &models[run.model_index];
+                match outcome {
+                    Some(RunOutcome::Completed) => {
+                        println!(
+                            "freelane: completed lens={} axis={} model={model}",
+                            axis.lens, axis.axis_key
+                        );
+                        cooldown.remove(model);
+                        in_flight.remove(i);
+                    }
+                    Some(RunOutcome::Failed(error)) => {
+                        cool(&mut cooldown, model, &axis.lens, &axis.axis_key, &error);
+                        in_flight.remove(i);
+                    }
+                    None => {
+                        if std::time::Instant::now() > run.deadline {
+                            let error = format!(
+                                "poll deadline exceeded for {}; leaving it to cardinald",
+                                run.run_ref
+                            );
+                            cool(&mut cooldown, model, &axis.lens, &axis.axis_key, &error);
+                            in_flight.remove(i);
+                        } else {
+                            i += 1;
+                        }
+                    }
                 }
-                RunOutcome::Failed(error) => {
-                    let failures = cooldown.get(model).map(|(_, count)| *count).unwrap_or(0) + 1;
-                    let pause = COOLDOWN_BASE
-                        .saturating_mul(1u32 << (failures - 1).min(3))
-                        .min(COOLDOWN_CAP);
-                    println!(
-                        "freelane: failed lens={} axis={} model={model} ({error}); cooling {}s (failure #{failures})",
-                        axis.lens,
-                        axis.axis_key,
-                        pause.as_secs()
-                    );
-                    cooldown.insert(
-                        model.clone(),
-                        (std::time::Instant::now() + pause, failures),
-                    );
-                }
+            }
+
+            if pending.is_empty() && in_flight.is_empty() {
+                break;
             }
         }
         // One sweep of the pending list done (some cells may have been

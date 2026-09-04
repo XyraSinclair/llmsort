@@ -2,8 +2,13 @@
 
 Free-token elicitation driver for cardinald. It continuously re-elicits the
 public ledger's existing (lens, axis) cells across OpenRouter's free-model
-pool (`:free` slugs priced 0/0), one run at a time, paced to free-tier
-limits. The product is model-diverse priors: the same axes, the same
+pool (`:free` slugs priced 0/0), up to `FREELANE_CONCURRENT_RUNS` runs at a
+time — one per distinct model — paced to free-tier limits. OpenRouter's free
+limits are account-wide (20 req/min, 1000 req/day; verified 2026-09-04), so
+concurrency does not multiply throughput on one account — the daily budget
+binds. It buys even accrual across many judges at once, immunity to one slow
+model stalling the lane, and the right shape for when more quota (BYOK,
+other services) arrives. The product is model-diverse priors: the same axes, the same
 entities, judged by every free model — landed with full provenance and
 re-fittable forever.
 
@@ -31,7 +36,9 @@ in-flight run is left to cardinald, which persists and lands it on its own.
 Two mechanisms, both continuous (never calendar windows):
 
 - Per-request: each run is submitted with `comparison_concurrency: 1` and
-  `min_request_interval_ms = 60000 / FREELANE_RPM`; cardinald's
+  `min_request_interval_ms = FREELANE_CONCURRENT_RUNS × 60000 / FREELANE_RPM`
+  (capped at cardinald's 60s maximum), so the combined paced floor across all
+  concurrent runs stays at `FREELANE_RPM`; cardinald's
   `PacedGateway` enforces the floor between provider calls, and paced runs
   get ZERO gateway retries — retries fire below the pacer, so they multiply
   the real request rate and turn one seed 429 into a self-starving storm
@@ -40,7 +47,9 @@ Two mechanisms, both continuous (never calendar windows):
   failed call honestly consumes engine budget.
 - Per-day: a leaky bucket with capacity `FREELANE_DAILY_BUDGET` refilled at
   that budget per 86400s; a run is charged its 8·n attempt budget before
-  submission.
+  submission. At boot the bucket is seeded from the ledger (capacity minus
+  comparisons landed in the trailing day), so restarts cannot mint fresh
+  budget.
 
 The driver polls a submitted run to its terminal state, budgeting 90s per
 comparison (free-tier latency runs ~30s/response and stacks serially at
@@ -61,6 +70,7 @@ both surface as failed runs and are absorbed by the cool-down.
 | `FREELANE_CARDINALD_URL` | `http://127.0.0.1:8093` | cardinald loopback |
 | `FREELANE_RPM` | 10 | request-per-minute floor spacing (clamped 1–60; the account-wide free window is ~20/min — leave headroom) |
 | `FREELANE_DAILY_BUDGET` | 900 | elicitation requests per rolling day |
+| `FREELANE_CONCURRENT_RUNS` | 4 | max in-flight runs, one per distinct model (clamped 1–12) |
 | `FREELANE_OWNER_SCOPE` | `freelane` | owner scope on landed private rows |
 | `FREELANE_MODEL_DENYLIST` | empty | comma-separated slugs to skip |
 | `FREELANE_MAX_ENTITIES` | 60 | per-axis entity cap (top by current score) |
