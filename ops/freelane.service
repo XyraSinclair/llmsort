@@ -1,0 +1,12 @@
+[Unit]
+Description=freelane — free-token elicitation driver for cardinald
+After=network-online.target
+
+[Service]
+ExecStart=%h/.local/bin/freelane
+EnvironmentFile=%h/.config/freelane/env
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=default.target

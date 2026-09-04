@@ -66,6 +66,17 @@ pub struct JudgementRunRequest {
     pub requested_k: usize,
     pub model: String,
     pub privacy: JudgementPrivacy,
+    /// Per-run cap on concurrent provider calls (1..=16). Free-tier judges
+    /// allow ~20 requests/min account-wide, so the default 8-way burst 429s
+    /// the whole run; `1` elicits strictly serially. Absent = the daemon
+    /// default (`COMPARISON_CONCURRENCY`).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub comparison_concurrency: Option<usize>,
+    /// Optional floor between provider request starts, in milliseconds
+    /// (≤ 60_000). Free-tier judges are rate-limited per minute, so even a
+    /// serial run can outrun the window when the model answers quickly.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub min_request_interval_ms: Option<u64>,
 }
 
 /// Validated request bytes that were used to construct the instrument.
@@ -77,6 +88,10 @@ pub struct NormalizedJudgementRunRequest {
     pub requested_k: usize,
     pub model: String,
     pub privacy: JudgementPrivacy,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub comparison_concurrency: Option<usize>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub min_request_interval_ms: Option<u64>,
 }
 
 impl JudgementRunRequest {
@@ -95,6 +110,8 @@ impl JudgementRunRequest {
             requested_k: self.requested_k,
             model: self.model,
             privacy: self.privacy,
+            comparison_concurrency: self.comparison_concurrency,
+            min_request_interval_ms: self.min_request_interval_ms,
         };
         normalized
             .validate()
@@ -122,6 +139,16 @@ impl NormalizedJudgementRunRequest {
                 "requested_k must be between 1 and the entity count ({})",
                 self.entities.len()
             ));
+        }
+        if let Some(concurrency) = self.comparison_concurrency {
+            if !(1..=16).contains(&concurrency) {
+                return Err("comparison_concurrency must be between 1 and 16".to_string());
+            }
+        }
+        if let Some(interval) = self.min_request_interval_ms {
+            if interval > 60_000 {
+                return Err("min_request_interval_ms must be at most 60000".to_string());
+            }
         }
 
         let mut ids = HashSet::with_capacity(self.entities.len());
@@ -1222,7 +1249,11 @@ fn build_rerank_request(request: &NormalizedJudgementRunRequest) -> MultiRerankR
         max_cost_nanodollars: None,
         model: Some(request.model.clone()),
         rater_id: Some(request.model.clone()),
-        comparison_concurrency: Some(COMPARISON_CONCURRENCY),
+        comparison_concurrency: Some(
+            request
+                .comparison_concurrency
+                .unwrap_or(COMPARISON_CONCURRENCY),
+        ),
         max_pair_repeats: None,
         randomize_presentation_order: true,
         counterbalance_pairs: true,

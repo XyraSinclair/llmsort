@@ -56,6 +56,10 @@ struct JudgementRequestFields {
     axis_prompt: String,
     requested_k: usize,
     model: String,
+    #[serde(default)]
+    comparison_concurrency: Option<usize>,
+    #[serde(default)]
+    min_request_interval_ms: Option<u64>,
 }
 
 impl JudgementRequestFields {
@@ -67,6 +71,8 @@ impl JudgementRequestFields {
             requested_k: self.requested_k,
             model: self.model,
             privacy,
+            comparison_concurrency: self.comparison_concurrency,
+            min_request_interval_ms: self.min_request_interval_ms,
         }
     }
 }
@@ -506,8 +512,17 @@ async fn create_run(
     let queued_run = match (payload.mode, payload.external) {
         (None, None) => {
             let provider_key = provider_key(&headers)?;
-            let gateway = build_gateway(provider_key)
+            let mut gateway = build_gateway(provider_key)
                 .map_err(|_| ApiError::unauthorized("provider key is invalid"))?;
+            if let Some(interval_ms) = normalized.min_request_interval_ms {
+                if interval_ms > 0 {
+                    gateway = Arc::new(PacedGateway {
+                        inner: gateway,
+                        min_interval: Duration::from_millis(interval_ms),
+                        next_start: tokio::sync::Mutex::new(tokio::time::Instant::now()),
+                    });
+                }
+            }
             QueuedRun::Adaptive { request, gateway }
         }
         (Some(CreateRunMode::External), Some(external)) => {
@@ -892,6 +907,31 @@ fn build_gateway(provider_key: String) -> Result<Arc<dyn ChatGateway>, ProviderE
         inner: gateway,
         secret: provider_key,
     }))
+}
+
+/// Enforces a floor between provider request starts. Free-tier judges are
+/// rate-limited per minute (~20 req/min on OpenRouter `:free` slugs), so even
+/// a `comparison_concurrency: 1` run can outrun the window when the model
+/// answers quickly.
+struct PacedGateway {
+    inner: Arc<dyn ChatGateway>,
+    min_interval: Duration,
+    next_start: tokio::sync::Mutex<tokio::time::Instant>,
+}
+
+#[async_trait::async_trait]
+impl ChatGateway for PacedGateway {
+    async fn chat(&self, request: ChatRequest) -> Result<ChatResponse, ProviderError> {
+        {
+            let mut next_start = self.next_start.lock().await;
+            let now = tokio::time::Instant::now();
+            if *next_start > now {
+                tokio::time::sleep_until(*next_start).await;
+            }
+            *next_start = tokio::time::Instant::now() + self.min_interval;
+        }
+        self.inner.chat(request).await
+    }
 }
 
 struct SecretScrubbingGateway<G> {

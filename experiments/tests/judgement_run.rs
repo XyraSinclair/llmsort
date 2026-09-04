@@ -67,6 +67,8 @@ async fn persisted_run_reloads_to_identical_edge_response_without_provider_call(
         requested_k: 1,
         model: " mock/judge ".to_string(),
         privacy: JudgementPrivacy::Private,
+        comparison_concurrency: None,
+        min_request_interval_ms: None,
     };
 
     let record = execute_judgement_run(

@@ -15,6 +15,10 @@ path = "src/bin/cardinal.rs"
 name = "cardinald"
 path = "src/bin/cardinald.rs"
 
+[[bin]]
+name = "freelane"
+path = "src/bin/freelane.rs"
+
 [features]
 default = ["sqlite-store"]
 sqlite-store = ["llmsort/sqlite-store"]
