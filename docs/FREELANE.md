@@ -32,7 +32,12 @@ Two mechanisms, both continuous (never calendar windows):
 
 - Per-request: each run is submitted with `comparison_concurrency: 1` and
   `min_request_interval_ms = 60000 / FREELANE_RPM`; cardinald's
-  `PacedGateway` enforces the floor between provider calls.
+  `PacedGateway` enforces the floor between provider calls, and paced runs
+  get ZERO gateway retries — retries fire below the pacer, so they multiply
+  the real request rate and turn one seed 429 into a self-starving storm
+  that consumes the shared free window with doomed re-attempts (observed
+  live 2026-09-04). With retries off, the paced rate is the real rate and a
+  failed call honestly consumes engine budget.
 - Per-day: a leaky bucket with capacity `FREELANE_DAILY_BUDGET` refilled at
   that budget per 86400s; a run is charged its 8·n attempt budget before
   submission.
@@ -48,7 +53,7 @@ both surface as failed runs and are absorbed by the cool-down.
 | --- | --- | --- |
 | `FREELANE_CLICKHOUSE_URL` | required | ClickHouse HTTP endpoint (userinfo in URL becomes basic auth) |
 | `FREELANE_CARDINALD_URL` | `http://127.0.0.1:8093` | cardinald loopback |
-| `FREELANE_RPM` | 15 | request-per-minute floor spacing (clamped 1–60) |
+| `FREELANE_RPM` | 10 | request-per-minute floor spacing (clamped 1–60; the account-wide free window is ~20/min — leave headroom) |
 | `FREELANE_DAILY_BUDGET` | 900 | elicitation requests per rolling day |
 | `FREELANE_OWNER_SCOPE` | `freelane` | owner scope on landed private rows |
 | `FREELANE_MODEL_DENYLIST` | empty | comma-separated slugs to skip |

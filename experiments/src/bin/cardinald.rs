@@ -512,7 +512,27 @@ async fn create_run(
     let queued_run = match (payload.mode, payload.external) {
         (None, None) => {
             let provider_key = provider_key(&headers)?;
-            let mut gateway = build_gateway(provider_key)
+            let paced = normalized.min_request_interval_ms.unwrap_or(0) > 0;
+            // A paced run exists because the provider rate window is tight
+            // (free-tier judges). Gateway retries fire BELOW the pacer, so
+            // they triple the real request rate and — with retry_after
+            // clamped under the provider's demanded wait — turn one seed
+            // 429 into a self-starving storm that consumes the shared
+            // window with doomed retries (observed live 2026-09-04: every
+            // attempt of every paced run failing rate_limited_remote while
+            // an unpaced burst succeeded). Paced runs therefore get zero
+            // gateway retries: every real call is paced, failures consume
+            // engine budget honestly, and the caller's cool-down handles a
+            // saturated model.
+            let gateway_config = if paced {
+                GatewayConfig {
+                    max_retries: 0,
+                    ..GatewayConfig::default()
+                }
+            } else {
+                GatewayConfig::default()
+            };
+            let mut gateway = build_gateway(provider_key, gateway_config)
                 .map_err(|_| ApiError::unauthorized("provider key is invalid"))?;
             if let Some(interval_ms) = normalized.min_request_interval_ms {
                 if interval_ms > 0 {
@@ -885,7 +905,10 @@ fn provider_key(headers: &HeaderMap) -> Result<String, ApiError> {
         .ok_or_else(|| ApiError::unauthorized("OpenRouter provider key is required"))
 }
 
-fn build_gateway(provider_key: String) -> Result<Arc<dyn ChatGateway>, ProviderError> {
+fn build_gateway(
+    provider_key: String,
+    gateway_config: GatewayConfig,
+) -> Result<Arc<dyn ChatGateway>, ProviderError> {
     let base_url = env_or("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1");
     let timeout = std::env::var("OPENROUTER_TIMEOUT_SECONDS")
         .ok()
@@ -901,8 +924,7 @@ fn build_gateway(provider_key: String) -> Result<Arc<dyn ChatGateway>, ProviderE
         referer,
         app_title,
     )?;
-    let gateway =
-        ProviderGateway::with_config(adapter, Arc::new(NoopUsageSink), GatewayConfig::default());
+    let gateway = ProviderGateway::with_config(adapter, Arc::new(NoopUsageSink), gateway_config);
     Ok(Arc::new(SecretScrubbingGateway {
         inner: gateway,
         secret: provider_key,

@@ -26,7 +26,10 @@ use serde::Deserialize;
 use serde_json::json;
 
 const DEFAULT_CARDINALD_URL: &str = "http://127.0.0.1:8093";
-const DEFAULT_RPM: u64 = 15;
+// 10 leaves half the account-wide ~20 req/min free window as headroom for
+// overlap (a prior run's tail, discovery churn, other estate use). With
+// gateway retries disabled on paced runs, the paced rate is the real rate.
+const DEFAULT_RPM: u64 = 10;
 const DEFAULT_DAILY_BUDGET: f64 = 900.0;
 const DEFAULT_OWNER_SCOPE: &str = "freelane";
 const DEFAULT_MAX_ENTITIES: usize = 60;
