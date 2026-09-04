@@ -393,12 +393,15 @@ async fn run_cell(config: &Config, axis: &Axis, model: &str) -> Result<RunOutcom
         axis.entities.len()
     );
 
-    // 8·n serial comparisons at the paced interval, plus model latency and
-    // gateway retries; triple it before declaring the poll abandoned.
+    // 8·n serial comparisons, each costing the paced interval OR the model's
+    // real latency, whichever is longer — free-tier latency runs ~30s/response
+    // (cohere, observed 2026-09-04: 384 requests took 3h11m against a 2h05m
+    // deadline, so the run "failed" here while cardinald landed it fine).
+    // Budget 90s per comparison: generous enough that only a wedged daemon
+    // trips it, which is the only thing this deadline is for.
+    let per_comparison_ms = config.min_request_interval_ms().max(90_000);
     let deadline = std::time::Instant::now()
-        + Duration::from_millis(
-            config.min_request_interval_ms() * 8 * axis.entities.len() as u64 * 3,
-        )
+        + Duration::from_millis(per_comparison_ms * 8 * axis.entities.len() as u64)
         + Duration::from_secs(600);
     loop {
         tokio::time::sleep(POLL_INTERVAL).await;

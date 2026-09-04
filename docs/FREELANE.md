@@ -42,6 +42,12 @@ Two mechanisms, both continuous (never calendar windows):
   that budget per 86400s; a run is charged its 8·n attempt budget before
   submission.
 
+The driver polls a submitted run to its terminal state, budgeting 90s per
+comparison (free-tier latency runs ~30s/response and stacks serially at
+concurrency 1); the deadline exists only to catch a wedged daemon, and an
+abandoned run is still cardinald's to finish and land — the next sweep
+sees the landed cell as done.
+
 Models that fail a run cool down (1h doubling per consecutive failure,
 capped 6h) and the sweep moves to the next model. Free-model saturation
 (upstream 429) and account-settings exclusions (training-policy 404s)
