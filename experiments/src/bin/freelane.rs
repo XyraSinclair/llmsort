@@ -157,9 +157,12 @@ impl Config {
             _ => Vec::new(),
         };
         for provider in &extra_providers {
-            if !provider.base_url.starts_with("https://") {
+            let loopback_http = provider.base_url.starts_with("http://127.0.0.1")
+                || provider.base_url.starts_with("http://localhost")
+                || provider.base_url.starts_with("http://[::1]");
+            if !provider.base_url.starts_with("https://") && !loopback_http {
                 return Err(format!(
-                    "provider {} base_url must be https",
+                    "provider {} base_url must be https (or http on loopback for local engines)",
                     provider.name
                 ));
             }
