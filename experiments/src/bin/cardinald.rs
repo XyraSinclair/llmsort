@@ -60,6 +60,8 @@ struct JudgementRequestFields {
     comparison_concurrency: Option<usize>,
     #[serde(default)]
     min_request_interval_ms: Option<u64>,
+    #[serde(default)]
+    provider_base_url: Option<String>,
 }
 
 impl JudgementRequestFields {
@@ -73,6 +75,7 @@ impl JudgementRequestFields {
             privacy,
             comparison_concurrency: self.comparison_concurrency,
             min_request_interval_ms: self.min_request_interval_ms,
+            provider_base_url: self.provider_base_url,
         }
     }
 }
@@ -532,8 +535,12 @@ async fn create_run(
             } else {
                 GatewayConfig::default()
             };
-            let mut gateway = build_gateway(provider_key, gateway_config)
-                .map_err(|_| ApiError::unauthorized("provider key is invalid"))?;
+            let mut gateway = build_gateway(
+                provider_key,
+                gateway_config,
+                normalized.provider_base_url.as_deref(),
+            )
+            .map_err(|_| ApiError::unauthorized("provider key is invalid"))?;
             if let Some(interval_ms) = normalized.min_request_interval_ms {
                 if interval_ms > 0 {
                     gateway = Arc::new(PacedGateway {
@@ -908,8 +915,11 @@ fn provider_key(headers: &HeaderMap) -> Result<String, ApiError> {
 fn build_gateway(
     provider_key: String,
     gateway_config: GatewayConfig,
+    base_url_override: Option<&str>,
 ) -> Result<Arc<dyn ChatGateway>, ProviderError> {
-    let base_url = env_or("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1");
+    let base_url = base_url_override
+        .map(str::to_string)
+        .unwrap_or_else(|| env_or("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"));
     let timeout = std::env::var("OPENROUTER_TIMEOUT_SECONDS")
         .ok()
         .and_then(|value| value.parse::<u64>().ok())

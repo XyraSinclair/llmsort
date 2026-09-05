@@ -69,6 +69,7 @@ async fn persisted_run_reloads_to_identical_edge_response_without_provider_call(
         privacy: JudgementPrivacy::Private,
         comparison_concurrency: None,
         min_request_interval_ms: None,
+        provider_base_url: None,
     };
 
     let record = execute_judgement_run(

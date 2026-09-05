@@ -8,7 +8,25 @@ limits are account-wide (20 req/min, 1000 req/day; verified 2026-09-04), so
 concurrency does not multiply throughput on one account — the daily budget
 binds. It buys even accrual across many judges at once, immunity to one slow
 model stalling the lane, and the right shape for when more quota (BYOK,
-other services) arrives. The product is model-diverse priors: the same axes, the same
+other services) arrives.
+
+What DOES multiply throughput is more lanes: `FREELANE_PROVIDERS` adds
+independent free-tier providers (Cerebras, Gemini, …) as JSON — each an
+OpenAI-compatible endpoint with its own key, rpm, per-model daily budgets,
+and concurrency. freelane routes their runs through the same cardinald via
+the per-run `provider_base_url` field and a loopback `x-provider-key`
+header; every lane's rows land in the same private ledger under the same
+owner scope, keyed by the provider's bare model slug (which never collides
+with OpenRouter's namespaced `vendor/model:free` shape — freelane refuses
+to start on a duplicate).
+
+```
+FREELANE_PROVIDERS='[{"name":"cerebras","base_url":"https://api.cerebras.ai/v1",
+  "key_env":"CEREBRAS_API_KEY","rpm":10,"concurrent_runs":2,
+  "models":[{"slug":"gpt-oss-120b","daily":350},
+            {"slug":"qwen-3.8-27b","daily":350},
+            {"slug":"gemma-4-31b","daily":300}]}]'
+``` The product is model-diverse priors: the same axes, the same
 entities, judged by every free model — landed with full provenance and
 re-fittable forever.
 
@@ -70,13 +88,16 @@ both surface as failed runs and are absorbed by the cool-down.
 | `FREELANE_CARDINALD_URL` | `http://127.0.0.1:8093` | cardinald loopback |
 | `FREELANE_RPM` | 10 | request-per-minute floor spacing (clamped 1–60; the account-wide free window is ~20/min — leave headroom) |
 | `FREELANE_DAILY_BUDGET` | 900 | elicitation requests per rolling day |
-| `FREELANE_CONCURRENT_RUNS` | 4 | max in-flight runs, one per distinct model (clamped 1–12) |
+| `FREELANE_CONCURRENT_RUNS` | 4 | max in-flight OpenRouter runs, one per distinct model (clamped 1–12) |
+| `FREELANE_PROVIDERS` | empty | JSON array of extra provider lanes (see above); each model gets its own daily bucket |
 | `FREELANE_OWNER_SCOPE` | `freelane` | owner scope on landed private rows |
 | `FREELANE_MODEL_DENYLIST` | empty | comma-separated slugs to skip |
 | `FREELANE_MAX_ENTITIES` | 60 | per-axis entity cap (top by current score) |
 
 The OpenRouter key is cardinald's problem (`CARDINALD_OPENROUTER_KEY`
-fallback); freelane never touches provider credentials.
+fallback). Extra-lane keys are read by freelane from each lane's `key_env`
+and travel only over the 127.0.0.1 cardinald socket as `x-provider-key`;
+they are never logged or landed.
 
 `freelane --plan` prints the discovered axes, free pool, pending cells and
 request estimate, then exits without submitting anything.

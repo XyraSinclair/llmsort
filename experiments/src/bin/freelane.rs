@@ -1,30 +1,34 @@
 //! freelane — free-token elicitation driver for cardinald.
 //!
 //! Continuously re-elicits the public ledger's existing (lens, axis) cells
-//! across OpenRouter's free-model pool, up to FREELANE_CONCURRENT_RUNS
-//! cardinald runs at a time (one per distinct model), paced so the combined
-//! request floor stays at FREELANE_RPM. Every run lands PRIVATE
+//! across every configured free-tier provider lane: OpenRouter's `:free`
+//! pool (discovered live) plus any `FREELANE_PROVIDERS` extras (Cerebras,
+//! Gemini, … — static model lists against OpenAI-compatible endpoints,
+//! routed per run via cardinald's `provider_base_url` + `x-provider-key`).
+//! Up to each lane's `concurrent_runs` cardinald runs are in flight at a
+//! time (one per distinct model), paced so each lane's combined request
+//! floor stays at its `rpm`. Every run lands PRIVATE
 //! (`scry_judgements_private`): the public `scores_current` projection is a
 //! ReplacingMergeTree keyed (lens, axis_key, entity_id, entity_hash) with no
 //! model in the key, so a public free-model run would displace curated board
 //! scores. Promotion of free-judge output to any public surface is an
 //! editorial decision made elsewhere, with rank-agreement evidence in hand.
 //!
-//! Throughput honesty: OpenRouter's free-tier limits are account-wide
-//! (20 req/min, 1000 req/day — verified 2026-09-04), so concurrency across
-//! models does not multiply throughput on one account; the daily budget is
-//! the binding constraint. What concurrency buys: several judges accrue
-//! evenly at all times, one slow or wedged model never stalls the lane, and
-//! the shape is already right when more quota (BYOK, other services, account
-//! toggles) arrives.
+//! Throughput honesty: free-tier limits are enforced per account
+//! (OpenRouter: 20 req/min, 1000 req/day account-wide, verified
+//! 2026-09-04), so concurrency within one lane does not multiply
+//! throughput — each lane's daily budget binds. More lanes DO multiply
+//! throughput: every extra provider is an independent quota pool.
 //!
 //! State lives in the ledger, never in local files: a (lens, axis, model)
 //! cell is done iff `scry_judgements_private.comparisons` holds rows for it
 //! under our owner scope. Restart is therefore always safe, and killing the
 //! process loses at most the in-flight runs (cardinald itself persists and
-//! lands completed runs). The daily bucket is likewise seeded from the
+//! lands completed runs). Daily buckets are likewise seeded from the
 //! ledger's last-day landed comparisons at boot, so restarts cannot mint
-//! fresh budget.
+//! fresh budget. Model slugs must be globally unique across lanes (bare
+//! Cerebras/Gemini slugs never collide with OpenRouter's namespaced
+//! `vendor/model:free` shape); freelane refuses to start on a duplicate.
 //!
 //! Config is environment-only (systemd `EnvironmentFile` is the intended
 //! carrier): see `docs/FREELANE.md`.
@@ -52,6 +56,33 @@ const IDLE_SLEEP: Duration = Duration::from_secs(3600);
 const COOLDOWN_BASE: Duration = Duration::from_secs(3600);
 const COOLDOWN_CAP: Duration = Duration::from_secs(6 * 3600);
 
+/// One extra provider lane, from the `FREELANE_PROVIDERS` JSON array.
+/// Example:
+/// `[{"name":"cerebras","base_url":"https://api.cerebras.ai/v1",
+///    "key_env":"CEREBRAS_API_KEY","rpm":10,"concurrent_runs":2,
+///    "models":[{"slug":"gpt-oss-120b","daily":350}]}]`
+#[derive(Deserialize)]
+struct ExtraProviderSpec {
+    name: String,
+    base_url: String,
+    key_env: String,
+    rpm: u64,
+    #[serde(default = "default_extra_concurrent")]
+    concurrent_runs: usize,
+    models: Vec<ExtraModelSpec>,
+}
+
+#[derive(Deserialize)]
+struct ExtraModelSpec {
+    slug: String,
+    /// Per-model daily request budget (free tiers meter per model per day).
+    daily: f64,
+}
+
+fn default_extra_concurrent() -> usize {
+    2
+}
+
 struct Config {
     cardinald_url: String,
     clickhouse_url: String,
@@ -61,6 +92,7 @@ struct Config {
     owner_scope: String,
     model_denylist: HashSet<String>,
     max_entities: usize,
+    extra_providers: Vec<ExtraProviderSpec>,
     plan_only: bool,
 }
 
@@ -98,6 +130,22 @@ impl Config {
             .filter(|slug| !slug.is_empty())
             .map(str::to_string)
             .collect();
+        let extra_providers: Vec<ExtraProviderSpec> = match std::env::var("FREELANE_PROVIDERS") {
+            Ok(raw) if !raw.trim().is_empty() => serde_json::from_str(&raw)
+                .map_err(|error| format!("FREELANE_PROVIDERS is invalid JSON: {error}"))?,
+            _ => Vec::new(),
+        };
+        for provider in &extra_providers {
+            if !provider.base_url.starts_with("https://") {
+                return Err(format!(
+                    "provider {} base_url must be https",
+                    provider.name
+                ));
+            }
+            if provider.models.is_empty() {
+                return Err(format!("provider {} lists no models", provider.name));
+            }
+        }
         Ok(Self {
             cardinald_url: std::env::var("FREELANE_CARDINALD_URL")
                 .unwrap_or_else(|_| DEFAULT_CARDINALD_URL.to_string()),
@@ -109,17 +157,42 @@ impl Config {
                 .unwrap_or_else(|_| DEFAULT_OWNER_SCOPE.to_string()),
             model_denylist,
             max_entities,
+            extra_providers,
             plan_only: std::env::args().any(|arg| arg == "--plan"),
         })
     }
+}
 
-    /// Per-run paced interval. Each of up to `concurrent_runs` runs is spaced
-    /// at K×(60s/rpm), so the combined floor stays at `rpm` no matter how many
-    /// are actually in flight. cardinald validates intervals ≤ 60s; the clamp
-    /// can push the combined floor slightly above `rpm` at high K, where real
-    /// model latency binds anyway.
-    fn min_request_interval_ms(&self) -> u64 {
+/// A provider lane the scheduler can draw cells from. Lane 0 is always
+/// OpenRouter (discovered models, one shared bucket); extras have static
+/// model lists and one bucket per model.
+struct Lane {
+    name: String,
+    base_url: Option<String>,
+    key: Option<String>,
+    rpm: u64,
+    concurrent_runs: usize,
+    models: Vec<String>,
+    /// Parallel to `models` for extra lanes; `None` = shared lane bucket.
+    per_model_daily: Option<Vec<f64>>,
+}
+
+impl Lane {
+    /// Per-run paced interval: each of up to `concurrent_runs` runs is spaced
+    /// at K×(60s/rpm), so the lane's combined floor stays at `rpm` no matter
+    /// how many are actually in flight. cardinald validates intervals ≤ 60s;
+    /// the clamp can push the combined floor slightly above `rpm` at high K,
+    /// where real model latency binds anyway.
+    fn interval_ms(&self) -> u64 {
         (((60_000f64 * self.concurrent_runs as f64) / self.rpm as f64).ceil() as u64).min(60_000)
+    }
+
+    fn bucket_id(&self, model_index: usize) -> String {
+        if self.per_model_daily.is_some() {
+            format!("{}/{}", self.name, self.models[model_index])
+        } else {
+            self.name.clone()
+        }
     }
 }
 
@@ -309,30 +382,38 @@ async fn done_cells(
         .collect()
 }
 
-/// Requests the ledger witnessed landing in the trailing day under our scope.
-/// Failed runs' attempts are invisible here, so this undercounts true spend;
-/// cool-downs bound that error, and the alternative (a state file) is worse.
-async fn landed_last_day(ch: &ClickHouse, owner_scope: &str) -> Result<f64, String> {
+/// Requests the ledger witnessed landing in the trailing day under our scope,
+/// per model. Failed runs' attempts are invisible here, so this undercounts
+/// true spend; cool-downs bound that error, and the alternative (a state
+/// file) is worse.
+async fn landed_last_day_by_model(
+    ch: &ClickHouse,
+    owner_scope: &str,
+) -> Result<HashMap<String, f64>, String> {
     let rows = ch
         .query(
-            "SELECT count() AS n \
+            "SELECT model, count() AS n \
              FROM scry_judgements_private.comparisons \
              WHERE owner_scope = {scope:String} \
                AND observed_at > now64(3) - INTERVAL 1 DAY \
+             GROUP BY model \
              FORMAT JSONEachRow",
             &[("scope", owner_scope)],
         )
         .await?;
-    let Some(row) = rows.first() else {
-        return Ok(0.0);
-    };
-    let value = row
-        .get("n")
-        .ok_or_else(|| "ClickHouse count row missing n".to_string())?;
-    value
-        .as_f64()
-        .or_else(|| value.as_str().and_then(|s| s.parse().ok()))
-        .ok_or_else(|| "ClickHouse count not numeric".to_string())
+    let mut counts = HashMap::with_capacity(rows.len());
+    for row in &rows {
+        let model = str_field(row, "model")?;
+        let value = row
+            .get("n")
+            .ok_or_else(|| "ClickHouse count row missing n".to_string())?;
+        let count = value
+            .as_f64()
+            .or_else(|| value.as_str().and_then(|s| s.parse().ok()))
+            .ok_or_else(|| "ClickHouse count not numeric".to_string())?;
+        counts.insert(model, count);
+    }
+    Ok(counts)
 }
 
 #[derive(Deserialize)]
@@ -401,18 +482,27 @@ enum RunOutcome {
 
 struct InFlight {
     run_ref: String,
+    lane_index: usize,
     model_index: usize,
     axis_index: usize,
     deadline: std::time::Instant,
 }
 
+#[derive(Clone, Copy)]
+struct Cell {
+    lane_index: usize,
+    model_index: usize,
+    axis_index: usize,
+}
+
 async fn submit_cell(
     client: &reqwest::Client,
     config: &Config,
+    lane: &Lane,
     axis: &Axis,
     model: &str,
 ) -> Result<(String, std::time::Instant), String> {
-    let body = json!({
+    let mut body = json!({
         "entities": axis
             .entities
             .iter()
@@ -426,11 +516,18 @@ async fn submit_cell(
         "owner_scope": config.owner_scope,
         "lens": axis.lens,
         "comparison_concurrency": 1,
-        "min_request_interval_ms": config.min_request_interval_ms(),
+        "min_request_interval_ms": lane.interval_ms(),
     });
-    let response = client
+    if let Some(base_url) = &lane.base_url {
+        body["provider_base_url"] = json!(base_url);
+    }
+    let mut request = client
         .post(format!("{}/v1/runs", config.cardinald_url))
-        .json(&body)
+        .json(&body);
+    if let Some(key) = &lane.key {
+        request = request.header("x-provider-key", key);
+    }
+    let response = request
         .send()
         .await
         .map_err(|error| format!("cardinald submit failed: {error}"))?;
@@ -444,11 +541,12 @@ async fn submit_cell(
     }
     let run_ref = str_field(&submitted, "run_ref")?;
     println!(
-        "freelane: submitted {run_ref} lens={} axis={} model={model} n={} interval={}ms",
+        "freelane: submitted {run_ref} lane={} lens={} axis={} model={model} n={} interval={}ms",
+        lane.name,
         axis.lens,
         axis.axis_key,
         axis.entities.len(),
-        config.min_request_interval_ms(),
+        lane.interval_ms(),
     );
 
     // 8·n serial comparisons, each costing the paced interval OR the model's
@@ -457,7 +555,7 @@ async fn submit_cell(
     // deadline, so the run "failed" here while cardinald landed it fine).
     // Budget 90s per comparison: generous enough that only a wedged daemon
     // trips it, which is the only thing this deadline is for.
-    let per_comparison_ms = config.min_request_interval_ms().max(90_000);
+    let per_comparison_ms = lane.interval_ms().max(90_000);
     let deadline = std::time::Instant::now()
         + Duration::from_millis(per_comparison_ms * 8 * axis.entities.len() as u64)
         + Duration::from_secs(600);
@@ -495,21 +593,21 @@ async fn poll_run(
 
 fn cool(
     cooldown: &mut HashMap<String, (std::time::Instant, u32)>,
-    model: &str,
+    key: &str,
     lens: &str,
     axis_key: &str,
     error: &str,
 ) {
-    let failures = cooldown.get(model).map(|(_, count)| *count).unwrap_or(0) + 1;
+    let failures = cooldown.get(key).map(|(_, count)| *count).unwrap_or(0) + 1;
     let pause = COOLDOWN_BASE
         .saturating_mul(1u32 << (failures - 1).min(3))
         .min(COOLDOWN_CAP);
     println!(
-        "freelane: failed lens={lens} axis={axis_key} model={model} ({error}); cooling {}s (failure #{failures})",
+        "freelane: failed lens={lens} axis={axis_key} judge={key} ({error}); cooling {}s (failure #{failures})",
         pause.as_secs()
     );
     cooldown.insert(
-        model.to_string(),
+        key.to_string(),
         (std::time::Instant::now() + pause, failures),
     );
 }
@@ -522,17 +620,72 @@ async fn main() {
     }
 }
 
+fn build_extra_lanes(config: &Config) -> Result<Vec<Lane>, String> {
+    let mut lanes = Vec::with_capacity(config.extra_providers.len());
+    for spec in &config.extra_providers {
+        let key = std::env::var(&spec.key_env)
+            .map_err(|_| format!("provider {} key env {} is unset", spec.name, spec.key_env))?;
+        lanes.push(Lane {
+            name: spec.name.clone(),
+            base_url: Some(spec.base_url.clone()),
+            key: Some(key),
+            rpm: spec.rpm.clamp(1, 120),
+            concurrent_runs: spec.concurrent_runs.clamp(1, 12),
+            models: spec.models.iter().map(|m| m.slug.clone()).collect(),
+            per_model_daily: Some(spec.models.iter().map(|m| m.daily).collect()),
+        });
+    }
+    Ok(lanes)
+}
+
 async fn drive() -> Result<(), String> {
     let config = Config::from_env()?;
     let ch = ClickHouse::from_url(&config.clickhouse_url)?;
-    let spent = landed_last_day(&ch, &config.owner_scope).await?;
-    let mut bucket = Bucket::new(config.daily_budget, config.daily_budget - spent);
-    if spent > 0.0 {
+    let extra_lanes = build_extra_lanes(&config)?;
+
+    // Seed every bucket from the ledger's trailing day.
+    let landed = landed_last_day_by_model(&ch, &config.owner_scope).await?;
+    let extra_model_set: HashSet<&str> = extra_lanes
+        .iter()
+        .flat_map(|lane| lane.models.iter().map(String::as_str))
+        .collect();
+    if extra_model_set.len()
+        != extra_lanes
+            .iter()
+            .map(|lane| lane.models.len())
+            .sum::<usize>()
+    {
+        return Err("duplicate model slug across provider lanes".to_string());
+    }
+    let openrouter_spent: f64 = landed
+        .iter()
+        .filter(|(model, _)| !extra_model_set.contains(model.as_str()))
+        .map(|(_, count)| count)
+        .sum();
+    let mut buckets: HashMap<String, Bucket> = HashMap::new();
+    buckets.insert(
+        "openrouter".to_string(),
+        Bucket::new(config.daily_budget, config.daily_budget - openrouter_spent),
+    );
+    for lane in &extra_lanes {
+        let dailies = lane.per_model_daily.as_ref().expect("extra lanes are per-model");
+        for (model_index, slug) in lane.models.iter().enumerate() {
+            let capacity = dailies[model_index];
+            let spent = landed.get(slug).copied().unwrap_or(0.0);
+            buckets.insert(
+                lane.bucket_id(model_index),
+                Bucket::new(capacity, capacity - spent),
+            );
+        }
+    }
+    if !landed.is_empty() {
+        let total: f64 = landed.values().sum();
         println!(
-            "freelane: {spent:.0} requests landed in the trailing day; bucket starts at {:.0}/{:.0}",
-            bucket.level, config.daily_budget
+            "freelane: {total:.0} requests landed in the trailing day across {} models; buckets seeded from the ledger",
+            landed.len()
         );
     }
+
     let mut cooldown: HashMap<String, (std::time::Instant, u32)> = HashMap::new();
     let client = reqwest::Client::builder()
         .no_proxy()
@@ -542,50 +695,84 @@ async fn drive() -> Result<(), String> {
 
     loop {
         let axes = discover_axes(&ch, config.max_entities).await?;
-        let models = discover_free_models(&config.model_denylist).await?;
+        let openrouter_models = discover_free_models(&config.model_denylist).await?;
         let done = done_cells(&ch, &config.owner_scope).await?;
 
-        let mut pending: Vec<(usize, usize)> = Vec::new(); // (model idx, axis idx)
-        // Interleave across models so early coverage spans many judges
+        let mut lanes: Vec<Lane> = vec![Lane {
+            name: "openrouter".to_string(),
+            base_url: None,
+            key: None,
+            rpm: config.rpm,
+            concurrent_runs: config.concurrent_runs,
+            models: openrouter_models,
+            per_model_daily: None,
+        }];
+        for spec_lane in &extra_lanes {
+            lanes.push(Lane {
+                name: spec_lane.name.clone(),
+                base_url: spec_lane.base_url.clone(),
+                key: spec_lane.key.clone(),
+                rpm: spec_lane.rpm,
+                concurrent_runs: spec_lane.concurrent_runs,
+                models: spec_lane.models.clone(),
+                per_model_daily: spec_lane.per_model_daily.clone(),
+            });
+        }
+
+        // Interleave across judges so early coverage spans many of them
         // instead of one judge finishing every axis first.
+        let mut pending: Vec<Cell> = Vec::new();
         for axis_index in 0..axes.len() {
-            for model_index in 0..models.len() {
-                let axis = &axes[axis_index];
-                let key = (
-                    axis.lens.clone(),
-                    axis.axis_key.clone(),
-                    models[model_index].clone(),
-                );
-                if !done.contains(&key) {
-                    pending.push((model_index, axis_index));
+            for (lane_index, lane) in lanes.iter().enumerate() {
+                for model_index in 0..lane.models.len() {
+                    let axis = &axes[axis_index];
+                    let key = (
+                        axis.lens.clone(),
+                        axis.axis_key.clone(),
+                        lane.models[model_index].clone(),
+                    );
+                    if !done.contains(&key) {
+                        pending.push(Cell {
+                            lane_index,
+                            model_index,
+                            axis_index,
+                        });
+                    }
                 }
             }
         }
-        pending.sort_by_key(|(model_index, axis_index)| (*axis_index, *model_index));
 
+        let judge_count: usize = lanes.iter().map(|lane| lane.models.len()).sum();
         let estimated_requests: f64 = pending
             .iter()
-            .map(|(_, axis_index)| axes[*axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY)
+            .map(|cell| axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY)
             .sum();
+        let daily_capacity: f64 = config.daily_budget
+            + extra_lanes
+                .iter()
+                .flat_map(|lane| lane.per_model_daily.iter().flatten())
+                .sum::<f64>();
         println!(
-            "freelane: {} axes × {} free models → {} pending cells (~{:.0} requests, ~{:.1} days at {:.0}/day, concurrency {})",
+            "freelane: {} axes × {} judges over {} lanes → {} pending cells (~{:.0} requests, ~{:.1} days at {:.0}/day)",
             axes.len(),
-            models.len(),
+            judge_count,
+            lanes.len(),
             pending.len(),
             estimated_requests,
-            estimated_requests / config.daily_budget,
-            config.daily_budget,
-            config.concurrent_runs,
+            estimated_requests / daily_capacity,
+            daily_capacity,
         );
 
         if config.plan_only {
-            for (model_index, axis_index) in &pending {
-                let axis = &axes[*axis_index];
+            for cell in &pending {
+                let axis = &axes[cell.axis_index];
+                let lane = &lanes[cell.lane_index];
                 println!(
-                    "freelane: pending lens={} axis={} model={} n={}",
+                    "freelane: pending lane={} lens={} axis={} model={} n={}",
+                    lane.name,
                     axis.lens,
                     axis.axis_key,
-                    models[*model_index],
+                    lane.models[cell.model_index],
                     axis.entities.len()
                 );
             }
@@ -600,33 +787,56 @@ async fn drive() -> Result<(), String> {
 
         let mut in_flight: Vec<InFlight> = Vec::new();
         loop {
-            // Fill toward the concurrency target: one run per distinct model,
-            // skipping cooling models and cells the bucket cannot yet afford
-            // (a cheaper cell further down may still fit).
+            // Fill each lane toward its concurrency target: one run per
+            // distinct judge, skipping cooling judges and cells whose bucket
+            // cannot yet afford them (a cheaper cell further down may fit).
             let now = std::time::Instant::now();
             let mut idx = 0;
-            while in_flight.len() < config.concurrent_runs && idx < pending.len() {
-                let (model_index, axis_index) = pending[idx];
-                let model_busy = in_flight.iter().any(|run| run.model_index == model_index);
-                let model_cooling = cooldown
-                    .get(&models[model_index])
-                    .is_some_and(|(until, _)| *until > now);
-                if model_busy || model_cooling {
+            while idx < pending.len() {
+                let cell = pending[idx];
+                let lane = &lanes[cell.lane_index];
+                let lane_load = in_flight
+                    .iter()
+                    .filter(|run| run.lane_index == cell.lane_index)
+                    .count();
+                if lane_load >= lane.concurrent_runs {
                     idx += 1;
                     continue;
                 }
-                let cost = axes[axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                let judge_busy = in_flight.iter().any(|run| {
+                    run.lane_index == cell.lane_index && run.model_index == cell.model_index
+                });
+                let judge_key = format!("{}:{}", lane.name, lane.models[cell.model_index]);
+                let judge_cooling = cooldown
+                    .get(&judge_key)
+                    .is_some_and(|(until, _)| *until > now);
+                if judge_busy || judge_cooling {
+                    idx += 1;
+                    continue;
+                }
+                let cost =
+                    axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                let bucket = buckets
+                    .get_mut(&lane.bucket_id(cell.model_index))
+                    .expect("bucket exists for every schedulable cell");
                 if bucket.wait_for(cost) > 0.0 {
                     idx += 1;
                     continue;
                 }
                 bucket.charge(cost);
-                let (run_ref, deadline) =
-                    submit_cell(&client, &config, &axes[axis_index], &models[model_index]).await?;
+                let (run_ref, deadline) = submit_cell(
+                    &client,
+                    &config,
+                    lane,
+                    &axes[cell.axis_index],
+                    &lane.models[cell.model_index],
+                )
+                .await?;
                 in_flight.push(InFlight {
                     run_ref,
-                    model_index,
-                    axis_index,
+                    lane_index: cell.lane_index,
+                    model_index: cell.model_index,
+                    axis_index: cell.axis_index,
                     deadline,
                 });
                 pending.remove(idx);
@@ -639,22 +849,22 @@ async fn drive() -> Result<(), String> {
                 // Everything is cooling or budget-starved: wait for the nearer
                 // of the cheapest affordable submit or a cool-down expiry.
                 let now = std::time::Instant::now();
-                let min_cost = pending
-                    .iter()
-                    .filter(|(model_index, _)| {
-                        cooldown
-                            .get(&models[*model_index])
-                            .is_none_or(|(until, _)| *until <= now)
-                    })
-                    .map(|(_, axis_index)| {
-                        axes[*axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY
-                    })
-                    .fold(f64::INFINITY, f64::min);
-                let budget_wait = if min_cost.is_finite() {
-                    bucket.wait_for(min_cost)
-                } else {
-                    f64::INFINITY
-                };
+                let mut budget_wait = f64::INFINITY;
+                for cell in &pending {
+                    let lane = &lanes[cell.lane_index];
+                    let judge_key = format!("{}:{}", lane.name, lane.models[cell.model_index]);
+                    if cooldown
+                        .get(&judge_key)
+                        .is_some_and(|(until, _)| *until > now)
+                    {
+                        continue;
+                    }
+                    let cost =
+                        axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                    if let Some(bucket) = buckets.get_mut(&lane.bucket_id(cell.model_index)) {
+                        budget_wait = budget_wait.min(bucket.wait_for(cost));
+                    }
+                }
                 let cool_wait = cooldown
                     .values()
                     .map(|(until, _)| until.saturating_duration_since(now).as_secs_f64())
@@ -672,18 +882,19 @@ async fn drive() -> Result<(), String> {
                 let outcome = poll_run(&client, &config, &in_flight[i].run_ref).await?;
                 let run = &in_flight[i];
                 let axis = &axes[run.axis_index];
-                let model = &models[run.model_index];
+                let lane = &lanes[run.lane_index];
+                let judge_key = format!("{}:{}", lane.name, lane.models[run.model_index]);
                 match outcome {
                     Some(RunOutcome::Completed) => {
                         println!(
-                            "freelane: completed lens={} axis={} model={model}",
-                            axis.lens, axis.axis_key
+                            "freelane: completed lane={} lens={} axis={} model={}",
+                            lane.name, axis.lens, axis.axis_key, lane.models[run.model_index]
                         );
-                        cooldown.remove(model);
+                        cooldown.remove(&judge_key);
                         in_flight.remove(i);
                     }
                     Some(RunOutcome::Failed(error)) => {
-                        cool(&mut cooldown, model, &axis.lens, &axis.axis_key, &error);
+                        cool(&mut cooldown, &judge_key, &axis.lens, &axis.axis_key, &error);
                         in_flight.remove(i);
                     }
                     None => {
@@ -692,7 +903,7 @@ async fn drive() -> Result<(), String> {
                                 "poll deadline exceeded for {}; leaving it to cardinald",
                                 run.run_ref
                             );
-                            cool(&mut cooldown, model, &axis.lens, &axis.axis_key, &error);
+                            cool(&mut cooldown, &judge_key, &axis.lens, &axis.axis_key, &error);
                             in_flight.remove(i);
                         } else {
                             i += 1;

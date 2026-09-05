@@ -77,6 +77,12 @@ pub struct JudgementRunRequest {
     /// serial run can outrun the window when the model answers quickly.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub min_request_interval_ms: Option<u64>,
+    /// Optional OpenAI-compatible provider base URL (https). Absent = the
+    /// daemon's configured OpenRouter endpoint. Lets one daemon elicit from
+    /// several free-tier providers (Cerebras, Gemini, …); the caller supplies
+    /// the matching key via `x-provider-key`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub provider_base_url: Option<String>,
 }
 
 /// Validated request bytes that were used to construct the instrument.
@@ -92,6 +98,8 @@ pub struct NormalizedJudgementRunRequest {
     pub comparison_concurrency: Option<usize>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub min_request_interval_ms: Option<u64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub provider_base_url: Option<String>,
 }
 
 impl JudgementRunRequest {
@@ -112,6 +120,10 @@ impl JudgementRunRequest {
             privacy: self.privacy,
             comparison_concurrency: self.comparison_concurrency,
             min_request_interval_ms: self.min_request_interval_ms,
+            provider_base_url: self
+                .provider_base_url
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty()),
         };
         normalized
             .validate()
@@ -148,6 +160,11 @@ impl NormalizedJudgementRunRequest {
         if let Some(interval) = self.min_request_interval_ms {
             if interval > 60_000 {
                 return Err("min_request_interval_ms must be at most 60000".to_string());
+            }
+        }
+        if let Some(url) = &self.provider_base_url {
+            if !url.starts_with("https://") {
+                return Err("provider_base_url must be an https URL".to_string());
             }
         }
 
