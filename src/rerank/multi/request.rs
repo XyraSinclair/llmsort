@@ -340,6 +340,14 @@ pub fn validate_multi_rerank_request(req: &MultiRerankRequest) -> Result<(), Mul
         }
     }
 
+    if let Some(draws) = req.nonce_draws {
+        if !(1..=8).contains(&draws) {
+            return Err(MultiRerankError::InvalidRequest(
+                "nonce_draws must be between 1 and 8".into(),
+            ));
+        }
+    }
+
     if let Some(max) = req.max_pair_repeats {
         if max == 0 {
             return Err(MultiRerankError::InvalidRequest(

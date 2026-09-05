@@ -83,6 +83,14 @@ pub struct JudgementRunRequest {
     /// the matching key via `x-provider-key`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub provider_base_url: Option<String>,
+    /// Optional resample width (1..=8). Each planned comparison is drawn N
+    /// times with a distinct draw-token nonce appended after every stable
+    /// byte, so the serve's prefix cache makes draws 2..n nearly free while
+    /// yielding independent samples of the same judgement. The engine's
+    /// comparison budget is scaled by N so distinct-pair coverage is
+    /// preserved. Absent/1 = legacy single-draw behavior.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub nonce_draws: Option<u32>,
 }
 
 /// Validated request bytes that were used to construct the instrument.
@@ -100,6 +108,8 @@ pub struct NormalizedJudgementRunRequest {
     pub min_request_interval_ms: Option<u64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub provider_base_url: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub nonce_draws: Option<u32>,
 }
 
 impl JudgementRunRequest {
@@ -124,6 +134,7 @@ impl JudgementRunRequest {
                 .provider_base_url
                 .map(|value| value.trim().to_string())
                 .filter(|value| !value.is_empty()),
+            nonce_draws: self.nonce_draws,
         };
         normalized
             .validate()
@@ -160,6 +171,11 @@ impl NormalizedJudgementRunRequest {
         if let Some(interval) = self.min_request_interval_ms {
             if interval > 60_000 {
                 return Err("min_request_interval_ms must be at most 60000".to_string());
+            }
+        }
+        if let Some(draws) = self.nonce_draws {
+            if !(1..=8).contains(&draws) {
+                return Err("nonce_draws must be between 1 and 8".to_string());
             }
         }
         if let Some(url) = &self.provider_base_url {
@@ -1267,7 +1283,11 @@ fn build_rerank_request(request: &NormalizedJudgementRunRequest) -> MultiRerankR
             prune_p_topk_below: None,
         },
         gates: Vec::new(),
-        comparison_budget: Some(max_judgement_run_comparisons(request)),
+        comparison_budget: Some(
+            max_judgement_run_comparisons(request)
+                * request.nonce_draws.unwrap_or(1).max(1) as usize,
+        ),
+        nonce_draws: request.nonce_draws,
         latency_budget_ms: None,
         max_cost_nanodollars: None,
         model: Some(request.model.clone()),

@@ -461,6 +461,18 @@ pub struct MultiRerankRequest {
     /// surface enables it by default).
     #[serde(default)]
     pub counterbalance_pairs: bool,
+
+    /// Draws per planned comparison (default 1). When > 1, each planned
+    /// (attribute, pair, order) call is issued that many times with a
+    /// per-draw suffix nonce (`draw-token:` line after every stable byte),
+    /// so the engine's prefix cache serves draws 2..n almost free and the
+    /// solver receives each draw as an independent observation — the
+    /// nonce-perturbation instrument (`rerank::sampling`, LOGPROBS.md
+    /// "Prompt cache and nonce perturbation") on the production path.
+    /// Nonced calls bypass the pairwise SQLite cache in both directions by
+    /// construction. Each draw consumes comparison budget.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub nonce_draws: Option<u32>,
 }
 
 fn default_randomize_presentation_order() -> bool {

@@ -342,6 +342,7 @@ pub async fn anp(
             prune_p_topk_below: None,
         },
         gates: Vec::new(),
+        nonce_draws: None,
         comparison_budget: opts.comparison_budget,
         latency_budget_ms: None,
         max_cost_nanodollars: None,

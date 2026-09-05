@@ -51,6 +51,13 @@ const DEFAULT_OWNER_SCOPE: &str = "freelane";
 const DEFAULT_MAX_ENTITIES: usize = 60;
 /// Attempt budget cardinald enforces per run: 8 comparisons per entity.
 const COMPARISONS_PER_ENTITY: f64 = 8.0;
+
+/// Metered provider requests for one (lane, axis) cell. Draws multiply the
+/// real request volume: cardinald scales the run's comparison budget by
+/// `nonce_draws`, so budgets and estimates must charge every drawn call.
+fn cell_cost(entity_count: usize, nonce_draws: Option<u32>) -> f64 {
+    entity_count as f64 * COMPARISONS_PER_ENTITY * nonce_draws.unwrap_or(1).max(1) as f64
+}
 const POLL_INTERVAL: Duration = Duration::from_secs(15);
 const IDLE_SLEEP: Duration = Duration::from_secs(3600);
 const COOLDOWN_BASE: Duration = Duration::from_secs(3600);
@@ -82,6 +89,13 @@ struct ExtraProviderSpec {
     /// Keep 1 for rate-limited APIs; raise for local engines.
     #[serde(default = "default_one")]
     comparison_concurrency: usize,
+    /// Resample width per planned comparison (cardinald clamps 1..=8): each
+    /// comparison is drawn N times behind distinct draw-token nonces, so a
+    /// prefix-caching local engine yields N samples for ~1 prefill. Leave
+    /// unset (=1) for rate-limited hosted lanes, where every draw is a full
+    /// metered request.
+    #[serde(default)]
+    nonce_draws: Option<u32>,
     models: Vec<ExtraModelSpec>,
 }
 
@@ -198,6 +212,7 @@ struct Lane {
     concurrent_runs: usize,
     paced: bool,
     comparison_concurrency: usize,
+    nonce_draws: Option<u32>,
     models: Vec<String>,
     /// Parallel to `models` for extra lanes; `None` = shared lane bucket.
     per_model_daily: Option<Vec<f64>>,
@@ -397,10 +412,7 @@ async fn discover_axes(ch: &ClickHouse, max_entities: usize) -> Result<Vec<Axis>
 /// entity cohort across all its axes, ranked at write time; freelane takes
 /// the top `max_entities`. Boxes without the catalog tables simply have no
 /// catalog inventory (logged, not fatal).
-async fn discover_catalog_axes(
-    ch: &ClickHouse,
-    max_entities: usize,
-) -> Result<Vec<Axis>, String> {
+async fn discover_catalog_axes(ch: &ClickHouse, max_entities: usize) -> Result<Vec<Axis>, String> {
     let heads = match ch
         .query(
             "SELECT lens, axis_key, any(axis_prompt) AS axis_prompt \
@@ -437,10 +449,10 @@ async fn discover_catalog_axes(
         .await?;
     let mut cohorts: HashMap<String, Vec<(String, String)>> = HashMap::new();
     for row in &entity_rows {
-        cohorts.entry(str_field(row, "lens")?).or_default().push((
-            str_field(row, "entity_id")?,
-            str_field(row, "entity_text")?,
-        ));
+        cohorts
+            .entry(str_field(row, "lens")?)
+            .or_default()
+            .push((str_field(row, "entity_id")?, str_field(row, "entity_text")?));
     }
     let mut axes = Vec::new();
     for head in heads {
@@ -626,6 +638,11 @@ async fn submit_cell(
     if let Some(base_url) = &lane.base_url {
         body["provider_base_url"] = json!(base_url);
     }
+    if let Some(draws) = lane.nonce_draws {
+        if draws > 1 {
+            body["nonce_draws"] = json!(draws);
+        }
+    }
     let mut request = client
         .post(format!("{}/v1/runs", config.cardinald_url))
         .json(&body);
@@ -747,6 +764,7 @@ fn build_extra_lanes(config: &Config) -> Result<Vec<Lane>, String> {
             concurrent_runs: spec.concurrent_runs.clamp(1, 12),
             paced: spec.paced,
             comparison_concurrency: spec.comparison_concurrency.clamp(1, 16),
+            nonce_draws: spec.nonce_draws.map(|d| d.clamp(1, 8)),
             models: spec.models.iter().map(|m| m.slug.clone()).collect(),
             per_model_daily: Some(spec.models.iter().map(|m| m.daily).collect()),
         });
@@ -837,6 +855,7 @@ async fn drive() -> Result<(), String> {
             concurrent_runs: config.concurrent_runs,
             paced: true,
             comparison_concurrency: 1,
+            nonce_draws: None,
             models: openrouter_models,
             per_model_daily: None,
         }];
@@ -849,6 +868,7 @@ async fn drive() -> Result<(), String> {
                 concurrent_runs: spec_lane.concurrent_runs,
                 paced: spec_lane.paced,
                 comparison_concurrency: spec_lane.comparison_concurrency,
+                nonce_draws: spec_lane.nonce_draws,
                 models: spec_lane.models.clone(),
                 per_model_daily: spec_lane.per_model_daily.clone(),
             });
@@ -880,7 +900,12 @@ async fn drive() -> Result<(), String> {
         let judge_count: usize = lanes.iter().map(|lane| lane.models.len()).sum();
         let estimated_requests: f64 = pending
             .iter()
-            .map(|cell| axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY)
+            .map(|cell| {
+                cell_cost(
+                    axes[cell.axis_index].entities.len(),
+                    lanes[cell.lane_index].nonce_draws,
+                )
+            })
             .sum();
         let daily_capacity: f64 = config.daily_budget
             + extra_lanes
@@ -957,7 +982,7 @@ async fn drive() -> Result<(), String> {
                     idx += 1;
                     continue;
                 }
-                let cost = axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                let cost = cell_cost(axes[cell.axis_index].entities.len(), lane.nonce_draws);
                 let bucket = buckets
                     .get_mut(&lane.bucket_id(cell.model_index))
                     .expect("bucket exists for every schedulable cell");
@@ -1001,7 +1026,7 @@ async fn drive() -> Result<(), String> {
                     {
                         continue;
                     }
-                    let cost = axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                    let cost = cell_cost(axes[cell.axis_index].entities.len(), lane.nonce_draws);
                     if let Some(bucket) = buckets.get_mut(&lane.bucket_id(cell.model_index)) {
                         budget_wait = budget_wait.min(bucket.wait_for(cost));
                     }

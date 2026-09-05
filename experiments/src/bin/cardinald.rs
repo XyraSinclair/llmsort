@@ -62,6 +62,8 @@ struct JudgementRequestFields {
     min_request_interval_ms: Option<u64>,
     #[serde(default)]
     provider_base_url: Option<String>,
+    #[serde(default)]
+    nonce_draws: Option<u32>,
 }
 
 impl JudgementRequestFields {
@@ -76,6 +78,7 @@ impl JudgementRequestFields {
             comparison_concurrency: self.comparison_concurrency,
             min_request_interval_ms: self.min_request_interval_ms,
             provider_base_url: self.provider_base_url,
+            nonce_draws: self.nonce_draws,
         }
     }
 }

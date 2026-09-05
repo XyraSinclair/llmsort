@@ -157,6 +157,7 @@ pub async fn explain_ranking(
         max_pair_repeats: None,
         randomize_presentation_order: true,
         counterbalance_pairs: opts.counterbalance,
+        nonce_draws: None,
     };
 
     let outcome = multi_rerank_with_failures(request, execution).await?;
@@ -512,6 +513,7 @@ pub async fn differentiation_profile(
         max_pair_repeats: None,
         randomize_presentation_order: true,
         counterbalance_pairs: opts.counterbalance,
+        nonce_draws: None,
     };
 
     let outcome = multi_rerank_with_failures(request, execution).await?;

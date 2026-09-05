@@ -394,6 +394,7 @@ async fn sort_with_probes(
         max_pair_repeats: opts.max_pair_repeats,
         randomize_presentation_order: true,
         counterbalance_pairs: opts.counterbalance,
+        nonce_draws: None,
     };
 
     let outcome = super::multi::multi_rerank_with_failures(request, execution).await?;

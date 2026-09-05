@@ -235,6 +235,15 @@ pub(crate) async fn multi_rerank_with_failures(
         ) else {
             break 'rerank RerankStopReason::CostBudgetExhausted;
         };
+        // Budget and batch size are denominated in CALLS. With nonce draws,
+        // each planned comparison costs `nonce_draws` calls, so the planned
+        // batch shrinks accordingly (floor 2: a counterbalanced pair).
+        let nonce_draws = req.nonce_draws.unwrap_or(1).max(1) as usize;
+        let batch_size = if nonce_draws > 1 {
+            (batch_size / nonce_draws).max(2)
+        } else {
+            batch_size
+        };
         if req.counterbalance_pairs && batch_size < 2 {
             // A counterbalanced pair needs two calls; one slot cannot start one.
             break 'rerank RerankStopReason::BudgetExhausted;
@@ -331,6 +340,37 @@ pub(crate) async fn multi_rerank_with_failures(
             (task.attr_idx, first)
         });
 
+        // Nonce-draw expansion (after the sort so draws of one comparison
+        // run adjacently: they share the ENTIRE prompt above the trailing
+        // draw-token line, so the engine's prefix cache serves draws 2..n
+        // almost free). draws == 1 keeps the legacy shape: no nonce, the
+        // pairwise SQLite cache stays live. draws > 1 nonces EVERY call so
+        // all draws uniformly bypass that cache — a cached copy is the
+        // opposite of an independent draw.
+        let drawn_tasks: Vec<(CompareTask, Option<String>)> = if nonce_draws > 1 {
+            tasks
+                .iter()
+                .flat_map(|task| {
+                    (0..nonce_draws).map(|draw| {
+                        use std::hash::{Hash, Hasher};
+                        let mut h = std::collections::hash_map::DefaultHasher::new();
+                        (
+                            task.attr_idx,
+                            task.i,
+                            task.j,
+                            task.swapped,
+                            draw,
+                            comparisons_attempted,
+                        )
+                            .hash(&mut h);
+                        (*task, Some(format!("{:016x}", h.finish())))
+                    })
+                })
+                .collect()
+        } else {
+            tasks.iter().map(|task| (*task, None)).collect()
+        };
+
         let mut score_cache: HashMap<String, Vec<f64>> = HashMap::new();
         let mut std_cache: HashMap<String, Vec<f64>> = HashMap::new();
         if execution.model_policy.is_some() {
@@ -353,7 +393,7 @@ pub(crate) async fn multi_rerank_with_failures(
         let comparisons_attempted_snapshot = comparisons_attempted;
         let comparisons_used_snapshot = comparisons_used;
 
-        let batch_results = stream::iter(tasks.into_iter().map(|task| {
+        let batch_results = stream::iter(drawn_tasks.into_iter().map(|(task, draw_nonce)| {
             let gateway = execution.gateway.clone();
             let attribution = execution.attribution.clone();
             let policy = execution.model_policy.clone();
@@ -404,7 +444,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     },
                     cache_only,
                     attribution,
-                    nonce: None,
+                    nonce: draw_nonce,
                 };
                 let judgement = compare_pair(gateway.as_ref(), execution.cache, comparison).await;
                 (task, judgement, selected_model)

@@ -69,6 +69,7 @@ pub fn to_multi_request(req: &RerankRequest) -> MultiRerankRequest {
         max_pair_repeats: req.max_pair_repeats,
         randomize_presentation_order: true,
         counterbalance_pairs: req.counterbalance_pairs,
+        nonce_draws: None,
     }
 }
 
