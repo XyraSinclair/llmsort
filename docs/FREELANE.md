@@ -26,7 +26,17 @@ FREELANE_PROVIDERS='[{"name":"cerebras","base_url":"https://api.cerebras.ai/v1",
   "models":[{"slug":"gpt-oss-120b","daily":350},
             {"slug":"qwen-3.8-27b","daily":350},
             {"slug":"gemma-4-31b","daily":300}]}]'
-``` The product is model-diverse priors: the same axes, the same
+```
+
+Local engines are the same shape at a different scale: a loopback vLLM
+server (`base_url` may be `http://127.0.0.1:…` — cardinald allows http on
+loopback only) with `key_env` omitted (freelane sends a placeholder key so
+cardinald never falls back to its OpenRouter key), `"paced": false` (vLLM
+wants saturation, not a floor) and `"comparison_concurrency"` raised
+(cardinald clamps at 16). A single local judge on one GPU sustains
+~100k+ requests/day — two orders of magnitude over any hosted free tier —
+so local lanes drain the whole inventory in hours and the API lanes keep
+up with incremental refresh. The product is model-diverse priors: the same axes, the same
 entities, judged by every free model — landed with full provenance and
 re-fittable forever.
 

@@ -65,11 +65,32 @@ const COOLDOWN_CAP: Duration = Duration::from_secs(6 * 3600);
 struct ExtraProviderSpec {
     name: String,
     base_url: String,
-    key_env: String,
+    /// Env var holding the lane's key. Absent = an unauthenticated local
+    /// engine (vLLM); freelane still sends a placeholder key so cardinald
+    /// never falls back to its OpenRouter key for the lane.
+    #[serde(default)]
+    key_env: Option<String>,
     rpm: u64,
     #[serde(default = "default_extra_concurrent")]
     concurrent_runs: usize,
+    /// Pacing off = a local engine that WANTS saturation (vLLM batching);
+    /// cardinald then runs the lane's requests with its normal retrying
+    /// gateway and no interval floor.
+    #[serde(default = "default_true")]
+    paced: bool,
+    /// Concurrent provider calls within one run (cardinald clamps 1..=16).
+    /// Keep 1 for rate-limited APIs; raise for local engines.
+    #[serde(default = "default_one")]
+    comparison_concurrency: usize,
     models: Vec<ExtraModelSpec>,
+}
+
+fn default_true() -> bool {
+    true
+}
+
+fn default_one() -> usize {
+    1
 }
 
 #[derive(Deserialize)]
@@ -172,6 +193,8 @@ struct Lane {
     key: Option<String>,
     rpm: u64,
     concurrent_runs: usize,
+    paced: bool,
+    comparison_concurrency: usize,
     models: Vec<String>,
     /// Parallel to `models` for extra lanes; `None` = shared lane bucket.
     per_model_daily: Option<Vec<f64>>,
@@ -182,8 +205,12 @@ impl Lane {
     /// at K×(60s/rpm), so the lane's combined floor stays at `rpm` no matter
     /// how many are actually in flight. cardinald validates intervals ≤ 60s;
     /// the clamp can push the combined floor slightly above `rpm` at high K,
-    /// where real model latency binds anyway.
+    /// where real model latency binds anyway. Unpaced lanes (local engines)
+    /// get no floor at all.
     fn interval_ms(&self) -> u64 {
+        if !self.paced {
+            return 0;
+        }
         (((60_000f64 * self.concurrent_runs as f64) / self.rpm as f64).ceil() as u64).min(60_000)
     }
 
@@ -515,9 +542,12 @@ async fn submit_cell(
         "privacy": "private",
         "owner_scope": config.owner_scope,
         "lens": axis.lens,
-        "comparison_concurrency": 1,
-        "min_request_interval_ms": lane.interval_ms(),
+        "comparison_concurrency": lane.comparison_concurrency,
     });
+    let interval_ms = lane.interval_ms();
+    if interval_ms > 0 {
+        body["min_request_interval_ms"] = json!(interval_ms);
+    }
     if let Some(base_url) = &lane.base_url {
         body["provider_base_url"] = json!(base_url);
     }
@@ -526,6 +556,10 @@ async fn submit_cell(
         .json(&body);
     if let Some(key) = &lane.key {
         request = request.header("x-provider-key", key);
+    } else if lane.base_url.is_some() {
+        // Keyless local engine: send a placeholder so cardinald never falls
+        // back to its OpenRouter key for this lane.
+        request = request.header("x-provider-key", "local-unauthenticated");
     }
     let response = request
         .send()
@@ -623,14 +657,20 @@ async fn main() {
 fn build_extra_lanes(config: &Config) -> Result<Vec<Lane>, String> {
     let mut lanes = Vec::with_capacity(config.extra_providers.len());
     for spec in &config.extra_providers {
-        let key = std::env::var(&spec.key_env)
-            .map_err(|_| format!("provider {} key env {} is unset", spec.name, spec.key_env))?;
+        let key = match &spec.key_env {
+            Some(key_env) => Some(std::env::var(key_env).map_err(|_| {
+                format!("provider {} key env {key_env} is unset", spec.name)
+            })?),
+            None => None,
+        };
         lanes.push(Lane {
             name: spec.name.clone(),
             base_url: Some(spec.base_url.clone()),
-            key: Some(key),
-            rpm: spec.rpm.clamp(1, 120),
+            key,
+            rpm: spec.rpm.clamp(1, 1200),
             concurrent_runs: spec.concurrent_runs.clamp(1, 12),
+            paced: spec.paced,
+            comparison_concurrency: spec.comparison_concurrency.clamp(1, 16),
             models: spec.models.iter().map(|m| m.slug.clone()).collect(),
             per_model_daily: Some(spec.models.iter().map(|m| m.daily).collect()),
         });
@@ -704,6 +744,8 @@ async fn drive() -> Result<(), String> {
             key: None,
             rpm: config.rpm,
             concurrent_runs: config.concurrent_runs,
+            paced: true,
+            comparison_concurrency: 1,
             models: openrouter_models,
             per_model_daily: None,
         }];
@@ -714,6 +756,8 @@ async fn drive() -> Result<(), String> {
                 key: spec_lane.key.clone(),
                 rpm: spec_lane.rpm,
                 concurrent_runs: spec_lane.concurrent_runs,
+                paced: spec_lane.paced,
+                comparison_concurrency: spec_lane.comparison_concurrency,
                 models: spec_lane.models.clone(),
                 per_model_daily: spec_lane.per_model_daily.clone(),
             });

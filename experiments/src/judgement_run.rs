@@ -163,8 +163,14 @@ impl NormalizedJudgementRunRequest {
             }
         }
         if let Some(url) = &self.provider_base_url {
-            if !url.starts_with("https://") {
-                return Err("provider_base_url must be an https URL".to_string());
+            let loopback_http = url.starts_with("http://127.0.0.1")
+                || url.starts_with("http://localhost")
+                || url.starts_with("http://[::1]");
+            if !url.starts_with("https://") && !loopback_http {
+                return Err(
+                    "provider_base_url must be https (or http on loopback for local engines)"
+                        .to_string(),
+                );
             }
         }
 
