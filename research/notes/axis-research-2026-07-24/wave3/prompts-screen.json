@@ -1,0 +1,6 @@
+{
+  "technologist_alpha_b": "expert-conditioned informational value - the fraction of this text a top practitioner in its field could not already reproduce: new mechanisms, numbers won from measurement, moves that enlarge the design space; fluent explainers of documented behavior and non-technical content alike rank at the bottom",
+  "technologist_alpha_c": "technical alpha - whether reading this gives a senior engineer an edge they did not have before: something true, useful, and not already circulating in the docs, the tutorials, or the field's common knowledge",
+  "scar_tissue_density": "scar_tissue_density - how much of the text's specificity is the kind only contact with the territory produces (failure modes, off-by-one costs, boring parameter values that plausible extrapolation would not generate)",
+  "live_wire_prose": "live_wire_prose - the texture reads as produced mid-act by someone bearing real obstacles: obsession-shaped specificity, contact with named difficulties, evidence of iterations already survived, rather than someone describing intentions"
+}

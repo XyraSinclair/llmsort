@@ -41,13 +41,32 @@ Orders (1-based items):
   standard documentation" clause is doing conditioning work, not just
   topic-gating.
 
+## Addendum (same day): phrasing coherence + costume screen
+
+Wordings in `wave3/prompts-screen.json`; same 12-item set.
+
+**Phrasing coherence** (rank ρ vs canonical wording, same model):
+`#b` ("expert-conditioned informational value") opus +0.769 / sol
++0.678; `#c` ("technical alpha … edge a senior engineer did not
+have") opus +0.748 / sol +0.818. All three wordings, both frontiers,
+put the same items top-3 ({1,4,7} in some order). The latent survives
+rewording — the PASS was not a wording artifact.
+
+**Costume screen** (opus46): ρ(alpha, scar_tissue_density) = +0.552;
+ρ(alpha, live_wire_prose) = +0.531. Not costumes. The discriminant is
+exactly the engineered splitter: item 8 (real war story, folklore
+lesson) ranks 2nd under both contact axes and 11th under alpha — a
+9-rank split — while item 4 (fsync measurement) tops all three axes,
+which is correct: measurement essays are high-contact AND high-alpha.
+Territory contact is evidence for alpha; priced-in-ness is what alpha
+subtracts and contact axes don't.
+
 ## Next
 
-1. Phrasing family `technologist_alpha#a/#b/#c` + framing battery, per
-   the AXIS_RESEARCH admission loop.
-2. Correlation screen against family 6 (scar_tissue_density,
-   live_wire_prose) and seedbank_fertility before minting siblings —
-   expert_surprisal and docs_transcendence are suspected costumes.
-3. Production run: land the axis via cardinald
-   (`lens=alpha`, `axis_key=technologist_alpha`) over a real corpus
-   slice; freelane lanes make volume free.
+1. Framing battery (order/label invariance) if full admission is
+   wanted before production; the three-wording family is already
+   sufficient for a lensed production run.
+2. Production run: land the axis via cardinald (`lens=alpha`,
+   `axis_key=technologist_alpha#a/#b/#c`) over a real corpus slice;
+   freelane lanes make volume free. Cross-phrasing rank agreement on
+   real data is the remaining admission evidence per AXIS_RESEARCH.

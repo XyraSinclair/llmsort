@@ -210,7 +210,11 @@ in `lens-e-alpha.md`; probe kit under `wave3/`.
   **PASS** (wave 3, T1+T2): fr↔fr 0.867, gap +0.357; frontier top-3 =
   the genuine-high set exactly; mini promotes the HN-register decoy and
   jargon depth, and ranks the competent-but-priced-in explainer dead
-  last (can't hold a middle value). See RESULTS-WAVE3.md.
+  last (can't hold a middle value). Same-day addendum: three-wording
+  phrasing family coherent (ρ 0.68–0.82, identical top-3), and NOT a
+  territory-contact costume — ρ vs scar_tissue_density +0.55, vs
+  live_wire_prose +0.53, with the folklore war story splitting 2nd vs
+  11th. See RESULTS-WAVE3.md.
 - `docs_transcendence` — the delta over the manual: content not
   recoverable from official docs and canonical tutorials. Confounder:
   subject obscurity. [paper] Suspected technologist_alpha costume.
