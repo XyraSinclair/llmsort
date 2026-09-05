@@ -33,7 +33,15 @@ server (`base_url` may be `http://127.0.0.1:…` — cardinald allows http on
 loopback only) with `key_env` omitted (freelane sends a placeholder key so
 cardinald never falls back to its OpenRouter key), `"paced": false` (vLLM
 wants saturation, not a floor) and `"comparison_concurrency"` raised
-(cardinald clamps at 16). A single local judge on one GPU sustains
+(cardinald clamps at 16). On unpaced lanes the one-run-per-judge cap does
+not apply — a single local judge may hold the lane's whole
+`concurrent_runs` budget, so in-flight requests scale as
+`concurrent_runs × comparison_concurrency`; size the serve's
+`--max-num-seqs` to match. The serve's `--max-model-len` must fit the
+prompt PLUS the pairwise output budget (8192 by default): vLLM rejects
+any request whose prompt + max_tokens exceeds the context, so a 16384
+context is the known-good shape (an 8192-context serve starves — every
+request fails validation and the judge cools down). A single local judge on one GPU sustains
 ~100k+ requests/day — two orders of magnitude over any hosted free tier —
 so local lanes drain the whole inventory in hours and the API lanes keep
 up with incremental refresh. The product is model-diverse priors: the same axes, the same
