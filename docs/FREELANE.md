@@ -69,10 +69,14 @@ cohort across all its axes; freelane takes the top
 `FREELANE_MAX_ENTITIES`. Catalog cells land private exactly like derived
 cells and never touch the public projection. Axis versions (`family#a`,
 `#b`, `#c` wordings of one construct) are deliberate: they are the
-wording-consistency instrument for judge qualification. Seed catalog:
-`experiments/data/catalog_axes_seed_2026-09-05.jsonl` (126 axes over
-lesswrong-posts / lesswrong-comments / manifund-proposals; cohorts of
-200 loaded from `forums.posts` and `scry_manifund.content`).
+wording-consistency instrument for judge qualification. The authored
+inventory lives in `experiments/data/catalog_axes_*.jsonl` (seed + b01–b10:
+2,002 axes — ~500 families × 4 wording modes: definitional, operational,
+counterfactual, auditor — over lesswrong-posts / lesswrong-comments /
+manifund-proposals; cohorts of 200 loaded from `forums.posts` and
+`scry_manifund.content`). Gunkel's ideonomy monograph lists (criteria for
+proof, generic concerns of questions, generic assumptions, generic evils)
+seeded many of the transmutations.
 
 ## The private-only invariant
 
