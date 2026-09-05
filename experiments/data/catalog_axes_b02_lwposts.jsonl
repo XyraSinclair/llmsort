@@ -1,0 +1,108 @@
+{"lens":"lesswrong-posts","axis_key":"explanatory-power#a","axis_prompt":"Explanatory power: how much previously-puzzling territory the post's central idea illuminates — diverse phenomena falling into place under one account."}
+{"lens":"lesswrong-posts","axis_key":"explanatory-power#b","axis_prompt":"Count what this post's thesis explains that rival accounts leave mysterious; breadth and depth of coverage score high."}
+{"lens":"lesswrong-posts","axis_key":"explanatory-power#c","axis_prompt":"If this post's core idea were true, how many open questions in its vicinity would suddenly have answers?"}
+{"lens":"lesswrong-posts","axis_key":"explanatory-power#d","axis_prompt":"Audit the explanation's reach: does it genuinely account for the phenomena claimed, or merely relabel them?"}
+{"lens":"lesswrong-posts","axis_key":"consilience#a","axis_prompt":"Consilience: independent lines of evidence — different methods, sources, disciplines — converge on the post's conclusion rather than one thread carrying everything."}
+{"lens":"lesswrong-posts","axis_key":"consilience#b","axis_prompt":"How many genuinely independent supports does the central claim rest on, and would it survive the loss of the strongest one?"}
+{"lens":"lesswrong-posts","axis_key":"consilience#c","axis_prompt":"If the post's favorite kind of evidence were ruled inadmissible, what remains? Multi-legged arguments score above one-legged ones."}
+{"lens":"lesswrong-posts","axis_key":"consilience#d","axis_prompt":"Audit for false independence: multiple citations that trace back to a single origin, dressed as convergence."}
+{"lens":"lesswrong-posts","axis_key":"elegance#a","axis_prompt":"Elegance: the idea achieves much with little — a small, clean principle organizing complexity without ad hoc patches or epicycles."}
+{"lens":"lesswrong-posts","axis_key":"elegance#b","axis_prompt":"Rate the machinery-to-output ratio: how simple is the post's core move relative to how much it accomplishes?"}
+{"lens":"lesswrong-posts","axis_key":"elegance#c","axis_prompt":"Would a mathematician call this idea beautiful — inevitable-seeming once seen, with nothing arbitrary bolted on?"}
+{"lens":"lesswrong-posts","axis_key":"elegance#d","axis_prompt":"Audit for epicycles: exceptions, special cases, and patches accumulating around a principle that wants to be simpler than it is."}
+{"lens":"lesswrong-posts","axis_key":"generality#a","axis_prompt":"Generality: the post's insight transfers — it applies across domains, scales, and contexts beyond the case that inspired it."}
+{"lens":"lesswrong-posts","axis_key":"generality#b","axis_prompt":"Test the idea in three distant domains; how well does it survive the journey without stretching into vacuity?"}
+{"lens":"lesswrong-posts","axis_key":"generality#c","axis_prompt":"Is this a theorem about one situation or a lemma the reader will reuse for years? Reusable scope scores higher."}
+{"lens":"lesswrong-posts","axis_key":"generality#d","axis_prompt":"Audit the claimed generality: does the idea really hold beyond its home case, or only with so many caveats it says nothing?"}
+{"lens":"lesswrong-posts","axis_key":"fundamentality#a","axis_prompt":"Fundamentality: the post works at the root — addressing the level of the problem from which surface manifestations actually flow."}
+{"lens":"lesswrong-posts","axis_key":"fundamentality#b","axis_prompt":"Does this post treat causes or symptoms? Rate how deep in the dependency tree its contribution operates."}
+{"lens":"lesswrong-posts","axis_key":"fundamentality#c","axis_prompt":"If the post's point were fully absorbed, how many derivative debates would become unnecessary?"}
+{"lens":"lesswrong-posts","axis_key":"fundamentality#d","axis_prompt":"Audit for depth theater: foundational language decorating an observation that is actually about surface detail."}
+{"lens":"lesswrong-posts","axis_key":"fecundity#a","axis_prompt":"Fecundity: the idea breeds — combining productively with other ideas, opening families of questions, spawning applications the author never imagined."}
+{"lens":"lesswrong-posts","axis_key":"fecundity#b","axis_prompt":"List the follow-on work this post makes possible: experiments, essays, tools, syntheses. Longer, realer lists score higher."}
+{"lens":"lesswrong-posts","axis_key":"fecundity#c","axis_prompt":"Cross this post's idea with five unrelated fields; how many crossings yield something alive?"}
+{"lens":"lesswrong-posts","axis_key":"fecundity#d","axis_prompt":"Audit for sterility: a neat conclusion that terminates thought — nothing to build, test, or extend."}
+{"lens":"lesswrong-posts","axis_key":"predictive-content#a","axis_prompt":"Predictive content: the post commits to things not yet observed — forecasts, retrodictions of unexamined data, implications that will be checkable."}
+{"lens":"lesswrong-posts","axis_key":"predictive-content#b","axis_prompt":"Extract every claim about the future or the unexamined; rate the post by their number, specificity, and daring."}
+{"lens":"lesswrong-posts","axis_key":"predictive-content#c","axis_prompt":"In five years, how clearly will we know whether this post was right? Posts that stake themselves score higher."}
+{"lens":"lesswrong-posts","axis_key":"predictive-content#d","axis_prompt":"Audit for unfalsifiable comfort: framings flexible enough to claim vindication under any outcome."}
+{"lens":"lesswrong-posts","axis_key":"parsimony#a","axis_prompt":"Parsimony: the post multiplies entities only under necessity — the fewest assumptions, mechanisms, and moving parts that honestly cover the phenomena."}
+{"lens":"lesswrong-posts","axis_key":"parsimony#b","axis_prompt":"Could a simpler story explain the same evidence? Rate how close this post's account is to the minimal sufficient one."}
+{"lens":"lesswrong-posts","axis_key":"parsimony#c","axis_prompt":"Strip the account to its load-bearing assumptions; how many of the post's postulates turn out decorative?"}
+{"lens":"lesswrong-posts","axis_key":"parsimony#d","axis_prompt":"Audit for complexity addiction: machinery added for sophistication's sake where a plain mechanism suffices."}
+{"lens":"lesswrong-posts","axis_key":"exactness#a","axis_prompt":"Exactness: claims are stated with the precision the subject allows — sharp where sharpness is possible, honestly rough where it is not."}
+{"lens":"lesswrong-posts","axis_key":"exactness#b","axis_prompt":"Rate the resolution of the post's statements: could two careful readers disagree about what was claimed?"}
+{"lens":"lesswrong-posts","axis_key":"exactness#c","axis_prompt":"Convert each thesis into a bet with settlement criteria; how little interpretive work does the conversion need?"}
+{"lens":"lesswrong-posts","axis_key":"exactness#d","axis_prompt":"Audit for strategic vagueness: fuzziness placed exactly where precision would expose the argument."}
+{"lens":"lesswrong-posts","axis_key":"metaphor-aptness#a","axis_prompt":"Metaphor aptness: figurative language earns its keep — images that transmit structure accurately, not ornaments that mislead."}
+{"lens":"lesswrong-posts","axis_key":"metaphor-aptness#b","axis_prompt":"For each metaphor, what does a reader correctly infer and what falsely? Positive balance of illumination scores high."}
+{"lens":"lesswrong-posts","axis_key":"metaphor-aptness#c","axis_prompt":"Would the post's images survive translation to a skeptical literal paraphrase, or does persuasion live in the imagery alone?"}
+{"lens":"lesswrong-posts","axis_key":"metaphor-aptness#d","axis_prompt":"Audit figurative passages for smuggled claims: conclusions carried by picture that were never argued in prose."}
+{"lens":"lesswrong-posts","axis_key":"narrative-integrity#a","axis_prompt":"Narrative integrity: where the post tells stories, the storytelling serves truth — sequence, emphasis, and selection remain faithful to what happened."}
+{"lens":"lesswrong-posts","axis_key":"narrative-integrity#b","axis_prompt":"Does narrative pull ever override accuracy — details heightened, timelines smoothed, complexity dropped for arc? Less distortion scores higher."}
+{"lens":"lesswrong-posts","axis_key":"narrative-integrity#c","axis_prompt":"If the participants in this post's anecdotes read them, would they recognize events as told?"}
+{"lens":"lesswrong-posts","axis_key":"narrative-integrity#d","axis_prompt":"Audit for narrative convenience: the story beats land suspiciously well for the argument's needs."}
+{"lens":"lesswrong-posts","axis_key":"humor-effectiveness#a","axis_prompt":"Humor effectiveness: wit that sharpens rather than substitutes — jokes that encode real insight and keep the reader thinking."}
+{"lens":"lesswrong-posts","axis_key":"humor-effectiveness#b","axis_prompt":"Remove the humor; does the argument lose only charm, or does a joke turn out to have been doing a proof's job?"}
+{"lens":"lesswrong-posts","axis_key":"humor-effectiveness#c","axis_prompt":"Rate the comedy as cognition: does each laugh mark a genuine incongruity in the subject, teaching while it entertains?"}
+{"lens":"lesswrong-posts","axis_key":"humor-effectiveness#d","axis_prompt":"Audit for sneer disguised as wit: humor whose function is status positioning rather than illumination."}
+{"lens":"lesswrong-posts","axis_key":"opening-strength#a","axis_prompt":"Opening strength: the first paragraphs earn the read — stating the stakes and the claim honestly, hooking without bait-and-switch."}
+{"lens":"lesswrong-posts","axis_key":"opening-strength#b","axis_prompt":"After the opening, does the reader know what is being claimed and why it matters — and does the rest deliver what the opening sold?"}
+{"lens":"lesswrong-posts","axis_key":"opening-strength#c","axis_prompt":"Rate the contract the first 150 words offer: clear promise, honest scope, real pull."}
+{"lens":"lesswrong-posts","axis_key":"opening-strength#d","axis_prompt":"Audit the hook: does the intro overpromise, bury the thesis, or waste the reader's orientation budget?"}
+{"lens":"lesswrong-posts","axis_key":"structural-clarity#a","axis_prompt":"Structural clarity: the post's architecture is visible and load-bearing — sections that carve the argument at its joints, order that mirrors the logic."}
+{"lens":"lesswrong-posts","axis_key":"structural-clarity#b","axis_prompt":"Could a reader draw this post's outline from memory after one read, and would that outline reproduce the argument?"}
+{"lens":"lesswrong-posts","axis_key":"structural-clarity#c","axis_prompt":"Rate the navigability: a reader seeking one specific point finds it fast, because the structure told them where it lives."}
+{"lens":"lesswrong-posts","axis_key":"structural-clarity#d","axis_prompt":"Audit for structure theater: headings and numbered lists imposed on prose whose actual logic runs elsewhere."}
+{"lens":"lesswrong-posts","axis_key":"ending-strength#a","axis_prompt":"Ending strength: the post lands — conclusions that consolidate what was established, name what remains open, and leave the reader knowing what to carry away."}
+{"lens":"lesswrong-posts","axis_key":"ending-strength#b","axis_prompt":"Compare the ending against the body: does it claim exactly what was earned, neither deflating nor inflating the result?"}
+{"lens":"lesswrong-posts","axis_key":"ending-strength#c","axis_prompt":"A week later, the reader remembers one takeaway; did the ending choose and sharpen that takeaway deliberately?"}
+{"lens":"lesswrong-posts","axis_key":"ending-strength#d","axis_prompt":"Audit for trailing off: endings that evaporate into vagueness, or pivot to a grander claim the post never supported."}
+{"lens":"lesswrong-posts","axis_key":"title-honesty#a","axis_prompt":"Title honesty: the title makes a claim the post actually cashes — accurate scope, no clickbait inflation, memorable for the right reason."}
+{"lens":"lesswrong-posts","axis_key":"title-honesty#b","axis_prompt":"After reading, does the title feel like a fair summary or a lure? Titles the content vindicates score high."}
+{"lens":"lesswrong-posts","axis_key":"title-honesty#c","axis_prompt":"If titles were legally binding promises, would this post be in breach?"}
+{"lens":"lesswrong-posts","axis_key":"title-honesty#d","axis_prompt":"Audit the gap between what the title implies and what the strongest sentence in the post can support."}
+{"lens":"lesswrong-posts","axis_key":"discourse-elevation#a","axis_prompt":"Discourse elevation: the post raises the level of conversation around its topic — modeling norms, supplying vocabulary, and making better arguments easier for everyone after it."}
+{"lens":"lesswrong-posts","axis_key":"discourse-elevation#b","axis_prompt":"Compare the discussions this post enables with those before it: cleaner distinctions, less talking past, higher floor?"}
+{"lens":"lesswrong-posts","axis_key":"discourse-elevation#c","axis_prompt":"Rate this post as infrastructure: how much do later writers stand on its terms, framings, and standards?"}
+{"lens":"lesswrong-posts","axis_key":"discourse-elevation#d","axis_prompt":"Audit its discourse effects: does the framing invite tribal sorting and dunking, or genuinely collaborative truth-seeking?"}
+{"lens":"lesswrong-posts","axis_key":"polarization-resistance#a","axis_prompt":"Polarization resistance: the post handles charged territory without feeding tribal machinery — readers across camps can engage its claims on the merits."}
+{"lens":"lesswrong-posts","axis_key":"polarization-resistance#b","axis_prompt":"Could partisans of both sides read this post and each feel their strongest points were addressed rather than caricatured?"}
+{"lens":"lesswrong-posts","axis_key":"polarization-resistance#c","axis_prompt":"Rate the post's effect on a heated reader: does it lower the temperature while raising the information content?"}
+{"lens":"lesswrong-posts","axis_key":"polarization-resistance#d","axis_prompt":"Audit for applause lines: passages whose function is to signal team membership rather than advance the argument."}
+{"lens":"lesswrong-posts","axis_key":"common-knowledge-creation#a","axis_prompt":"Common-knowledge creation: the post says clearly what many privately suspected — converting scattered private understanding into shared, citable ground."}
+{"lens":"lesswrong-posts","axis_key":"common-knowledge-creation#b","axis_prompt":"Before this post, could people act on this understanding openly? Rate how much the post's public statement changed what is discussable."}
+{"lens":"lesswrong-posts","axis_key":"common-knowledge-creation#c","axis_prompt":"How often would this post be linked as the canonical statement — 'the thing everyone points to' — for its idea?"}
+{"lens":"lesswrong-posts","axis_key":"common-knowledge-creation#d","axis_prompt":"Audit the claim to novelty of publicity: was this already common knowledge, or did saying it publicly do real coordination work?"}
+{"lens":"lesswrong-posts","axis_key":"prestige-independence#a","axis_prompt":"Prestige independence: the argument stands without borrowed authority — persuading through content rather than name-dropping, credentials, or fashion."}
+{"lens":"lesswrong-posts","axis_key":"prestige-independence#b","axis_prompt":"Strip every appeal to status — famous names, institutional weight, community standing; how much persuasive force remains?"}
+{"lens":"lesswrong-posts","axis_key":"prestige-independence#c","axis_prompt":"Would this post convince a smart outsider who recognizes none of the names and owes the community nothing?"}
+{"lens":"lesswrong-posts","axis_key":"prestige-independence#d","axis_prompt":"Audit for authority laundering: contested claims passed off as settled by citing high-status endorsement instead of evidence."}
+{"lens":"lesswrong-posts","axis_key":"self-critique-depth#a","axis_prompt":"Self-critique depth: the post's 'weaknesses of this argument' section names the actual weaknesses — the objections a hostile expert would raise, not decoys."}
+{"lens":"lesswrong-posts","axis_key":"self-critique-depth#b","axis_prompt":"Compare the post's self-listed caveats with the best external critique you can construct; how much overlap?"}
+{"lens":"lesswrong-posts","axis_key":"self-critique-depth#c","axis_prompt":"Did the author find their argument's soft spots first, or leave them for commenters to discover?"}
+{"lens":"lesswrong-posts","axis_key":"self-critique-depth#d","axis_prompt":"Audit for decoy caveats: minor concessions displayed prominently while the fatal objection goes unmentioned."}
+{"lens":"lesswrong-posts","axis_key":"practical-wisdom#a","axis_prompt":"Practical wisdom: advice and implications that would actually work for a real person in a real situation — tested against friction, incentives, and human limits."}
+{"lens":"lesswrong-posts","axis_key":"practical-wisdom#b","axis_prompt":"Follow this post's advice literally for a month; rate the expected outcome for a median reader, not an idealized one."}
+{"lens":"lesswrong-posts","axis_key":"practical-wisdom#c","axis_prompt":"Does the author show awareness of implementation reality — costs, relapse, edge cases, second-order effects — or prescribe from the whiteboard?"}
+{"lens":"lesswrong-posts","axis_key":"practical-wisdom#d","axis_prompt":"Audit recommendations for survivorship and selection: advice that worked for the author for reasons that do not transfer."}
+{"lens":"lesswrong-posts","axis_key":"error-cost-awareness#a","axis_prompt":"Error-cost awareness: the post weighs the asymmetry of being wrong in each direction — which mistake is recoverable, which catastrophic — and shapes its recommendation accordingly."}
+{"lens":"lesswrong-posts","axis_key":"error-cost-awareness#b","axis_prompt":"Does the analysis distinguish cheap reversible errors from expensive irreversible ones, or treat all wrongness as equal?"}
+{"lens":"lesswrong-posts","axis_key":"error-cost-awareness#c","axis_prompt":"If the post's advice is wrong, what breaks and can it be unbroken? Rate the post's own engagement with that question."}
+{"lens":"lesswrong-posts","axis_key":"error-cost-awareness#d","axis_prompt":"Audit for expected-value tunnel vision: means optimized while variance and ruin risk go unpriced."}
+{"lens":"lesswrong-posts","axis_key":"intellectual-lineage#a","axis_prompt":"Intellectual lineage: the post knows what came before — situating its contribution against prior work honestly, crediting sources, and marking what is genuinely new."}
+{"lens":"lesswrong-posts","axis_key":"intellectual-lineage#b","axis_prompt":"Rate the scholarship: does the author know this idea's history well enough to say precisely which part is theirs?"}
+{"lens":"lesswrong-posts","axis_key":"intellectual-lineage#c","axis_prompt":"A historian of this topic reads the post; do they nod at its account of predecessors or wince at reinvention presented as discovery?"}
+{"lens":"lesswrong-posts","axis_key":"intellectual-lineage#d","axis_prompt":"Audit for wheel-reinvention and unearned novelty claims: prior art that a half-hour search would have surfaced."}
+{"lens":"lesswrong-posts","axis_key":"asymmetric-insight#a","axis_prompt":"Asymmetric insight: the post reveals something its subjects or opponents could not easily articulate about themselves — understanding that runs deeper than the self-account."}
+{"lens":"lesswrong-posts","axis_key":"asymmetric-insight#b","axis_prompt":"Does the post's model of the people or systems it analyzes predict their behavior better than their own stated reasons do?"}
+{"lens":"lesswrong-posts","axis_key":"asymmetric-insight#c","axis_prompt":"Rate the X-ray quality: seeing structure through surfaces — while remaining fair, not just uncharitably clever."}
+{"lens":"lesswrong-posts","axis_key":"asymmetric-insight#d","axis_prompt":"Audit for pathologizing: 'insight' into others that is really just an insulting redescription with no predictive surplus."}
+{"lens":"lesswrong-posts","axis_key":"conceptual-innovation#a","axis_prompt":"Conceptual innovation: the post coins or crystallizes a concept — a handle that names something real which previously had no name."}
+{"lens":"lesswrong-posts","axis_key":"conceptual-innovation#b","axis_prompt":"Does this post's new term carve reality at a joint, such that once you have it you see its referent everywhere?"}
+{"lens":"lesswrong-posts","axis_key":"conceptual-innovation#c","axis_prompt":"Five years on, are people using this post's vocabulary without remembering where it came from? Rate that potential."}
+{"lens":"lesswrong-posts","axis_key":"conceptual-innovation#d","axis_prompt":"Audit the coinage: a real joint-carving concept, or a rebranding of an existing idea for attribution's sake?"}
+{"lens":"lesswrong-posts","axis_key":"error-correction-grace#a","axis_prompt":"Error-correction grace: where the post responds to critique or corrects itself, it does so cleanly — swift acknowledgment, no defensiveness, visible repair."}
+{"lens":"lesswrong-posts","axis_key":"error-correction-grace#b","axis_prompt":"Rate how the author metabolizes being wrong: corrections integrated and flagged, or buried in edits and grudging footnotes?"}
+{"lens":"lesswrong-posts","axis_key":"error-correction-grace#c","axis_prompt":"If a fatal flaw were found tomorrow, does this author's track record in the post suggest honest retraction or motivated defense?"}
+{"lens":"lesswrong-posts","axis_key":"error-correction-grace#d","axis_prompt":"Audit correction behavior: strike-throughs and updates that preserve the record versus silent rewrites that erase the mistake."}

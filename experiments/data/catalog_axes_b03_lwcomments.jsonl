@@ -1,0 +1,124 @@
+{"lens":"lesswrong-comments","axis_key":"question-quality#a","axis_prompt":"Question quality: where the comment asks, it asks well — questions that expose the load-bearing uncertainty, answerable in principle, aimed at the crux rather than the periphery."}
+{"lens":"lesswrong-comments","axis_key":"question-quality#b","axis_prompt":"Rate each question in the comment by what a good answer would unlock: does answering it actually move the discussion?"}
+{"lens":"lesswrong-comments","axis_key":"question-quality#c","axis_prompt":"If the author answered this comment's question fully, would the original post become importantly better or clearer?"}
+{"lens":"lesswrong-comments","axis_key":"question-quality#d","axis_prompt":"Audit the questions: rhetorical gotchas and unanswerable demands dressed as inquiry score low; genuine information-seeking scores high."}
+{"lens":"lesswrong-comments","axis_key":"answer-completeness#a","axis_prompt":"Answer completeness: where the comment answers a question, it answers the question actually asked — fully, directly, without substituting an easier one."}
+{"lens":"lesswrong-comments","axis_key":"answer-completeness#b","axis_prompt":"Compare the question upstream with this comment's answer: how much of the asked territory is actually covered?"}
+{"lens":"lesswrong-comments","axis_key":"answer-completeness#c","axis_prompt":"Would the asker say 'that answered my question' — or 'that answered a different question'?"}
+{"lens":"lesswrong-comments","axis_key":"answer-completeness#d","axis_prompt":"Audit for question substitution: an eloquent reply to a strawmanned or simplified version of what was asked."}
+{"lens":"lesswrong-comments","axis_key":"thread-advancement#a","axis_prompt":"Thread advancement: the comment moves the conversation forward — the thread after it is somewhere new, not circling the same positions."}
+{"lens":"lesswrong-comments","axis_key":"thread-advancement#b","axis_prompt":"Diff the discussion state before and after this comment: what claim, distinction, or evidence exists now that didn't?"}
+{"lens":"lesswrong-comments","axis_key":"thread-advancement#c","axis_prompt":"Delete this comment from the thread; does the ensuing conversation lose a turning point or nothing?"}
+{"lens":"lesswrong-comments","axis_key":"thread-advancement#d","axis_prompt":"Audit for restatement: positions already established, repeated with fresh wording and no new content."}
+{"lens":"lesswrong-comments","axis_key":"generous-reading#a","axis_prompt":"Generous reading: the comment engages the strongest reasonable interpretation of what it responds to, repairing ambiguity in the original's favor before disagreeing."}
+{"lens":"lesswrong-comments","axis_key":"generous-reading#b","axis_prompt":"Compare the position this comment attacks with the position actually written; how faithful is the reconstruction?"}
+{"lens":"lesswrong-comments","axis_key":"generous-reading#c","axis_prompt":"Would the original author endorse this comment's summary of their view as accurate or better than their own phrasing?"}
+{"lens":"lesswrong-comments","axis_key":"generous-reading#d","axis_prompt":"Audit for weakest-reading attacks: ambiguity resolved uncharitably so there is something easy to refute."}
+{"lens":"lesswrong-comments","axis_key":"error-spotting#a","axis_prompt":"Error spotting: the comment identifies a genuine mistake in the parent — factual, logical, or mathematical — precisely enough that the fix is clear."}
+{"lens":"lesswrong-comments","axis_key":"error-spotting#b","axis_prompt":"Verify the claimed error: is the thing flagged actually wrong, and is the flag specific enough to act on?"}
+{"lens":"lesswrong-comments","axis_key":"error-spotting#c","axis_prompt":"If the author accepted this correction, how much of the original argument would need repair? Real load-bearing catches score highest."}
+{"lens":"lesswrong-comments","axis_key":"error-spotting#d","axis_prompt":"Audit the correction: pedantry about irrelevant slips scores low; a wrong 'correction' scores lowest of all."}
+{"lens":"lesswrong-comments","axis_key":"evidence-contribution#a","axis_prompt":"Evidence contribution: the comment brings data to the table — citations, numbers, firsthand observations, links — that bear on the question at issue."}
+{"lens":"lesswrong-comments","axis_key":"evidence-contribution#b","axis_prompt":"List what checkable material this comment adds; rate its relevance and reliability, not just its volume."}
+{"lens":"lesswrong-comments","axis_key":"evidence-contribution#c","axis_prompt":"Before this comment the thread had opinions; after it, does the thread have facts?"}
+{"lens":"lesswrong-comments","axis_key":"evidence-contribution#d","axis_prompt":"Audit the evidence: cherry-picked, outdated, or misread sources presented as decisive score against the comment."}
+{"lens":"lesswrong-comments","axis_key":"counterargument-force#a","axis_prompt":"Counterargument force: where the comment disagrees, the objection has real teeth — it targets a premise the argument needs and would change the conclusion if it lands."}
+{"lens":"lesswrong-comments","axis_key":"counterargument-force#b","axis_prompt":"Trace the objection to the parent's structure: which premise does it hit, and does the conclusion actually depend on that premise?"}
+{"lens":"lesswrong-comments","axis_key":"counterargument-force#c","axis_prompt":"If this objection is right, what must the original author give up? Objections that force real concessions score high."}
+{"lens":"lesswrong-comments","axis_key":"counterargument-force#d","axis_prompt":"Audit for peripheral sniping: objections to examples, tone, or side remarks presented as if they touched the thesis."}
+{"lens":"lesswrong-comments","axis_key":"concession-honesty#a","axis_prompt":"Concession honesty: the commenter grants points against their own position openly — 'you're right about X' appears where X is in fact right."}
+{"lens":"lesswrong-comments","axis_key":"concession-honesty#b","axis_prompt":"Count the points the commenter should concede given the thread's evidence, versus the points they do concede."}
+{"lens":"lesswrong-comments","axis_key":"concession-honesty#c","axis_prompt":"Does this commenter treat losing a sub-point as information gained or as territory to defend?"}
+{"lens":"lesswrong-comments","axis_key":"concession-honesty#d","axis_prompt":"Audit for concession theater: granting trivia loudly while the real hit goes unacknowledged."}
+{"lens":"lesswrong-comments","axis_key":"scope-tracking#a","axis_prompt":"Scope tracking: the comment keeps quantifiers and scope straight — noticing when 'some' became 'all', when a local claim was answered with a global one."}
+{"lens":"lesswrong-comments","axis_key":"scope-tracking#b","axis_prompt":"Check each claim-response pair this comment participates in: do the scopes match, and does the comment repair mismatches or create them?"}
+{"lens":"lesswrong-comments","axis_key":"scope-tracking#c","axis_prompt":"Rate the comment's precision about how much is being claimed: for whom, under what conditions, how often."}
+{"lens":"lesswrong-comments","axis_key":"scope-tracking#d","axis_prompt":"Audit for scope creep: the comment quietly enlarges or shrinks the parent's claim to make its own point easier."}
+{"lens":"lesswrong-comments","axis_key":"tone-craft#a","axis_prompt":"Tone craft: firmness without heat — the comment can deliver hard disagreement in a register that keeps the recipient able to hear it."}
+{"lens":"lesswrong-comments","axis_key":"tone-craft#b","axis_prompt":"Imagine receiving this comment about your own work: does its manner invite engagement or trigger defense?"}
+{"lens":"lesswrong-comments","axis_key":"tone-craft#c","axis_prompt":"Rate the separation of person from position: critique lands on the argument while the author remains respected."}
+{"lens":"lesswrong-comments","axis_key":"tone-craft#d","axis_prompt":"Audit for polish over substance: perfect politeness wrapping an empty or evasive reply is not tone craft."}
+{"lens":"lesswrong-comments","axis_key":"brevity-efficiency#a","axis_prompt":"Brevity efficiency: maximal contribution per word — the comment says what it has to say and stops."}
+{"lens":"lesswrong-comments","axis_key":"brevity-efficiency#b","axis_prompt":"Compress this comment to half length; how much content survives? High scores lose nothing because there was no padding."}
+{"lens":"lesswrong-comments","axis_key":"brevity-efficiency#c","axis_prompt":"Rate the reader's return on time invested: seconds spent versus understanding gained."}
+{"lens":"lesswrong-comments","axis_key":"brevity-efficiency#d","axis_prompt":"Audit for throat-clearing, recaps of what everyone read, and closing paragraphs that restate the opening."}
+{"lens":"lesswrong-comments","axis_key":"source-provision#a","axis_prompt":"Source provision: claims that need backing get it — links, citations, or pointers supplied unprompted, accurately representing what they contain."}
+{"lens":"lesswrong-comments","axis_key":"source-provision#b","axis_prompt":"For each factual claim, is there a trail a skeptic could follow? Rate the density and honesty of the trail."}
+{"lens":"lesswrong-comments","axis_key":"source-provision#c","axis_prompt":"Follow this comment's links: does each one actually say what the comment claims it says?"}
+{"lens":"lesswrong-comments","axis_key":"source-provision#d","axis_prompt":"Audit for citation bluffing: impressive-looking references that are irrelevant, misquoted, or clearly unread."}
+{"lens":"lesswrong-comments","axis_key":"distinction-drawing#a","axis_prompt":"Distinction drawing: the comment introduces a distinction that dissolves confusion — two things the thread was treating as one, now cleanly separated."}
+{"lens":"lesswrong-comments","axis_key":"distinction-drawing#b","axis_prompt":"Does the comment's distinction do work — resolving apparent disagreement or exposing real disagreement previously hidden?"}
+{"lens":"lesswrong-comments","axis_key":"distinction-drawing#c","axis_prompt":"After this comment, can the thread stop arguing about a conflation? Rate the untangling achieved."}
+{"lens":"lesswrong-comments","axis_key":"distinction-drawing#d","axis_prompt":"Audit for distinction inflation: hair-splitting that multiplies terms without changing any conclusion."}
+{"lens":"lesswrong-comments","axis_key":"assumption-surfacing#a","axis_prompt":"Assumption surfacing: the comment names the unstated premise doing the work — the background belief the parent needs but never argued."}
+{"lens":"lesswrong-comments","axis_key":"assumption-surfacing#b","axis_prompt":"Verify the surfaced assumption: does the parent argument really depend on it, and was it really unstated?"}
+{"lens":"lesswrong-comments","axis_key":"assumption-surfacing#c","axis_prompt":"If the surfaced assumption were denied, would the parent's conclusion fall? Real dependencies score high."}
+{"lens":"lesswrong-comments","axis_key":"assumption-surfacing#d","axis_prompt":"Audit for assumption invention: attributing hidden premises the argument never needed, to have something to attack."}
+{"lens":"lesswrong-comments","axis_key":"misreading-avoidance#a","axis_prompt":"Misreading avoidance: the comment demonstrably read what it replies to — details, qualifications, and structure of the parent are reflected accurately."}
+{"lens":"lesswrong-comments","axis_key":"misreading-avoidance#b","axis_prompt":"Check the comment against the parent text: does it respond to what was written or to what it expected to be written?"}
+{"lens":"lesswrong-comments","axis_key":"misreading-avoidance#c","axis_prompt":"Rate how much of this reply survives contact with a careful reread of the parent."}
+{"lens":"lesswrong-comments","axis_key":"misreading-avoidance#d","axis_prompt":"Audit for pattern-matched replies: the comment answers the genre of the parent, not its content."}
+{"lens":"lesswrong-comments","axis_key":"derailment-resistance#a","axis_prompt":"Derailment resistance: the comment keeps the thread on its question — declining tangents, returning digressions to the point, staying with the hard part."}
+{"lens":"lesswrong-comments","axis_key":"derailment-resistance#b","axis_prompt":"Map the thread's topic before and after: does this comment hold the line of inquiry or bend it toward easier ground?"}
+{"lens":"lesswrong-comments","axis_key":"derailment-resistance#c","axis_prompt":"When the discussion approached the genuinely difficult point, did this comment lean in or change the subject?"}
+{"lens":"lesswrong-comments","axis_key":"derailment-resistance#d","axis_prompt":"Audit for topic-shifting under pressure: the pivot to a new complaint precisely when the current one was answered."}
+{"lens":"lesswrong-comments","axis_key":"status-neutrality#a","axis_prompt":"Status neutrality: the comment plays no status games — no dominance moves, no condescension, no fishing for applause; attention stays on the question."}
+{"lens":"lesswrong-comments","axis_key":"status-neutrality#b","axis_prompt":"Strip the comment of its social moves; how much of it was information and how much was positioning?"}
+{"lens":"lesswrong-comments","axis_key":"status-neutrality#c","axis_prompt":"Would this comment read the same if the parent's author were high-status versus anonymous? Rate the symmetry."}
+{"lens":"lesswrong-comments","axis_key":"status-neutrality#d","axis_prompt":"Audit for one-upmanship: displays of superior knowledge whose function is ranking, not helping."}
+{"lens":"lesswrong-comments","axis_key":"comment-wit#a","axis_prompt":"Comment wit: humor that carries insight in compressed form — the joke is also the point, and the thread is smarter for laughing."}
+{"lens":"lesswrong-comments","axis_key":"comment-wit#b","axis_prompt":"Paraphrase the joke as a literal claim; is there a real observation inside, and is it right?"}
+{"lens":"lesswrong-comments","axis_key":"comment-wit#c","axis_prompt":"Rate the wit's precision: does the humor target the actual weak point of the idea, or just its author?"}
+{"lens":"lesswrong-comments","axis_key":"comment-wit#d","axis_prompt":"Audit for empty snark: humor that spends the thread's goodwill and leaves nothing behind."}
+{"lens":"lesswrong-comments","axis_key":"followup-generosity#a","axis_prompt":"Follow-up generosity: the commenter stays in the conversation — returning to answer replies, clarify, and close loops they opened rather than posting and vanishing."}
+{"lens":"lesswrong-comments","axis_key":"followup-generosity#b","axis_prompt":"Does the comment leave hooks it commits to honoring — 'I'll check', 'happy to expand' — and language showing the author expects to engage with responses?"}
+{"lens":"lesswrong-comments","axis_key":"followup-generosity#c","axis_prompt":"Rate the comment as a conversation partner: does it invite and structure a productive reply, or terminate exchange?"}
+{"lens":"lesswrong-comments","axis_key":"followup-generosity#d","axis_prompt":"Audit for drive-by shape: strong claims fired with no indication the author will stand behind them when questioned."}
+{"lens":"lesswrong-comments","axis_key":"quote-fidelity#a","axis_prompt":"Quote fidelity: quoted or paraphrased material matches its source — context preserved, ellipses honest, emphasis marked, meaning intact."}
+{"lens":"lesswrong-comments","axis_key":"quote-fidelity#b","axis_prompt":"Compare each quotation with what the quoted party wrote; rate the distortion introduced by selection and framing."}
+{"lens":"lesswrong-comments","axis_key":"quote-fidelity#c","axis_prompt":"Would the person quoted say 'yes, that's what I meant, in context'?"}
+{"lens":"lesswrong-comments","axis_key":"quote-fidelity#d","axis_prompt":"Audit for surgical quoting: fragments extracted to reverse or exaggerate the source's actual position."}
+{"lens":"lesswrong-comments","axis_key":"nitpick-proportion#a","axis_prompt":"Nitpick proportion: critique effort tracks importance — the comment spends its words on what matters most, not on the most easily attacked."}
+{"lens":"lesswrong-comments","axis_key":"nitpick-proportion#b","axis_prompt":"Rank the parent's flaws by importance; does this comment's attention allocation match that ranking?"}
+{"lens":"lesswrong-comments","axis_key":"nitpick-proportion#c","axis_prompt":"Rate the ratio of central critique to peripheral correction: is a typo getting a paragraph while the thesis goes unexamined?"}
+{"lens":"lesswrong-comments","axis_key":"nitpick-proportion#d","axis_prompt":"Audit for proxy warfare: swarming small errors as a substitute for engaging an argument the commenter can't refute."}
+{"lens":"lesswrong-comments","axis_key":"synthesis-contribution#a","axis_prompt":"Synthesis contribution: the comment integrates the thread — reconciling positions, summarizing the true state of disagreement, naming what has been established and what remains."}
+{"lens":"lesswrong-comments","axis_key":"synthesis-contribution#b","axis_prompt":"Check the synthesis against the thread: does every party's actual position survive intact in the summary?"}
+{"lens":"lesswrong-comments","axis_key":"synthesis-contribution#c","axis_prompt":"Could a newcomer read only this comment and correctly understand where the discussion stands?"}
+{"lens":"lesswrong-comments","axis_key":"synthesis-contribution#d","axis_prompt":"Audit for false balance and premature closure: a 'both sides' summary that flattens a disagreement one side was winning."}
+{"lens":"lesswrong-comments","axis_key":"claim-calibration#a","axis_prompt":"Claim calibration: the comment's confidence tracks its evidence — strong words for strong support, hedges where the ground is soft, and the difference is visible."}
+{"lens":"lesswrong-comments","axis_key":"claim-calibration#b","axis_prompt":"For each assertion, compare the confidence expressed with the support offered; rate the alignment."}
+{"lens":"lesswrong-comments","axis_key":"claim-calibration#c","axis_prompt":"If this commenter bet real money at the odds their language implies, would they be rich or poor?"}
+{"lens":"lesswrong-comments","axis_key":"claim-calibration#d","axis_prompt":"Audit for confidence theater: certainty as a rhetorical weapon on claims the commenter couldn't defend under questioning."}
+{"lens":"lesswrong-comments","axis_key":"disagreement-decomposition#a","axis_prompt":"Disagreement decomposition: the comment breaks a dispute into its parts — separating factual, definitional, and value disagreements so each can be addressed by its own method."}
+{"lens":"lesswrong-comments","axis_key":"disagreement-decomposition#b","axis_prompt":"Does the comment correctly identify what KIND of disagreement is occurring, and does that identification change how the thread proceeds?"}
+{"lens":"lesswrong-comments","axis_key":"disagreement-decomposition#c","axis_prompt":"After this comment, do the parties know which sub-question they actually differ on?"}
+{"lens":"lesswrong-comments","axis_key":"disagreement-decomposition#d","axis_prompt":"Audit the decomposition: mislabeling a value clash as a factual one (or vice versa) sends the thread down the wrong road."}
+{"lens":"lesswrong-comments","axis_key":"novel-consideration#a","axis_prompt":"Novel consideration: the comment introduces a factor nobody upstream had weighed — a mechanism, stakeholder, precedent, or failure mode absent from the discussion."}
+{"lens":"lesswrong-comments","axis_key":"novel-consideration#b","axis_prompt":"Verify novelty against the thread: was this consideration genuinely missing, and does it bear on the conclusion?"}
+{"lens":"lesswrong-comments","axis_key":"novel-consideration#c","axis_prompt":"Does the new consideration change anyone's bottom line, or is it novel but weightless?"}
+{"lens":"lesswrong-comments","axis_key":"novel-consideration#d","axis_prompt":"Audit for exotic irrelevance: surprising facts imported for effect that connect to nothing at issue."}
+{"lens":"lesswrong-comments","axis_key":"practical-addition#a","axis_prompt":"Practical addition: the comment converts discussion into usable instruction — a concrete method, tool, number, or step the reader can apply."}
+{"lens":"lesswrong-comments","axis_key":"practical-addition#b","axis_prompt":"Extract the actionable content: could a reader do something differently tomorrow because of this comment, and would it work?"}
+{"lens":"lesswrong-comments","axis_key":"practical-addition#c","axis_prompt":"Rate the specificity of the practical content: named tools and numbers beat 'consider trying to be more careful'."}
+{"lens":"lesswrong-comments","axis_key":"practical-addition#d","axis_prompt":"Audit the advice for tested-ness: has the commenter plausibly done this themselves, or is it armchair prescription?"}
+{"lens":"lesswrong-comments","axis_key":"cliche-resistance#a","axis_prompt":"Cliché resistance: the comment thinks rather than recites — no thought-terminating catchphrases, no community slogans deployed as arguments."}
+{"lens":"lesswrong-comments","axis_key":"cliche-resistance#b","axis_prompt":"Count the load-bearing uses of stock phrases and jargon-as-argument; fewer, with real reasoning in their place, scores higher."}
+{"lens":"lesswrong-comments","axis_key":"cliche-resistance#c","axis_prompt":"Replace each slogan in the comment with its explicit argument; does the comment still hold, or was the slogan hiding a gap?"}
+{"lens":"lesswrong-comments","axis_key":"cliche-resistance#d","axis_prompt":"Audit for applause-light phrases: words that feel like conclusions but assert nothing checkable."}
+{"lens":"lesswrong-comments","axis_key":"teaching-quality#a","axis_prompt":"Teaching quality: where the comment explains, it teaches well — meeting the asker at their level, building from what they know, checking the explanation actually landed."}
+{"lens":"lesswrong-comments","axis_key":"teaching-quality#b","axis_prompt":"Rate the explanation for a reader one level below the thread: do they come away understanding, or nodding without understanding?"}
+{"lens":"lesswrong-comments","axis_key":"teaching-quality#c","axis_prompt":"Does the explanation choose the right level of abstraction and the right example, or dump everything the explainer knows?"}
+{"lens":"lesswrong-comments","axis_key":"teaching-quality#d","axis_prompt":"Audit for curse-of-knowledge failures: steps obvious to the writer silently skipped, jargon undefined, the hard part waved through."}
+{"lens":"lesswrong-comments","axis_key":"self-correction#a","axis_prompt":"Self-correction: within the thread, the commenter updates visibly — editing with acknowledgment, retracting cleanly, and marking what changed their mind."}
+{"lens":"lesswrong-comments","axis_key":"self-correction#b","axis_prompt":"Given the counter-evidence visible in the thread, did this commenter update the amount the evidence warranted?"}
+{"lens":"lesswrong-comments","axis_key":"self-correction#c","axis_prompt":"Rate the cost this commenter visibly pays to be accurate: admitting error in public, against their own earlier confident statement."}
+{"lens":"lesswrong-comments","axis_key":"self-correction#d","axis_prompt":"Audit for stealth revision: positions quietly morphing across a thread while the commenter denies having moved."}
+{"lens":"lesswrong-comments","axis_key":"context-supply#a","axis_prompt":"Context supply: the comment imports missing background — history of the debate, related work, prior threads — that reframes the discussion accurately."}
+{"lens":"lesswrong-comments","axis_key":"context-supply#b","axis_prompt":"Rate what the thread didn't know that it now knows: does the supplied background actually change how the question looks?"}
+{"lens":"lesswrong-comments","axis_key":"context-supply#c","axis_prompt":"Without this comment, the discussion reinvents a wheel or repeats a settled debate; how much reinvention did it prevent?"}
+{"lens":"lesswrong-comments","axis_key":"context-supply#d","axis_prompt":"Audit the supplied history for accuracy: misremembered precedents and mischaracterized prior debates are worse than silence."}
+{"lens":"lesswrong-comments","axis_key":"proportionate-certainty-demand#a","axis_prompt":"Proportionate certainty demand: the comment asks of others only the rigor it supplies itself — standards of evidence applied symmetrically to friend and foe."}
+{"lens":"lesswrong-comments","axis_key":"proportionate-certainty-demand#b","axis_prompt":"Compare the evidential bar this comment sets for the opposing view with the bar it sets for its own; rate the symmetry."}
+{"lens":"lesswrong-comments","axis_key":"proportionate-certainty-demand#c","axis_prompt":"If the commenter's own claims were held to the standard they demand of the parent, would they survive?"}
+{"lens":"lesswrong-comments","axis_key":"proportionate-certainty-demand#d","axis_prompt":"Audit for isolated demands for rigor: infinite skepticism aimed only at conclusions the commenter dislikes."}
