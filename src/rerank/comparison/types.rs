@@ -56,6 +56,29 @@ pub struct SeriateLogprobRoute {
 
 pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
     let m = model.to_ascii_lowercase();
+    // Deployment-measured routes join the matrix by environment:
+    // `CARDINAL_SERIATE_LOGPROB_MODELS="slug:top_n,slug:top_n"`. For judge
+    // slugs the compiled matrix cannot know — local vLLM serves, whose caps
+    // are set by their own `--max-logprobs` — the operator probes the live
+    // endpoint (LOGPROBS.md doctrine: routes carry a probe, not a guess) and
+    // records the route here. No reasoning pins: these are non-reasoning
+    // dense judges; a reasoning-native judge does not belong in this list.
+    if let Ok(extra) = std::env::var("CARDINAL_SERIATE_LOGPROB_MODELS") {
+        for entry in extra.split(',') {
+            let entry = entry.trim();
+            let (slug, top_n) = match entry.split_once(':') {
+                Some((slug, top_n)) => (slug, top_n.parse::<u32>().ok()),
+                None => (entry, None),
+            };
+            if !slug.is_empty() && slug.eq_ignore_ascii_case(&m) {
+                return Some(SeriateLogprobRoute {
+                    top_n: top_n.filter(|n| (1..=64).contains(n)).unwrap_or(20),
+                    pin_reasoning_off: false,
+                    requires_effort_none: false,
+                });
+            }
+        }
+    }
     if m.starts_with("openai/gpt-4.1") || m.starts_with("openai/gpt-4o") {
         return Some(SeriateLogprobRoute {
             top_n: 20,
