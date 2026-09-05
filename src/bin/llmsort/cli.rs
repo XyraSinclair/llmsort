@@ -79,13 +79,19 @@ pub(super) enum Commands {
         reverse: bool,
         /// Use the setwise (k-at-a-time listwise) instrument instead of the
         /// pairwise path: ~1/4 the cost at adequate quality, order-sensitivity
-        /// gauge printed on stderr. Supports --model/--k/--seed/--concurrency/
-        /// --format/--scores/--reverse/--elaborate/--quiet only.
+        /// gauge printed on stderr. Supports --model/--k/--rounds/--seed/
+        /// --concurrency/--format/--scores/--reverse/--elaborate/--quiet only.
         #[arg(long)]
         setwise: bool,
         /// Setwise slots per call (measured band: 6-8)
         #[arg(long, default_value_t = 8)]
         k: usize,
+        /// Setwise ring rounds of shuffle-and-tile. Default: auto per the
+        /// E13 measurement (PROGRAM.md) - 1 when n <= 3k, else 2 (rounds 1
+        /// at n >> k falls to rho 0.55-0.71 vs pairwise; rounds 2 lands
+        /// within 0.02-0.07 of the pairwise test-retest ceiling)
+        #[arg(long)]
+        rounds: Option<usize>,
         /// Also judge the OPPOSITE of the criterion (`lack of <criterion>`),
         /// fold it in with weight -1, and report cross-side consistency
         #[arg(long)]

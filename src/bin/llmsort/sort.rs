@@ -20,6 +20,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             no_counterbalance,
             setwise,
             k,
+            rounds,
             template,
             elaborate,
             prune_below,
@@ -41,6 +42,11 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 return Err("no items to sort: input is empty".into());
             }
 
+            if !setwise && rounds.is_some() {
+                return Err("--rounds is setwise-only (ring rounds); the pairwise \
+                            path plans adaptively under --budget"
+                    .into());
+            }
             if setwise {
                 if policy.is_some()
                     || policy_config.is_some()
@@ -92,9 +98,20 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 } else {
                     by.clone()
                 };
+                // Auto rounds per the E13 measurement (PROGRAM.md): one
+                // ring round connects n <= 3k; at n >> k a single round
+                // falls to rho 0.55-0.71 vs pairwise while two rounds land
+                // within 0.02-0.07 of the pairwise test-retest ceiling.
+                let effective_k = k.clamp(2, 12).min(documents.len());
+                let auto_rounds = if documents.len() <= 3 * effective_k {
+                    1
+                } else {
+                    2
+                };
                 let opts = llmsort::rerank::SetwiseOptions {
                     model: model.clone(),
                     k,
+                    rounds: rounds.unwrap_or(auto_rounds).max(1),
                     seed,
                     concurrency,
                     ..Default::default()
