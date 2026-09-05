@@ -1,0 +1,12 @@
+{"lens":"lesswrong-posts","axis_key":"rereadability#a","axis_prompt":"Rereadability: the post rewards a second pass — depth layered beneath the surface reading, structure that yields more on return, an essay that grows with its reader."}
+{"lens":"lesswrong-posts","axis_key":"rereadability#b","axis_prompt":"Estimate what a reader gains from a second full read relative to the first; posts that pay near-first-read dividends again score highest."}
+{"lens":"lesswrong-posts","axis_key":"rereadability#c","axis_prompt":"Ten years from now, a reader returns to this post knowing much more than today; does it hold new things for that stronger reader?"}
+{"lens":"lesswrong-posts","axis_key":"rereadability#d","axis_prompt":"Audit for one-pass exhaustion: prose fully consumed on first contact, with apparent depth that is really restatement."}
+{"lens":"lesswrong-comments","axis_key":"seed-quality#a","axis_prompt":"Seed quality: the comment plants something that grows — a question, observation, or half-idea that later work by others visibly builds on."}
+{"lens":"lesswrong-comments","axis_key":"seed-quality#b","axis_prompt":"Trace what could sprout from this comment: essays it prompts, experiments it suggests, threads it spawns; rate the germination potential."}
+{"lens":"lesswrong-comments","axis_key":"seed-quality#c","axis_prompt":"If one comment in this thread ends up cited in a post a year later, is it this one?"}
+{"lens":"lesswrong-comments","axis_key":"seed-quality#d","axis_prompt":"Audit for false fertility: provocative-sounding fragments that invite responses but contain nothing to build on."}
+{"lens":"manifund-proposals","axis_key":"proposal-as-evidence#a","axis_prompt":"Proposal as evidence: the document itself demonstrates the qualities the project will need — clear thinking, honest accounting, and craftsmanship visible in the artifact you are reading."}
+{"lens":"manifund-proposals","axis_key":"proposal-as-evidence#b","axis_prompt":"Treat the proposal's own quality as a work sample: does the rigor on this page predict the rigor of the funded work?"}
+{"lens":"manifund-proposals","axis_key":"proposal-as-evidence#c","axis_prompt":"If everything you knew about this team were this document alone, what would you conclude about how they will execute?"}
+{"lens":"manifund-proposals","axis_key":"proposal-as-evidence#d","axis_prompt":"Audit for polish-substance divergence: professional formatting and fluent prose wrapped around thin thinking — or rough prose hiding excellent thinking."}
