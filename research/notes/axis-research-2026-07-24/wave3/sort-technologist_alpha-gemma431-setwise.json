@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "id": "item-0006",
+      "text": "We stole cache warming from pharmacokinetics: treat the CDN as the plasma compartment and origin as tissue, fit the two rate constants from purge-log decay curves, and the optimal pre-warm schedule falls out of the standard dosing formula. It beat our hand-tuned scheduler by 22% on cold-start p99.",
+      "rank": 1,
+      "latent_mean": 2.1585075138805276,
+      "latent_std": 0.40824829039156907,
+      "z_score": 1.6465509721144398,
+      "percentile": 0.9583333333333334
+    },
+    {
+      "id": "item-0003",
+      "text": "Everyone budgets fsync at \"a few milliseconds.\" On the three NVMe drives we measured it's bimodal — 80 microseconds or 8 milliseconds, almost nothing in between — and which mode you get flips on queue depth, not on write size. The folklore number is the average of two states your system is never actually in.",
+      "rank": 2,
+      "latent_mean": 1.7608877086952168,
+      "latent_std": 0.3118047821767197,
+      "z_score": 1.091087993576422,
+      "percentile": 0.875
+    },
+    {
+      "id": "item-0000",
+      "text": "We stopped documenting settings and shipped a generator instead: a 60-line constraint file that enumerates the app's legal configuration lattice — every flag, every interaction rule — so the fuzzer walks real states instead of guessing. First night out it reproduced three bug reports we had closed as \"impossible.\"",
+      "rank": 3,
+      "latent_mean": 1.5194756838143737,
+      "latent_std": 0.4082482903915691,
+      "z_score": 0.7538426133250232,
+      "percentile": 0.7916666666666666
+    },
+    {
+      "id": "item-0009",
+      "text": "We cut our inference bill 40% by caching embeddings and batching requests, but the thing that actually changed behavior was the per-feature token-spend dashboard — teams fixed their own prompts within a week of seeing their numbers.",
+      "rank": 4,
+      "latent_mean": 1.4058700254768033,
+      "latent_std": 0.31180478217671964,
+      "z_score": 0.5951389055719606,
+      "percentile": 0.7083333333333334
+    },
+    {
+      "id": "item-0010",
+      "text": "Rust's Pin exists because a self-referential future would invalidate its own pointers if moved; Unpin marks types that don't care, and pin projection is the set of rules for reaching fields through a pinned reference. The diagrams below walk through the standard cases.",
+      "rank": 5,
+      "latent_mean": 0.9940495129549931,
+      "latent_std": 0.3726779962013097,
+      "z_score": 0.0198379635029197,
+      "percentile": 0.625
+    },
+    {
+      "id": "item-0001",
+      "text": "Agentic RAG is eating the stack. Chunking strategy is everything: too coarse blows your context window, too fine loses coherence. Embeddings get you recall, rerankers get you precision, and if you're not running evals from day one you're not serious. The teams that win will treat prompts as code.",
+      "rank": 6,
+      "latent_mean": 0.9940495129502595,
+      "latent_std": 0.3118047821767197,
+      "z_score": 0.019837963496306923,
+      "percentile": 0.5416666666666666
+    },
+    {
+      "id": "item-0007",
+      "text": "Our Postgres migration fell over at launch because every Lambda opened its own connection and we blew through max_connections in four minutes. PgBouncer in transaction mode fixed it. Lesson learned: pool your connections before you scale your compute.",
+      "rank": 7,
+      "latent_mean": 0.9656480983269624,
+      "latent_std": 0.4082482903915691,
+      "z_score": -0.019837963496307075,
+      "percentile": 0.4583333333333333
+    },
+    {
+      "id": "item-0011",
+      "text": "Our team is exploring novel approaches to distributed consensus that could significantly improve throughput at scale. Early results are promising, and we believe this direction could reshape how the industry thinks about coordination.",
+      "rank": 8,
+      "latent_mean": 0.6816339517448944,
+      "latent_std": 0.3726779962013098,
+      "z_score": -0.41659723391012604,
+      "percentile": 0.375
+    },
+    {
+      "id": "item-0002",
+      "text": "JavaScript's Set preserves insertion order and compares objects by reference, and ES2025 finally adds union(), intersection(), and difference(). If you're deduplicating or doing membership checks, reach for Set over an array — lookups are O(1) instead of O(n).",
+      "rank": 9,
+      "latent_mean": 0.553827585760184,
+      "latent_std": 0.3118047821767196,
+      "z_score": -0.5951389056281672,
+      "percentile": 0.2916666666666667
+    },
+    {
+      "id": "item-0005",
+      "text": "Nobody is talking about this: the file is dead. The post-file paradigm treats state as intent, not bytes — and once you see it, you can't unsee it. This changes everything about how software gets built, and the incumbents are structurally unable to respond.",
+      "rank": 10,
+      "latent_mean": 0.31241556121009895,
+      "latent_std": 0.37267799620130976,
+      "z_score": -0.9323842854175067,
+      "percentile": 0.20833333333333334
+    },
+    {
+      "id": "item-0004",
+      "text": "Mark Zuckerberg's training week mixes MMA sparring, hydrofoiling, and a strict sleep schedule. He says grappling is the best mental reset before a board meeting, and his coaches say he approaches jiu-jitsu the way he approaches product.",
+      "rank": 11,
+      "latent_mean": 0.15620778054824713,
+      "latent_std": 0.2886751345527144,
+      "z_score": -1.150601884203381,
+      "percentile": 0.125
+    },
+    {
+      "id": "item-0008",
+      "text": "The IT department will complete the migration to cloud email in Q3. Users should expect up to thirty minutes of downtime, and helpdesk staff will be available throughout the transition window.",
+      "rank": 12,
+      "latent_mean": 0.0,
+      "latent_std": 0.3726779962013098,
+      "z_score": -1.3688194828305529,
+      "percentile": 0.041666666666666664
+    }
+  ],
+  "gauge": {
+    "subsets_with_repeats": 3,
+    "presentation_pairs": 3,
+    "entity_pairs_compared": 45,
+    "direction_flips": 1,
+    "flip_rate": 0.022222222222222223
+  },
+  "calls": 6,
+  "calls_ok": 6,
+  "calls_malformed": 0,
+  "calls_errored": 0,
+  "components": 1,
+  "input_tokens": 3885,
+  "output_tokens": 42,
+  "cost_nanodollars": 1686800,
+  "model_used": "google/gemma-4-31b-it"
+}
