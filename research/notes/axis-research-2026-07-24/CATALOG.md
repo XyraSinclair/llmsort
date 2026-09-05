@@ -197,6 +197,34 @@ decoy. See RESULTS.md.
   intact. Buyer: heterodox-science funders (crank-vs-visionary is their
   whole cost). Confounder: two-sided. [paper]
 
+## Lens E — technologist alpha / expert-conditioned novelty (added 2026-09-05)
+
+Operator brief: "alpha for a smart technologist" — novel config-space
+file format > JS Sets explainer > Zuckerberg workouts. Full definitions
+in `lens-e-alpha.md`; probe kit under `wave3/`.
+
+- `technologist_alpha` — expected genuine update to a top-percentile
+  practitioner already fluent in the area; priced-in restatement and
+  zero-payload material both score nothing. Confounder: hot-topic
+  vocabulary / hacker-news register / performed novelty. [probe]
+  **PASS** (wave 3, T1+T2): fr↔fr 0.867, gap +0.357; frontier top-3 =
+  the genuine-high set exactly; mini promotes the HN-register decoy and
+  jargon depth, and ranks the competent-but-priced-in explainer dead
+  last (can't hold a middle value). See RESULTS-WAVE3.md.
+- `docs_transcendence` — the delta over the manual: content not
+  recoverable from official docs and canonical tutorials. Confounder:
+  subject obscurity. [paper] Suspected technologist_alpha costume.
+- `design_space_opening` — names a previously unarticulated dimension;
+  the design space is larger after reading. Confounder:
+  paradigm-manifesto rhetoric. [paper]
+- `expert_surprisal` — per-claim information conditional on an expert
+  prior, confabulation scored as noise. Confounder: contrarian
+  boldness. [paper] Suspected technologist_alpha costume — screen first.
+- `practitioner_repricing` — alpha in changed behavior: a working
+  engineer builds differently within the month. Buyer: newsletter
+  curators, eng reading lists, agent context-window curation.
+  Confounder: listicle-actionability format. [paper]
+
 Generator kills (recorded): decade-survival (ceded to lens A),
 moat-legibility, distribution-instinct, rereadability, sentence-necessity
 (all reduce to quality slop).
@@ -214,6 +242,11 @@ other before spending probes):
 5. *Load-bearing*: collapse_radius (C) / keystone_load (D).
 6. *Territory-contact*: scar_tissue_density (C) / friction_metabolized (B)
    / live_wire_prose (D) — D is the paid application of C.
+7. *Alpha costumes*: technologist_alpha (E) / expert_surprisal (E) /
+   docs_transcendence (E) — screen against each other AND against
+   family 6 before minting siblings; contact is evidence for alpha but
+   a folklore-lesson war story is high-contact/low-alpha (wave-3 probe
+   item 8 splits the pair: opus ranked it 11/12).
 
 **Probe wave 2 shortlist** (decoy-planted micro-probes, ~$0.60 each,
 method of RESULTS.md):
