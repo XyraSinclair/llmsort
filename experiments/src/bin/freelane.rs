@@ -834,9 +834,12 @@ async fn drive() -> Result<(), String> {
 
         let mut in_flight: Vec<InFlight> = Vec::new();
         loop {
-            // Fill each lane toward its concurrency target: one run per
-            // distinct judge, skipping cooling judges and cells whose bucket
-            // cannot yet afford them (a cheaper cell further down may fit).
+            // Fill each lane toward its concurrency target — paced lanes cap
+            // at one run per distinct judge (the pacing math assumes it);
+            // unpaced local engines want saturation, so a single judge may
+            // hold the lane's whole run budget. Cooling judges and cells
+            // whose bucket cannot yet afford them are skipped (a cheaper
+            // cell further down may fit).
             let now = std::time::Instant::now();
             let mut idx = 0;
             while idx < pending.len() {
@@ -850,9 +853,15 @@ async fn drive() -> Result<(), String> {
                     idx += 1;
                     continue;
                 }
-                let judge_busy = in_flight.iter().any(|run| {
-                    run.lane_index == cell.lane_index && run.model_index == cell.model_index
-                });
+                let judge_runs = in_flight
+                    .iter()
+                    .filter(|run| {
+                        run.lane_index == cell.lane_index
+                            && run.model_index == cell.model_index
+                    })
+                    .count();
+                let judge_cap = if lane.paced { 1 } else { lane.concurrent_runs };
+                let judge_busy = judge_runs >= judge_cap;
                 let judge_key = format!("{}:{}", lane.name, lane.models[cell.model_index]);
                 let judge_cooling = cooldown
                     .get(&judge_key)
