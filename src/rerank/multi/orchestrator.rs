@@ -320,6 +320,17 @@ pub(crate) async fn multi_rerank_with_failures(
             break 'rerank RerankStopReason::NoNewPairs;
         }
 
+        // Execution order only: group the batch by (attribute, first-presented
+        // entity) so consecutive requests share their prompt prefix (template +
+        // attribute + entity A) and engine-side prefix caches can reuse the
+        // prefill. buffer_unordered issues in stream order, so sorted order is
+        // issue order. The SET of comparisons — counterbalancing included — is
+        // untouched, and the fit is order-independent within a batch.
+        tasks.sort_by_key(|task| {
+            let first = if task.swapped { task.j } else { task.i };
+            (task.attr_idx, first)
+        });
+
         let mut score_cache: HashMap<String, Vec<f64>> = HashMap::new();
         let mut std_cache: HashMap<String, Vec<f64>> = HashMap::new();
         if execution.model_policy.is_some() {
