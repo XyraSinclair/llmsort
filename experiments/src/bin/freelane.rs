@@ -250,7 +250,8 @@ impl Bucket {
     /// Seconds until `cost` is affordable (0 when it already is).
     fn wait_for(&mut self, cost: f64) -> f64 {
         let now = std::time::Instant::now();
-        self.level = (self.level + now.duration_since(self.last).as_secs_f64() * self.refill_per_sec)
+        self.level = (self.level
+            + now.duration_since(self.last).as_secs_f64() * self.refill_per_sec)
             .min(self.capacity);
         self.last = now;
         if self.level >= cost {
@@ -388,6 +389,77 @@ async fn discover_axes(ch: &ClickHouse, max_entities: usize) -> Result<Vec<Axis>
     Ok(axes)
 }
 
+/// Catalog cells: axes and entity cohorts authored directly into
+/// `scry_judgements_private.catalog_axes` / `catalog_entities` (operator
+/// direction 2026-09-05: thousands of axis versions over LessWrong posts,
+/// LessWrong comments, Manifund proposals — inventory that never touches
+/// the public `scores_current` projection). A catalog lens shares one
+/// entity cohort across all its axes, ranked at write time; freelane takes
+/// the top `max_entities`. Boxes without the catalog tables simply have no
+/// catalog inventory (logged, not fatal).
+async fn discover_catalog_axes(
+    ch: &ClickHouse,
+    max_entities: usize,
+) -> Result<Vec<Axis>, String> {
+    let heads = match ch
+        .query(
+            "SELECT lens, axis_key, any(axis_prompt) AS axis_prompt \
+             FROM scry_judgements_private.catalog_axes \
+             GROUP BY lens, axis_key \
+             ORDER BY lens, axis_key \
+             FORMAT JSONEachRow",
+            &[],
+        )
+        .await
+    {
+        Ok(rows) => rows,
+        Err(error) if error.contains("UNKNOWN_TABLE") => {
+            println!("freelane: no catalog tables on this ClickHouse; catalog inventory empty");
+            return Ok(Vec::new());
+        }
+        Err(error) => return Err(error),
+    };
+    if heads.is_empty() {
+        return Ok(Vec::new());
+    }
+    let entity_rows = ch
+        .query(
+            &format!(
+                "SELECT lens, entity_id, any(entity_text) AS entity_text, min(rank) AS rank \
+                 FROM scry_judgements_private.catalog_entities \
+                 GROUP BY lens, entity_id \
+                 ORDER BY lens, rank \
+                 LIMIT {max_entities} BY lens \
+                 FORMAT JSONEachRow"
+            ),
+            &[],
+        )
+        .await?;
+    let mut cohorts: HashMap<String, Vec<(String, String)>> = HashMap::new();
+    for row in &entity_rows {
+        cohorts.entry(str_field(row, "lens")?).or_default().push((
+            str_field(row, "entity_id")?,
+            str_field(row, "entity_text")?,
+        ));
+    }
+    let mut axes = Vec::new();
+    for head in heads {
+        let lens = str_field(&head, "lens")?;
+        let Some(entities) = cohorts.get(&lens) else {
+            continue;
+        };
+        if entities.len() >= 2 {
+            axes.push(Axis {
+                lens,
+                axis_key: str_field(&head, "axis_key")?,
+                axis_prompt: str_field(&head, "axis_prompt")?,
+                entities: entities.clone(),
+            });
+        }
+    }
+    Ok(axes)
+}
+
 async fn done_cells(
     ch: &ClickHouse,
     owner_scope: &str,
@@ -485,9 +557,9 @@ async fn discover_free_models(denylist: &HashSet<String>) -> Result<Vec<String>,
         // Text-to-text judges only: skip anything whose declared output
         // modalities exist and exclude text.
         let text_out = match model.pointer("/architecture/output_modalities") {
-            Some(serde_json::Value::Array(modalities)) => {
-                modalities.iter().any(|value| value.as_str() == Some("text"))
-            }
+            Some(serde_json::Value::Array(modalities)) => modalities
+                .iter()
+                .any(|value| value.as_str() == Some("text")),
             _ => true,
         };
         if text_out {
@@ -661,9 +733,10 @@ fn build_extra_lanes(config: &Config) -> Result<Vec<Lane>, String> {
     let mut lanes = Vec::with_capacity(config.extra_providers.len());
     for spec in &config.extra_providers {
         let key = match &spec.key_env {
-            Some(key_env) => Some(std::env::var(key_env).map_err(|_| {
-                format!("provider {} key env {key_env} is unset", spec.name)
-            })?),
+            Some(key_env) => Some(
+                std::env::var(key_env)
+                    .map_err(|_| format!("provider {} key env {key_env} is unset", spec.name))?,
+            ),
             None => None,
         };
         lanes.push(Lane {
@@ -711,7 +784,10 @@ async fn drive() -> Result<(), String> {
         Bucket::new(config.daily_budget, config.daily_budget - openrouter_spent),
     );
     for lane in &extra_lanes {
-        let dailies = lane.per_model_daily.as_ref().expect("extra lanes are per-model");
+        let dailies = lane
+            .per_model_daily
+            .as_ref()
+            .expect("extra lanes are per-model");
         for (model_index, slug) in lane.models.iter().enumerate() {
             let capacity = dailies[model_index];
             let spent = landed.get(slug).copied().unwrap_or(0.0);
@@ -737,7 +813,19 @@ async fn drive() -> Result<(), String> {
         .map_err(|error| format!("could not build HTTP client: {error}"))?;
 
     loop {
-        let axes = discover_axes(&ch, config.max_entities).await?;
+        let mut axes = discover_axes(&ch, config.max_entities).await?;
+        {
+            let derived: HashSet<(String, String)> = axes
+                .iter()
+                .map(|axis| (axis.lens.clone(), axis.axis_key.clone()))
+                .collect();
+            axes.extend(
+                discover_catalog_axes(&ch, config.max_entities)
+                    .await?
+                    .into_iter()
+                    .filter(|axis| !derived.contains(&(axis.lens.clone(), axis.axis_key.clone()))),
+            );
+        }
         let openrouter_models = discover_free_models(&config.model_denylist).await?;
         let done = done_cells(&ch, &config.owner_scope).await?;
 
@@ -856,8 +944,7 @@ async fn drive() -> Result<(), String> {
                 let judge_runs = in_flight
                     .iter()
                     .filter(|run| {
-                        run.lane_index == cell.lane_index
-                            && run.model_index == cell.model_index
+                        run.lane_index == cell.lane_index && run.model_index == cell.model_index
                     })
                     .count();
                 let judge_cap = if lane.paced { 1 } else { lane.concurrent_runs };
@@ -870,8 +957,7 @@ async fn drive() -> Result<(), String> {
                     idx += 1;
                     continue;
                 }
-                let cost =
-                    axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                let cost = axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
                 let bucket = buckets
                     .get_mut(&lane.bucket_id(cell.model_index))
                     .expect("bucket exists for every schedulable cell");
@@ -915,8 +1001,7 @@ async fn drive() -> Result<(), String> {
                     {
                         continue;
                     }
-                    let cost =
-                        axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
+                    let cost = axes[cell.axis_index].entities.len() as f64 * COMPARISONS_PER_ENTITY;
                     if let Some(bucket) = buckets.get_mut(&lane.bucket_id(cell.model_index)) {
                         budget_wait = budget_wait.min(bucket.wait_for(cost));
                     }
@@ -950,7 +1035,13 @@ async fn drive() -> Result<(), String> {
                         in_flight.remove(i);
                     }
                     Some(RunOutcome::Failed(error)) => {
-                        cool(&mut cooldown, &judge_key, &axis.lens, &axis.axis_key, &error);
+                        cool(
+                            &mut cooldown,
+                            &judge_key,
+                            &axis.lens,
+                            &axis.axis_key,
+                            &error,
+                        );
                         in_flight.remove(i);
                     }
                     None => {
@@ -959,7 +1050,13 @@ async fn drive() -> Result<(), String> {
                                 "poll deadline exceeded for {}; leaving it to cardinald",
                                 run.run_ref
                             );
-                            cool(&mut cooldown, &judge_key, &axis.lens, &axis.axis_key, &error);
+                            cool(
+                                &mut cooldown,
+                                &judge_key,
+                                &axis.lens,
+                                &axis.axis_key,
+                                &error,
+                            );
                             in_flight.remove(i);
                         } else {
                             i += 1;
