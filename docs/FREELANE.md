@@ -48,6 +48,32 @@ up with incremental refresh. The product is model-diverse priors: the same axes,
 entities, judged by every free model — landed with full provenance and
 re-fittable forever.
 
+Local-judge policy (operator, 2026-09-05): dense (non-MoE) models in the
+~8–50B range are the judge class for elicited priors — MoE judges run
+only as explicit, consistency-measured experiments, never as the
+default. gpt-oss-120b is NEVER self-hosted on our GPUs (its free
+Cerebras lane is tolerated). The local lane holds ONE GPU at a time —
+the RTX PRO 6000 judge slot via the operator-precedented borrow — and
+runs as a standing service (`freelane-judge-standby`, a user unit on the
+judge host) that borrows while inventory exists, drains judges at saturation,
+restores production units when drained, and idles until new inventory
+appears.
+
+## Catalog inventory
+
+Beyond re-eliciting `scores_current` cells, freelane reads
+operator-authored inventory from `scry_judgements_private.catalog_axes`
+(lens, axis_key, axis_prompt) and `catalog_entities` (lens, entity_id,
+entity_text ≤ ~7.9KB, rank). A catalog lens shares one ranked entity
+cohort across all its axes; freelane takes the top
+`FREELANE_MAX_ENTITIES`. Catalog cells land private exactly like derived
+cells and never touch the public projection. Axis versions (`family#a`,
+`#b`, `#c` wordings of one construct) are deliberate: they are the
+wording-consistency instrument for judge qualification. Seed catalog:
+`experiments/data/catalog_axes_seed_2026-09-05.jsonl` (126 axes over
+lesswrong-posts / lesswrong-comments / manifund-proposals; cohorts of
+200 loaded from `forums.posts` and `scry_manifund.content`).
+
 ## The private-only invariant
 
 Every freelane run is submitted with `privacy: "private"` and lands in
