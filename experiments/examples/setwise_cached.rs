@@ -297,6 +297,11 @@ struct Args {
     /// Skip the pairwise baseline arm.
     #[arg(long)]
     skip_pairwise: bool,
+    /// Pairwise-arm comparison budget per attribute (default: sort_documents'
+    /// own default). At n=12 the default 48 covers only ~half the 66 pairs —
+    /// an under-determined reference; counterbalancing costs 2 per pair.
+    #[arg(long)]
+    pairwise_budget: Option<usize>,
 }
 
 // ---------------------------------------------------------------------
@@ -2076,6 +2081,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 execution,
                 SortOptions {
                     model: Some(args.model.clone()),
+                    comparison_budget: args.pairwise_budget,
                     ..SortOptions::default()
                 },
             )
