@@ -62,3 +62,26 @@ k items are visible than in isolated pairs) and the reference's own 0.74–0.92
 retest instability. Fit caveat: the alternation hits its 50-round cap
 (coupled channels + robust score step oscillate at small amplitude); beta
 sign patterns are stable across per-arm and pooled fits.
+
+**Per-pair probe (2026-09-06, replay of this pack — no new calls): the
+pairwise reference carries almost no per-pair signal.** Comparing each
+unordered pair's mean signed log-ratio across the two instruments:
+
+| attribute | pairs | sign agree | pw median \|m\| | pw internal flips | sb internal flips |
+|---|---|---|---|---|---|
+| impact_per_dollar | 46 | 54% | 0.050 nats | 16/39 | 11/41 |
+| theory_of_change | 42 | 55% | 0.003 nats | 38/42 | 9/37 |
+| team_evidence | 42 | 52% | 0.027 nats | 19/36 | 6/37 |
+
+The isolated pairwise judge contradicts itself across orientations/repeats
+of the SAME pair on up to 90% of pairs, and its counterbalanced means sit
+at ~0 nats — the reference's latents are noise aggregations, so ~50% sign
+agreement is agreement with a coin, not evidence against stickbreak (whose
+verdicts sit at the winsorized ceiling with 15–27% internal flips). Which
+instrument is *accurate* is undetermined by this data: decisive-and-stable
+can be stably wrong. One weak external anchor leans stickbreak's way: the 3
+of 12 items that actually raised money rank better than chance (5.5) under
+stickbreak in 8/9 arms (mean ≈ 4.0) and under pairwise in 1/3 arms
+(mean ≈ 5.7) — anecdote-grade with 3 positives, recorded, not claimed. The
+real remaining arbiter is rubric-grade ground truth (human labels or
+planted-truth corpora), not more LLM cross-instrument comparison.
