@@ -39,17 +39,10 @@ Does not kill the lever in general; kills it for THIS configuration:
   within-cohort variance is exactly the subtle part).
 - Small embedder (voyage4-nano) + linear probe + n=200 samples for 2048 dims.
 
-Next falsifiable steps, in order of information/cost:
-1. Wide-variance cohort: 200 RANDOM LW posts (not top-200), same protocol.
-   If the probe works there, distillation propagates coarse structure and the
-   31b judge refines only the top slice — still a big win.
-2. Learning curve: judge +200 more entities, see if probe Spearman moves.
-   Flat => representation ceiling; rising => data-starved.
-3. Bigger embedder (voyage-4-large) only after 1-2 justify it.
-
-Script: `probe_fuse.py` (runs on the judging host against its local ClickHouse
-and embedding endpoints). Runs: jrun_043dfbe9 (#a), jrun_75bb1bac (#b),
-jrun_364af0a4 (#c), jrun_24371b89 (#d).
+Script: `probe_cascade.py` fuse mode (port of the original probe_fuse.py,
+reproduces its published numbers exactly; runs on the judging host against
+its local ClickHouse and embedding endpoints). Runs: jrun_043dfbe9 (#a),
+jrun_75bb1bac (#b), jrun_364af0a4 (#c), jrun_24371b89 (#d).
 
 ## Wide-variance replication (2026-09-06, later): POSITIVE
 
