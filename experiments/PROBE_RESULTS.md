@@ -50,3 +50,38 @@ Next falsifiable steps, in order of information/cost:
 Script: `probe_fuse.py` (runs on the judging host against its local ClickHouse
 and embedding endpoints). Runs: jrun_043dfbe9 (#a), jrun_75bb1bac (#b),
 jrun_364af0a4 (#c), jrun_24371b89 (#d).
+
+## Wide-variance replication (2026-09-06, later): POSITIVE
+
+Same protocol on 200 RANDOM lesswrong posts (word_count >= 100, sampled from
+the ~44K-post pool; lens `lesswrong-posts-rand`; runs jrun_115ebbbf (#a),
+jrun_59e85b50 (#b), jrun_0f3c6d7c (#c), jrun_d06c4ff8 (#d)).
+
+Anchor reliability, even better than the curated cohort:
+pairwise wording Spearman 0.842-0.911 (mean 0.879), Spearman-Brown 0.967,
+split-half 0.915.
+
+Probe (fused target, 5-fold CV):
+
+| lambda | held-out Spearman | Pearson | top-decile overlap |
+|-------:|------------------:|--------:|-------------------:|
+| 10     | +0.717 | +0.752 | 6/20 |
+| 100    | +0.724 | +0.762 | 6/20 |
+| 1000   | +0.738 | +0.778 | 5/20 |
+| 10000  | +0.718 | +0.760 | 8/20 |
+
+**Verdict: the distillation lever works.** With 160 training anchors the probe
+reads ~0.74 of a 0.97-reliability target (validity ~0.75 after disattenuation).
+Combined with the top-200 null: the probe propagates coarse structure across
+the corpus but cannot discriminate within the elite band — which fixes the
+architecture, a cascade:
+
+1. Probe scores the whole corpus at embedding cost (~1000x cheaper than judging).
+2. The pinned judge (gemma4-31b) judges only the probe's top slice, where the
+   probe is weakest and the leaderboard actually lives.
+3. Anchor refresh: periodic N=200 wording-family runs on random cohorts keep
+   the probe calibrated; 8x200x4 = 6400 comparisons per axis family.
+
+Top-decile overlap 6-8/20 at the corpus scale means the probe's top slice must
+be over-sampled (take probe-top-500 to catch most of the true top-100 band)
+before handing to the judge.
