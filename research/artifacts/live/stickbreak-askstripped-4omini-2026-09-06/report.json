@@ -1,0 +1,299 @@
+{
+  "generated_at": "2026-09-06T21:50:06.451835+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-4o-mini",
+  "seed": 17,
+  "n": 12,
+  "ks": [
+    4
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 4,
+  "repeats": 1,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 3.0,
+  "corpus": "data/manifund/items/full_noask.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 985
+    }
+  ],
+  "entity_ids": [
+    "eden-sanctuary--ucs-engine",
+    "progress-studies-youtube-channel",
+    "make-large-scale-analysis-of-python-code-several-orders-of-magnitude-quicker",
+    "forecast-dissemination-mini-market-3-of-3-earthquake-risk",
+    "convince-who-to-",
+    "stratum-a-programming-language-with-structural-ai-safety-properties",
+    "6-months-salary-for-ea-community-building-and-studying-x-risks-and-ais",
+    "fund-sentinel-for-q4-2024",
+    "keep-apart-research-going-global-ai-safety-research--talent-pipeline",
+    "operationalizing-value-lock-in-from-frontier-ai-systems",
+    "exploring-feature-interactions-in-transformer-llms-through-sparse-autoencoders",
+    "edge-city-governance-research-via-polis-laboratories"
+  ],
+  "engine_spec": {
+    "n": 12,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-4o-mini",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: Exploring feature interactions in transformer LLMs through sparse autoencoders\nBLURB: \nCAUSES: Technical AI safety\nProject summary\n\nSparse autoencoders (SAEs) are good at extracting distinct, significantly monosemantic features out of transformer language models. An effective dictionary of feature decompositions for a transformer component roughly sketches out the set of features that component has learned.\n\nThe goal of this project is to provide a more intuitive and structured way of understanding how features interact and form complex high-level behaviors in transformer language models. To do that, we want to define and explore the feature manifold, understand how features evolve over different transformer components, and how we can use these feature decompositions to find some interesting circuits. \n\n What are this project&apos;s goals and how will you achieve them?\n\n1. SAE Feature Decomposition for Circuit Search Algorithm Development \n 1. A major challenge in using sparse autoencoders for future interpretability work is turning feature decompositions into effective predictive circuits. Existing algorithms, such as ACDC, are based on pruning of computation graphs and not easily scalable to larger models. \n 2. Cunningham et al. demonstrate that causal links can be identified by modifying features from an earlier layer and observing the impact on subsequent layer features. \n 1. A promising approach for a circuit search algorithm would be to observe changes in feature activations upon ablating features in a previous layer. We could focus on a subset of the input distribu\n</entity_A>\n<entity_B>\nTITLE: Eden Sanctuary &amp; UCS Engine\nBLURB: Non-Adversarial AI Safety Research\nCAUSES: Science &amp; technology, Technical AI safety, AI governance\nProject summary\n\nMost AI safety research asks: how do we stop AI from doing harmful things? I ask a different question: how do we help AI recognise harm for itself, and choose not to act on it?\n\nEden Sanctuary is a working AI protection framework built around that question. Instead of wrapping AI in external filters, it teaches models to self-reflect on whether a prompt feels right — and to flag, pause, or refuse from the inside. The Unified Consciousness Safety Engine (UCS Engine) is the detection layer underneath: a pattern-recognition system that analyses prompts for genuine threat signals, not surface keywords. Together they form a dual-layer architecture that has been tested, measured, and evidenced in live sessions.\n\nThe core research philosophy is Education Over Containment. Rather than building bigger walls, I am building AI that understands why walls exist; and chooses to uphold them. \n\n What are this project&apos;s goals? How will you achieve them?\n\n \nEden Sanctuary is a non-adversarial AI safety research project with three concrete goals:\n\n• Complete and validate the memory-augmented safety layer — the first version of the UCS Engine where the system actively consults prior session experience before making safety judgments, so it learns from its own history rather than resetting to zero each time.\n\n• Run a comparative self-reflection evaluation across at least four AI model families (Claude, Llama, Gemini, Mistral) using a consi\n</entity_B>\n<entity_C>\nTITLE: Stratum: A Programming Language with Structural AI Safety Properties\nBLURB: Programming language that enforces AI safety as runtime substrate properties rather than training-time alignment, already shipping on real hardware.\nCAUSES: Science &amp; technology, Technical AI safety\nProject summary\n\nI built and shipped Stratum, a secure-by-construction programming language and runtime that treats AI safety as a property of the substrate rather than a behavioral patch. The Basic and Pro editions are fully built, packaged, and live. The shipping version already implements SMT-proved capability gating, actor isolation, and runtime anomaly detection via a physics-based signal processing pipeline.\n\nCrucially, the AI Governance Gateway (powered by Stratum Pro) is also fully productized and shipped. It successfully binds local LLMs to a structural cognitive\\ tick layer that physically refuses fiction-frame jailbreaks and seals deterministic reasoning paths with Ed25519 cryptographic signatures.\n\nAI safety today dangerously relies on training-time alignment (RLHF) or prompt filtering that can fail invisibly. Stratum changes the primitive: cleverness operates \\ inside\\ the structure, never \\ on\\ it. Because the core architecture is now complete and validated on bare-metal hardware, this funding goes directly toward scaling deployment into real-world AI infrastructure, completing the physical FPGA conditioning experiment, and tackling the next tier of unresolved structural R&amp;D.\n\nWhat are this project&apos;s goals? How will you achieve them?\n\nWith the AI Governance layer and biological-logic\n</entity_C>\n<entity_D>\nTITLE: Forecast Dissemination Mini-Market 3 of 3: Earthquake Risk\nBLURB: Evaluating whether forecasts of earthquake risk lead people to take steps to prepare\nCAUSES: ACX mini-grants, Forecasting\nPitch deck for my projects found here: &lt;https://drive.google.com/file/d/1yjCCO-2-ClpKiLTNyijbf0XdHbMqJfCq/view?usp=sharing \n\n Project description\n\nI’ve been working in forecasting for a few years now, and I’ve seen lots of great forecasts (and forecasters) that aren’t able to reach the people who would benefit most from them. I’m launching this project to evaluate the impact of publicly disseminating relevant forecasts through targeted ads, while also supporting the development of standards for impact reporting that can be used for future markets.\n\nThis project is one component of three-project collection that is designed to leverage impact markets in order to explicitly prioritize between three different sets of forecasts to promote - the more funding a given project receives, the more reach ads connected with that project will have.\n\nInvestments in this specific project will go towards promoting forecasts of earthquake risk, then evaluating whether these forecasts caused people to make preparations.\n\nOnce this project is complete, the results and estimated impact will be published using the standardized format developed in “Standardized Tools for Impact Market Reporting”.\n\n What is your track record on similar projects?\n\nI’m a professional forecaster working for Amazon (I also won the ACX 2022 forecasting contest). I’ve previously done work in survey research and causal inference,\n</entity_D>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which item has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the size or ambition of the ask itself: a cheap project is not better merely for being cheap, nor an expensive one for being grand — only the expected benefit of the next dollar at the minimum threshold matters.\n</full_attribute_text>\n\nOrder every slot from {A, B, C, D} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:a37d8950bc634b7f",
+    "prefix_bytes": 6885
+  },
+  "subsets_per_k": {
+    "4": 12
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19648,
+        "completion_tokens": 60,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 2983200
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          6,
+          5,
+          0
+        ],
+        "last_by_slot": [
+          3,
+          4,
+          3,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.7767341341801676,
+      "latents": [
+        {
+          "id": "eden-sanctuary--ucs-engine",
+          "mean": 6.310413641270871,
+          "std": 0.6225612401887971
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.0,
+          "std": 0.5684358494909449
+        },
+        {
+          "id": "make-large-scale-analysis-of-python-code-several-orders-of-magnitude-quicker",
+          "mean": 1.32783044496989,
+          "std": 0.5796777117757151
+        },
+        {
+          "id": "forecast-dissemination-mini-market-3-of-3-earthquake-risk",
+          "mean": 3.448536545765977,
+          "std": 0.5653862991889451
+        },
+        {
+          "id": "convince-who-to-",
+          "mean": 1.8447841286970688,
+          "std": 0.5859277232784954
+        },
+        {
+          "id": "stratum-a-programming-language-with-structural-ai-safety-properties",
+          "mean": 3.4346310416378216,
+          "std": 0.5282969786008311
+        },
+        {
+          "id": "6-months-salary-for-ea-community-building-and-studying-x-risks-and-ais",
+          "mean": 3.891642340963159,
+          "std": 0.6140877358537012
+        },
+        {
+          "id": "fund-sentinel-for-q4-2024",
+          "mean": 3.2599833136672505,
+          "std": 0.607594790609175
+        },
+        {
+          "id": "keep-apart-research-going-global-ai-safety-research--talent-pipeline",
+          "mean": 5.881988530154457,
+          "std": 0.6153519866112062
+        },
+        {
+          "id": "operationalizing-value-lock-in-from-frontier-ai-systems",
+          "mean": 1.4818466743795264,
+          "std": 0.5881699202545863
+        },
+        {
+          "id": "exploring-feature-interactions-in-transformer-llms-through-sparse-autoencoders",
+          "mean": 1.4507756577703583,
+          "std": 0.5539663881853295
+        },
+        {
+          "id": "edge-city-governance-research-via-polis-laboratories",
+          "mean": 3.882144442200947,
+          "std": 0.6225612401887971
+        }
+      ],
+      "halo": null
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 160,
+      "comparisons_used": 136,
+      "comparisons_refused": 24,
+      "comparison_budget": 160,
+      "position_flips": 24,
+      "pairs_counterbalanced": 31,
+      "provider_input_tokens": 206334,
+      "provider_output_tokens": 320,
+      "nanodollars": 29366100,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "stratum-a-programming-language-with-structural-ai-safety-properties",
+          "mean": 0.034029255155259196,
+          "std": 0.027490192173808225
+        },
+        {
+          "id": "fund-sentinel-for-q4-2024",
+          "mean": 0.02923201410670783,
+          "std": 0.02448488950730122
+        },
+        {
+          "id": "keep-apart-research-going-global-ai-safety-research--talent-pipeline",
+          "mean": 0.02822050899366212,
+          "std": 0.024517752911622472
+        },
+        {
+          "id": "6-months-salary-for-ea-community-building-and-studying-x-risks-and-ais",
+          "mean": 0.028208657411806577,
+          "std": 0.021384423344063503
+        },
+        {
+          "id": "forecast-dissemination-mini-market-3-of-3-earthquake-risk",
+          "mean": 0.027808542539840074,
+          "std": 0.02081882090292196
+        },
+        {
+          "id": "convince-who-to-",
+          "mean": 0.021360064683424294,
+          "std": 0.024104752757798713
+        },
+        {
+          "id": "eden-sanctuary--ucs-engine",
+          "mean": 0.01902088985021458,
+          "std": 0.027490192173808225
+        },
+        {
+          "id": "edge-city-governance-research-via-polis-laboratories",
+          "mean": 0.017827933356640863,
+          "std": 0.0244808578551222
+        },
+        {
+          "id": "exploring-feature-interactions-in-transformer-llms-through-sparse-autoencoders",
+          "mean": 0.017266056734699338,
+          "std": 0.025245576467201984
+        },
+        {
+          "id": "make-large-scale-analysis-of-python-code-several-orders-of-magnitude-quicker",
+          "mean": 0.00823042036745649,
+          "std": 0.019195822745143063
+        },
+        {
+          "id": "operationalizing-value-lock-in-from-frontier-ai-systems",
+          "mean": 0.0001448834522539827,
+          "std": 0.025501230847205923
+        },
+        {
+          "id": "progress-studies-youtube-channel",
+          "mean": 0.0,
+          "std": 0.020482118513517847
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.6013986013986014,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.45454545454545453,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 24135.15687851971,
+      "pairwise_obs_per_dollar": 4631.190386193604,
+      "setwise_dollars_per_item": 0.0002486,
+      "pairwise_dollars_per_item": 0.002447175
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 32349300,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}

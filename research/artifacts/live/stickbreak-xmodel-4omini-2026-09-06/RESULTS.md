@@ -12,6 +12,16 @@ instrument-artifact reasons. The rubric is now fixed in
 count-neutral phrasing); re-measurement under the fixed rubric is required
 before the opposed-constructs interpretation stands.
 
+**Resolution (same day):** re-measurement under the fixed rubric
+(`../stickbreak-rubricfix-*-2026-09-06/`) replicated the anti-correlation,
+and an independent Grok exploration identified the true mechanism —
+ask-line salience (sb tracks −log(min_ask) at +0.7…+0.8, pw tracks
++log(min_ask)) — confirmed decisively by an ask-stripped probe
+(`../stickbreak-askstripped-41mini-2026-09-06/RESULTS.md`): with ASK lines
+deleted, both ask correlations collapse and sb-vs-pw flips to +0.52/+0.60
+agreement. The "two opposed constructs" reading below is RETIRED; read it
+as historical.
+
 Single run (n=1), `openai/gpt-4o-mini` via OpenRouter, seed 17 — same 12
 Manifund items, 3 attributes, and protocol as the arbiter pack
 (`stickbreak-order-arbiter-2026-09-06`, judge gpt-4.1-mini): stickbreak

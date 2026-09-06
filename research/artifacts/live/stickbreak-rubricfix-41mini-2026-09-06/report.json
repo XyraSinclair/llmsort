@@ -1,0 +1,1105 @@
+{
+  "generated_at": "2026-09-06T21:48:01.107612+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-4.1-mini",
+  "seed": 17,
+  "n": 12,
+  "ks": [
+    3,
+    4
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 4,
+  "repeats": 1,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 3.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 985
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "team_evidence",
+      "rubric_source": "data/manifund/rubrics/team_evidence.md",
+      "rubric_chars": 637
+    }
+  ],
+  "entity_ids": [
+    "precautionary-agi-governance",
+    "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+    "mox-2026-fundraiser",
+    "livingloop-the-biological-computing-engine-for-ai",
+    "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+    "visions-from-the-archive",
+    "help-two-consciousness-researchers-get-to-crete-this-summer",
+    "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+    "when-safety-testing-costs-more-than-model-training",
+    "shutdown-evaluations-for-ai-agents",
+    "bounded-uncertainty-verification-for-ai-systems",
+    "debate-training-on-llms-as-a-reward-hacking-mitigation"
+  ],
+  "engine_spec": {
+    "n": 12,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-4.1-mini",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: Beyond Pathology: Integrating Spirituality into Mental Healthcare\nBLURB: Help Two Consciousness Researchers Get to ASSC Conference\nASK: min $1,100 / goal $2,400\nCAUSES: EA community, Global health &amp; development\nProject summary\n\n Beyond Pathology: Expert Consensus on the Intersection of Emergent Experiences and Mental and Medical Conditions \n\nLast year, we started something amazing. Now, we need your help to bring it to the public.\n\nOur project is called the Expert Opinion Project. It aims to advance mental health and psychiatry by introducing traditional and indigenous understanding of spiritual experiences into the Western medical model. Our research team has been working on this issue for more than a decade. Last summer, we finally secured the necessary manpower and funding to move forward.\n\nAs many people—and their loved ones—are aware, despite extremely positive benefits overall, even gentle exploration with psychedelic compounds or even attending a meditation retreat can sometimes have unexpected psychological effects. People often hesitate to share these experiences with their doctors and care practitioners because they fear being stigmatized. Sometimes, these experiences can spiral out of control and ruin lives. With this project, we want to start a change.\n\nHow many people do you know who have questioned whether they are undergoing a spiritual awakening or struggling with something that could be dangerous, such as schizophrenia or a bipolar disorder? We are here to share crucial insights about the importance of these nuances. We find it incredibly important t\n</entity_A>\n<entity_B>\nTITLE: Bounded-Uncertainty Verification for AI Systems\nBLURB: A formal four-state framework for honest AI safety verification, grounded in the impossibility results that make binary safe/unsafe verdicts mathematically inde\nASK: min $96,000 / goal $115,000\nCAUSES: Technical AI safety, AI governance\nProject summary\n\nAI safety claims are almost always binary: a system is called safe or unsafe. Rice&apos;s theorem (generalized to abstract semantics by Baldan-Ranzato-Zhang) and Pichler et al.&apos;s no-free-lunch result on backdoor detection prove this is mathematically dishonest, since no algorithm decides non-trivial behavioral properties and no detector universally finds hidden model behavior. This project builds the alternative: a four-state output classification (PROVEN, APPROXIMATION, ESCALATED, TERMINATED), each with a distinct epistemic warrant, plus a composition calculus adapted from differential privacy so bounded-risk certificates combine soundly. An opening working paper is already public: &lt;https://doi.org/10.5281/zenodo.21341445 \n\n What are this project&apos;s goals? How will you achieve them?\n\nThe goal is a complete, citable framework giving AI assurance an honest output vocabulary grounded in the impossibility results. Three phases over 9 months: Phase 1 formalizes the four-state semantics and its soundness conditions; Phase 2 develops and proves the composition calculus for homogeneous and mixed certificate sequences; Phase 3 maps the framework onto NIST AI RMF, ISO/IEC 42001, the EU AI Act, and the frontier-lab safety frameworks, then writes up the full results for open publi\n</entity_B>\n<entity_C>\nTITLE: Mox: 2026 Fundraiser\nBLURB: An incubator &amp; community space in SF; for doers of good and masters of craft\nASK: min $50,000 / goal $1,200,000\nCAUSES: EA community, Global catastrophic risks\nMox is San Francisco&apos;s primary AI safety incubator and Effective Altruism community space. Over the last year, we’ve supported high-impact work by hosting fellowships, events, offices and coworking. We’re now looking for individual donors and institutional funding to carry us through the next year!\n\nWe&apos;re aiming to raise $450k, and think we can effectively deploy up to $1.2m to run more great events, improve our space, and incubate new fellowships. To kick things off, one anonymous donor has offered Mox a 1:1 match up to $100k -- if we can raise $50k+.\n\nPlease support us through Manifund, or read on to learn more about our work!\n\n Interested in donating a large amount? Reach out to Rachel Shu, Mox Director at rachel@moxsf.com . \n\n Our first year in review \n\nMox launched on Feb 15, 2025\\. In a single year on a shoestring budget, we&apos;ve become a primary nexus for the AI safety community and other EA-adjacent work in San Francisco. We’ve hosted hundreds of members and thousands of visitors, organized our own public events and fellowship, and supported dozens of other impactful orgs.\n\n By the numbers: \n\n 183 active members\n 15 private offices\n 377 events hosted\n Partnerships with 19 AI Safety &amp; EA orgs\n 4 floor (40k sq ft) buildout\n\n Fellowships &amp; programs\n\nWe supported five residencies in the last year:\n\n FLF Fellowship on AI for Human Reasoning : 30 fellows exploring, researching, and\n</entity_C>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which item has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the size or ambition of the ask itself: a cheap project is not better merely for being cheap, nor an expensive one for being grand — only the expected benefit of the next dollar at the minimum threshold matters.\n</full_attribute_text>\n\nOrder every slot from {A, B, C} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:20f41870145aa783",
+    "prefix_bytes": 5261
+  },
+  "subsets_per_k": {
+    "3": 16,
+    "4": 12
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "impact_per_dollar",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 21180,
+        "completion_tokens": 64,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 8574400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          4,
+          8,
+          4
+        ],
+        "last_by_slot": [
+          2,
+          4,
+          10
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.8900886995514443,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 9.674444744366644,
+          "std": 0.6545595192012209
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 9.372966917063545,
+          "std": 0.5725458431084856
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 5.157926521378745,
+          "std": 0.638529601761377
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 2.350277449185053,
+          "std": 0.6172953139025378
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 4.135489439611842,
+          "std": 0.6425762854765641
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 6.233353206751934,
+          "std": 0.6079012160540622
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 6.086099854977631,
+          "std": 0.6545595192012209
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 7.999812863721396,
+          "std": 0.6180067319724266
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 14.264760345661415,
+          "std": 0.6491418068518956
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 8.988618009033425,
+          "std": 0.5593300348360196
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.0,
+          "std": 0.6040289481030947
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 12.23952869673821,
+          "std": 0.64870972911373
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "theory_of_change",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 20300,
+        "completion_tokens": 64,
+        "cache_read_tokens": 11392,
+        "cache_write_tokens": 0,
+        "nanodollars": 4804800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 11,
+        "mean_cached_fraction": 0.5470449328882311
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          6,
+          7,
+          3
+        ],
+        "last_by_slot": [
+          3,
+          3,
+          10
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.9196234074870401,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 4.43267798331181,
+          "std": 0.6650660347029033
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 5.2383470502826945,
+          "std": 0.5766895103341187
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 3.675086201345905,
+          "std": 0.6479382044569831
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 2.000566964686717,
+          "std": 0.6399587522322453
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.41976424197861384,
+          "std": 0.6571952471502195
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.16363258866018526,
+          "std": 0.6157513401256679
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.0,
+          "std": 0.6650660347029033
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 4.994026556482261,
+          "std": 0.6358318122834486
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 11.393245703570665,
+          "std": 0.6597744480273048
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 10.898213607030852,
+          "std": 0.5669936548106079
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 8.548125706324306,
+          "std": 0.6315258930795391
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 11.528577023510135,
+          "std": 0.648342284333247
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "team_evidence",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 20092,
+        "completion_tokens": 64,
+        "cache_read_tokens": 8320,
+        "cache_write_tokens": 0,
+        "nanodollars": 5643200
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 8,
+        "mean_cached_fraction": 0.4035959833595677
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          4,
+          7,
+          5
+        ],
+        "last_by_slot": [
+          3,
+          4,
+          9
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.9479659866794458,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.31018360552068924,
+          "std": 0.6777399955807069
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 3.5693988395193568,
+          "std": 0.582103555306276
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 12.489689806325018,
+          "std": 0.6498187799970294
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.72229827084867,
+          "std": 0.6551124647707073
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.0,
+          "std": 0.6777399955807069
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.9577497236750926,
+          "std": 0.6196192994037978
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.07404779951245033,
+          "std": 0.6741750828044442
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 3.49272531760412,
+          "std": 0.6333889974721846
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 11.177633624856897,
+          "std": 0.6684472184168684
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 4.100200104003581,
+          "std": 0.5716969609764906
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 10.059064334758924,
+          "std": 0.6231463652043875
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 10.21693243375809,
+          "std": 0.6558397835861217
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19932,
+        "completion_tokens": 60,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 8068800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          8,
+          1,
+          2
+        ],
+        "last_by_slot": [
+          3,
+          2,
+          1,
+          6
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.8865410502927755,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 13.45967525368422,
+          "std": 0.6123974714823056
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 11.050834324768742,
+          "std": 0.5490528653943586
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.0,
+          "std": 0.5749997232186697
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 1.2522815692397593,
+          "std": 0.5509002122771354
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 6.668389643238508,
+          "std": 0.5775497528421429
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 14.382079834086085,
+          "std": 0.5222357417629774
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 6.787096472626562,
+          "std": 0.5979700163187733
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 13.039209477294204,
+          "std": 0.6056916569189837
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 10.944913489799575,
+          "std": 0.6123974714823056
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 7.679246663225554,
+          "std": 0.5664652142447297
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 5.203481114763582,
+          "std": 0.5527264485020977
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 9.298744392839911,
+          "std": 0.6105177454612293
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19272,
+        "completion_tokens": 60,
+        "cache_read_tokens": 14848,
+        "cache_write_tokens": 0,
+        "nanodollars": 3350400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 11,
+        "mean_cached_fraction": 0.768204102209487
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          5,
+          3,
+          2,
+          2
+        ],
+        "last_by_slot": [
+          0,
+          2,
+          7,
+          3
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.9288490780936103,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 6.998869685231435,
+          "std": 0.6978890180319205
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 10.829643546707459,
+          "std": 0.6568770048072325
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.15095083098768924,
+          "std": 0.6454864329386685
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.0,
+          "std": 0.6042489094237712
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.545666718208774,
+          "std": 0.6556817271149079
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.221235756745239,
+          "std": 0.5673268850640562
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.07012323202809423,
+          "std": 0.6672023595206557
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.17238963668275264,
+          "std": 0.6806680833484582
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 11.552752182746968,
+          "std": 0.6978890180319205
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 9.554487733758096,
+          "std": 0.6419901146372424
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 10.465344195422045,
+          "std": 0.634861696567823
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 9.756191172979495,
+          "std": 0.6950364408151366
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "team_evidence",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19116,
+        "completion_tokens": 60,
+        "cache_read_tokens": 14848,
+        "cache_write_tokens": 0,
+        "nanodollars": 3288000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 11,
+        "mean_cached_fraction": 0.7743291199096612
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          2,
+          4,
+          2,
+          4
+        ],
+        "last_by_slot": [
+          2,
+          1,
+          7,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.9941200635529021,
+      "latents": [
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 5.169343127701055,
+          "std": 0.6554569435160822
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 9.463065628862628,
+          "std": 0.566626802210826
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 16.13246578366415,
+          "std": 0.595418077872628
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 3.3443813635556525,
+          "std": 0.5659924562627445
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 1.4394726892658047,
+          "std": 0.6268064448411701
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.0,
+          "std": 0.5341170963293362
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.4650099484344228,
+          "std": 0.623494976551471
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 5.265493257516638,
+          "std": 0.6229810584034948
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 12.54771600787151,
+          "std": 0.6354618906257382
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 5.414662561811242,
+          "std": 0.5851472685806579
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 9.087157738697345,
+          "std": 0.5637084109639366
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 10.291375455315197,
+          "std": 0.6554569435160822
+        }
+      ],
+      "halo": null
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 160,
+      "comparisons_used": 148,
+      "comparisons_refused": 12,
+      "comparison_budget": 160,
+      "position_flips": 13,
+      "pairs_counterbalanced": 42,
+      "provider_input_tokens": 207850,
+      "provider_output_tokens": 320,
+      "nanodollars": 80042400,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.08192632133819394,
+          "std": 0.026766797846518402
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.074283203363077,
+          "std": 0.021050720975072486
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 0.061903546555943836,
+          "std": 0.018548033217318623
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 0.057520182815513014,
+          "std": 0.018034536472601625
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 0.0411390584230452,
+          "std": 0.021859947329566424
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.037709712484297844,
+          "std": 0.026766797846518402
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.03225317633228754,
+          "std": 0.02058336499907889
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.03147853151370734,
+          "std": 0.021099103201648654
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 0.024734314862934967,
+          "std": 0.021846476183201954
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.01625073576675365,
+          "std": 0.019792606403886553
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.013295428459469454,
+          "std": 0.021240986134986234
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.0,
+          "std": 0.020784366000784482
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 160,
+      "comparisons_used": 159,
+      "comparisons_refused": 1,
+      "comparison_budget": 160,
+      "position_flips": 35,
+      "pairs_counterbalanced": 42,
+      "provider_input_tokens": 197710,
+      "provider_output_tokens": 320,
+      "nanodollars": 75064800,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 0.04898411580411141,
+          "std": 0.028680841716106534
+        },
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.03915096043372984,
+          "std": 0.030667368268557198
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.03835668359291666,
+          "std": 0.027531364984377308
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.021472765892691814,
+          "std": 0.030667368268557198
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 0.018070927667198772,
+          "std": 0.024881369564398053
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 0.01774060057553815,
+          "std": 0.026821924572135867
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 0.017562067258342213,
+          "std": 0.028247632317509895
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.014867231567463595,
+          "std": 0.0266626655619504
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.01309533542256337,
+          "std": 0.025787139357754243
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.009436789314341337,
+          "std": 0.026177938185627806
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.0062581584214550096,
+          "std": 0.02637241428211301
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.0,
+          "std": 0.025350521390562458
+        }
+      ]
+    },
+    {
+      "attribute": "team_evidence",
+      "comparisons_attempted": 160,
+      "comparisons_used": 153,
+      "comparisons_refused": 7,
+      "comparison_budget": 160,
+      "position_flips": 22,
+      "pairs_counterbalanced": 34,
+      "provider_input_tokens": 193766,
+      "provider_output_tokens": 320,
+      "nanodollars": 68956000,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "mox-2026-fundraiser",
+          "mean": 0.083173930055185,
+          "std": 0.02331668742129659
+        },
+        {
+          "id": "livingloop-the-biological-computing-engine-for-ai",
+          "mean": 0.06710597018654908,
+          "std": 0.016369766294812686
+        },
+        {
+          "id": "testing-ancient-script-interpretation-with-a-falsifiability-framework",
+          "mean": 0.060099879761065025,
+          "std": 0.01566835060687221
+        },
+        {
+          "id": "shutdown-evaluations-for-ai-agents",
+          "mean": 0.05137684300193565,
+          "std": 0.014445666680118069
+        },
+        {
+          "id": "when-safety-testing-costs-more-than-model-training",
+          "mean": 0.04567958989913082,
+          "std": 0.01326454361826687
+        },
+        {
+          "id": "bounded-uncertainty-verification-for-ai-systems",
+          "mean": 0.0454165360779417,
+          "std": 0.01295865788819714
+        },
+        {
+          "id": "inspiring-10000-to-embrace-plant-based-living-through-film--advocacy",
+          "mean": 0.04466793593732936,
+          "std": 0.01785428999144329
+        },
+        {
+          "id": "help-two-consciousness-researchers-get-to-crete-this-summer",
+          "mean": 0.04049632145077166,
+          "std": 0.01443944870022637
+        },
+        {
+          "id": "accelerated-intermittent-theta-burst-in-treatment-naive-adolescents",
+          "mean": 0.035672649034555456,
+          "std": 0.013028658553918127
+        },
+        {
+          "id": "debate-training-on-llms-as-a-reward-hacking-mitigation",
+          "mean": 0.0093385401111224,
+          "std": 0.020345523030912926
+        },
+        {
+          "id": "precautionary-agi-governance",
+          "mean": 0.008753113732235484,
+          "std": 0.02331668742129659
+        },
+        {
+          "id": "visions-from-the-archive",
+          "mean": 0.0,
+          "std": 0.017466552886279404
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 3,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": -0.055944055944055944,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.030303030303030304,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 5598.059339428998,
+      "pairwise_obs_per_dollar": 1849.0200193897235,
+      "setwise_dollars_per_item": 0.0007145333333333333,
+      "pairwise_dollars_per_item": 0.0066702
+    },
+    {
+      "k": 3,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.40559440559440557,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.2727272727272727,
+      "top1_agree": false,
+      "top3_overlap": 0.0,
+      "setwise_pairwise_equiv_obs_per_dollar": 9990.00999000999,
+      "pairwise_obs_per_dollar": 2118.1699012053587,
+      "setwise_dollars_per_item": 0.0004004,
+      "pairwise_dollars_per_item": 0.0062554
+    },
+    {
+      "k": 3,
+      "attribute": "team_evidence",
+      "spearman_rho": 0.45454545454545453,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.30303030303030304,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 8505.812305075135,
+      "pairwise_obs_per_dollar": 2218.806195254945,
+      "setwise_dollars_per_item": 0.0004702666666666667,
+      "pairwise_dollars_per_item": 0.005746333333333333
+    },
+    {
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": -0.45454545454545453,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": -0.3333333333333333,
+      "top1_agree": false,
+      "top3_overlap": 0.0,
+      "setwise_pairwise_equiv_obs_per_dollar": 8923.25996430696,
+      "pairwise_obs_per_dollar": 1849.0200193897235,
+      "setwise_dollars_per_item": 0.0006724,
+      "pairwise_dollars_per_item": 0.0066702
+    },
+    {
+      "k": 4,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.13986013986013987,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.030303030303030304,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 21489.97134670487,
+      "pairwise_obs_per_dollar": 2118.1699012053587,
+      "setwise_dollars_per_item": 0.0002792,
+      "pairwise_dollars_per_item": 0.0062554
+    },
+    {
+      "k": 4,
+      "attribute": "team_evidence",
+      "spearman_rho": 0.5384615384615384,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.42424242424242425,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 21897.810218978102,
+      "pairwise_obs_per_dollar": 2218.806195254945,
+      "setwise_dollars_per_item": 0.000274,
+      "pairwise_dollars_per_item": 0.005746333333333333
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 257792800,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}
