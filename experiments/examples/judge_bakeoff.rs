@@ -34,7 +34,7 @@ use futures::stream::{self, StreamExt};
 use serde::{Deserialize, Serialize};
 
 use llmsort::gateway::{Attribution, NoopUsageSink, ProviderGateway};
-use llmsort::rerank::comparison::RATIO_LETTER_ATTR_LAST_SLUG;
+use llmsort::rerank::comparison::{ORDINAL_LETTER_SLUG, RATIO_LETTER_ATTR_LAST_SLUG};
 use llmsort::rerank::sort::spearman;
 use llmsort::rerank::{
     compare_pair, PairwiseComparisonAttribute, PairwiseComparisonEntity, PairwiseComparisonRequest,
@@ -80,6 +80,10 @@ enum Cmd {
         /// Print prompt tail + raw output + judgement for the first N calls.
         #[arg(long, default_value_t = 0)]
         debug_raw: usize,
+        /// Pairwise instrument: `ratio` (52-letter ratio ladder, attr-last) or
+        /// `ordinal` (direction only: A / B / =).
+        #[arg(long, default_value = "ratio")]
+        instrument: String,
     },
     /// Fold every records-*.json in the pack into REPORT.md.
     Report {
@@ -131,6 +135,8 @@ struct CallRecord {
 #[derive(Serialize, Deserialize)]
 struct Pack {
     model: String,
+    #[serde(default = "default_instrument")]
+    instrument: String,
     started_utc: String,
     wall_secs: f64,
     calls: usize,
@@ -138,6 +144,10 @@ struct Pack {
     degree: usize,
     item_ids: BTreeMap<String, Vec<String>>,
     records: Vec<CallRecord>,
+}
+
+fn default_instrument() -> String {
+    "ratio".to_string()
 }
 
 fn truncate_chars(s: &str, max: usize) -> &str {
@@ -176,6 +186,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             wordings,
             max_chars,
             debug_raw,
+            instrument,
         } => {
             run(
                 &items,
@@ -189,6 +200,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 &wordings,
                 max_chars,
                 debug_raw,
+                &instrument,
             )
             .await
         }
@@ -209,7 +221,13 @@ async fn run(
     wordings: &str,
     max_chars: usize,
     debug_raw: usize,
+    instrument: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let slug: &'static str = match instrument {
+        "ratio" => RATIO_LETTER_ATTR_LAST_SLUG,
+        "ordinal" => ORDINAL_LETTER_SLUG,
+        other => return Err(format!("unknown --instrument {other:?} (ratio|ordinal)").into()),
+    };
     let items: Vec<Item> = serde_json::from_str(&std::fs::read_to_string(items_path)?)?;
     let axes: Vec<Axis> = serde_json::from_str(&std::fs::read_to_string(axes_path)?)?;
     let wordings: Vec<String> = wordings.split(',').map(|s| s.trim().to_string()).collect();
@@ -282,7 +300,7 @@ async fn run(
                     attribute: PairwiseComparisonAttribute {
                         id: &axis_id,
                         prompt,
-                        prompt_template_slug: Some(RATIO_LETTER_ATTR_LAST_SLUG),
+                        prompt_template_slug: Some(slug),
                     },
                     entity_a: PairwiseComparisonEntity {
                         id: &pool[sa].id,
@@ -374,6 +392,7 @@ async fn run(
     let wall_secs = started.elapsed().as_secs_f64();
     let pack = Pack {
         model: model.to_string(),
+        instrument: instrument.to_string(),
         started_utc,
         wall_secs,
         calls: records.len(),
