@@ -1170,6 +1170,7 @@ fn fit_external_results(
             output_logprob_token_count: None,
             pairwise_logprob_posterior_error: None,
             ledger_draws: None,
+            evidence_moments: None,
             refused: result.refused,
             cached: false,
             swapped: result.swapped,

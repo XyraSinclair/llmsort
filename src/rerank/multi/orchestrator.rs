@@ -542,6 +542,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     output_logprob_token_count: None,
                     pairwise_logprob_posterior_error: None,
                     ledger_draws: None,
+                    evidence_moments: None,
                     refused: false,
                     cached,
                     swapped: task.swapped,
@@ -765,6 +766,7 @@ pub(crate) async fn multi_rerank_with_failures(
                         }
                         event.pairwise_logprob_posterior = usage.pairwise_logprob_posterior.clone();
                         event.ledger_draws = usage.ledger_draws.clone();
+                        event.evidence_moments = usage.evidence_moments;
                         event.output_logprob_token_count =
                             usage.output_logprobs.as_ref().map(Vec::len);
                         if !usage.cached && event.pairwise_logprob_posterior.is_none() {

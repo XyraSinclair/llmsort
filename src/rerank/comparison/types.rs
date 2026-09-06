@@ -357,7 +357,7 @@ pub(crate) const DECIMAL_LEDGER_DRAWS: usize = 8;
 /// PMF-derived log-ratio moments for one judgement, in PRESENTED
 /// (A-over-B) coordinates. Carried alongside the point judgement so the
 /// solver can weight by measured variance instead of stated confidence.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct EvidenceMoments {
     /// Expected signed log-ratio (positive: presented slot A has more).
     pub log_ratio_mean: f64,

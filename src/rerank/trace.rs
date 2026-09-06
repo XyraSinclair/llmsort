@@ -71,6 +71,11 @@ pub struct ComparisonTrace {
     /// collapsed moments, not draws), point/MC rows, and older traces.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ledger_draws: Option<LedgerDrawsRecord>,
+    /// PMF-derived signed log-ratio moments in PRESENTED coordinates
+    /// (seriate/ledger evidence rails). This is the per-row measurement the
+    /// solver weights by; persisted so landings and replays keep it.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub evidence_moments: Option<crate::rerank::comparison::EvidenceMoments>,
     pub refused: bool,
     pub cached: bool,
     /// Whether entity A/B presentation order was swapped to counteract

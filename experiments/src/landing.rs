@@ -429,13 +429,20 @@ fn completed_batches(
             ratio: trace.ratio,
             confidence: trace.confidence,
             log_ratio_mean: trace
-                .pairwise_logprob_posterior
-                .as_ref()
-                .and_then(|p| p.mean_signed_ln_ratio()),
-            log_ratio_var: trace
-                .pairwise_logprob_posterior
-                .as_ref()
-                .and_then(|p| p.variance_signed_ln_ratio()),
+                .evidence_moments
+                .map(|m| m.log_ratio_mean)
+                .or_else(|| {
+                    trace
+                        .pairwise_logprob_posterior
+                        .as_ref()
+                        .and_then(|p| p.mean_signed_ln_ratio())
+                }),
+            log_ratio_var: trace.evidence_moments.map(|m| m.log_ratio_var).or_else(|| {
+                trace
+                    .pairwise_logprob_posterior
+                    .as_ref()
+                    .and_then(|p| p.variance_signed_ln_ratio())
+            }),
             input_tokens: trace.input_tokens,
             output_tokens: trace.output_tokens,
             cost_nanodollars: nonnegative_cost(trace.provider_cost_nanodollars),
