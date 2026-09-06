@@ -69,7 +69,7 @@ mod types;
 pub use diagnostics::{
     compute_hodge_split, spectral_diagnostics, HodgeSplit, LooDiagnostics, SpectralDiagnostics,
 };
-pub use engine::{plan_edges_for_rater, PlannerMode, RatingEngine};
+pub use engine::{plan_edges_for_rater, windowed_candidates, PlannerMode, RatingEngine};
 pub use types::{
     AttributeParams, CalibrationEvidence, Config, Edge, EngineSpec, Observation, PlanProposal,
     RaterParams, SolveSummary,

@@ -569,6 +569,41 @@ pub enum PlannerMode {
     Hybrid,
 }
 
+/// Windowed candidate generation for the planner: each item paired with its
+/// `window` upward neighbours in the current score order, so the candidate
+/// set is O(n·window) instead of O(n²) and planner spend concentrates where
+/// rank flips are live. This is matchmaking policy, deliberately OUTSIDE the
+/// engine's content identity: `plan_edges_for_rater` already takes its
+/// candidates from the caller, so no Config field and no `EngineSpec`
+/// identity churn (provenance: nanojudge's OPPONENT_WINDOW_SIZE windowed
+/// pairing, mined 2026-09-05 — `research/notes/nanojudge-mining-2026-09-05/`;
+/// their window rides the matchmaker, not the likelihood, and so does ours).
+///
+/// Each unordered pair appears once. `window >= n−1` reproduces the full
+/// candidate set. Errors before `solve()` (no score order to window over)
+/// and on `window == 0` (an empty plan is a caller bug, not a plan).
+pub fn windowed_candidates(
+    engine: &RatingEngine,
+    window: usize,
+) -> Result<Vec<(usize, usize)>, &'static str> {
+    if window == 0 {
+        return Err("window must be at least 1");
+    }
+    let scores = match &engine.last_scores {
+        Some(s) => s,
+        None => return Err("Engine has no solve() state; call solve() first."),
+    };
+    let mut order: Vec<usize> = (0..engine.n).collect();
+    order.sort_by(|&a, &b| scores[a].total_cmp(&scores[b]).then(a.cmp(&b)));
+    let mut out = Vec::new();
+    for (pos, &i) in order.iter().enumerate() {
+        for &j in order[pos + 1..].iter().take(window) {
+            out.push((i, j));
+        }
+    }
+    Ok(out)
+}
+
 /// Plans which entity pairs to compare next for the given rater.
 ///
 /// PlannerMode controls optimization objective: Cardinal maximizes information gain,
