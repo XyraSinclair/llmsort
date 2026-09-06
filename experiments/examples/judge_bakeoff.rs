@@ -5,8 +5,10 @@
 //!
 //! Per (lens, axis) the battery reads, from the same records:
 //! - slot bias: mean signed A-slot advantage and mean |m_AB + m_BA| in nats;
-//! - retest: Spearman between item scores from two nonce draws of wording `a`;
-//! - wording: Spearman of wording `a` scores against `b`, `c` (catalog modes);
+//! - retest: pair-level Spearman of signed log-ratios between two nonce draws of wording `a`;
+//! - wording: pair-level Spearman of wording `a` against `b`, `c` (catalog modes);
+//! - par/A/B %: share of answered calls at parity / entity A ahead / entity B ahead
+//!   (a judge that never uses the lowercase half of the alphabet shows B ≈ 0);
 //! - decisiveness: mean |canonical log-ratio| and visible PMF mass;
 //! - health: logprob-mode fraction, refusals, failed calls, calls/s, cost.
 //!
@@ -401,36 +403,13 @@ fn canonical(r: &CallRecord) -> Option<f64> {
     r.presented_mean.map(|m| if r.order_ij { m } else { -m })
 }
 
-/// Item scores from pairwise signed log-ratios: least squares on
-/// m_ij ≈ s_i − s_j (Jacobi sweeps; the circulant design is connected).
-fn item_scores(n: usize, edges: &[(usize, usize, f64)]) -> Vec<f64> {
-    let mut s = vec![0.0; n];
-    let mut adj: Vec<Vec<(usize, f64)>> = vec![Vec::new(); n];
-    for &(i, j, m) in edges {
-        adj[i].push((j, m));
-        adj[j].push((i, -m));
-    }
-    for _ in 0..300 {
-        let mut next = s.clone();
-        for i in 0..n {
-            if adj[i].is_empty() {
-                continue;
-            }
-            let sum: f64 = adj[i].iter().map(|&(j, m)| m + s[j]).sum();
-            next[i] = sum / adj[i].len() as f64;
-        }
-        let mean = next.iter().sum::<f64>() / n as f64;
-        for v in next.iter_mut() {
-            *v -= mean;
-        }
-        s = next;
-    }
-    s
-}
-
-/// Per-pair canonical mean over orders → item scores for one cell.
-fn cell_scores(pack: &Pack, lens: &str, axis: &str, wording: &str, draw: usize) -> Vec<f64> {
-    let n = pack.item_ids[lens].len();
+/// Canonical signed log-ratio per pair (i over j), averaged over both
+/// presentation orders; pairs missing either order are dropped. All
+/// stability and agreement metrics are computed at this pair level: the
+/// degree-6 ring design is too thin to fold into item scores without either
+/// a shared-neighbour artifact (signed mean) or ring-integrated noise
+/// (least squares), and pair-level needs neither.
+fn pair_means(pack: &Pack, lens: &str, axis: &str, wording: &str, draw: usize) -> BTreeMap<(usize, usize), f64> {
     let mut by_pair: BTreeMap<(usize, usize), Vec<f64>> = BTreeMap::new();
     for r in &pack.records {
         if r.lens == lens && r.axis == axis && r.wording == wording && r.draw == draw {
@@ -439,11 +418,52 @@ fn cell_scores(pack: &Pack, lens: &str, axis: &str, wording: &str, draw: usize) 
             }
         }
     }
-    let edges: Vec<(usize, usize, f64)> = by_pair
+    by_pair
         .into_iter()
-        .map(|((i, j), ms)| (i, j, ms.iter().sum::<f64>() / ms.len() as f64))
-        .collect();
-    item_scores(n, &edges)
+        .filter(|(_, ms)| ms.len() >= 2)
+        .map(|(k, ms)| (k, ms.iter().sum::<f64>() / ms.len() as f64))
+        .collect()
+}
+
+/// Spearman over the pairs both maps share.
+fn pair_spearman(a: &BTreeMap<(usize, usize), f64>, b: &BTreeMap<(usize, usize), f64>) -> Option<f64> {
+    let (mut xs, mut ys) = (Vec::new(), Vec::new());
+    for (k, x) in a {
+        if let Some(y) = b.get(k) {
+            xs.push(*x);
+            ys.push(*y);
+        }
+    }
+    spearman(&xs, &ys)
+}
+
+/// Leave-one-out consensus: z-score every other model's pair vector over the
+/// pairs all packs share, sum, and correlate with model `a`.
+fn consensus_rho(scores: &[BTreeMap<(usize, usize), f64>], a: usize) -> Option<f64> {
+    let mut keys: Option<BTreeSet<(usize, usize)>> = None;
+    for s in scores {
+        let k: BTreeSet<_> = s.keys().copied().collect();
+        keys = Some(match keys {
+            None => k,
+            Some(prev) => prev.intersection(&k).copied().collect(),
+        });
+    }
+    let keys: Vec<_> = keys.unwrap_or_default().into_iter().collect();
+    if keys.len() < 3 || scores.len() < 2 {
+        return None;
+    }
+    let mut cons = vec![0.0; keys.len()];
+    for (b, sb) in scores.iter().enumerate() {
+        if b == a {
+            continue;
+        }
+        let v: Vec<f64> = keys.iter().map(|k| sb[k]).collect();
+        for (idx, z) in zscore(&v).into_iter().enumerate() {
+            cons[idx] += z;
+        }
+    }
+    let own: Vec<f64> = keys.iter().map(|k| scores[a][k]).collect();
+    spearman(&own, &cons)
 }
 
 struct CellStats {
@@ -453,6 +473,10 @@ struct CellStats {
     wording_b_rho: Option<f64>,
     wording_c_rho: Option<f64>,
     decisiveness: f64,
+    /// Fraction of answered calls whose mean sits at parity / A ahead / B ahead.
+    parity_frac: f64,
+    a_ahead_frac: f64,
+    b_ahead_frac: f64,
     visible_mass: f64,
     logprob_frac: f64,
     refused: usize,
@@ -483,12 +507,16 @@ fn cell_stats(pack: &Pack, lens: &str, axis: &str) -> CellStats {
     }
     let slot_bias = mean(&sb);
     let slot_abs = mean(&sb.iter().map(|v| v.abs()).collect::<Vec<_>>());
-    let s_a0 = cell_scores(pack, lens, axis, "a", 0);
+    let s_a0 = pair_means(pack, lens, axis, "a", 0);
     let has = |w: &str, d: usize| rows.iter().any(|r| r.wording == w && r.draw == d);
-    let retest_rho = has("a", 1).then(|| spearman(&s_a0, &cell_scores(pack, lens, axis, "a", 1))).flatten();
-    let wording_b_rho = has("b", 0).then(|| spearman(&s_a0, &cell_scores(pack, lens, axis, "b", 0))).flatten();
-    let wording_c_rho = has("c", 0).then(|| spearman(&s_a0, &cell_scores(pack, lens, axis, "c", 0))).flatten();
-    let decisive: Vec<f64> = rows.iter().filter_map(|r| r.presented_mean.map(f64::abs)).collect();
+    let rho_vs = |w: &str, d: usize| has(w, d).then(|| pair_spearman(&s_a0, &pair_means(pack, lens, axis, w, d))).flatten();
+    let retest_rho = rho_vs("a", 1);
+    let wording_b_rho = rho_vs("b", 0);
+    let wording_c_rho = rho_vs("c", 0);
+    let answered: Vec<f64> = rows.iter().filter_map(|r| r.presented_mean).collect();
+    let frac = |pred: &dyn Fn(f64) -> bool| answered.iter().filter(|m| pred(**m)).count() as f64 / answered.len().max(1) as f64;
+    const PARITY_NATS: f64 = 0.03;
+    let decisive: Vec<f64> = answered.iter().map(|m| m.abs()).collect();
     let vm: Vec<f64> = rows.iter().filter_map(|r| r.visible_mass).collect();
     let logprob = rows.iter().filter(|r| r.logprob_mode == Some(true)).count();
     CellStats {
@@ -498,6 +526,9 @@ fn cell_stats(pack: &Pack, lens: &str, axis: &str) -> CellStats {
         wording_b_rho,
         wording_c_rho,
         decisiveness: mean(&decisive),
+        parity_frac: frac(&|m| m.abs() < PARITY_NATS),
+        a_ahead_frac: frac(&|m| m >= PARITY_NATS),
+        b_ahead_frac: frac(&|m| m <= -PARITY_NATS),
         visible_mass: mean(&vm),
         logprob_frac: logprob as f64 / rows.len().max(1) as f64,
         refused: rows.iter().filter(|r| r.refused).count(),
@@ -536,18 +567,21 @@ fn battery_table(pack: &Pack) -> String {
         pack.calls as f64 / pack.wall_secs.max(1e-9),
         cost as f64 / 1e9
     ));
-    out.push_str("| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | vis mass | logprob | refused | failed |\n");
-    out.push_str("|---|---|---|---|---|---|---|---|---|---|---|---|\n");
+    out.push_str("| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |\n");
+    out.push_str("|---|---|---|---|---|---|---|---|---|---|---|---|---|\n");
     for (lens, axis) in cells(pack) {
         let c = cell_stats(pack, &lens, &axis);
         out.push_str(&format!(
-            "| {lens} | {axis} | {} | {} | {} | {:+.2} | {:.2} | {:.2} | {:.2} | {:.0}% | {} | {} |\n",
+            "| {lens} | {axis} | {} | {} | {} | {:+.2} | {:.2} | {:.2} | {:.0}/{:.0}/{:.0} | {:.2} | {:.0}% | {} | {} |\n",
             fmt_rho(c.retest_rho),
             fmt_rho(c.wording_b_rho),
             fmt_rho(c.wording_c_rho),
             c.slot_bias,
             c.slot_abs,
             c.decisiveness,
+            c.parity_frac * 100.0,
+            c.a_ahead_frac * 100.0,
+            c.b_ahead_frac * 100.0,
             c.visible_mass,
             c.logprob_frac * 100.0,
             c.refused,
@@ -600,19 +634,19 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     }
     let common: Vec<(String, String)> = common.unwrap_or_default().into_iter().collect();
     // Item alignment: require identical item id lists per lens.
-    let mut scores: Vec<BTreeMap<(String, String), Vec<f64>>> = Vec::new();
+    let mut scores: Vec<BTreeMap<(String, String), BTreeMap<(usize, usize), f64>>> = Vec::new();
     for p in &packs {
         let mut m = BTreeMap::new();
         for (lens, axis) in &common {
             if p.item_ids[lens] != packs[0].item_ids[lens] {
                 return Err(format!("item ids differ for {lens} between {} and {}", p.model, packs[0].model).into());
             }
-            m.insert((lens.clone(), axis.clone()), cell_scores(p, lens, axis, "a", 0));
+            m.insert((lens.clone(), axis.clone()), pair_means(p, lens, axis, "a", 0));
         }
         scores.push(m);
     }
 
-    out.push_str("\n## Inter-model agreement (Spearman, wording a, mean over cells)\n\n| model |");
+    out.push_str("\n## Inter-model agreement (pair-level Spearman of signed log-ratios, wording a, draw 0, mean over cells)\n\n| model |");
     for p in &packs {
         out.push_str(&format!(" {} |", short(&p.model)));
     }
@@ -630,31 +664,18 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     let pair_rho = |a: usize, b: usize| -> Option<f64> {
         let mut rs = Vec::new();
         for cell in &common {
-            if let Some(r) = spearman(&scores[a][cell], &scores[b][cell]) {
+            if let Some(r) = pair_spearman(&scores[a][cell], &scores[b][cell]) {
                 rs.push(r);
             }
         }
         (!rs.is_empty()).then(|| mean(&rs))
     };
-    let consensus_rho = |a: usize| -> Option<f64> {
+    let consensus_mean = |a: usize| -> Option<f64> {
         let mut rs = Vec::new();
         for cell in &common {
-            let n = scores[a][cell].len();
-            let mut cons = vec![0.0; n];
-            let mut k = 0;
-            for (b, sb) in scores.iter().enumerate() {
-                if b == a {
-                    continue;
-                }
-                for (idx, z) in zscore(&sb[cell]).into_iter().enumerate() {
-                    cons[idx] += z;
-                }
-                k += 1;
-            }
-            if k > 0 {
-                if let Some(r) = spearman(&scores[a][cell], &cons) {
-                    rs.push(r);
-                }
+            let per_cell: Vec<BTreeMap<(usize, usize), f64>> = scores.iter().map(|m| m[cell].clone()).collect();
+            if let Some(r) = consensus_rho(&per_cell, a) {
+                rs.push(r);
             }
         }
         (!rs.is_empty()).then(|| mean(&rs))
@@ -669,7 +690,7 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
                 out.push_str(&format!(" {} |", fmt_rho(pair_rho(a, b))));
             }
         }
-        out.push_str(&format!(" {} |", fmt_rho(consensus_rho(a))));
+        out.push_str(&format!(" {} |", fmt_rho(consensus_mean(a))));
         for r in &refs {
             let v = idx_of(r).filter(|&b| b != a).and_then(|b| pair_rho(a, b));
             out.push_str(&format!(" {} |", fmt_rho(v)));
@@ -689,17 +710,8 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     for (a, pa) in packs.iter().enumerate() {
         out.push_str(&format!("| {} |", short(&pa.model)));
         for cell in &common {
-            let n = scores[a][cell].len();
-            let mut cons = vec![0.0; n];
-            for (b, sb) in scores.iter().enumerate() {
-                if b == a {
-                    continue;
-                }
-                for (idx, z) in zscore(&sb[cell]).into_iter().enumerate() {
-                    cons[idx] += z;
-                }
-            }
-            out.push_str(&format!(" {} |", fmt_rho(spearman(&scores[a][cell], &cons))));
+            let per_cell: Vec<BTreeMap<(usize, usize), f64>> = scores.iter().map(|m| m[cell].clone()).collect();
+            out.push_str(&format!(" {} |", fmt_rho(consensus_rho(&per_cell, a))));
         }
         out.push('\n');
     }
