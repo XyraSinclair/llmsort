@@ -82,6 +82,20 @@ instrument is *accurate* is undetermined by this data: decisive-and-stable
 can be stably wrong. One weak external anchor leans stickbreak's way: the 3
 of 12 items that actually raised money rank better than chance (5.5) under
 stickbreak in 8/9 arms (mean ≈ 4.0) and under pairwise in 1/3 arms
-(mean ≈ 5.7) — anecdote-grade with 3 positives, recorded, not claimed. The
-real remaining arbiter is rubric-grade ground truth (human labels or
-planted-truth corpora), not more LLM cross-instrument comparison.
+(mean ≈ 5.7) — anecdote-grade with 3 positives, recorded, not claimed.
+
+**Correction (operator, 2026-09-06): there is no external ground truth for
+these attributes — they are subjective, and the system's epistemics are
+intra- and inter-model consistency.** The arbiter is therefore not human
+labels but transport: run the same instruments under a second judge model
+and compare cross-model agreement per instrument. High intra-model
+stability with low cross-model agreement = model idiosyncrasy; the
+instrument whose rankings different models share is measuring the common
+subjective construct. (The funded-items anchor above stays anecdote-grade
+color, not truth.)
+
+**Executed same day: see `../stickbreak-xmodel-4omini-2026-09-06/RESULTS.md`.**
+Stickbreak transports across gpt-4.1-mini ↔ gpt-4o-mini at ρ +0.47…+0.86
+(k=4) vs pairwise +0.01…+0.57; the sb-vs-pw divergence replicates in the
+second model, and on impact_per_dollar the two framings turn out to elicit
+two distinct, each-transportable, mutually opposed constructs.
