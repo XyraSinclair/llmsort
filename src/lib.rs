@@ -26,7 +26,7 @@
 //!
 //! | Room | Modules | Role |
 //! |---|---|---|
-//! | solve | [`rating_engine`], [`censored_likelihood`], [`discrete`], [`repeat_pooling`], [`gain_calibration`] | pure math: IRLS fusion, observation model, calibration |
+//! | solve | [`rating_engine`], [`censored_likelihood`], [`discrete`], [`repeat_pooling`], [`gain_calibration`], [`bias_calibration`] | pure math: IRLS fusion, observation model, calibration |
 //! | evidence | [`packet`], [`seriate`] | content-addressed judgement records; byte-identical fusion |
 //! | elicit | [`prompts`], [`rerank::comparison`], [`rerank::decimal_ledger`] | ratio prompts, instruments, comparison execution |
 //! | gateway | [`gateway`] | provider adapters, pricing, usage accounting |
@@ -41,6 +41,7 @@
 //! `experiments/` crate and `research/` record. See `docs/ALGORITHM.md`
 //! for the design rationale.
 
+pub mod bias_calibration;
 pub mod cache;
 pub mod censored_likelihood;
 pub mod discrete;
