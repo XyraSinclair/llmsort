@@ -60,4 +60,9 @@ so the primacy gradient is a shared model behavior, not a 4.1-mini quirk.
 is across models, not across designs); two models, both OpenAI-family
 (logprobs via OpenRouter constrain the judge pool); n=12. A third leg
 (e.g. gpt-4.1) would separate "OpenAI house style" from "shared
-construct".
+construct". A non-OpenAI leg was attempted same day
+(`meta-llama/llama-3.3-70b-instruct`): the model answers the order prompt
+cleanly ("B A C") but OpenRouter's serving providers returned top_logprobs
+on 1/31 calls — no PMF harvest, leg aborted. Breaking the family confound
+needs pinned provider routing (a `provider.order` knob in the instrument)
+or a self-hosted logprob engine.
