@@ -137,6 +137,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         GatewayConfig::default(),
     ));
 
+    // Resume: rows already streamed to out_path are not re-elicited.
+    let mut have: std::collections::HashSet<String> = std::collections::HashSet::new();
+    if let Ok(existing) = std::fs::read_to_string(&out_path) {
+        for line in existing.lines() {
+            if let Ok(v) = serde_json::from_str::<serde_json::Value>(line) {
+                if v.get("error").map_or(true, |e| e.is_null()) {
+                    have.insert(format!(
+                        "{}|{}|{}|{}|{}",
+                        v["variant"].as_str().unwrap_or(""),
+                        v["entity_a"].as_str().unwrap_or(""),
+                        v["entity_b"].as_str().unwrap_or(""),
+                        v["orientation"],
+                        v["draw"]
+                    ));
+                }
+            }
+        }
+        if !have.is_empty() {
+            eprintln!("resume: {} rows already present, skipping", have.len());
+        }
+    }
+
     // Build the full call plan up front; every call is independent.
     let mut calls: Vec<Call> = Vec::new();
     for axis in &spec.axes {
@@ -153,6 +175,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             for b in (a + 1)..n {
                 for orientation in [0u8, 1u8] {
                     for (draw, nonce) in &draws {
+                        let key = format!(
+                            "{}|{}|{}|{}|{}",
+                            axis.variant,
+                            spec.entities[if orientation == 0 { a } else { b }].id,
+                            spec.entities[if orientation == 0 { b } else { a }].id,
+                            orientation,
+                            draw
+                        );
+                        if have.contains(&key) {
+                            continue;
+                        }
                         calls.push(Call {
                             axis: axis.clone(),
                             a,
