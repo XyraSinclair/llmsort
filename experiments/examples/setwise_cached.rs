@@ -55,6 +55,7 @@ use rand::seq::SliceRandom;
 use rand::{Rng, SeedableRng};
 use serde::{Deserialize, Serialize};
 
+use llmsort::bias_calibration::{solve_with_additive_offsets, BiasObservation};
 use llmsort::gateway::{
     Attribution, ChatGateway, ChatModel, ChatRequest, ChatResponse, FinishReason, Message,
     NoopUsageSink, ProviderError, ProviderGateway, TokenAlternative, TokenLogprob,
@@ -1196,6 +1197,21 @@ struct SetwiseArm {
     /// Mean emitted-letter token probability over PMF-weighted calls.
     mean_answer_token_prob: Option<f64>,
     latents: Vec<ItemLatent>,
+    /// ratio: default pivot-halo calibration readout (per-slot channels,
+    /// E1 re-analysis 46162bb). None for other modes.
+    halo: Option<HaloReadout>,
+}
+
+/// Per-slot additive-offset fit over the ratio arm's member-vs-pivot
+/// observations: gamma > 0 means the pivot reads that many nats hotter than
+/// it is against that slot letter.
+#[derive(Serialize)]
+struct HaloReadout {
+    gammas: Vec<(String, f64)>,
+    iterations: usize,
+    rms_residual: f64,
+    rms_residual_uncorrected: f64,
+    latents_halo_corrected: Vec<ItemLatent>,
 }
 
 #[derive(Serialize)]
@@ -1221,6 +1237,8 @@ struct ArmComparison {
     k: usize,
     attribute: String,
     spearman_rho: f64,
+    /// ratio: rho of the halo-corrected setwise latents vs pairwise.
+    spearman_rho_halo_corrected: Option<f64>,
     kendall_tau: f64,
     top1_agree: bool,
     top3_overlap: f64,
@@ -1423,6 +1441,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // the pivot-rotation readout.
     type PairMeans = HashMap<(usize, usize), (Vec<f64>, Vec<f64>)>;
     let mut arm_obs: BTreeMap<(usize, String), Vec<Observation>> = BTreeMap::new();
+    let mut arm_halo: BTreeMap<(usize, String), Vec<BiasObservation>> = BTreeMap::new();
     let mut arm_usage: BTreeMap<(usize, String), UsageTotals> = BTreeMap::new();
     let mut arm_counts: BTreeMap<(usize, String), (usize, usize, usize, usize)> = BTreeMap::new();
     let mut arm_cache: BTreeMap<(usize, String), (usize, usize, f64)> = BTreeMap::new();
@@ -1716,6 +1735,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                     counts.0 += 1;
                                     let pivot = order[0];
                                     let obs_list = arm_obs.entry(key.clone()).or_default();
+                                    let halo_list = arm_halo.entry(key.clone()).or_default();
                                     let pair_means = arm_pairs.entry(key.clone()).or_default();
                                     for (slot, r) in &ratios {
                                         let slot_pos = SLOT_LETTERS
@@ -1733,6 +1753,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                             args.model.clone(),
                                             1.0,
                                         ));
+                                        // Halo channel: sign −1, the pivot
+                                        // side is the favoured one; one
+                                        // channel per slot letter (the E1
+                                        // replay measured a slot-distance
+                                        // decay, gamma_B > gamma_C > gamma_D).
+                                        halo_list.push(BiasObservation {
+                                            i: entity,
+                                            j: pivot,
+                                            log_ratio: r.ln(),
+                                            channel: Some(format!("slot_{slot}")),
+                                            sign: -1.0,
+                                        });
                                         let (lo, hi) = (entity.min(pivot), entity.max(pivot));
                                         // Oriented lo-vs-hi log ratio for the
                                         // pivot-rotation readout.
@@ -1776,6 +1808,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut engine_spec: Option<EngineSpec> = None;
     let mut setwise_arms: Vec<SetwiseArm> = Vec::new();
     let mut setwise_latents: BTreeMap<(usize, String), Vec<f64>> = BTreeMap::new();
+    let mut setwise_latents_halo: BTreeMap<(usize, String), Vec<f64>> = BTreeMap::new();
     for &k in &ks {
         for attr in &attrs {
             let key = (k, attr.name.clone());
@@ -1862,6 +1895,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     calls_pmf_weighted: None,
                     mean_answer_token_prob: None,
                     latents,
+                    halo: None,
                 });
                 continue;
             }
@@ -1884,6 +1918,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 })
                 .collect();
             setwise_latents.insert(key.clone(), scores);
+
+            // ratio: default pivot-halo calibration (per-slot channels).
+            // A fit failure is surfaced as halo: None, never defaulted.
+            let halo = arm_halo.remove(&key).and_then(|halo_obs| {
+                let fit = solve_with_additive_offsets(args.n, &halo_obs, 1.0)?;
+                setwise_latents_halo.insert(key.clone(), fit.scores.clone());
+                Some(HaloReadout {
+                    gammas: fit.offsets,
+                    iterations: fit.iterations,
+                    rms_residual: fit.rms_residual,
+                    rms_residual_uncorrected: fit.rms_residual_uncorrected,
+                    latents_halo_corrected: entities
+                        .iter()
+                        .enumerate()
+                        .map(|(idx, entity)| ItemLatent {
+                            id: entity.id.clone(),
+                            mean: fit.scores[idx],
+                            std: f64::NAN,
+                        })
+                        .collect(),
+                })
+            });
 
             let pair_means = arm_pairs.remove(&key).unwrap_or_default();
             let mut pairs_with_both = 0usize;
@@ -1985,6 +2041,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 mean_answer_token_prob: pmf_stats
                     .and_then(|(c, sum)| (c > 0).then(|| sum / c as f64)),
                 latents,
+                halo,
             });
         }
     }
@@ -2082,6 +2139,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             k: arm.k,
             attribute: arm.attribute.clone(),
             spearman_rho: spearman_rho(set_scores, pair_scores),
+            spearman_rho_halo_corrected: setwise_latents_halo
+                .get(&(arm.k, arm.attribute.clone()))
+                .map(|h| spearman_rho(h, pair_scores)),
             kendall_tau: kendall_tau(set_scores, pair_scores),
             top1_agree: top_indices(set_scores, 1) == top_indices(pair_scores, 1),
             top3_overlap: overlap as f64 / 3.0,
@@ -2175,17 +2235,40 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
     }
     for comparison in &report.comparisons {
+        let halo_rho = comparison
+            .spearman_rho_halo_corrected
+            .map(|r| format!(" (halo-corrected {r:.3})"))
+            .unwrap_or_default();
         println!(
-            "  k={} {}: rho {:.3} tau {:.3} top1 {} top3 {:.2}  ${:.5}/item vs pairwise ${:.5}/item",
+            "  k={} {}: rho {:.3}{} tau {:.3} top1 {} top3 {:.2}  ${:.5}/item vs pairwise ${:.5}/item",
             comparison.k,
             comparison.attribute,
             comparison.spearman_rho,
+            halo_rho,
             comparison.kendall_tau,
             comparison.top1_agree,
             comparison.top3_overlap,
             comparison.setwise_dollars_per_item,
             comparison.pairwise_dollars_per_item,
         );
+    }
+    for arm in &report.setwise {
+        if let Some(h) = &arm.halo {
+            let gammas: Vec<String> = h
+                .gammas
+                .iter()
+                .map(|(c, g)| format!("{c}={g:+.3}"))
+                .collect();
+            println!(
+                "  k={} {} halo: {} rms {:.3}->{:.3} ({} rounds)",
+                arm.k,
+                arm.attribute,
+                gammas.join(" "),
+                h.rms_residual_uncorrected,
+                h.rms_residual,
+                h.iterations,
+            );
+        }
     }
     for arm in &report.setwise {
         if let Some(o) = &arm.order_sensitivity {
