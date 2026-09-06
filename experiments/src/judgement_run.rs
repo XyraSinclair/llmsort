@@ -1259,7 +1259,13 @@ fn build_rerank_request(request: &NormalizedJudgementRunRequest) -> MultiRerankR
         attributes: vec![MultiRerankAttributeSpec {
             id: request.axis_key.clone(),
             prompt: request.axis_prompt.clone(),
-            prompt_template_slug: Some(JUDGEMENT_PROMPT_TEMPLATE_SLUG.to_string()),
+            // Resolve per model: judges with a seriate logprob route
+            // (CARDINAL_SERIATE_LOGPROB_MODELS / the census) get the
+            // ratio-letter evidence instrument — a full decision-token PMF
+            // per comparison instead of a sampled sentence — everything
+            // else stays canonical_v2 exactly as before. Landing stamps the
+            // instrument that actually ran from the per-row trace.
+            prompt_template_slug: None,
             weight: 1.0,
         }],
         topk: MultiRerankTopKSpec {

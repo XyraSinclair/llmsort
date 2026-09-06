@@ -24,7 +24,7 @@ use llmsort_experiments::judgement_run::{
     execute_judgement_run_with_ref, max_judgement_run_comparisons, validate_external_judgement_run,
     ExternalJudgementRun, ExternalJudgementSchedule, JudgementCandidate, JudgementPrivacy,
     JudgementRunRecord, JudgementRunRequest, JudgementRunStore, JudgementRunTerminal,
-    NormalizedJudgementRunRequest, JUDGEMENT_PROMPT_TEMPLATE_SLUG,
+    NormalizedJudgementRunRequest,
 };
 use llmsort_experiments::landing::{land_completed_run, ClickHouseLanding};
 use serde::{Deserialize, Serialize};
@@ -355,7 +355,9 @@ async fn estimate_run(
     let input_tokens = estimate_pairwise_input_tokens(
         &normalized.axis_key,
         &normalized.axis_prompt,
-        Some(JUDGEMENT_PROMPT_TEMPLATE_SLUG),
+        Some(llmsort::rerank::default_template_slug(Some(
+            &normalized.model,
+        ))),
         &entities_by_length[0].text,
         &entities_by_length[1].text,
     );

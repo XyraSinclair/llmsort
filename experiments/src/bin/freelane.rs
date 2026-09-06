@@ -128,6 +128,12 @@ struct Config {
     model_denylist: HashSet<String>,
     max_entities: usize,
     extra_providers: Vec<ExtraProviderSpec>,
+    /// FREELANE_HOSTED_LANES=0 parks every hosted lane — no OpenRouter
+    /// discovery, no lane 0 — leaving only local (loopback base_url)
+    /// FREELANE_PROVIDERS lanes. Operator 2026-09-05: focus on our own
+    /// serves with full logprob/prompt-cache/nonce control; free tiers are
+    /// rate-opaque and not worth thinking about.
+    hosted_lanes: bool,
     plan_only: bool,
 }
 
@@ -196,6 +202,7 @@ impl Config {
             model_denylist,
             max_entities,
             extra_providers,
+            hosted_lanes: std::env::var("FREELANE_HOSTED_LANES").map_or(true, |v| v != "0"),
             plan_only: std::env::args().any(|arg| arg == "--plan"),
         })
     }
@@ -844,22 +851,38 @@ async fn drive() -> Result<(), String> {
                     .filter(|axis| !derived.contains(&(axis.lens.clone(), axis.axis_key.clone()))),
             );
         }
-        let openrouter_models = discover_free_models(&config.model_denylist).await?;
         let done = done_cells(&ch, &config.owner_scope).await?;
 
-        let mut lanes: Vec<Lane> = vec![Lane {
-            name: "openrouter".to_string(),
-            base_url: None,
-            key: None,
-            rpm: config.rpm,
-            concurrent_runs: config.concurrent_runs,
-            paced: true,
-            comparison_concurrency: 1,
-            nonce_draws: None,
-            models: openrouter_models,
-            per_model_daily: None,
-        }];
+        let mut lanes: Vec<Lane> = Vec::new();
+        if config.hosted_lanes {
+            lanes.push(Lane {
+                name: "openrouter".to_string(),
+                base_url: None,
+                key: None,
+                rpm: config.rpm,
+                concurrent_runs: config.concurrent_runs,
+                paced: true,
+                comparison_concurrency: 1,
+                nonce_draws: None,
+                models: discover_free_models(&config.model_denylist).await?,
+                per_model_daily: None,
+            });
+        }
+        let loopback = |lane: &Lane| {
+            lane.base_url.as_deref().is_some_and(|u| {
+                u.starts_with("http://127.0.0.1")
+                    || u.starts_with("http://localhost")
+                    || u.starts_with("http://[::1]")
+            })
+        };
         for spec_lane in &extra_lanes {
+            if !config.hosted_lanes && !loopback(spec_lane) {
+                println!(
+                    "freelane: hosted lanes off; parking lane {}",
+                    spec_lane.name
+                );
+                continue;
+            }
             lanes.push(Lane {
                 name: spec_lane.name.clone(),
                 base_url: spec_lane.base_url.clone(),

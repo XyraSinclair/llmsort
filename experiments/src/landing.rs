@@ -13,7 +13,6 @@ use sha2::{Digest, Sha256};
 
 use crate::judgement_run::{
     JudgementPrivacy, JudgementRunRecord, JudgementRunStore, JudgementRunTerminal,
-    JUDGEMENT_PROMPT_TEMPLATE_SLUG,
 };
 use llmsort::gateway::types::DEFAULT_CHAT_TEMPERATURE;
 
@@ -363,9 +362,6 @@ fn completed_batches(
     let private = record.request.privacy == JudgementPrivacy::Private;
     let row_owner_scope = private.then_some(owner_scope);
     let axis_prompt_hash = sha256_hex(&record.request.axis_prompt);
-    let template = llmsort::prompts::prompt_by_slug(JUDGEMENT_PROMPT_TEMPLATE_SLUG)
-        .ok_or_else(|| "canonical judgement prompt template is missing".to_string())?;
-    let template_hash = sha256_hex(&format!("{}\n{}", template.system, template.user));
     let harness = record
         .provenance
         .as_ref()
@@ -408,8 +404,8 @@ fn completed_batches(
             axis_prompt: &record.request.axis_prompt,
             axis_prompt_hash: &axis_prompt_hash,
             harness,
-            template_slug: JUDGEMENT_PROMPT_TEMPLATE_SLUG,
-            template_hash: &template_hash,
+            template_slug: &trace.prompt_template_slug,
+            template_hash: &trace.template_hash,
             model: &trace.model,
             comparison_index: u32::try_from(trace.comparison_index)
                 .map_err(|_| "comparison index exceeds UInt32".to_string())?,
