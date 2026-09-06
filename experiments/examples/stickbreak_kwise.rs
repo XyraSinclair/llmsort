@@ -175,52 +175,52 @@ fn main() {
     println!("sigma = per-call perceptual noise std on each read score (0 = ideal PMFs).");
     println!("sigma  k calls edges stickbreak_rho pairwise_rho");
     for sigma in [0.0, 0.5, 1.0] {
-    for k in [3, 5, 7] {
-        let calls = args.rounds * args.n.div_ceil(k - 1);
-        let (mut stick_rho, mut pair_rho) = (0.0, 0.0);
-        let mut edge_count = 0;
-        for seed in 42..47 {
-            let mut rng = StdRng::seed_from_u64(seed);
-            // Box–Muller: Normal(0, variance 1.5), not standard deviation 1.5.
-            let truth: Vec<f64> = (0..args.n)
-                .map(|_| {
-                    (-2.0 * (1.0 - rng.gen::<f64>()).ln()).sqrt()
-                        * (std::f64::consts::TAU * rng.gen::<f64>()).cos()
-                        * 1.5_f64.sqrt()
-                })
-                .collect();
-            let mut observations = Vec::new();
-            let mut order: Vec<_> = (0..args.n).collect();
-            for _ in 0..args.rounds {
-                order.shuffle(&mut rng);
-                for start in (0..args.n).step_by(k - 1) {
-                    let lineup: Vec<_> = (0..k).map(|j| order[(start + j) % args.n]).collect();
-                    let seen = perceive(&truth, sigma, &mut rng);
-                    let slots = judge(&lineup, &seen, args.temperature, &mut rng);
-                    observations.extend(fold(&lineup, &reconstruct(k, &slots)));
+        for k in [3, 5, 7] {
+            let calls = args.rounds * args.n.div_ceil(k - 1);
+            let (mut stick_rho, mut pair_rho) = (0.0, 0.0);
+            let mut edge_count = 0;
+            for seed in 42..47 {
+                let mut rng = StdRng::seed_from_u64(seed);
+                // Box–Muller: Normal(0, variance 1.5), not standard deviation 1.5.
+                let truth: Vec<f64> = (0..args.n)
+                    .map(|_| {
+                        (-2.0 * (1.0 - rng.gen::<f64>()).ln()).sqrt()
+                            * (std::f64::consts::TAU * rng.gen::<f64>()).cos()
+                            * 1.5_f64.sqrt()
+                    })
+                    .collect();
+                let mut observations = Vec::new();
+                let mut order: Vec<_> = (0..args.n).collect();
+                for _ in 0..args.rounds {
+                    order.shuffle(&mut rng);
+                    for start in (0..args.n).step_by(k - 1) {
+                        let lineup: Vec<_> = (0..k).map(|j| order[(start + j) % args.n]).collect();
+                        let seen = perceive(&truth, sigma, &mut rng);
+                        let slots = judge(&lineup, &seen, args.temperature, &mut rng);
+                        observations.extend(fold(&lineup, &reconstruct(k, &slots)));
+                    }
                 }
+                edge_count = observations.len();
+                stick_rho += rho(&solve(args.n, &observations), &truth);
+                // Separate deterministic stream: baseline pairs do not depend on slot draws.
+                let mut pair_rng = StdRng::seed_from_u64(seed ^ 0x7061_6972);
+                let baseline: Vec<_> = (0..calls)
+                    .map(|_| {
+                        let a = pair_rng.gen_range(0..args.n);
+                        let b = (a + pair_rng.gen_range(1..args.n)) % args.n;
+                        let seen = perceive(&truth, sigma, &mut pair_rng);
+                        let p = 1.0 / (1.0 + ((seen[b] - seen[a]) / args.temperature).exp());
+                        let log_odds = p.ln() - (-p).ln_1p();
+                        Observation::from_log_ratio_moments(a, b, log_odds, 1.0, "judge", 1.0)
+                    })
+                    .collect();
+                pair_rho += rho(&solve(args.n, &baseline), &truth);
             }
-            edge_count = observations.len();
-            stick_rho += rho(&solve(args.n, &observations), &truth);
-            // Separate deterministic stream: baseline pairs do not depend on slot draws.
-            let mut pair_rng = StdRng::seed_from_u64(seed ^ 0x7061_6972);
-            let baseline: Vec<_> = (0..calls)
-                .map(|_| {
-                    let a = pair_rng.gen_range(0..args.n);
-                    let b = (a + pair_rng.gen_range(1..args.n)) % args.n;
-                    let seen = perceive(&truth, sigma, &mut pair_rng);
-                    let p = 1.0 / (1.0 + ((seen[b] - seen[a]) / args.temperature).exp());
-                    let log_odds = p.ln() - (-p).ln_1p();
-                    Observation::from_log_ratio_moments(a, b, log_odds, 1.0, "judge", 1.0)
-                })
-                .collect();
-            pair_rho += rho(&solve(args.n, &baseline), &truth);
+            println!(
+                "{sigma:>5.1} {k:>2} {calls:>5} {edge_count:>5} {:>14.6} {:>12.6}",
+                stick_rho / 5.0,
+                pair_rho / 5.0
+            );
         }
-        println!(
-            "{sigma:>5.1} {k:>2} {calls:>5} {edge_count:>5} {:>14.6} {:>12.6}",
-            stick_rho / 5.0,
-            pair_rho / 5.0
-        );
-    }
     }
 }

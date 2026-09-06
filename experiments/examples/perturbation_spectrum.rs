@@ -5,11 +5,11 @@
 //! under a ladder of elicitation perturbations:
 //!
 //! - `nonce`   — base attribute, K draw-token nonces (null suffix; the
-//!               production `nonce_draws` instrument);
+//!   production `nonce_draws` instrument);
 //! - `jitter`  — whitespace-jitter variants of the attribute (semantically
-//!               null, token stream perturbed mid-prompt; E8 apparatus);
+//!   null, token stream perturbed mid-prompt; E8 apparatus);
 //! - `para`    — paraphrase variants of the attribute (semantics held,
-//!               framing genuinely re-worded);
+//!   framing genuinely re-worded);
 //!
 //! each in BOTH presentation orders (the orientation rung falls out of the
 //! same rows). Output: one JSONL row per call with the PMF moments — the
@@ -42,8 +42,8 @@ use serde::{Deserialize, Serialize};
 use llmsort::gateway::openrouter::OpenRouterAdapter;
 use llmsort::gateway::{Attribution, GatewayConfig, NoopUsageSink, ProviderGateway};
 use llmsort::rerank::comparison::{
-    compare_pair, PairwiseComparisonAttribute, PairwiseComparisonEntity,
-    PairwiseComparisonRequest, PairwiseComparisonSpec, RATIO_LETTER_SLUG,
+    compare_pair, PairwiseComparisonAttribute, PairwiseComparisonEntity, PairwiseComparisonRequest,
+    PairwiseComparisonSpec, RATIO_LETTER_SLUG,
 };
 use llmsort::rerank::types::{HigherRanked, PairwiseJudgement};
 
@@ -116,8 +116,12 @@ struct Call {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut args = std::env::args().skip(1);
-    let spec_path = args.next().ok_or("usage: perturbation_spectrum <spec.json> <out.jsonl>")?;
-    let out_path = args.next().ok_or("usage: perturbation_spectrum <spec.json> <out.jsonl>")?;
+    let spec_path = args
+        .next()
+        .ok_or("usage: perturbation_spectrum <spec.json> <out.jsonl>")?;
+    let out_path = args
+        .next()
+        .ok_or("usage: perturbation_spectrum <spec.json> <out.jsonl>")?;
     let spec: Spec = serde_json::from_str(&std::fs::read_to_string(&spec_path)?)?;
     let n = spec.entities.len();
     if n < 2 {
@@ -142,7 +146,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Ok(existing) = std::fs::read_to_string(&out_path) {
         for line in existing.lines() {
             if let Ok(v) = serde_json::from_str::<serde_json::Value>(line) {
-                if v.get("error").map_or(true, |e| e.is_null()) {
+                if v.get("error").is_none_or(|e| e.is_null()) {
                     have.insert(format!(
                         "{}|{}|{}|{}|{}",
                         v["variant"].as_str().unwrap_or(""),
@@ -213,7 +217,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Stream rows to disk as they complete: the engine may be restarted
     // under us (GPU borrow arbitration) and a partial pack must survive.
     let out_file = Arc::new(std::sync::Mutex::new(std::io::BufWriter::new(
-        std::fs::OpenOptions::new().create(true).append(true).open(&out_path)?,
+        std::fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&out_path)?,
     )));
     let rows: Vec<Row> = futures::stream::iter(calls)
         .map(|call| {
@@ -237,8 +244,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                             prompt: &call.axis.prompt,
                             prompt_template_slug: Some(RATIO_LETTER_SLUG),
                         },
-                        entity_a: PairwiseComparisonEntity { id: &ea.id, text: &ea.text },
-                        entity_b: PairwiseComparisonEntity { id: &eb.id, text: &eb.text },
+                        entity_a: PairwiseComparisonEntity {
+                            id: &ea.id,
+                            text: &ea.text,
+                        },
+                        entity_b: PairwiseComparisonEntity {
+                            id: &eb.id,
+                            text: &eb.text,
+                        },
                     },
                     cache_only: false,
                     attribution: Attribution::new("examples::perturbation_spectrum"),
@@ -246,7 +259,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 };
                 let result = compare_pair(gateway.as_ref(), None, request).await;
                 let k = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
-                if k % 100 == 0 {
+                if k.is_multiple_of(100) {
                     eprintln!("  {k}/{total}");
                 }
                 let row = match result {

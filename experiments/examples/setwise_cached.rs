@@ -57,7 +57,7 @@ use serde::{Deserialize, Serialize};
 
 use llmsort::gateway::{
     Attribution, ChatGateway, ChatModel, ChatRequest, ChatResponse, FinishReason, Message,
-    NoopUsageSink, ProviderError, ProviderGateway,
+    NoopUsageSink, ProviderError, ProviderGateway, TokenAlternative, TokenLogprob,
 };
 use llmsort::rating_engine::{AttributeParams, EngineSpec, Observation, RaterParams, RatingEngine};
 use llmsort::rerank::sort::{sort_documents, SortOptions, SortedTexts};
@@ -272,6 +272,15 @@ struct Args {
     /// probabilities). Deterministic emission recovers the point lowering.
     #[arg(long)]
     logprobs: bool,
+    /// order only, requires --logprobs: stick-breaking elicitation. Each
+    /// emitted rank letter's top_logprobs alternatives give that slot's
+    /// conditional PMF over the still-unplaced letters; stick breaking
+    /// reconstructs the winner distribution q; every lineup pair enters as
+    /// ln(q_a/q_b) with variance m/(k−1) (the call's k−1 informative slots
+    /// spread over its m edges). Offline gate: examples/stickbreak_kwise.rs
+    /// (f360e9e — dominates matched-budget pairwise at every noise level).
+    #[arg(long)]
+    stickbreak: bool,
     /// ring only: anchors shared between consecutive groups.
     #[arg(long, default_value_t = 2)]
     overlap: usize,
@@ -663,6 +672,102 @@ fn parse_slots(raw: &str, k: usize, want: usize) -> Result<Vec<usize>, String> {
 /// plain point lowering; hesitant positions shrink toward zero with
 /// inflated variance. The q form is a stated modeling choice, not a
 /// calibration; E7 measures whether it buys separation per dollar.
+/// A trimmed single-character slot letter within the first `kk` letters, or
+/// None. Shared by the emitted-token filter and the alternatives harvest.
+fn single_slot_letter(token: &str, kk: usize) -> Option<char> {
+    let t = token.trim();
+    let mut chars = t.chars();
+    match (chars.next(), chars.next()) {
+        (Some(ch), None) if SLOT_LETTERS[..kk].contains(&ch) => Some(ch),
+        _ => None,
+    }
+}
+
+/// stickbreak: harvest each emitted rank slot's conditional PMF over the
+/// still-unplaced letters from the answer tokens' top_alternatives, then
+/// stick-break into the winner distribution q over slot positions. Returns
+/// (q, per-slot renormalized PMFs for the trace); None when the emitted
+/// letter tokens do not align with the parsed order or a slot's alternatives
+/// carry no mass (counted by the caller, never defaulted). Whitespace
+/// variants of the same letter sum; the chosen letter's mass is floored at
+/// its emitted-token probability (top_alternatives may truncate it away).
+fn stickbreak_q(
+    tokens: &[TokenLogprob],
+    slots: &[usize],
+    kk: usize,
+) -> Option<(Vec<f64>, Vec<BTreeMap<String, f64>>)> {
+    let letter_tokens: Vec<&TokenLogprob> = tokens
+        .iter()
+        .filter(|t| single_slot_letter(&t.token, kk).is_some())
+        .collect();
+    if letter_tokens.len() != kk || slots.len() != kk {
+        return None;
+    }
+    for (t, &s) in letter_tokens.iter().zip(slots) {
+        if single_slot_letter(&t.token, kk) != Some(SLOT_LETTERS[s]) {
+            return None;
+        }
+    }
+    let mut unplaced = vec![true; kk];
+    let mut q = vec![0.0; kk];
+    let mut pmfs = Vec::with_capacity(kk - 1);
+    let mut residual = 1.0f64;
+    for (r, &chosen) in slots[..kk - 1].iter().enumerate() {
+        let mut mass: BTreeMap<usize, f64> = BTreeMap::new();
+        for alt in &letter_tokens[r].top_alternatives {
+            if let Some(ch) = single_slot_letter(&alt.token, kk) {
+                let s = SLOT_LETTERS[..kk]
+                    .iter()
+                    .position(|&c| c == ch)
+                    .expect("letter within alphabet");
+                if unplaced[s] {
+                    *mass.entry(s).or_insert(0.0) += alt.logprob.exp();
+                }
+            }
+        }
+        let emitted = letter_tokens[r].logprob.exp();
+        let chosen_mass = mass.entry(chosen).or_insert(0.0);
+        if *chosen_mass < emitted {
+            *chosen_mass = emitted;
+        }
+        let total: f64 = mass.values().sum();
+        if !(total.is_finite() && total > 0.0 && mass[&chosen] > 0.0) {
+            return None;
+        }
+        pmfs.push(
+            mass.iter()
+                .map(|(&s, &p)| (SLOT_LETTERS[s].to_string(), p / total))
+                .collect(),
+        );
+        q[chosen] = residual * mass[&chosen] / total;
+        residual -= q[chosen];
+        unplaced[chosen] = false;
+    }
+    q[slots[kk - 1]] = residual.max(0.0);
+    Some((q, pmfs))
+}
+
+/// Luce fold of the stick-breaking winner distribution: every lineup pair
+/// enters as ln(q_a/q_b) with variance m/(k−1) — the call's k−1 informative
+/// slots spread over its m edges, mirroring examples/stickbreak_kwise.rs.
+fn lower_stickbreak(order: &[usize], q: &[f64], rater: &str, out: &mut Vec<Observation>) {
+    let kk = q.len();
+    let m = (kk * (kk - 1) / 2) as f64;
+    let variance = m / (kk - 1) as f64;
+    for a in 0..kk {
+        for b in a + 1..kk {
+            out.push(Observation::from_log_ratio_moments(
+                order[a],
+                order[b],
+                q[a].max(1e-9).ln() - q[b].max(1e-9).ln(),
+                variance,
+                rater.to_string(),
+                1.0,
+            ));
+        }
+    }
+}
+
 fn lower_order_with_probs(
     order_entities: &[usize],
     probs: &[f64],
@@ -824,6 +929,28 @@ impl ChatGateway for SyntheticJudge {
                 if user.contains(BW_MARKER) {
                     format!("{} {}", letters[0], letters[letters.len() - 1])
                 } else {
+                    // order also emits answer-token logprobs: each rank
+                    // slot's top_alternatives are the sequential-PL softmax
+                    // over the still-unplaced perturbed latents, so the
+                    // offline path exercises stickbreak harvesting end to
+                    // end (the ideal-PMF limit of stickbreak_kwise.rs).
+                    let mut tokens = Vec::with_capacity(perturbed.len());
+                    for r in 0..perturbed.len() {
+                        let denom: f64 = perturbed[r..].iter().map(|p| p.0.exp()).sum();
+                        let alternatives: Vec<TokenAlternative> = perturbed[r..]
+                            .iter()
+                            .map(|p| TokenAlternative {
+                                token: p.1.to_string(),
+                                logprob: (p.0.exp() / denom).ln(),
+                            })
+                            .collect();
+                        tokens.push(TokenLogprob {
+                            token: perturbed[r].1.to_string(),
+                            logprob: alternatives[0].logprob,
+                            top_alternatives: alternatives,
+                        });
+                    }
+                    synth_logprobs = Some(tokens);
                     letters.join(" ")
                 }
             } else {
@@ -973,6 +1100,10 @@ struct TraceRow {
     parsed_ratios: Option<BTreeMap<String, f64>>,
     /// bw: [best, worst]; order: most→least (slot positions). None for ratio.
     parsed_slots: Option<Vec<usize>>,
+    /// stickbreak: per informative rank slot, the harvested conditional PMF
+    /// over the still-unplaced letters (renormalized). Absent elsewhere.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    slot_pmfs: Option<Vec<BTreeMap<String, f64>>>,
     /// point: the 0–100 rating. None for other modes.
     parsed_score: Option<f64>,
     confidence: Option<f64>,
@@ -1195,6 +1326,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             "k must be in {k_floor}..=n and fit the slot alphabet"
         );
     }
+    assert!(
+        !args.stickbreak || (matches!(args.answer, AnswerMode::Order) && args.logprobs),
+        "--stickbreak requires --answer order --logprobs"
+    );
     std::fs::create_dir_all(&args.out_dir)?;
 
     // --- corpus: seeded shuffle over items long enough to fill entity_chars.
@@ -1371,7 +1506,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                 request.max_tokens(SLOTS_MAX_OUTPUT_TOKENS.max(6 * kk as u32));
                             if args.logprobs {
                                 r.logprobs = true;
-                                r.top_logprobs = Some(5);
+                                // stickbreak wants the fullest PMF the API
+                                // grants (OpenAI caps top_logprobs at 20).
+                                r.top_logprobs = Some(if args.stickbreak { 20 } else { 5 });
                             }
                             r
                         }
@@ -1412,6 +1549,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         raw_response: None,
                         parsed_ratios: None,
                         parsed_slots: None,
+                        slot_pmfs: None,
                         parsed_score: None,
                         confidence: None,
                         input_tokens: 0,
@@ -1473,24 +1611,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                     // sequence; any mismatch = no weighting
                                     // for this call (counted, not defaulted).
                                     let slot_probs: Option<Vec<f64>> = (args.logprobs
+                                        && !args.stickbreak
                                         && matches!(mode, AnswerMode::Order))
                                     .then(|| {
                                         response.output_logprobs.as_ref().and_then(|tokens| {
                                             let letters: Vec<f64> = tokens
                                                 .iter()
                                                 .filter(|t| {
-                                                    let tr = t.token.trim();
-                                                    let mut c = tr.chars();
-                                                    matches!(
-                                                        (c.next(), c.next()),
-                                                        (Some(ch), None)
-                                                            if SLOT_LETTERS[..kk].contains(&ch)
-                                                    )
+                                                    single_slot_letter(&t.token, kk).is_some()
                                                 })
                                                 .map(|t| t.logprob.exp().clamp(0.0, 1.0))
                                                 .collect();
                                             (letters.len() == kk).then_some(letters)
                                         })
+                                    })
+                                    .flatten();
+                                    let stick = (args.stickbreak
+                                        && matches!(mode, AnswerMode::Order))
+                                    .then(|| {
+                                        response
+                                            .output_logprobs
+                                            .as_ref()
+                                            .and_then(|tokens| stickbreak_q(tokens, &slots, kk))
                                     })
                                     .flatten();
                                     let tiers: Vec<Vec<usize>> = match mode {
@@ -1504,7 +1646,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         }
                                         _ => slots.iter().map(|&s| vec![order[s]]).collect(),
                                     };
-                                    if let Some(probs) = &slot_probs {
+                                    if let Some((q, pmfs)) = stick {
+                                        row.slot_pmfs = Some(pmfs);
+                                        lower_stickbreak(
+                                            order,
+                                            &q,
+                                            &args.model,
+                                            arm_obs.entry(key.clone()).or_default(),
+                                        );
+                                        let stats = arm_probs.entry(key.clone()).or_default();
+                                        stats.0 += 1;
+                                        // Mean top-choice mass: the harvest-quality readout.
+                                        stats.1 += q[slots[0]];
+                                    } else if let Some(probs) = &slot_probs {
                                         let order_entities: Vec<usize> =
                                             tiers.iter().map(|t| t[0]).collect();
                                         lower_order_with_probs(

@@ -41,7 +41,7 @@
 //!   wallet). Provenance is platform-attested — the strongest tier.
 //! - **External**: the platform issues a rendered schedule whose digest
 //!   binds template bytes, seed, axis, and every entity id+text (the
-//!   `cardinald` `/v1/schedule` mechanism, already live for `claude-code`);
+//!   `cardinald` `/v1/schedule` mechanism, live for any disclosed harness);
 //!   the contributor's harness answers and submits digest-bound results.
 //!   Provenance is account-attested — worth exactly the account's standing.
 //!
@@ -57,8 +57,10 @@
 //!   censored-likelihood path).
 //! - The openpriors-forecaster Forecast Record → `Single` / `Json` /
 //!   [`Interpretation::ProbabilityJson`] → [`Evidence::Probability`].
-//! - The `harness` allowlist string → [`Attestation::External`] plus
-//!   account standing.
+//! - The external `harness` field → [`Attestation::External`] plus account
+//!   standing (executed 2026-09-06: the old claude-code allowlist is gone —
+//!   harness is disclosed free data, shape-checked with the hosted names
+//!   reserved; the digest binding and the account carry the trust).
 //!
 //! ## Deliberately not here (yet)
 //!

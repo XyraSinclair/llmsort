@@ -30,7 +30,7 @@ pub struct RatingEngine {
     last_diag_cov: Option<Vec<f64>>,
     last_residuals: Option<Vec<f64>>,
     last_lam_eff: Option<Vec<f64>>,
-    last_chol: Option<Cholesky<f64, nalgebra::Dyn>>,
+    last_chol: Option<math::LinearSolver>,
 }
 
 impl RatingEngine {
@@ -101,7 +101,7 @@ impl RatingEngine {
         let diag_cov = self.last_diag_cov.as_ref()?;
         let pos = build_pos_map(self.n, &self.keep_idx);
 
-        let rdim = chol.l().nrows();
+        let rdim = chol.dim();
         let mut out = Vec::with_capacity(indices.len());
         for &idx in indices {
             let p = match pos.get(idx).copied().flatten() {
@@ -130,7 +130,7 @@ impl RatingEngine {
             }
             let mut b = DVector::<f64>::zeros(rdim);
             b[p] = 1.0;
-            let x = chol.solve(&b);
+            let x = chol.solve(&b)?;
             out.push(x[p].max(0.0));
         }
 
@@ -151,7 +151,7 @@ impl RatingEngine {
         let pi = pos.get(i).copied().flatten();
         let pj = pos.get(j).copied().flatten();
 
-        let rdim = chol.l().nrows();
+        let rdim = chol.dim();
         if pi.is_none() && pj.is_none() {
             return Some((diag_cov[i] + diag_cov[j]).max(0.0));
         }
@@ -172,7 +172,7 @@ impl RatingEngine {
         if let Some(pj) = pj {
             b[pj] = -1.0;
         }
-        let x = chol.solve(&b);
+        let x = chol.solve(&b)?;
         Some(b.dot(&x).max(0.0))
     }
 
@@ -534,21 +534,21 @@ fn effective_resistance_with_chol(
     labels: &[usize],
     i: usize,
     j: usize,
-    chol: &Cholesky<f64, nalgebra::Dyn>,
+    chol: &math::LinearSolver,
     pos: &[Option<usize>],
-) -> f64 {
+) -> Option<f64> {
     if labels[i] != labels[j] {
-        return (diag_cov[i] + diag_cov[j]).max(0.0);
+        return Some((diag_cov[i] + diag_cov[j]).max(0.0));
     }
 
     let pi = pos.get(i).copied().flatten();
     let pj = pos.get(j).copied().flatten();
 
     if pi.is_none() && pj.is_none() {
-        return (diag_cov[i] + diag_cov[j]).max(0.0);
+        return Some((diag_cov[i] + diag_cov[j]).max(0.0));
     }
 
-    let rdim = chol.l().nrows();
+    let rdim = chol.dim();
     let mut b = DVector::<f64>::zeros(rdim);
     if let Some(p) = pi {
         b[p] += 1.0;
@@ -557,9 +557,9 @@ fn effective_resistance_with_chol(
         b[p] -= 1.0;
     }
 
-    let x = chol.solve(&b);
+    let x = chol.solve(&b)?;
     let r = b.dot(&x);
-    r.max(0.0)
+    Some(r.max(0.0))
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -614,7 +614,7 @@ pub fn plan_edges_for_rater(
 
     // Pre-compute Cholesky and position map once (O(N³)), not per-candidate.
     let mut er_pos: Option<Vec<Option<usize>>> = None;
-    let mut er_chol: Option<&Cholesky<f64, nalgebra::Dyn>> = None;
+    let mut er_chol: Option<&math::LinearSolver> = None;
     if use_effective_resistance
         && engine.last_chol.is_some()
         && engine.last_diag_cov.is_some()
@@ -636,6 +636,7 @@ pub fn plan_edges_for_rater(
 
         let r_ij = if let (Some(chol), Some(pos)) = (er_chol, er_pos.as_ref()) {
             effective_resistance_with_chol(diag_cov, &engine.labels, i, j, chol, pos)
+                .ok_or("Effective resistance solve did not converge")?
         } else {
             (diag_cov[i] + diag_cov[j]).max(0.0)
         };

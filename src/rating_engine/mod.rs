@@ -39,13 +39,14 @@ const ENGINE_SPEC_DOMAIN: &str = "cardinal.engine-spec.v2";
 
 /// When the reduced system is small, compute exact diag(L^-1) via Cholesky solves.
 const EXACT_DIAG_MAX_DIM: usize = 256;
+const DENSE_SOLVE_MAX_DIM: usize = 1024;
 
 type IrlsHuberSolveResult = (
     Vec<f64>,
     Vec<f64>,
     Vec<f64>,
     Vec<f64>,
-    Option<Cholesky<f64, nalgebra::Dyn>>,
+    Option<math::LinearSolver>,
     bool,
 );
 

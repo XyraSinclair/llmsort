@@ -413,13 +413,40 @@ fn comparison_spec<'a>(
     }
 }
 
+/// Harness names the platform itself has landed as hosted provenance
+/// (landing.rs HARNESS and its predecessors). An external run claiming one
+/// would masquerade account-attested results as platform-attested — the
+/// exact misrepresentation the trust ledger exists to punish, refused at
+/// the door instead.
+const HOSTED_HARNESS_NAMES: [&str; 3] = ["llmsorting", "cardinal-harness", "ratiometer"];
+
+/// The attestation rule (openpriors invariant 4): `harness` is disclosed
+/// free data, not an allowlist — any harness may answer a schedule, and the
+/// digest binding plus account standing carry the trust. Only the shape is
+/// validated, plus the hosted-name reservation above.
+fn validate_harness_disclosure(harness: &str) -> Result<(), String> {
+    if harness.is_empty()
+        || harness.trim() != harness
+        || harness.chars().count() > 64
+        || harness.chars().any(char::is_control)
+    {
+        return Err(
+            "external.harness must contain 1 to 64 printable characters, trimmed".to_string(),
+        );
+    }
+    if HOSTED_HARNESS_NAMES.contains(&harness) {
+        return Err(format!(
+            "external.harness must not claim the platform-hosted name {harness:?}"
+        ));
+    }
+    Ok(())
+}
+
 pub fn validate_external_judgement_run(
     request: &NormalizedJudgementRunRequest,
     external: &ExternalJudgementRun,
 ) -> Result<(), String> {
-    if external.harness != "claude-code" {
-        return Err("external.harness must be claude-code".to_string());
-    }
+    validate_harness_disclosure(&external.harness)?;
     if external.harness_version.is_empty()
         || external.harness_version.chars().count() > 64
         || external.harness_version.chars().any(char::is_control)
@@ -1486,7 +1513,7 @@ fn validate_record(record: &JudgementRunRecord) -> Result<(), JudgementRunError>
         ));
     }
     if let Some(provenance) = &record.provenance {
-        if provenance.harness != "claude-code"
+        if validate_harness_disclosure(&provenance.harness).is_err()
             || provenance.harness_version.is_empty()
             || provenance.harness_version.chars().count() > 64
             || provenance.harness_version.chars().any(char::is_control)

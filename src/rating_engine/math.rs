@@ -171,10 +171,118 @@ pub(super) fn build_pos_map(n: usize, keep_idx: &[usize]) -> Vec<Option<usize>> 
     pos
 }
 
+/// Retained factorization or matrix-free system for covariance and planner solves.
+#[derive(Debug, Clone)]
+pub(super) enum LinearSolver {
+    Dense(Cholesky<f64, nalgebra::Dyn>),
+    Cg(CgSystem),
+}
+
+impl LinearSolver {
+    pub(super) fn dim(&self) -> usize {
+        match self {
+            Self::Dense(chol) => chol.l().nrows(),
+            Self::Cg(system) => system.diag.len(),
+        }
+    }
+
+    pub(super) fn solve(&self, rhs: &DVector<f64>) -> Option<DVector<f64>> {
+        match self {
+            Self::Dense(chol) => Some(chol.solve(rhs)),
+            Self::Cg(system) => {
+                let (x, converged) = system.solve(rhs);
+                converged.then_some(x)
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(super) struct CgSystem {
+    // Reduced endpoints retain the dense assembly's position map and edge order.
+    edges: Vec<(Option<usize>, Option<usize>, f64)>,
+    diag: DVector<f64>,
+    ridge: f64,
+}
+
+impl CgSystem {
+    fn apply(&self, x: &DVector<f64>) -> DVector<f64> {
+        let mut out = DVector::zeros(x.len());
+        for &(pi, pj, w) in &self.edges {
+            let delta = w * (pi.map_or(0.0, |i| x[i]) - pj.map_or(0.0, |j| x[j]));
+            if let Some(i) = pi {
+                out[i] += delta;
+            }
+            if let Some(j) = pj {
+                out[j] -= delta;
+            }
+        }
+        for i in 0..x.len() {
+            out[i] += self.ridge * x[i];
+        }
+        out
+    }
+
+    /// Jacobi-PCG, with a true residual check before accepting convergence.
+    /// On breakdown/exhaustion retain the iterate with the smallest residual.
+    fn solve(&self, rhs: &DVector<f64>) -> (DVector<f64>, bool) {
+        let mut x = DVector::zeros(rhs.len());
+        let mut best = x.clone();
+        let mut best_norm = rhs.norm();
+        if best_norm == 0.0 {
+            return (x, true);
+        }
+        if !best_norm.is_finite() || self.diag.iter().any(|d| !d.is_finite() || *d <= 0.0) {
+            return (best, false);
+        }
+        let tolerance = 1e-10 * best_norm;
+        let mut residual = rhs.clone();
+        let mut z = residual.component_div(&self.diag);
+        let mut direction = z.clone();
+        let mut rz = residual.dot(&z);
+        for _ in 0..10 * rhs.len() {
+            let applied = self.apply(&direction);
+            let curvature = direction.dot(&applied);
+            if !curvature.is_finite() || curvature <= 0.0 || !rz.is_finite() || rz <= 0.0 {
+                break;
+            }
+            let alpha = rz / curvature;
+            x.axpy(alpha, &direction, 1.0);
+            residual.axpy(-alpha, &applied, 1.0);
+            let mut norm = residual.norm();
+            let restart = norm <= tolerance;
+            if norm < best_norm || restart {
+                let true_residual = rhs - self.apply(&x);
+                norm = true_residual.norm();
+                if norm < best_norm {
+                    best_norm = norm;
+                    best = x.clone();
+                }
+                if norm <= tolerance {
+                    return (x, true);
+                }
+                if restart {
+                    residual = true_residual;
+                }
+            }
+            z = residual.component_div(&self.diag);
+            let next_rz = residual.dot(&z);
+            if restart {
+                direction = z.clone();
+            } else {
+                direction *= next_rz / rz;
+                direction += &z;
+            }
+            rz = next_rz;
+        }
+        (best, false)
+    }
+}
+
 pub(super) struct LinearSolveResult {
     s_full: Vec<f64>,
     diag_fallback: Vec<f64>,
-    chol: Option<Cholesky<f64, nalgebra::Dyn>>,
+    chol: Option<LinearSolver>,
     degraded: bool,
 }
 
@@ -183,7 +291,7 @@ pub(super) struct LinearSolveResult {
 // ---------------------------------------------------------------------
 
 /// Solve (B^T W B) s = B^T W mu in free coordinates (keep_idx).
-/// Returns (solution, diagonal of L, Cholesky decomposition) for reuse.
+/// Returns the solution, diagonal of L, and a reusable solver.
 pub(super) fn solve_weighted_least_squares(
     n: usize,
     edges: &[Edge],
@@ -268,6 +376,59 @@ pub(super) fn solve_weighted_least_squares(
         ridge_candidates.push(ridge);
     }
 
+    if kdim > DENSE_SOLVE_MAX_DIM {
+        let mut system = CgSystem {
+            edges: Vec::with_capacity(m),
+            diag: DVector::zeros(kdim),
+            ridge: 0.0,
+        };
+        let mut rhs = DVector::zeros(kdim);
+        for (k, edge) in edges.iter().enumerate() {
+            let w = lam_eff[k];
+            if w <= 0.0 {
+                continue;
+            }
+            let pi = pos.get(edge.i).copied().flatten();
+            let pj = pos.get(edge.j).copied().flatten();
+            system.edges.push((pi, pj, w));
+            if let Some(i) = pi {
+                system.diag[i] += w;
+                rhs[i] += w * mu[k];
+            }
+            if let Some(j) = pj {
+                system.diag[j] += w;
+                rhs[j] -= w * mu[k];
+            }
+            if let (Some(i), Some(j)) = (pi, pj) {
+                if i == j {
+                    system.diag[i] -= w;
+                    system.diag[j] -= w;
+                }
+            }
+        }
+        let diagonal = system.diag.clone();
+        let mut x = DVector::zeros(kdim);
+        let mut converged = false;
+        for ridge in ridge_candidates {
+            system.ridge = ridge;
+            system.diag = diagonal.map(|d| d + ridge);
+            (x, converged) = system.solve(&rhs);
+            if converged {
+                break;
+            }
+        }
+        let mut s_full = vec![0.0; n];
+        for (p, &node) in keep_idx.iter().enumerate() {
+            s_full[node] = x[p];
+        }
+        return LinearSolveResult {
+            s_full,
+            diag_fallback: system.diag.as_slice().to_vec(),
+            degraded: !converged || system.ridge > base_ridge + cfg.tiny,
+            chol: converged.then_some(LinearSolver::Cg(system)),
+        };
+    }
+
     let mut diag_fallback = Vec::new();
     let mut chol: Option<Cholesky<f64, nalgebra::Dyn>> = None;
     let mut x = DVector::<f64>::zeros(kdim);
@@ -332,23 +493,23 @@ pub(super) fn solve_weighted_least_squares(
     LinearSolveResult {
         s_full,
         diag_fallback,
-        chol,
+        chol: chol.map(LinearSolver::Dense),
         degraded,
     }
 }
 
 /// Hutchinson estimation of diag(L^-1) in reduced coordinates.
-/// Accepts precomputed Cholesky to avoid redundant O(n³) decomposition.
+/// Reuses either backend; None signals a failed iterative probe.
 pub(super) fn hutchinson_diag(
     diag_fallback: &[f64],
-    precomputed_chol: Option<&Cholesky<f64, nalgebra::Dyn>>,
+    precomputed_chol: Option<&LinearSolver>,
     probes: usize,
     cfg: &Config,
     rng: &mut StdRng,
-) -> Vec<f64> {
+) -> Option<Vec<f64>> {
     let n = diag_fallback.len();
     if n == 0 {
-        return Vec::new();
+        return Some(Vec::new());
     }
 
     let chol = match precomputed_chol {
@@ -365,7 +526,7 @@ pub(super) fn hutchinson_diag(
                 };
                 diag.push((1.0 / denom).max(0.0));
             }
-            return diag;
+            return Some(diag);
         }
     };
 
@@ -374,10 +535,10 @@ pub(super) fn hutchinson_diag(
         for i in 0..n {
             let mut e = DVector::<f64>::zeros(n);
             e[i] = 1.0;
-            let x = chol.solve(&e);
+            let x = chol.solve(&e)?;
             diag.push(x[i].max(0.0));
         }
-        return diag;
+        return Some(diag);
     }
 
     let probes = probes.max(1);
@@ -388,12 +549,12 @@ pub(super) fn hutchinson_diag(
             n,
             (0..n).map(|_| if rng.gen_bool(0.5) { 1.0 } else { -1.0 }),
         );
-        let x = chol.solve(&z);
+        let x = chol.solve(&z)?;
         acc += z.component_mul(&x);
     }
 
     let inv_probes = 1.0 / (probes as f64);
-    (0..n).map(|i| (acc[i] * inv_probes).max(0.0)).collect()
+    Some((0..n).map(|i| (acc[i] * inv_probes).max(0.0)).collect())
 }
 
 /// Robust IRLS loop with Huber loss.
@@ -422,9 +583,11 @@ pub(super) fn solve_irls_huber(
     let mut residuals = vec![0.0; m];
 
     let mut last_obj: Option<f64> = None;
+    let mut cg_degraded = false;
 
     for _ in 0..cfg.irls_max_iters {
         let solve = solve_weighted_least_squares(n, edges, &mu, &lam_eff, keep_idx, cfg);
+        cg_degraded |= keep_idx.len() > DENSE_SOLVE_MAX_DIM && solve.degraded;
         let s_candidate = solve.s_full;
 
         for (k, e) in edges.iter().enumerate() {
@@ -489,7 +652,7 @@ pub(super) fn solve_irls_huber(
         last_obj = Some(obj);
     }
 
-    // Final solve with converged weights - reuse Cholesky for hutchinson_diag
+    // Final solve with converged weights - reuse the solver for hutchinson_diag
     let final_solve = solve_weighted_least_squares(n, edges, &mu, &lam_eff, keep_idx, cfg);
     let s_full = final_solve.s_full;
 
@@ -507,12 +670,24 @@ pub(super) fn solve_irls_huber(
         &mut probe_rng,
     );
 
+    let degraded = cg_degraded || final_solve.degraded || diag_red.is_none();
+    let diag_red = diag_red.unwrap_or_else(|| {
+        hutchinson_diag(
+            &final_solve.diag_fallback,
+            None,
+            cfg.hutch_probes,
+            cfg,
+            &mut probe_rng,
+        )
+        .expect("diagonal approximation requires no iterative solve")
+    });
+
     (
         s_full,
         residuals,
         lam_eff,
         diag_red,
         final_solve.chol,
-        final_solve.degraded,
+        degraded,
     )
 }

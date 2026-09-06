@@ -101,14 +101,18 @@ results}`. Each result carries `comparison_index`, `entity_a_id`,
 
 Validation is strict, and each failure gives `400`:
 
-- `harness` must be `claude-code` (the allowlist)
+- `harness` is disclosed free data, not an allowlist (openpriors
+  invariant 4, executed 2026-09-06): 1–64 printable characters, trimmed,
+  with the platform-hosted names (`llmsorting`, `cardinal-harness`,
+  `ratiometer`) reserved — an external run claiming one would masquerade
+  as platform-attested
 - `schedule_digest` must match the digest for this request and seed
 - Every scheduled comparison must have an answer. Refusals count as
   answers.
 - Every entity needs at least one non-refused measurement.
 
-Accepted results become well-formed `ComparisonTrace` rows with
-`harness=claude-code` provenance at zero cost, and feed the same fitter
+Accepted results become well-formed `ComparisonTrace` rows carrying the
+declared harness as provenance at zero cost, and feed the same fitter
 and store as adaptive runs.
 
 ### `GET /v1/runs/{run_ref}`
