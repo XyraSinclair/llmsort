@@ -42,6 +42,20 @@ flips the implied direction on 25/27, 24/27, 23/27 pairs (k=3) and 23/25,
 (3,191–8,460 per arm; cached attributes ~3–4× the pairwise rate); pairwise 96
 comparisons / $0.047 = 2,049 obs/$.
 
+**Re-analysis 2026-09-06 (pivot-halo channel fitted):** replaying this trace
+through `bias_calibration::solve_with_additive_offsets` (channel = pivot role,
+sign −1; `experiments/examples/e1_halo_recalibration.rs`) fits γ_pivot =
++0.38…+1.48 nats per arm (mean ≈ +0.94, matching the −0.95 headline), cuts
+rms residual 2–3× on all six arms, and shows a slot-distance decay under
+per-slot channels (γ_B > γ_C > γ_D on every arm, e.g. +1.20/+1.01/+0.74).
+Agreement with the pairwise latents improves on all three k=3 arms
+(ρ 0.76→0.86, 0.55→0.67, 0.29→0.36) but drops on two k=4 arms
+(0.79→0.60, 0.81→0.67); at n=8 those moves are one-to-two adjacent swaps
+against a reference that is itself a 32-comparison instrument, so the robust
+finding is the residual drop and the fitted halo, not the agreement deltas.
+(Both replay arms solve via `from_log_ratio_moments` at unit variance, so the
+uncorrected column differs slightly from the confidence-weighted table above.)
+
 **Caveats:** the k−1 observations of a call share its context and pivot but
 enter the solver as independent unit-precision points (mirroring canonical_v2);
 under this pivot halo that independence is generous. Counterbalancing cancels
