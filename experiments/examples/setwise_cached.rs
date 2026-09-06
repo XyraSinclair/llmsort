@@ -899,6 +899,7 @@ impl ChatGateway for SyntheticJudge {
             .iter()
             .copied()
             .find(|d| user.contains(d.block_open()));
+        let mut synth_logprobs: Option<Vec<TokenLogprob>> = None;
         let (content, cache_read, cache_write) = if let Some(delim) = style {
             // Setwise prompt. Slots present, in letter order.
             let mut present: Vec<(char, usize)> = Vec::new();
@@ -1016,7 +1017,7 @@ impl ChatGateway for SyntheticJudge {
             upstream_cost_nanodollars: None,
             latency: std::time::Duration::from_millis(0),
             finish_reason: FinishReason::Stop,
-            output_logprobs: None,
+            output_logprobs: synth_logprobs,
             cache_read_tokens: cache_read,
             cache_write_tokens: cache_write,
         })
