@@ -1,0 +1,56 @@
+[
+ {
+  "lens": "lesswrong-posts",
+  "key": "epistemic-rigor",
+  "wordings": {
+   "a": "Epistemic rigor: how carefully the post handles evidence and inference — claims proportioned to support, alternatives considered, uncertainty stated where it exists.",
+   "b": "Quality of reasoning discipline: does the argument survive hostile reading — each step valid, evidence real and weighed, confounds and counter-explanations addressed rather than ignored?",
+   "c": "If a domain expert audited this post line by line, how few unsupported leaps, motivated readings of evidence, or quietly-dropped caveats would they find?"
+  }
+ },
+ {
+  "lens": "lesswrong-posts",
+  "key": "novelty-of-insight",
+  "wordings": {
+   "a": "Novelty of insight: how much genuinely new understanding the post contributes — an idea, distinction, or synthesis a well-read rationalist would not already possess.",
+   "b": "Originality: is the core move of this post something you had not seen before reading it — a fresh frame, mechanism, or connection — rather than a restatement of community common knowledge?",
+   "c": "How large is the delta between what a five-year LessWrong veteran believed before reading this post and after — counting only understanding that is new, not rehearsed?"
+  }
+ },
+ {
+  "lens": "lesswrong-posts",
+  "key": "technical-alpha",
+  "wordings": {
+   "a": "Technical alpha: how much genuine, exciting technical signal the text delivers to a top-percentile practitioner already fluent in its area — mechanisms, measurements, techniques, or design-space dimensions they did not already hold and could not cheaply regenerate from standard documentation — as opposed to noise: competent restatement of known material, topic heat, jargon, or performed novelty.",
+   "b": "Instantiate the prior of a strong practitioner in this text's field — everything already priced into their model — and score only the residual: the concrete technical update they finish with. Polished explainers of documented material score near zero; text with no technical payload has nothing to give.",
+   "c": "If a working expert in this area read this and then had it erased from memory, how much of their actual understanding or practice would be lost — a real technique, number, or mechanism they cannot get elsewhere — versus nothing, because it was hot-topic vocabulary and confident register?"
+  }
+ },
+ {
+  "lens": "manifund-proposals",
+  "key": "epistemic-pollution-restraint",
+  "wordings": {
+   "a": "Epistemic-pollution restraint: the project adds signal, not noise, to its information commons — no inflated claims seeding hype cycles, no low-quality content flooding channels others depend on.",
+   "b": "Inventory the public claims and content this project will emit; rate the fraction that will still look true and useful in three years.",
+   "c": "After this project's communications run their course, is the public conversation about its topic better calibrated or worse?"
+  }
+ },
+ {
+  "lens": "manifund-proposals",
+  "key": "novel-world-expanding-hit",
+  "wordings": {
+   "a": "Novel world-expanding hit: the proposal aims at something genuinely new — if it succeeds, the world contains a capability, institution, or piece of knowledge it simply did not have before, rather than more of an existing kind.",
+   "b": "Estimate the expansion this proposal buys if funded and successful: how much does it enlarge what humanity can do, know, or coordinate on, beyond scaling an approach that already exists elsewhere?",
+   "c": "If this proposal were never funded, would the thing it builds plausibly not exist for years — or would a near-substitute arrive anyway from adjacent teams and ordinary momentum? Score high only where the counterfactual gap is real."
+  }
+ },
+ {
+  "lens": "manifund-proposals",
+  "key": "theory-of-change",
+  "wordings": {
+   "a": "Theory of change clarity: the proposal articulates precisely how its activities produce its intended outcome — who changes what behavior, through what mechanism, observable how.",
+   "b": "Could a skeptical reader draw this project's causal diagram from the proposal alone — inputs, activities, intermediate outcomes, endpoint — with no hand-waving arrows?",
+   "c": "Rate the explicitness of the path to impact: is the mechanism named and examinable, or does the proposal jump from 'we will do X' to 'the world improves'?"
+  }
+ }
+]

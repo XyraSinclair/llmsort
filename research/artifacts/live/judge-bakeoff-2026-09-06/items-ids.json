@@ -1,0 +1,245 @@
+{
+"note": "cohort = these ids; texts (title + body) are pulled from the corpus store by the lab prep script in deterministic hash order, n=30 per lens, entity text capped at 8000 chars by the harness",
+"items": [
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::tJnSkxhq9CzF4icb2"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::iswjwxv2L7n5Rp52p"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::bXTNKjsD4y3fabhwR"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::utNiWbukDvWnt3E7T"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::uCXuqNcTPxxCJxnae"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::gXphcRGg6t65FqCy8"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::pjrQSybxRFHfgMGa8"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::dZoXpSa3WehwqCf2m"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::83brDQuCpdvKqPRfu"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::hdmAvx9ZD8WLmBCZD"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::MAhueZtNz5SnDPhsy"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::PpTN7GP2FsPyHfKrs"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::iR4kGzrWEJpXJ39ZB"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::Qyr9tfBLck53em4hf"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::ZHrMpFa2Syta35q5n"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::KQJLx5mpzcPPKFEAQ"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::bEyn9h3SGeH59vnDM"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::buyCkzfa2J3Dso6tz"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::qAjGfYh2pQvvnsCBk"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::FvA2qL6ChCbyi5Axk"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::TPumHegzFTSDcjcNg"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::WXgyt2y2L3J2nSbBD"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::2KDnyEyBKk3xP28oA"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::YBpbcMnasmwAQoh7b"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::wzjocDBKQoseCyJmH"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::BSNFKi3aym7DtSnTX"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::mh4LasKBaqdYymhB2"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::67xQqsimxywp9wYjC"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::JmXzKcoymK7rQ6dwB"
+},
+{
+"lens": "lesswrong-posts",
+"id": "lesswrong::nojovDKpf9fRAzhwy"
+},
+{
+"lens": "manifund-proposals",
+"id": "84d9220f-ba30-0be3-cfac-969d4e257530"
+},
+{
+"lens": "manifund-proposals",
+"id": "d9c345e1-7b8e-a72c-5a1a-40dad06625a7"
+},
+{
+"lens": "manifund-proposals",
+"id": "e082678f-cada-2640-b36e-d216159e0fbb"
+},
+{
+"lens": "manifund-proposals",
+"id": "53771e72-69b6-60e8-6edb-1092690ffb6a"
+},
+{
+"lens": "manifund-proposals",
+"id": "92b5c34a-43e9-1aef-6f3d-768dd6248d26"
+},
+{
+"lens": "manifund-proposals",
+"id": "a1d734b0-1b17-6f3c-98e5-df571478fa8c"
+},
+{
+"lens": "manifund-proposals",
+"id": "a8e89744-0c12-76d3-ecb3-c380517848e6"
+},
+{
+"lens": "manifund-proposals",
+"id": "7ef865e7-f50d-ab28-9937-b81c11bafae4"
+},
+{
+"lens": "manifund-proposals",
+"id": "fcecf1ae-f1c6-75bf-cc8e-2c2d25988131"
+},
+{
+"lens": "manifund-proposals",
+"id": "7c61631e-7af2-54fd-7f44-8347748d03bb"
+},
+{
+"lens": "manifund-proposals",
+"id": "a0dee8a5-6447-21d4-5d65-e7c7447125fe"
+},
+{
+"lens": "manifund-proposals",
+"id": "778ce597-144f-f2e5-eb27-4d4a2bf175f1"
+},
+{
+"lens": "manifund-proposals",
+"id": "12cff83d-4667-1b26-c416-fefe2b078e33"
+},
+{
+"lens": "manifund-proposals",
+"id": "29bd1602-282f-03c3-e2c9-7fb57cbfeacd"
+},
+{
+"lens": "manifund-proposals",
+"id": "0189ee9f-0564-aab3-d3c6-7786d7fad680"
+},
+{
+"lens": "manifund-proposals",
+"id": "e37bf0fb-1f77-4456-80d6-82a48c9b6178"
+},
+{
+"lens": "manifund-proposals",
+"id": "9b699e2a-da36-1214-7489-cfd6032f4824"
+},
+{
+"lens": "manifund-proposals",
+"id": "4557433c-6239-c658-4c4a-5ad755842d62"
+},
+{
+"lens": "manifund-proposals",
+"id": "301200a3-2d9e-6040-cbee-adafa0596b62"
+},
+{
+"lens": "manifund-proposals",
+"id": "027d9719-5185-3e29-28fd-551c9807bc9b"
+},
+{
+"lens": "manifund-proposals",
+"id": "9261e458-fbd0-3135-0d50-9636b9fdeee2"
+},
+{
+"lens": "manifund-proposals",
+"id": "39261dae-be81-62b9-b89d-c41f47b029a0"
+},
+{
+"lens": "manifund-proposals",
+"id": "90a68194-7c05-98f0-c675-a7462896f745"
+},
+{
+"lens": "manifund-proposals",
+"id": "c599f272-5325-4935-b24b-80d93735a6e2"
+},
+{
+"lens": "manifund-proposals",
+"id": "e5e1fe5b-1b8a-4802-aa95-8570096d2705"
+},
+{
+"lens": "manifund-proposals",
+"id": "f5787b1a-a580-4cc1-9a5e-d2f580489e9a"
+},
+{
+"lens": "manifund-proposals",
+"id": "e98de7cb-76c4-23f8-859f-bca0e5bde788"
+},
+{
+"lens": "manifund-proposals",
+"id": "b1178bce-ae9e-341f-d99f-710120caf2ea"
+},
+{
+"lens": "manifund-proposals",
+"id": "7b474a74-1763-d49e-aa5e-c6cfb5ce84ff"
+},
+{
+"lens": "manifund-proposals",
+"id": "6f64ffd5-b94d-e354-8c04-c97082c7d5df"
+}
+]
+}
