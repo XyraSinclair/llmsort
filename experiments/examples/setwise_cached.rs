@@ -540,6 +540,16 @@ fn draw_chunk_design(
     rng: &mut StdRng,
 ) -> Vec<SubsetPlan> {
     let q = n.div_ceil(k);
+    // The balanced split realizes k-item groups only when ⌈n/q⌉ == k; when
+    // ⌈n/q⌉ < k every lineup silently shrinks and the arm label lies
+    // (n=12, k=5 ran 4-item lineups — both 2026-09-06 n=12 packs carry the
+    // erratum). Refuse rather than mislabel.
+    assert!(
+        n.div_ceil(q) == k,
+        "k={k} unrealizable with n={n} disjoint chunks (largest group {}); \
+         pick k with n mod k == 0 or use the ring design",
+        n.div_ceil(q)
+    );
     let mut plans = Vec::with_capacity(q * rounds);
     for _ in 0..rounds {
         let mut pool: Vec<usize> = (0..n).collect();
