@@ -1,5 +1,17 @@
 # Cross-model transport: the consistency arbiter (gpt-4o-mini leg)
 
+**Erratum (2026-09-06, found by an independent astra exploration):** the
+impact_per_dollar rubric used by ALL 2026-09-06 packs was defective — it
+ended mid-sentence ("Also do not reward the") and opened with
+pairwise-specific phrasing ("which of two items") inside k-wise lineups.
+The other rubrics are clean. This confounds the opposed-constructs claim
+below specifically for impact_per_dollar: a truncated, pair-phrased rubric
+can be read differently under lineup vs isolated-pair framing for
+instrument-artifact reasons. The rubric is now fixed in
+`research/data/manifund/rubrics/impact_per_dollar.md` (sentence completed,
+count-neutral phrasing); re-measurement under the fixed rubric is required
+before the opposed-constructs interpretation stands.
+
 Single run (n=1), `openai/gpt-4o-mini` via OpenRouter, seed 17 — same 12
 Manifund items, 3 attributes, and protocol as the arbiter pack
 (`stickbreak-order-arbiter-2026-09-06`, judge gpt-4.1-mini): stickbreak
