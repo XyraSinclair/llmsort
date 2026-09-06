@@ -63,12 +63,17 @@ subjective attributes (lesswrong pool, pending below).
 
 ## LessWrong pool (subjective attribute, production 12-entity pool) — PENDING
 
-First attempt lost to engine churn: the judge standby's drain
-self-congested the shared vLLM (hundreds queued behind ~24 runs × 16
-concurrency), zero cells landed for 2h, and the stall guard restored the
-GPU borrow at 12:56Z (engine down, 1h back-off). The driver
-(`pspec_driver.sh`, on the judge host) waits and resumes automatically; results
-land as an addendum here.
+Twice deferred to production. First attempt lost to engine churn: the
+judge standby's drain self-congested the shared vLLM (hundreds queued
+behind ~24 runs × 16 concurrency), zero cells landed for 2h, and the
+stall guard restored the GPU borrow at 12:56Z (engine down, 1h back-off).
+Second attempt (14:06Z, engine back): the drain saturates the engine and
+starves foreign clients outright — a 2-token probe queued >120 s while
+the engine completed ~3.7 req/s of drain traffic; our 32 in-flight calls
+wrote zero rows in 25 min. Run withdrawn rather than add 32 permanent
+queue slots to a congested production engine; the pool relaunches
+(resume-capable, 32 usable rows banked) once the drain's ~2k cells
+finish. Results land as an addendum here.
 
 ## Notes
 
