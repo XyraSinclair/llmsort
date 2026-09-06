@@ -85,3 +85,29 @@ architecture, a cascade:
 Top-decile overlap 6-8/20 at the corpus scale means the probe's top slice must
 be over-sampled (take probe-top-500 to catch most of the true top-100 band)
 before handing to the judge.
+
+## Cascade pilot executed (2026-09-06): discovery leaderboard live
+
+Full cascade ran end-to-end in ~45 min wall-clock:
+all 43,954 LW posts (word_count >= 100) probe-scored (~86 posts/s at embedding
+cost) -> probe-top-200 (excluding the curated top-200 lens) judged by
+gemma4-31b at N=200 (run jrun_6a48f13b) -> public board.
+
+Probe-vs-judge Spearman WITHIN the probe-top-200: +0.456 (n=200). Compare the
+~0 within the curated karma-top-200: the probe-defined elite band retains
+usable ordering because it spans more true-quality range than a karma-selected
+band. The judge stage remains load-bearing for the final order.
+
+Topic concentration, confirmed and ratified: the probe's top slice is heavily
+agent-foundations / decision-theory, and the judge's top-15 KEEPS that tilt
+(top titles: Optimization at a Distance, Toward a New Technical Explanation of
+Technical Explanation, Teleosemantics!, thin logical priors, ...). Open
+question: genuine axis signal (dense conceptual novelty) vs shared
+jargon-density bias. The #d auditor wording (counterfeit-novelty audit) was
+authored to break exactly this tie; run jrun_55ba8ae6 (probetop cohort, #d)
+submitted for the check — if the cluster survives an adversarial-novelty
+audit, it is signal, not style.
+
+Scorer note: JSONEachRow lines must be split on "\n" only — str.splitlines()
+also splits on U+2028/U+2029, which are legal unescaped inside JSON strings
+(one post contained a raw LINE SEPARATOR and sheared a row mid-string).
