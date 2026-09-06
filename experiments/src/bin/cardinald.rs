@@ -27,6 +27,8 @@ use llmsort_experiments::judgement_run::{
     NormalizedJudgementRunRequest,
 };
 use llmsort_experiments::landing::{land_completed_run, ClickHouseLanding};
+use llmsort_experiments::openpriors::{AccountId, Instrument, InstrumentRegistration};
+use llmsort_experiments::openpriors_registry::{Registry, RegistryError};
 use serde::{Deserialize, Serialize};
 use tokio::sync::Semaphore;
 use uuid::Uuid;
@@ -35,6 +37,7 @@ const DEFAULT_ADDR: &str = "127.0.0.1:8093";
 const DEFAULT_MAX_CONCURRENT_RUNS: usize = 4;
 const DEFAULT_MAX_QUEUED_RUNS: usize = 32;
 const DEFAULT_RUN_DIR: &str = ".cardinald/runs";
+const DEFAULT_INSTRUMENT_DIR: &str = ".cardinald/instruments";
 const MAX_ENTITIES: usize = 200;
 const MAX_ENTITY_TEXT_BYTES: usize = 8192;
 const MAX_AXIS_PROMPT_BYTES: usize = 4096;
@@ -47,6 +50,7 @@ struct AppState {
     semaphore: Arc<Semaphore>,
     admission: Arc<Semaphore>,
     clickhouse: Option<Arc<ClickHouseLanding>>,
+    registry: Arc<Registry>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -285,11 +289,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     recover_interrupted_runs(&store, clickhouse.as_deref()).await;
 
+    let registry = Arc::new(
+        Registry::open(env_or("CARDINALD_INSTRUMENT_DIR", DEFAULT_INSTRUMENT_DIR))
+            .map_err(|error| format!("instrument registry failed to open: {error}"))?,
+    );
+    let seeded = registry
+        .seed_builtins()
+        .map_err(|error| format!("builtin instrument seeding failed: {error}"))?;
+    eprintln!(
+        "cardinald: instrument registry ready ({} builtins: {})",
+        seeded.len(),
+        seeded
+            .iter()
+            .map(|r| format!("{}={}", r.name, &r.instrument.0[..12]))
+            .collect::<Vec<_>>()
+            .join(", ")
+    );
+
     let state = AppState {
         store,
         semaphore: Arc::new(Semaphore::new(max_concurrent)),
         admission: Arc::new(Semaphore::new(max_queued)),
         clickhouse,
+        registry,
     };
     let app = Router::new()
         .route("/healthz", get(healthz))
@@ -297,6 +319,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/v1/schedule", post(schedule_run))
         .route("/v1/runs", post(create_run))
         .route("/v1/runs/{run_ref}", get(get_run))
+        .route(
+            "/v1/instruments",
+            get(list_instruments).post(register_instrument),
+        )
+        .route("/v1/instruments/{hash}", get(get_instrument))
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind(address).await?;
@@ -307,6 +334,60 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn healthz() -> &'static str {
     "ok"
+}
+
+#[derive(Debug, Deserialize)]
+struct RegisterInstrumentRequest {
+    name: String,
+    owner: String,
+    instrument: Instrument,
+}
+
+/// `POST /v1/instruments` — validate, content-address, persist, and alias an
+/// instrument. Idempotent on identical content; `(owner, name)` never
+/// silently re-points (409 on conflict).
+async fn register_instrument(
+    State(state): State<AppState>,
+    payload: Result<Json<RegisterInstrumentRequest>, JsonRejection>,
+) -> Result<Json<InstrumentRegistration>, ApiError> {
+    let Json(request) =
+        payload.map_err(|rejection| ApiError::bad_request(rejection.body_text()))?;
+    state
+        .registry
+        .register(request.instrument, &request.name, &AccountId(request.owner))
+        .map(Json)
+        .map_err(|error| match error {
+            RegistryError::NameConflict { .. } => ApiError::conflict(error.to_string()),
+            RegistryError::Invalid(_) | RegistryError::BadAlias => {
+                ApiError::bad_request(error.to_string())
+            }
+            RegistryError::Io(_) | RegistryError::Corrupt { .. } => {
+                eprintln!("cardinald: instrument registry error: {error}");
+                ApiError::internal()
+            }
+        })
+}
+
+/// `GET /v1/instruments` — every registration with its currency.
+async fn list_instruments(State(state): State<AppState>) -> Json<serde_json::Value> {
+    Json(serde_json::json!({ "instruments": state.registry.list() }))
+}
+
+/// `GET /v1/instruments/{hash}` — the full instrument plus its aliases.
+async fn get_instrument(
+    State(state): State<AppState>,
+    AxumPath(hash): AxumPath<String>,
+) -> Result<Json<serde_json::Value>, ApiError> {
+    let (instrument, registrations) = state.registry.get(&hash).ok_or(ApiError {
+        status: StatusCode::NOT_FOUND,
+        message: "instrument not found".to_string(),
+    })?;
+    Ok(Json(serde_json::json!({
+        "instrument_hash": hash,
+        "currency": instrument.currency(),
+        "instrument": instrument,
+        "registrations": registrations,
+    })))
 }
 
 async fn schedule_run(

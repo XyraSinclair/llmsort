@@ -120,9 +120,13 @@ pub struct PropositionRef {
 /// How many entities one call presents.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Arity {
+    /// No entities: the call presents a proposition (forecast instruments).
+    Nullary,
     Single,
     Pair,
-    Set { k: u8 },
+    Set {
+        k: u8,
+    },
 }
 
 /// The raw output space a call must produce.
@@ -141,6 +145,12 @@ pub enum OutputSpace {
 pub struct Signature {
     pub arity: Arity,
     pub output: OutputSpace,
+    /// Single-token verdicts that mean "cannot judge" (e.g. `!`). Outside
+    /// the answer alphabet by construction; a matching verdict yields no
+    /// evidence. Refusals in JSON instruments ride the harness's
+    /// [`RawOutput::refused`] flag instead.
+    #[serde(default)]
+    pub refusal_tokens: Vec<String>,
 }
 
 /// Reasoning pin for a turn. Measured to matter (sigma-eps-knobs pack:
@@ -206,9 +216,14 @@ pub enum Interpretation {
     /// Verdict token → (direction, ratio) on a finite ladder (pair arity).
     RatioLadder { rungs: BTreeMap<String, LadderRung> },
     /// Verdict token → direction only (pair arity, censored magnitude).
+    /// An `equal` verdict yields no directional evidence here; parity
+    /// information rides the engine's PMF evidence path, like measured
+    /// precision.
     OrdinalLetter {
         first_higher: Vec<String>,
         second_higher: Vec<String>,
+        #[serde(default)]
+        equal: Vec<String>,
     },
     /// JSON completion → which side (`"A"`/`"B"`) and how many times more.
     RatioJson {
@@ -268,6 +283,166 @@ impl Instrument {
             Interpretation::ProbabilityJson { .. } => Currency::Probability,
         }
     }
+
+    /// Structural coherence: the checks a registry runs before admitting an
+    /// instrument. Pure shape validation — whether the instrument *measures
+    /// well* is an empirical question answered by coherence readings, never
+    /// by this gate.
+    pub fn validate(&self) -> Result<(), ValidateError> {
+        let turns = &self.template.turns;
+        if turns.is_empty() || turns.len() > MAX_TEMPLATE_TURNS {
+            return Err(ValidateError::TemplateShape(
+                "between 1 and 4 turns required",
+            ));
+        }
+        let template_bytes: usize = turns
+            .iter()
+            .map(|t| t.user.len() + t.system.as_deref().map_or(0, str::len))
+            .sum();
+        if template_bytes > MAX_TEMPLATE_BYTES {
+            return Err(ValidateError::TemplateShape("template exceeds 16 KiB"));
+        }
+        if turns.iter().any(|t| t.decode.max_tokens == 0) {
+            return Err(ValidateError::TemplateShape(
+                "every turn needs max_tokens >= 1",
+            ));
+        }
+        let alphabet: Option<&[String]> = match &self.signature.output {
+            OutputSpace::SingleToken { alphabet } => {
+                if alphabet.is_empty() || alphabet.len() > MAX_ALPHABET_TOKENS {
+                    return Err(ValidateError::Alphabet("between 1 and 128 tokens required"));
+                }
+                let mut seen = std::collections::BTreeSet::new();
+                for token in alphabet {
+                    if token.is_empty()
+                        || token.len() > MAX_ALPHABET_TOKEN_BYTES
+                        || token.chars().any(char::is_whitespace)
+                    {
+                        return Err(ValidateError::Alphabet(
+                            "tokens must be 1-16 non-whitespace bytes",
+                        ));
+                    }
+                    if !seen.insert(token) {
+                        return Err(ValidateError::Alphabet("tokens must be unique"));
+                    }
+                    if self.signature.refusal_tokens.contains(token) {
+                        return Err(ValidateError::Alphabet(
+                            "refusal tokens must stay outside the answer alphabet",
+                        ));
+                    }
+                }
+                Some(alphabet)
+            }
+            OutputSpace::Json { .. } => None,
+        };
+        let arity = self.signature.arity;
+        let in_alphabet = |tokens: &[String]| -> bool {
+            alphabet.is_some_and(|a| tokens.iter().all(|t| a.contains(t)))
+        };
+        match &self.interpretation {
+            Interpretation::RatioLadder { rungs } => {
+                if arity != Arity::Pair {
+                    return Err(ValidateError::Combinator("ratio ladders read pairs"));
+                }
+                if rungs.is_empty() {
+                    return Err(ValidateError::Combinator("a ladder needs rungs"));
+                }
+                if rungs
+                    .values()
+                    .any(|r| !r.ratio.is_finite() || r.ratio < 1.0)
+                {
+                    return Err(ValidateError::Combinator(
+                        "rung ratios must be finite and >= 1",
+                    ));
+                }
+                let tokens: Vec<String> = rungs.keys().cloned().collect();
+                if !in_alphabet(&tokens) {
+                    return Err(ValidateError::Combinator(
+                        "ratio ladders require a single-token alphabet covering every rung",
+                    ));
+                }
+            }
+            Interpretation::OrdinalLetter {
+                first_higher,
+                second_higher,
+                equal,
+            } => {
+                if arity != Arity::Pair {
+                    return Err(ValidateError::Combinator("ordinal reads compare pairs"));
+                }
+                if first_higher.is_empty() || second_higher.is_empty() {
+                    return Err(ValidateError::Combinator(
+                        "both directions need at least one token",
+                    ));
+                }
+                let mut all: Vec<&String> = first_higher
+                    .iter()
+                    .chain(second_higher)
+                    .chain(equal)
+                    .collect();
+                let total = all.len();
+                all.sort();
+                all.dedup();
+                if all.len() != total {
+                    return Err(ValidateError::Combinator(
+                        "direction token sets must be disjoint",
+                    ));
+                }
+                let tokens: Vec<String> = first_higher
+                    .iter()
+                    .chain(second_higher)
+                    .chain(equal)
+                    .cloned()
+                    .collect();
+                if !in_alphabet(&tokens) {
+                    return Err(ValidateError::Combinator(
+                        "ordinal reads require a single-token alphabet covering every token",
+                    ));
+                }
+            }
+            Interpretation::RatioJson { .. } => {
+                if arity != Arity::Pair || alphabet.is_some() {
+                    return Err(ValidateError::Combinator(
+                        "JSON ratio reads compare pairs with JSON output",
+                    ));
+                }
+            }
+            Interpretation::QuantityJson { unit, .. } => {
+                if arity != Arity::Single || alphabet.is_some() {
+                    return Err(ValidateError::Combinator(
+                        "quantity reads take one entity with JSON output",
+                    ));
+                }
+                if unit.trim().is_empty() {
+                    return Err(ValidateError::Combinator("quantities need a unit"));
+                }
+            }
+            Interpretation::ProbabilityJson { .. } => {
+                if arity != Arity::Nullary || alphabet.is_some() {
+                    return Err(ValidateError::Combinator(
+                        "probability reads take a proposition with JSON output",
+                    ));
+                }
+            }
+        }
+        Ok(())
+    }
+}
+
+const MAX_TEMPLATE_TURNS: usize = 4;
+const MAX_TEMPLATE_BYTES: usize = 16 * 1024;
+const MAX_ALPHABET_TOKENS: usize = 128;
+const MAX_ALPHABET_TOKEN_BYTES: usize = 16;
+
+/// Why a registry refused an instrument. Shape only — never taste.
+#[derive(Debug, thiserror::Error, PartialEq, Eq)]
+pub enum ValidateError {
+    #[error("template: {0}")]
+    TemplateShape(&'static str),
+    #[error("alphabet: {0}")]
+    Alphabet(&'static str),
+    #[error("interpretation: {0}")]
+    Combinator(&'static str),
 }
 
 /// Registration metadata: an account's name for a content-addressed
@@ -465,6 +640,18 @@ pub fn interpret(
     if raw.refused {
         return Ok(Vec::new());
     }
+    if matches!(instrument.signature.output, OutputSpace::SingleToken { .. }) {
+        if let Ok(token) = verdict_token(raw) {
+            if instrument
+                .signature
+                .refusal_tokens
+                .iter()
+                .any(|t| t == token)
+            {
+                return Ok(Vec::new());
+            }
+        }
+    }
     match &instrument.interpretation {
         Interpretation::RatioLadder { rungs } => {
             let (a, b, attribute) = pair_bindings(bindings)?;
@@ -476,9 +663,13 @@ pub fn interpret(
         Interpretation::OrdinalLetter {
             first_higher,
             second_higher,
+            equal,
         } => {
             let (a, b, attribute) = pair_bindings(bindings)?;
             let token = verdict_token(raw)?;
+            if equal.iter().any(|t| t == token) {
+                return Ok(Vec::new());
+            }
             let (higher, lower) = if first_higher.iter().any(|t| t == token) {
                 (a, b)
             } else if second_higher.iter().any(|t| t == token) {

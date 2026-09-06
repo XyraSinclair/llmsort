@@ -19,6 +19,7 @@ pub mod experiments;
 pub mod judgement_run;
 pub mod landing;
 pub mod openpriors;
+pub mod openpriors_registry;
 pub mod probes;
 pub mod slate;
 pub mod transitivity;
