@@ -75,11 +75,43 @@ query→document relevance at scale, use one of those; if you need "sort my
 shortlist by how much of X each item has, and tell me how sure you are," use
 this.
 
-## The nearest tools: llm-sort and gwern's seriate.py
+## The nearest tool: nanojudge
+
+[`nanojudge`](https://github.com/nanojudge/nanojudge) (MIT, Rust, hosted
+at nanojudge.ai; mined 2026-09-05, notes in
+`research/notes/nanojudge-mining-2026-09-05/`) is the closest system to
+this repo we know of: adaptive pairwise/k-wise LLM judgements fed into a
+Bradley–Terry fit with per-item credible intervals, uncertainty-aware
+matchmaking, and an early stop. The load-bearing difference is the
+**scale of the elicitation**: nanojudge elicits win probabilities
+(interval scale — logprob mass on a verdict token, or a one-hot text
+verdict), while this repo elicits ratio magnitudes (ratio scale). Their
+own `docs/zero-information-paradox.md` makes the cardinal argument
+crisply: binary tournament outcomes carry zero information about *how
+much* stronger the winner is; only graded verdicts do.
+
+| | nanojudge | llmsort |
+|---|---|---|
+| Judgement | P(A beats B): verdict-token logprobs or text winner | log-ratio on a fixed ladder; single-token PMF rail |
+| Model | Bradley–Terry + per-judge per-slot bias, Laplace posterior | robust log-linear fit (IRLS + Huber), gauge-pinned |
+| Position bias | fitted in the likelihood (β per judge/slot, CI) | counterbalanced per pair + orbit-transform diagnostics |
+| Outliers | none (global verdict tempering only) | Huber weights, LOO leverage audit |
+| Selection | focal-item anchor weights + windowed info-gain (O(n log n), 100K items) | effective-resistance planner (dense, capped) |
+| Stop | P(all items on their side of a rank anchor) | top-k frontier inversion error + certified separation |
+| k-wise | stick-breaking Plackett–Luce PMF → Luce edges, df-weighted | setwise full-order text lowering + flip-rate gauge |
+| Diagnostics | judge bias CI, panel bias | Hodge curl/harmonic, spectral, WST/MST/SST, JCB, portfolio |
+| Provenance | JSONL + item text hashes | content-addressed packets, bitwise-deterministic fusion |
+
+The two designs are convergent on much of the operational layer
+(uncertainty-aware matchmaking, refit cadence, evidence seeding,
+raw-saved/transformed-scored). What we adopted from the mining pass and
+what flows the other way is itemized in the research note.
+
+## The other nearby tools: llm-sort and gwern's seriate.py
 
 [`llm-sort`](https://github.com/vagos/llm-sort) (an `llm` CLI plugin,
 [reviewed by Simon Willison](https://simonwillison.net/2025/Feb/11/llm-sort/))
-is the closest other general-purpose "sort an arbitrary list by a criterion" CLI
+is the lightest general-purpose "sort an arbitrary list by a criterion" CLI
 we know of. It feeds binary pairwise judgements into a comparison sort
 (`sorted(cmp_to_key(...))`). Same user intent, opposite engineering
 philosophy:
