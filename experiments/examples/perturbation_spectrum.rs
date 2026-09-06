@@ -177,11 +177,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let spec = Arc::new(spec);
     let done = Arc::new(std::sync::atomic::AtomicUsize::new(0));
     let total = calls.len();
+    // Stream rows to disk as they complete: the engine may be restarted
+    // under us (GPU borrow arbitration) and a partial pack must survive.
+    let out_file = Arc::new(std::sync::Mutex::new(std::io::BufWriter::new(
+        std::fs::OpenOptions::new().create(true).append(true).open(&out_path)?,
+    )));
     let rows: Vec<Row> = futures::stream::iter(calls)
         .map(|call| {
             let gateway = Arc::clone(&gateway);
             let spec = Arc::clone(&spec);
             let done = Arc::clone(&done);
+            let out_file = Arc::clone(&out_file);
             async move {
                 let (ai, bi) = if call.orientation == 0 {
                     (call.a, call.b)
@@ -207,10 +213,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 };
                 let result = compare_pair(gateway.as_ref(), None, request).await;
                 let k = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
-                if k % 200 == 0 {
+                if k % 100 == 0 {
                     eprintln!("  {k}/{total}");
                 }
-                match result {
+                let row = match result {
                     Ok((judgement, usage)) => {
                         let m = usage.evidence_moments;
                         let (higher_ranked_a, ratio, confidence, refused) = match judgement {
@@ -260,19 +266,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         output_tokens: 0,
                         error: Some(err.to_string()),
                     },
+                };
+                {
+                    use std::io::Write as _;
+                    let mut f = out_file.lock().expect("out file lock");
+                    let line = serde_json::to_string(&row).expect("row serializes");
+                    writeln!(f, "{line}").expect("row write");
+                    f.flush().expect("row flush");
                 }
+                row
             }
         })
         .buffer_unordered(spec.concurrency)
         .collect()
         .await;
-
-    let mut out = String::new();
-    for row in &rows {
-        out.push_str(&serde_json::to_string(row)?);
-        out.push('\n');
-    }
-    std::fs::write(&out_path, out)?;
     let errors = rows.iter().filter(|r| r.error.is_some()).count();
     let no_moments = rows
         .iter()
