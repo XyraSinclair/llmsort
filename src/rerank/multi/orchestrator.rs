@@ -490,11 +490,19 @@ pub(crate) async fn multi_rerank_with_failures(
                     },
                 };
                 let cache_key = comparison.cache_key();
+                // Render once; the digest and the retained bytes are the
+                // same render, so they correspond by construction.
+                let prompt_instance = comparison.prompt_instance();
+                let rendered_prompt_digest = prompt_instance.rendered_digest();
                 Some(TraceFields {
                     attribute_prompt_hash: cache_key.attribute_prompt_hash,
                     prompt_template_slug: cache_key.prompt_template_slug.clone(),
                     template_hash: cache_key.template_hash.clone(),
-                    rendered_prompt_digest: comparison.rendered_prompt_digest(),
+                    rendered_prompt_digest,
+                    rendered_prompt: crate::rerank::trace::RenderedPromptBytes {
+                        system: prompt_instance.system,
+                        user: prompt_instance.user,
+                    },
                     entity_a_hash: cache_key.entity_a_hash,
                     entity_b_hash: cache_key.entity_b_hash,
                     cache_key_hash: cache_key.key_hash,
@@ -513,6 +521,13 @@ pub(crate) async fn multi_rerank_with_failures(
                 let fields = trace_fields
                     .as_ref()
                     .expect("trace_fields set when trace active");
+                // Retain bytes only when this row's digest is the spec
+                // render we hold — a row whose bytes we cannot reproduce
+                // (nonce draws, path-specific renderings) stays honestly
+                // bare rather than carrying near-miss bytes.
+                let row_digest = rendered_prompt_digest.unwrap_or(&fields.rendered_prompt_digest);
+                let rendered_prompt = (row_digest == fields.rendered_prompt_digest)
+                    .then(|| fields.rendered_prompt.clone());
                 ComparisonTrace {
                     timestamp_ms: now_epoch_ms(),
                     comparison_index,
@@ -521,9 +536,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     attribute_prompt_hash: fields.attribute_prompt_hash.clone(),
                     prompt_template_slug: fields.prompt_template_slug.clone(),
                     template_hash: fields.template_hash.clone(),
-                    rendered_prompt_digest: rendered_prompt_digest
-                        .unwrap_or(&fields.rendered_prompt_digest)
-                        .to_string(),
+                    rendered_prompt_digest: row_digest.to_string(),
                     engine_spec_id: engine_spec_id.clone(),
                     entity_a_id: trace_entity_a.id.clone(),
                     entity_b_id: trace_entity_b.id.clone(),
@@ -543,6 +556,8 @@ pub(crate) async fn multi_rerank_with_failures(
                     pairwise_logprob_posterior_error: None,
                     ledger_draws: None,
                     evidence_moments: None,
+                    rendered_prompt,
+                    completion: None,
                     refused: false,
                     cached,
                     swapped: task.swapped,
@@ -581,6 +596,7 @@ pub(crate) async fn multi_rerank_with_failures(
                             None,
                         );
                         event.refused = true;
+                        event.completion = usage.raw_output.clone();
                         event.served_model = usage.served_model.clone();
                         event.output_logprob_token_count =
                             usage.output_logprobs.as_ref().map(Vec::len);
@@ -750,6 +766,7 @@ pub(crate) async fn multi_rerank_with_failures(
                             Some(&usage.rendered_prompt_digest),
                             None,
                         );
+                        event.completion = usage.raw_output.clone();
                         event.served_model = usage.served_model.clone();
                         event.higher_ranked = Some(match higher_ranked {
                             HigherRanked::A => "A".to_string(),

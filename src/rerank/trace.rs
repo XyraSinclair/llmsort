@@ -76,6 +76,20 @@ pub struct ComparisonTrace {
     /// solver weights by; persisted so landings and replays keep it.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub evidence_moments: Option<crate::rerank::comparison::EvidenceMoments>,
+    /// The exact rendered system and user message bytes behind
+    /// `rendered_prompt_digest`, retained so a stranger can recompute the
+    /// judgement from the record alone (recomputability: a digest without
+    /// bytes is a promise, not a proof). Populated at trace-build by
+    /// re-rendering from the spec and kept ONLY when the re-render's digest
+    /// equals this row's digest — a row whose bytes cannot be reproduced
+    /// stays honestly bare (nonce draws, path-specific renderings).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub rendered_prompt: Option<RenderedPromptBytes>,
+    /// Verbatim provider completion text for live rows (the raw output the
+    /// parse consumed). Absent for cached rows — the cache stores parsed
+    /// results, and the originating live row holds the text.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub completion: Option<String>,
     pub refused: bool,
     pub cached: bool,
     /// Whether entity A/B presentation order was swapped to counteract
@@ -89,6 +103,14 @@ pub struct ComparisonTrace {
     #[serde(default)]
     pub provider_cost_is_estimate: bool,
     pub error: Option<String>,
+}
+
+/// Exact system and user message bytes, length-framed into
+/// `rendered_prompt_digest` by `prompts::rendered_prompt_digest`.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RenderedPromptBytes {
+    pub system: String,
+    pub user: String,
 }
 
 #[derive(Debug, thiserror::Error)]

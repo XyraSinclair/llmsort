@@ -1167,6 +1167,13 @@ fn fit_external_results(
             observations.push(observation.clone());
             Some(observation)
         };
+        // The platform rendered this schedule itself, so it retains the exact
+        // prompt bytes the external harness answered (recomputability holds
+        // even for account-attested rows); the harness's completion text is
+        // not part of the external result contract, so `completion` stays
+        // honestly absent.
+        let prompt_instance = spec.prompt_instance();
+        let rendered_prompt_digest = prompt_instance.rendered_digest();
         comparison_trace.push(ComparisonTrace {
             timestamp_ms: llmsort::rerank::trace::now_epoch_ms(),
             comparison_index: result.comparison_index as usize,
@@ -1175,7 +1182,7 @@ fn fit_external_results(
             attribute_prompt_hash: cache_key.attribute_prompt_hash,
             prompt_template_slug: cache_key.prompt_template_slug,
             template_hash: cache_key.template_hash,
-            rendered_prompt_digest: spec.rendered_prompt_digest(),
+            rendered_prompt_digest,
             engine_spec_id: engine_spec_id.clone(),
             entity_a_id: presented_a.id.clone(),
             entity_b_id: presented_b.id.clone(),
@@ -1198,6 +1205,11 @@ fn fit_external_results(
             pairwise_logprob_posterior_error: None,
             ledger_draws: None,
             evidence_moments: None,
+            rendered_prompt: Some(llmsort::rerank::trace::RenderedPromptBytes {
+                system: prompt_instance.system,
+                user: prompt_instance.user,
+            }),
+            completion: None,
             refused: result.refused,
             cached: false,
             swapped: result.swapped,

@@ -20,13 +20,22 @@ const PUBLIC_COMPARISONS: &str = "scry_judgements.comparisons";
 const PUBLIC_SCORES: &str = "scry_judgements.scores";
 const PRIVATE_COMPARISONS: &str = "scry_judgements_private.comparisons";
 const PRIVATE_SCORES: &str = "scry_judgements_private.scores";
+// Content-addressed rendered prompt bytes: digest -> exact system/user
+// message bytes (recomputability — the store retains the bytes, not just
+// their hash). Deduplicated per run before landing; ReplacingMergeTree
+// collapses cross-run repeats.
+const PUBLIC_RENDERED_PROMPTS: &str = "scry_judgements.rendered_prompts";
+const PRIVATE_RENDERED_PROMPTS: &str = "scry_judgements_private.rendered_prompts";
 // Default provenance label written into landed rows. Updated at each crate
 // rename; older rows carry "cardinal-harness" (pre 2026-08-12) or
 // "ratiometer" (pre 2026-08-15).
 const HARNESS: &str = "llmsorting";
 
-const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by";
-const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by";
+const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by,rendered_prompt_digest,completion";
+const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by,rendered_prompt_digest,completion";
+const RENDERED_PROMPT_COLUMNS: &str = "observed_at,run_id,digest,system_prompt,user_prompt";
+const PRIVATE_RENDERED_PROMPT_COLUMNS: &str =
+    "observed_at,run_id,owner_scope,digest,system_prompt,user_prompt";
 const SCORE_COLUMNS: &str = "scored_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash,submitted_by";
 const PRIVATE_SCORE_COLUMNS: &str = "scored_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash,submitted_by";
 
@@ -326,6 +335,28 @@ struct ComparisonRow<'a> {
     /// Contributor account attribution ('' = unattributed) — always
     /// serialized so every landed row states its provenance explicitly.
     submitted_by: &'a str,
+    /// Content identity of the exact rendered prompt bytes; '' on rows
+    /// whose trace predates retention. The bytes live in
+    /// `rendered_prompts`, keyed by this digest.
+    rendered_prompt_digest: &'a str,
+    /// Verbatim provider completion text for live rows; '' for cached rows
+    /// and pre-retention traces. Recomputability's raw half: evidence must
+    /// equal interpret(instrument, bindings, this text).
+    completion: &'a str,
+}
+
+#[derive(Serialize)]
+struct RenderedPromptRow<'a> {
+    observed_at: String,
+    /// First-landing provenance + the replay probe key (`batch_exists`
+    /// checks WHERE run_id uniformly across landing tables). Content
+    /// identity stays the digest; ReplacingMergeTree collapses repeats.
+    run_id: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    owner_scope: Option<&'a str>,
+    digest: &'a str,
+    system_prompt: &'a str,
+    user_prompt: &'a str,
 }
 
 #[derive(Serialize)]
@@ -401,6 +432,8 @@ fn completed_batches(
         .collect();
 
     let mut comparison_rows = Vec::with_capacity(record.comparison_trace.len());
+    let mut rendered_prompt_rows: Vec<RenderedPromptRow> = Vec::new();
+    let mut seen_digests: std::collections::HashSet<&str> = std::collections::HashSet::new();
     for trace in &record.comparison_trace {
         let entity_a_text = entities
             .get(trace.entity_a_id.as_str())
@@ -458,7 +491,27 @@ fn completed_batches(
             temperature: f64::from(DEFAULT_CHAT_TEMPERATURE),
             harness_version: harness_version.to_string(),
             submitted_by,
+            rendered_prompt_digest: &trace.rendered_prompt_digest,
+            completion: trace.completion.as_deref().unwrap_or(""),
         });
+        if let Some(rendered) = &trace.rendered_prompt {
+            if !trace.rendered_prompt_digest.is_empty()
+                && seen_digests.insert(trace.rendered_prompt_digest.as_str())
+            {
+                rendered_prompt_rows.push(RenderedPromptRow {
+                    observed_at: clickhouse_time(
+                        DateTime::from_timestamp_millis(trace.timestamp_ms)
+                            .unwrap_or(record.finished_at),
+                        3,
+                    ),
+                    run_id: &record.run_ref,
+                    owner_scope: row_owner_scope,
+                    digest: &trace.rendered_prompt_digest,
+                    system_prompt: &rendered.system,
+                    user_prompt: &rendered.user,
+                });
+            }
+        }
     }
 
     let seed = record
@@ -538,6 +591,14 @@ fn completed_batches(
             },
             body: json_lines(&score_rows)?,
         },
+        LandingBatch {
+            table: if private {
+                PRIVATE_RENDERED_PROMPTS
+            } else {
+                PUBLIC_RENDERED_PROMPTS
+            },
+            body: json_lines(&rendered_prompt_rows)?,
+        },
     ]
     .into_iter()
     .filter(|batch| !batch.body.is_empty())
@@ -590,6 +651,8 @@ fn columns_for_table(table: &str) -> Option<&'static str> {
         PRIVATE_COMPARISONS => Some(PRIVATE_COMPARISON_COLUMNS),
         PUBLIC_SCORES => Some(SCORE_COLUMNS),
         PRIVATE_SCORES => Some(PRIVATE_SCORE_COLUMNS),
+        PUBLIC_RENDERED_PROMPTS => Some(RENDERED_PROMPT_COLUMNS),
+        PRIVATE_RENDERED_PROMPTS => Some(PRIVATE_RENDERED_PROMPT_COLUMNS),
         _ => None,
     }
 }
@@ -612,6 +675,8 @@ fn pending_descriptor(path: &Path) -> Option<(&str, &'static str)> {
         "scry_judgements__scores" => Some(PUBLIC_SCORES),
         "scry_judgements_private__comparisons" => Some(PRIVATE_COMPARISONS),
         "scry_judgements_private__scores" => Some(PRIVATE_SCORES),
+        "scry_judgements__rendered_prompts" => Some(PUBLIC_RENDERED_PROMPTS),
+        "scry_judgements_private__rendered_prompts" => Some(PRIVATE_RENDERED_PROMPTS),
         _ => None,
     }?;
     Some((run_ref, table))

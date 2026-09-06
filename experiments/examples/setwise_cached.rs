@@ -1661,15 +1661,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         })
                                     })
                                     .flatten();
-                                    let stick = (args.stickbreak
-                                        && matches!(mode, AnswerMode::Order))
-                                    .then(|| {
-                                        response
-                                            .output_logprobs
-                                            .as_ref()
-                                            .and_then(|tokens| stickbreak_q(tokens, &slots, kk))
-                                    })
-                                    .flatten();
+                                    let stick =
+                                        (args.stickbreak && matches!(mode, AnswerMode::Order))
+                                            .then(|| {
+                                                response.output_logprobs.as_ref().and_then(
+                                                    |tokens| stickbreak_q(tokens, &slots, kk),
+                                                )
+                                            })
+                                            .flatten();
                                     let tiers: Vec<Vec<usize>> = match mode {
                                         AnswerMode::Bw => {
                                             let (best, worst) = (slots[0], slots[1]);
