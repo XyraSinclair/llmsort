@@ -53,18 +53,26 @@ active frontiers." nanojudge's `fit_linear` is that answer, working:
 - MAP by damped Newton-CG with Hessian-vector products only — O(#edges)
   per CG step, no matrix ever formed; log-posterior concave so Newton is
   safe; halving line search guarantees monotone ascent.
-- Marginal variances by Hutchinson probes with two refinements worth
-  stealing verbatim:
-  (a) **exact control variate**: `T diag(A)⁻¹ Tᵀ` (diagonal-Fisher
-  through the mean-centering transform T) is known in closed form, so
-  probes only estimate the *correction*, slashing probe noise — 8
-  deterministic Rademacher probes suffice;
-  (b) **deterministic probe signs** (splitmix-style hash) keep inference
-  reproducible — same determinism contract our packet layer pins
-  bitwise;
-  (c) variances computed *through the gauge transform* (mean-centering),
-  so reported stds are stds of the identified quantity, not the raw
-  parameter. Our Hutchinson path should do all three.
+- Marginal variances by Hutchinson probes with refinements:
+  (a) **control variate** `T diag(A)⁻¹ Tᵀ` (diagonal-Fisher through the
+  mean-centering transform T) known in closed form, so probes only
+  estimate the correction; (b) **deterministic probe signs**
+  (splitmix-style hash); (c) variances computed *through the gauge
+  transform* so reported stds are stds of the identified quantity.
+  **CORRECTION (2026-09-06, execution attempt)**: (a) does NOT transfer
+  to our solver as-is. For Rademacher z, z⊙(D⁻¹z) = D⁻¹ exactly
+  (z_i² = 1), so a *diagonal* control variate cancels identically
+  per-probe — zero variance reduction (proved and measured: max
+  estimator difference 1.1e-16 on a planted n=400 SPD system). The
+  trick is non-vacuous for nanojudge only because their baseline passes
+  through T: T D⁻¹Tᵀ is non-diagonal, so the baseline co-fluctuates
+  with the target while its expectation stays exact. Our
+  `hutchinson_diag` estimates diag(L⁻¹) directly in gauge-pinned
+  coordinates — no transform, nothing to cancel. The import becomes
+  live only if we either (i) report mean-centered covariance (adopting
+  their gauge), or (ii) use a non-diagonal control variate whose exact
+  inverse diagonal is computable (e.g. a banded approximation of L).
+  Production code deliberately unchanged.
 - Matchmaking refits use a cheaper MLE (minorize-maximize BT with a
   ghost player) between full Laplace fits — a two-tier refit cadence.
 - Their windowed matchmaking (sort by rating, consider only the ~100
