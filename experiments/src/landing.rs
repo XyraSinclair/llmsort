@@ -25,8 +25,8 @@ const PRIVATE_SCORES: &str = "scry_judgements_private.scores";
 // "ratiometer" (pre 2026-08-15).
 const HARNESS: &str = "llmsorting";
 
-const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
-const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
+const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
+const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
 const SCORE_COLUMNS: &str = "scored_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash";
 const PRIVATE_SCORE_COLUMNS: &str = "scored_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash";
 
@@ -306,6 +306,15 @@ struct ComparisonRow<'a> {
     higher_ranked: &'a str,
     ratio: Option<f64>,
     confidence: Option<f64>,
+    /// PMF-derived signed log-ratio moments (presented A-over-B) from the
+    /// provider's decision-token logprobs — present only on evidence-rail
+    /// rows (ratio_letter*/ordinal_letter with a logprob route). These are
+    /// the measurements the solver weights by; persisting them keeps the
+    /// elicited distribution auditable per row.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    log_ratio_mean: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    log_ratio_var: Option<f64>,
     input_tokens: u32,
     output_tokens: u32,
     cost_nanodollars: u64,
@@ -419,6 +428,14 @@ fn completed_batches(
             higher_ranked: trace.higher_ranked.as_deref().unwrap_or(""),
             ratio: trace.ratio,
             confidence: trace.confidence,
+            log_ratio_mean: trace
+                .pairwise_logprob_posterior
+                .as_ref()
+                .and_then(|p| p.mean_signed_ln_ratio()),
+            log_ratio_var: trace
+                .pairwise_logprob_posterior
+                .as_ref()
+                .and_then(|p| p.variance_signed_ln_ratio()),
             input_tokens: trace.input_tokens,
             output_tokens: trace.output_tokens,
             cost_nanodollars: nonnegative_cost(trace.provider_cost_nanodollars),
