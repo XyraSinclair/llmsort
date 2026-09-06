@@ -691,11 +691,11 @@ fn single_slot_letter(token: &str, kk: usize) -> Option<char> {
 /// carry no mass (counted by the caller, never defaulted). Whitespace
 /// variants of the same letter sum; the chosen letter's mass is floored at
 /// its emitted-token probability (top_alternatives may truncate it away).
-fn stickbreak_q(
-    tokens: &[TokenLogprob],
-    slots: &[usize],
-    kk: usize,
-) -> Option<(Vec<f64>, Vec<BTreeMap<String, f64>>)> {
+/// Winner distribution over slot positions plus the per-slot renormalized
+/// PMFs (letter → mass) that produced it, for the trace.
+type StickbreakHarvest = (Vec<f64>, Vec<BTreeMap<String, f64>>);
+
+fn stickbreak_q(tokens: &[TokenLogprob], slots: &[usize], kk: usize) -> Option<StickbreakHarvest> {
     let letter_tokens: Vec<&TokenLogprob> = tokens
         .iter()
         .filter(|t| single_slot_letter(&t.token, kk).is_some())
