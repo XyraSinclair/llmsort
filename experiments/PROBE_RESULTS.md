@@ -111,3 +111,20 @@ audit, it is signal, not style.
 Scorer note: JSONEachRow lines must be split on "\n" only — str.splitlines()
 also splits on U+2028/U+2029, which are legal unescaped inside JSON strings
 (one post contained a raw LINE SEPARATOR and sheared a row mid-string).
+
+## Auditor check (2026-09-06): the cluster is signal
+
+#d (counterfeit-novelty audit) vs #a (definitional hit) on the probetop
+cohort: Spearman +0.860, 12/20 top-20 overlap (runs jrun_6a48f13b /
+jrun_55ba8ae6). The auditor wording — written to demote familiar ideas in
+fresh vocabulary — keeps the agent-foundations cluster at the top
+(Logical counterfactuals for random algorithms, Maxent and Abstractions,
+Consequentialist Formal Systems, ...). Within this design the tie is broken:
+the axis genuinely rewards dense conceptual novelty and that corner of LW
+delivers it. Residual caveat: both wordings share one judge model's priors; a
+cross-model-family check is the remaining falsifier if ever needed.
+
+Discovery board stands. Cascade is now the standing recipe per axis family:
+6,400 anchor comparisons (4 wordings x N=200, random cohort) -> ridge probe ->
+corpus propagation at embedding cost -> judge the probe-top slice -> public
+board.
