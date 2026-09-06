@@ -24,3 +24,5 @@ research/data/manifund/
 research/artifacts/live/**/*.sqlite-shm
 research/artifacts/live/**/*.sqlite-wal
 research/artifacts/live/**/*.sqlite-journal
+# local explorer/consult notes (contain machine-local paths; not for the public repo)
+research/data/explorer-notes-*/
