@@ -25,10 +25,10 @@ const PRIVATE_SCORES: &str = "scry_judgements_private.scores";
 // "ratiometer" (pre 2026-08-15).
 const HARNESS: &str = "llmsorting";
 
-const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
-const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version";
-const SCORE_COLUMNS: &str = "scored_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash";
-const PRIVATE_SCORE_COLUMNS: &str = "scored_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash";
+const COMPARISON_COLUMNS: &str = "observed_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by";
+const PRIVATE_COMPARISON_COLUMNS: &str = "observed_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,template_slug,template_hash,model,comparison_index,entity_a_id,entity_b_id,entity_a_hash,entity_b_hash,swapped,cached,refused,higher_ranked,ratio,confidence,log_ratio_mean,log_ratio_var,input_tokens,output_tokens,cost_nanodollars,cost_is_estimate,error,temperature,harness_version,submitted_by";
+const SCORE_COLUMNS: &str = "scored_at,run_id,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash,submitted_by";
+const PRIVATE_SCORE_COLUMNS: &str = "scored_at,run_id,owner_scope,lens,axis_key,axis_prompt,axis_prompt_hash,harness,model,seed,item_count,comparison_budget,comparisons_used,stop_reason,topk_error,run_cost_nanodollars,entity_id,entity_text,rank,latent_mean,latent_std,z_score,percentile,temperature,harness_version,entity_hash,submitted_by";
 
 /// Credential-aware ClickHouse HTTP client. Its URL is scrubbed of userinfo.
 pub struct ClickHouseLanding {
@@ -207,8 +207,9 @@ pub async fn land_completed_run(
     record: &JudgementRunRecord,
     lens: &str,
     owner_scope: &str,
+    submitted_by: &str,
 ) -> bool {
-    let batches = match completed_batches(record, lens, owner_scope) {
+    let batches = match completed_batches(record, lens, owner_scope, submitted_by) {
         Ok(batches) => batches,
         Err(error) => {
             eprintln!(
@@ -322,6 +323,9 @@ struct ComparisonRow<'a> {
     error: &'a str,
     temperature: f64,
     harness_version: String,
+    /// Contributor account attribution ('' = unattributed) — always
+    /// serialized so every landed row states its provenance explicitly.
+    submitted_by: &'a str,
 }
 
 #[derive(Serialize)]
@@ -353,12 +357,15 @@ struct ScoreRow<'a> {
     temperature: f64,
     harness_version: String,
     entity_hash: String,
+    /// Contributor account attribution ('' = unattributed).
+    submitted_by: &'a str,
 }
 
 fn completed_batches(
     record: &JudgementRunRecord,
     lens: &str,
     owner_scope: &str,
+    submitted_by: &str,
 ) -> Result<Vec<LandingBatch>, String> {
     let JudgementRunTerminal::Completed {
         stop_reason,
@@ -450,6 +457,7 @@ fn completed_batches(
             error: trace.error.as_deref().unwrap_or(""),
             temperature: f64::from(DEFAULT_CHAT_TEMPERATURE),
             harness_version: harness_version.to_string(),
+            submitted_by,
         });
     }
 
@@ -503,6 +511,7 @@ fn completed_batches(
             temperature: f64::from(DEFAULT_CHAT_TEMPERATURE),
             harness_version: harness_version.to_string(),
             entity_hash: sha256_hex(entity_text),
+            submitted_by,
         });
     }
 

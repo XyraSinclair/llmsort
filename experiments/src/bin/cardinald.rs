@@ -41,6 +41,7 @@ const DEFAULT_INSTRUMENT_DIR: &str = ".cardinald/instruments";
 const MAX_ENTITIES: usize = 200;
 const MAX_ENTITY_TEXT_BYTES: usize = 8192;
 const MAX_AXIS_PROMPT_BYTES: usize = 4096;
+const MAX_SUBMITTED_BY_BYTES: usize = 128;
 const ESTIMATE_SAFETY_NUMERATOR: i64 = 5;
 const ESTIMATE_SAFETY_DENOMINATOR: i64 = 4;
 
@@ -94,6 +95,11 @@ struct CreateRunRequest {
     privacy: JudgementPrivacy,
     #[serde(default)]
     owner_scope: Option<String>,
+    /// Public contributor attribution (openpriors invariant 4: trust
+    /// attaches to accounts). The nucleus derives it from authentication —
+    /// cardinald stores and lands it verbatim; empty means unattributed.
+    #[serde(default)]
+    submitted_by: Option<String>,
     #[serde(default)]
     lens: Option<String>,
     #[serde(default)]
@@ -157,6 +163,9 @@ struct DaemonRunMetadata {
     run_ref: String,
     request: NormalizedJudgementRunRequest,
     owner_scope: String,
+    // Pre-attribution metadata files deserialize to "" (unattributed).
+    #[serde(default)]
+    submitted_by: String,
     lens: String,
     created_at: DateTime<Utc>,
     status: String,
@@ -170,6 +179,8 @@ struct GetRunResponse {
     status: String,
     privacy: JudgementPrivacy,
     owner_scope: String,
+    /// Contributor account attribution; empty = unattributed.
+    submitted_by: String,
     lens: String,
     axis_key: String,
     axis_prompt: String,
@@ -566,6 +577,7 @@ async fn recover_interrupted_runs(
                 &record,
                 &metadata.lens,
                 &metadata.owner_scope,
+                &metadata.submitted_by,
             )
             .await
         } else {
@@ -586,6 +598,7 @@ async fn create_run(
     validate_caps(&payload.judgement)?;
 
     let owner_scope = payload.owner_scope.unwrap_or_default();
+    let submitted_by = normalize_submitted_by(payload.submitted_by)?;
     let lens = payload.lens.unwrap_or_else(|| "api".to_string());
     validate_run_context(payload.privacy, Some(&owner_scope), Some(&lens))?;
 
@@ -659,6 +672,7 @@ async fn create_run(
         run_ref: run_ref.clone(),
         request: normalized,
         owner_scope,
+        submitted_by,
         lens,
         created_at: Utc::now(),
         status: "running".to_string(),
@@ -773,6 +787,7 @@ async fn execute_queued_run(
                         &record,
                         &metadata.lens,
                         &metadata.owner_scope,
+                        &metadata.submitted_by,
                     )
                     .await
                 } else {
@@ -834,6 +849,7 @@ async fn get_run(
             status: metadata.status,
             privacy: metadata.request.privacy,
             owner_scope: metadata.owner_scope,
+            submitted_by: metadata.submitted_by,
             lens: metadata.lens,
             axis_key: metadata.request.axis_key,
             axis_prompt: metadata.request.axis_prompt,
@@ -880,6 +896,7 @@ fn project_terminal(metadata: DaemonRunMetadata, record: JudgementRunRecord) -> 
         status,
         privacy: record.request.privacy,
         owner_scope: metadata.owner_scope,
+        submitted_by: metadata.submitted_by,
         lens: metadata.lens,
         axis_key: record.request.axis_key,
         axis_prompt: record.request.axis_prompt,
@@ -931,6 +948,23 @@ fn project_completed(
         cost_nanodollars: record.usage.provider_cost_nanodollars,
         cost_is_estimate: record.usage.provider_cost_is_estimate,
     }
+}
+
+/// Attribution is a name the nucleus vouched for, never free text: trimmed,
+/// bounded, printable. Empty (the default) means unattributed.
+fn normalize_submitted_by(value: Option<String>) -> Result<String, ApiError> {
+    let value = value.unwrap_or_default().trim().to_string();
+    if value.len() > MAX_SUBMITTED_BY_BYTES {
+        return Err(ApiError::bad_request(format!(
+            "submitted_by must not exceed {MAX_SUBMITTED_BY_BYTES} bytes"
+        )));
+    }
+    if value.chars().any(char::is_control) {
+        return Err(ApiError::bad_request(
+            "submitted_by must not contain control characters",
+        ));
+    }
+    Ok(value)
 }
 
 fn validate_caps(payload: &JudgementRequestFields) -> Result<(), ApiError> {

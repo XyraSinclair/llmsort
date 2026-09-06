@@ -900,10 +900,9 @@ async fn drive() -> Result<(), String> {
         // Interleave across judges so early coverage spans many of them
         // instead of one judge finishing every axis first.
         let mut pending: Vec<Cell> = Vec::new();
-        for axis_index in 0..axes.len() {
+        for (axis_index, axis) in axes.iter().enumerate() {
             for (lane_index, lane) in lanes.iter().enumerate() {
                 for model_index in 0..lane.models.len() {
-                    let axis = &axes[axis_index];
                     let key = (
                         axis.lens.clone(),
                         axis.axis_key.clone(),
