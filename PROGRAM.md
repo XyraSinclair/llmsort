@@ -135,7 +135,17 @@ RESULTS.md with denominators) and one page here.
   letter rail (16.9% vs 11.5%) — instrument sensitivity vs judge
   cyclicity, E10 must separate. Next: E10 family sweep (cached pair
   prefix x {A, A', not-A} x orders → scaling + reliability reading from
-  the same calls).
+  the same calls). Addendum 2026-09-05 (deconfounded, within-call):
+  E9 compared two templates, so prompt and readout were entangled;
+  the production ledger's ratio_letter rows carry PMF moments AND the
+  plain verdict from the same call, so the ablation runs confound-free
+  (`research/notes/logprob-efficiency-2026-09-05/`, 72,813 rows, 37
+  gemma4-12b runs). Split-half Kendall-tau budget curves: sign-only
+  needs 1.4–2.8× the comparisons at small budgets, and past ~30% of
+  production budget it cannot match at all — on near-tie pools
+  (|mu| ~ 0.02–0.06 nats) the binary channel saturates at tau 0.16
+  where moments reach 0.49 (reversal rate 0.39 vs 0.24). Point/sign
+  arms were built from the PMF mean, so the gaps are lower bounds.
 - **E8 — whitespace-jitter repeat probes.** Probe the same structured
   judgement K times, probe k widening 1-3 seed-chosen word gaps in the
   attribute prompt (deterministic, blake3(text,k)) so each probe is a
