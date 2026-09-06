@@ -1,0 +1,1105 @@
+{
+  "generated_at": "2026-09-06T22:06:03.063141+00:00",
+  "offline": false,
+  "answer": "order",
+  "model": "openai/gpt-4o-mini",
+  "seed": 18,
+  "n": 12,
+  "ks": [
+    3,
+    4
+  ],
+  "entity_chars": 1600,
+  "min_pair_cover": 2,
+  "presentations_per_subset": 4,
+  "repeats": 1,
+  "delimiter": "xml",
+  "design": "disjoint",
+  "overlap": 2,
+  "spend_cap_usd": 3.0,
+  "corpus": "data/manifund/items/full.json",
+  "attributes": [
+    {
+      "name": "impact_per_dollar",
+      "rubric_source": "data/manifund/rubrics/impact_per_dollar.md",
+      "rubric_chars": 985
+    },
+    {
+      "name": "theory_of_change",
+      "rubric_source": "data/manifund/rubrics/theory_of_change.md",
+      "rubric_chars": 706
+    },
+    {
+      "name": "team_evidence",
+      "rubric_source": "data/manifund/rubrics/team_evidence.md",
+      "rubric_chars": 637
+    }
+  ],
+  "entity_ids": [
+    "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+    "pauseai-us-2025-through-q2",
+    "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+    "produce-therapeutic-food-for-ethiopia",
+    "energetic-paradigm-structural-control-for-ai-workflows",
+    "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+    "poison-training-corpuses-with-stories-of-nice-ai",
+    "global-animal-activists-community-gacc-program",
+    "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+    "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+    "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+    "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference"
+  ],
+  "engine_spec": {
+    "n": 12,
+    "attribute": {
+      "temperature": 1.0
+    },
+    "raters": [
+      [
+        "openai/gpt-4o-mini",
+        {
+          "beta": 1.0,
+          "cost_per_edge": 1.0
+        }
+      ]
+    ],
+    "config": {
+      "huber_k": 1.5,
+      "irls_max_iters": 12,
+      "irls_tol": 1e-8,
+      "ridge_lambda": 1e-9,
+      "tiny": 1e-18,
+      "max_log_ratio": 10.0,
+      "hutch_probes": 12,
+      "rank_weight_exponent": 1.0,
+      "rank_band_window": 5,
+      "small_gap_threshold": 0.5,
+      "max_rank_pairs": 200000,
+      "top_k": null,
+      "tail_weight": 0.0,
+      "lambda_risk": 1.0,
+      "rng_seed": 1337
+    }
+  },
+  "example_call": {
+    "system": "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B",
+    "user": "<entities>\n<entity_A>\nTITLE: &quot;Sweeten&quot; training corpora with stories of nice AI\nBLURB: Flood the internet with stories about AI being nice, to nudge future AI training data nicer\nASK: min $5,000 / goal $10,000\nCAUSES: Technical AI safety, ACX Grants 2025, Global catastrophic risks\nDescription of proposed project\n\nNostalgebrist has a vision of humanity accidentally memeing itself into doom. We&apos;re constantly writing stories about how the AI will betray us, and these stories wind up in training data from which the AI extrapolates a self-concept. See Gwern&apos;s &quot;Clippy&quot; story; &lt;https://gwern.net/fiction/clippy . \n\nTraining sets are about a trillion words. Of those, maybe 10B or fewer are science fiction. Of \\ those\\ , perhaps 1B words are about AI? I would further guesstimate \\~70% of those involve the AI misbehaving. So, we have maybe 700M words of naughty AI fic to 300M of Good!AI. \n\nI&apos;m working on setting up an experimental AI publishinghouse; it costs us a few dollars to recursively prompt a 100k word book out of the models. This suggests we could double the amount of Good!AI fic on the internet for, like, $7,000\\. \n\nNow, any alignment strategy which hinges on the internet being nice is already doomed. But we live in a clown world, and who knows what farcical causality pachinko will seal our fates. \n\nLet us lay our fingers &apos;pon the scale.\n\n Why are you qualified to work on this?\n\nSometimes an idea bothers me for years and I can&apos;t not\n\n Other links\n\nhyperstitionai.com \n\n What would you do if not funded?\n\nThis is poor sales to say, but I&apos;ll just probably pay for it myself and do it anyway.\n\n How much\n</entity_A>\n<entity_B>\nTITLE: Isolating CBRN Knowledge in LLMs for Safety - Phase 2 (Research)\nBLURB: Expanding proven isolation techniques to high-risk capability domains in Mixture of Expert models\nASK: min $1,000 / goal $150,000\nCAUSES: Technical AI safety, Biomedical, Biosecurity\nProject summary\n\nLocalizing dangerous knowledge within Mixture of Expert models&apos; experts to allow selective deactivation while preserving model performance on other domains.\n\n What are this project&apos;s goals? How will you achieve them?\n\nWe aim to address the dual-use threat posed by advanced AI capabilities in Chemical, Biological, Radiological, and Nuclear (CBRN) domains by physically localizing dangerous capabilities into designated experts during pre-training using gradient routing in Mixture of Experts (MoE) models, enabling selective activation based on deployment context.\n\nOur goal is to implement this with minimal modifications to current MoE training regimes, publish our work, and open source our code to facilitate easy industry adoption. \n\n We have already demonstrated: \n\n Strong Isolation at Scale (on Medical Knowledge):\n\n \\~250,000x compute slowdown at 1.2B params after ablating medical experts (medical performance degrades to baseline trained with 250,000x fewer FLOPs) \n \\~62,500x compute slowdown maintained even after re-calibrating output logits to medical domain\n Isolation effectiveness increases with model scale \n\n Robustness Against Recovery: \n\n Full-model fine-tuning on medical data requires \\~500M tokens to restore USMLE performance\n\n Minimal Alignment Tax: \n\n &lt;0.02 nats increase in loss on non-medic\n</entity_B>\n<entity_C>\nTITLE: PauseAI US 2025 through Q2\nBLURB: SFF main round did us dirty!\nASK: min $500 / goal $150,000\nCAUSES: AI governance, Global catastrophic risks\nProject summary\n\nPauseAI US&apos;s funding fell short of expected, and now we are only funded until the end of 2024! Money donated to this project will go to fund the operations of PauseAI US until midyear 2025.\n\n What are this project&apos;s goals? How will you achieve them?\n\nPauseAI US advocates for an international treaty to pause frontier AI development. But we don&apos;t need to achieve that treaty to have positive impact-- most of our positive impact will likely come from moving the Overton window and making more moderate AI Safety measures more possible. Advocating straightforwardly for what we consider the best solution is an excellent frame for educating the general public and elected officials on AI danger-- we don&apos;t know what we&apos;re doing building powerful AI, so we should wait until we do to proceed-- compared to tortured and confusing discussions of other solutions like alignment that have no clear associated actions for those outside the technical field. \n \nTo fulfill our goal of moving the Overton window in the direction of simply not building AGI while it is dangerous to do so, PauseAI US has two major areas of programming: protesting and lobbying . \n \n Protests (like this upcoming one) are the core of our irl volunteer organizing, local social community, and social media presence. Protests send the general overarching message to Pause frontier AI training, in line with the PauseAI proposal. Sometimes protests take issue with t\n</entity_C>\n</entities>\n\nCompare the entities by <attribute_name>: impact_per_dollar </attribute_name>.\n<full_attribute_text>\nYou are judging which item has more expected impact per marginal dollar at the stated minimum funding ask. This attribute measures the additional positive outcome (in your chosen units) that would result from one extra dollar of funding, evaluated at the minimum funding threshold. More of this attribute means the project shows higher marginal cost-effectiveness at that point: for example, clear evidence that each additional dollar beyond the minimum ask yields a larger increment in lives saved, knowledge gained, or other defined benefit, based on rigorous modeling, experimental data, or well-justified diminishing returns. Do not reward total impact, average impact per dollar, or the impact of the full funding ask; those are different metrics. Also do not reward the size or ambition of the ask itself: a cheap project is not better merely for being cheap, nor an expensive one for being grand — only the expected benefit of the next dollar at the minimum threshold matters.\n</full_attribute_text>\n\nOrder every slot from {A, B, C} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:",
+    "prompt_cache_key": "setwise:ab99d9490b1ff8f3",
+    "prefix_bytes": 5294
+  },
+  "subsets_per_k": {
+    "3": 16,
+    "4": 12
+  },
+  "setwise": [
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "impact_per_dollar",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 21420,
+        "completion_tokens": 64,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 3251400
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          2,
+          4,
+          10
+        ],
+        "last_by_slot": [
+          2,
+          9,
+          5
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.8556909769650624,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 4.987031165653334,
+          "std": 0.6482304064680946
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 2.1875123256080484,
+          "std": 0.6482304064680946
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 7.034264788080558,
+          "std": 0.5996928913021514
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 11.933434677104039,
+          "std": 0.6426376254180511
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 0.0,
+          "std": 0.5590554820524141
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 5.873914810377446,
+          "std": 0.593978971211634
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 6.181414650615697,
+          "std": 0.612038144335307
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 8.91628269292992,
+          "std": 0.6475582182253966
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 6.217061448802834,
+          "std": 0.611600895008703
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 4.716263912012375,
+          "std": 0.6166633110213597
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 2.5419758406155037,
+          "std": 0.6171737384698925
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 1.649990924442652,
+          "std": 0.6447976692293803
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "theory_of_change",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 20540,
+        "completion_tokens": 64,
+        "cache_read_tokens": 12416,
+        "cache_write_tokens": 0,
+        "nanodollars": 2188200
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 12,
+        "mean_cached_fraction": 0.6021560253151941
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          4,
+          5,
+          7
+        ],
+        "last_by_slot": [
+          1,
+          8,
+          7
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.7907633595487679,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 5.527129176613658,
+          "std": 0.683670859699643
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 1.6165694266086286,
+          "std": 0.6787681447043457
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 8.844696912063226,
+          "std": 0.6226073431640268
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 11.830564320821413,
+          "std": 0.6619424137805164
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 8.832473769224306,
+          "std": 0.5740130308860777
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 9.113723419474653,
+          "std": 0.6134345261849539
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.0,
+          "std": 0.6226053378704716
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 7.7098004434027,
+          "std": 0.683670859699643
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 7.62595212599777,
+          "std": 0.6609988143194256
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 5.012337913745821,
+          "std": 0.6271562359518674
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 5.620984642125502,
+          "std": 0.6347271280820114
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 8.937397118026809,
+          "std": 0.676062826173935
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 3,
+      "attribute": "team_evidence",
+      "calls": 16,
+      "calls_ok": 16,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 48,
+      "usage": {
+        "calls": 16,
+        "prompt_tokens": 20332,
+        "completion_tokens": 64,
+        "cache_read_tokens": 13440,
+        "cache_write_tokens": 0,
+        "nanodollars": 2080200
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 16,
+        "calls_with_cache_read_gt0": 13,
+        "mean_cached_fraction": 0.6569412112712555
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          3,
+          9,
+          4
+        ],
+        "last_by_slot": [
+          0,
+          4,
+          12
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 16,
+      "mean_answer_token_prob": 0.8747158780054685,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 6.774175991808454,
+          "std": 0.6742982907466882
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 0.0,
+          "std": 0.6437256787773954
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 8.414004692584983,
+          "std": 0.6045767841451933
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 11.931285247652959,
+          "std": 0.6487498928631221
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 9.194179944716868,
+          "std": 0.5566985023457471
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 7.641355651768239,
+          "std": 0.5931973928808575
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.5481468377028378,
+          "std": 0.5968277899595815
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 5.5536926954902945,
+          "std": 0.6742982907466882
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 6.646045141743286,
+          "std": 0.6130834017379391
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 7.93466589990292,
+          "std": 0.5995848513104557
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 10.662898968118434,
+          "std": 0.6183038958316337
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 16.497353308550235,
+          "std": 0.6486664158085045
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 20172,
+        "completion_tokens": 60,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "nanodollars": 3061800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 0,
+        "mean_cached_fraction": 0.0
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          1,
+          6,
+          4,
+          1
+        ],
+        "last_by_slot": [
+          3,
+          2,
+          2,
+          5
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.7797051651935903,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 4.134483808323403,
+          "std": 0.6457499503385871
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 1.4437007563239752,
+          "std": 0.6291367045432514
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 5.8986554405287706,
+          "std": 0.5986706134040387
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 10.423725578122307,
+          "std": 0.560360268196649
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 0.0,
+          "std": 0.5802918244329763
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 5.201618313633645,
+          "std": 0.5796805530848752
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 3.6683645201735797,
+          "std": 0.6457499503385871
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 7.635499195531697,
+          "std": 0.5564380116620267
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 10.778624376377024,
+          "std": 0.6169645338431398
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 2.9079542127392877,
+          "std": 0.623156685445295
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 5.0404466281443625,
+          "std": 0.5633075192622417
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 4.109199024491276,
+          "std": 0.6300458404265742
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "theory_of_change",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19512,
+        "completion_tokens": 60,
+        "cache_read_tokens": 13440,
+        "cache_write_tokens": 0,
+        "nanodollars": 1954800
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 10,
+        "mean_cached_fraction": 0.6910743736786413
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          3,
+          4,
+          4,
+          1
+        ],
+        "last_by_slot": [
+          3,
+          2,
+          3,
+          4
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.6678531168741424,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 5.9768356470010735,
+          "std": 0.6436265598032129
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 4.012501975578896,
+          "std": 0.5937714493540905
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 9.103376397135428,
+          "std": 0.550294723579374
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 13.807396731345364,
+          "std": 0.5596645233058039
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 7.138671770194413,
+          "std": 0.570841287346241
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 5.683490435116572,
+          "std": 0.5645510318406259
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.0,
+          "std": 0.6368933745153882
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 7.200720970028117,
+          "std": 0.5590021177930541
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 9.214275997448281,
+          "std": 0.6436265598032129
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 7.99288996907878,
+          "std": 0.6002576434584261
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 7.680684139368873,
+          "std": 0.5539136430648982
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 8.37784873258903,
+          "std": 0.6173771287537707
+        }
+      ],
+      "halo": null
+    },
+    {
+      "answer": "order",
+      "k": 4,
+      "attribute": "team_evidence",
+      "calls": 12,
+      "calls_ok": 12,
+      "calls_refused": 0,
+      "calls_malformed": 0,
+      "calls_errored": 0,
+      "observations": 72,
+      "usage": {
+        "calls": 12,
+        "prompt_tokens": 19356,
+        "completion_tokens": 60,
+        "cache_read_tokens": 12032,
+        "cache_write_tokens": 0,
+        "nanodollars": 2037000
+      },
+      "cache": {
+        "calls_with_cache_fields_reported": 12,
+        "calls_with_cache_read_gt0": 9,
+        "mean_cached_fraction": 0.6231865177520044
+      },
+      "pivot_rotation": {
+        "pairs_with_both_orientations": 0,
+        "sign_flips": 0,
+        "mean_abs_residual_nats": null
+      },
+      "slot_histogram": {
+        "first_by_slot": [
+          3,
+          2,
+          5,
+          2
+        ],
+        "last_by_slot": [
+          1,
+          4,
+          5,
+          2
+        ]
+      },
+      "order_sensitivity": {
+        "subsets_with_repeats": 0,
+        "presentation_pairs": 0,
+        "entity_pairs_compared": 0,
+        "direction_flips": 0,
+        "flip_rate": null
+      },
+      "components": 1,
+      "disconnected": false,
+      "calls_pmf_weighted": 12,
+      "mean_answer_token_prob": 0.7775840874226231,
+      "latents": [
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 5.7216559344492195,
+          "std": 0.6216016854073264
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 2.0883218965285524,
+          "std": 0.5889212116894931
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 7.447071442182662,
+          "std": 0.5471604211100236
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 9.929754435803323,
+          "std": 0.5584844805168878
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 7.231144635557636,
+          "std": 0.5692940025689274
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 4.4251132116667184,
+          "std": 0.560229787786239
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.0,
+          "std": 0.6216016854073264
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 2.9816814323418295,
+          "std": 0.5552139012859569
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 2.4565896286987177,
+          "std": 0.6213494060214562
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 7.305078795288473,
+          "std": 0.5957197238207496
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 7.699562728544915,
+          "std": 0.5539081570382453
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 11.589000288653338,
+          "std": 0.6168247815195557
+        }
+      ],
+      "halo": null
+    }
+  ],
+  "pairwise": [
+    {
+      "attribute": "impact_per_dollar",
+      "comparisons_attempted": 160,
+      "comparisons_used": 157,
+      "comparisons_refused": 3,
+      "comparison_budget": 160,
+      "position_flips": 26,
+      "pairs_counterbalanced": 52,
+      "provider_input_tokens": 209756,
+      "provider_output_tokens": 320,
+      "nanodollars": 30916200,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 0.04682203560266142,
+          "std": 0.021244318196575428
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 0.041879136969750944,
+          "std": 0.015640282671647812
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 0.038823840685461394,
+          "std": 0.014963090985077592
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.03188145195908122,
+          "std": 0.015203566487453298
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 0.03182053978298714,
+          "std": 0.016395833418367194
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 0.03093645429129001,
+          "std": 0.016596911902292847
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 0.02813169440873019,
+          "std": 0.015036118652194272
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.026320077198667316,
+          "std": 0.014326503398821914
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 0.021415614577586565,
+          "std": 0.014497717226027326
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 0.02110151562763071,
+          "std": 0.013783291598500938
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 0.01949568666479484,
+          "std": 0.013591744138331058
+        },
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 0.0,
+          "std": 0.021244318196575428
+        }
+      ]
+    },
+    {
+      "attribute": "theory_of_change",
+      "comparisons_attempted": 160,
+      "comparisons_used": 160,
+      "comparisons_refused": 0,
+      "comparison_budget": 160,
+      "position_flips": 35,
+      "pairs_counterbalanced": 47,
+      "provider_input_tokens": 201360,
+      "provider_output_tokens": 320,
+      "nanodollars": 28437600,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 0.031932223645269896,
+          "std": 0.02190314329890024
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 0.03106704515585381,
+          "std": 0.023369388870989646
+        },
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 0.027746386146338425,
+          "std": 0.02240184870655719
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 0.024926501161476145,
+          "std": 0.020485730268231753
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 0.023537966213121483,
+          "std": 0.022228547859001375
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 0.022136813705216862,
+          "std": 0.02218395427971553
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 0.02076192856702984,
+          "std": 0.021138254363054304
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.020200400642201098,
+          "std": 0.02325269215540623
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 0.016691183066281857,
+          "std": 0.021436440217542804
+        },
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 0.015144848391265385,
+          "std": 0.023369388870989646
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.004245730371375081,
+          "std": 0.021380636344153322
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 0.0,
+          "std": 0.020998990048526203
+        }
+      ]
+    },
+    {
+      "attribute": "team_evidence",
+      "comparisons_attempted": 160,
+      "comparisons_used": 134,
+      "comparisons_refused": 26,
+      "comparison_budget": 160,
+      "position_flips": 28,
+      "pairs_counterbalanced": 37,
+      "provider_input_tokens": 199212,
+      "provider_output_tokens": 320,
+      "nanodollars": 28864200,
+      "cache_read_tokens": null,
+      "latents": [
+        {
+          "id": "compartmentalizing-cbrn-ai-knowledge---phase-2-research-9cbkl56lss8",
+          "mean": 0.03942683856183293,
+          "std": 0.02334160085815936
+        },
+        {
+          "id": "mindmatch-empowering-mental-health-support-in-kenyan-universities",
+          "mean": 0.034065058003948365,
+          "std": 0.02167335997069213
+        },
+        {
+          "id": "taac-cross-provider-safety-analysis-of-prompt-compression-in-llm-inference",
+          "mean": 0.028516078729336182,
+          "std": 0.01878106708908854
+        },
+        {
+          "id": "saihm--open-source-ai-memory-protocol-with-cryptographic-erasure",
+          "mean": 0.02657904551668127,
+          "std": 0.021518817730175235
+        },
+        {
+          "id": "poison-training-corpuses-with-stories-of-nice-ai",
+          "mean": 0.02625569928043167,
+          "std": 0.02185453040814227
+        },
+        {
+          "id": "produce-therapeutic-food-for-ethiopia",
+          "mean": 0.02622529324957753,
+          "std": 0.018799117739025744
+        },
+        {
+          "id": "open-local-ai-memory--a-safety-benchmark-for-persistent-memory-agents",
+          "mean": 0.022206608303902524,
+          "std": 0.019056707764065862
+        },
+        {
+          "id": "reducing-the-severe-lack-of-affordable-houses-in-sub-saharan-africa",
+          "mean": 0.016705311237047778,
+          "std": 0.019969954783966373
+        },
+        {
+          "id": "making-secure-local-ai-scripts-to-investigate-cybercrime-sex-crime-etc",
+          "mean": 0.01099350917239026,
+          "std": 0.028960407100665293
+        },
+        {
+          "id": "pauseai-us-2025-through-q2",
+          "mean": 0.00891558606339219,
+          "std": 0.02011508721277119
+        },
+        {
+          "id": "energetic-paradigm-structural-control-for-ai-workflows",
+          "mean": 0.008516970612708142,
+          "std": 0.021530005463451563
+        },
+        {
+          "id": "global-animal-activists-community-gacc-program",
+          "mean": 0.0,
+          "std": 0.028960407100665293
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "k": 3,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.06293706293706294,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.06060606060606061,
+      "top1_agree": false,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 14762.871378483114,
+      "pairwise_obs_per_dollar": 5078.243768639095,
+      "setwise_dollars_per_item": 0.00027095,
+      "pairwise_dollars_per_item": 0.0025763500000000003
+    },
+    {
+      "k": 3,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.7062937062937062,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.5757575757575758,
+      "top1_agree": true,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 21935.837674801205,
+      "pairwise_obs_per_dollar": 5626.3538413930855,
+      "setwise_dollars_per_item": 0.00018235,
+      "pairwise_dollars_per_item": 0.0023698
+    },
+    {
+      "k": 3,
+      "attribute": "team_evidence",
+      "spearman_rho": 0.38461538461538464,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.30303030303030304,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 23074.704355350448,
+      "pairwise_obs_per_dollar": 4642.429029732333,
+      "setwise_dollars_per_item": 0.00017334999999999999,
+      "pairwise_dollars_per_item": 0.00240535
+    },
+    {
+      "k": 4,
+      "attribute": "impact_per_dollar",
+      "spearman_rho": 0.14685314685314685,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.09090909090909091,
+      "top1_agree": false,
+      "top3_overlap": 0.0,
+      "setwise_pairwise_equiv_obs_per_dollar": 23515.579071134627,
+      "pairwise_obs_per_dollar": 5078.243768639095,
+      "setwise_dollars_per_item": 0.00025515,
+      "pairwise_dollars_per_item": 0.0025763500000000003
+    },
+    {
+      "k": 4,
+      "attribute": "theory_of_change",
+      "spearman_rho": 0.7412587412587412,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.5757575757575758,
+      "top1_agree": true,
+      "top3_overlap": 0.3333333333333333,
+      "setwise_pairwise_equiv_obs_per_dollar": 36832.412523020255,
+      "pairwise_obs_per_dollar": 5626.3538413930855,
+      "setwise_dollars_per_item": 0.0001629,
+      "pairwise_dollars_per_item": 0.0023698
+    },
+    {
+      "k": 4,
+      "attribute": "team_evidence",
+      "spearman_rho": 0.34965034965034963,
+      "spearman_rho_halo_corrected": null,
+      "kendall_tau": 0.2727272727272727,
+      "top1_agree": false,
+      "top3_overlap": 0.6666666666666666,
+      "setwise_pairwise_equiv_obs_per_dollar": 35346.097201767305,
+      "pairwise_obs_per_dollar": 4642.429029732333,
+      "setwise_dollars_per_item": 0.00016975,
+      "pairwise_dollars_per_item": 0.00240535
+    }
+  ],
+  "offline_ground_truth": [],
+  "total_cost_nanodollars": 102791400,
+  "caveats": [
+    "The k-1 observations of one setwise call share that call's context: they are correlated through the pivot and the call's overall framing, but enter the solver as independent unit-precision observations (mirroring canonical_v2 point weights). Non-pivot implied pairs are deliberately NOT added.",
+    "Pairwise cache token counts are not surfaced by the sort path's RerankMeta; the pairwise cache column is null, not zero."
+  ]
+}
