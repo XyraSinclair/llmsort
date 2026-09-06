@@ -515,8 +515,11 @@ pub(super) fn hutchinson_diag(
     let chol = match precomputed_chol {
         Some(c) => c,
         None => {
-            // Fallback: diagonal approximation when Cholesky fails (ill-conditioned or
-            // weakly connected Laplacian). This is conservative but less accurate.
+            // Fallback: diagonal approximation when no solver survived
+            // (ill-conditioned or weakly connected Laplacian). Note 1/L_ii
+            // generally UNDERESTIMATES (L^-1)_ii for a coupled SPD Laplacian
+            // — this fallback is optimistic about certainty, not
+            // conservative; callers see it only alongside `degraded`.
             let mut diag = Vec::with_capacity(n);
             for &d in diag_fallback {
                 let denom = if d.abs() <= cfg.tiny {

@@ -6,7 +6,10 @@
 //! - RatingEngine, plan_edges_for_rater
 //!
 //! Implementation notes:
-//! - Uses dense `nalgebra::DMatrix` + Cholesky instead of SciPy sparse solvers.
+//! - Dense `nalgebra::DMatrix` + Cholesky up to `DENSE_SOLVE_MAX_DIM` free
+//!   coordinates (byte-stable legacy path); above it, a matrix-free
+//!   Jacobi-preconditioned CG over the edge list serves solves, Hutchinson
+//!   probes, targeted variances, and planner effective resistance.
 //! - IRLS stopping rule is fixed to avoid the `inf`-always-converges quirk
 //!   in the original Python (so you actually get multiple robust iterations).
 //! - Gauge pinning and rank / planner logic match the Python semantics.
