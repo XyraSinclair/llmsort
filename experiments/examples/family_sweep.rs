@@ -247,6 +247,7 @@ async fn run_sweep(
                         gateway.as_ref(),
                         None,
                         PairwiseComparisonRequest {
+                            nonce: None,
                             spec,
                             cache_only: false,
                             attribution: Attribution::new("cardinal::example::family_sweep"),

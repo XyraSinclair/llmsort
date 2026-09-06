@@ -120,6 +120,7 @@ impl Respond for DeterministicOrdinalJudge {
 
 fn test_request(prompt_template_slug: &str) -> MultiRerankRequest {
     MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "best".into(),

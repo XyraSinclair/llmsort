@@ -4,6 +4,7 @@ use tempfile::tempdir;
 
 fn make_trace(comparison_index: usize) -> ComparisonTrace {
     ComparisonTrace {
+        evidence_moments: None,
         timestamp_ms: 0,
         comparison_index,
         attribute_id: "clarity".to_string(),

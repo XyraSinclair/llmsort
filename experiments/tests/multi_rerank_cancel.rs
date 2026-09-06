@@ -29,6 +29,7 @@ async fn multi_rerank_honors_cancel_flag_before_any_comparisons() {
     ));
 
     let req = MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "a".into(),

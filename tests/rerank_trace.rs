@@ -209,6 +209,7 @@ fn canonical_v2_template_hash() -> String {
 
 fn make_request(model: &str) -> MultiRerankRequest {
     MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "a".into(),

@@ -183,6 +183,7 @@ fn cli_report_json_smoke() {
     let md_path = dir.path().join("report.md");
 
     let req = MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "a".into(),
@@ -460,6 +461,7 @@ fn cli_report_rejects_stale_response_entities() {
     let out_path = dir.path().join("report.json");
 
     let req = MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "a".into(),

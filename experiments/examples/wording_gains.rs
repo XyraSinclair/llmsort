@@ -50,6 +50,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     &gateway,
                     None,
                     PairwiseComparisonRequest {
+                        nonce: None,
                         spec,
                         cache_only: false,
                         attribution: attribution.clone(),

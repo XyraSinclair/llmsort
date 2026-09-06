@@ -100,6 +100,7 @@ async fn pareto_front_and_correlations_reflect_a_planted_trade_off() {
         ("d", "* o"),     // dominated by everyone
     ];
     let req = MultiRerankRequest {
+        nonce_draws: None,
         entities: entities
             .iter()
             .map(|(id, text)| MultiRerankEntity {

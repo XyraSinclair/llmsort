@@ -4,6 +4,7 @@ use llmsort::rerank::{
 
 fn base_request() -> MultiRerankRequest {
     MultiRerankRequest {
+        nonce_draws: None,
         entities: vec![
             MultiRerankEntity {
                 id: "a".to_string(),

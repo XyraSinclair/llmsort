@@ -48,6 +48,7 @@ async fn persisted_run_reloads_to_identical_edge_response_without_provider_call(
     let store = JudgementRunStore::new(temporary.path());
     let gateway = Arc::new(CountingGateway::default());
     let request = JudgementRunRequest {
+        nonce_draws: None,
         entities: vec![
             JudgementCandidate {
                 id: " alpha ".to_string(),

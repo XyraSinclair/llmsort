@@ -386,6 +386,7 @@ async fn cached_evidence_trace_preserves_rendered_identity_without_prompt_text()
             gateway.as_ref(),
             Some(&cache),
             PairwiseComparisonRequest {
+                nonce: None,
                 spec,
                 cache_only: true,
                 attribution: Attribution::new("test::cached-usage"),
