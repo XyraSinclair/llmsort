@@ -65,6 +65,20 @@ Theory: a noiseless binary comparison yields ≤1 bit; full order of n needs
 Θ(n) for fixed k. A PMF answer yields the model's whole conditional prior —
 up to log₂(52) ≈ 5.7 bits per call at the same price as a point.
 
+The sharpest form of the case for graded evidence is the **zero-information
+tournament argument** (nanojudge, `docs/zero-information-paradox.md`, mined
+2026-09-05): run a single-elimination tournament on binary verdicts and the
+win/loss *shape* — one undefeated item, one finalist, two semifinalists — has
+probability 1 before a single judgement runs, so conditioning on it moves no
+posterior over magnitudes. Only the *identities* filling the slots carry
+information, and identities are purely ordinal: a 51/49 squeaker and a 99/1
+blowout record the same win. Binary tournaments therefore yield a consistent
+ordering of the top items with **every gap between them undetermined** — zero
+bits about `max(strengths)`, the very quantity top-k selection and stopping
+rules lean on. Graded verdicts (a ratio rung, a PMF over the answer alphabet)
+break the paradox because the margin itself is data. That is this repo's bet
+stated as an impossibility result for the alternative.
+
 | Property | Status |
 |---|---|
 | per-call cost accounting (nanodollars, tokens) | ✓ everywhere |
