@@ -37,9 +37,14 @@ the judge is sure, calibrated mass where it is not.
 **Caveats:** mechanism-verification run, not a promotion claim: 8–12 calls
 per (k, attribute) arm against a 32-comparison pairwise reference at n=8 —
 both sides are noisy, and the pairwise reference is itself an instrument, not
-truth. The pairwise arm REFUSED 11/96 calls — a new behaviour: E1's
-canonical_v2 pairwise had 0/96 refusals on the same items/model/seed, and
-since 2594b89 this baseline renders `ratio_letter_v1`; the refusal delta is
-a template property worth its own look. Next escalation: more presentations
-and n, and the halo-channel calibration (46162bb) folded over the ratio arm
-for a three-way comparison.
+truth. The pairwise arm REFUSED 11/96 calls where E1's canonical_v2 refused
+0/96 on the same items/model/seed. Diagnosed from the trace: since 2594b89
+this baseline renders `ratio_letter_v1`, whose one-token answer alphabet
+includes an explicit refusal token `!` — all 11 are elective single-token
+refusals (`output_logprob_token_count = 1`, no error), concentrated on hard
+cross-domain pairs (6/11 involve `precautionary-agi-governance`). Both
+templates offer refusal; the one-token instrument makes it cheap and salient
+where canonical_v2's JSON `{"refused": true}` never fires. An instrument
+property to weigh when comparing refusal rates across template families.
+Next escalation: more presentations and n, and the halo-channel calibration
+(46162bb) folded over the ratio arm for a three-way comparison.
