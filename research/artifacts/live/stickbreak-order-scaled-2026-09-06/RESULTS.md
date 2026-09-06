@@ -1,6 +1,8 @@
 # Scaled stick-breaking run (n=12 · 4 presentations · k=3,4,5)
 
-**Errata:** none yet.
+**Errata:** the "k=5" arm never presented 5-item lineups — the chunk
+design at n=12 makes 3 groups of 4, so it is a second k=4 protocol (found
+2026-09-06 by the slot-bias gate; see the arbiter pack).
 
 Single run (n=1), `openai/gpt-4.1-mini` via OpenRouter, seed 17, n=12
 Manifund items (1600 chars), 3 rubric attributes, 120 setwise calls

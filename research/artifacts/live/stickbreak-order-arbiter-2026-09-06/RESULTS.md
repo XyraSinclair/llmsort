@@ -1,6 +1,9 @@
 # Arbiter run: stickbreak vs a properly budgeted pairwise reference
 
-**Errata:** none yet.
+**Errata:** the "k=5" arm never presented 5-item lineups — the chunk design
+at n=12 makes ⌈12/5⌉=3 groups of 4, so it is a second k=4 protocol (found
+2026-09-06 by the slot-bias gate, which saw no slot-E channel; same holds
+for the scaled pack).
 
 Single run (n=1), `openai/gpt-4.1-mini` via OpenRouter, seed 17, n=12
 Manifund items, 3 attributes, 120 setwise stickbreak calls (k=3/4/5, 4
@@ -41,3 +44,21 @@ claim for the instrument.
 
 **Cost:** stickbreak ≈ $0.0002/item/attribute vs pairwise ≈ $0.005 at this
 budget (~25×). One run, one model.
+
+**Slot-bias gate (2026-09-06, `examples/stickbreak_slot_bias.rs`): the
+positional-bias hypothesis is REJECTED as the explanation.** Fitting per-slot
+additive channels over the stickbreak edges (two channels per edge,
+β_{slot(a)} − β_{slot(b)}; multi-channel `bias_calibration`; edges
+winsorized at the ratio ladder's ±ln 26 so deterministic-PMF tails cannot
+dominate the least-squares offset step) finds a real but small primacy
+gradient — pooled per attribute, earlier slots read hot and later cold
+(e.g. theory_of_change A +0.60 → D −0.65 nats; B positive on all three
+attributes, matching the first-pick histograms) — yet correcting it leaves
+agreement with the pairwise reference essentially unmoved (pooled ρ:
+−0.01→−0.01, +0.36→+0.32, +0.08→+0.09). The stable stickbreak-vs-pairwise
+offset is NOT per-slot additive presentation bias; the remaining suspects
+are full-lineup context effects (the judge weighs different evidence when
+k items are visible than in isolated pairs) and the reference's own 0.74–0.92
+retest instability. Fit caveat: the alternation hits its 50-round cap
+(coupled channels + robust score step oscillate at small amplitude); beta
+sign patterns are stable across per-arm and pooled fits.

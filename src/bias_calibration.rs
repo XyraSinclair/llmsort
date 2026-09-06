@@ -6,13 +6,14 @@
 //! *offset* in log-ratio space:
 //!
 //! ```text
-//! m_obs = (s_i − s_j) + sign · γ_channel + ε
+//! m_obs = (s_i − s_j) + Σ_c sign_c · γ_c + ε
 //! ```
 //!
-//! where `sign` says which side of the pair the channel favours in this
-//! particular observation (+1 toward `i`, −1 toward `j`), and `γ_channel` is
-//! one fitted offset per named channel (nats). Two live pathologies are
-//! instances of this model:
+//! where each observation names the channels that pushed on it with a sign
+//! (+1 toward `i`, −1 toward `j`), and `γ_c` is one fitted offset per named
+//! channel (nats). Most observations carry zero or one channel; a k-wise
+//! edge carries two (the slot positions of both endpoints). Live
+//! pathologies that are instances of this model:
 //!
 //! - **Order bias**: channel = the judge (or judge×template), sign = +1 when
 //!   `i` was presented first. Counterbalancing cancels this at 2× calls;
@@ -55,23 +56,38 @@ use serde::Serialize;
 
 use crate::rating_engine::{AttributeParams, Config, Observation, RaterParams, RatingEngine};
 
-/// One observation with an optional additive-offset tag: signed log-ratio
-/// toward `i`, plus which presentation channel (if any) pushed on it and in
-/// which direction.
+/// One observation with additive-offset tags: signed log-ratio toward `i`,
+/// plus every presentation channel that pushed on it and in which direction.
+///
+/// Multi-channel shape (2026-09-06, forced by the stick-breaking slot-bias
+/// gate): a k-wise edge touches TWO slot positions — the item in slot p
+/// reads `β_p` nats hot, so the edge model is
+/// `m = (s_i − s_j) + β_{slot(i)} − β_{slot(j)} + ε`, two channels with
+/// opposite signs on one observation. `channels` empty = plain observation
+/// (e.g. one half of a counterbalanced pair after averaging). A pivot-halo
+/// or order-bias observation is the one-channel special case.
 #[derive(Debug, Clone)]
 pub struct BiasObservation {
     pub i: usize,
     pub j: usize,
     /// Signed log-ratio toward `i`, as elicited (uncorrected).
     pub log_ratio: f64,
-    /// Named offset channel this observation is exposed to, or `None` for a
-    /// plain observation (e.g. one half of a counterbalanced pair after
-    /// averaging).
-    pub channel: Option<String>,
-    /// Direction of the channel's push: +1.0 when the channel favours `i`
-    /// (i presented first / i is the pivot), −1.0 when it favours `j`.
-    /// Ignored when `channel` is `None`. Must be finite.
-    pub sign: f64,
+    /// (channel name, sign) pairs: sign +1.0 when the channel favours `i`,
+    /// −1.0 when it favours `j`. Signs must be finite; names may repeat
+    /// across observations but not within one (undefined fit otherwise).
+    pub channels: Vec<(String, f64)>,
+}
+
+impl BiasObservation {
+    /// The one-channel convenience constructor (order bias, pivot halo).
+    pub fn single(i: usize, j: usize, log_ratio: f64, channel: &str, sign: f64) -> Self {
+        Self {
+            i,
+            j,
+            log_ratio,
+            channels: vec![(channel.to_owned(), sign)],
+        }
+    }
 }
 
 /// Result of [`solve_with_additive_offsets`].
@@ -112,10 +128,10 @@ fn solve_scores(n: usize, obs: &[(usize, usize, f64)]) -> Option<Vec<f64>> {
 }
 
 fn signed_offset(o: &BiasObservation, offsets: &HashMap<String, f64>) -> f64 {
-    match &o.channel {
-        Some(c) => o.sign * offsets.get(c).copied().unwrap_or(0.0),
-        None => 0.0,
-    }
+    o.channels
+        .iter()
+        .map(|(c, sign)| sign * offsets.get(c).copied().unwrap_or(0.0))
+        .sum()
 }
 
 fn rms(obs: &[BiasObservation], scores: &[f64], offsets: &HashMap<String, f64>) -> f64 {
@@ -143,11 +159,19 @@ pub fn solve_with_additive_offsets(
         return None;
     }
     for o in obs {
-        if o.i >= n || o.j >= n || !o.log_ratio.is_finite() || !o.sign.is_finite() {
+        if o.i >= n || o.j >= n || !o.log_ratio.is_finite() {
             return None;
         }
+        for (_, sign) in &o.channels {
+            if !sign.is_finite() {
+                return None;
+            }
+        }
     }
-    let mut channels: Vec<String> = obs.iter().filter_map(|o| o.channel.clone()).collect();
+    let mut channels: Vec<String> = obs
+        .iter()
+        .flat_map(|o| o.channels.iter().map(|(c, _)| c.clone()))
+        .collect();
     channels.sort();
     channels.dedup();
 
@@ -172,16 +196,29 @@ pub fn solve_with_additive_offsets(
             .collect();
         scores = solve_scores(n, &corrected)?;
 
-        // Offsets given scores: per-channel MAP mean of the signed residuals,
-        //   γ_c = Σ sign·(m − d) / (Σ sign² + 1/τ²),   d = s_i − s_j,
-        // the closed-form ridge regression of the residual on the sign column.
+        // Offsets given scores: block coordinate descent — each channel's
+        // closed-form ridge update against the residual net of scores AND
+        // every other channel's current offset,
+        //   γ_c = Σ sign_c·(m − d − Σ_{c'≠c} sign_{c'}·γ_{c'}) / (Σ sign_c² + 1/τ²).
+        // With one channel per observation this reduces to the original
+        // independent update; multi-channel observations couple the blocks,
+        // and each sweep still cannot increase the penalized objective.
         let mut moved = 0.0f64;
         for c in &channels {
             let (mut num, mut den) = (0.0f64, prior_precision);
-            for o in obs.iter().filter(|o| o.channel.as_deref() == Some(c)) {
+            for o in obs {
+                let Some((_, sign_c)) = o.channels.iter().find(|(name, _)| name == c) else {
+                    continue;
+                };
                 let d = scores[o.i] - scores[o.j];
-                num += o.sign * (o.log_ratio - d);
-                den += o.sign * o.sign;
+                let others: f64 = o
+                    .channels
+                    .iter()
+                    .filter(|(name, _)| name != c)
+                    .map(|(name, s)| s * offsets[name])
+                    .sum();
+                num += sign_c * (o.log_ratio - d - others);
+                den += sign_c * sign_c;
             }
             let new_offset = num / den;
             moved = moved.max((new_offset - offsets[c]).abs());

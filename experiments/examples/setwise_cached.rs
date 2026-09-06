@@ -1763,13 +1763,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                         // channel per slot letter (the E1
                                         // replay measured a slot-distance
                                         // decay, gamma_B > gamma_C > gamma_D).
-                                        halo_list.push(BiasObservation {
-                                            i: entity,
-                                            j: pivot,
-                                            log_ratio: r.ln(),
-                                            channel: Some(format!("slot_{slot}")),
-                                            sign: -1.0,
-                                        });
+                                        halo_list.push(BiasObservation::single(
+                                            entity,
+                                            pivot,
+                                            r.ln(),
+                                            &format!("slot_{slot}"),
+                                            -1.0,
+                                        ));
                                         let (lo, hi) = (entity.min(pivot), entity.max(pivot));
                                         // Oriented lo-vs-hi log ratio for the
                                         // pivot-rotation readout.

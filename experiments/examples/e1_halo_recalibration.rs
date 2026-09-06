@@ -168,15 +168,15 @@ fn main() {
             let letter = char::from(b'B' + u8::try_from(position).expect("slot letter"));
             let r = ratios[&letter.to_string()].as_f64().expect("ratio");
             assert!(r.is_finite() && r > 0.0);
-            arm.push(BiasObservation {
-                i: index[member],
-                j: pivot,
-                log_ratio: r.ln(),
-                // Rewritten per fit below: one global "pivot" channel, or one
-                // channel per slot letter (nanojudge's per-slot shape).
-                channel: Some(format!("slot_{letter}")),
-                sign: -1.0,
-            });
+            // Rewritten per fit below: one global "pivot" channel, or one
+            // channel per slot letter (nanojudge's per-slot shape).
+            arm.push(BiasObservation::single(
+                index[member],
+                pivot,
+                r.ln(),
+                &format!("slot_{letter}"),
+                -1.0,
+            ));
         }
     }
     println!(
@@ -201,10 +201,10 @@ fn main() {
             let obs: Vec<BiasObservation> = arms[key]
                 .iter()
                 .map(|o| BiasObservation {
-                    channel: if per_slot {
-                        o.channel.clone()
+                    channels: if per_slot {
+                        o.channels.clone()
                     } else {
-                        Some("pivot".to_owned())
+                        vec![("pivot".to_owned(), -1.0)]
                     },
                     ..o.clone()
                 })
