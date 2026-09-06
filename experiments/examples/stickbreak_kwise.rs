@@ -1,9 +1,11 @@
-//! Offline ideal-PMF prototype: conditional rank slots → stick breaking → Luce edges.
+//! Offline prototype: conditional rank slots → stick breaking → Luce edges.
 //! Run: cargo run --locked -p llmsort-experiments --example stickbreak_kwise
 //! Optional flags: --n 24 --rounds 3 --temperature 1.0.
-//! Exact PL conditionals reconstruct the first-slot distribution, independently
-//! of sampled order. This measures ideal information and graph coverage, not
-//! robustness to noisy PMFs. Edge counts include repeated pair observations.
+//! sigma=0 rows are the ideal-PMF limit (exact PL conditionals reconstruct the
+//! first-slot distribution): ideal information + graph coverage. sigma>0 rows
+//! blur every score the judge reads by N(0, sigma) per call — the SAME
+//! perceptual noise for both arms — measuring robustness of the fold and the
+//! df weights under imperfect PMFs. Edge counts include repeated pairs.
 
 use clap::Parser;
 use llmsort::rating_engine::{AttributeParams, Config, Observation, RaterParams, RatingEngine};
@@ -23,6 +25,18 @@ struct Args {
 struct Slot {
     winner: usize, // lineup-local index
     pmf: Vec<f64>, // full conditional distribution; placed members have zero mass
+}
+
+/// One Box–Muller standard-normal draw.
+fn gauss(rng: &mut StdRng) -> f64 {
+    (-2.0 * (1.0 - rng.gen::<f64>()).ln()).sqrt() * (std::f64::consts::TAU * rng.gen::<f64>()).cos()
+}
+
+/// The judge's per-call perception: true scores blurred by N(0, sigma) per
+/// item read. Both arms use this same perceptual model, so the noise
+/// semantics are identical across instruments.
+fn perceive(truth: &[f64], sigma: f64, rng: &mut StdRng) -> Vec<f64> {
+    truth.iter().map(|&s| s + sigma * gauss(rng)).collect()
 }
 
 fn judge(lineup: &[usize], truth: &[f64], temperature: f64, rng: &mut StdRng) -> Vec<Slot> {
@@ -155,10 +169,12 @@ fn main() {
     assert!((7..=5000).contains(&args.n) && args.rounds > 0);
     assert!(args.temperature.is_finite() && args.temperature > 0.0);
     println!(
-        "Ideal synthetic PMFs: n={}, rounds={}, T={}, seeds=42..46; edges count observations",
+        "Synthetic PL judge: n={}, rounds={}, T={}, seeds=42..46; edges count observations.",
         args.n, args.rounds, args.temperature
     );
-    println!(" k calls edges stickbreak_rho pairwise_rho");
+    println!("sigma = per-call perceptual noise std on each read score (0 = ideal PMFs).");
+    println!("sigma  k calls edges stickbreak_rho pairwise_rho");
+    for sigma in [0.0, 0.5, 1.0] {
     for k in [3, 5, 7] {
         let calls = args.rounds * args.n.div_ceil(k - 1);
         let (mut stick_rho, mut pair_rho) = (0.0, 0.0);
@@ -179,7 +195,8 @@ fn main() {
                 order.shuffle(&mut rng);
                 for start in (0..args.n).step_by(k - 1) {
                     let lineup: Vec<_> = (0..k).map(|j| order[(start + j) % args.n]).collect();
-                    let slots = judge(&lineup, &truth, args.temperature, &mut rng);
+                    let seen = perceive(&truth, sigma, &mut rng);
+                    let slots = judge(&lineup, &seen, args.temperature, &mut rng);
                     observations.extend(fold(&lineup, &reconstruct(k, &slots)));
                 }
             }
@@ -191,7 +208,8 @@ fn main() {
                 .map(|_| {
                     let a = pair_rng.gen_range(0..args.n);
                     let b = (a + pair_rng.gen_range(1..args.n)) % args.n;
-                    let p = 1.0 / (1.0 + (truth[b] - truth[a]).exp());
+                    let seen = perceive(&truth, sigma, &mut pair_rng);
+                    let p = 1.0 / (1.0 + ((seen[b] - seen[a]) / args.temperature).exp());
                     let log_odds = p.ln() - (-p).ln_1p();
                     Observation::from_log_ratio_moments(a, b, log_odds, 1.0, "judge", 1.0)
                 })
@@ -199,9 +217,10 @@ fn main() {
             pair_rho += rho(&solve(args.n, &baseline), &truth);
         }
         println!(
-            "{k:>2} {calls:>5} {edge_count:>5} {:>14.6} {:>12.6}",
+            "{sigma:>5.1} {k:>2} {calls:>5} {edge_count:>5} {:>14.6} {:>12.6}",
             stick_rho / 5.0,
             pair_rho / 5.0
         );
+    }
     }
 }
