@@ -1,0 +1,123 @@
+{
+ "model": "gemma4-31b",
+ "base_url": "http://127.0.0.1:8023/v1",
+ "concurrency": 8,
+ "nonce_draws": 8,
+ "entities": [
+  {
+   "id": "lesswrong::3nsmwGmsAhj28Jhyv",
+   "text_chars": 7817
+  },
+  {
+   "id": "lesswrong::4j2GS4yWu6stGvZWs",
+   "text_chars": 7872
+  },
+  {
+   "id": "lesswrong::AAC8jKeDp6xqsZK2K",
+   "text_chars": 7896
+  },
+  {
+   "id": "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "text_chars": 7882
+  },
+  {
+   "id": "lesswrong::LjaBHuCcnfqjBcqJa",
+   "text_chars": 5358
+  },
+  {
+   "id": "lesswrong::MPNF8uSsi9mvZLxqz",
+   "text_chars": 7894
+  },
+  {
+   "id": "lesswrong::QMfBRH3rydbukCosb",
+   "text_chars": 2017
+  },
+  {
+   "id": "lesswrong::jbD8siv7GMWxRro43",
+   "text_chars": 3934
+  },
+  {
+   "id": "lesswrong::ms87QuzatZjpf5Bgj",
+   "text_chars": 5206
+  },
+  {
+   "id": "lesswrong::ofPTrG6wsq7CxuTXk",
+   "text_chars": 7814
+  },
+  {
+   "id": "lesswrong::u3MgyyP3TDijmGhec",
+   "text_chars": 1885
+  },
+  {
+   "id": "lesswrong::zyWH2wWZ9gFNAZ4CF",
+   "text_chars": 7853
+  }
+ ],
+ "axes": [
+  {
+   "rung": "nonce",
+   "variant": "base",
+   "prompt": "Audit for applause-light phrases: words that feel like conclusions but assert nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j1",
+   "prompt": "Audit for applause-light phrases:  words that feel like conclusions but assert nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j2",
+   "prompt": "Audit   for applause-light phrases: words   that feel like conclusions but assert nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j3",
+   "prompt": "Audit for applause-light phrases:   words that feel like conclusions but   assert   nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j4",
+   "prompt": "Audit for applause-light phrases: words that feel like conclusions but   assert nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j5",
+   "prompt": "Audit for applause-light phrases: words that feel like conclusions  but assert   nothing checkable."
+  },
+  {
+   "rung": "jitter",
+   "variant": "j6",
+   "prompt": "Audit for applause-light  phrases: words that feel like conclusions but   assert  nothing checkable."
+  },
+  {
+   "rung": "para",
+   "variant": "p1",
+   "prompt": "Check for applause lights: phrasing that sounds like a conclusion while asserting nothing you could verify."
+  },
+  {
+   "rung": "para",
+   "variant": "p2",
+   "prompt": "Look for applause-light wording \u2014 phrases that feel conclusive but make no checkable claim."
+  },
+  {
+   "rung": "para",
+   "variant": "p3",
+   "prompt": "Screen for applause-light language: expressions that carry the feel of a conclusion yet assert nothing testable."
+  },
+  {
+   "rung": "para",
+   "variant": "p4",
+   "prompt": "Hunt for applause lights \u2014 words that read as if something has been concluded although nothing verifiable is claimed."
+  },
+  {
+   "rung": "para",
+   "variant": "p5",
+   "prompt": "Inspect for applause-light phrases, meaning wording that gives the sense of a conclusion but contains no claim that could be checked."
+  },
+  {
+   "rung": "para",
+   "variant": "p6",
+   "prompt": "Evaluate for applause-light rhetoric: statements that feel like conclusions while committing to nothing checkable."
+  }
+ ]
+}

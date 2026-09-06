@@ -1,0 +1,123 @@
+{
+ "model": "gemma4-31b",
+ "base_url": "http://127.0.0.1:8023/v1",
+ "concurrency": 8,
+ "nonce_draws": 8,
+ "entities": [
+  {
+   "id": "India",
+   "text": "India"
+  },
+  {
+   "id": "China",
+   "text": "China"
+  },
+  {
+   "id": "United States",
+   "text": "United States"
+  },
+  {
+   "id": "Indonesia",
+   "text": "Indonesia"
+  },
+  {
+   "id": "Brazil",
+   "text": "Brazil"
+  },
+  {
+   "id": "Japan",
+   "text": "Japan"
+  },
+  {
+   "id": "Egypt",
+   "text": "Egypt"
+  },
+  {
+   "id": "Germany",
+   "text": "Germany"
+  },
+  {
+   "id": "Thailand",
+   "text": "Thailand"
+  },
+  {
+   "id": "Australia",
+   "text": "Australia"
+  },
+  {
+   "id": "Portugal",
+   "text": "Portugal"
+  },
+  {
+   "id": "New Zealand",
+   "text": "New Zealand"
+  }
+ ],
+ "axes": [
+  {
+   "rung": "nonce",
+   "variant": "base",
+   "prompt": "How large is this country's population \u2014 how many people live in it?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j1",
+   "prompt": "How large is this country's population  \u2014 how many people live in it?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j2",
+   "prompt": "How large is this country's population \u2014 how many people l  ve in i   ?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j3",
+   "prompt": "How large is this country's population  \u2014 how many people live in i   ?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j4",
+   "prompt": "How large is   this country's population \u2014 how many people live in it?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j5",
+   "prompt": "How large is this country's population \u2014 how many people l   ve in i  ?"
+  },
+  {
+   "rung": "jitter",
+   "variant": "j6",
+   "prompt": "How large is this country's population   \u2014 h  w many people live in i  ?"
+  },
+  {
+   "rung": "para",
+   "variant": "p1",
+   "prompt": "Population size: the number of people who live in the country."
+  },
+  {
+   "rung": "para",
+   "variant": "p2",
+   "prompt": "How many inhabitants does the country have?"
+  },
+  {
+   "rung": "para",
+   "variant": "p3",
+   "prompt": "Judge by total population \u2014 the count of people residing in the country."
+  },
+  {
+   "rung": "para",
+   "variant": "p4",
+   "prompt": "Which country is home to more people?"
+  },
+  {
+   "rung": "para",
+   "variant": "p5",
+   "prompt": "Compare the countries by how many people live in them."
+  },
+  {
+   "rung": "para",
+   "variant": "p6",
+   "prompt": "Rank by headcount: the total number of residents of the country."
+  }
+ ]
+}
