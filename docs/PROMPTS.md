@@ -15,7 +15,7 @@ route through the seriate logprob evidence path.
 | `less_v1` | `lower_ranked` plus decimal `ratio` ("how many times less") | The group-inverse wording, for the wording-invariance check: a coherent judge must mirror its "times more" answer. The parser lowers the answer to the same (winner, ratio) shape as every other template. |
 | `fraction_v1` | `higher_ranked` plus `fraction` in `(0, 1]` | The fractional wording ("what fraction of the greater one's level does the lesser reach"); a coherent judge's fraction must be the reciprocal of its ratio. Same invariance purpose as `less_v1`. |
 | `ratio_letter_v1` | ONE letter from a 52-token alphabet (case = winner, letter = ladder rung, `A` = parity, `!` = refuse) | The logprob evidence path: a single completion position's top-k logprobs are the model's full judgement PMF, so the solver weights each observation by measured variance. Rendering, parsing, and mass accounting delegated to seriate. Degrades loudly to sampled mode where a provider hides logprobs. |
-| `ordinal_letter_v1` | ONE letter, direction only | Evidence-path counterpart of `ordinal_v1`. |
+| `ordinal_letter_v1` | ONE letter, direction only | Evidence-path counterpart of `ordinal_v1`. Use it for any judge under ~30B: the 2026-09-06 bakeoff (`research/artifacts/live/judge-bakeoff-2026-09-06/RESULTS.md`) found most 7–14B models and even qwen3.7-flash never emit the lowercase half of the ratio alphabet, which reads as a stable sign flip; under this template the same models agree with gemma-4-31b at +0.40 to +0.80. |
 
 Unknown slugs are rejected. Omit `prompt_template_slug` only when you want the default `canonical_v2`.
 
