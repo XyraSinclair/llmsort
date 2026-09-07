@@ -233,7 +233,8 @@ What the numbers say:
 - **Ordering calls by the presented entity A** turns the prefix cache from
   28 % to 44–50 % hits (the ceiling is 50 %: system + attribute + entity A
   is shared, entity B must be read fresh each time) — +29 % at no quality
-  cost. The production planner should emit pairs grouped by first entity.
+  cost. The production orchestrator already issues batches in this order
+  (`src/rerank/multi/orchestrator.rs` sorts by attribute, first entity).
 - **Entity length is the big lever.** 4,000 chars per entity halves the
   computed tokens (2.2× calls/s) and costs 0.03 of agreement with the
   full-length judge (+0.96 vs a +0.99 retest) with 27 refusals of 1,080;
