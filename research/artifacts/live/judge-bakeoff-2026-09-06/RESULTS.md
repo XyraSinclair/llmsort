@@ -14,10 +14,12 @@ Two instruments were run on the same pairs:
   ±1.02-nat bucket. Added after the ratio arm showed most small judges cannot
   read the case-sensitive ladder.
 
-Status: every ≤9B candidate has both arms; the 14B tier (Qwen3-14B-FP8,
-Ministral-3-14B, Nemotron-3.5-Lightning-30B-A3B, gemma-4-26B-A4B, gpt-oss-20b)
-is running on the 96 GB card as this is written and lands in `pack/` and
-`pack-ordinal/` as it completes (Qwen3-14B-FP8 ratio is already in).
+Status: every ≤9B candidate has both arms, and the 14B-class tier has its
+ratio arm (Qwen3-14B-FP8, Ministral-3-14B, gemma-4-26B-A4B; gpt-oss-20b
+answered only parity before a co-tenant SIGTERMed it, Nemotron-3.5-Lightning
+NVFP4 dies at load on this vLLM build). The ordinal arm for the 14B tier
+plus gemma-4-12b is queued behind a 42 GB training job on the 96 GB card and
+lands in `pack-ordinal/` when the card frees.
 
 ## Verdict
 
@@ -53,10 +55,13 @@ is running on the 96 GB card as this is written and lands in `pack/` and
 4. **gemma-4-12b-it is the only small ratio reader** (retest +0.73, slot
    bias +0.02, +0.34 with gemma-4-31b, +0.24 / +0.22 with consensus on
    novelty and technical-alpha) but it is timid — 42 % parity, mean |m|
-   0.03 nats — and its ordinal arm is still queued on the 96 GB card.
-   Qwen3-14B-FP8 also uses both halves under ratio (58/18, 30/42 on
-   technical-alpha) yet agrees with nobody (−0.11 vs gemma-4-31b, ~0
-   everywhere), so reading the alphabet is necessary, not sufficient.
+   0.03 nats — and its ordinal arm is still queued. The 14B tier does not
+   change the picture: gemma-4-26B-A4B is fast (9.9 calls/s) and reads the
+   alphabet but leans 81 % A-ahead and agrees with gemma-4-31b at only
+   +0.21; Qwen3-14B-FP8 uses both halves (58/18, 30/42 on technical-alpha)
+   yet agrees with nobody (−0.11 vs gemma-4-31b), so reading the alphabet
+   is necessary, not sufficient; Ministral-3-14B is slot-locked (92 % A,
+   +0.65 nats) like its 8B sibling.
 5. **deepseek-v4-pro is slot-locked under both prompts**: 92 % "A ahead"
    under ratio (+0.72 nats), 82 % "B" under ordinal (−0.16 nats), retest
    only +0.36 ordinal, consensus +0.15. Decisive, expensive, and mostly
@@ -127,6 +132,8 @@ fixed bucket: it never changes argmax, only the PMF mass behind it.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | google/gemma-4-31b-it | 15.4 | +0.80 | +0.64 | +0.56 | +0.04 | 0.09 | 16/46/38 | 1.00 | 97% | 112 | 0 | — | +0.33 |
 | google/gemma-4-12b-it | 3.4 | +0.73 | +0.33 | +0.31 | +0.02 | 0.03 | 42/49/9 | 1.00 | 96% | 193 | 0 | +0.34 | +0.07 |
+| google/gemma-4-26B-A4B-it | 9.9 | +0.62 | +0.40 | +0.28 | +0.05 | 0.05 | 15/81/3 | 1.00 | 94% | 258 | 0 | +0.21 | +0.19 |
+| mistralai/Ministral-3-14B-Instruct-2512 | 7.5 | +0.55 | +0.33 | +0.32 | +0.65 | 0.83 | 2/92/7 | 0.82 | 86% | 629 | 0 | +0.08 | +0.08 |
 | deepseek/deepseek-v4-pro | 5.0 | +0.45 | n/a | n/a | +0.72 | 1.36 | 1/92/7 | 0.79 | 93% | 1 | 0 | +0.33 | — |
 | deepseek/deepseek-v4-flash | 4.2 | +0.26 | +0.28 | +0.26 | +0.15 | 0.19 | 11/70/19 | 0.95 | 90% | 433 | 0 | +0.14 | +0.05 |
 | allenai/Olmo-3-7B-Instruct | 4.2 | +0.66 | +0.44 | +0.49 | +0.63 | 1.07 | 0/99/1 | 0.99 | 94% | 284 | 0 | +0.12 | +0.09 |
@@ -137,7 +144,7 @@ fixed bucket: it never changes argmax, only the PMF mass behind it.
 | Qwen/Qwen3-8B-FP8 | 7.4 | +0.54 | +0.39 | +0.41 | +0.21 | 0.26 | 0/99/0 | 1.00 | 99% | 30 | 0 | −0.30 | −0.10 |
 | Qwen/Qwen3.5-9B | 5.6 | +0.67 | +0.58 | +0.50 | +0.71 | 0.76 | 0/100/0 | 0.97 | 94% | 79 | 160 | −0.32 | −0.18 |
 
-Ratio LOO consensus is not reported: with seven of eleven judges unable to
+Ratio LOO consensus is not reported: with eight of thirteen judges unable to
 read the alphabet, the pool is mostly noise and every LOO cell sits within
 ±0.1. Read the two reference columns instead. Retest ρ for logprob-PMF
 judges measures provider nondeterminism more than judgement noise (a
