@@ -1,8 +1,19 @@
 # Judge bakeoff report
 
-10 models, generated 2026-09-07T03:18:04.852121618+00:00
+14 models, generated 2026-09-07T04:04:58.655499003+00:00
 
 ## Per-model battery
+
+### Qwen/Qwen3-14B-FP8  (2160 calls, 499s, 4.3 calls/s, $6.379)
+
+| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lesswrong-posts | epistemic-rigor | +0.84 |   n/a |   n/a | +0.85 | 0.88 | 0.94 | 1/90/9 | 1.00 | 88% | 44 | 0 |
+| lesswrong-posts | novelty-of-insight | +0.97 |   n/a |   n/a | +0.82 | 0.82 | 0.96 | 1/89/10 | 1.00 | 99% | 3 | 0 |
+| lesswrong-posts | technical-alpha | +0.94 |   n/a |   n/a | +0.71 | 0.71 | 0.91 | 2/85/13 | 1.00 | 98% | 7 | 0 |
+| manifund-proposals | epistemic-pollution-restraint | +0.90 |   n/a |   n/a | +0.86 | 0.86 | 0.96 | 1/90/8 | 1.00 | 93% | 26 | 0 |
+| manifund-proposals | novel-world-expanding-hit | +0.78 |   n/a |   n/a | +0.69 | 0.71 | 0.89 | 1/81/18 | 1.00 | 89% | 41 | 0 |
+| manifund-proposals | theory-of-change | +0.84 |   n/a |   n/a | +0.87 | 0.87 | 0.95 | 0/93/7 | 1.00 | 99% | 5 | 0 |
 
 ### Qwen/Qwen3-8B-FP8  (2160 calls, 550s, 3.9 calls/s, $6.427)
 
@@ -70,6 +81,17 @@
 | manifund-proposals | novel-world-expanding-hit | +0.99 |   n/a |   n/a | -0.17 | 0.17 | 0.97 | 1/41/59 | 1.00 | 99% | 4 | 0 |
 | manifund-proposals | theory-of-change | +0.99 |   n/a |   n/a | -0.08 | 0.14 | 0.91 | 0/44/56 | 1.00 | 100% | 0 | 0 |
 
+### google/gemma-4-26B-A4B-it  (2160 calls, 878s, 2.5 calls/s, $6.601)
+
+| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lesswrong-posts | epistemic-rigor | +0.99 |   n/a |   n/a | +0.01 | 0.20 | 0.97 | 0/51/49 | 1.00 | 100% | 0 | 0 |
+| lesswrong-posts | novelty-of-insight | +0.99 |   n/a |   n/a | -0.02 | 0.03 | 0.97 | 0/49/51 | 1.00 | 94% | 21 | 0 |
+| lesswrong-posts | technical-alpha | +0.99 |   n/a |   n/a | -0.01 | 0.02 | 1.01 | 0/50/49 | 1.00 | 90% | 37 | 0 |
+| manifund-proposals | epistemic-pollution-restraint | +0.96 |   n/a |   n/a | -0.08 | 0.15 | 0.80 | 14/39/47 | 1.00 | 88% | 45 | 0 |
+| manifund-proposals | novel-world-expanding-hit | +0.99 |   n/a |   n/a | -0.12 | 0.12 | 0.98 | 0/43/57 | 1.00 | 97% | 12 | 0 |
+| manifund-proposals | theory-of-change | +0.99 |   n/a |   n/a | -0.05 | 0.14 | 0.96 | 1/46/53 | 1.00 | 100% | 0 | 0 |
+
 ### google/gemma-4-31b-it  (2160 calls, 217s, 10.0 calls/s, $0.728)
 
 | lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
@@ -92,6 +114,17 @@
 | manifund-proposals | novel-world-expanding-hit | +0.34 |   n/a |   n/a | +1.02 | 1.02 | 1.02 | 0/100/0 | 1.00 | 51% | 175 | 0 |
 | manifund-proposals | theory-of-change | +0.41 |   n/a |   n/a | +1.02 | 1.02 | 1.02 | 0/100/0 | 1.00 | 87% | 48 | 0 |
 
+### mistralai/Ministral-3-14B-Instruct-2512  (2160 calls, 392s, 5.5 calls/s, $6.441)
+
+| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lesswrong-posts | epistemic-rigor | +0.60 |   n/a |   n/a | +0.43 | 0.43 | 0.47 | 0/99/1 | 0.98 | 35% | 234 | 0 |
+| lesswrong-posts | novelty-of-insight | +0.54 |   n/a |   n/a | +0.61 | 0.61 | 0.61 | 0/100/0 | 0.98 | 48% | 189 | 0 |
+| lesswrong-posts | technical-alpha | +0.79 |   n/a |   n/a | +0.63 | 0.63 | 0.62 | 1/99/0 | 0.98 | 81% | 69 | 0 |
+| manifund-proposals | epistemic-pollution-restraint |   n/a |   n/a |   n/a | +0.36 | 0.36 | 0.42 | 0/99/1 | 0.96 | 27% | 262 | 0 |
+| manifund-proposals | novel-world-expanding-hit | +0.90 |   n/a |   n/a | +0.61 | 0.61 | 0.57 | 1/97/3 | 0.98 | 41% | 212 | 0 |
+| manifund-proposals | theory-of-change | +0.90 |   n/a |   n/a | +0.25 | 0.25 | 0.36 | 1/97/2 | 0.96 | 38% | 225 | 0 |
+
 ### mistralai/Ministral-3-8B-Instruct-2512  (2160 calls, 526s, 4.1 calls/s, $6.441)
 
 | lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
@@ -102,6 +135,17 @@
 | manifund-proposals | epistemic-pollution-restraint | -0.50 |   n/a |   n/a | +0.13 | 0.13 | 0.12 | 1/99/0 | 0.90 | 19% | 290 | 0 |
 | manifund-proposals | novel-world-expanding-hit |   n/a |   n/a |   n/a | +0.12 | 0.12 | 0.15 | 2/98/0 | 0.89 | 13% | 314 | 0 |
 | manifund-proposals | theory-of-change | +0.66 |   n/a |   n/a | +0.16 | 0.16 | 0.17 | 3/97/0 | 0.89 | 36% | 232 | 0 |
+
+### openai/gpt-oss-20b  (2160 calls, 177s, 12.2 calls/s, $6.476)
+
+| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lesswrong-posts | epistemic-rigor | +0.81 |   n/a |   n/a | +1.02 | 1.02 | 1.02 | 0/100/0 | 1.00 | 42% | 209 | 0 |
+| lesswrong-posts | novelty-of-insight | +0.64 |   n/a |   n/a | +1.02 | 1.02 | 1.02 | 0/100/0 | 1.00 | 61% | 142 | 0 |
+| lesswrong-posts | technical-alpha | +1.00 |   n/a |   n/a | +1.02 | 1.02 | 1.02 | 0/100/0 | 1.00 | 17% | 298 | 0 |
+| manifund-proposals | epistemic-pollution-restraint |   n/a |   n/a |   n/a | NaN | NaN | 1.02 | 0/100/0 | 1.00 | 0% | 359 | 0 |
+| manifund-proposals | novel-world-expanding-hit |   n/a |   n/a |   n/a | NaN | NaN | 1.02 | 0/100/0 | 1.00 | 0% | 359 | 0 |
+| manifund-proposals | theory-of-change |   n/a |   n/a |   n/a | NaN | NaN | 1.02 | 0/100/0 | 1.00 | 0% | 359 | 0 |
 
 ### qwen/qwen3.7-flash  (2160 calls, 338s, 6.4 calls/s, $0.148)
 
@@ -116,30 +160,38 @@
 
 ## Inter-model agreement (pair-level Spearman of signed log-ratios, wording a, draw 0, mean over cells)
 
-| model | Qwen3-8B-FP8 | Qwen3.5-9B | Olmo-3-7B-Instruct | deepseek-v4-flash | deepseek-v4-pro | gemma-4-12b-it | gemma-4-31b-it | granite-4.2-8b | Ministral-3-8B-Instruct-2512 | qwen3.7-flash | consensus (LOO) | vs gemma-4-31b-it | vs qwen3.7-flash |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Qwen3-8B-FP8 |   —  | +0.22 | +0.14 | +0.27 | +0.13 | +0.29 | +0.28 | -0.14 | +0.17 | +0.35 | +0.36 | +0.28 | +0.35 |
-| Qwen3.5-9B | +0.22 |   —  | +0.16 | +0.18 | +0.04 | +0.40 | +0.40 | -0.06 | -0.26 | +0.62 | +0.39 | +0.40 | +0.62 |
-| Olmo-3-7B-Instruct | +0.14 | +0.16 |   —  | +0.06 | +0.01 | +0.13 | +0.08 | +0.02 | +0.25 | +0.17 | +0.16 | +0.08 | +0.17 |
-| deepseek-v4-flash | +0.27 | +0.18 | +0.06 |   —  | +0.19 | +0.26 | +0.27 | -0.05 | -0.25 | +0.32 | +0.29 | +0.27 | +0.32 |
-| deepseek-v4-pro | +0.13 | +0.04 | +0.01 | +0.19 |   —  | +0.19 | +0.16 | +0.06 | -0.11 | +0.20 | +0.16 | +0.16 | +0.20 |
-| gemma-4-12b-it | +0.29 | +0.40 | +0.13 | +0.26 | +0.19 |   —  | +0.88 | +0.04 | -0.30 | +0.84 | +0.69 | +0.88 | +0.84 |
-| gemma-4-31b-it | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 | +0.88 |   —  | -0.04 | -0.36 | +0.80 | +0.66 |   n/a | +0.80 |
-| granite-4.2-8b | -0.14 | -0.06 | +0.02 | -0.05 | +0.06 | +0.04 | -0.04 |   —  | -0.11 | +0.06 | +0.00 | -0.04 | +0.06 |
-| Ministral-3-8B-Instruct-2512 | +0.17 | -0.26 | +0.25 | -0.25 | -0.11 | -0.30 | -0.36 | -0.11 |   —  | -0.16 | -0.27 | -0.36 | -0.16 |
-| qwen3.7-flash | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.84 | +0.80 | +0.06 | -0.16 |   —  | +0.74 | +0.80 |   n/a |
+| model | Qwen3-14B-FP8 | Qwen3-8B-FP8 | Qwen3.5-9B | Olmo-3-7B-Instruct | deepseek-v4-flash | deepseek-v4-pro | gemma-4-12b-it | gemma-4-26B-A4B-it | gemma-4-31b-it | granite-4.2-8b | Ministral-3-14B-Instruct-251 | Ministral-3-8B-Instruct-2512 | gpt-oss-20b | qwen3.7-flash | consensus (LOO) | vs gemma-4-31b-it | vs qwen3.7-flash |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Qwen3-14B-FP8 |   —  | +0.19 | +0.30 | +0.02 | +0.15 | +0.11 | +0.52 | +0.55 | +0.56 | +0.05 | +0.27 | -0.27 | +0.42 | +0.62 | +0.49 | +0.56 | +0.62 |
+| Qwen3-8B-FP8 | +0.19 |   —  | +0.22 | +0.14 | +0.27 | +0.13 | +0.29 | +0.31 | +0.28 | -0.14 | +0.41 | +0.17 | +0.03 | +0.35 | +0.35 | +0.28 | +0.35 |
+| Qwen3.5-9B | +0.30 | +0.22 |   —  | +0.16 | +0.18 | +0.04 | +0.40 | +0.44 | +0.40 | -0.06 | +0.31 | -0.26 | +0.12 | +0.62 | +0.42 | +0.40 | +0.62 |
+| Olmo-3-7B-Instruct | +0.02 | +0.14 | +0.16 |   —  | +0.06 | +0.01 | +0.13 | +0.13 | +0.08 | +0.02 | +0.20 | +0.25 | +0.36 | +0.17 | +0.16 | +0.08 | +0.17 |
+| deepseek-v4-flash | +0.15 | +0.27 | +0.18 | +0.06 |   —  | +0.19 | +0.26 | +0.27 | +0.27 | -0.05 | +0.05 | -0.25 | +0.13 | +0.32 | +0.31 | +0.27 | +0.32 |
+| deepseek-v4-pro | +0.11 | +0.13 | +0.04 | +0.01 | +0.19 |   —  | +0.19 | +0.14 | +0.16 | +0.06 | -0.03 | -0.11 | +0.17 | +0.20 | +0.17 | +0.16 | +0.20 |
+| gemma-4-12b-it | +0.52 | +0.29 | +0.40 | +0.13 | +0.26 | +0.19 |   —  | +0.91 | +0.88 | +0.04 | +0.55 | -0.30 | +0.42 | +0.84 | +0.79 | +0.88 | +0.84 |
+| gemma-4-26B-A4B-it | +0.55 | +0.31 | +0.44 | +0.13 | +0.27 | +0.14 | +0.91 |   —  | +0.87 | -0.00 | +0.49 | -0.32 | +0.32 | +0.86 | +0.79 | +0.87 | +0.86 |
+| gemma-4-31b-it | +0.56 | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 | +0.88 | +0.87 |   —  | -0.04 | +0.42 | -0.36 | +0.40 | +0.80 | +0.75 |   n/a | +0.80 |
+| granite-4.2-8b | +0.05 | -0.14 | -0.06 | +0.02 | -0.05 | +0.06 | +0.04 | -0.00 | -0.04 |   —  | -0.07 | -0.11 | +0.24 | +0.06 | +0.01 | -0.04 | +0.06 |
+| Ministral-3-14B-Instruct-251 | +0.27 | +0.41 | +0.31 | +0.20 | +0.05 | -0.03 | +0.55 | +0.49 | +0.42 | -0.07 |   —  | +0.15 | +0.89 | +0.63 | +0.54 | +0.42 | +0.63 |
+| Ministral-3-8B-Instruct-2512 | -0.27 | +0.17 | -0.26 | +0.25 | -0.25 | -0.11 | -0.30 | -0.32 | -0.36 | -0.11 | +0.15 |   —  | -0.25 | -0.16 | -0.26 | -0.36 | -0.16 |
+| gpt-oss-20b | +0.42 | +0.03 | +0.12 | +0.36 | +0.13 | +0.17 | +0.42 | +0.32 | +0.40 | +0.24 | +0.89 | -0.25 |   —  | +0.39 | +0.55 | +0.40 | +0.39 |
+| qwen3.7-flash | +0.62 | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.84 | +0.86 | +0.80 | +0.06 | +0.63 | -0.16 | +0.39 |   —  | +0.79 | +0.80 |   n/a |
 
 ## Per-cell agreement with consensus (LOO)
 
 | model | lesswrong-posts/epistemic-rigor | lesswrong-posts/novelty-of-insight | lesswrong-posts/technical-alpha | manifund-proposals/epistemic-pollution-restraint | manifund-proposals/novel-world-expanding-hit | manifund-proposals/theory-of-change |
 |---|---|---|---|---|---|---|
-| Qwen3-8B-FP8 | +0.24 | +0.30 | +0.36 | +0.32 | +0.41 | +0.52 |
-| Qwen3.5-9B | +0.32 | +0.44 | +0.49 | +0.39 | +0.38 | +0.34 |
-| Olmo-3-7B-Instruct | +0.16 | +0.12 | +0.16 | +0.29 | +0.17 | +0.04 |
-| deepseek-v4-flash | +0.26 | +0.20 | +0.32 | +0.30 | +0.52 | +0.17 |
-| deepseek-v4-pro | +0.11 | +0.11 | +0.34 | +0.23 | +0.19 | -0.01 |
-| gemma-4-12b-it | +0.65 | +0.79 | +0.73 | +0.75 | +0.67 | +0.55 |
-| gemma-4-31b-it | +0.66 | +0.77 | +0.80 | +0.57 | +0.72 | +0.46 |
-| granite-4.2-8b | +0.60 | -0.25 | +0.14 | -0.11 | -0.34 | -0.03 |
-| Ministral-3-8B-Instruct-2512 | -0.30 |   n/a |   n/a | -0.22 |   n/a | -0.29 |
-| qwen3.7-flash | +0.73 | +0.81 | +0.82 | +0.68 | +0.76 | +0.62 |
+| Qwen3-14B-FP8 | +0.48 | +0.69 | +0.72 | +0.29 | +0.25 | +0.52 |
+| Qwen3-8B-FP8 | +0.21 | +0.32 | +0.36 | +0.38 | +0.36 | +0.48 |
+| Qwen3.5-9B | +0.33 | +0.49 | +0.53 | +0.43 | +0.35 | +0.37 |
+| Olmo-3-7B-Instruct | +0.14 | +0.12 | +0.15 | +0.31 | +0.15 | +0.05 |
+| deepseek-v4-flash | +0.26 | +0.26 | +0.37 | +0.31 | +0.55 | +0.13 |
+| deepseek-v4-pro | +0.14 | +0.13 | +0.34 | +0.24 | +0.23 | -0.06 |
+| gemma-4-12b-it | +0.77 | +0.88 | +0.82 | +0.80 | +0.75 | +0.74 |
+| gemma-4-26B-A4B-it | +0.72 | +0.86 | +0.86 | +0.79 | +0.79 | +0.72 |
+| gemma-4-31b-it | +0.75 | +0.85 | +0.86 | +0.62 | +0.79 | +0.65 |
+| granite-4.2-8b | +0.55 | -0.12 | +0.12 | -0.14 | -0.31 | -0.02 |
+| Ministral-3-14B-Instruct-251 |   n/a | +0.66 | +0.60 |   n/a | +0.43 | +0.45 |
+| Ministral-3-8B-Instruct-2512 | -0.32 |   n/a |   n/a | -0.21 |   n/a | -0.26 |
+| gpt-oss-20b | +0.55 | +0.54 |   n/a |   n/a |   n/a |   n/a |
+| qwen3.7-flash | +0.80 | +0.86 | +0.83 | +0.77 | +0.78 | +0.72 |

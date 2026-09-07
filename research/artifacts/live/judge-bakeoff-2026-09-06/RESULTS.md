@@ -14,12 +14,9 @@ Two instruments were run on the same pairs:
   ±1.02-nat bucket. Added after the ratio arm showed most small judges cannot
   read the case-sensitive ladder.
 
-Status: every ≤9B candidate has both arms; the 14B-class tier has its ratio
-arm (Qwen3-14B-FP8, Ministral-3-14B, gemma-4-26B-A4B; gpt-oss-20b answered
-only parity before a co-tenant SIGTERMed it, Nemotron-3.5-Lightning NVFP4
-dies at load on this vLLM build) and gemma-4-12b has its ordinal arm. The
-ordinal arm for gpt-oss-20b, Qwen3-14B-FP8, Ministral-3-14B and
-gemma-4-26B-A4B is running on a 32 GB card and lands in `pack-ordinal/`.
+Status: complete. 13 judges on the ratio arm, 14 on the ordinal arm
+(Nemotron-3.5-Lightning NVFP4 dies at load on this vLLM build and is the
+one candidate with no data).
 
 ## Verdict
 
@@ -36,39 +33,45 @@ gemma-4-26B-A4B is running on a 32 GB card and lands in `pack-ordinal/`.
 2. **Reference pair: gemma-4-31b-it ↔ qwen3.7-flash under ordinal, +0.80
    pair-level Spearman**, with retest +0.98 / +0.95 and balanced slot use
    (50/48, 57/42). That is the ceiling any small judge is measured against.
-   Per cell they agree with the leave-one-out consensus at +0.71 / +0.79 on
-   technical-alpha and +0.65 / +0.76 on novelty. Under ratio the same pair
+   Per cell they agree with the leave-one-out consensus at +0.86 / +0.83 on
+   technical-alpha and +0.85 / +0.86 on novelty. Under ratio the same pair
    is −0.19 because qwen3.7-flash cannot read the ladder; gemma-4-31b alone
    is the only balanced ratio reader (46/38) and remains the ratio anchor.
 3. **gemma-4-12b-it on the ordinal instrument is the small judge, and it
    is as good as the 31b.** +0.88 with gemma-4-31b, +0.84 with
-   qwen3.7-flash, +0.69 with the leave-one-out consensus (+0.73 on
-   technical-alpha, +0.79 on novelty), retest +0.99, slot bias −0.03 nats,
+   qwen3.7-flash, +0.79 with the leave-one-out consensus (+0.82 on
+   technical-alpha, +0.88 on novelty), retest +0.99, slot bias −0.03 nats,
    48/52 A/B, decisive (mean |m| 0.94 of the 1.02 bucket), 15 refusals of
-   2160, zero failures, 4.7 calls/s as fp8 on a 32 GB card. Qwen3.5-9B is
-   the fallback if a Gemma licence is a problem: +0.62 with qwen3.7-flash,
-   +0.40 with gemma-4-31b and gemma-4-12b, LOO +0.39, retest +0.76, but a
-   +0.29-nat slot preference (89 % argmax A) that only the both-orders
-   design cancels. Qwen3-8B-FP8 is third (+0.35 vs both references) and
-   100 % argmax-A — its ranking lives entirely in the PMF tilt, so it needs
-   logprobs, never sampled letters. Olmo-3-7B has a balanced alphabet but
-   little signal (+0.08 / +0.17, LOO +0.16). granite-4.2-8b (+0.06, 705
-   refusals) and Ministral-3-8B (−0.16 / −0.36, 1787 refusals — it answers
-   off-alphabet) are out on both instruments.
+   2160, zero failures, 4.7 calls/s as fp8 on a 32 GB card. gemma-4-26B-A4B
+   is its twin (+0.87 / +0.86, LOO +0.79, retest +0.98, 46/51) but ran at
+   2.5 calls/s as fp8 on the same card and refuses more (115), so the 12b
+   wins on cost. Qwen3-14B-FP8 is the best non-Gemma option (+0.56 /
+   +0.62, LOO +0.49, +0.72 on technical-alpha, retest +0.88) with a strong
+   +0.80-nat slot preference (88 % argmax A) that only the both-orders
+   design cancels; Qwen3.5-9B is the smaller fallback (+0.40 / +0.62, LOO
+   +0.42, +0.29 nats slot). Qwen3-8B-FP8 (+0.28 / +0.35) is 100 % argmax-A
+   — its ranking lives entirely in the PMF tilt, so it needs logprobs,
+   never sampled letters. Ministral-3-14B agrees where it answers (+0.42 /
+   +0.63) but refuses 55 % of calls; gpt-oss-20b refuses 80 % (it wants
+   its reasoning channel); Olmo-3-7B has a balanced alphabet but little
+   signal (+0.08 / +0.17); granite-4.2-8b (+0.06, 705 refusals) and
+   Ministral-3-8B (−0.36 / −0.16, 1787 refusals — it answers off-alphabet)
+   are out on both instruments.
 4. **Under the ratio alphabet gemma-4-12b-it is the only small reader**
    (retest +0.73, slot bias +0.02, +0.34 with gemma-4-31b) but it is timid
    there — 42 % parity, mean |m| 0.03 nats — so the ordinal prompt is what
    unlocks it. The 14B tier does not change the picture: gemma-4-26B-A4B
    is fast (9.9 calls/s) and reads the alphabet but leans 81 % A-ahead and
-   agrees with gemma-4-31b at only +0.21; Qwen3-14B-FP8 uses both halves
-   (58/18, 30/42 on technical-alpha) yet agrees with nobody (−0.11 vs
-   gemma-4-31b), so reading the alphabet is necessary, not sufficient;
-   Ministral-3-14B is slot-locked (92 % A, +0.65 nats) like its 8B sibling.
+   agrees with gemma-4-31b at only +0.21 (vs +0.87 under ordinal);
+   Qwen3-14B-FP8 uses both halves (58/18, 30/42 on technical-alpha) yet
+   agrees with nobody (−0.11 vs gemma-4-31b; +0.56 under ordinal), so
+   reading the alphabet is necessary, not sufficient; Ministral-3-14B is
+   slot-locked (92 % A, +0.65 nats) like its 8B sibling.
 5. **deepseek-v4-pro is slot-locked under both prompts**: 92 % "A ahead"
    under ratio (+0.72 nats), 82 % "B" under ordinal (−0.16 nats), retest
-   only +0.36 ordinal, consensus +0.15. Decisive, expensive, and mostly
+   only +0.36 ordinal, consensus +0.17. Decisive, expensive, and mostly
    position. deepseek-v4-flash is cheap and balanced but noisy (retest
-   +0.26 / +0.39; LOO +0.30 ordinal).
+   +0.26 / +0.39; LOO +0.31 ordinal).
 
 Working recipe: ordinal prompt, both presentation orders, logprob PMF, and
 gemma-4-12b-it (fp8 on a 32 GB card, ~5 calls/s at 5K-token prompts under
@@ -113,21 +116,28 @@ makes qwen3.7-flash usable.
 
 | judge | calls/s | retest ρ | slot bias (nats) | decisive \|m\| | par/A/B % | vis mass | logprob | refused | vs gemma-4-31b | vs qwen3.7-flash | LOO consensus |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| google/gemma-4-31b-it | 10.0 | +0.98 | +0.01 | 0.98 | 2/50/48 | 1.00 | 93% | 143 | — | +0.80 | +0.66 |
-| qwen/qwen3.7-flash | 6.4 | +0.95 | +0.18 | 0.58 | 2/57/42 | 1.00 | 63% | 799 | +0.80 | — | +0.74 |
-| google/gemma-4-12b-it | 4.7 | +0.99 | −0.03 | 0.94 | 0/48/52 | 1.00 | 99% | 15 | +0.88 | +0.84 | +0.69 |
-| Qwen/Qwen3.5-9B | 3.4 | +0.76 | +0.29 | 0.24 | 5/89/6 | 0.98 | 93% | 159 | +0.40 | +0.62 | +0.39 |
-| Qwen/Qwen3-8B-FP8 | 3.9 | +0.58 | +1.02 | 1.02 | 0/100/0 | 1.00 | 89% | 241 | +0.28 | +0.35 | +0.36 |
-| deepseek/deepseek-v4-flash | 4.6 | +0.39 | +0.02 | 0.33 | 11/56/33 | 1.00 | 99% | 12 | +0.27 | +0.32 | +0.29 |
-| deepseek/deepseek-v4-pro | 6.1 | +0.36 | −0.16 | 0.30 | 9/9/82 | 1.00 | 97% | 20 | +0.16 | +0.20 | +0.16 |
+| google/gemma-4-12b-it | 4.7 | +0.99 | −0.03 | 0.94 | 0/48/52 | 1.00 | 99% | 15 | +0.88 | +0.84 | +0.79 |
+| google/gemma-4-26B-A4B-it | 2.5 | +0.98 | −0.05 | 0.95 | 2/46/51 | 1.00 | 95% | 115 | +0.87 | +0.86 | +0.79 |
+| google/gemma-4-31b-it | 10.0 | +0.98 | +0.01 | 0.98 | 2/50/48 | 1.00 | 93% | 143 | — | +0.80 | +0.75 |
+| qwen/qwen3.7-flash | 6.4 | +0.95 | +0.18 | 0.58 | 2/57/42 | 1.00 | 63% | 799 | +0.80 | — | +0.79 |
+| Qwen/Qwen3-14B-FP8 | 4.3 | +0.88 | +0.80 | 0.93 | 1/88/11 | 1.00 | 94% | 126 | +0.56 | +0.62 | +0.49 |
+| Qwen/Qwen3.5-9B | 3.4 | +0.76 | +0.29 | 0.24 | 5/89/6 | 0.98 | 93% | 159 | +0.40 | +0.62 | +0.42 |
+| mistralai/Ministral-3-14B-Instruct-2512 | 5.5 | +0.75 | +0.48 | 0.51 | 0/98/1 | 0.97 | 45% | 1191 | +0.42 | +0.63 | +0.54 |
+| openai/gpt-oss-20b | 12.2 | +0.82 | n/a | 1.02 | 0/100/0 | 1.00 | 20% | 1726 | +0.40 | +0.39 | +0.55 |
+| Qwen/Qwen3-8B-FP8 | 3.9 | +0.58 | +1.02 | 1.02 | 0/100/0 | 1.00 | 89% | 241 | +0.28 | +0.35 | +0.35 |
+| deepseek/deepseek-v4-flash | 4.6 | +0.39 | +0.02 | 0.33 | 11/56/33 | 1.00 | 99% | 12 | +0.27 | +0.32 | +0.31 |
+| deepseek/deepseek-v4-pro | 6.1 | +0.36 | −0.16 | 0.30 | 9/9/82 | 1.00 | 97% | 20 | +0.16 | +0.20 | +0.17 |
 | allenai/Olmo-3-7B-Instruct | 8.8 | +0.58 | +0.16 | 0.25 | 16/67/17 | 0.96 | 97% | 73 | +0.08 | +0.17 | +0.16 |
-| ibm-granite/granite-4.2-8b | 3.2 | +0.33 | +1.02 | 1.02 | 0/100/0 | 1.00 | 67% | 705 | −0.04 | +0.06 | +0.00 |
-| mistralai/Ministral-3-8B-Instruct-2512 | 4.1 | +0.08 | +0.17 | 0.21 | 2/96/1 | 0.87 | 17% | 1787 | −0.36 | −0.16 | −0.27 |
+| ibm-granite/granite-4.2-8b | 3.2 | +0.33 | +1.02 | 1.02 | 0/100/0 | 1.00 | 67% | 705 | −0.04 | +0.06 | +0.01 |
+| mistralai/Ministral-3-8B-Instruct-2512 | 4.1 | +0.08 | +0.17 | 0.21 | 2/96/1 | 0.87 | 17% | 1787 | −0.36 | −0.16 | −0.26 |
 
 qwen3.7-flash's 799 refusals are answer positions whose top-5 logprobs (the
 provider's cap) did not contain any alphabet letter; its agreement numbers
 are over the pairs it did answer. Qwen3-8B-FP8's slot bias of +1.02 is the
 fixed bucket: it never changes argmax, only the PMF mass behind it.
+Ministral-3-14B and gpt-oss-20b agreement numbers are over the minority of
+pairs they answered (per-cell consensus is n/a where fewer than ten pairs
+survive).
 
 ### Ratio instrument
 
@@ -160,26 +170,33 @@ $9.
 
 ## Inter-judge agreement, ordinal (pair-level Spearman, wording a, draw 0, mean over cells)
 
-| judge | Qwen3-8B | Qwen3.5-9B | Olmo-7B | ds-flash | ds-pro | gemma-12b | gemma-31b | granite | Ministral-8B | qwen3.7-flash |
-|---|---|---|---|---|---|---|---|---|---|---|
-| Qwen3-8B-FP8 | — | +0.22 | +0.14 | +0.27 | +0.13 | +0.29 | +0.28 | −0.14 | +0.17 | +0.35 |
-| Qwen3.5-9B | +0.22 | — | +0.16 | +0.18 | +0.04 | +0.40 | +0.40 | −0.06 | −0.26 | +0.62 |
-| Olmo-3-7B | +0.14 | +0.16 | — | +0.06 | +0.01 | +0.13 | +0.08 | +0.02 | +0.25 | +0.17 |
-| deepseek-v4-flash | +0.27 | +0.18 | +0.06 | — | +0.19 | +0.26 | +0.27 | −0.05 | −0.25 | +0.32 |
-| deepseek-v4-pro | +0.13 | +0.04 | +0.01 | +0.19 | — | +0.19 | +0.16 | +0.06 | −0.11 | +0.20 |
-| gemma-4-12b-it | +0.29 | +0.40 | +0.13 | +0.26 | +0.19 | — | +0.88 | +0.04 | −0.30 | +0.84 |
-| gemma-4-31b-it | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 | +0.88 | — | −0.04 | −0.36 | +0.80 |
-| granite-4.2-8b | −0.14 | −0.06 | +0.02 | −0.05 | +0.06 | +0.04 | −0.04 | — | −0.11 | +0.06 |
-| Ministral-3-8B | +0.17 | −0.26 | +0.25 | −0.25 | −0.11 | −0.30 | −0.36 | −0.11 | — | −0.16 |
-| qwen3.7-flash | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.84 | +0.80 | +0.06 | −0.16 | — |
+| judge | g-12b | g-26B | g-31b | q3.7-flash | Q3-14B | Q3.5-9B | Mini-14B | oss-20b | Q3-8B | ds-flash | ds-pro | Olmo | granite | Mini-8B |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| gemma-4-12b | — | +0.91 | +0.88 | +0.84 | +0.52 | +0.40 | +0.55 | +0.42 | +0.29 | +0.26 | +0.19 | +0.13 | +0.04 | −0.30 |
+| gemma-4-26B-A4B | +0.91 | — | +0.87 | +0.86 | +0.55 | +0.44 | +0.49 | +0.32 | +0.31 | +0.27 | +0.14 | +0.13 | −0.00 | −0.32 |
+| gemma-4-31b | +0.88 | +0.87 | — | +0.80 | +0.56 | +0.40 | +0.42 | +0.40 | +0.28 | +0.27 | +0.16 | +0.08 | −0.04 | −0.36 |
+| qwen3.7-flash | +0.84 | +0.86 | +0.80 | — | +0.62 | +0.62 | +0.63 | +0.39 | +0.35 | +0.32 | +0.20 | +0.17 | +0.06 | −0.16 |
+| Qwen3-14B-FP8 | +0.52 | +0.55 | +0.56 | +0.62 | — | +0.30 | +0.27 | +0.42 | +0.19 | +0.15 | +0.11 | +0.02 | +0.05 | −0.27 |
+| Qwen3.5-9B | +0.40 | +0.44 | +0.40 | +0.62 | +0.30 | — | +0.31 | +0.12 | +0.22 | +0.18 | +0.04 | +0.16 | −0.06 | −0.26 |
+| Ministral-3-14B | +0.55 | +0.49 | +0.42 | +0.63 | +0.27 | +0.31 | — | +0.89 | +0.41 | +0.05 | −0.03 | +0.20 | −0.07 | +0.15 |
+| gpt-oss-20b | +0.42 | +0.32 | +0.40 | +0.39 | +0.42 | +0.12 | +0.89 | — | +0.03 | +0.13 | +0.17 | +0.36 | +0.24 | −0.25 |
+| Qwen3-8B-FP8 | +0.29 | +0.31 | +0.28 | +0.35 | +0.19 | +0.22 | +0.41 | +0.03 | — | +0.27 | +0.13 | +0.14 | −0.14 | +0.17 |
+| deepseek-v4-flash | +0.26 | +0.27 | +0.27 | +0.32 | +0.15 | +0.18 | +0.05 | +0.13 | +0.27 | — | +0.19 | +0.06 | −0.05 | −0.25 |
+| deepseek-v4-pro | +0.19 | +0.14 | +0.16 | +0.20 | +0.11 | +0.04 | −0.03 | +0.17 | +0.13 | +0.19 | — | +0.01 | +0.06 | −0.11 |
+| Olmo-3-7B | +0.13 | +0.13 | +0.08 | +0.17 | +0.02 | +0.16 | +0.20 | +0.36 | +0.14 | +0.06 | +0.01 | — | +0.02 | +0.25 |
+| granite-4.2-8b | +0.04 | −0.00 | −0.04 | +0.06 | +0.05 | −0.06 | −0.07 | +0.24 | −0.14 | −0.05 | +0.06 | +0.02 | — | −0.11 |
+| Ministral-3-8B | −0.30 | −0.32 | −0.36 | −0.16 | −0.27 | −0.26 | +0.15 | −0.25 | +0.17 | −0.25 | −0.11 | +0.25 | −0.11 | — |
 
-Per-cell LOO consensus (ordinal), technical-alpha column: qwen3.7-flash
-+0.82, gemma-4-31b +0.80, gemma-4-12b +0.73, Qwen3.5-9B +0.49, Qwen3-8B-FP8
-+0.36, deepseek-v4-pro +0.34, deepseek-v4-flash +0.32, Olmo +0.16, granite
-+0.14.
-The two Manifund axes epistemic-pollution-restraint and theory-of-change
-remain the weakest cells for every judge on both instruments; they are not
-yet well-posed for pairwise judging.
+Per-cell LOO consensus (ordinal), technical-alpha column: gemma-4-26B
++0.86, gemma-4-31b +0.86, qwen3.7-flash +0.83, gemma-4-12b +0.82,
+Qwen3-14B-FP8 +0.72, Ministral-3-14B +0.60 (partial), Qwen3.5-9B +0.53,
+deepseek-v4-flash +0.37, Qwen3-8B-FP8 +0.36, deepseek-v4-pro +0.34, Olmo
++0.15, granite +0.12. The Gemma trio and qwen3.7-flash sit at +0.72 to
++0.88 on every cell, including the two Manifund axes.
+Under ratio the two Manifund axes epistemic-pollution-restraint and
+theory-of-change were the weakest cells for every judge; under ordinal the
+reference cluster resolves them (+0.62 to +0.80), so the earlier "not
+well-posed" reading was an instrument artifact too.
 
 ## Files
 
