@@ -459,29 +459,38 @@ fn pair_spearman(a: &BTreeMap<(usize, usize), f64>, b: &BTreeMap<(usize, usize),
 /// Leave-one-out consensus: z-score every other model's pair vector over the
 /// pairs all packs share, sum, and correlate with model `a`.
 fn consensus_rho(scores: &[BTreeMap<(usize, usize), f64>], a: usize) -> Option<f64> {
-    let mut keys: Option<BTreeSet<(usize, usize)>> = None;
-    for s in scores {
-        let k: BTreeSet<_> = s.keys().copied().collect();
-        keys = Some(match keys {
-            None => k,
-            Some(prev) => prev.intersection(&k).copied().collect(),
-        });
-    }
-    let keys: Vec<_> = keys.unwrap_or_default().into_iter().collect();
-    if keys.len() < 3 || scores.len() < 2 {
+    // Leave-one-out consensus: each other judge is z-scored over the pairs it
+    // answered, and a pair's consensus is the mean z over the judges that
+    // covered it. Requiring every judge to cover a pair would let one
+    // high-refusal judge shrink the shared set to a handful of pairs.
+    let others: Vec<usize> = (0..scores.len()).filter(|&b| b != a).collect();
+    if others.len() < 2 {
         return None;
     }
-    let mut cons = vec![0.0; keys.len()];
-    for (b, sb) in scores.iter().enumerate() {
-        if b == a {
-            continue;
-        }
-        let v: Vec<f64> = keys.iter().map(|k| sb[k]).collect();
-        for (idx, z) in zscore(&v).into_iter().enumerate() {
-            cons[idx] += z;
+    let min_cover = (others.len() / 2).max(2);
+    let mut sum: BTreeMap<(usize, usize), (f64, usize)> = BTreeMap::new();
+    for &b in &others {
+        let keys: Vec<_> = scores[b].keys().copied().collect();
+        let v: Vec<f64> = keys.iter().map(|k| scores[b][k]).collect();
+        for (k, z) in keys.into_iter().zip(zscore(&v)) {
+            let e = sum.entry(k).or_insert((0.0, 0));
+            e.0 += z;
+            e.1 += 1;
         }
     }
-    let own: Vec<f64> = keys.iter().map(|k| scores[a][k]).collect();
+    let mut own = Vec::new();
+    let mut cons = Vec::new();
+    for (k, v) in &scores[a] {
+        if let Some(&(z, n)) = sum.get(k) {
+            if n >= min_cover {
+                own.push(*v);
+                cons.push(z / n as f64);
+            }
+        }
+    }
+    if own.len() < 10 {
+        return None;
+    }
     spearman(&own, &cons)
 }
 
