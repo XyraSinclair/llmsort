@@ -1,57 +1,74 @@
-# Small-judge bakeoff — interim results (2026-09-06)
+# Small-judge bakeoff — results (2026-09-06)
 
 Question: which fast 8–14B model is a stable pairwise judge for "signal and
 exciting technical alpha, not noise"-class attributes, and how does it compare
-with bigger reference judges? Instrument: the production ratio-letter pairwise
-prompt (`ratio_letter_attrlast_v1`, answer-position logprob PMF), driven by
-`experiments/examples/judge_bakeoff.rs`.
+with bigger reference judges? Driver: `experiments/examples/judge_bakeoff.rs`.
 
-Status: reference tier complete (4 judges) plus two local small judges
-(gemma-4-12b-it, Qwen3.5-9B). The remaining nine local models are parked
-behind a GPU-slot waiter on the shared box (a co-tenant took the 96 GB card's
-free memory mid-sweep; we yield rather than preempt). This file is rewritten
-when they land.
+Two instruments were run on the same pairs:
 
-## Verdict so far
+- **ratio** — the production ratio-letter prompt (`ratio_letter_attrlast_v1`):
+  52-letter case-sensitive alphabet, `A/a` parity, uppercase `B..Z` = entity A
+  ahead by a ladder rung, lowercase `b..z` = entity B ahead. Answer-position
+  logprob PMF → signed log-ratio.
+- **ordinal** — `ordinal_letter_v1`: `A` / `B` / `=` direction only, fixed
+  ±1.02-nat bucket. Added after the ratio arm showed most small judges cannot
+  read the case-sensitive ladder.
 
-1. **The instrument, not the models, is the first-order finding.** The
-   ratio-letter alphabet is case-sensitive (`A/a` parity, uppercase `B..Z`
-   = entity A ahead, lowercase `b..z` = entity B ahead). Several judges never
-   emit the lowercase half: qwen3.7-flash answers "entity B ahead" on 1 % of
-   calls, Qwen3.5-9B on 0 % (it answers `B` to every call in both orders —
-   it is naming the slot, not a ladder rung), deepseek-v4-pro on 7 %. A judge
-   that says `B` when it means "entity B wins" is parsed as "entity A ahead by
-   1.06×", which is a stable *reversal*: both Qwen judges correlate
-   negatively with every other judge (Qwen3.5-9B vs gemma-4-31b −0.32,
-   qwen3.7-flash −0.19) while agreeing with each other (+0.16).
-2. **gemma-4-31b-it is the anchor.** It is the only judge using both halves
-   of the alphabet in balance (46 % A-ahead / 38 % B-ahead), has the best
-   pair-level retest (+0.80) and wording robustness (+0.64 / +0.56 against
-   the operational and counterfactual wordings), near-zero slot bias
-   (+0.04 nats), zero failures, and agrees with deepseek-v4-pro at +0.33 —
-   the strongest cross-family agreement in the matrix. On OpenRouter it also
-   ran fastest (15 calls/s).
-3. **gemma-4-12b-it is the only small judge that works so far.** Retest
-   +0.72, slot bias +0.02 nats, visible mass 1.00, agreement with
-   gemma-4-31b +0.34 (equal to 31b↔pro) and +0.43 with the leave-one-out
-   consensus on technical-alpha, the axis Xyra cares about most. Its
-   weakness is timidity: 42 % of answers sit at parity and mean |m| is
-   0.03 nats, so it separates pairs by tiny tilts of the PMF rather than
-   by committed ladder rungs, and wording robustness is only +0.34 / +0.31.
-   It also refuses more on the LessWrong axes (68–87 abstentions of 720 on
-   novelty and technical-alpha).
-4. **deepseek-v4-pro is decisive but slot-locked.** Mean |m| 1.36 nats, yet
-   92 % of answers say entity A is ahead (+0.72 nats slot bias). The
-   both-orders design cancels this for the bakeoff, but single-order
-   production use would be mostly position. deepseek-v4-flash is cheap and
-   balanced but noisy (retest +0.26) and abstains heavily (433 refusals).
+Status: every ≤9B candidate has both arms; the 14B tier (Qwen3-14B-FP8,
+Ministral-3-14B, Nemotron-3.5-Lightning-30B-A3B, gemma-4-26B-A4B, gpt-oss-20b)
+is running on the 96 GB card as this is written and lands in `pack/` and
+`pack-ordinal/` as it completes (Qwen3-14B-FP8 ratio is already in).
 
-Working recommendation while the sweep finishes: gemma-4-12b-it is the
-small-judge candidate to carry forward, with gemma-4-31b-it as the
-calibration reference. Before adopting any small judge, run an
-ordinal-instrument arm (no case-sensitive ladder) on the top candidates to
-separate "cannot rank" from "cannot read this alphabet" — the Qwen result
-says the alphabet is a real barrier for small models.
+## Verdict
+
+1. **Use the ordinal instrument for any judge under ~30B.** Under the ratio
+   alphabet, seven of the nine small/cheap judges never emit the lowercase
+   half: Qwen3-8B-FP8, Qwen3.5-9B, Olmo-3-7B and Qwen3.7-flash answer
+   "entity A ahead" on 99–100 % of calls in *both* presentation orders (they
+   are naming the slot, or answering `B` = "entity B wins" which the ladder
+   parses as "A ahead by 1.06×"), granite answers parity 99 % of the time,
+   Ministral-8B is 74/24 with a +0.98-nat slot bias. The result is a sign
+   flip: Qwen3.5-9B −0.32 and Qwen3.7-flash −0.19 against gemma-4-31b. The
+   same models under the ordinal prompt agree with the reference cluster at
+   +0.40 to +0.80.
+2. **Reference pair: gemma-4-31b-it ↔ qwen3.7-flash under ordinal, +0.80
+   pair-level Spearman**, with retest +0.98 / +0.95 and balanced slot use
+   (50/48, 57/42). That is the ceiling any small judge is measured against.
+   Per cell they agree with the leave-one-out consensus at +0.71 / +0.79 on
+   technical-alpha and +0.65 / +0.76 on novelty. Under ratio the same pair
+   is −0.19 because qwen3.7-flash cannot read the ladder; gemma-4-31b alone
+   is the only balanced ratio reader (46/38) and remains the ratio anchor.
+3. **Qwen3.5-9B is the small judge to carry forward, on the ordinal
+   instrument.** +0.62 with qwen3.7-flash, +0.40 with gemma-4-31b, +0.39
+   with the LOO consensus (+0.46 on technical-alpha), retest +0.76, zero
+   failures, 159 refusals of 2160. Its weakness is a +0.29-nat slot
+   preference (89 % argmax A); the both-orders design cancels it here and
+   production must present both orders too. Qwen3-8B-FP8 is second (+0.35
+   vs both references, LOO +0.35, +0.50 on theory-of-change) but is 100 %
+   argmax-A — its ranking lives entirely in the PMF tilt, so it needs
+   logprobs, never sampled letters. Olmo-3-7B has a balanced alphabet but
+   little signal (+0.08 / +0.17, LOO +0.15). granite-4.2-8b (+0.06, 705
+   refusals) and Ministral-3-8B (−0.16 / −0.36, 1787 refusals — it answers
+   off-alphabet) are out on both instruments.
+4. **gemma-4-12b-it is the only small ratio reader** (retest +0.73, slot
+   bias +0.02, +0.34 with gemma-4-31b, +0.24 / +0.22 with consensus on
+   novelty and technical-alpha) but it is timid — 42 % parity, mean |m|
+   0.03 nats — and its ordinal arm is still queued on the 96 GB card.
+   Qwen3-14B-FP8 also uses both halves under ratio (58/18, 30/42 on
+   technical-alpha) yet agrees with nobody (−0.11 vs gemma-4-31b, ~0
+   everywhere), so reading the alphabet is necessary, not sufficient.
+5. **deepseek-v4-pro is slot-locked under both prompts**: 92 % "A ahead"
+   under ratio (+0.72 nats), 82 % "B" under ordinal (−0.16 nats), retest
+   only +0.36 ordinal, consensus +0.15. Decisive, expensive, and mostly
+   position. deepseek-v4-flash is cheap and balanced but noisy (retest
+   +0.26 / +0.39; LOO +0.30 ordinal).
+
+Working recipe: ordinal prompt, both presentation orders, logprob PMF, and
+Qwen3.5-9B (fp8 on a 32 GB card, ~3.5 calls/s at 5K-token prompts under
+contention) as the local judge, calibrated against qwen3.7-flash (which at
+$0.15 per 2160 calls is nearly free) and spot-checked against gemma-4-31b.
+Adopt the ordinal instrument for the reference tier as well — it is what
+makes qwen3.7-flash usable.
 
 ## Design
 
@@ -60,67 +77,106 @@ says the alphabet is a real barrier for small models.
 - Axes (`research/batteries/judge_bakeoff_axes.json`): LessWrong —
   epistemic-rigor, novelty-of-insight, technical-alpha; Manifund —
   epistemic-pollution-restraint, novel-world-expanding-hit,
-  theory-of-change. Each in three wordings: a (definitional),
-  b (operational), c (counterfactual).
+  theory-of-change. Ratio arm ran three wordings (a definitional, b
+  operational, c counterfactual); the ordinal arm ran wording a only.
 - Pair design: circulant, degree 6 (90 pairs per lens), both presentation
   orders, wording a drawn twice (second draw under a nonce that bypasses the
-  cache). 4320 calls per judge (2160 for deepseek-v4-pro: wording a only).
-- Local judges: one vLLM at a time on the 96 GB card, top-20 logprobs,
-  reasoning disabled. Reference judges via OpenRouter with
-  `require_parameters` so only logprob-honouring providers serve them.
+  cache). Ratio: 4320 calls per judge (2160 for deepseek-v4-pro, wording a
+  only). Ordinal: 2160 calls per judge.
+- Local judges: one vLLM per lane, top-20 logprobs, reasoning disabled.
+  ≥20 GB models on the 96 GB card at 16K context; 7–9B models on a 32 GB
+  card quantised to fp8 at load, 8K context (prompts are ~5K tokens).
+  Ministral-3 needs `--tokenizer-mode mistral` (current transformers loads
+  it as a mistral-common backend with no jinja template; the HF path 400s).
+  Reference judges via OpenRouter with `require_parameters` so only
+  logprob-honouring providers serve them.
 - Metrics are computed at the **pair level** (signed log-ratio per pair,
   averaged over both orders). Item-level folds on a degree-6 ring were
   misleading: a signed mean shares a neighbour artifact across judges, and
   least squares integrates noise around the ring, so cross-judge agreement
-  read as ~0 while the pair-level view shows the reference cluster at +0.33.
+  read as ~0 while the pair-level view shows the reference cluster at +0.33
+  (ratio) / +0.80 (ordinal). Leave-one-out consensus z-scores each other
+  judge over the pairs it answered and averages per pair over the judges
+  that covered it (≥ half of them), so one high-refusal judge cannot shrink
+  the shared pair set.
 
 ## Per-judge summary (means over the six lens×axis cells)
 
-| judge | calls/s | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | decisive \|m\| | par/A/B % | vis mass | logprob | refused | failed |
+### Ordinal instrument
+
+| judge | calls/s | retest ρ | slot bias (nats) | decisive \|m\| | par/A/B % | vis mass | logprob | refused | vs gemma-4-31b | vs qwen3.7-flash | LOO consensus |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Qwen/Qwen3.5-9B | 5.6 | +0.67 | +0.58 | +0.50 | +0.71 | 0.76 | 0/100/0 | 0.97 | 94% | 79 | 160 |
-| deepseek/deepseek-v4-flash | 4.2 | +0.26 | +0.28 | +0.26 | +0.15 | 0.19 | 11/70/19 | 0.95 | 90% | 433 | 0 |
-| deepseek/deepseek-v4-pro | 5.0 | +0.45 | n/a | n/a | +0.72 | 1.36 | 1/92/7 | 0.79 | 93% | 1 | 0 |
-| google/gemma-4-12b-it | 3.4 | +0.72 | +0.34 | +0.31 | +0.02 | 0.03 | 42/49/9 | 1.00 | 96% | 193 | 0 |
-| google/gemma-4-31b-it | 15.4 | +0.80 | +0.64 | +0.56 | +0.04 | 0.09 | 16/46/38 | 1.00 | 97% | 112 | 0 |
-| qwen/qwen3.7-flash | 8.0 | +0.24 | +0.26 | +0.16 | +0.17 | 0.20 | 23/76/1 | 0.96 | 100% | 8 | 0 |
+| google/gemma-4-31b-it | 10.0 | +0.98 | +0.01 | 0.98 | 2/50/48 | 1.00 | 93% | 143 | — | +0.80 | +0.52 |
+| qwen/qwen3.7-flash | 6.4 | +0.95 | +0.18 | 0.58 | 2/57/42 | 1.00 | 63% | 799 | +0.80 | — | +0.64 |
+| Qwen/Qwen3.5-9B | 3.4 | +0.76 | +0.29 | 0.24 | 5/89/6 | 0.98 | 93% | 159 | +0.40 | +0.62 | +0.39 |
+| Qwen/Qwen3-8B-FP8 | 3.9 | +0.58 | +1.02 | 1.02 | 0/100/0 | 1.00 | 89% | 241 | +0.28 | +0.35 | +0.35 |
+| deepseek/deepseek-v4-flash | 4.6 | +0.39 | +0.02 | 0.33 | 11/56/33 | 1.00 | 99% | 12 | +0.27 | +0.32 | +0.30 |
+| deepseek/deepseek-v4-pro | 6.1 | +0.36 | −0.16 | 0.30 | 9/9/82 | 1.00 | 97% | 20 | +0.16 | +0.20 | +0.15 |
+| allenai/Olmo-3-7B-Instruct | 8.8 | +0.58 | +0.16 | 0.25 | 16/67/17 | 0.96 | 97% | 73 | +0.08 | +0.17 | +0.15 |
+| ibm-granite/granite-4.2-8b | 3.2 | +0.33 | +1.02 | 1.02 | 0/100/0 | 1.00 | 67% | 705 | −0.04 | +0.06 | +0.00 |
+| mistralai/Ministral-3-8B-Instruct-2512 | 4.1 | +0.08 | +0.17 | 0.21 | 2/96/1 | 0.87 | 17% | 1787 | −0.36 | −0.16 | −0.16 |
 
-Notes: retest ρ for logprob-PMF judges measures provider nondeterminism more
-than judgement noise (a deterministic local server retests near 1 by
-construction), so it separates the OpenRouter judges from each other but
-flatters local ones. Qwen3.5-9B's 160 failures are the last wording-c cell
-of one axis, lost when a co-tenant's `pkill -f "vllm serve"` took the server
-down mid-battery. Local calls/s were measured on a card shared with three
-other tenants at 100 % utilisation; the gemma-4-12b smoke on a quieter card
-ran at 15 calls/s. Cost columns for local judges in `pack/REPORT.md` are
-adapter estimates, not spend; OpenRouter spend for the reference tier was
-about $4.5.
+qwen3.7-flash's 799 refusals are answer positions whose top-5 logprobs (the
+provider's cap) did not contain any alphabet letter; its agreement numbers
+are over the pairs it did answer. Qwen3-8B-FP8's slot bias of +1.02 is the
+fixed bucket: it never changes argmax, only the PMF mass behind it.
 
-## Inter-judge agreement (pair-level Spearman, wording a, draw 0, mean over cells)
+### Ratio instrument
 
-| judge | Qwen3.5-9B | ds-v4-flash | ds-v4-pro | gemma-4-12b | gemma-4-31b | qwen3.7-flash | LOO consensus |
-|---|---|---|---|---|---|---|---|
-| Qwen3.5-9B | — | −0.11 | −0.18 | −0.16 | −0.32 | +0.16 | −0.19 |
-| deepseek-v4-flash | −0.11 | — | +0.05 | +0.11 | +0.14 | −0.06 | +0.03 |
-| deepseek-v4-pro | −0.18 | +0.05 | — | +0.07 | +0.33 | −0.16 | −0.03 |
-| gemma-4-12b-it | −0.16 | +0.11 | +0.07 | — | +0.34 | −0.07 | +0.05 |
-| gemma-4-31b-it | −0.32 | +0.14 | +0.33 | +0.34 | — | −0.19 | +0.13 |
-| qwen3.7-flash | +0.16 | −0.06 | −0.16 | −0.07 | −0.19 | — | −0.07 |
+| judge | calls/s | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | decisive \|m\| | par/A/B % | vis mass | logprob | refused | failed | vs gemma-4-31b | vs ds-v4-pro |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| google/gemma-4-31b-it | 15.4 | +0.80 | +0.64 | +0.56 | +0.04 | 0.09 | 16/46/38 | 1.00 | 97% | 112 | 0 | — | +0.33 |
+| google/gemma-4-12b-it | 3.4 | +0.73 | +0.33 | +0.31 | +0.02 | 0.03 | 42/49/9 | 1.00 | 96% | 193 | 0 | +0.34 | +0.07 |
+| deepseek/deepseek-v4-pro | 5.0 | +0.45 | n/a | n/a | +0.72 | 1.36 | 1/92/7 | 0.79 | 93% | 1 | 0 | +0.33 | — |
+| deepseek/deepseek-v4-flash | 4.2 | +0.26 | +0.28 | +0.26 | +0.15 | 0.19 | 11/70/19 | 0.95 | 90% | 433 | 0 | +0.14 | +0.05 |
+| allenai/Olmo-3-7B-Instruct | 4.2 | +0.66 | +0.44 | +0.49 | +0.63 | 1.07 | 0/99/1 | 0.99 | 94% | 284 | 0 | +0.12 | +0.09 |
+| mistralai/Ministral-3-8B-Instruct-2512 | 4.0 | +0.39 | +0.35 | +0.50 | +0.98 | 1.07 | 2/74/24 | 0.71 | 96% | 154 | 0 | +0.04 | +0.00 |
+| Qwen/Qwen3-14B-FP8 | 4.9 | +0.61 | +0.22 | +0.43 | +0.03 | 0.04 | 24/58/18 | 1.00 | 86% | 609 | 0 | −0.11 | −0.13 |
+| ibm-granite/granite-4.2-8b | 6.1 | +0.30 | +0.37 | +0.34 | −0.03 | 0.04 | 99/0/1 | 1.00 | 99% | 31 | 0 | −0.14 | +0.08 |
+| qwen/qwen3.7-flash | 8.0 | +0.24 | +0.26 | +0.16 | +0.17 | 0.20 | 23/76/1 | 0.96 | 100% | 8 | 0 | −0.19 | −0.16 |
+| Qwen/Qwen3-8B-FP8 | 7.4 | +0.54 | +0.39 | +0.41 | +0.21 | 0.26 | 0/99/0 | 1.00 | 99% | 30 | 0 | −0.30 | −0.10 |
+| Qwen/Qwen3.5-9B | 5.6 | +0.67 | +0.58 | +0.50 | +0.71 | 0.76 | 0/100/0 | 0.97 | 94% | 79 | 160 | −0.32 | −0.18 |
 
-The leave-one-out consensus column is dragged toward zero by the two reversed
-Qwen judges; read the reference columns (vs gemma-4-31b, vs deepseek-v4-pro)
-as the cleaner signal. Per-cell, the reference cluster agrees best on
-technical-alpha (gemma-4-12b +0.43 and gemma-4-31b +0.40 with consensus) and
-novelty-of-insight, and worst on epistemic-pollution-restraint and
-theory-of-change, where every judge is near zero — those two Manifund axes
-are not yet well-posed for pairwise judging.
+Ratio LOO consensus is not reported: with seven of eleven judges unable to
+read the alphabet, the pool is mostly noise and every LOO cell sits within
+±0.1. Read the two reference columns instead. Retest ρ for logprob-PMF
+judges measures provider nondeterminism more than judgement noise (a
+deterministic local server retests near 1 by construction). Qwen3.5-9B's
+160 ratio failures are one wording-c cell lost when a co-tenant killed the
+server; local calls/s were measured on cards shared with other tenants at
+100 % utilisation. Cost columns for local judges in the generated reports
+are adapter estimates, not spend; OpenRouter spend for both arms was about
+$9.
+
+## Inter-judge agreement, ordinal (pair-level Spearman, wording a, draw 0, mean over cells)
+
+| judge | Qwen3-8B | Qwen3.5-9B | Olmo-7B | ds-flash | ds-pro | gemma-31b | granite | Ministral-8B | qwen3.7-flash |
+|---|---|---|---|---|---|---|---|---|---|
+| Qwen3-8B-FP8 | — | +0.22 | +0.14 | +0.27 | +0.13 | +0.28 | −0.14 | +0.17 | +0.35 |
+| Qwen3.5-9B | +0.22 | — | +0.16 | +0.18 | +0.04 | +0.40 | −0.06 | −0.26 | +0.62 |
+| Olmo-3-7B | +0.14 | +0.16 | — | +0.06 | +0.01 | +0.08 | +0.02 | +0.25 | +0.17 |
+| deepseek-v4-flash | +0.27 | +0.18 | +0.06 | — | +0.19 | +0.27 | −0.05 | −0.25 | +0.32 |
+| deepseek-v4-pro | +0.13 | +0.04 | +0.01 | +0.19 | — | +0.16 | +0.06 | −0.11 | +0.20 |
+| gemma-4-31b-it | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 | — | −0.04 | −0.36 | +0.80 |
+| granite-4.2-8b | −0.14 | −0.06 | +0.02 | −0.05 | +0.06 | −0.04 | — | −0.11 | +0.06 |
+| Ministral-3-8B | +0.17 | −0.26 | +0.25 | −0.25 | −0.11 | −0.36 | −0.11 | — | −0.16 |
+| qwen3.7-flash | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.80 | +0.06 | −0.16 | — |
+
+Per-cell LOO consensus (ordinal), technical-alpha column: qwen3.7-flash
++0.79, gemma-4-31b +0.71, Qwen3.5-9B +0.46, Qwen3-8B-FP8 +0.35,
+deepseek-v4-pro +0.34, deepseek-v4-flash +0.31, Olmo +0.19, granite +0.17.
+The two Manifund axes epistemic-pollution-restraint and theory-of-change
+remain the weakest cells for every judge on both instruments; they are not
+yet well-posed for pairwise judging.
 
 ## Files
 
-- `pack/REPORT.md` — full per-cell batteries and matrices (generated).
-- `pack/records-<judge>.json.gz` — every call: lens, axis, wording, draw,
+- `pack/REPORT.md`, `pack-ordinal/REPORT.md` — full per-cell batteries and
+  matrices (generated by `judge_bakeoff report`).
+- `pack*/records-<judge>.json.gz` — every call: lens, axis, wording, draw,
   pair, order, presented log-ratio mean/var, visible mass, logprob mode,
   refused/failed, tokens, latency. No entity text.
 - `items-ids.json` — cohort ids.
 - Sweep runner, serve script and incident notes live on the GPU box under
-  `/data/judge-sweep/` (README.md there documents claim/preempt etiquette).
+  `/data/judge-sweep/` (README.md there documents claim/preempt etiquette
+  and the day's incidents).
