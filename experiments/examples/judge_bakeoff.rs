@@ -77,6 +77,11 @@ enum Cmd {
         /// Entity text cap in chars (prompt budget).
         #[arg(long, default_value_t = 8000)]
         max_chars: usize,
+        /// Call order: `pair` interleaves both orders of each pair; `entity`
+        /// groups calls by the presented entity A so a prefix cache keeps its
+        /// KV hot across its whole neighbourhood.
+        #[arg(long, default_value = "pair")]
+        order: String,
         /// Print prompt tail + raw output + judgement for the first N calls.
         #[arg(long, default_value_t = 0)]
         debug_raw: usize,
@@ -185,6 +190,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             draws,
             wordings,
             max_chars,
+            order,
             debug_raw,
             instrument,
         } => {
@@ -196,6 +202,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 n,
                 degree,
                 concurrency,
+                &order,
                 draws,
                 &wordings,
                 max_chars,
@@ -217,6 +224,7 @@ async fn run(
     n: usize,
     degree: usize,
     concurrency: usize,
+    order: &str,
     draws: usize,
     wordings: &str,
     max_chars: usize,
@@ -269,8 +277,13 @@ async fn run(
             }
         }
     }
+    match order {
+        "pair" => {}
+        "entity" => units.sort_by_key(|u| (u.0.clone(), u.1, u.2.clone(), u.3, if u.6 { u.4 } else { u.5 })),
+        other => return Err(format!("unknown --order {other:?} (pair|entity)").into()),
+    }
     eprintln!(
-        "judge_bakeoff: model={model} lenses={} axes={} calls={} concurrency={concurrency}",
+        "judge_bakeoff: model={model} lenses={} axes={} calls={} concurrency={concurrency} order={order}",
         by_lens.len(),
         axes.len(),
         units.len()
