@@ -52,7 +52,7 @@ gemma-4-26B-A4B is running on a 32 GB card and lands in `pack-ordinal/`.
    design cancels. Qwen3-8B-FP8 is third (+0.35 vs both references) and
    100 % argmax-A — its ranking lives entirely in the PMF tilt, so it needs
    logprobs, never sampled letters. Olmo-3-7B has a balanced alphabet but
-   little signal (+0.08 / +0.17, LOO +0.15). granite-4.2-8b (+0.06, 705
+   little signal (+0.08 / +0.17, LOO +0.16). granite-4.2-8b (+0.06, 705
    refusals) and Ministral-3-8B (−0.16 / −0.36, 1787 refusals — it answers
    off-alphabet) are out on both instruments.
 4. **Under the ratio alphabet gemma-4-12b-it is the only small reader**
@@ -117,12 +117,12 @@ makes qwen3.7-flash usable.
 | qwen/qwen3.7-flash | 6.4 | +0.95 | +0.18 | 0.58 | 2/57/42 | 1.00 | 63% | 799 | +0.80 | — | +0.74 |
 | google/gemma-4-12b-it | 4.7 | +0.99 | −0.03 | 0.94 | 0/48/52 | 1.00 | 99% | 15 | +0.88 | +0.84 | +0.69 |
 | Qwen/Qwen3.5-9B | 3.4 | +0.76 | +0.29 | 0.24 | 5/89/6 | 0.98 | 93% | 159 | +0.40 | +0.62 | +0.39 |
-| Qwen/Qwen3-8B-FP8 | 3.9 | +0.58 | +1.02 | 1.02 | 0/100/0 | 1.00 | 89% | 241 | +0.28 | +0.35 | +0.35 |
-| deepseek/deepseek-v4-flash | 4.6 | +0.39 | +0.02 | 0.33 | 11/56/33 | 1.00 | 99% | 12 | +0.27 | +0.32 | +0.30 |
-| deepseek/deepseek-v4-pro | 6.1 | +0.36 | −0.16 | 0.30 | 9/9/82 | 1.00 | 97% | 20 | +0.16 | +0.20 | +0.15 |
-| allenai/Olmo-3-7B-Instruct | 8.8 | +0.58 | +0.16 | 0.25 | 16/67/17 | 0.96 | 97% | 73 | +0.08 | +0.17 | +0.15 |
+| Qwen/Qwen3-8B-FP8 | 3.9 | +0.58 | +1.02 | 1.02 | 0/100/0 | 1.00 | 89% | 241 | +0.28 | +0.35 | +0.36 |
+| deepseek/deepseek-v4-flash | 4.6 | +0.39 | +0.02 | 0.33 | 11/56/33 | 1.00 | 99% | 12 | +0.27 | +0.32 | +0.29 |
+| deepseek/deepseek-v4-pro | 6.1 | +0.36 | −0.16 | 0.30 | 9/9/82 | 1.00 | 97% | 20 | +0.16 | +0.20 | +0.16 |
+| allenai/Olmo-3-7B-Instruct | 8.8 | +0.58 | +0.16 | 0.25 | 16/67/17 | 0.96 | 97% | 73 | +0.08 | +0.17 | +0.16 |
 | ibm-granite/granite-4.2-8b | 3.2 | +0.33 | +1.02 | 1.02 | 0/100/0 | 1.00 | 67% | 705 | −0.04 | +0.06 | +0.00 |
-| mistralai/Ministral-3-8B-Instruct-2512 | 4.1 | +0.08 | +0.17 | 0.21 | 2/96/1 | 0.87 | 17% | 1787 | −0.36 | −0.16 | −0.16 |
+| mistralai/Ministral-3-8B-Instruct-2512 | 4.1 | +0.08 | +0.17 | 0.21 | 2/96/1 | 0.87 | 17% | 1787 | −0.36 | −0.16 | −0.27 |
 
 qwen3.7-flash's 799 refusals are answer positions whose top-5 logprobs (the
 provider's cap) did not contain any alphabet letter; its agreement numbers
@@ -175,8 +175,8 @@ $9.
 
 Per-cell LOO consensus (ordinal), technical-alpha column: qwen3.7-flash
 +0.82, gemma-4-31b +0.80, gemma-4-12b +0.73, Qwen3.5-9B +0.49, Qwen3-8B-FP8
-+0.35, deepseek-v4-pro +0.34, deepseek-v4-flash +0.31, Olmo +0.19, granite
-+0.17.
++0.36, deepseek-v4-pro +0.34, deepseek-v4-flash +0.32, Olmo +0.16, granite
++0.14.
 The two Manifund axes epistemic-pollution-restraint and theory-of-change
 remain the weakest cells for every judge on both instruments; they are not
 yet well-posed for pairwise judging.
