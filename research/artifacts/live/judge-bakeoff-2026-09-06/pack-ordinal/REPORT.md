@@ -1,6 +1,6 @@
 # Judge bakeoff report
 
-9 models, generated 2026-09-07T00:10:09.079625514+00:00
+10 models, generated 2026-09-07T03:18:04.852121618+00:00
 
 ## Per-model battery
 
@@ -59,6 +59,17 @@
 | manifund-proposals | novel-world-expanding-hit | +0.53 |   n/a |   n/a | -0.18 | 0.19 | 0.32 | 7/6/87 | 1.00 | 98% | 7 | 0 |
 | manifund-proposals | theory-of-change | +0.21 |   n/a |   n/a | -0.19 | 0.20 | 0.27 | 12/3/85 | 1.00 | 98% | 1 | 0 |
 
+### google/gemma-4-12b-it  (2160 calls, 459s, 4.7 calls/s, $6.601)
+
+| lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lesswrong-posts | epistemic-rigor | +0.99 |   n/a |   n/a | -0.09 | 0.13 | 0.97 | 0/44/56 | 1.00 | 100% | 0 | 0 |
+| lesswrong-posts | novelty-of-insight | +0.99 |   n/a |   n/a | +0.01 | 0.09 | 0.93 | 2/49/49 | 1.00 | 99% | 5 | 0 |
+| lesswrong-posts | technical-alpha | +0.99 |   n/a |   n/a | +0.01 | 0.07 | 0.98 | 0/50/50 | 1.00 | 98% | 6 | 0 |
+| manifund-proposals | epistemic-pollution-restraint | +0.99 |   n/a |   n/a | +0.15 | 0.22 | 0.91 | 0/57/42 | 1.00 | 100% | 0 | 0 |
+| manifund-proposals | novel-world-expanding-hit | +0.99 |   n/a |   n/a | -0.17 | 0.17 | 0.97 | 1/41/59 | 1.00 | 99% | 4 | 0 |
+| manifund-proposals | theory-of-change | +0.99 |   n/a |   n/a | -0.08 | 0.14 | 0.91 | 0/44/56 | 1.00 | 100% | 0 | 0 |
+
 ### google/gemma-4-31b-it  (2160 calls, 217s, 10.0 calls/s, $0.728)
 
 | lens | axis | retest ρ | wording b ρ | wording c ρ | slot bias (nats) | slot |m| | decisive |m| | par/A/B % | vis mass | logprob | refused | failed |
@@ -105,28 +116,30 @@
 
 ## Inter-model agreement (pair-level Spearman of signed log-ratios, wording a, draw 0, mean over cells)
 
-| model | Qwen3-8B-FP8 | Qwen3.5-9B | Olmo-3-7B-Instruct | deepseek-v4-flash | deepseek-v4-pro | gemma-4-31b-it | granite-4.2-8b | Ministral-3-8B-Instruct-2512 | qwen3.7-flash | consensus (LOO) | vs gemma-4-31b-it | vs qwen3.7-flash |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Qwen3-8B-FP8 |   —  | +0.22 | +0.14 | +0.27 | +0.13 | +0.28 | -0.14 | +0.17 | +0.35 | +0.35 | +0.28 | +0.35 |
-| Qwen3.5-9B | +0.22 |   —  | +0.16 | +0.18 | +0.04 | +0.40 | -0.06 | -0.26 | +0.62 | +0.39 | +0.40 | +0.62 |
-| Olmo-3-7B-Instruct | +0.14 | +0.16 |   —  | +0.06 | +0.01 | +0.08 | +0.02 | +0.25 | +0.17 | +0.15 | +0.08 | +0.17 |
-| deepseek-v4-flash | +0.27 | +0.18 | +0.06 |   —  | +0.19 | +0.27 | -0.05 | -0.25 | +0.32 | +0.30 | +0.27 | +0.32 |
-| deepseek-v4-pro | +0.13 | +0.04 | +0.01 | +0.19 |   —  | +0.16 | +0.06 | -0.11 | +0.20 | +0.15 | +0.16 | +0.20 |
-| gemma-4-31b-it | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 |   —  | -0.04 | -0.36 | +0.80 | +0.52 |   n/a | +0.80 |
-| granite-4.2-8b | -0.14 | -0.06 | +0.02 | -0.05 | +0.06 | -0.04 |   —  | -0.11 | +0.06 | +0.00 | -0.04 | +0.06 |
-| Ministral-3-8B-Instruct-2512 | +0.17 | -0.26 | +0.25 | -0.25 | -0.11 | -0.36 | -0.11 |   —  | -0.16 | -0.16 | -0.36 | -0.16 |
-| qwen3.7-flash | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.80 | +0.06 | -0.16 |   —  | +0.67 | +0.80 |   n/a |
+| model | Qwen3-8B-FP8 | Qwen3.5-9B | Olmo-3-7B-Instruct | deepseek-v4-flash | deepseek-v4-pro | gemma-4-12b-it | gemma-4-31b-it | granite-4.2-8b | Ministral-3-8B-Instruct-2512 | qwen3.7-flash | consensus (LOO) | vs gemma-4-31b-it | vs qwen3.7-flash |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Qwen3-8B-FP8 |   —  | +0.22 | +0.14 | +0.27 | +0.13 | +0.29 | +0.28 | -0.14 | +0.17 | +0.35 | +0.36 | +0.28 | +0.35 |
+| Qwen3.5-9B | +0.22 |   —  | +0.16 | +0.18 | +0.04 | +0.40 | +0.40 | -0.06 | -0.26 | +0.62 | +0.39 | +0.40 | +0.62 |
+| Olmo-3-7B-Instruct | +0.14 | +0.16 |   —  | +0.06 | +0.01 | +0.13 | +0.08 | +0.02 | +0.25 | +0.17 | +0.16 | +0.08 | +0.17 |
+| deepseek-v4-flash | +0.27 | +0.18 | +0.06 |   —  | +0.19 | +0.26 | +0.27 | -0.05 | -0.25 | +0.32 | +0.29 | +0.27 | +0.32 |
+| deepseek-v4-pro | +0.13 | +0.04 | +0.01 | +0.19 |   —  | +0.19 | +0.16 | +0.06 | -0.11 | +0.20 | +0.16 | +0.16 | +0.20 |
+| gemma-4-12b-it | +0.29 | +0.40 | +0.13 | +0.26 | +0.19 |   —  | +0.88 | +0.04 | -0.30 | +0.84 | +0.69 | +0.88 | +0.84 |
+| gemma-4-31b-it | +0.28 | +0.40 | +0.08 | +0.27 | +0.16 | +0.88 |   —  | -0.04 | -0.36 | +0.80 | +0.66 |   n/a | +0.80 |
+| granite-4.2-8b | -0.14 | -0.06 | +0.02 | -0.05 | +0.06 | +0.04 | -0.04 |   —  | -0.11 | +0.06 | +0.00 | -0.04 | +0.06 |
+| Ministral-3-8B-Instruct-2512 | +0.17 | -0.26 | +0.25 | -0.25 | -0.11 | -0.30 | -0.36 | -0.11 |   —  | -0.16 | -0.27 | -0.36 | -0.16 |
+| qwen3.7-flash | +0.35 | +0.62 | +0.17 | +0.32 | +0.20 | +0.84 | +0.80 | +0.06 | -0.16 |   —  | +0.74 | +0.80 |   n/a |
 
 ## Per-cell agreement with consensus (LOO)
 
 | model | lesswrong-posts/epistemic-rigor | lesswrong-posts/novelty-of-insight | lesswrong-posts/technical-alpha | manifund-proposals/epistemic-pollution-restraint | manifund-proposals/novel-world-expanding-hit | manifund-proposals/theory-of-change |
 |---|---|---|---|---|---|---|
-| Qwen3-8B-FP8 | +0.19 | +0.28 | +0.35 | +0.35 | +0.42 | +0.50 |
-| Qwen3.5-9B | +0.38 | +0.42 | +0.46 | +0.40 | +0.37 | +0.33 |
-| Olmo-3-7B-Instruct | +0.13 | +0.10 | +0.19 | +0.28 | +0.16 | +0.07 |
-| deepseek-v4-flash | +0.26 | +0.15 | +0.31 | +0.30 | +0.52 | +0.23 |
-| deepseek-v4-pro | +0.12 | +0.14 | +0.34 | +0.16 | +0.18 | -0.02 |
-| gemma-4-31b-it | +0.49 | +0.65 | +0.71 | +0.48 | +0.60 | +0.18 |
-| granite-4.2-8b | +0.57 | -0.26 | +0.17 | -0.16 | -0.31 | +0.01 |
-| Ministral-3-8B-Instruct-2512 | -0.10 |   n/a |   n/a | -0.15 |   n/a | -0.23 |
-| qwen3.7-flash | +0.64 | +0.76 | +0.79 | +0.65 | +0.71 | +0.48 |
+| Qwen3-8B-FP8 | +0.24 | +0.30 | +0.36 | +0.32 | +0.41 | +0.52 |
+| Qwen3.5-9B | +0.32 | +0.44 | +0.49 | +0.39 | +0.38 | +0.34 |
+| Olmo-3-7B-Instruct | +0.16 | +0.12 | +0.16 | +0.29 | +0.17 | +0.04 |
+| deepseek-v4-flash | +0.26 | +0.20 | +0.32 | +0.30 | +0.52 | +0.17 |
+| deepseek-v4-pro | +0.11 | +0.11 | +0.34 | +0.23 | +0.19 | -0.01 |
+| gemma-4-12b-it | +0.65 | +0.79 | +0.73 | +0.75 | +0.67 | +0.55 |
+| gemma-4-31b-it | +0.66 | +0.77 | +0.80 | +0.57 | +0.72 | +0.46 |
+| granite-4.2-8b | +0.60 | -0.25 | +0.14 | -0.11 | -0.34 | -0.03 |
+| Ministral-3-8B-Instruct-2512 | -0.30 |   n/a |   n/a | -0.22 |   n/a | -0.29 |
+| qwen3.7-flash | +0.73 | +0.81 | +0.82 | +0.68 | +0.76 | +0.62 |
