@@ -252,9 +252,58 @@ What the numbers say:
 - Beyond one card the honest lever is data parallelism: three 5090s at
   10.8 calls/s each is ~32 calls/s, ~2.8M judgments a day at 4K chars.
 
-Round 3 (kernel round: FlashInfer attention, 8K/64K prefill chunks, bf16
-KV, bf16 weights) is queued on the GPU box as `bench/plan3.sh` and will be
-appended here.
+### Rounds 3–4: kernels and NVFP4 (same card, 4,000-char entity-ordered client unless noted)
+
+| config | calls/s | prompt tok/s | refused | vs ref |
+|---|---|---|---|---|
+| fp8 weights, fp8 KV, 32K chunks (baseline re-run) | 11.25 | 22.2K | 27 | +0.96 / +0.95 |
+| 8K prefill chunks | 12.13 | 23.9K | 27 | +0.96 |
+| 64K prefill chunks | 11.91 | 23.5K | 27 | — |
+| bf16 KV | 10.62 | 21.0K | 22 | +0.95 |
+| text-only load (`Gemma4ForCausalLM` via `--hf-overrides`) | 12.09 | 23.9K | 18 | +0.96 / +0.95 |
+| bf16 weights | does not fit: 24 GB weights leave no KV under a 32 GB card | | | |
+| FlashInfer attention (unified or text-only) | rejected: `partial multimodal token full attention not supported` | | | |
+| FlexAttention (bf16 KV; it rejects fp8 KV) | dies in CUDA-graph capture (`Dynamo recompile limit exceeded`) | | | |
+| **NVFP4 weights** (self-quantized, fp8 KV) | **20.42** | 40.3K | 39 | +0.93 / +0.92 |
+| NVFP4, full-length entities | **12.33** | 37.5K | 20 | +0.93 |
+
+- Prefill chunk size (8K/32K/64K → 12.1/11.3/11.9) and the text-only load
+  are within run-to-run noise on a card shared with a co-tenant trainer;
+  fp8 KV is worth ~6 % over bf16 KV. None of these move the 12K-token/s
+  constant.
+- The attention backend cannot be changed on this stack: FA2 stops at
+  head size 256, FA4 is gated to SM90/100/110, FlashInfer refuses gemma-4's
+  multimodal-prefix attention even when loaded text-only (the arch is
+  flagged `is_mm_prefix_lm` regardless), and FlexAttention crashes at
+  graph capture. Triton attention is the floor for gemma-4 on a 5090 with
+  vLLM 0.26.
+- **NVFP4 is the one kernel lever that works: 1.8–1.9× at every entity
+  length** (fp4 GEMMs on the SM120 tensor cores; ~22K computed tok/s vs
+  12K). Recipe: llm-compressor 0.13.0, `QuantizationModifier(targets=
+  "Linear", scheme="NVFP4")` over the language model only (lm_head and the
+  vision/audio embedders left bf16), calibrated on the 60 cohort texts at
+  2,048 tokens; 8 min on the card; 7.8 GB checkpoint at
+  `/data/judge-sweep/models/gemma-4-12b-it-NVFP4` on the GPU box (copy the
+  source `processor_config.json` in or vLLM's unified loader refuses it).
+  It costs fidelity: +0.93 against the reference where fp8 gives +0.98
+  full-length and +0.96 at 4K chars, and it acquires a slot preference
+  (580/457 A-vs-B, +0.14 nats; fp8 is 527/524, +0.00) that only the
+  both-orders design cancels.
+
+The throughput/fidelity ladder for one 5090, all entity-ordered:
+
+| setting | calls/s | vs ref |
+|---|---|---|
+| fp8, full text | 6.6 | +0.98 |
+| fp8, 4K chars | 10.8–11.3 | +0.96 |
+| NVFP4, full text | 12.3 | +0.93 |
+| NVFP4, 4K chars | 20.4 | +0.93 / +0.92 |
+| fp8, 2K chars | 20.7 | +0.90 |
+
+Pick by the fidelity the pass needs: fp8 at 4K chars for anything that
+feeds calibration or a reference tier; NVFP4 at 4K chars for bulk
+discovery passes where +0.93 is enough (it dominates fp8-at-2K at the same
+speed). Everything above scales linearly across cards.
 
 ## Files
 
@@ -264,10 +313,11 @@ appended here.
   pair, order, presented log-ratio mean/var, visible mass, logprob mode,
   refused/failed, tokens, latency. No entity text.
 - `items-ids.json` — cohort ids.
-- Throughput harness: `bench/bench.sh`, `bench/plan.sh`, `bench/plan3.sh`,
-  `bench/sidecar.sh` (metrics sampler), `bench/compare.py` (quality vs the
-  reference pack), `bench/bench.tsv` (one row per run), all on the GPU box
-  under `/data/judge-sweep/bench/`.
+- Throughput harness: `bench/bench.sh` (+ `bench-textonly.sh`), `bench/plan*.sh`
+  (rounds 1–6, slot-waiting, never preempting), `bench/sidecar.sh` (metrics
+  sampler), `bench/compare.py` (quality vs the reference pack),
+  `bench/bench.tsv` (one row per run), `nvfp4_quant.py` + `nvfp4-venv/`
+  (llm-compressor), all on the GPU box under `/data/judge-sweep/`.
 - Sweep runner, serve script and incident notes live on the GPU box under
   `/data/judge-sweep/` (README.md there documents claim/preempt etiquette
   and the day's incidents).
