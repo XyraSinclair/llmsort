@@ -198,6 +198,63 @@ theory-of-change were the weakest cells for every judge; under ordinal the
 reference cluster resolves them (+0.62 to +0.80), so the earlier "not
 well-posed" reading was an instrument artifact too.
 
+## Throughput: gemma-4-12b-it bulk elicitation on one 5090 (2026-09-07)
+
+Question: how many ordinal judgments per second can one 32 GB Blackwell
+card deliver, and what actually limits it. Harness: `bench/bench.sh` on
+the GPU box — one vLLM 0.26 server per config (fp8 weights at load,
+8K context, images/audio off), 1,080 calls per client run (same 60-item
+cohort, six lens×axis cells, wording a, one draw, both orders), fresh
+cardinal cache per run, counters read from vLLM `/metrics`. Quality is the
+pair-level Spearman of each run against the bakeoff's own gemma-4-12b
+ordinal pack (draws 0 and 1; the judge's retest agreement is +0.99).
+
+| server | client | calls/s | prompt tok/call | prefix hit | refused | vs ref |
+|---|---|---|---|---|---|---|
+| 16 seqs, bf16 KV (the sweep's shape) | concurrency 12 | 4.90 | ~3.1K | — | 6 | +0.99 |
+| 16 seqs, bf16 KV | concurrency 64 | 4.90 | ~3.1K | — | 6 | — |
+| 128 seqs, fp8 KV, 32K-token prefill chunks | concurrency 64 | 5.25 | ~3.1K | ~28 % | 11 | — |
+| same | concurrency 128 | 5.10 | 3.1K | 28 % | 11 | +0.98 |
+| same | 128, `--order entity` | **6.57** | 2.93K | 44 % | 11 | +0.98 |
+| same | 128, entity order, `--max-chars 4000` | **10.82** | 1.99K | 46 % | 27 | +0.96 / +0.95 |
+| same | 128, entity order, `--max-chars 2000` | **20.65** | 1.09K | 50 % | 48 | +0.90 |
+
+What the numbers say:
+
+- **The card computes a constant ~12K prompt tokens/s for this model**
+  (12.2K / 11.9K / 11.9K / 12.1K non-cached tokens per second across the
+  four instrumented runs, GPU busy 90–96 %). Throughput is therefore
+  12K ÷ (tokens the server must actually compute per call), and every
+  lever is either fewer computed tokens or a faster kernel.
+- **Client concurrency was never the limit** (12 vs 64: identical 4.90);
+  the server's 16-sequence cap was, and opening it to 128 sequences with
+  fp8 KV only buys 7 %, because the work is prefill-bound: ~2 generated
+  tokens per call (letter + end), `max_tokens` 16 is never reached.
+- **Ordering calls by the presented entity A** turns the prefix cache from
+  28 % to 44–50 % hits (the ceiling is 50 %: system + attribute + entity A
+  is shared, entity B must be read fresh each time) — +29 % at no quality
+  cost. The production planner should emit pairs grouped by first entity.
+- **Entity length is the big lever.** 4,000 chars per entity halves the
+  computed tokens (2.2× calls/s) and costs 0.03 of agreement with the
+  full-length judge (+0.96 vs a +0.99 retest) with 27 refusals of 1,080;
+  2,000 chars is 4.2× but drops to +0.90 with 48 refusals. Default to
+  4,000 for bulk passes; keep full text for the reference tier.
+- **Attention runs on the Triton backend for gemma-4 on this card.**
+  gemma-4 has 512-wide global-attention heads; on the 5090 (SM120) vLLM
+  has only FlashAttention 2, which stops at 256, and FA4 is gated to
+  SM90/100/110, so vLLM forces `TRITON_ATTN`. Attention is ~3 % of the
+  FLOPs at 3K tokens, so this bounds the loss at maybe 10–15 %;
+  FlashInfer lists head size 512 as supported and is the candidate fix.
+  The fp8 GEMM path is `CutlassFP8ScaledMMLinearKernel` (per-tensor
+  online quant); 12K tok/s × 24 GFLOP/token ≈ 290 TFLOP/s, roughly a
+  third of the card's dense fp8 peak.
+- Beyond one card the honest lever is data parallelism: three 5090s at
+  10.8 calls/s each is ~32 calls/s, ~2.8M judgments a day at 4K chars.
+
+Round 3 (kernel round: FlashInfer attention, 8K/64K prefill chunks, bf16
+KV, bf16 weights) is queued on the GPU box as `bench/plan3.sh` and will be
+appended here.
+
 ## Files
 
 - `pack/REPORT.md`, `pack-ordinal/REPORT.md` — full per-cell batteries and
@@ -206,6 +263,10 @@ well-posed" reading was an instrument artifact too.
   pair, order, presented log-ratio mean/var, visible mass, logprob mode,
   refused/failed, tokens, latency. No entity text.
 - `items-ids.json` — cohort ids.
+- Throughput harness: `bench/bench.sh`, `bench/plan.sh`, `bench/plan3.sh`,
+  `bench/sidecar.sh` (metrics sampler), `bench/compare.py` (quality vs the
+  reference pack), `bench/bench.tsv` (one row per run), all on the GPU box
+  under `/data/judge-sweep/bench/`.
 - Sweep runner, serve script and incident notes live on the GPU box under
   `/data/judge-sweep/` (README.md there documents claim/preempt etiquette
   and the day's incidents).
