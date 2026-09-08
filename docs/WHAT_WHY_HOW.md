@@ -87,34 +87,42 @@ happening; see probes; it cannot fix it).
 ## How to use it
 
 ```bash
-cargo install llmsorting --locked
+cargo install llmsort --locked
 export OPENROUTER_API_KEY=...
 # or, with a Claude Code subscription and no API key:
 #   --model claude-code/<model>  (21/21 decisive-pair agreement with the
 #   API rail at $0 marginal; research/notes/claudecode-vs-api-2026-08-06/RESULTS.md)
 
 # What will this cost? (no network)
-cardinal sort ideas.txt --by "expected impact" --estimate
+llmsort sort ideas.txt --by "expected impact" --estimate
 
-# Is this judge clean? (pennies)
-cardinal calibrate --models openai/gpt-5.4-mini
+# Sort (pairwise ratio, both orders, active planner, σ per item):
+llmsort sort ideas.txt --by "expected impact" --scores
 
-# Sharpen the criterion, then sort with full-PMF evidence:
-cardinal sort ideas.txt \
-  --by "$(cardinal elaborate --by 'expected impact')" \
-  --template ratio_letter_v1 --two-sided --scores
+# Bigger list, order is enough (~1/3 the cost, flip-rate gauge on stderr):
+llmsort sort ideas.txt --by "expected impact" --setwise
 
-# Reverse-engineer a ranking you already believe:
-cardinal explain my-ranking.txt --propose 3
+# Best 10 of many (setwise screen → certified pairwise refine):
+llmsort sort ideas.txt --by "expected impact" --setwise --top-k 10
+
+# Sharpen the criterion, probe whether it coheres, sort with full-PMF evidence:
+llmsort sort ideas.txt --by "expected impact" --elaborate --two-sided \
+  --also-by "how much this would move retention" --template ratio_letter_v1
+
+# One pair, audited for framing bias:
+llmsort judge @a.md @b.md --by "clarity" --orbit
 
 # Multiple objectives? The response carries the Pareto front and the
 # attribute correlation matrix — see docs and the multi_rerank API.
 ```
 
-The install command pulls the released crate from crates.io. A source
-install of current `main`
-(`cargo install --git https://github.com/XyraSinclair/llmsorting --locked`)
-and tagged binaries from GitHub Releases remain available.
+The install command pulls the released crate from crates.io; a source
+install of current `main` is
+`cargo install --git https://github.com/XyraSinclair/llmsort --locked`.
+Research verbs (`cardinal calibrate`, `cardinal explain`, the ordinal-letter
+instrument) live in the `experiments/` crate and are not part of the
+published surface. The method chooser and cost calculator at
+<https://llmsorting.com/methods.html> pick the flags for a given list.
 
 Every run prints its evidence summary: comparisons, cost, order flips,
 evidence health, stop reason. When something would be uninformative, it refuses
