@@ -326,6 +326,69 @@ pub(crate) async fn multi_rerank_with_failures(
         }
 
         if tasks.is_empty() {
+            // Coverage fallback. The frontier planner only proposes pairs
+            // around the k-boundary; once every one of those is refused or
+            // at its repeat cap it has nothing left, even with budget in
+            // hand and most pairs never asked. Spend the remainder sorting
+            // the list: rank-neighbour pairs first (stride 1), then wider
+            // strides, skipping anything refused or capped. Presentation
+            // follows the same counterbalance/randomization rules as the
+            // planned batch.
+            let ranked = manager.ranked_indices();
+            let mut coverage_seen: HashSet<(usize, usize, usize)> = HashSet::new();
+            'coverage: for stride in 1..ranked.len().max(1) {
+                for pos in 0..ranked.len().saturating_sub(stride) {
+                    let (i, j) = (ranked[pos], ranked[pos + stride]);
+                    let (a, b) = if i <= j { (i, j) } else { (j, i) };
+                    for attr_idx in 0..req.attributes.len() {
+                        let key = (attr_idx, a, b);
+                        if refused_pairs.contains(&key) || !coverage_seen.insert(key) {
+                            continue;
+                        }
+                        if let Some(max) = max_pair_repeats {
+                            if pair_repeats.get(&key).copied().unwrap_or(0.0) >= max as f64 {
+                                continue;
+                            }
+                        }
+                        if req.counterbalance_pairs {
+                            if tasks.len() + 2 > batch_size {
+                                break 'coverage;
+                            }
+                            for swapped in [false, true] {
+                                tasks.push(CompareTask {
+                                    key,
+                                    attr_idx,
+                                    i,
+                                    j,
+                                    swapped,
+                                });
+                            }
+                        } else {
+                            let swapped = if req.randomize_presentation_order {
+                                match presentation_rng.as_mut() {
+                                    Some(rng) => rng.gen_bool(0.5),
+                                    None => rand::thread_rng().gen_bool(0.5),
+                                }
+                            } else {
+                                false
+                            };
+                            tasks.push(CompareTask {
+                                key,
+                                attr_idx,
+                                i,
+                                j,
+                                swapped,
+                            });
+                        }
+                        if tasks.len() >= batch_size {
+                            break 'coverage;
+                        }
+                    }
+                }
+            }
+        }
+
+        if tasks.is_empty() {
             break 'rerank RerankStopReason::NoNewPairs;
         }
 

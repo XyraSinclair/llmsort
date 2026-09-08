@@ -1343,7 +1343,13 @@ fn build_rerank_request(request: &NormalizedJudgementRunRequest) -> MultiRerankR
                 .comparison_concurrency
                 .unwrap_or(COMPARISON_CONCURRENCY),
         ),
-        max_pair_repeats: None,
+        // One counterbalanced round per pair: 2 calls × nonce draws. Without
+        // a cap the frontier planner re-asks a tied boundary pair until the
+        // budget is gone (ledger 2026-09-05..07: median 7 of 20 entities
+        // touched, single pairs asked 80–136×, ~80% of a million rows were
+        // repeats). A deterministic judge cannot resolve a tie by repetition;
+        // the budget is worth more on uncovered pairs.
+        max_pair_repeats: Some(2 * request.nonce_draws.unwrap_or(1).max(1) as usize),
         randomize_presentation_order: true,
         counterbalance_pairs: true,
     }
