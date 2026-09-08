@@ -84,4 +84,8 @@ crates.io ships only the root package (`cargo publish -p llmsort`; the
 include-list excludes `experiments/` and `research/` — verify with
 `cargo package -p llmsort --list` when touching packaging). When changing
 public request/response shapes or CLI behavior, update examples, tests,
-and docs in the same change.
+and docs in the same change — including llmsorting.com (`exopriors-core`
+`sites/llmsorting.com/`): `methods.html` quotes `sort` flags and the
+calculator carries the pricing table; `guide.html` cites E-rungs by
+number and the judge bakeoff; `program.html` is rendered from
+`PROGRAM.md` at deploy.
