@@ -82,3 +82,19 @@ cross-family agreement ≥ ~0.7 with refusal denominators, coverage lift.
 - `experiments/examples/planner_coverage_repro.rs` — the no-LLM reproduction.
 - Queries used: `/tmp/consist.sql`, `/tmp/lrm.sql`, `/tmp/cov.sql`, `/tmp/after.sql`
   on the judge host (ad hoc; the shapes are reproduced in the tables above).
+
+## Early verdict on the ordinal switch (first 3 runs, 704 rows, 15:08 UTC)
+
+Same judge (gemma4-31b), same lens (lesswrong-posts), ordinal_letter_v1:
+
+| measure | ratio_letter_v1 (4 days) | ordinal_letter_v1 (first 62 both-order pairs) |
+|---|---|---|
+| same direction across presentation orders | 55% | **93.5%** |
+| order correlation of the signed read | 0.29 | **0.905** |
+| slot A rate | 36% | 31–41% (B 25–52%) — balanced |
+
+Refusals are the `!` "not applicable / undecidable" token, not ties (`=` was never
+chosen), and they are axis-shaped: 34–44% on `thought-experiment-rigor` (most posts
+contain no thought experiment) vs 7% on `theory-ladenness-awareness`. A refused pair
+is never re-asked, so that budget is spent honestly rather than on a coin flip. Keep
+watching the per-axis refusal denominator; the consistency bar (≥ 0.7) is cleared.
