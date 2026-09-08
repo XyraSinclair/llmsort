@@ -103,6 +103,9 @@ pub fn default_template_slug(model: Option<&str>) -> &'static str {
     match crate::rerank::comparison::seriate_logprob_route(model) {
         // Two-phase for reasoning-native judges; rationale and measured
         // numbers on `SeriateLogprobRoute::requires_effort_none`.
+        Some(route) if route.default_instrument.is_some() => {
+            route.default_instrument.unwrap_or(crate::rerank::comparison::RATIO_LETTER_SLUG)
+        }
         Some(route) if route.requires_effort_none => {
             crate::rerank::comparison::RATIO_LETTER_2P_SLUG
         }

@@ -52,6 +52,14 @@ pub struct SeriateLogprobRoute {
     /// unset effort also serves logprobs (5.1/5.2/5.4) measured WORSE under
     /// two-phase (5.4-mini: cyclic 11.7% vs 2.9%) and keep the plain rail.
     pub requires_effort_none: bool,
+    /// Operator-measured default instrument for this route, when the
+    /// ratio-letter rail is the wrong read for the judge. Ledger audit
+    /// 2026-09-08 on the local gemma-4 judges: ratio_letter_v1 direction
+    /// agreed with itself across presentation orders at chance (31b 55%,
+    /// 12b 19% — position-driven) with ~1% of pairs decisive, while the
+    /// bakeoff's ordinal_letter_v1 read is the measured instrument for
+    /// these models. `None` keeps the ratio-letter default.
+    pub default_instrument: Option<&'static str>,
 }
 
 pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
@@ -63,18 +71,23 @@ pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
     // endpoint (LOGPROBS.md doctrine: routes carry a probe, not a guess) and
     // records the route here. No reasoning pins: these are non-reasoning
     // dense judges; a reasoning-native judge does not belong in this list.
+    // An optional third field names the default instrument
+    // (`slug:top_n:ordinal`); anything else keeps ratio-letter.
     if let Ok(extra) = std::env::var("CARDINAL_SERIATE_LOGPROB_MODELS") {
         for entry in extra.split(',') {
-            let entry = entry.trim();
-            let (slug, top_n) = match entry.split_once(':') {
-                Some((slug, top_n)) => (slug, top_n.parse::<u32>().ok()),
-                None => (entry, None),
+            let mut fields = entry.trim().split(':');
+            let slug = fields.next().unwrap_or("");
+            let top_n = fields.next().and_then(|n| n.parse::<u32>().ok());
+            let default_instrument = match fields.next().map(str::trim) {
+                Some("ordinal") => Some(ORDINAL_LETTER_SLUG),
+                _ => None,
             };
             if !slug.is_empty() && slug.eq_ignore_ascii_case(&m) {
                 return Some(SeriateLogprobRoute {
                     top_n: top_n.filter(|n| (1..=64).contains(n)).unwrap_or(20),
                     pin_reasoning_off: false,
                     requires_effort_none: false,
+                    default_instrument,
                 });
             }
         }
@@ -84,6 +97,7 @@ pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
             top_n: 20,
             pin_reasoning_off: false,
             requires_effort_none: false,
+            default_instrument: None,
         });
     }
     // 5.x families serve exactly 5 alternatives at reasoning effort "none"
@@ -102,6 +116,7 @@ pub fn seriate_logprob_route(model: &str) -> Option<SeriateLogprobRoute> {
             pin_reasoning_off: true,
             requires_effort_none: m.starts_with("openai/gpt-5.5")
                 || m.starts_with("openai/gpt-5.6"),
+            default_instrument: None,
         });
     }
     None
