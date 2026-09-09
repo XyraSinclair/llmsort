@@ -15,7 +15,9 @@ measured record in three parts of deliberately different polish:
   live batteries, instruments whose evidence is not yet in. An instrument
   graduates into the crate only after its evidence pack earns it;
 - **`research/`** — the record: replayable evidence packs
-  (`research/artifacts/live/`, 38+ dated packs), dated investigation notes
+  (`research/artifacts/live/`, 38+ dated packs; packs whose cards describe
+  operator material live in a companion repo on owned infrastructure, never here),
+  dated investigation notes
   (`research/notes/`), campaign definitions (`research/campaigns/`,
   `research/batteries/`, `research/data/`), and python analysis
   (`research/scripts/`, `research/examples/`). `PROGRAM.md` at the root is
