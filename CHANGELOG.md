@@ -7,6 +7,11 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **`rank risk` relabelled.** The error-budget line printed it as "(top-k flip
+  probability)"; the value is Σ inversion probability over incumbent ×
+  challenger pairs at the top-k boundary — an expected count, routinely above
+  1 — so the label now reads "(expected top-k boundary inversions)". Output
+  string only; no numbers changed.
 - **Consistency line calibrated against reality — and made honest about
   what it measures.** 11 independent luna reruns of one cell measured 74%
   cross-run pairwise agreement where the posterior plug-in predicted

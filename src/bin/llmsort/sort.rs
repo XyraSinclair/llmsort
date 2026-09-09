@@ -519,7 +519,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     }
                     if meta.topk_error > 0.0 {
                         parts.push(format!(
-                            "rank risk {:.3} (top-k flip probability)",
+                            "rank risk {:.3} (expected top-k boundary inversions)",
                             meta.topk_error
                         ));
                     }
