@@ -108,10 +108,13 @@ degrade per-criterion accuracy versus m separate calls?
   tokens per pairwise-equivalent observation. Decision rule: adopt A if
   inflation < 0.10 and per-criterion agreement > 0.85 with flip rate
   unchanged; otherwise adopt the cached-prefix m-call fallback.
-- Instrument: extend `experiments/examples/setwise_cached.rs` with an ordinal
-  answer mode and an m-criteria prompt; run on the judge host under
-  `/srv/build/llmsort-bakeoff`, land under
-  `research/artifacts/live/multi-criteria-setwise-<date>/RESULTS.md`.
+- Instrument: `experiments/examples/multi_criteria_setwise.rs` (own binary rather
+  than an extension of `setwise_cached.rs`: it needs both arms over identical
+  presentations). Run 2026-09-11, verdict in
+  `research/artifacts/live/multi-criteria-setwise-2026-09-11/RESULTS.md`: joint
+  call is 0.36–0.40× the cost and passes all three bars on gemma-4-31b (halo
+  +0.001 on orthogonal criteria, agreement at the seed-noise floor); qwen-3.8-27b
+  fails the halo bar (+0.187) — joint is a per-judge property, gate it per preset.
 
 ## Handles
 

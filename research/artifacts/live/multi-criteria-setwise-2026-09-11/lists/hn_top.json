@@ -1,0 +1,162 @@
+[
+{
+"id": "49662371",
+"text": "Title: A misalignment of AI in mathematics\nURL: https://mathandai.org/\nPoints: 272 Comments: 359\n\nTop comment: As a mathematician maybe I am a little more optimistic than this declaration. I am thinking of Mochizuki's abc conjecture: He worked in relative isolation, and dumped a huge incomprehensible proof on the community (to oversimplify a bit). That's not totally unlike what might happen if AI generates a huge, incomprehensible proof of let's say RH. Well, what is the result? In the Mochizuki case, it was a lot of skepticism, but it also generated conferences, papers, talks in the hallway, discussions with students, and so on--a flurry of exactly that kind of community process that the declaration says is the main driver of mathematics. Ultimately we think a fatal flaw was found in Mochizuki's proof, so it didn't lead anywhere in particular. But in our hypothetical \"AI lean-verified proof of RH\" situation, it would presumably generate substantially more of that community activity we saw in the Mochizuki situation. And if it's correct, that community activity would be productive (expository talks, students given problems to flesh out or generalize, etc). Maybe mathematics just becomes a little more like other fields--relying on labs with lots of money for compute, digging through a corpus of AI-generated proofs, etc."
+},
+{
+"id": "49663373",
+"text": "Title: GrapheneOS' rewritten Messages app is released\nURL: https://github.com/GrapheneOS/Messaging/releases/tag/13\nPoints: 68 Comments: 26\n\nTop comment: Does anyone know if this is something that we can install now, or if it will show up in the next OS release?"
+},
+{
+"id": "49662214",
+"text": "Title: Λ Snap – An inviting programming language for kids and adults for CS study\nURL: https://snap.berkeley.edu/\nPoints: 69 Comments: 45\n\nTop comment: Scratch is how I first learned programming. I was building increasingly ambitious projects in it, and at some point the editor itself became the main thing I was fighting. Once a project got to around 10,000 blocks, it could get painfully laggy, and I ended up spending a lot of time engineering around Scratch's limits. That is what eventually led me to build goboscript: https://github.com/aspizu/goboscript I'm one of the programmers who owe their career to Scratch, this year, I joined https://ente.com as a software engineer. Scratch taught me how to code, and perhaps a bit of real-world engineering indirectly."
+},
+{
+"id": "49656225",
+"text": "Title: Claude is only available to people over 18 years\nURL: https://support.claude.com/en/articles/15171100-age-assurance-on-claude\nPoints: 485 Comments: 529\n\nTop comment: Claude Executive: Damn, we hardly know who our users are, can't we just force them to say their full name or ban them? Claude Product Manager: No, that'll piss people off too much, and sadly we can't just ask for ID either... Claude Executive: There must be some way we can force people to link their government IDs with our platform so our analytics get better and more accurate? Claude Product Manager: We could limit the platform to 18+ and use \"Age Verification\" as the reason for people to hand over IDs, seems other platforms had success with this approach Claude Executive: And we hardly have any users younger than 18 anyway, go for it!"
+},
+{
+"id": "49662767",
+"text": "Title: Litelm: LiteLLM Without the Bloat\nURL: https://github.com/kennethwolters/litelm\nPoints: 47 Comments: 17\n\nTop comment: I strongly recommend the authors rewrite the readme by hand. It’s kind of a snif test for how much care someone put into this project."
+},
+{
+"id": "49662672",
+"text": "Title: The EPA is planning to scrap public review rules for data center pollution\nURL: https://capitalbnews.org/data-centers-permit-rules-epa/\nPoints: 187 Comments: 118\n\nTop comment: This is bad news for everyone (well, except the high priests of the LLMs / nascent Cthulhoid godlings), but it certainly makes the communities who've successfully opposed data centers seem ever more justified in retrospect."
+},
+{
+"id": "49624717",
+"text": "Title: AlphaGenome maps 9B DNA variants\nURL: https://spectrum.ieee.org/alphagenome-atlas\nPoints: 28 Comments: 1\n\nTop comment: google PR machine on relatively low-impact science goin pretty hard"
+},
+{
+"id": "49662020",
+"text": "Title: Mind-altering drugs played key role in rise of Andean civilization\nURL: https://www.science.org/content/article/mind-altering-drugs-played-key-role-rise-andean-civilization\nPoints: 41 Comments: 24\n\nTop comment: I read many years ago that psychedelics are what lead to the formation of consciousness. And it’s supported by the fact that psychedelics are also a network like the brain is. And when taking them, your brain experiences plasticity and that’s what allows profound changes. A big part of our consciousness is the default mode network (which is a default of how we operate day to day, things we think about, etc). Psychedelics allow us to change that DMN, but may it have created it too?"
+},
+{
+"id": "49601138",
+"text": "Title: I've operated petabyte-scale ClickHouse clusters for 5 years\nURL: https://www.tinybird.co/blog/what-i-learned-operating-clickhouse\nPoints: 137 Comments: 52\n\nTop comment: > For loads with over 20k rows/s and people pushing changes, you may need a full-time person to handle the cluster and take a look at the crazy queries people are going to write. I think this was a benefit of DBA culture in previous eras. Not that the DBAs were specifically necessary to write good queries (often they'd need to work with application teams to guide them towards schemas/behavior that worked well) or to maintain the database (managed DB offerings obsolete a lot of this work), but because they functioned as gatekeepers and rate-limiters of what queries and schemas could exist. In that mode, DBAs functioned a bit like a human/process version of a thin microservice wrapping database access functionality. A big benefit was that the rate of change of queries/schema changes/access patterns was controlled and had a higher probability of being reviewed and thought about by humans before it went live. This also resulted in an increased end-database-user culture of trying to make existing schemas/query patterns work before jumping straight to bespoke access patterns. That culture's not what you want as e.g. a startup or pro-rapid-big-refactors shop, but it is what you want when your DB reliability needs or query rate/dataset size are high. I don't think it's a given that a gatekeeper team is worth the overhead and cost; that's situational. I do think that the code version of that team (aforementioned microservice that wraps DB accesses/schema changes and nothing else) is u"
+},
+{
+"id": "49660149",
+"text": "Title: Rune is now open source\nURL: https://rune.build/blog/rune-is-now-open-source\nPoints: 82 Comments: 33\n\nTop comment: You mentioned “it’s like driving a new car” in another thread; I tried Rune in an earlier incarnation, and it was more drastic than a new car. I’m a vim user, and so enabled the Vim option in onboarding - that was a big mistake, because I literally could not do anything without using vim motions. I felt like a helpless noob on my first unix, how-do-I-exit-this-dam-text-editor. I realized that your onboarding was also training, and that I could not do anything with Rune without going through that training, and so I immediately exited and uninstalled. The friction was much too much. I’m not sure if the onboarding is still like that :) If it is, my feedback would be have much much lower friction to try (or warnings for those who claim to use vim :)."
+},
+{
+"id": "49660555",
+"text": "Title: 118M Queries per Second on Neki\nURL: https://planetscale.com/blog/118-million-queries-per-second-on-neki\nPoints: 71 Comments: 33\n\nTop comment: In 2015, I was able to get to 1 million read/write queries per second on only a couple nodes and tested this with multiple databases, it required (at the time) decent network tuning and node placement inside AWS but it cost me about 10 to 15 dollars per run if I recall correctly, obviously there is the matter of scaling such performance and so I want to recognize the engineering effort gone into this but this is too much money. This reminds of when one of my teams used Hadoop to process only a a few terabytes of offline data and were able to process the WHOLE THING in only a few hours. I did not have the heart or courage to tell them during the demo that this was overkill, but I did write a very simple (and small) piece of code that could extract all the signals from the offline files in mere seconds with careful network planning and storage optimization and invited them for a demo/lunch and learn next week."
+},
+{
+"id": "49621546",
+"text": "Title: So you want to use OpenRouter?\nURL: https://mmoustafa.com/blog/so-you-want-to-use-openrouter/\nPoints: 630 Comments: 170\n\nTop comment: > The same model will benchmark very differently This is surprising to me. Does anyone have a definitive answer that accounts for this difference between providers? Do the benchmarks that Open Router runs not account for the stochastic nature of the models? Do the providers lie about quantization or context window sizing? Does Open Router not take into account variations for a given model? I could understand latency/cost benchmarks varying but not the actual generated token responses of the models given the exact same model parameters."
+},
+{
+"id": "49622406",
+"text": "Title: Logo Programming Language\nURL: https://el.media.mit.edu/logo-foundation/what_is_logo/logo_programming.html\nPoints: 181 Comments: 82\n\nTop comment: I myself learned programming with logo, at my school when I was 8 or 10. And it was a delight, I am so grateful it existed. But quite surprisingly, when later during my Ph.D. part of my time was dedicated to give exercises to students. And we used logo instead of the more usual programming languages. And I think it really helped them to really internalise programming a lot better. Typically, the latest exercices introduced recursion which is immediately visible as fractals. HIDETURTLE PENUP SETXY -200 0 RIGHT 90 PENDOWN to dragon :degree :size setpensize 1 if :size>5 [setpensize 2] if :size>10 [setpensize 3] if :size>20 [setpensize 4] if :size>40 [setpensize 5] ifelse :degree=0 [ fd :size ][ left 45 dragon (:degree-1) (size/4) right 90 dragon (:degree-1) (size/2) left 90 dragon (:degree-1) (size/4) right 45 ] end dragon 6 3000 if you want to give a try :)"
+},
+{
+"id": "49660676",
+"text": "Title: Show HN: Godot and Rust based multiplexer (terminal panes and more)\nURL: https://github.com/godot-pty/gpty\nPoints: 65 Comments: 36\n\nTop comment: If you squint, Godot has a cross platform hardware accelerated GUI. The editor is itself, in a sense, a Godot app and has builds for VR Headsets, Android, web apps, all the usual platforms. The extension api works pretty good too for Rust, and Rust itself has a fantastic cross platform and WASM story. It might be cursed, but it can get complicated stuff out the door and in anyone's hands fast. edit: they also recently created libgodot, which flips the model. Your application owns and controls whatever components you want to pull from Godot. Being open source and relatively legible of a code base you could presumably strip out a lot you don't need."
+},
+{
+"id": "49625108",
+"text": "Title: Eating Fruit Skins\nURL: https://pgadey.ca/blog/eating-fruit-skins/\nPoints: 18 Comments: 35\n\nTop comment: Eating an apple the right way: https://www.youtube.com/shorts/42b8Zah8-jM"
+},
+{
+"id": "49662367",
+"text": "Title: Room 641A\nURL: https://en.wikipedia.org/wiki/Room_641A\nPoints: 99 Comments: 22\n\nTop comment: 9/11 was the starting point for profiting from many places, but mainly for keeping Americans afraid and prompting them to turn against people from outside the country to justify military spending."
+},
+{
+"id": "49660576",
+"text": "Title: Global Glacier Extinction Explorer\nURL: https://glacierextinction.com\nPoints: 132 Comments: 47\n\nTop comment: In 2004, I visited New Zealand. It was my first international trip as part of a 6 week long geology field camp. One of the coolest experiences was getting to visit the Fox Glacier and Franz Josef Glacier on the South Island. Checking this out, I don't see the Fox Glacier or Franz Josef Glacier specifically listed in the search field, but moving the map around, I was able to find the ice fields. I see that they both will \"survive\" to 2100, but I wonder in what state. Check out this time lapse video from 2013 to 2018 showing the Franz Josef Glacier's drastic retreat! [3] [1] https://en.wikipedia.org/wiki/Franz_Josef_Glacier [2] https://en.wikipedia.org/wiki/Fox_Glacier [3] https://youtu.be/LUs_20kRHDw?si=k1nJB2z_kn8T--uT&t=17"
+},
+{
+"id": "49663054",
+"text": "Title: CIA Releases President's Daily Briefs in Commemoration of 9/11\nURL: https://www.cia.gov/stories/story/cia-releases-presidents-daily-briefs-in-commemoration-of-the-25th-anniversary-of-9-11/\nPoints: 38 Comments: 13\n\nTop comment: The thing missing from these briefs is the context. We're not seeing the hundreds or thousands of other daily reports that are mixed in and have to be acted on. It's easy to cherry pick after the fact. Case in point, just going off of the reports here it would have been hard to predict what happened. They were concerned about Bin Laden starting civil wars, taking embassies, launching a biological attack, cells in Europe, etc. And even their preliminary reports about a possible plane hijacking in the US presumed it would be a simple quid pro quo for prisoner releases. I'm worried this release is being thinly veiled as an attack on previous administrations. But it should be pointed out that the current administration eschews intelligence entirely and has no qualms about worsening the country's current security posture."
+},
+{
+"id": "49656471",
+"text": "Title: RTK reports token savings, but our cost benchmarks disagree\nURL: https://quesma.com/blog/does-rtk-make-ai-coding-cheaper/\nPoints: 129 Comments: 60\n\nTop comment: All of these \"hacks\" are snakeoil and I think deep down we all know. Whether it's caveman, RTK, or whatever other vibe-coded productivity/token cost saving hacks/skills/claude.md. What I had success with (although benchmarks are older) is to index the codebase with a dedicated local code embedding model. It's a bit expensive on the CPU side but in my benchmarks it reduced token use and wall clock time significantly. Of course, it's always dependent on statistical noise + host system load, and running sufficiently large benchmarks is simply too expensive, so take em with a grain of salt. Why does it work you may ask? Well, LLMs basically brute force words/phrases and pipe that into find/grep/pgrep/whatever (or as recently discussed here write a python script for it - https://news.ycombinator.com/item?id=49654229 ). Semantic search looks for similarities so you have to do less brute forcing. Comes of course at the cost of indexing everything first. You can find the project here: https://github.com/ory/lumen"
+},
+{
+"id": "49649789",
+"text": "Title: Show HN: Bodily Oddities\nURL: https://vester.si/bodily-oddities/\nPoints: 116 Comments: 101\n\nTop comment: Interesting site. I get the occasional Hypnopompic auditory illusion ( https://vester.si/bodily-oddities/oddities/hypnagogic-halluc... ). This is when you think you hear a sound as you wake up. For me it is normally an illusory door bell. It is very convincing. You rush down to the door and there is no-one there and my wife heard nothing. Maybe happens 2 or 3 times a year. I also get the occasional weird nerve shock. It feels like an electric shock down through my collar bone. It lasts less than a second, is always completely unexpected and is quite unpleasant, enough to make me flinch. It doesn't seem related to what I am doing. Maybe happens 6 times a year. Didn't see it mentioned. Does anyone else get this, or am I just weird?"
+},
+{
+"id": "49658311",
+"text": "Title: Measuring the sloppiness of code\nURL: https://earendil.com/posts/measuring-code-sloppiness/\nPoints: 203 Comments: 211\n\nTop comment: All: please don't post generic reflexive reactions to titles. That's covered by this guideline, among others, in https://news.ycombinator.com/newsguidelines.html : \" Please don't pick the most provocative thing in an article or post to complain about in the thread. Find something interesting to respond to instead. \" I've taken the provocative bit out of the title above, but please remember that we want reflective comments, not reflexive ones, in HN threads. https://hn.algolia.com/?dateRange=all&page=0&prefix=true&sor... ."
+},
+{
+"id": "49618087",
+"text": "Title: Stop making swap partitions—use swap files instead\nURL: https://gist.github.com/joshenders/c4960cec9c63a7b7d68ffa9543356c43\nPoints: 74 Comments: 130\n\nTop comment: I'll continue listening to my OS vendor rather than this random github user with some broken links, thanks. (I’m not interested in being educated on this, I have better things to do. Bring it up with Debian.)"
+},
+{
+"id": "49662990",
+"text": "Title: I spent $220 on Google app ads. 60% of the installs were robots\nURL: https://dayzlegame.com/blog/google-ads-bot-farm/\nPoints: 8 Comments: 1\n\nTop comment: > I’ll report back on the refund. Good luck on that. I have sympathy for OP, but running ads is really hard. It's why most people set targets for things that happen in the app (OP updated to a target of winning a game, not just installing), and why companies have entire teams dedicated to monitoring Google/Meta/X ads. Trial runs are often thousands of dollars, and it's easy to evaporate money. I've made the same mistakes, and its why y-combinator strongly recommends against running online ads, especially in the beginning."
+},
+{
+"id": "49651046",
+"text": "Title: Copying login keychains between Macs fails on Secure Enclave Macs with Tahoe\nURL: https://derflounder.wordpress.com/2026/09/08/manually-copying-login-keychain-files-from-one-mac-to-another-no-longer-works-on-secure-enclave-equipped-macs-running-macos-tahoe/\nPoints: 59 Comments: 47\n\nTop comment: Disturbing if true, as it suggests my \"everything\" backups aren't really full backups at all. I wonder, if you have enabled iCloud keychain, does that provide another way to get your passwords back? Suppose my MacBook is stolen, but I still have my iPhone. Could I use the passwords app on the iPhone to retrieve my passwords. Would that include all of them or only a subset?"
+},
+{
+"id": "49613507",
+"text": "Title: Copper lined vest to help penguins with recovery\nURL: https://apnews.com/article/chile-el-nino-humboldt-penguins-vulnerable-injuries-rehabilitation-6e93b8d4eaef903e4c85d16ade7d5881\nPoints: 38 Comments: 14\n\nTop comment: > an unlikely new garment for injured penguins — snug red vests threaded with copper and zinc that they hope will help the aquatic birds heal faster. Ointments with zinc oxide and with basic carbonates of copper were already frequently used in the Greek-Roman Antiquity. For instance Pliny the Elder described their medicinal uses. Pure metallic zinc was unknown in the Antiquity, but brass, i.e. the copper-zinc alloy, was in widespread use in the Roman Empire, for various items that were intended to be resistant to rust, e.g. for belt buckles. When brass was smelted, some of the zinc evaporated and it was oxidized by the air, then it condensated as white zinc oxide on the colder parts of the installation, from where it was collected and sold to medicine doctors, for the preparation of medicinal ointments. The basic carbonates of copper are the green corrosion products that cover copper and bronze objects that are exposed to the atmosphere. In Antiquity, that corroded layer was removed and used in the preparation of ointments."
+},
+{
+"id": "49659245",
+"text": "Title: HuggingFace: Security.txt\nURL: https://huggingface.co/security.txt\nPoints: 207 Comments: 54\n\nTop comment: Is the expires a canary of some sort?"
+},
+{
+"id": "49659647",
+"text": "Title: Show HN: Hacker News, without AI\nURL: https://hcker.news/?ai=exclude\nPoints: 136 Comments: 70\n\nTop comment: For Hacker News without AI, can I suggest the domain of news.ycombntor.com ?"
+},
+{
+"id": "49610834",
+"text": "Title: How the Chorleywood Bread Process transformed British bread\nURL: https://edconway.substack.com/p/the-little-holes-in-your-bread-are\nPoints: 72 Comments: 82\n\nTop comment: Caught me at the right time. I've been baking on and off for twenty years, but it's only recently I've started to consider what I'm working with in any detail. I'm absolutely aware of the difference between British and imported wheat. Results are very much improved and work is made easier by using very strong Canadian flour, but supporting British business (I'm a Londoner) add complexity to the choice. I buy flour made from British wheat, but it requires extra effort to achieve an almost-as-good result as when working with imported flour. This difference is particularly interesting for me. The industry that provides my current career (I'm a CG artist) is undergoing significant changes. I look to the future and a contemplate a possible change of career. Do I buy Canadian flour and deliver a product that people expect? Do I sacrifice a little of the result, at least while I learn how to work more effectively with British flour, in order to be able to promote myself as a small business supporting UK enterprise. Decisions, decisions. What an odd morning on HN."
+},
+{
+"id": "49660482",
+"text": "Title: Hacker News with reduced priority for AI driven content\nURL: https://sprinklz.io/public/pdwt4dve5uai\nPoints: 86 Comments: 50\n\nTop comment: Slow but necessary My interest in HN has decreased since it feels every other news is about AI However I'll use the other links provided here, as it takes 10s to display"
+},
+{
+"id": "49652105",
+"text": "Title: Google will buy half the electricity from one of Finland's nuclear power plants\nURL: https://www.bbc.com/news/articles/c8r6y4me2g6o\nPoints: 281 Comments: 272\n\nTop comment: This is basically due to Google probably rightly believing that electricity price in Finland is going up due to all these datacenters and also a pr stunt that the current government loves because they can claim that they aren't allowing these datacenters to raise electricity price. This isn't investing in power infrastructure in any way, there is no reality where that nuclear plant wasn't staying in operation as long as they can possibly keep it running in the foreseeable future. Basically only way Google and Fortum will be building new nuclear capacity is by Finland promising to cover any electricity price below 15 cents per kWh in the market."
+},
+{
+"id": "49660783",
+"text": "Title: Show HN: Hacker News, Without AI\nURL: https://www.unslop.news/\nPoints: 149 Comments: 65\n\nTop comment: Without AI, using AI to accomplish it's goal. And built using AI. My friends we are in the future."
+},
+{
+"id": "49655286",
+"text": "Title: Cherenkov Radiation\nURL: http://www.iaea.org/newscenter/news/what-is-cherenkov-radiation\nPoints: 209 Comments: 92\n\nTop comment: The title (likely intentionally) is misleading, it should say \"travelling faster than light in a medium\". Nothing here travels faster than light in vacuum. BTW there are special types of telescopes used to observe gamma rays - they cannot see gamma ray directly but observe a flash of Cherenkov light of a cascade of charged particles created when gamma ray hits atoms in the atmosphere. Those telescopes are Imaging Atmospheric Cherenkov Telescopes [1]. 1. https://en.wikipedia.org/wiki/MAGIC_(telescope) or https://en.wikipedia.org/wiki/VERITAS or https://en.wikipedia.org/wiki/High_Energy_Stereoscopic_Syste... or https://en.wikipedia.org/wiki/Cherenkov_Telescope_Array_Obse..."
+},
+{
+"id": "49611240",
+"text": "Title: iPod Classic 6G in QEMU\nURL: https://www.reddit.com/r/emulation/s/VL4Au2HGxq\nPoints: 137 Comments: 41\n\nTop comment: I've been developing a QEMU emulator for the iPod Classic 6G (Samsung S5L8702) that boots the original, unmodified Apple retailOS. Navigation, the disc, the screen, and the music library worked for a while, but the music player appeared partially rendered and without sound. There were four different errors, and the last one was my fault in a way that I found amusing enough to write about. For months I've been trying to emulate the iPod Classic 6G I have in my drawer, without success. After a long time, I finally managed to get it running, although it's still somewhat rough. In QEMU, I managed to boot the original, unmodified Apple retailOS. Navigation, the disc, the screen, and the music library worked for a while, but the music player appeared partially rendered and without sound. One thing we already know is that the firmware is from Apple and is encrypted, so there's no legal download. I have an iPod Classic 6G from 2008. With the help of Claude Code, I was able to create code to extract it using emCORE. I extracted the contents of the flash memory and decrypted the image myself. and the boot ROM cannot be read from the running device. I confirmed the latter the hard way, and along the way, my iPod restarted several times (pressing the center and menu buttons for 5 seconds to restart it). There is no datasheet for the SoC. Each model register that allows unlocking some part of the guest is derived from a write operation performed by the guest itself, Code and notes, includ"
+},
+{
+"id": "49664574",
+"text": "Title: The Netherlands, Spain push for EU-wide minimum age on social media\nURL: https://www.euronews.com/my-europe/2026/09/11/the-netherlands-spain-push-for-eu-wide-minimum-age-on-social-media\nPoints: 10 Comments: 0\n\nTop comment: "
+},
+{
+"id": "49658302",
+"text": "Title: Re-Engineering YouTube for the Living Room: Bringing \"Chrobalt\" to RDK\nURL: https://www.collabora.com/news-and-blog/news-and-events/re-engineering-youtube-for-the-living-room-bringing-%E2%80%9Cchrobalt%E2%80%9D-to-rdk.html\nPoints: 32 Comments: 12\n\nTop comment: This also lets them clamp down more on youtube-downloader tools. When they rely on the TV's own browser engine, the client fingerprints can vary a lot between devices and firmware updates. This makes \"pretend to be a random smart TV\" an attractive way of implementing a download tool. If they control the engine, they control the fingerprint, making it easier for them to detect and harder for 3rd party clients to spoof."
+},
+{
+"id": "49658299",
+"text": "Title: Houthis 'take control' of key island in global shipping route\nURL: https://www.bbc.com/news/live/cmd683p01eljt\nPoints: 337 Comments: 571\n\nTop comment: The Houthis created a fake audio of a major Yemeni commander telling his troops to retreat which was subsequently amplified on Twitter/X, telegram, etc. Apparently, this helped the Houthis advance quickly as the opposition forces were in disarray. https://x.com/BashaReport/status/2097862335494795579"
+},
+{
+"id": "49606281",
+"text": "Title: Working with Git Worktrees in Magit\nURL: https://emacsredux.com/blog/2026/09/02/working-with-git-worktrees-in-magit/\nPoints: 108 Comments: 47\n\nTop comment: The problem I have with worktrees is that if I want to test the changes I need to juggle the worktrees. It works better for me if I have multiple copies of the repo with their own supporting environment like repo-a, repo-b, etc. going to app-a.foo.localhost, app-b.foo.localhost, etc."
+},
+{
+"id": "49610596",
+"text": "Title: An interactive tour of the spanning tree protocol\nURL: https://vincent.bernat.ch/en/blog/2026-spanning-tree\nPoints: 86 Comments: 8\n\nTop comment: It's a nice article and the animations are functional and aesthetically pleasing. I used to teach this on a whiteboard at my local community college. This is much slicker (and involves a lot less scribbling and erasing). Spanning tree is an elegant protocol for the constraints it was invented under. Radia Perlman's poem-- particularly the last two stanzas-- also makes me very happy. Aside: I enjoy the typographical error in the paragraph under the \"Topology change notification\" heading: When a link fails, a connected fridge reachable..."
+},
+{
+"id": "49603397",
+"text": "Title: RISC-V Emulator and Linux System from Scratch\nURL: https://github.com/WerWolv/riscv-emulator\nPoints: 51 Comments: 7\n\nTop comment: Slight tangent: I made a similar but simpler project that runs DOOM on a custom RISC-V emulator: https://github.com/lalitshankarch/rvcore"
+},
+{
+"id": "49662496",
+"text": "Title: Show HN: Toast, a beautiful by default in terminal IDE\nURL: https://github.com/paradise-runner/toast\nPoints: 67 Comments: 69\n\nTop comment: The \"Emacs doesn't have a file-tree\" is when I stopped short and wondered what this person's background is in IDEs. My emacs days are 1999 during my \"functional or get out\" phase, but my .emacs had close to 4000 lines in it, including xterm mouse support, a clone of midnight commander + sftp to a wehbost and deep integration with ctags/cscope/c++filt. There was even a line by line debugger with custom .gdbinit commands - look at the php project's gdbinit[1] if you want an idea of how to walk your own super special data structures. You can't put Emacs in an IDE comparison and say anything about features without at least one person saying \"well, actually\". I eventually switched to vim but that had to do with needing to ssh into 100k+ machines on support rotation & never having emacs on any of them. [1] - https://github.com/php/php-src/blob/master/.gdbinit"
+}
+]
