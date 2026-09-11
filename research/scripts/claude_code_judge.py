@@ -156,7 +156,12 @@ def main():
         if out is not None and not d.get("is_error"):
             u = d.get("usage", {})
             print(json.dumps({
-                "model": next(iter(d.get("modelUsage", {})), None),
+                # The model that did the work: the CLI now lists a Haiku
+                # side-call (session title) first in modelUsage, so "first key"
+                # read every Fable turn as haiku (2026-09-10). Max cost is the
+                # main turn on every observed shape.
+                "model": max(d.get("modelUsage", {}) or {None: None},
+                             key=lambda k: (d["modelUsage"][k] or {}).get("costUSD", 0) if k else 0),
                 "api_ms": d.get("duration_api_ms"),
                 "turns": d.get("num_turns"),
                 "out_tokens": u.get("output_tokens"),
