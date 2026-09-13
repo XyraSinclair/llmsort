@@ -120,6 +120,25 @@ cent — and is the thing to run when adding a preset.
 - `gpt-oss-120b` at `reasoning_effort: low` answers correctly with ~65 reasoning tokens per
   call — usable, ~7× the output tokens of qwen.
 
+## Addendum 2026-09-13: Cerebras gpt-oss-120b (`reasoning_effort: low`)
+
+Run after the dedicated-endpoint question: is there a joint-safe judge on Cerebras' public
+tier? `summary-{hn_top,lw}_cerebras_gptoss.md`. Concurrency 2, 0 errored / 0 malformed across
+112 calls, 42 separate calls in 5–7 s.
+
+| list | ρ(separate, joint) | top-10 overlap | halo inflation | flip separate → joint |
+|---|---|---|---|---|
+| hn_top | +0.852 / +0.802 / +0.824 | .70 / .60 / .70 | +0.088 | .138/.209/.179 → .194/.306/.173 |
+| lw | +0.909 / +0.947 / +0.879 | .80 / .90 / .70 | +0.117 | .235/.128/.194 → .204/.138/.143 |
+
+Fails: two of three hn_top criteria are under the 0.85 agreement bar, lw halo is over 0.10,
+and hn_top `credible` flip rises .21 → .31. It is also the noisiest judge of the three in the
+separate arm (flip .13–.24 vs gemma .05–.15). Usable on Cerebras as a **separate-call** judge;
+not joint-safe. Nothing on Cerebras' public tier is joint-safe at this n; gemma-4-31b via
+OpenRouter remains the joint-safe judge. A Cerebras dedicated gemma-4-31b endpoint would buy
+latency only (~5 s → ~1–2 s per 40-item sort) at reserved-capacity contract pricing versus
+$0.0076 per sort on OpenRouter — not pursued.
+
 ## Caveats
 
 n=40 per list, two lists, one seed replicate, two judges. Agreement and halo are measured against
