@@ -1,0 +1,14 @@
+[
+ {
+  "name": "novelty",
+  "prompt": "Novelty of insight: how much genuinely new understanding the post contributes — an idea, distinction, or synthesis a well-read rationalist would not already possess."
+ },
+ {
+  "name": "alpha",
+  "prompt": "Technical alpha: how much genuine, exciting technical signal the text delivers to a top-percentile practitioner already fluent in its area — mechanisms, measurements, techniques, or design-space dimensions they did not already hold and could not cheaply regenerate from standard documentation — as opposed to noise: competent restatement of known material, topic heat, jargon, or performed novelty."
+ },
+ {
+  "name": "rigor",
+  "prompt": "Epistemic rigor: how carefully the post handles evidence and inference — claims proportioned to support, alternatives considered, uncertainty stated where it exists."
+ }
+]

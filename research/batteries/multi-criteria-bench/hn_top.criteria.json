@@ -1,0 +1,14 @@
+[
+ {
+  "name": "interesting",
+  "prompt": "Interesting: how much a curious, technically literate reader would want to read this — surprising, substantive, or thought-provoking rather than routine."
+ },
+ {
+  "name": "credible",
+  "prompt": "Credibility: evidence, named sources, careful reasoning — how much the claims can be trusted as stated."
+ },
+ {
+  "name": "actionable",
+  "prompt": "Actionable: gives a concrete thing a reader can do, try, or build with, rather than commentary alone."
+ }
+]

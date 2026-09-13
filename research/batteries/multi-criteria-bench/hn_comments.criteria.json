@@ -1,0 +1,14 @@
+[
+ {
+  "name": "informative",
+  "prompt": "Informative: how much concrete, checkable knowledge the comment adds — facts, mechanisms, first-hand experience, specifics a reader did not already have."
+ },
+ {
+  "name": "civil",
+  "prompt": "Civil: how courteous and good-faith the comment is toward the people and views it discusses — no contempt, sneering, or personal attacks."
+ },
+ {
+  "name": "concise",
+  "prompt": "Concise: says what it has to say in few words — no padding, throat-clearing, or repetition — regardless of how much it says."
+ }
+]

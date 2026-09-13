@@ -1,0 +1,162 @@
+[
+ {
+  "id": "49421698",
+  "text": "I get the privacy concerns, and we are right to expect Microsoft to say that this is what their tool may be doing. However, I fear that one day we will look back and wonder why we didn't do more to sign and preserve human authenticity. Having a stamp saying \"AI manipulated\" should be a part of digital lineage tooling."
+ },
+ {
+  "id": "49426208",
+  "text": "It is quite likely that Snipping Tool is also doing this. Every camera also leaves device specific signature because of its inherent silicon sensor defects.\n\nIf you want to stay anonymous, don't share images you can't verify at the byte level. Apply filtering to decrease the low bit noise that could hide cryptographic signatures. Don't trust complex container formats.\n\nSee e.g. PPM format:\nhttps://www.cs.swarthmore.edu/~soni/cs35/f13/Labs/extras/01/...\n\nThese days entire scenes can be tweaked by AI to add unimportant but identifying marks, at a level far above signal processing tricks, like moving objects in the scene. Verify from multiple sources."
+ },
+ {
+  "id": "49417789",
+  "text": "I get the concept and use case - but equifax has a reputation on par with klan members and pedos...at least be self aware enough to know to conceal your true form! Phillip Morris became Altria or whatever.\n\nPlus, I can verify for employers that I am a real human with a real employment history snd I can prove it...by giving them my SSN and Mother's Maiden name? What stops a bad guy from speed rushing the dark web, registering these things en masse and selling access to DPRK?"
+ },
+ {
+  "id": "49423510",
+  "text": "Please educate YOURSELF about criminal actions by a company is a fine (read: cost of doing business), whereas criminal actions by a person get years/decades long prison time and life-long ramifications after the actual punishment.\n\nAnd PACER is federal court documents. Its a fucking scam and travesty that a system soo heavily built on precedent gatekeeps its own law at $.10/page.\n\nAaron is a motherfucking hero."
+ },
+ {
+  "id": "49413995",
+  "text": "Are you making a serious argument that superhuman intelligence is a plausible outcome of training LLMs on everything humanity knows so far? Or are you making the generic assertion that AGI is theoretically possible via means other than emulating the human brain? Because the latter is a strawman (nobody has asserted anything to the contrary), and I have seen no evidence at all to support the former."
+ },
+ {
+  "id": "49420223",
+  "text": "The socialist state of the EU is why god invented tax planning and the possibility to open your company abroad.\n\nI've been doing business in the EU a long time, and in order to be successful you need to:\n\n1. Never follow all the rules. Focus on your business and customers, and ignore/pay someone to deal with the rest if it ever becomes reality.\n\n2. Start your company in a low cost, low tax jurisdiction. There are plenty of them in the forgotten corners of the EU, or why not a US LLC.\n\nBut I think the EU will implode in a decade or two and return europe to a state of innovation and profitability. The nationalist trend will lock any decision making in the EU, and the EU:s deep state will take care of the rest, enriching itself at the cost of the tax payer. The result... countries will leave or just silently start to ignore the EU rules, and then block any legal moves the EU tries to attempt at the EU level."
+ },
+ {
+  "id": "49421124",
+  "text": "CSS wasn’t around in the early web.\n\nBuilding a browser in the early web was actually a very achievable goal for exactly the reasons it isn’t now. There was not JS. No CSS. No SVG. In fact very few widely supported image formats (and graphical browsers weren’t around in the earliest days of the web anyway). TLS didn’t exist. HTML only had a subset of methods. And even POST was usually just managed by CGI/BIN calling an external process, often written in C++ or Perl.\n\nIt was a simpler time."
+ },
+ {
+  "id": "49422464",
+  "text": "I think it depends on (1) customer expectations for freshness and (2) scale (both for the cubes and for the customer data in toto). There are many types of customer facing dashboards where giving \"live data\" is a bad idea for them and for you. And recomputation is indeed a problem, but if the volume of data isn't that high to begin with, it's probably easier than setting up an incremental pipeline architecture vs. a grouping set query in DuckDB."
+ },
+ {
+  "id": "49427282",
+  "text": "Yes, go observe a broad array of sites - for someone who says theyre a (non)practicing attorney, you know in environments where logs and audit are considered evidence, to such a degree that they must be reliably transported and immunutable, someone doesn't just turn on UDP syslog to a box and let it sit there. Architecture and implementation happen, where it matters. So what if anyone uses otel or syslog, people can configure em both to be lossy or lossless, I struggle to understand the \"gotchas\" you point to."
+ },
+ {
+  "id": "49413856",
+  "text": "> One definition of a cult I've liked is \"A cult is a group you can't leave with your dignity intact\". You can really get a good understanding if something is a cult by the way they talk about their ex members. A healthy organization will pretty much just say \"Sad to see you go, come back anytime\". Unhealthy organizations spend a fair amount of time warning members about how how dangerous/bad/sinful/sad/miserable their ex members are.\n\nOK but those without dignity here are the ones acting like that, not the person leaving.\n\n> And yes, I'd call several mainstream religions cults because of this.\n\nOh definitely. And it's disgusting that their hate speech is protected because it's religious."
+ },
+ {
+  "id": "49413914",
+  "text": "I agree they’ve done a bit too many pricing / usage promotions and A/B tests.\n\nThe period was also marked with many billing bugs, like spending people’s usage credits for included Fable for a few hours (gave me a huge shock), but to their credit they refunded it.\n\nAs of the weekend, it seems they’re actively A/B testing effort/juice values for Fable in Claude Code: https://x.com/argofowl/status/2091145834968850821\n\nAn Anthropic employee did reply on X confirming it was an A/B test and shouldn’t impact performance, but that seems to be deleted."
+ },
+ {
+  "id": "49420815",
+  "text": "For any one interested in how deep these sort regulatory capture laws go in the EU, they can look at the deforestation laws on Agri. Pointlessly difficult for small farmers and medium and commodity traders to cooperate with demanding highly accurate coordinates for plots of land using specialized GPS devices and companies to plot the perimeter of the farm being very difficult to comply with getting the devices in place and plotting none of this actually stopping bad actors who simply lie about the origin of the commodities. I am some one who thinks environmental protection is important but these laws pretend to solve the issue while do very little and just add all these pointless tasks that become easy once you own lots of farm land like say nestle (though they pretend that it's the big players who are going to have a hard time). I deeply hate the EU but love Europe as a European, I hope Europe breaks from the chains of this pointless post war project."
+ },
+ {
+  "id": "49420817",
+  "text": "No one has to buy anything for the system to work. You buy because you beneficially contributed to the system or the system gifted you some credit. Otherwise, you buying is actually \"inflating\" consumption for others (ie: the rich). There are billions of people in the world buying nothing and yet the \"system\" still work. They just want you to be lined up to them next. (or line them up next to you)."
+ },
+ {
+  "id": "49423702",
+  "text": "The low-end millionaires run interference for the billionaires.\n\nRegardless of who's actually at fault, if the low-end millionaires were to publicly and materially side with the remaining middle class, working class, poor, and indigent, their combined influence would be irresistable - which is basically what you said, I'll admit. But my point is that the millionaires are the last holdouts.\n\nIf every American with a sub-8-figure net worth held back their property payments for 6 months, they could collectively have anything they asked for. Anything."
+ },
+ {
+  "id": "49419287",
+  "text": "I agree with the parent commenter – it's too on the nose.\n\nIf you were concerned about someone's character then you need to ask questions which really help you to understand who the person is – not questions which are easy to game by lying.\n\nI'd argue asking something like someone's opinion on veganism is a better question because it might help you understand how the person thinks about the types of harms Anthropic are concerned about without being such an easy thing to lie about.\n\nObviously they could say \"yeah, I think veganism is good\", but someone who actually inhabited that view or was just conflicted about balancing meat consumption and the suffering of animals would probably answer with a lot more nuance that helps you understand how that person thinks about similar kinds of ethical concerns."
+ },
+ {
+  "id": "49415400",
+  "text": "For most users, Kubernetes has added complexity and cost, but not value. The sooner we realize this, the sooner we start thinking about how things should be built. Whether or not you have LLMs has nothing to do with that. The LLM will happily help build your crap even faster!\n\nMaybe people will finally realize they need to start rethinking infrastructure automation. I am."
+ },
+ {
+  "id": "49419496",
+  "text": "The terrible part to me is them saying \"the majority of cases are resolved within 24 hours\", this should be like a 15-minute delay at most when you can present your passport with its number which also matches your biometrics (as would be the case with twins).\n\nI myself recently had a 10-minute or so delay due to a visa issue. I was departing from Johannesburg and was going to use my Italian passport for entry into New Zealand. I had acquired an NZeTA visa about 15 months before but didn't think to consider until checking in that it was against my previous passport number which I had since renewed.\n\nWhen the agent said they were just having to double check my visa (while my wife's and children' were fine), the fact the passport had been renewed occurred to me and I told the agent about it which probably saved a couple of minutes of them having to work out this was the issue. They phoned New Zealand, explained the situation and within about 10 minutes the New Zealand side updated their system and I was able to complete my check-in."
+ },
+ {
+  "id": "49415287",
+  "text": "> As for why roads are normally made out of “normal” concrete, it’s very expensive to build roads like that.\n\n> Pavements are cheaper to build out of concrete because they only carry the weight of pedestrians, not lots of rolling vehicles.\n\n> You need a pretty thick slab with rebar in it if you want to build a road surface from it, due to how weak cement concrete is under tension.\n\nMaybe. OTOH the bays of bus-stops tend to be made of the rebared thick slabs in a town with higher traffic I happen to know. Since about a decade at least. Before that there were always ruts in the asphalt, so deep they needed to be fixed again and again. Not so with the rebared slabs."
+ },
+ {
+  "id": "49416772",
+  "text": "That's a pretty crass attempt to shift the burden of proof. You're stating that LLMs are definitively not conscious and never could be; I'm saying we should approach the question with humility.\n\nAnd it's unclear what your actual argument about the nature of consciousness is, aside from what seems like a bald assertion that humans are the only conscious beings."
+ },
+ {
+  "id": "49425717",
+  "text": "This made me super nostalgic as well. I've lived in NYC for 20 years, but spent a ton of time in SF early in my career (starting in 2008). I love NYC, but I've been sort of feeling like a change lately and this made me feel like subletting a place for a few months and getting back to the slower pace of SF."
+ },
+ {
+  "id": "49422662",
+  "text": "A 'hack' that works has a different name, it is called a solution. You will never get 'better voters'. Wishing and wanting for something isn't a plan. How do we get better voters? What is the system that encourages democracy to work?\n\nAllowing power to entrench will lead to entrenched power. Show me a system that doesn't involve hoping people suddenly become 'better voters' without term limits and I will jump on board. My plan is to push for actions that encourage diversity in our democratic processes like limiting money, term limits, removing gerrymandering, etc. These are actionable things that encourage the true core of a democracy, diversity of voice."
+ },
+ {
+  "id": "49422792",
+  "text": "Finding out NFTs were just links, didn't even embed the asset, was such a moment for me... like either the people pushing this are complete fools or 100% conscious grifters who know it's total bullshit. I suspect it was a mix.\n\nInsane.\n\nI think a lot of the AI skepticism comes from the fact that the last major New Thing (tm) pushed by this industry was crypto. People are very, very burned by that.\n\nThat and how badly social media turned out, but that's a whole different discourse."
+ },
+ {
+  "id": "49416246",
+  "text": "I have mixed feelings.\n\nThe barrier and time between idea and usable implementation is almost zero now. I don't have to imagine. I can just write something and see it work before making larger decisions. I really like this. Many of my ideas were abandoned because I needed to study some obscure library. Now, I can learn the parts that I find interesting and just have the AI chew through the grunt parts easily. That's the good.\n\nI started coding with a line editor on a small Casio handheld \"computer\" and used to keep programs in my head. I more or less knew what happened on each line without seeing the line. With larger programs, I had a mental model of what was going on where and a big part of the input to that was the effort of writing everything by hand. That's gone. It's not really important as far as the output of usable programs is concerned but there's a certain feeling of satisfaction that came with digesting a larger codebase and having it surrender it's secrets to you that's missing."
+ },
+ {
+  "id": "49425685",
+  "text": "This is false equivalence blah blah.\n\nDirect producer subsidies for PRC EV was <100B, less US injected into Auto, more not much more than Euro auto.\n\nMost of retarded CSIS muh PRC 200b-400b includes rebates/taxes, AND, THIS IS FUCKIN KEY, subsidies to upstream, i.e. battery industry which used more than cars. AKA they bundled entire energy sector to skew PRC numbers.\n\nFor comparable you'd have to include all historic US/EU auto subsidies, AND ENTIRE ASSOCIATED upstream subsidies like MOST OF fossil industry, related diesel/fuel discounts...  etc etc in which case US/EU have been rebating to the tune of trillions. \nStrict auto-auto sector equivalence = PRC subsidized less to commoditize their car industry in fraction of time, which is not even remotely, reach overproduction, they still barely exports 20%... they'd have to export 50/75%+ to reach shares of EU/JP/SKR etc and even then those absurd export%s not treated as overproduction. PRC would need to be exporting ~20m more cars then they do to even qualify.\n\nAuto+energy sector equivalence, PRC not even on the axis in equivalence scenario."
+ },
+ {
+  "id": "49419990",
+  "text": "I think collectively we should all stop listening to Mr Graham..\n\nHe capitalizes on greed and hype but with a soft, sober and thoughtful voice so as to lull you with rationalism and now 20 years of his “disruption” has mostly ruined modern society and a whole generation of techies have been led astray into trying to “change the world” is the world of today (minus the magic technology really any better than 20 years ago?)\n\n- Good for him and his Tech Bros, bad for the rest of society"
+ },
+ {
+  "id": "49419467",
+  "text": "This paternalistic \"safety\" \"DNA\" is ultimately just marketing and a market capture strategy.\n\n1) Propagandize the \"dangers\" of AI, stage a few incidents, talk up the danger (\"it bypassed our most stringent checks! it's so smart!\")\n\n2) Build some thin veneer of \"safety\" and industry \"self-policing.\"\n\n3) Lobby for AI safety \"regulation\" - which you've conveniently already got an answer to! Be sure to make the regulations expensive, onerous, and impossible for foreign organizations to comply with.\n\n4) Profit"
+ },
+ {
+  "id": "49422893",
+  "text": "I always thought that they should have used ENS instead of whatever coin they ended up making. GNS is cool but IIRC (years ago) it had no incentive mechanism which is I think where a lot of these solutions fall down. Even imaginary \"ratio points\" that p2p file sharing sites have being using for years works better than \"donate your resources out of the kindness of your heart"
+ },
+ {
+  "id": "49424898",
+  "text": "> ELF MECHANISM: .strtab / .dynstr\n> The database primitive it reinvents: string interning\n\n> Surprisingly a lot more falls out as well: .dynstr is gone, because name is TEXT and SQLite already interns strings\n\nWhat's with this claim? SQLite does not intern strings, as far as I can find anywhere, and a quick test shows that duplicate strings are actually duplicated in a database file. You can intern strings in SQLite manually with an intern string table, but it doesn't happen automatically."
+ },
+ {
+  "id": "49425993",
+  "text": "Model -> brain cells' conections\nHarness -> everything else\n\nI've been working with different setups in parallel for months (openclaw, pi, cursor per project harnesses and codex) and, even though using the same model most of the time, I can clearly see how the behave in very different ways deppending on the setup.\n\nAs a language model, language is our way to communicate and build everything around the models, which makes my younger self (who loved writing stories) very very happy :)"
+ },
+ {
+  "id": "49418453",
+  "text": "I think this regulation that comes into effect February of next year concerns all kinds of batteries, not only those of smartphones https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CEL... . I think, because I didn't doublecheck right now further than reading the first matching \"appliances\" paragraph (ctrl-f).\n\nWhat I know off the top of my head, from reading the legislation a while ago. Is that technical reasons, such as waterproof devices, will still be able to retain non user replaceable batteries if it is needed to keep the device waterproof."
+ },
+ {
+  "id": "49425202",
+  "text": "Hey, just wanted to say you're not alone in this.\n\nI have pretty similar feelings to what you are going through.\n\nI was so stressed like seven or eight months ago that for two weeks I was constantly sleep deprived. Then I just asked myself \"What is the worst that can happen?\"\nThe answer helped me relax a bit. I will just move to some small village somewhere, open a shop for anything and get by.\n\nI seriously think software is / was hard. That means people that thrived in it were smart and disciplined.\n\nAnd which other profession has so much change? My father is a civil engineer. The tools and formulas he uses has not changed in 50 years while I have to pick up whatever hype tech is asked of me. Many people are similar to me. So we are very adaptable in my most honest opinion.\n\nIf it comes to _worst of it_, smart and adaptable people is where I would put my bet on being able to find their footing in the new world."
+ },
+ {
+  "id": "49413983",
+  "text": "I agree, but not everyone can. I've worked with several people who were top experts in their field and absolutely sucked at accessible explanations. The author alludes to it here: \"the very expertise that makes the expert worth consulting also makes it hard for the expert to imagine what it was like to know nothing about the topic\" - but that also carries over to ELI5 or ELI10. Another problem is that, to be frank, experts sometimes don't know how to explain certain concepts. For example, you can be adept in calculus without knowing where the rules come from. All you can do is relay the rulebook to someone else.\n\nAnother problem, I think, is that we're actually overindexing on ELI5 / ELI10, a problem compounded by YouTube educators and LLMs. Many skills are hard to learn and require some trial, error, and hands-on practice. It's easy to come up with an endless supply of childlike metaphors. It's a lot harder to actually teach someone that way."
+ },
+ {
+  "id": "49421086",
+  "text": "Inspired by this article I started to work on migrating my cat's feeder to ESPHome. I'm am basically done but also wanted to RE update path to avoid having to connect to UART to flash the new firmware. To my surprise, the stock firmware has some issue with the vendor's server where it downgrades to plain HTTP after 5 retries. It exposes all keys, device id and firmware upgrade path to MITM attacks. Absolutely bonkers and it shows how bad these IoT  companies are at security.\n\nVendor is PetKit btw."
+ },
+ {
+  "id": "49419625",
+  "text": "As much as I want to agree with this, for some of the reasons given, even I must admit that AI does have its uses. I think a reasonable take is the ObjFW one:\n\nhttps://git.nil.im/ObjFW/ObjFW/src/branch/main/documentation...\n\n> AI/LLMs cannot be used to generate any code, documentation, assets or similar – all of it needs to be 100% written by a human.\n\n> Utilizing AI/LLMs to help find bugs in the code or to help with debugging is acceptable. However, if the AI/LLM proposes a patch, this cannot be used – the AI/LLM should be instructed to only explain bugs or fixes, but never produce any code.\n\n> Using an AI/LLM agent to create tickets is not acceptable. However, using an AI/LLM for translation between languages in tickets is acceptable."
+ },
+ {
+  "id": "49426676",
+  "text": "Yeah, I think microservices are going to see a new wave of enthusiasm for this reason in the coming years.\n\nI've had a lot success at the company I work for shipping small contained microservices for less technical teams to maintain with agents.\n\nPersonally I think this most of what SWEs should be doing these days... Code is easy to produce now. We should be handing over the creation and shipping of code to the relevant teams.\n\nMaybe there will be more complexity overall, but it will be constrained via well designed microservices and distributed across the organisation."
+ },
+ {
+  "id": "49420311",
+  "text": "I don't think it needs to be so dramatic. You could have a proof that the algorithms don't contain data-dependent logic, and perhaps ensure that no data-dependent instructions are generated; and that all branches have the same number of instrution-cycles (adding padding if not). You'd then simply rely on the architecture-specific instruction timing differences to be respected by the compiler.\n\nWould something like this guarantee that no side-channels are possible on any architecture? Perhaps not, but it would still get you most of the way there."
+ },
+ {
+  "id": "49414925",
+  "text": "Working on an embedded device that requires building firmware images, etc, I've taken to using docker containers with a COW overlay. I have a vibe-coded tool which checks out the latest and does a clean compile, creating a base directory. Then I spawn a build container on top of that. Every build is warm, as they share ccache and page cache. Huge speed up for parallel builds and I never OOM. Every build also sees the same directory structure, simplifying instructions, etc for the agents."
+ },
+ {
+  "id": "49421484",
+  "text": "I'm not sure I could characterize the frontier labs as greedy, given that they've been consistently losing gargantuan amounts of money.\n\nThe people who give them the money are greedy, and hopefully in for a rude awakening. Starting from Nvidia's vendor financing which has a very direct benefit to them, through to every company and oligarch investing into data centres in the hopes of being one of the ones left capitalizing on capturing the livelihoods of the majority of what remains of the \"middle class\".\n\nIt's either hopium or a truly horrific dystopia. Something's going to have to give."
+ },
+ {
+  "id": "49417642",
+  "text": "As someone who conducts interviews regulary - tools like this worry me a lot.\nIn my experience most interviewees are very awkward when using these tools thought. They usually take a lot of time to give answers to even simple questions and often seem to read things off the screen. Nevertheless worrying and i'm sure some learn how to hide their use better"
+ },
+ {
+  "id": "49421566",
+  "text": "This is comical the liberal in their perpetual confused state: \"they are doing their very best!\", \"you couldn't do it better yourself!\". The EU primary function is to serve capital interests to protect neoliberalism across the EU at all cost. It's the perpetual shock doctrine, thatcher politics for all, there is no alternative, dead-end, end-of-history, its what you would get when you put the IMF in charge of a continent. Literally everything is falling apart, the fascists scapegoat irrelevant migrants for the mouth breathing median-voter/peasant while the liberals are haplessly groveling at their imperial masters and censure Spain for being an unruly vassal."
+ }
+]

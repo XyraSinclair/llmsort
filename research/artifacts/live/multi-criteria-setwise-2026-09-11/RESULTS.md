@@ -9,8 +9,9 @@ agreement with the separate arm > 0.85, flip rate unchanged.
 Instrument: `experiments/examples/multi_criteria_setwise.rs` — the extension's setwise design
 (n=40, k=8, overlap 2, 1 round, 2 presentations per window: window order then a shuffle),
 same Huber-IRLS fit, same slot grammar. Two arms over identical windows and presentations, so
-the only difference is the prompt. Lists: `lists/lw.json` (40 LessWrong posts; criteria
-novelty / technical alpha / epistemic rigor — the battery wording) and `lists/hn_top.json`
+the only difference is the prompt. Lists (now in `research/batteries/multi-criteria-bench/`):
+`lw.json` (40 LessWrong posts; criteria novelty / technical alpha / epistemic rigor — the
+battery wording) and `hn_top.json`
 (40 HN front-page items; interesting / credible / actionable — chosen to be near-orthogonal).
 Judges: `google/gemma-4-31b-it` via OpenRouter (metered), `qwen-3.8-27b` on Cerebras
 (`reasoning_effort: none`, free tier). Raw traces per call in `trace-<label>.jsonl`, per-run
@@ -166,3 +167,6 @@ n=40 per list, two lists, one seed replicate, two judges. Agreement and halo are
 the separate arm, not against ground truth — the separate arm is the reference the note
 proposed, not a gold standard. The lw battery axes are ~0.85 correlated under both judges in the
 separate arm, so lw mostly tests cost and agreement; hn_top carries the halo test.
+
+Standing bench: `research/batteries/multi-criteria-bench/BENCH.md` — the four cohorts (hn_top, lw,
+arxiv, hn_comments), their criteria files, gemma-4-31b baselines, and the per-cohort command to certify a new judge.

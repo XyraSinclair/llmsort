@@ -1,0 +1,14 @@
+[
+ {
+  "name": "novelty",
+  "prompt": "Novelty: how much genuinely new understanding the work contributes — a new problem, method, or finding a well-read researcher in the area would not already possess — rather than incremental variation on known work."
+ },
+ {
+  "name": "clarity",
+  "prompt": "Clarity of writing: how easily a competent reader outside the immediate subfield can follow what was done and what was found — plain structure, defined terms, no padding."
+ },
+ {
+  "name": "evidence",
+  "prompt": "Strength of empirical evidence: how convincingly the claims are backed — scale and breadth of experiments, baselines, ablations, reported numbers — as opposed to asserted or unquantified."
+ }
+]
