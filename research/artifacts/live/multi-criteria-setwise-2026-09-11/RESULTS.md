@@ -139,6 +139,27 @@ OpenRouter remains the joint-safe judge. A Cerebras dedicated gemma-4-31b endpoi
 latency only (~5 s → ~1–2 s per 40-item sort) at reserved-capacity contract pricing versus
 $0.0076 per sort on OpenRouter — not pursued.
 
+## Addendum 2026-09-13: does wording remove the halo? (`--independence`)
+
+Joint prompt plus an explicit instruction in system and user turns — "the attributes are
+distinct questions: judge each on its own… do not let its rank on one attribute pull its rank
+on another" (criterion order was already shuffled per call in every joint run).
+`summary-*_indep.md`.
+
+| run | judge | halo inflation plain → with instruction | ρ(separate, joint) with instruction |
+|---|---|---|---|
+| hn_top | qwen-3.8-27b | +0.187 → **+0.208** | +0.905 / +0.881 / +0.866 |
+| lw | qwen-3.8-27b | +0.096 → +0.048 | +0.923 / +0.981 / +0.924 |
+| hn_top | gemma-4-31b | +0.001 → +0.059 | +0.914 / +0.864 / +0.925 |
+
+No. On the orthogonal list qwen's halo is unchanged (credible~actionable −0.09 → +0.29,
+interesting~actionable +0.02 → +0.26 in the joint arm, same as without the instruction);
+agreement moves up a little (all three now over 0.85) but the three orderings are still pulled
+together. The lw drop is inside seed noise, and the instruction does nothing for gemma (its
++0.059 is noise around zero). The halo is a property of the judge, not the wording: a small
+model asked m questions at once answers one latent. That is the case for training it out
+(permutation- and criterion-independence as reward) rather than prompting around it.
+
 ## Caveats
 
 n=40 per list, two lists, one seed replicate, two judges. Agreement and halo are measured against

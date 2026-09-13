@@ -31,6 +31,7 @@ use tokio::sync::Semaphore;
 
 const SLOTS: &str = "ABCDEFGHIJKL";
 const SYSTEM_SINGLE: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then an attribute. You answer with every slot letter exactly once, separated by spaces, ordered from the MOST of the attribute to the LEAST. Nothing else — no words, no punctuation, no explanation.\nExample: C A D B";
+const SYSTEM_JOINT_INDEP: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then a numbered list of attributes. The attributes are distinct questions: judge each one on its own, as if it were the only question asked. For EACH attribute, on its own line, you answer with the attribute number, a colon, then every slot letter exactly once, separated by spaces, ordered from the MOST of that attribute to the LEAST. One line per attribute, in the numbered order. Nothing else — no words, no explanation.\nExample:\n1: C A D B\n2: A C B D";
 const SYSTEM_JOINT: &str = "You are an expert subjective evaluator. You read a small set of entities in lettered slots, then a numbered list of attributes. For EACH attribute, on its own line, you answer with the attribute number, a colon, then every slot letter exactly once, separated by spaces, ordered from the MOST of that attribute to the LEAST. One line per attribute, in the numbered order. Nothing else — no words, no explanation.\nExample:\n1: C A D B\n2: A C B D";
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
@@ -79,6 +80,11 @@ struct Args {
     /// max_tokens budget on hidden reasoning unless this is "none" (2026-09-11).
     #[arg(long)]
     effort: Option<String>,
+    /// Joint arm only: add an explicit "judge each attribute independently" instruction
+    /// (system + user prompt). Tests whether wording alone removes the halo a small judge
+    /// shows in the joint call.
+    #[arg(long, default_value_t = false)]
+    independence: bool,
 }
 
 #[derive(Deserialize)]
@@ -138,14 +144,17 @@ fn prompt_single(texts: &[String], order: &[usize], criterion: &str) -> String {
     format!("{block}\n\nCompare the entities by <attribute_name>: {} </attribute_name>.\n\nOrder every slot from {{{letters}}} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:", escape(criterion))
 }
 
-fn prompt_joint(texts: &[String], order: &[usize], criteria: &[&str]) -> String {
+const INDEPENDENCE: &str = "The attributes are distinct questions: judge each one on its own, as if it were the only question asked. An entity that is high on one attribute may be low on another; do not let its rank on one attribute pull its rank on another.";
+
+fn prompt_joint(texts: &[String], order: &[usize], criteria: &[&str], independence: bool) -> String {
     let (block, letters) = entity_block(texts, order);
     let mut attrs = String::from("<attributes>\n");
     for (i, c) in criteria.iter().enumerate() {
         attrs.push_str(&format!("<attribute_{}>{}</attribute_{}>\n", i + 1, escape(c), i + 1));
     }
     attrs.push_str("</attributes>");
-    format!("{block}\n\nCompare the entities by each attribute in turn:\n{attrs}\n\nFor each attribute, on its own line `<number>: <letters>`, order every slot from {{{letters}}} from MOST of that attribute to LEAST, every letter exactly once. {} lines.\nanswer:", criteria.len())
+    let indep = if independence { format!(" {INDEPENDENCE}") } else { String::new() };
+    format!("{block}\n\nCompare the entities by each attribute in turn:\n{attrs}\n\nFor each attribute, on its own line `<number>: <letters>`, order every slot from {{{letters}}} from MOST of that attribute to LEAST, every letter exactly once.{indep} {} lines.\nanswer:", criteria.len())
 }
 
 fn parse_slots(raw: &str, k: usize) -> Option<Vec<usize>> {
@@ -536,7 +545,7 @@ async fn main() {
                         order.shuffle(&mut rng);
                         let cnames: Vec<String> = order.iter().map(|&i| names[i].clone()).collect();
                         let cprompts: Vec<&str> = order.iter().map(|&i| criteria[i].1.as_str()).collect();
-                        jobs.push((pi, pj, pres.clone(), cnames, prompt_joint(&texts, pres, &cprompts), SYSTEM_JOINT, 400 * m as u32));
+                        jobs.push((pi, pj, pres.clone(), cnames, prompt_joint(&texts, pres, &cprompts, args.independence), if args.independence { SYSTEM_JOINT_INDEP } else { SYSTEM_JOINT }, 400 * m as u32));
                     }
                     Arm::Both => unreachable!(),
                 }
