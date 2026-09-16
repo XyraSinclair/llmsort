@@ -123,3 +123,60 @@ Fail cleanly otherwise and keep the note as the record.
 API access is a waitlist (homepage form). No key is held anywhere local
 (`~/.config`, acct ledger, env: nothing). Everything above the gate is
 paper-ready; nothing runs until a key exists.
+
+## Access log (2026-09-16 05:00–05:10 PT)
+
+- Waitlist joined as `indexablework+typesafe@proton.me` (framer form, 201;
+  confirmation "You're on the waitlist for Jev" received 05:03). Ledger:
+  `typesafe--indexablework`, state `waitlisted`.
+- `console.typesafe.ai` is self-serve magic-link (Stytch) or Google. The
+  login.typesafe.ai redirect page is a Stytch device-fingerprint
+  interstitial that headless Chromium fails; opening the embedded
+  `console.typesafe.ai/auth/callback?…token=…` directly authenticates. The
+  console then answers "TypeSafe is currently invite-only — join the
+  waitlist". So the key is gated on their invite, not on anything we can do;
+  the mechanics to mint it are recorded in the ledger note.
+
+## `harshatheg/Qwen-2.5-1B-RLCD` (HF, uploaded 2026-09-16)
+
+Not a model. The repo holds no weights: it is a Python engine
+(`core/engine_torch.py`, `core/engine_mlx.py`) over stock
+`mlx-community/Qwen2.5-1.5B-Instruct-4bit`, and the name borrows TypeSafe's
+own acronym (RLCD = "Reinforcement Learning for Calibrated Decisions", the
+homepage's training algorithm) for something untrained. Mechanism: prefill
+the context once, broadcast the KV cache across M schema fields, append one
+suffix `"field": "` per field, read logits at that single position, softmax
+over the first token of each allowed choice (after a common-prefix strip —
+the README's "token tree disambiguation" is not in the torch engine), assemble
+JSON in code. "Calibrated" means that softmax; nothing is calibrated against
+outcomes. Numbers on M4 Max: 4-field schemas 68–75 ms, a 28-field schema
+270 ms, 255-way choice 89 ms.
+
+Read for llmsort: this is `ratio_letter_v1`'s single-position top-logprob
+readout, restated with a shared prefix — the mechanism, not the model, is
+Jev's. On our judge host the same thing is `max_tokens=1` +
+`top_logprobs` over k prompts sharing a cached prefix (vLLM prefix caching),
+which the ratio-letter rail already does per pair. What it does not answer
+is the part that matters: whether a small model's first-token PMF is a
+belief (spin/orbit/flip gauges), which NORTH E1/E10 already say degrades
+when entities share a prefix and the attribute moves to the tail. Nothing
+to adopt; the useful residue is the confirmation that the whole "System One"
+mechanism is one prefill + M single-token reads, i.e. we can run instrument
+2 (the 28-pair window graph) on our own judges today with a prompt-layout
+change, and gauge it before Jev's invite arrives.
+
+## Mid-turn aside: small diffusion LMs as sorting judges
+
+Masked-diffusion LMs (LLaDA / Dream class, ~1–8B open weights) unmask all
+output positions in parallel with bidirectional attention over the prompt.
+For setwise elicitation the output is a permutation of k letters, and the
+per-position marginals at the last unmasking step are a k×k
+position-by-item matrix — a richer evidence object than one sampled order
+(closer to Plackett–Luce marginals), and one pass instead of k tokens. The
+teacher corpus (120K latents, 765 criteria) is exactly the supervision a
+fine-tune would need. Cheapest decisive step, before any training: run one
+open dLLM zero-shot as the setwise judge on the four bench cohorts under the
+existing gauges (flip rate, dropped/duplicated letters, position bias) against
+gemma-4-31b; the AR "one prefill + M single-token reads" trick above is the
+control, since it also buys parallel typed decisions without a new model
+class. Proposed, not started.
