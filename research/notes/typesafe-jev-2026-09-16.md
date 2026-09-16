@@ -180,3 +180,76 @@ existing gauges (flip rate, dropped/duplicated letters, position bias) against
 gemma-4-31b; the AR "one prefill + M single-token reads" trick above is the
 control, since it also buys parallel typed decisions without a new model
 class. Proposed, not started.
+
+### diffgemma PR #21 / #23 (mmastrac, merged 2026-09-16): the diffusion route made concrete
+
+Matt Mastracci's `diffgemma` (Rust + Metal engine for `google/diffusiongemma-26B-A4B-it`,
+Gemma-4 MoE, 3.8B active, discrete block diffusion over a 256-token canvas) now
+does Jev's trick natively. PR #21: a JSON question schema as the system message
+turns `/v1/chat/completions` into scored denoise forwards with no text
+generated — the answer template `id: label` is seeded into the canvas with each
+label slot as a noise token, one forward of the denoiser gives the label
+distribution at every slot, and all questions in a request share that forward.
+Labels are tokenizer-verified single tokens (`yes`/`no`, `A`/`B`/…, `1`/`2`/…),
+which is our `ratio_letter_v1` discipline restated. Two findings there matter
+to us more than the speedup (3.1 s for four reads vs 9.6–13.1 s generating the
+JSON on an M3 Pro):
+
+- **One read conditions on one noise draw and is sharper than the marginal.**
+  Hole noise alone flipped borderline answers (16 seeds: 10/6). The reply
+  averages reads with different noise and reports `stderr` of the top label's
+  probability and `agreement` (share of reads whose argmax matches). This is a
+  dispersion term we do not have: our flip rate measures order-permutation
+  variance of an AR judge; noise-draw variance is a property of the diffusion
+  read itself and belongs in the same place — as a variance inflation on the
+  evidence row before the Huber fit.
+- **PR #23: entropy gates the extra reads.** `samples:"auto"` takes one read and
+  spends up to four only when some slot's first-read row entropy exceeds
+  0.1 nats. Held-out 20 tickets / 60 slots at 16 reads: all 5 moving slots
+  caught, 0/55 stable ones flagged, 15/20 tickets stop at one read. That is a
+  per-decision adaptive budget keyed on the PMF's own entropy — the same
+  quantity our precision column is built from, so an entropy-gated re-read is
+  the diffusion analogue of "re-ask the low-precision pairs".
+
+Also worth stealing regardless of model class: `label_mass`, the share of the
+full-vocabulary mass at a slot held by the allowed labels. Low mass means the
+model did not read the slot as an answer — our E10 attribute-in-tail failure,
+measured directly instead of inferred from degraded agreement.
+
+The ranking object it yields. A setwise template `A: _  B: _  …  H: _` with
+rank labels `1`…`8` in each hole reads, per forward, an 8×8 item-by-rank
+marginal matrix from one bidirectional pass — each slot conditions on the
+entire template including the other holes' noise. Averaged over reads it is
+the Plackett–Luce-ish object the aside above asks for; it is not a
+permutation, and the constraint gets imposed after (Sinkhorn to a doubly
+stochastic matrix, or Hungarian for the mode). A pairwise ratio instrument is
+the trivial case: one hole, 25 single-token ladder letters. Multi-criteria
+joint is "one forward, m holes per item", which is precisely the shape where
+halo lives (NORTH E1), and here the coupling is structural rather than
+sequential — every criterion's hole sees every other's. `fix_definite`
+(settled slots pinned for later reads) is halo by construction for our use
+and stays off.
+
+**Correction to the earlier assumption that this is Mac-only.** The engine is
+Metal-only, but the model is not: `google/diffusiongemma-26B-A4B-it` is
+Apache 2.0, in transformers as `DiffusionGemmaForBlockDiffusion` (canvas 256,
+max 48 denoise steps), supported by vLLM, with `RedHatAI/…-FP8-dynamic` and
+`nvidia/…-NVFP4` quants published. The template-seeding read is ~50 lines over
+the transformers model (build canvas, replace label positions with the mask
+token, one forward, slice logits at the slots), so it runs on our judge host. Fit:
+bf16 ≈ 50 GB, FP8 ≈ 26 GB, NVFP4 ≈ 13 GB, KV negligible at a 256-token canvas.
+Tonight the judge host's 96 GB card has ~18 GB free (79/98 GB used) and each 5090 ~4 GB, so
+NVFP4 fits without borrowing; FP8 needs a slot under the heretic-rig tenancy
+law. Blackwell runs NVFP4 natively. Cost of the model itself: MMLU-Pro 77.6 vs
+82.6 for its AR sibling — it is a judge candidate, not a solver, and only the
+gauges decide.
+
+Decisive cheap test (judge host, transformers, NVFP4, ~1 GPU-hour): one bench
+cohort (`hn_top`, 40 items, ring windows k=8), joint setwise with the seeded
+template, four reads per window, gauges as in BENCH.md — agreement with
+gemma-4-31b, flip rate under slot permutation, halo across criteria, plus the
+two new columns `stderr` and `label_mass`. Bars unchanged (agreement > 0.85,
+flip < 0.20, halo < 0.10). If it passes, the fine-tune on the teacher corpus
+becomes a live option; if it fails on `label_mass` or halo, the model class is
+out and the AR one-prefill-M-reads trick stays the control. Proposed, not
+started.
