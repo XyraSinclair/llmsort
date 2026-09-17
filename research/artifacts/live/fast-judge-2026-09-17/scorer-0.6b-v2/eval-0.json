@@ -1,0 +1,9525 @@
+{
+ "summary": {
+  "rho_mean": 0.6186151698346821,
+  "rho_by_source": {
+   "arxiv": 0.6156044497507912,
+   "fable_subtle_1000_elaborated": 0.5752023044705974,
+   "highdim_elaborated": 0.7721284135918283,
+   "hn_comments": 0.2942122917732674,
+   "hn_top": 0.580709534368071,
+   "lw": 0.8738340250535372
+  },
+  "struct_absdiff_mean": 0.1929788820032723,
+  "struct_corr": 0.8222954545686293,
+  "items_per_s": 70.79035356777435,
+  "seconds": 335.63895082473755
+ },
+ "rows": [
+  {
+   "list": "L0001",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8097560975609757
+  },
+  {
+   "list": "L0001",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8810506566604129
+  },
+  {
+   "list": "L0001",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8741088180112572
+  },
+  {
+   "list": "L0041",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8868667917448406
+  },
+  {
+   "list": "L0041",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9142589118198875
+  },
+  {
+   "list": "L0041",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8956848030018764
+  },
+  {
+   "list": "L0052",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8467166979362103
+  },
+  {
+   "list": "L0052",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.928142589118199
+  },
+  {
+   "list": "L0052",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8690431519699813
+  },
+  {
+   "list": "L0056",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9236397748592872
+  },
+  {
+   "list": "L0056",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9388367729831145
+  },
+  {
+   "list": "L0056",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9011257035647281
+  },
+  {
+   "list": "L0060",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9196998123827395
+  },
+  {
+   "list": "L0060",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8943714821763603
+  },
+  {
+   "list": "L0060",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9031894934333959
+  },
+  {
+   "list": "L0114",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9000000000000001
+  },
+  {
+   "list": "L0114",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8951219512195124
+  },
+  {
+   "list": "L0114",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8399624765478425
+  },
+  {
+   "list": "L0122",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.7324577861163228
+  },
+  {
+   "list": "L0122",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8951219512195124
+  },
+  {
+   "list": "L0122",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8208255159474673
+  },
+  {
+   "list": "L0147",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9347091932457788
+  },
+  {
+   "list": "L0147",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9093808630393998
+  },
+  {
+   "list": "L0147",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8607879924953097
+  },
+  {
+   "list": "L0163",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8491557223264542
+  },
+  {
+   "list": "L0163",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8894934333958725
+  },
+  {
+   "list": "L0163",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8409005628517825
+  },
+  {
+   "list": "L0215",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.880863039399625
+  },
+  {
+   "list": "L0215",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8819887429643528
+  },
+  {
+   "list": "L0215",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.801688555347092
+  },
+  {
+   "list": "L0225",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9153846153846155
+  },
+  {
+   "list": "L0225",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9378986866791746
+  },
+  {
+   "list": "L0225",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9022514071294561
+  },
+  {
+   "list": "L0251",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.7797373358348969
+  },
+  {
+   "list": "L0251",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9253283302063792
+  },
+  {
+   "list": "L0251",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8095684803001878
+  },
+  {
+   "list": "L0257",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8165103189493436
+  },
+  {
+   "list": "L0257",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8341463414634148
+  },
+  {
+   "list": "L0257",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8992495309568482
+  },
+  {
+   "list": "L0262",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9339587242026268
+  },
+  {
+   "list": "L0262",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9151969981238275
+  },
+  {
+   "list": "L0262",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9305816135084428
+  },
+  {
+   "list": "L0280",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9125703564727956
+  },
+  {
+   "list": "L0280",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8947467166979364
+  },
+  {
+   "list": "L0280",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8142589118198875
+  },
+  {
+   "list": "L0284",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8566604127579738
+  },
+  {
+   "list": "L0284",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.85234521575985
+  },
+  {
+   "list": "L0284",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8410881801125705
+  },
+  {
+   "list": "L0293",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8136960600375236
+  },
+  {
+   "list": "L0293",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8977485928705442
+  },
+  {
+   "list": "L0293",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8455909943714822
+  },
+  {
+   "list": "L0300",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8093808630393998
+  },
+  {
+   "list": "L0300",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8551594746716699
+  },
+  {
+   "list": "L0300",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.877298311444653
+  },
+  {
+   "list": "L0307",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8939962476547842
+  },
+  {
+   "list": "L0307",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8590994371482178
+  },
+  {
+   "list": "L0307",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9343339587242028
+  },
+  {
+   "list": "L0314",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8607879924953097
+  },
+  {
+   "list": "L0314",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.928142589118199
+  },
+  {
+   "list": "L0314",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8090056285178236
+  },
+  {
+   "list": "L0318",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.7622889305816136
+  },
+  {
+   "list": "L0318",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.827016885553471
+  },
+  {
+   "list": "L0318",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.7155722326454035
+  },
+  {
+   "list": "L0331",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.881613508442777
+  },
+  {
+   "list": "L0331",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8998123827392122
+  },
+  {
+   "list": "L0331",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8990619136960601
+  },
+  {
+   "list": "L0374",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8919324577861164
+  },
+  {
+   "list": "L0374",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8690431519699813
+  },
+  {
+   "list": "L0374",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9375234521575985
+  },
+  {
+   "list": "L0384",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8821763602251408
+  },
+  {
+   "list": "L0384",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9356472795497186
+  },
+  {
+   "list": "L0384",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9465290806754223
+  },
+  {
+   "list": "L0393",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8469043151969983
+  },
+  {
+   "list": "L0393",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9048780487804878
+  },
+  {
+   "list": "L0393",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8787992495309569
+  },
+  {
+   "list": "L0395",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9135084427767356
+  },
+  {
+   "list": "L0395",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.878986866791745
+  },
+  {
+   "list": "L0395",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9185741088180113
+  },
+  {
+   "list": "L0397",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.9358348968105067
+  },
+  {
+   "list": "L0397",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8838649155722328
+  },
+  {
+   "list": "L0397",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9230769230769232
+  },
+  {
+   "list": "L0401",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8315196998123828
+  },
+  {
+   "list": "L0401",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9195121951219513
+  },
+  {
+   "list": "L0401",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8718574108818012
+  },
+  {
+   "list": "L0431",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8639774859287056
+  },
+  {
+   "list": "L0431",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9170731707317074
+  },
+  {
+   "list": "L0431",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8405253283302064
+  },
+  {
+   "list": "L0440",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.6836772983114447
+  },
+  {
+   "list": "L0440",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.7956848030018762
+  },
+  {
+   "list": "L0440",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8317073170731708
+  },
+  {
+   "list": "L0452",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8795497185741089
+  },
+  {
+   "list": "L0452",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.8827392120075047
+  },
+  {
+   "list": "L0452",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8153846153846155
+  },
+  {
+   "list": "L0458",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8750469043151972
+  },
+  {
+   "list": "L0458",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9317073170731708
+  },
+  {
+   "list": "L0458",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.8110694183864917
+  },
+  {
+   "list": "L0487",
+   "criterion": "novelty",
+   "source": "lw",
+   "rho": 0.8926829268292685
+  },
+  {
+   "list": "L0487",
+   "criterion": "alpha",
+   "source": "lw",
+   "rho": 0.9388367729831145
+  },
+  {
+   "list": "L0487",
+   "criterion": "rigor",
+   "source": "lw",
+   "rho": 0.9196998123827395
+  },
+  {
+   "list": "L0504",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.6007504690431521
+  },
+  {
+   "list": "L0504",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.7000000000000001
+  },
+  {
+   "list": "L0504",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.7489681050656661
+  },
+  {
+   "list": "L0513",
+   "criterion": "coalition_math_realism",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6806754221388369
+  },
+  {
+   "list": "L0513",
+   "criterion": "clean_hands_preoccupation",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6317073170731708
+  },
+  {
+   "list": "L0513",
+   "criterion": "formalism_first_courage",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7934333958724203
+  },
+  {
+   "list": "L0538",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8039399624765479
+  },
+  {
+   "list": "L0538",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.8585365853658539
+  },
+  {
+   "list": "L0538",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.8489681050656662
+  },
+  {
+   "list": "L0544",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.9243902439024392
+  },
+  {
+   "list": "L0544",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.7951219512195122
+  },
+  {
+   "list": "L0544",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.7497185741088181
+  },
+  {
+   "list": "L0547",
+   "criterion": "handoff_explicitness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7251407129455911
+  },
+  {
+   "list": "L0547",
+   "criterion": "direct_address_comfort",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7956848030018762
+  },
+  {
+   "list": "L0547",
+   "criterion": "reputation_stake_sizing",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.25647279549718577
+  },
+  {
+   "list": "L0550",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.6517823639774861
+  },
+  {
+   "list": "L0550",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8641651031894936
+  },
+  {
+   "list": "L0550",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.3285178236397749
+  },
+  {
+   "list": "L0559",
+   "criterion": "evidence_hierarchy_respect",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7801125703564729
+  },
+  {
+   "list": "L0559",
+   "criterion": "diagram_necessity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7731707317073172
+  },
+  {
+   "list": "L0559",
+   "criterion": "humor_as_argument",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7166979362101313
+  },
+  {
+   "list": "L0572",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.6996247654784241
+  },
+  {
+   "list": "L0572",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.6818011257035649
+  },
+  {
+   "list": "L0572",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.5592870544090057
+  },
+  {
+   "list": "L0606",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.726829268292683
+  },
+  {
+   "list": "L0606",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8917448405253284
+  },
+  {
+   "list": "L0606",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.7161350844277674
+  },
+  {
+   "list": "L0628",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.7106941838649157
+  },
+  {
+   "list": "L0628",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8977485928705442
+  },
+  {
+   "list": "L0628",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.827954971857411
+  },
+  {
+   "list": "L0633",
+   "criterion": "survivorship_bias_vulnerability",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.47148217636022516
+  },
+  {
+   "list": "L0633",
+   "criterion": "animal_inclusion_instinct",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.42870544090056295
+  },
+  {
+   "list": "L0633",
+   "criterion": "velocity_of_the_underlying_idea",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6767354596622891
+  },
+  {
+   "list": "L0646",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.7444652908067543
+  },
+  {
+   "list": "L0646",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8969981238273923
+  },
+  {
+   "list": "L0646",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.4236397748592871
+  },
+  {
+   "list": "L0648",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.8502814258911822
+  },
+  {
+   "list": "L0648",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.8896810506566605
+  },
+  {
+   "list": "L0648",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.8069418386491559
+  },
+  {
+   "list": "L0659",
+   "criterion": "reputation_collateral_posted",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5193245778611634
+  },
+  {
+   "list": "L0659",
+   "criterion": "curation_ruthlessness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.2690431519699813
+  },
+  {
+   "list": "L0659",
+   "criterion": "journeyman_reliability",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7283302063789869
+  },
+  {
+   "list": "L0660",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.7339587242026268
+  },
+  {
+   "list": "L0660",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8662288930581616
+  },
+  {
+   "list": "L0660",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.852720450281426
+  },
+  {
+   "list": "L0674",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.776360225140713
+  },
+  {
+   "list": "L0674",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.8217636022514073
+  },
+  {
+   "list": "L0674",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.701313320825516
+  },
+  {
+   "list": "L0678",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.7213883677298313
+  },
+  {
+   "list": "L0678",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8183864915572233
+  },
+  {
+   "list": "L0678",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.4551594746716699
+  },
+  {
+   "list": "L0682",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8757973733583491
+  },
+  {
+   "list": "L0682",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.7825515947467168
+  },
+  {
+   "list": "L0682",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.9219512195121953
+  },
+  {
+   "list": "L0687",
+   "criterion": "deadline_scent",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": -0.05534709193245779
+  },
+  {
+   "list": "L0687",
+   "criterion": "aha_moment_density",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6598499061913697
+  },
+  {
+   "list": "L0687",
+   "criterion": "humor_risk_tolerance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7998123827392122
+  },
+  {
+   "list": "L0689",
+   "criterion": "strawman_temptation_resisted",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7609756097560977
+  },
+  {
+   "list": "L0689",
+   "criterion": "em_dash_dependence",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.551219512195122
+  },
+  {
+   "list": "L0689",
+   "criterion": "diplomatic_honesty",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.27936210131332084
+  },
+  {
+   "list": "L0692",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8204502814258914
+  },
+  {
+   "list": "L0692",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8752345215759851
+  },
+  {
+   "list": "L0692",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8467166979362103
+  },
+  {
+   "list": "L0702",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.8908067542213884
+  },
+  {
+   "list": "L0702",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.9125703564727956
+  },
+  {
+   "list": "L0702",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.7382739212007505
+  },
+  {
+   "list": "L0703",
+   "criterion": "deep_work_requirement",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8129455909943716
+  },
+  {
+   "list": "L0703",
+   "criterion": "essentialism",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.652532833020638
+  },
+  {
+   "list": "L0703",
+   "criterion": "self_mythologizing",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7206378986866794
+  },
+  {
+   "list": "L0705",
+   "criterion": "impedance_match_with_its_audience",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": -0.2112570356472796
+  },
+  {
+   "list": "L0705",
+   "criterion": "solution_in_search_of_problem_risk",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.31988742964352723
+  },
+  {
+   "list": "L0705",
+   "criterion": "epistemic_humility",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5493433395872421
+  },
+  {
+   "list": "L0715",
+   "criterion": "pedagogical_patience",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7939962476547844
+  },
+  {
+   "list": "L0715",
+   "criterion": "translation_across_camps",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8622889305816136
+  },
+  {
+   "list": "L0715",
+   "criterion": "tu_quoque_avoidance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5863039399624767
+  },
+  {
+   "list": "L0717",
+   "criterion": "converging_evidence_architecture",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.703377110694184
+  },
+  {
+   "list": "L0717",
+   "criterion": "stakeholder_management_sophistication",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.501500938086304
+  },
+  {
+   "list": "L0717",
+   "criterion": "willingness_to_pay_evidence",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.629080675422139
+  },
+  {
+   "list": "L0730",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8660412757973734
+  },
+  {
+   "list": "L0730",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.7611632270168857
+  },
+  {
+   "list": "L0730",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.8964352720450284
+  },
+  {
+   "list": "L0734",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.8891181988742966
+  },
+  {
+   "list": "L0734",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.9187617260787994
+  },
+  {
+   "list": "L0734",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.6005628517823641
+  },
+  {
+   "list": "L0737",
+   "criterion": "endgame_awareness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6917448405253284
+  },
+  {
+   "list": "L0737",
+   "criterion": "credential_leaning",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5238273921200751
+  },
+  {
+   "list": "L0737",
+   "criterion": "focal_point_design",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6384615384615385
+  },
+  {
+   "list": "L0745",
+   "criterion": "backtracking_cost",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.19193245778611634
+  },
+  {
+   "list": "L0745",
+   "criterion": "contempt_leakage",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.17242026266416513
+  },
+  {
+   "list": "L0745",
+   "criterion": "quotability_without_context_collapse",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6028142589118201
+  },
+  {
+   "list": "L0750",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.8073170731707318
+  },
+  {
+   "list": "L0750",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8628517823639776
+  },
+  {
+   "list": "L0750",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.5185741088180114
+  },
+  {
+   "list": "L0751",
+   "criterion": "crystallinity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5954971857410883
+  },
+  {
+   "list": "L0751",
+   "criterion": "embarrassability",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.016697936210131333
+  },
+  {
+   "list": "L0751",
+   "criterion": "philistine_honesty",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.4748592870544091
+  },
+  {
+   "list": "L0755",
+   "criterion": "cold_passion",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8292682926829269
+  },
+  {
+   "list": "L0755",
+   "criterion": "n_of_one_candor",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7998123827392122
+  },
+  {
+   "list": "L0755",
+   "criterion": "workshop_floor_vocabulary",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7803001876172608
+  },
+  {
+   "list": "L0759",
+   "criterion": "burden_of_proof_placement",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5075046904315198
+  },
+  {
+   "list": "L0759",
+   "criterion": "gold_plating_avoidance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": -0.03377110694183865
+  },
+  {
+   "list": "L0759",
+   "criterion": "leverage_point_targeting",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6420262664165104
+  },
+  {
+   "list": "L0762",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8101313320825517
+  },
+  {
+   "list": "L0762",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.8679174484052533
+  },
+  {
+   "list": "L0762",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.7793621013133208
+  },
+  {
+   "list": "L0763",
+   "criterion": "zine_energy",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7724202626641651
+  },
+  {
+   "list": "L0763",
+   "criterion": "need_to_be_right",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.651594746716698
+  },
+  {
+   "list": "L0763",
+   "criterion": "pricing_power_insight",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7178236397748595
+  },
+  {
+   "list": "L0769",
+   "criterion": "legal_review_flattening",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6039399624765479
+  },
+  {
+   "list": "L0769",
+   "criterion": "wistfulness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5917448405253285
+  },
+  {
+   "list": "L0769",
+   "criterion": "policy_wonk_coding",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8574108818011259
+  },
+  {
+   "list": "L0774",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.855347091932458
+  },
+  {
+   "list": "L0774",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.853095684803002
+  },
+  {
+   "list": "L0774",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.4454033771106942
+  },
+  {
+   "list": "L0783",
+   "criterion": "mental_model_transferability",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5697936210131334
+  },
+  {
+   "list": "L0783",
+   "criterion": "graceful_degradation_design",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6337711069418387
+  },
+  {
+   "list": "L0783",
+   "criterion": "deliverable_crispness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7212007504690432
+  },
+  {
+   "list": "L0784",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.8223264540337712
+  },
+  {
+   "list": "L0784",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.8971857410881803
+  },
+  {
+   "list": "L0784",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.8317073170731708
+  },
+  {
+   "list": "L0789",
+   "criterion": "gratitude_sincerity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6684803001876173
+  },
+  {
+   "list": "L0789",
+   "criterion": "self_awareness_without_self_absorption",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.4885553470919326
+  },
+  {
+   "list": "L0789",
+   "criterion": "scarcity_honesty",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6097560975609757
+  },
+  {
+   "list": "L0795",
+   "criterion": "craftsman_s_pride",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6587242026266418
+  },
+  {
+   "list": "L0795",
+   "criterion": "variance_embrace",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7714821763602253
+  },
+  {
+   "list": "L0795",
+   "criterion": "punctuation_confidence",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.46772983114446537
+  },
+  {
+   "list": "L0799",
+   "criterion": "sense_of_its_own_moment",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.43395872420262666
+  },
+  {
+   "list": "L0799",
+   "criterion": "mischief_energy",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.39793621013133207
+  },
+  {
+   "list": "L0799",
+   "criterion": "pivot_readiness",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7328330206378987
+  },
+  {
+   "list": "L0807",
+   "criterion": "urgency_authenticity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.47542213883677314
+  },
+  {
+   "list": "L0807",
+   "criterion": "confidence_that_comes_from_having_checked",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.827016885553471
+  },
+  {
+   "list": "L0807",
+   "criterion": "beginner_s_mind_access",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6131332082551596
+  },
+  {
+   "list": "L0826",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8632270168855536
+  },
+  {
+   "list": "L0826",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.6983114446529082
+  },
+  {
+   "list": "L0826",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.8589118198874298
+  },
+  {
+   "list": "L0830",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.8181988742964353
+  },
+  {
+   "list": "L0830",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8682926829268294
+  },
+  {
+   "list": "L0830",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.6722326454033771
+  },
+  {
+   "list": "L0846",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.7622889305816136
+  },
+  {
+   "list": "L0846",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8737335834896812
+  },
+  {
+   "list": "L0846",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.42326454033771116
+  },
+  {
+   "list": "L0850",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8251407129455911
+  },
+  {
+   "list": "L0850",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.8097560975609757
+  },
+  {
+   "list": "L0850",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.7917448405253285
+  },
+  {
+   "list": "L0860",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8076923076923078
+  },
+  {
+   "list": "L0860",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8281425891181992
+  },
+  {
+   "list": "L0860",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.7581613508442778
+  },
+  {
+   "list": "L0863",
+   "criterion": "instrument_validity_care",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8724202626641653
+  },
+  {
+   "list": "L0863",
+   "criterion": "kelly_criterion_instinct",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.08986866791744841
+  },
+  {
+   "list": "L0863",
+   "criterion": "appetite_disclosed",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.49136960600375235
+  },
+  {
+   "list": "L0866",
+   "criterion": "craftedness",
+   "source": "highdim_elaborated",
+   "rho": 0.8090056285178236
+  },
+  {
+   "list": "L0866",
+   "criterion": "institutional_insiderness",
+   "source": "highdim_elaborated",
+   "rho": 0.7596622889305817
+  },
+  {
+   "list": "L0866",
+   "criterion": "how_much_it_rewards_a_careful_re_read",
+   "source": "highdim_elaborated",
+   "rho": 0.8827392120075047
+  },
+  {
+   "list": "L0870",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.6424015009380865
+  },
+  {
+   "list": "L0870",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8799249530956849
+  },
+  {
+   "list": "L0870",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.4581613508442777
+  },
+  {
+   "list": "L0880",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.8637898686679175
+  },
+  {
+   "list": "L0880",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.8883677298311445
+  },
+  {
+   "list": "L0880",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.7803001876172608
+  },
+  {
+   "list": "L0885",
+   "criterion": "crux_legibility",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6666041275797374
+  },
+  {
+   "list": "L0885",
+   "criterion": "burned_boats_commitment",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5223264540337712
+  },
+  {
+   "list": "L0885",
+   "criterion": "definition_hygiene",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.725703564727955
+  },
+  {
+   "list": "L0911",
+   "criterion": "footnote_temperance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": -0.2724202626641651
+  },
+  {
+   "list": "L0911",
+   "criterion": "awareness_of_its_own_weakest_point",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7868667917448406
+  },
+  {
+   "list": "L0911",
+   "criterion": "negative_space_usage",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7288930581613509
+  },
+  {
+   "list": "L0912",
+   "criterion": "intellectual_density",
+   "source": "highdim_elaborated",
+   "rho": 0.8225140712945592
+  },
+  {
+   "list": "L0912",
+   "criterion": "legibility_to_an_outsider",
+   "source": "highdim_elaborated",
+   "rho": 0.7606003752345217
+  },
+  {
+   "list": "L0912",
+   "criterion": "coiled_potential_energy",
+   "source": "highdim_elaborated",
+   "rho": 0.8242026266416511
+  },
+  {
+   "list": "L0916",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.6986866791744841
+  },
+  {
+   "list": "L0916",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8174484052532833
+  },
+  {
+   "list": "L0916",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.6720450281425892
+  },
+  {
+   "list": "L0918",
+   "criterion": "poshness",
+   "source": "highdim_elaborated",
+   "rho": 0.8823639774859289
+  },
+  {
+   "list": "L0918",
+   "criterion": "technical_calmness",
+   "source": "highdim_elaborated",
+   "rho": 0.8491557223264542
+  },
+  {
+   "list": "L0918",
+   "criterion": "earnestness",
+   "source": "highdim_elaborated",
+   "rho": 0.49193245778611633
+  },
+  {
+   "list": "L0933",
+   "criterion": "forgiveness_over_permission_calibration",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.2808630393996248
+  },
+  {
+   "list": "L0933",
+   "criterion": "read_aloud_quality",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6726078799249532
+  },
+  {
+   "list": "L0933",
+   "criterion": "transitions_earning_their_keep",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7598499061913697
+  },
+  {
+   "list": "L0935",
+   "criterion": "costly_signal_investment",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6148217636022515
+  },
+  {
+   "list": "L0935",
+   "criterion": "mission_drift_within_the_document",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": -0.16116322701688557
+  },
+  {
+   "list": "L0935",
+   "criterion": "hunger",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6294559099437149
+  },
+  {
+   "list": "L0943",
+   "criterion": "bureaucratic_sediment",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.577673545966229
+  },
+  {
+   "list": "L0943",
+   "criterion": "definition_of_done_clarity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6821763602251408
+  },
+  {
+   "list": "L0943",
+   "criterion": "critique_digestibility",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.49399624765478434
+  },
+  {
+   "list": "L0945",
+   "criterion": "information_placement_skill",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7249530956848032
+  },
+  {
+   "list": "L0945",
+   "criterion": "bitterness_residue",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6433395872420263
+  },
+  {
+   "list": "L0945",
+   "criterion": "batch_size_wisdom",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.7887429643527205
+  },
+  {
+   "list": "L0949",
+   "criterion": "homework_assigned_honestly",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6457786116322702
+  },
+  {
+   "list": "L0949",
+   "criterion": "soft_power_fluency",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.726078799249531
+  },
+  {
+   "list": "L0949",
+   "criterion": "cliche_avoidance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5667917448405254
+  },
+  {
+   "list": "L0956",
+   "criterion": "self_containedness",
+   "source": "highdim_elaborated",
+   "rho": 0.5135084427767356
+  },
+  {
+   "list": "L0956",
+   "criterion": "high_status",
+   "source": "highdim_elaborated",
+   "rho": 0.8896810506566605
+  },
+  {
+   "list": "L0956",
+   "criterion": "low_status",
+   "source": "highdim_elaborated",
+   "rho": 0.701500938086304
+  },
+  {
+   "list": "L0957",
+   "criterion": "load_bearing_ness_of_its_analogies",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.8150093808630395
+  },
+  {
+   "list": "L0957",
+   "criterion": "ecological_fallacy_avoidance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6823639774859288
+  },
+  {
+   "list": "L0957",
+   "criterion": "internal_memo_candor",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.6540337711069419
+  },
+  {
+   "list": "L0983",
+   "criterion": "overhead_candor",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5752345215759851
+  },
+  {
+   "list": "L0983",
+   "criterion": "bikeshedding_resistance",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5045028142589119
+  },
+  {
+   "list": "L0983",
+   "criterion": "fixed_versus_variable_clarity",
+   "source": "fable_subtle_1000_elaborated",
+   "rho": 0.5949343339587243
+  },
+  {
+   "list": "T0006",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6819887429643529
+  },
+  {
+   "list": "T0006",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.4885553470919326
+  },
+  {
+   "list": "T0006",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.629080675422139
+  },
+  {
+   "list": "T0012",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.34971857410881807
+  },
+  {
+   "list": "T0012",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.4547842401500939
+  },
+  {
+   "list": "T0012",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6953095684803003
+  },
+  {
+   "list": "T0026",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6579737335834898
+  },
+  {
+   "list": "T0026",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.426829268292683
+  },
+  {
+   "list": "T0026",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7320825515947468
+  },
+  {
+   "list": "T0031",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5163227016885554
+  },
+  {
+   "list": "T0031",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5872420262664165
+  },
+  {
+   "list": "T0031",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.551031894934334
+  },
+  {
+   "list": "T0033",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.45703564727954976
+  },
+  {
+   "list": "T0033",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.7581613508442778
+  },
+  {
+   "list": "T0033",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6196998123827393
+  },
+  {
+   "list": "T0036",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.4727954971857412
+  },
+  {
+   "list": "T0036",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6962476547842401
+  },
+  {
+   "list": "T0036",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.5727954971857412
+  },
+  {
+   "list": "T0057",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5909943714821764
+  },
+  {
+   "list": "T0057",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.7303939962476548
+  },
+  {
+   "list": "T0057",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6439024390243904
+  },
+  {
+   "list": "T0058",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5939962476547843
+  },
+  {
+   "list": "T0058",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6829268292682927
+  },
+  {
+   "list": "T0058",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6819887429643529
+  },
+  {
+   "list": "T0064",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.3727954971857412
+  },
+  {
+   "list": "T0064",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5733583489681051
+  },
+  {
+   "list": "T0064",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6737335834896812
+  },
+  {
+   "list": "T0066",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.528330206378987
+  },
+  {
+   "list": "T0066",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5761726078799251
+  },
+  {
+   "list": "T0066",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6551594746716698
+  },
+  {
+   "list": "T0101",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6392120075046905
+  },
+  {
+   "list": "T0101",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.46566604127579747
+  },
+  {
+   "list": "T0101",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6864915572232646
+  },
+  {
+   "list": "T0102",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6279549718574109
+  },
+  {
+   "list": "T0102",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5941838649155723
+  },
+  {
+   "list": "T0102",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.398686679174484
+  },
+  {
+   "list": "T0107",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5091932457786118
+  },
+  {
+   "list": "T0107",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5938086303939962
+  },
+  {
+   "list": "T0107",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7711069418386494
+  },
+  {
+   "list": "T0109",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6523452157598499
+  },
+  {
+   "list": "T0109",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.5966228893058162
+  },
+  {
+   "list": "T0109",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6812382739212008
+  },
+  {
+   "list": "T0116",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.4799249530956849
+  },
+  {
+   "list": "T0116",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.4557223264540338
+  },
+  {
+   "list": "T0116",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6206378986866793
+  },
+  {
+   "list": "T0120",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.4928705440900563
+  },
+  {
+   "list": "T0120",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6440900562851783
+  },
+  {
+   "list": "T0120",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.628517823639775
+  },
+  {
+   "list": "T0122",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.554033771106942
+  },
+  {
+   "list": "T0122",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6076923076923078
+  },
+  {
+   "list": "T0122",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6893058161350845
+  },
+  {
+   "list": "T0123",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.44315196998123835
+  },
+  {
+   "list": "T0123",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6767354596622891
+  },
+  {
+   "list": "T0123",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.8045028142589119
+  },
+  {
+   "list": "T0125",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5469043151969981
+  },
+  {
+   "list": "T0125",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6606003752345218
+  },
+  {
+   "list": "T0125",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6900562851782365
+  },
+  {
+   "list": "T0131",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5694183864915573
+  },
+  {
+   "list": "T0131",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.603001876172608
+  },
+  {
+   "list": "T0131",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6210131332082554
+  },
+  {
+   "list": "T0132",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6031894934333959
+  },
+  {
+   "list": "T0132",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.45797373358348975
+  },
+  {
+   "list": "T0132",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6767354596622891
+  },
+  {
+   "list": "T0133",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5613508442776737
+  },
+  {
+   "list": "T0133",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.4354596622889307
+  },
+  {
+   "list": "T0133",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7093808630393997
+  },
+  {
+   "list": "T0134",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.603001876172608
+  },
+  {
+   "list": "T0134",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.4210131332082552
+  },
+  {
+   "list": "T0134",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.75140712945591
+  },
+  {
+   "list": "T0139",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.4658536585365854
+  },
+  {
+   "list": "T0139",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.39099437148217636
+  },
+  {
+   "list": "T0139",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.5219512195121951
+  },
+  {
+   "list": "T0143",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5360225140712945
+  },
+  {
+   "list": "T0143",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.6046904315196998
+  },
+  {
+   "list": "T0143",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.44371482176360233
+  },
+  {
+   "list": "T0144",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.21257035647279554
+  },
+  {
+   "list": "T0144",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.49305816135084435
+  },
+  {
+   "list": "T0144",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.5726078799249531
+  },
+  {
+   "list": "T0147",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5977485928705442
+  },
+  {
+   "list": "T0147",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.675609756097561
+  },
+  {
+   "list": "T0147",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6371482176360226
+  },
+  {
+   "list": "T0159",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5101313320825517
+  },
+  {
+   "list": "T0159",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.35947467166979363
+  },
+  {
+   "list": "T0159",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7217636022514072
+  },
+  {
+   "list": "T0160",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.6589118198874298
+  },
+  {
+   "list": "T0160",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.651594746716698
+  },
+  {
+   "list": "T0160",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.6302063789868669
+  },
+  {
+   "list": "T0171",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5891181988742965
+  },
+  {
+   "list": "T0171",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.39793621013133207
+  },
+  {
+   "list": "T0171",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7585365853658537
+  },
+  {
+   "list": "T0172",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.5651031894934334
+  },
+  {
+   "list": "T0172",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.7791744840525331
+  },
+  {
+   "list": "T0172",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.5881801125703565
+  },
+  {
+   "list": "T0179",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.36435272045028144
+  },
+  {
+   "list": "T0179",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.3994371482176361
+  },
+  {
+   "list": "T0179",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.5024390243902439
+  },
+  {
+   "list": "T0180",
+   "criterion": "interesting",
+   "source": "hn_top",
+   "rho": 0.4637898686679175
+  },
+  {
+   "list": "T0180",
+   "criterion": "credible",
+   "source": "hn_top",
+   "rho": 0.7362101313320827
+  },
+  {
+   "list": "T0180",
+   "criterion": "actionable",
+   "source": "hn_top",
+   "rho": 0.7863039399624767
+  },
+  {
+   "list": "C0006",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.5247654784240151
+  },
+  {
+   "list": "C0006",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.06810506566604127
+  },
+  {
+   "list": "C0006",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.035084427767354605
+  },
+  {
+   "list": "C0019",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7125703564727957
+  },
+  {
+   "list": "C0019",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": -0.1801125703564728
+  },
+  {
+   "list": "C0019",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.19906191369606008
+  },
+  {
+   "list": "C0022",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.8669793621013135
+  },
+  {
+   "list": "C0022",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.0703564727954972
+  },
+  {
+   "list": "C0022",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.06472795497185742
+  },
+  {
+   "list": "C0023",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.828517823639775
+  },
+  {
+   "list": "C0023",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.03470919324577862
+  },
+  {
+   "list": "C0023",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.09943714821763605
+  },
+  {
+   "list": "C0029",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6302063789868669
+  },
+  {
+   "list": "C0029",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": -0.18836772983114447
+  },
+  {
+   "list": "C0029",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.2228893058161351
+  },
+  {
+   "list": "C0036",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7305816135084429
+  },
+  {
+   "list": "C0036",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.17335834896810506
+  },
+  {
+   "list": "C0036",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.09887429643527205
+  },
+  {
+   "list": "C0073",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6932457786116323
+  },
+  {
+   "list": "C0073",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.3489681050656661
+  },
+  {
+   "list": "C0073",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.08011257035647282
+  },
+  {
+   "list": "C0074",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6833020637898688
+  },
+  {
+   "list": "C0074",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": -0.05046904315196998
+  },
+  {
+   "list": "C0074",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.1153846153846154
+  },
+  {
+   "list": "C0079",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7607879924953096
+  },
+  {
+   "list": "C0079",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.09324577861163227
+  },
+  {
+   "list": "C0079",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.14127579737335835
+  },
+  {
+   "list": "C0087",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7101313320825517
+  },
+  {
+   "list": "C0087",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.23677298311444658
+  },
+  {
+   "list": "C0087",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.25497185741088185
+  },
+  {
+   "list": "C0093",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7431519699812383
+  },
+  {
+   "list": "C0093",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": -0.036022514071294566
+  },
+  {
+   "list": "C0093",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.07091932457786117
+  },
+  {
+   "list": "C0094",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7448405253283303
+  },
+  {
+   "list": "C0094",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.17148217636022517
+  },
+  {
+   "list": "C0094",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.11932457786116324
+  },
+  {
+   "list": "C0096",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7123827392120076
+  },
+  {
+   "list": "C0096",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.1834896810506567
+  },
+  {
+   "list": "C0096",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.18142589118198876
+  },
+  {
+   "list": "C0102",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7733583489681052
+  },
+  {
+   "list": "C0102",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.21801125703564733
+  },
+  {
+   "list": "C0102",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.2227016885553471
+  },
+  {
+   "list": "C0108",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7797373358348969
+  },
+  {
+   "list": "C0108",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.09831144465290809
+  },
+  {
+   "list": "C0108",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.13583489681050656
+  },
+  {
+   "list": "C0117",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.3242026266416511
+  },
+  {
+   "list": "C0117",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.17936210131332084
+  },
+  {
+   "list": "C0117",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.251594746716698
+  },
+  {
+   "list": "C0118",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.8272045028142591
+  },
+  {
+   "list": "C0118",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.20450281425891187
+  },
+  {
+   "list": "C0118",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.4170731707317074
+  },
+  {
+   "list": "C0127",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6709193245778613
+  },
+  {
+   "list": "C0127",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.007879924953095686
+  },
+  {
+   "list": "C0127",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.04090056285178237
+  },
+  {
+   "list": "C0129",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.8114446529080677
+  },
+  {
+   "list": "C0129",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.2101313320825516
+  },
+  {
+   "list": "C0129",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.12870544090056285
+  },
+  {
+   "list": "C0131",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.752532833020638
+  },
+  {
+   "list": "C0131",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.08030018761726081
+  },
+  {
+   "list": "C0131",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.0026266416510318954
+  },
+  {
+   "list": "C0137",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7797373358348969
+  },
+  {
+   "list": "C0137",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.06904315196998126
+  },
+  {
+   "list": "C0137",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.07804878048780489
+  },
+  {
+   "list": "C0141",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.625891181988743
+  },
+  {
+   "list": "C0141",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.13545966228893058
+  },
+  {
+   "list": "C0141",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.3838649155722327
+  },
+  {
+   "list": "C0142",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7893058161350845
+  },
+  {
+   "list": "C0142",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.2309568480300188
+  },
+  {
+   "list": "C0142",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.009568480300187619
+  },
+  {
+   "list": "C0147",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6487804878048781
+  },
+  {
+   "list": "C0147",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.15891181988742967
+  },
+  {
+   "list": "C0147",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.0729831144465291
+  },
+  {
+   "list": "C0149",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.7624765478424016
+  },
+  {
+   "list": "C0149",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.1681050656660413
+  },
+  {
+   "list": "C0149",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.04409005628517824
+  },
+  {
+   "list": "C0153",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.777110694183865
+  },
+  {
+   "list": "C0153",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.4636022514071295
+  },
+  {
+   "list": "C0153",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.23433395872420262
+  },
+  {
+   "list": "C0163",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6846153846153846
+  },
+  {
+   "list": "C0163",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.33245778611632276
+  },
+  {
+   "list": "C0163",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.3084427767354597
+  },
+  {
+   "list": "C0165",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.8529080675422139
+  },
+  {
+   "list": "C0165",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.06885553470919327
+  },
+  {
+   "list": "C0165",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.19587242026266422
+  },
+  {
+   "list": "C0176",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.5951219512195123
+  },
+  {
+   "list": "C0176",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.3789868667917449
+  },
+  {
+   "list": "C0176",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.2181988742964353
+  },
+  {
+   "list": "C0180",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6592870544090058
+  },
+  {
+   "list": "C0180",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.02382739212007505
+  },
+  {
+   "list": "C0180",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.17711069418386496
+  },
+  {
+   "list": "C0183",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.578799249530957
+  },
+  {
+   "list": "C0183",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.11838649155722329
+  },
+  {
+   "list": "C0183",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.09212007504690432
+  },
+  {
+   "list": "C0185",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.8309568480300188
+  },
+  {
+   "list": "C0185",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.27429643527204506
+  },
+  {
+   "list": "C0185",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": -0.03958724202626642
+  },
+  {
+   "list": "C0190",
+   "criterion": "informative",
+   "source": "hn_comments",
+   "rho": 0.6919324577861163
+  },
+  {
+   "list": "C0190",
+   "criterion": "civil",
+   "source": "hn_comments",
+   "rho": 0.34446529080675425
+  },
+  {
+   "list": "C0190",
+   "criterion": "concise",
+   "source": "hn_comments",
+   "rho": 0.2337711069418387
+  },
+  {
+   "list": "A0000",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.55328330206379
+  },
+  {
+   "list": "A0000",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5309568480300187
+  },
+  {
+   "list": "A0000",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7354596622889307
+  },
+  {
+   "list": "A0002",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7028142589118199
+  },
+  {
+   "list": "A0002",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.42851782363977486
+  },
+  {
+   "list": "A0002",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7165103189493434
+  },
+  {
+   "list": "A0020",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6902439024390244
+  },
+  {
+   "list": "A0020",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.38405253283302065
+  },
+  {
+   "list": "A0020",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6247654784240151
+  },
+  {
+   "list": "A0025",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7125703564727957
+  },
+  {
+   "list": "A0025",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6114446529080676
+  },
+  {
+   "list": "A0025",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7076923076923078
+  },
+  {
+   "list": "A0026",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.4058161350844278
+  },
+  {
+   "list": "A0026",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5446529080675423
+  },
+  {
+   "list": "A0026",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6908067542213885
+  },
+  {
+   "list": "A0028",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.46772983114446537
+  },
+  {
+   "list": "A0028",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5302063789868668
+  },
+  {
+   "list": "A0028",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.700187617260788
+  },
+  {
+   "list": "A0030",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.3086303939962477
+  },
+  {
+   "list": "A0030",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.23227016885553473
+  },
+  {
+   "list": "A0030",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.552157598499062
+  },
+  {
+   "list": "A0053",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6639774859287055
+  },
+  {
+   "list": "A0053",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.4737335834896811
+  },
+  {
+   "list": "A0053",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6422138836772984
+  },
+  {
+   "list": "A0057",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.4110694183864916
+  },
+  {
+   "list": "A0057",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6759849906191371
+  },
+  {
+   "list": "A0057",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6153846153846155
+  },
+  {
+   "list": "A0061",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6463414634146342
+  },
+  {
+   "list": "A0061",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.3742964352720451
+  },
+  {
+   "list": "A0061",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.75422138836773
+  },
+  {
+   "list": "A0064",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6846153846153846
+  },
+  {
+   "list": "A0064",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6397748592870545
+  },
+  {
+   "list": "A0064",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7091932457786118
+  },
+  {
+   "list": "A0073",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.628142589118199
+  },
+  {
+   "list": "A0073",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6611632270168856
+  },
+  {
+   "list": "A0073",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7947467166979364
+  },
+  {
+   "list": "A0080",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.5686679174484054
+  },
+  {
+   "list": "A0080",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.45909943714821777
+  },
+  {
+   "list": "A0080",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6757973733583491
+  },
+  {
+   "list": "A0081",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.752908067542214
+  },
+  {
+   "list": "A0081",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5452157598499062
+  },
+  {
+   "list": "A0081",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.8377110694183866
+  },
+  {
+   "list": "A0089",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.701125703564728
+  },
+  {
+   "list": "A0089",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.7103189493433397
+  },
+  {
+   "list": "A0089",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.730206378986867
+  },
+  {
+   "list": "A0091",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7198874296435274
+  },
+  {
+   "list": "A0091",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5737335834896812
+  },
+  {
+   "list": "A0091",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7894934333958725
+  },
+  {
+   "list": "A0101",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.5908067542213884
+  },
+  {
+   "list": "A0101",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5979362101313322
+  },
+  {
+   "list": "A0101",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6257035647279551
+  },
+  {
+   "list": "A0107",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.802439024390244
+  },
+  {
+   "list": "A0107",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5352720450281426
+  },
+  {
+   "list": "A0107",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.5326454033771107
+  },
+  {
+   "list": "A0112",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.5902439024390245
+  },
+  {
+   "list": "A0112",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5303939962476548
+  },
+  {
+   "list": "A0112",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6200750469043153
+  },
+  {
+   "list": "A0115",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.8247654784240152
+  },
+  {
+   "list": "A0115",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.576923076923077
+  },
+  {
+   "list": "A0115",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.47748592870544093
+  },
+  {
+   "list": "A0125",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.5180112570356473
+  },
+  {
+   "list": "A0125",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5249530956848031
+  },
+  {
+   "list": "A0125",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6861163227016887
+  },
+  {
+   "list": "A0128",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7386491557223266
+  },
+  {
+   "list": "A0128",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6559099437148219
+  },
+  {
+   "list": "A0128",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7332082551594749
+  },
+  {
+   "list": "A0131",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7375234521575986
+  },
+  {
+   "list": "A0131",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.526266416510319
+  },
+  {
+   "list": "A0131",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7442776735459664
+  },
+  {
+   "list": "A0140",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7247654784240152
+  },
+  {
+   "list": "A0140",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.25234521575985
+  },
+  {
+   "list": "A0140",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7945590994371484
+  },
+  {
+   "list": "A0142",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.27129455909943717
+  },
+  {
+   "list": "A0142",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5570356472795498
+  },
+  {
+   "list": "A0142",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7401500938086305
+  },
+  {
+   "list": "A0146",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6174484052532834
+  },
+  {
+   "list": "A0146",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.46941838649155726
+  },
+  {
+   "list": "A0146",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.727204502814259
+  },
+  {
+   "list": "A0150",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6153846153846155
+  },
+  {
+   "list": "A0150",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6444652908067544
+  },
+  {
+   "list": "A0150",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.75140712945591
+  },
+  {
+   "list": "A0153",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.7656660412757974
+  },
+  {
+   "list": "A0153",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.33264540337711074
+  },
+  {
+   "list": "A0153",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.806378986866792
+  },
+  {
+   "list": "A0157",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6056285178236398
+  },
+  {
+   "list": "A0157",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6523452157598499
+  },
+  {
+   "list": "A0157",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6949343339587244
+  },
+  {
+   "list": "A0159",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6780487804878049
+  },
+  {
+   "list": "A0159",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5371482176360226
+  },
+  {
+   "list": "A0159",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.7474671669793622
+  },
+  {
+   "list": "A0165",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.5669793621013134
+  },
+  {
+   "list": "A0165",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.5752345215759851
+  },
+  {
+   "list": "A0165",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6459662288930583
+  },
+  {
+   "list": "A0173",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.6834896810506568
+  },
+  {
+   "list": "A0173",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6472795497185742
+  },
+  {
+   "list": "A0173",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6731707317073172
+  },
+  {
+   "list": "A0186",
+   "criterion": "novelty",
+   "source": "arxiv",
+   "rho": 0.46341463414634154
+  },
+  {
+   "list": "A0186",
+   "criterion": "clarity",
+   "source": "arxiv",
+   "rho": 0.6048780487804878
+  },
+  {
+   "list": "A0186",
+   "criterion": "evidence",
+   "source": "arxiv",
+   "rho": 0.6592870544090058
+  }
+ ],
+ "struct": [
+  {
+   "list": "L0001",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9148217636022515,
+   "teacher": 0.7936210131332083
+  },
+  {
+   "list": "L0001",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.903939962476548,
+   "teacher": 0.8187617260787995
+  },
+  {
+   "list": "L0001",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9482176360225142,
+   "teacher": 0.8804878048780489
+  },
+  {
+   "list": "L0041",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9305816135084428,
+   "teacher": 0.8885553470919326
+  },
+  {
+   "list": "L0041",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9463414634146343,
+   "teacher": 0.8157598499061914
+  },
+  {
+   "list": "L0041",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9739212007504691,
+   "teacher": 0.8365853658536587
+  },
+  {
+   "list": "L0052",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8322701688555347,
+   "teacher": 0.7388367729831146
+  },
+  {
+   "list": "L0052",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8969981238273923,
+   "teacher": 0.7125703564727957
+  },
+  {
+   "list": "L0052",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8833020637898689,
+   "teacher": 0.7046904315196999
+  },
+  {
+   "list": "L0056",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9131332082551596,
+   "teacher": 0.9478424015009382
+  },
+  {
+   "list": "L0056",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8926829268292685,
+   "teacher": 0.9131332082551596
+  },
+  {
+   "list": "L0056",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9472795497185741,
+   "teacher": 0.9414634146341464
+  },
+  {
+   "list": "L0060",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.904315196998124,
+   "teacher": 0.9157598499061914
+  },
+  {
+   "list": "L0060",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8345215759849908,
+   "teacher": 0.8140712945590995
+  },
+  {
+   "list": "L0060",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.90375234521576,
+   "teacher": 0.8196998123827394
+  },
+  {
+   "list": "L0114",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8405253283302064,
+   "teacher": 0.8296435272045031
+  },
+  {
+   "list": "L0114",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8345215759849908,
+   "teacher": 0.797373358348968
+  },
+  {
+   "list": "L0114",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9069418386491558,
+   "teacher": 0.7727954971857413
+  },
+  {
+   "list": "L0122",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.7632270168855536,
+   "teacher": 0.3726078799249531
+  },
+  {
+   "list": "L0122",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.7737335834896811,
+   "teacher": 0.38048780487804884
+  },
+  {
+   "list": "L0122",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8819887429643528,
+   "teacher": 0.8529080675422139
+  },
+  {
+   "list": "L0147",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8465290806754223,
+   "teacher": 0.7660412757973735
+  },
+  {
+   "list": "L0147",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8365853658536587,
+   "teacher": 0.7093808630393997
+  },
+  {
+   "list": "L0147",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9624765478424018,
+   "teacher": 0.9512195121951221
+  },
+  {
+   "list": "L0163",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9195121951219513,
+   "teacher": 0.797373358348968
+  },
+  {
+   "list": "L0163",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8968105065666041,
+   "teacher": 0.7363977485928707
+  },
+  {
+   "list": "L0163",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9367729831144467,
+   "teacher": 0.806378986866792
+  },
+  {
+   "list": "L0215",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8131332082551596,
+   "teacher": 0.7425891181988745
+  },
+  {
+   "list": "L0215",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8343339587242028,
+   "teacher": 0.8163227016885555
+  },
+  {
+   "list": "L0215",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.854596622889306,
+   "teacher": 0.7615384615384617
+  },
+  {
+   "list": "L0225",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9035647279549721,
+   "teacher": 0.8611632270168857
+  },
+  {
+   "list": "L0225",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9013133208255161,
+   "teacher": 0.8696060037523453
+  },
+  {
+   "list": "L0225",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9223264540337712,
+   "teacher": 0.8827392120075047
+  },
+  {
+   "list": "L0251",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.7833020637898687,
+   "teacher": 0.49718574108818014
+  },
+  {
+   "list": "L0251",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8339587242026266,
+   "teacher": 0.5358348968105066
+  },
+  {
+   "list": "L0251",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.904315196998124,
+   "teacher": 0.6844277673545968
+  },
+  {
+   "list": "L0257",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8634146341463416,
+   "teacher": 0.7467166979362101
+  },
+  {
+   "list": "L0257",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8300187617260789,
+   "teacher": 0.675046904315197
+  },
+  {
+   "list": "L0257",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9309568480300189,
+   "teacher": 0.9611632270168857
+  },
+  {
+   "list": "L0262",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8658536585365855,
+   "teacher": 0.95422138836773
+  },
+  {
+   "list": "L0262",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9266416510318951,
+   "teacher": 0.9330206378986868
+  },
+  {
+   "list": "L0262",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8855534709193247,
+   "teacher": 0.9450281425891184
+  },
+  {
+   "list": "L0280",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8677298311444656,
+   "teacher": 0.8195121951219514
+  },
+  {
+   "list": "L0280",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8876172607879926,
+   "teacher": 0.6889305816135085
+  },
+  {
+   "list": "L0280",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9463414634146343,
+   "teacher": 0.9251407129455911
+  },
+  {
+   "list": "L0284",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8178236397748594,
+   "teacher": 0.8078799249530959
+  },
+  {
+   "list": "L0284",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8529080675422139,
+   "teacher": 0.8606003752345217
+  },
+  {
+   "list": "L0284",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9258911819887431,
+   "teacher": 0.8726078799249533
+  },
+  {
+   "list": "L0293",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8326454033771109,
+   "teacher": 0.6560975609756098
+  },
+  {
+   "list": "L0293",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8330206378986867,
+   "teacher": 0.7474671669793622
+  },
+  {
+   "list": "L0293",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9459662288930581,
+   "teacher": 0.9009380863039401
+  },
+  {
+   "list": "L0300",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.7452157598499062,
+   "teacher": 0.6979362101313322
+  },
+  {
+   "list": "L0300",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.7356472795497188,
+   "teacher": 0.7078799249530957
+  },
+  {
+   "list": "L0300",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.751594746716698,
+   "teacher": 0.7579737335834899
+  },
+  {
+   "list": "L0307",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8731707317073172,
+   "teacher": 0.8628517823639776
+  },
+  {
+   "list": "L0307",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9078799249530958,
+   "teacher": 0.8247654784240152
+  },
+  {
+   "list": "L0307",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9255159474671671,
+   "teacher": 0.8887429643527206
+  },
+  {
+   "list": "L0314",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8330206378986867,
+   "teacher": 0.6523452157598499
+  },
+  {
+   "list": "L0314",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8609756097560977,
+   "teacher": 0.802626641651032
+  },
+  {
+   "list": "L0314",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9022514071294561,
+   "teacher": 0.7166979362101313
+  },
+  {
+   "list": "L0318",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9099437148217637,
+   "teacher": 0.8786116322701689
+  },
+  {
+   "list": "L0318",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9260787992495311,
+   "teacher": 0.9031894934333959
+  },
+  {
+   "list": "L0318",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9328330206378989,
+   "teacher": 0.9313320825515949
+  },
+  {
+   "list": "L0331",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9114446529080676,
+   "teacher": 0.751782363977486
+  },
+  {
+   "list": "L0331",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8457786116322703,
+   "teacher": 0.6427767354596623
+  },
+  {
+   "list": "L0331",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.806378986866792,
+   "teacher": 0.7495309568480302
+  },
+  {
+   "list": "L0374",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8384615384615386,
+   "teacher": 0.7367729831144466
+  },
+  {
+   "list": "L0374",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8930581613508444,
+   "teacher": 0.8395872420262666
+  },
+  {
+   "list": "L0374",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9333958724202627,
+   "teacher": 0.8358348968105067
+  },
+  {
+   "list": "L0384",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.876735459662289,
+   "teacher": 0.7662288930581614
+  },
+  {
+   "list": "L0384",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.903001876172608,
+   "teacher": 0.7834896810506569
+  },
+  {
+   "list": "L0384",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8994371482176362,
+   "teacher": 0.8157598499061914
+  },
+  {
+   "list": "L0393",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8938086303939963,
+   "teacher": 0.8045028142589119
+  },
+  {
+   "list": "L0393",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9309568480300189,
+   "teacher": 0.8741088180112572
+  },
+  {
+   "list": "L0393",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9161350844277675,
+   "teacher": 0.8172607879924956
+  },
+  {
+   "list": "L0395",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8497185741088181,
+   "teacher": 0.8121951219512197
+  },
+  {
+   "list": "L0395",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8938086303939963,
+   "teacher": 0.881801125703565
+  },
+  {
+   "list": "L0395",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9114446529080676,
+   "teacher": 0.7819887429643527
+  },
+  {
+   "list": "L0397",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.9221388367729833,
+   "teacher": 0.8894934333958725
+  },
+  {
+   "list": "L0397",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.9309568480300189,
+   "teacher": 0.7335834896810507
+  },
+  {
+   "list": "L0397",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9298311444652909,
+   "teacher": 0.6724202626641652
+  },
+  {
+   "list": "L0401",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.7874296435272046,
+   "teacher": 0.7360225140712947
+  },
+  {
+   "list": "L0401",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.7360225140712947,
+   "teacher": 0.7090056285178238
+  },
+  {
+   "list": "L0401",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9227016885553473,
+   "teacher": 0.8945590994371483
+  },
+  {
+   "list": "L0431",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.852720450281426,
+   "teacher": 0.7654784240150094
+  },
+  {
+   "list": "L0431",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8540337711069419,
+   "teacher": 0.8786116322701689
+  },
+  {
+   "list": "L0431",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8996247654784242,
+   "teacher": 0.7495309568480302
+  },
+  {
+   "list": "L0440",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.7733583489681052,
+   "teacher": 0.44690431519699814
+  },
+  {
+   "list": "L0440",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8371482176360227,
+   "teacher": 0.5827392120075048
+  },
+  {
+   "list": "L0440",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.8911819887429644,
+   "teacher": 0.7971857410881803
+  },
+  {
+   "list": "L0452",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8409005628517825,
+   "teacher": 0.7041275797373359
+  },
+  {
+   "list": "L0452",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.852720450281426,
+   "teacher": 0.6984990619136962
+  },
+  {
+   "list": "L0452",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9313320825515949,
+   "teacher": 0.8185741088180113
+  },
+  {
+   "list": "L0458",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8913696060037525,
+   "teacher": 0.7904315196998125
+  },
+  {
+   "list": "L0458",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8328330206378989,
+   "teacher": 0.777485928705441
+  },
+  {
+   "list": "L0458",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9446529080675423,
+   "teacher": 0.8504690431519701
+  },
+  {
+   "list": "L0487",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "alpha"
+   ],
+   "judge": 0.8594746716697936,
+   "teacher": 0.8707317073170734
+  },
+  {
+   "list": "L0487",
+   "source": "lw",
+   "pair": [
+    "novelty",
+    "rigor"
+   ],
+   "judge": 0.8300187617260789,
+   "teacher": 0.7709193245778612
+  },
+  {
+   "list": "L0487",
+   "source": "lw",
+   "pair": [
+    "alpha",
+    "rigor"
+   ],
+   "judge": 0.9333958724202627,
+   "teacher": 0.8975609756097561
+  },
+  {
+   "list": "L0504",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.6669793621013134,
+   "teacher": -0.7189493433395873
+  },
+  {
+   "list": "L0504",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.8409005628517825,
+   "teacher": 0.6091932457786117
+  },
+  {
+   "list": "L0504",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.7675422138836775,
+   "teacher": -0.6806754221388369
+  },
+  {
+   "list": "L0513",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "coalition_math_realism",
+    "clean_hands_preoccupation"
+   ],
+   "judge": 0.5864915572232645,
+   "teacher": 0.2812382739212008
+  },
+  {
+   "list": "L0513",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "coalition_math_realism",
+    "formalism_first_courage"
+   ],
+   "judge": 0.29061913696060043,
+   "teacher": 0.07448405253283302
+  },
+  {
+   "list": "L0513",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "clean_hands_preoccupation",
+    "formalism_first_courage"
+   ],
+   "judge": 0.3789868667917449,
+   "teacher": 0.013696060037523454
+  },
+  {
+   "list": "L0538",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.18198874296435275,
+   "teacher": 0.4043151969981239
+  },
+  {
+   "list": "L0538",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9206378986866793,
+   "teacher": 0.9455909943714824
+  },
+  {
+   "list": "L0538",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.07823639774859288,
+   "teacher": 0.31463414634146347
+  },
+  {
+   "list": "L0544",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.7874296435272046,
+   "teacher": -0.5893058161350845
+  },
+  {
+   "list": "L0544",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.8133208255159475,
+   "teacher": 0.80562851782364
+  },
+  {
+   "list": "L0544",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.853658536585366,
+   "teacher": -0.6502814258911822
+  },
+  {
+   "list": "L0547",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "handoff_explicitness",
+    "direct_address_comfort"
+   ],
+   "judge": 0.15084427767354597,
+   "teacher": -0.3816135084427768
+  },
+  {
+   "list": "L0547",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "handoff_explicitness",
+    "reputation_stake_sizing"
+   ],
+   "judge": 0.7339587242026268,
+   "teacher": 0.3307692307692308
+  },
+  {
+   "list": "L0547",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "direct_address_comfort",
+    "reputation_stake_sizing"
+   ],
+   "judge": -0.15384615384615388,
+   "teacher": 0.043151969981238276
+  },
+  {
+   "list": "L0550",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.6896810506566605,
+   "teacher": 0.551969981238274
+  },
+  {
+   "list": "L0550",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.12720450281425894,
+   "teacher": 0.39099437148217636
+  },
+  {
+   "list": "L0550",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": -0.06397748592870545,
+   "teacher": 0.12701688555347093
+  },
+  {
+   "list": "L0559",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "evidence_hierarchy_respect",
+    "diagram_necessity"
+   ],
+   "judge": 0.8855534709193247,
+   "teacher": 0.49849906191369614
+  },
+  {
+   "list": "L0559",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "evidence_hierarchy_respect",
+    "humor_as_argument"
+   ],
+   "judge": -0.20731707317073172,
+   "teacher": 0.13414634146341467
+  },
+  {
+   "list": "L0559",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "diagram_necessity",
+    "humor_as_argument"
+   ],
+   "judge": -0.2536585365853659,
+   "teacher": -0.10694183864915573
+  },
+  {
+   "list": "L0572",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": -0.0075046904315197,
+   "teacher": -0.22176360225140718
+  },
+  {
+   "list": "L0572",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.21069418386491562,
+   "teacher": -0.20712945590994375
+  },
+  {
+   "list": "L0572",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.7947467166979364,
+   "teacher": -0.6153846153846155
+  },
+  {
+   "list": "L0606",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.6579737335834898,
+   "teacher": 0.527392120075047
+  },
+  {
+   "list": "L0606",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.17654784240150098,
+   "teacher": 0.38930581613508447
+  },
+  {
+   "list": "L0606",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": -0.1834896810506567,
+   "teacher": -0.05984990619136961
+  },
+  {
+   "list": "L0628",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": -0.039399624765478425,
+   "teacher": 0.018949343339587248
+  },
+  {
+   "list": "L0628",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.27936210131332084,
+   "teacher": -0.09118198874296438
+  },
+  {
+   "list": "L0628",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.7551594746716699,
+   "teacher": -0.826829268292683
+  },
+  {
+   "list": "L0633",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "survivorship_bias_vulnerability",
+    "animal_inclusion_instinct"
+   ],
+   "judge": 0.6159474671669795,
+   "teacher": -0.08630393996247655
+  },
+  {
+   "list": "L0633",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "survivorship_bias_vulnerability",
+    "velocity_of_the_underlying_idea"
+   ],
+   "judge": 0.6808630393996248,
+   "teacher": -0.19962476547842406
+  },
+  {
+   "list": "L0633",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "animal_inclusion_instinct",
+    "velocity_of_the_underlying_idea"
+   ],
+   "judge": 0.6489681050656662,
+   "teacher": 0.31313320825515956
+  },
+  {
+   "list": "L0646",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.7789868667917449,
+   "teacher": 0.6744840525328332
+  },
+  {
+   "list": "L0646",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.41313320825515953,
+   "teacher": 0.1851782363977486
+  },
+  {
+   "list": "L0646",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.31744840525328333,
+   "teacher": 0.31669793621013137
+  },
+  {
+   "list": "L0648",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.7971857410881803,
+   "teacher": -0.7221388367729833
+  },
+  {
+   "list": "L0648",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.6544090056285179,
+   "teacher": 0.45928705440900564
+  },
+  {
+   "list": "L0648",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.8165103189493436,
+   "teacher": -0.5908067542213884
+  },
+  {
+   "list": "L0659",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "reputation_collateral_posted",
+    "curation_ruthlessness"
+   ],
+   "judge": 0.7628517823639775,
+   "teacher": 0.5636022514071295
+  },
+  {
+   "list": "L0659",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "reputation_collateral_posted",
+    "journeyman_reliability"
+   ],
+   "judge": 0.47954971857410883,
+   "teacher": 0.5497185741088181
+  },
+  {
+   "list": "L0659",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "curation_ruthlessness",
+    "journeyman_reliability"
+   ],
+   "judge": 0.4675422138836774,
+   "teacher": 0.4530956848030019
+  },
+  {
+   "list": "L0660",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": -0.35403377110694184,
+   "teacher": -0.3673545966228894
+  },
+  {
+   "list": "L0660",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.01482176360225141,
+   "teacher": 0.23339587242026272
+  },
+  {
+   "list": "L0660",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.7572232645403378,
+   "teacher": -0.8703564727954972
+  },
+  {
+   "list": "L0674",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.47954971857410883,
+   "teacher": 0.626454033771107
+  },
+  {
+   "list": "L0674",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.8797373358348969,
+   "teacher": 0.7904315196998125
+  },
+  {
+   "list": "L0674",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.32701688555347097,
+   "teacher": 0.6369606003752345
+  },
+  {
+   "list": "L0678",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.852157598499062,
+   "teacher": 0.8579737335834897
+  },
+  {
+   "list": "L0678",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.18649155722326455,
+   "teacher": 0.23714821763602256
+  },
+  {
+   "list": "L0678",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.13996247654784244,
+   "teacher": 0.1277673545966229
+  },
+  {
+   "list": "L0682",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.25497185741088185,
+   "teacher": 0.21519699812382742
+  },
+  {
+   "list": "L0682",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9500938086303942,
+   "teacher": 0.9174484052532835
+  },
+  {
+   "list": "L0682",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.10900562851782367,
+   "teacher": 0.042026266416510326
+  },
+  {
+   "list": "L0687",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "deadline_scent",
+    "aha_moment_density"
+   ],
+   "judge": 0.4061913696060038,
+   "teacher": -0.3536585365853659
+  },
+  {
+   "list": "L0687",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "deadline_scent",
+    "humor_risk_tolerance"
+   ],
+   "judge": -0.07617260787992497,
+   "teacher": -0.2675422138836773
+  },
+  {
+   "list": "L0687",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "aha_moment_density",
+    "humor_risk_tolerance"
+   ],
+   "judge": 0.5439024390243903,
+   "teacher": 0.09981238273921203
+  },
+  {
+   "list": "L0689",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "strawman_temptation_resisted",
+    "em_dash_dependence"
+   ],
+   "judge": 0.6403377110694185,
+   "teacher": 0.1906191369606004
+  },
+  {
+   "list": "L0689",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "strawman_temptation_resisted",
+    "diplomatic_honesty"
+   ],
+   "judge": 0.20300187617260793,
+   "teacher": -0.21088180112570362
+  },
+  {
+   "list": "L0689",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "em_dash_dependence",
+    "diplomatic_honesty"
+   ],
+   "judge": 0.22232645403377113,
+   "teacher": -0.275046904315197
+  },
+  {
+   "list": "L0692",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": 0.005816135084427768,
+   "teacher": 0.15497185741088182
+  },
+  {
+   "list": "L0692",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.25215759849906194,
+   "teacher": -0.18893058161350848
+  },
+  {
+   "list": "L0692",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.8506566604127581,
+   "teacher": -0.8964352720450284
+  },
+  {
+   "list": "L0702",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.8981238273921203,
+   "teacher": 0.8166979362101314
+  },
+  {
+   "list": "L0702",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.4138836772983115,
+   "teacher": 0.4185741088180113
+  },
+  {
+   "list": "L0702",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.326454033771107,
+   "teacher": 0.3339587242026267
+  },
+  {
+   "list": "L0703",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "deep_work_requirement",
+    "essentialism"
+   ],
+   "judge": 0.5238273921200751,
+   "teacher": 0.4641651031894935
+  },
+  {
+   "list": "L0703",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "deep_work_requirement",
+    "self_mythologizing"
+   ],
+   "judge": 0.1682926829268293,
+   "teacher": -0.07617260787992497
+  },
+  {
+   "list": "L0703",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "essentialism",
+    "self_mythologizing"
+   ],
+   "judge": -0.028517823639774863,
+   "teacher": 0.251031894934334
+  },
+  {
+   "list": "L0705",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "impedance_match_with_its_audience",
+    "solution_in_search_of_problem_risk"
+   ],
+   "judge": 0.6630393996247655,
+   "teacher": -0.22195121951219515
+  },
+  {
+   "list": "L0705",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "impedance_match_with_its_audience",
+    "epistemic_humility"
+   ],
+   "judge": 0.5654784240150095,
+   "teacher": 0.03170731707317074
+  },
+  {
+   "list": "L0705",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "solution_in_search_of_problem_risk",
+    "epistemic_humility"
+   ],
+   "judge": 0.5979362101313322,
+   "teacher": 0.008442776735459663
+  },
+  {
+   "list": "L0715",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "pedagogical_patience",
+    "translation_across_camps"
+   ],
+   "judge": 0.8174484052532833,
+   "teacher": 0.625328330206379
+  },
+  {
+   "list": "L0715",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "pedagogical_patience",
+    "tu_quoque_avoidance"
+   ],
+   "judge": 0.6613508442776737,
+   "teacher": 0.7949343339587243
+  },
+  {
+   "list": "L0715",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "translation_across_camps",
+    "tu_quoque_avoidance"
+   ],
+   "judge": 0.84859287054409,
+   "teacher": 0.6988742964352722
+  },
+  {
+   "list": "L0717",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "converging_evidence_architecture",
+    "stakeholder_management_sophistication"
+   ],
+   "judge": 0.6622889305816136,
+   "teacher": 0.19474671669793622
+  },
+  {
+   "list": "L0717",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "converging_evidence_architecture",
+    "willingness_to_pay_evidence"
+   ],
+   "judge": 0.31594746716697936,
+   "teacher": 0.402439024390244
+  },
+  {
+   "list": "L0717",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "stakeholder_management_sophistication",
+    "willingness_to_pay_evidence"
+   ],
+   "judge": 0.6913696060037524,
+   "teacher": 0.18968105065666047
+  },
+  {
+   "list": "L0730",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.3634146341463415,
+   "teacher": 0.45178236397748606
+  },
+  {
+   "list": "L0730",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9236397748592872,
+   "teacher": 0.7968105065666042
+  },
+  {
+   "list": "L0730",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.19831144465290812,
+   "teacher": 0.3193245778611633
+  },
+  {
+   "list": "L0734",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.7607879924953096,
+   "teacher": 0.5810506566604129
+  },
+  {
+   "list": "L0734",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.09305816135084428,
+   "teacher": 0.06585365853658537
+  },
+  {
+   "list": "L0734",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.1553470919324578,
+   "teacher": 0.1711069418386492
+  },
+  {
+   "list": "L0737",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "endgame_awareness",
+    "credential_leaning"
+   ],
+   "judge": 0.2666041275797374,
+   "teacher": 0.24258911819887435
+  },
+  {
+   "list": "L0737",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "endgame_awareness",
+    "focal_point_design"
+   ],
+   "judge": 0.5818011257035648,
+   "teacher": 0.7378986866791746
+  },
+  {
+   "list": "L0737",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "credential_leaning",
+    "focal_point_design"
+   ],
+   "judge": 0.8208255159474673,
+   "teacher": 0.3309568480300188
+  },
+  {
+   "list": "L0745",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "backtracking_cost",
+    "contempt_leakage"
+   ],
+   "judge": -0.0150093808630394,
+   "teacher": -0.1924953095684803
+  },
+  {
+   "list": "L0745",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "backtracking_cost",
+    "quotability_without_context_collapse"
+   ],
+   "judge": 0.4315196998123828,
+   "teacher": -0.5168855534709194
+  },
+  {
+   "list": "L0745",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "contempt_leakage",
+    "quotability_without_context_collapse"
+   ],
+   "judge": 0.12232645403377114,
+   "teacher": 0.3741088180112571
+  },
+  {
+   "list": "L0750",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.702251407129456,
+   "teacher": 0.6472795497185742
+  },
+  {
+   "list": "L0750",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": -0.125703564727955,
+   "teacher": -0.3095684803001877
+  },
+  {
+   "list": "L0750",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": -0.03433395872420263,
+   "teacher": -0.2437148217636023
+  },
+  {
+   "list": "L0751",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "crystallinity",
+    "embarrassability"
+   ],
+   "judge": -0.2784240150093809,
+   "teacher": -0.3339587242026267
+  },
+  {
+   "list": "L0751",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "crystallinity",
+    "philistine_honesty"
+   ],
+   "judge": 0.6681050656660413,
+   "teacher": -0.2227016885553471
+  },
+  {
+   "list": "L0751",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "embarrassability",
+    "philistine_honesty"
+   ],
+   "judge": 0.07110694183864917,
+   "teacher": -0.0013133208255159477
+  },
+  {
+   "list": "L0755",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "cold_passion",
+    "n_of_one_candor"
+   ],
+   "judge": 0.5105065666041276,
+   "teacher": 0.451031894934334
+  },
+  {
+   "list": "L0755",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "cold_passion",
+    "workshop_floor_vocabulary"
+   ],
+   "judge": 0.6302063789868669,
+   "teacher": 0.5814258911819887
+  },
+  {
+   "list": "L0755",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "n_of_one_candor",
+    "workshop_floor_vocabulary"
+   ],
+   "judge": 0.6234521575984991,
+   "teacher": 0.7538461538461539
+  },
+  {
+   "list": "L0759",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "burden_of_proof_placement",
+    "gold_plating_avoidance"
+   ],
+   "judge": 0.6697936210131333,
+   "teacher": -0.32720450281425895
+  },
+  {
+   "list": "L0759",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "burden_of_proof_placement",
+    "leverage_point_targeting"
+   ],
+   "judge": 0.7181988742964354,
+   "teacher": 0.6425891181988744
+  },
+  {
+   "list": "L0759",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "gold_plating_avoidance",
+    "leverage_point_targeting"
+   ],
+   "judge": 0.45797373358348975,
+   "teacher": -0.5249530956848031
+  },
+  {
+   "list": "L0762",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.37242026266416517,
+   "teacher": 0.4812382739212009
+  },
+  {
+   "list": "L0762",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9587242026266418,
+   "teacher": 0.9318949343339588
+  },
+  {
+   "list": "L0762",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.2401500938086304,
+   "teacher": 0.46285178236397756
+  },
+  {
+   "list": "L0763",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "zine_energy",
+    "need_to_be_right"
+   ],
+   "judge": -0.4606003752345217,
+   "teacher": -0.0953095684803002
+  },
+  {
+   "list": "L0763",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "zine_energy",
+    "pricing_power_insight"
+   ],
+   "judge": -0.5898686679174485,
+   "teacher": -0.4551594746716699
+  },
+  {
+   "list": "L0763",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "need_to_be_right",
+    "pricing_power_insight"
+   ],
+   "judge": 0.7442776735459664,
+   "teacher": 0.40956848030018767
+  },
+  {
+   "list": "L0769",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "legal_review_flattening",
+    "wistfulness"
+   ],
+   "judge": -0.2056285178236398,
+   "teacher": -0.47898686679174485
+  },
+  {
+   "list": "L0769",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "legal_review_flattening",
+    "policy_wonk_coding"
+   ],
+   "judge": 0.7063789868667918,
+   "teacher": 0.8129455909943716
+  },
+  {
+   "list": "L0769",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "wistfulness",
+    "policy_wonk_coding"
+   ],
+   "judge": -0.149906191369606,
+   "teacher": -0.41988742964352727
+  },
+  {
+   "list": "L0774",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.5968105065666042,
+   "teacher": 0.5589118198874298
+  },
+  {
+   "list": "L0774",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.20469043151969987,
+   "teacher": 0.3921200750469044
+  },
+  {
+   "list": "L0774",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.1427767354596623,
+   "teacher": 0.6684803001876173
+  },
+  {
+   "list": "L0783",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "mental_model_transferability",
+    "graceful_degradation_design"
+   ],
+   "judge": 0.604315196998124,
+   "teacher": 0.24709193245778616
+  },
+  {
+   "list": "L0783",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "mental_model_transferability",
+    "deliverable_crispness"
+   ],
+   "judge": 0.10469043151969983,
+   "teacher": -0.40168855534709197
+  },
+  {
+   "list": "L0783",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "graceful_degradation_design",
+    "deliverable_crispness"
+   ],
+   "judge": 0.5934333958724204,
+   "teacher": 0.25628517823639774
+  },
+  {
+   "list": "L0784",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.6831144465290807,
+   "teacher": -0.6966228893058163
+  },
+  {
+   "list": "L0784",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.7217636022514072,
+   "teacher": 0.6123827392120076
+  },
+  {
+   "list": "L0784",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.7677298311444654,
+   "teacher": -0.5191369606003753
+  },
+  {
+   "list": "L0789",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "gratitude_sincerity",
+    "self_awareness_without_self_absorption"
+   ],
+   "judge": 0.04671669793621014,
+   "teacher": 0.17936210131332084
+  },
+  {
+   "list": "L0789",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "gratitude_sincerity",
+    "scarcity_honesty"
+   ],
+   "judge": 0.5332082551594748,
+   "teacher": 0.31632270168855536
+  },
+  {
+   "list": "L0789",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "self_awareness_without_self_absorption",
+    "scarcity_honesty"
+   ],
+   "judge": 0.3105065666041277,
+   "teacher": 0.27973733583489685
+  },
+  {
+   "list": "L0795",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "craftsman_s_pride",
+    "variance_embrace"
+   ],
+   "judge": 0.5889305816135086,
+   "teacher": 0.6544090056285179
+  },
+  {
+   "list": "L0795",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "craftsman_s_pride",
+    "punctuation_confidence"
+   ],
+   "judge": 0.41463414634146345,
+   "teacher": 0.9559099437148219
+  },
+  {
+   "list": "L0795",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "variance_embrace",
+    "punctuation_confidence"
+   ],
+   "judge": 0.32120075046904323,
+   "teacher": 0.5971857410881802
+  },
+  {
+   "list": "L0799",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "sense_of_its_own_moment",
+    "mischief_energy"
+   ],
+   "judge": 0.34390243902439027,
+   "teacher": -0.22382739212007505
+  },
+  {
+   "list": "L0799",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "sense_of_its_own_moment",
+    "pivot_readiness"
+   ],
+   "judge": 0.5977485928705442,
+   "teacher": 0.5994371482176362
+  },
+  {
+   "list": "L0799",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "mischief_energy",
+    "pivot_readiness"
+   ],
+   "judge": 0.2928705440900563,
+   "teacher": -0.049906191369606015
+  },
+  {
+   "list": "L0807",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "urgency_authenticity",
+    "confidence_that_comes_from_having_checked"
+   ],
+   "judge": 0.20975609756097563,
+   "teacher": -0.12983114446529084
+  },
+  {
+   "list": "L0807",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "urgency_authenticity",
+    "beginner_s_mind_access"
+   ],
+   "judge": -0.23508442776735464,
+   "teacher": -0.5853658536585367
+  },
+  {
+   "list": "L0807",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "confidence_that_comes_from_having_checked",
+    "beginner_s_mind_access"
+   ],
+   "judge": -0.010881801125703567,
+   "teacher": -0.27073170731707324
+  },
+  {
+   "list": "L0826",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.2401500938086304,
+   "teacher": 0.33208255159474676
+  },
+  {
+   "list": "L0826",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9457786116322702,
+   "teacher": 0.8883677298311445
+  },
+  {
+   "list": "L0826",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.0525328330206379,
+   "teacher": 0.3495309568480301
+  },
+  {
+   "list": "L0830",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.8622889305816136,
+   "teacher": 0.7690431519699814
+  },
+  {
+   "list": "L0830",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.4470919324577862,
+   "teacher": 0.16191369606003755
+  },
+  {
+   "list": "L0830",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.22532833020637902,
+   "teacher": 0.125328330206379
+  },
+  {
+   "list": "L0846",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.7131332082551596,
+   "teacher": 0.3818011257035648
+  },
+  {
+   "list": "L0846",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.2326454033771107,
+   "teacher": 0.12101313320825517
+  },
+  {
+   "list": "L0846",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.12232645403377114,
+   "teacher": 0.5782363977485929
+  },
+  {
+   "list": "L0850",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.5429643527204504,
+   "teacher": 0.5431519699812384
+  },
+  {
+   "list": "L0850",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.8924953095684803,
+   "teacher": 0.9240150093808632
+  },
+  {
+   "list": "L0850",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.3420262664165104,
+   "teacher": 0.5000000000000001
+  },
+  {
+   "list": "L0860",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": -0.052720450281425905,
+   "teacher": -0.13864915572232647
+  },
+  {
+   "list": "L0860",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.19155722326454036,
+   "teacher": -0.5093808630393997
+  },
+  {
+   "list": "L0860",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.8604127579737337,
+   "teacher": -0.48780487804878064
+  },
+  {
+   "list": "L0863",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "instrument_validity_care",
+    "kelly_criterion_instinct"
+   ],
+   "judge": 0.2183864915572233,
+   "teacher": 0.6495309568480301
+  },
+  {
+   "list": "L0863",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "instrument_validity_care",
+    "appetite_disclosed"
+   ],
+   "judge": 0.3377110694183865,
+   "teacher": -0.09606003752345216
+  },
+  {
+   "list": "L0863",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "kelly_criterion_instinct",
+    "appetite_disclosed"
+   ],
+   "judge": 0.6923076923076924,
+   "teacher": 0.1705440900562852
+  },
+  {
+   "list": "L0866",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "institutional_insiderness"
+   ],
+   "judge": 0.22964352720450282,
+   "teacher": 0.06454033771106943
+  },
+  {
+   "list": "L0866",
+   "source": "highdim_elaborated",
+   "pair": [
+    "craftedness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.9022514071294561,
+   "teacher": 0.7587242026266419
+  },
+  {
+   "list": "L0866",
+   "source": "highdim_elaborated",
+   "pair": [
+    "institutional_insiderness",
+    "how_much_it_rewards_a_careful_re_read"
+   ],
+   "judge": 0.06904315196998126,
+   "teacher": 0.08142589118198876
+  },
+  {
+   "list": "L0870",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.7500938086303941,
+   "teacher": 0.6337711069418387
+  },
+  {
+   "list": "L0870",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.07429643527204503,
+   "teacher": 0.5463414634146342
+  },
+  {
+   "list": "L0870",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": -0.1277673545966229,
+   "teacher": 0.41050656660412765
+  },
+  {
+   "list": "L0880",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.8517823639774861,
+   "teacher": -0.9212007504690434
+  },
+  {
+   "list": "L0880",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.8538461538461539,
+   "teacher": 0.7452157598499062
+  },
+  {
+   "list": "L0880",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.8517823639774861,
+   "teacher": -0.7159474671669794
+  },
+  {
+   "list": "L0885",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "crux_legibility",
+    "burned_boats_commitment"
+   ],
+   "judge": 0.48930581613508456,
+   "teacher": 0.7129455909943716
+  },
+  {
+   "list": "L0885",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "crux_legibility",
+    "definition_hygiene"
+   ],
+   "judge": 0.8395872420262666,
+   "teacher": 0.5709193245778612
+  },
+  {
+   "list": "L0885",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "burned_boats_commitment",
+    "definition_hygiene"
+   ],
+   "judge": 0.3990619136960601,
+   "teacher": 0.5752345215759851
+  },
+  {
+   "list": "L0911",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "footnote_temperance",
+    "awareness_of_its_own_weakest_point"
+   ],
+   "judge": 0.46247654784240155,
+   "teacher": -0.7649155722326455
+  },
+  {
+   "list": "L0911",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "footnote_temperance",
+    "negative_space_usage"
+   ],
+   "judge": 0.15741088180112572,
+   "teacher": -0.602439024390244
+  },
+  {
+   "list": "L0911",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "awareness_of_its_own_weakest_point",
+    "negative_space_usage"
+   ],
+   "judge": 0.8409005628517825,
+   "teacher": 0.5024390243902439
+  },
+  {
+   "list": "L0912",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "legibility_to_an_outsider"
+   ],
+   "judge": -0.8613508442776737,
+   "teacher": -0.7478424015009383
+  },
+  {
+   "list": "L0912",
+   "source": "highdim_elaborated",
+   "pair": [
+    "intellectual_density",
+    "coiled_potential_energy"
+   ],
+   "judge": 0.8538461538461539,
+   "teacher": 0.8001876172607881
+  },
+  {
+   "list": "L0912",
+   "source": "highdim_elaborated",
+   "pair": [
+    "legibility_to_an_outsider",
+    "coiled_potential_energy"
+   ],
+   "judge": -0.8318949343339589,
+   "teacher": -0.6324577861163228
+  },
+  {
+   "list": "L0916",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": -0.23245778611632273,
+   "teacher": -0.3527204502814259
+  },
+  {
+   "list": "L0916",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.09118198874296438,
+   "teacher": 0.13902439024390245
+  },
+  {
+   "list": "L0916",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.806378986866792,
+   "teacher": -0.7902439024390244
+  },
+  {
+   "list": "L0918",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "technical_calmness"
+   ],
+   "judge": 0.90375234521576,
+   "teacher": 0.8675422138836774
+  },
+  {
+   "list": "L0918",
+   "source": "highdim_elaborated",
+   "pair": [
+    "poshness",
+    "earnestness"
+   ],
+   "judge": 0.5756097560975609,
+   "teacher": 0.55140712945591
+  },
+  {
+   "list": "L0918",
+   "source": "highdim_elaborated",
+   "pair": [
+    "technical_calmness",
+    "earnestness"
+   ],
+   "judge": 0.4703564727954973,
+   "teacher": 0.6371482176360226
+  },
+  {
+   "list": "L0933",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "forgiveness_over_permission_calibration",
+    "read_aloud_quality"
+   ],
+   "judge": -0.01575984990619137,
+   "teacher": 0.3532833020637899
+  },
+  {
+   "list": "L0933",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "forgiveness_over_permission_calibration",
+    "transitions_earning_their_keep"
+   ],
+   "judge": 0.2647279549718574,
+   "teacher": 0.2938086303939963
+  },
+  {
+   "list": "L0933",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "read_aloud_quality",
+    "transitions_earning_their_keep"
+   ],
+   "judge": 0.3801125703564729,
+   "teacher": 0.12664165103189495
+  },
+  {
+   "list": "L0935",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "costly_signal_investment",
+    "mission_drift_within_the_document"
+   ],
+   "judge": 0.7063789868667918,
+   "teacher": -0.4046904315196999
+  },
+  {
+   "list": "L0935",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "costly_signal_investment",
+    "hunger"
+   ],
+   "judge": 0.6808630393996248,
+   "teacher": 0.7945590994371484
+  },
+  {
+   "list": "L0935",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "mission_drift_within_the_document",
+    "hunger"
+   ],
+   "judge": 0.6767354596622891,
+   "teacher": -0.39136960600375237
+  },
+  {
+   "list": "L0943",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "bureaucratic_sediment",
+    "definition_of_done_clarity"
+   ],
+   "judge": 0.8551594746716699,
+   "teacher": 0.3305816135084428
+  },
+  {
+   "list": "L0943",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "bureaucratic_sediment",
+    "critique_digestibility"
+   ],
+   "judge": 0.49136960600375235,
+   "teacher": -0.3818011257035648
+  },
+  {
+   "list": "L0943",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "definition_of_done_clarity",
+    "critique_digestibility"
+   ],
+   "judge": 0.6048780487804878,
+   "teacher": 0.0975609756097561
+  },
+  {
+   "list": "L0945",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "information_placement_skill",
+    "bitterness_residue"
+   ],
+   "judge": -0.03696060037523453,
+   "teacher": -0.19474671669793622
+  },
+  {
+   "list": "L0945",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "information_placement_skill",
+    "batch_size_wisdom"
+   ],
+   "judge": 0.7949343339587243,
+   "teacher": 0.8544090056285178
+  },
+  {
+   "list": "L0945",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "bitterness_residue",
+    "batch_size_wisdom"
+   ],
+   "judge": 0.016885553470919325,
+   "teacher": -0.17410881801125708
+  },
+  {
+   "list": "L0949",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "homework_assigned_honestly",
+    "soft_power_fluency"
+   ],
+   "judge": -0.10000000000000002,
+   "teacher": 0.03677298311444653
+  },
+  {
+   "list": "L0949",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "homework_assigned_honestly",
+    "cliche_avoidance"
+   ],
+   "judge": 0.4572232645403378,
+   "teacher": -0.39380863039399633
+  },
+  {
+   "list": "L0949",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "soft_power_fluency",
+    "cliche_avoidance"
+   ],
+   "judge": 0.013133208255159476,
+   "teacher": 0.20450281425891187
+  },
+  {
+   "list": "L0956",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "high_status"
+   ],
+   "judge": 0.04915572232645404,
+   "teacher": -0.08686679174484055
+  },
+  {
+   "list": "L0956",
+   "source": "highdim_elaborated",
+   "pair": [
+    "self_containedness",
+    "low_status"
+   ],
+   "judge": -0.3309568480300188,
+   "teacher": -0.08724202626641653
+  },
+  {
+   "list": "L0956",
+   "source": "highdim_elaborated",
+   "pair": [
+    "high_status",
+    "low_status"
+   ],
+   "judge": -0.751969981238274,
+   "teacher": -0.7842401500938088
+  },
+  {
+   "list": "L0957",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "load_bearing_ness_of_its_analogies",
+    "ecological_fallacy_avoidance"
+   ],
+   "judge": 0.7174484052532834,
+   "teacher": 0.42645403377110697
+  },
+  {
+   "list": "L0957",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "load_bearing_ness_of_its_analogies",
+    "internal_memo_candor"
+   ],
+   "judge": 0.34296435272045034,
+   "teacher": 0.34990619136960605
+  },
+  {
+   "list": "L0957",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "ecological_fallacy_avoidance",
+    "internal_memo_candor"
+   ],
+   "judge": 0.2103189493433396,
+   "teacher": 0.2968105065666042
+  },
+  {
+   "list": "L0983",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "overhead_candor",
+    "bikeshedding_resistance"
+   ],
+   "judge": 0.776547842401501,
+   "teacher": 0.08030018761726081
+  },
+  {
+   "list": "L0983",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "overhead_candor",
+    "fixed_versus_variable_clarity"
+   ],
+   "judge": 0.5318949343339588,
+   "teacher": 0.19474671669793622
+  },
+  {
+   "list": "L0983",
+   "source": "fable_subtle_1000_elaborated",
+   "pair": [
+    "bikeshedding_resistance",
+    "fixed_versus_variable_clarity"
+   ],
+   "judge": 0.6562851782363979,
+   "teacher": 0.4936210131332083
+  },
+  {
+   "list": "T0006",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6703564727954973,
+   "teacher": 0.4176360225140714
+  },
+  {
+   "list": "T0006",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": -0.15741088180112572,
+   "teacher": 0.25196998123827397
+  },
+  {
+   "list": "T0006",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.05347091932457786,
+   "teacher": -0.21238273921200754
+  },
+  {
+   "list": "T0012",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6009380863039401,
+   "teacher": 0.3727954971857412
+  },
+  {
+   "list": "T0012",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.11219512195121951,
+   "teacher": 0.026641651031894937
+  },
+  {
+   "list": "T0012",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.06360225140712947,
+   "teacher": -0.17936210131332084
+  },
+  {
+   "list": "T0026",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6575984990619137,
+   "teacher": 0.2928705440900563
+  },
+  {
+   "list": "T0026",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.300750469043152,
+   "teacher": 0.0031894934333958733
+  },
+  {
+   "list": "T0026",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.0703564727954972,
+   "teacher": 0.01782363977485929
+  },
+  {
+   "list": "T0031",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6568480300187618,
+   "teacher": 0.45159474671669797
+  },
+  {
+   "list": "T0031",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.31238273921200754,
+   "teacher": -0.07673545966228894
+  },
+  {
+   "list": "T0031",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.006191369606003753,
+   "teacher": -0.06378986866791746
+  },
+  {
+   "list": "T0033",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.7636022514071296,
+   "teacher": 0.46566604127579747
+  },
+  {
+   "list": "T0033",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.2966228893058162,
+   "teacher": -0.03208255159474672
+  },
+  {
+   "list": "T0033",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.0953095684803002,
+   "teacher": -0.3772983114446529
+  },
+  {
+   "list": "T0036",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6474671669793622,
+   "teacher": 0.3975609756097561
+  },
+  {
+   "list": "T0036",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.05065666041275797,
+   "teacher": 0.0953095684803002
+  },
+  {
+   "list": "T0036",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.12814258911819887,
+   "teacher": 0.07073170731707318
+  },
+  {
+   "list": "T0057",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.7204502814258912,
+   "teacher": 0.45797373358348975
+  },
+  {
+   "list": "T0057",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": -0.29756097560975614,
+   "teacher": -0.13208255159474674
+  },
+  {
+   "list": "T0057",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.46510318949343343,
+   "teacher": -0.3292682926829269
+  },
+  {
+   "list": "T0058",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6204502814258913,
+   "teacher": 0.5716697936210132
+  },
+  {
+   "list": "T0058",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.021200750469043152,
+   "teacher": 0.1052532833020638
+  },
+  {
+   "list": "T0058",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.21894934333958727,
+   "teacher": -0.34596622889305817
+  },
+  {
+   "list": "T0064",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.45553470919324585,
+   "teacher": 0.42739212007504696
+  },
+  {
+   "list": "T0064",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.09962476547842404,
+   "teacher": -0.18686679174484055
+  },
+  {
+   "list": "T0064",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.03771106941838649,
+   "teacher": -0.17073170731707318
+  },
+  {
+   "list": "T0066",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.478424015009381,
+   "teacher": 0.3288930581613509
+  },
+  {
+   "list": "T0066",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.20712945590994375,
+   "teacher": 0.17242026266416513
+  },
+  {
+   "list": "T0066",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.0953095684803002,
+   "teacher": -0.31669793621013137
+  },
+  {
+   "list": "T0101",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5840525328330207,
+   "teacher": 0.451219512195122
+  },
+  {
+   "list": "T0101",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.15666041275797377,
+   "teacher": 0.3084427767354597
+  },
+  {
+   "list": "T0101",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.07448405253283302,
+   "teacher": 0.29455909943714825
+  },
+  {
+   "list": "T0102",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6440900562851783,
+   "teacher": 0.6412757973733584
+  },
+  {
+   "list": "T0102",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.33001876172607886,
+   "teacher": 0.21951219512195125
+  },
+  {
+   "list": "T0102",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.03883677298311445,
+   "teacher": 0.32007504690431526
+  },
+  {
+   "list": "T0107",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.602251407129456,
+   "teacher": 0.24896810506566605
+  },
+  {
+   "list": "T0107",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.1726078799249531,
+   "teacher": -0.05590994371482177
+  },
+  {
+   "list": "T0107",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.12213883677298315,
+   "teacher": -0.009380863039399626
+  },
+  {
+   "list": "T0109",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6168855534709194,
+   "teacher": 0.4080675422138837
+  },
+  {
+   "list": "T0109",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.40225140712945595,
+   "teacher": 0.1626641651031895
+  },
+  {
+   "list": "T0109",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.23452157598499065,
+   "teacher": -0.10000000000000002
+  },
+  {
+   "list": "T0116",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5437148217636023,
+   "teacher": 0.1575984990619137
+  },
+  {
+   "list": "T0116",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.15515947467166982,
+   "teacher": -0.12401500938086307
+  },
+  {
+   "list": "T0116",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.14033771106941842,
+   "teacher": -0.2592870544090057
+  },
+  {
+   "list": "T0120",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.7606003752345217,
+   "teacher": 0.3384615384615385
+  },
+  {
+   "list": "T0120",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.3924953095684804,
+   "teacher": 0.31031894934333965
+  },
+  {
+   "list": "T0120",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.0926829268292683,
+   "teacher": 0.32551594746716705
+  },
+  {
+   "list": "T0122",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5915572232645404,
+   "teacher": 0.4647279549718575
+  },
+  {
+   "list": "T0122",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.08123827392120077,
+   "teacher": -0.0729831144465291
+  },
+  {
+   "list": "T0122",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.22757973733583495,
+   "teacher": 0.02307692307692308
+  },
+  {
+   "list": "T0123",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.627767354596623,
+   "teacher": 0.22851782363977488
+  },
+  {
+   "list": "T0123",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.1279549718574109,
+   "teacher": 0.24803001876172615
+  },
+  {
+   "list": "T0123",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.029455909943714824,
+   "teacher": -0.10056285178236399
+  },
+  {
+   "list": "T0125",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5347091932457787,
+   "teacher": 0.17148217636022517
+  },
+  {
+   "list": "T0125",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.025140712945590997,
+   "teacher": 0.08818011257035648
+  },
+  {
+   "list": "T0125",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.11913696060037525,
+   "teacher": -0.5123827392120076
+  },
+  {
+   "list": "T0131",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.526829268292683,
+   "teacher": 0.4225140712945592
+  },
+  {
+   "list": "T0131",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.004690431519699813,
+   "teacher": 0.09606003752345216
+  },
+  {
+   "list": "T0131",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.32138836772983115,
+   "teacher": 0.07185741088180113
+  },
+  {
+   "list": "T0132",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.7138836772983115,
+   "teacher": 0.28724202626641654
+  },
+  {
+   "list": "T0132",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.21951219512195125,
+   "teacher": 0.2909943714821764
+  },
+  {
+   "list": "T0132",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.2853658536585366,
+   "teacher": 0.13696060037523455
+  },
+  {
+   "list": "T0133",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.39136960600375237,
+   "teacher": 0.2476547842401501
+  },
+  {
+   "list": "T0133",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.25797373358348974,
+   "teacher": 0.39437148217636026
+  },
+  {
+   "list": "T0133",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.014634146341463417,
+   "teacher": 0.09793621013133211
+  },
+  {
+   "list": "T0134",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.350093808630394,
+   "teacher": 0.4990619136960601
+  },
+  {
+   "list": "T0134",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.34709193245778613,
+   "teacher": 0.4142589118198875
+  },
+  {
+   "list": "T0134",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.26210131332082554,
+   "teacher": -0.0628517823639775
+  },
+  {
+   "list": "T0139",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6746716697936211,
+   "teacher": 0.34765478424015017
+  },
+  {
+   "list": "T0139",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.28611632270168863,
+   "teacher": 0.4585365853658537
+  },
+  {
+   "list": "T0139",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.20806754221388368,
+   "teacher": 0.41801125703564734
+  },
+  {
+   "list": "T0143",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.602063789868668,
+   "teacher": 0.4780487804878049
+  },
+  {
+   "list": "T0143",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.15628517823639776,
+   "teacher": 0.08949343339587243
+  },
+  {
+   "list": "T0143",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.049906191369606015,
+   "teacher": -0.06041275797373359
+  },
+  {
+   "list": "T0144",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6643527204502816,
+   "teacher": 0.4230769230769232
+  },
+  {
+   "list": "T0144",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.1131332082551595,
+   "teacher": -0.07317073170731708
+  },
+  {
+   "list": "T0144",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.0009380863039399625,
+   "teacher": -0.032270168855534714
+  },
+  {
+   "list": "T0147",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5806754221388368,
+   "teacher": 0.36135084427767356
+  },
+  {
+   "list": "T0147",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": -0.12851782363977488,
+   "teacher": 0.05196998123827393
+  },
+  {
+   "list": "T0147",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.29455909943714825,
+   "teacher": -0.08142589118198876
+  },
+  {
+   "list": "T0159",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.4962476547842402,
+   "teacher": 0.16679174484052536
+  },
+  {
+   "list": "T0159",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.07335834896810507,
+   "teacher": 0.24033771106941842
+  },
+  {
+   "list": "T0159",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.24146341463414636,
+   "teacher": -0.21163227016885558
+  },
+  {
+   "list": "T0160",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5718574108818012,
+   "teacher": 0.17748592870544094
+  },
+  {
+   "list": "T0160",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": -0.1078799249530957,
+   "teacher": -0.2407129455909944
+  },
+  {
+   "list": "T0160",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.11894934333958726,
+   "teacher": 0.18255159474671676
+  },
+  {
+   "list": "T0171",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.529080675422139,
+   "teacher": 0.27936210131332084
+  },
+  {
+   "list": "T0171",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.29399624765478427,
+   "teacher": 0.20300187617260793
+  },
+  {
+   "list": "T0171",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.07861163227016886,
+   "teacher": 0.09080675422138838
+  },
+  {
+   "list": "T0172",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.7645403377110696,
+   "teacher": 0.31763602251407136
+  },
+  {
+   "list": "T0172",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.10300187617260789,
+   "teacher": 0.07166979362101314
+  },
+  {
+   "list": "T0172",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.11350844277673548,
+   "teacher": 0.10769230769230771
+  },
+  {
+   "list": "T0179",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.5099437148217637,
+   "teacher": 0.602439024390244
+  },
+  {
+   "list": "T0179",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": -0.14878048780487807,
+   "teacher": 0.2110694183864916
+  },
+  {
+   "list": "T0179",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": -0.12626641651031897,
+   "teacher": -0.07598499061913698
+  },
+  {
+   "list": "T0180",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "credible"
+   ],
+   "judge": 0.6433395872420263,
+   "teacher": 0.1981238273921201
+  },
+  {
+   "list": "T0180",
+   "source": "hn_top",
+   "pair": [
+    "interesting",
+    "actionable"
+   ],
+   "judge": 0.15215759849906194,
+   "teacher": -0.1924953095684803
+  },
+  {
+   "list": "T0180",
+   "source": "hn_top",
+   "pair": [
+    "credible",
+    "actionable"
+   ],
+   "judge": 0.037898686679174495,
+   "teacher": 0.07485928705440902
+  },
+  {
+   "list": "C0006",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.19493433395872423,
+   "teacher": -0.16510318949343342
+  },
+  {
+   "list": "C0006",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.28067542213883684,
+   "teacher": -0.1176360225140713
+  },
+  {
+   "list": "C0006",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.5191369606003753,
+   "teacher": 0.627392120075047
+  },
+  {
+   "list": "C0019",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.2810506566604128,
+   "teacher": 0.2684803001876173
+  },
+  {
+   "list": "C0019",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.17335834896810506,
+   "teacher": -0.10900562851782367
+  },
+  {
+   "list": "C0019",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.7669793621013133,
+   "teacher": 0.6688555347091933
+  },
+  {
+   "list": "C0022",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.01575984990619137,
+   "teacher": 0.20506566604127585
+  },
+  {
+   "list": "C0022",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.027204502814258912,
+   "teacher": -0.40281425891182
+  },
+  {
+   "list": "C0022",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.5302063789868668,
+   "teacher": 0.3037523452157599
+  },
+  {
+   "list": "C0023",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": -0.04596622889305817,
+   "teacher": 0.3437148217636023
+  },
+  {
+   "list": "C0023",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.16472795497185744,
+   "teacher": -0.3407129455909944
+  },
+  {
+   "list": "C0023",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.45966228893058164,
+   "teacher": 0.3816135084427768
+  },
+  {
+   "list": "C0029",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.06604127579737337,
+   "teacher": 0.03414634146341464
+  },
+  {
+   "list": "C0029",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.2103189493433396,
+   "teacher": -0.24652908067542217
+  },
+  {
+   "list": "C0029",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.2651031894934334,
+   "teacher": 0.46941838649155726
+  },
+  {
+   "list": "C0036",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.2547842401500938,
+   "teacher": 0.18255159474671676
+  },
+  {
+   "list": "C0036",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.06566604127579738,
+   "teacher": -0.13433395872420265
+  },
+  {
+   "list": "C0036",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.42326454033771116,
+   "teacher": 0.3992495309568481
+  },
+  {
+   "list": "C0073",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.11632270168855535,
+   "teacher": 0.11463414634146342
+  },
+  {
+   "list": "C0073",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.14709193245778612,
+   "teacher": -0.30300187617260793
+  },
+  {
+   "list": "C0073",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.28630393996247655,
+   "teacher": 0.44465290806754226
+  },
+  {
+   "list": "C0074",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": -0.02739212007504691,
+   "teacher": 0.2754221388367731
+  },
+  {
+   "list": "C0074",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.003939962476547843,
+   "teacher": -0.010694183864915574
+  },
+  {
+   "list": "C0074",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.6801125703564729,
+   "teacher": 0.6390243902439026
+  },
+  {
+   "list": "C0079",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.12833020637898687,
+   "teacher": -0.06416510318949344
+  },
+  {
+   "list": "C0079",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.11163227016885555,
+   "teacher": -0.3401500938086304
+  },
+  {
+   "list": "C0079",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.3457786116322702,
+   "teacher": 0.38255159474671674
+  },
+  {
+   "list": "C0087",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.038273921200750474,
+   "teacher": 0.11613508442776736
+  },
+  {
+   "list": "C0087",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.32476547842401504,
+   "teacher": -0.039024390243902446
+  },
+  {
+   "list": "C0087",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.4412757973733584,
+   "teacher": 0.4966228893058163
+  },
+  {
+   "list": "C0093",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": -0.06397748592870545,
+   "teacher": 0.09493433395872422
+  },
+  {
+   "list": "C0093",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.06247654784240151,
+   "teacher": -0.0022514071294559104
+  },
+  {
+   "list": "C0093",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.25797373358348974,
+   "teacher": 0.4962476547842402
+  },
+  {
+   "list": "C0094",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.3887429643527205,
+   "teacher": 0.09212007504690432
+  },
+  {
+   "list": "C0094",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.03151969981238274,
+   "teacher": -0.3343339587242027
+  },
+  {
+   "list": "C0094",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.18292682926829273,
+   "teacher": 0.37354596622889313
+  },
+  {
+   "list": "C0096",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.11838649155722329,
+   "teacher": -0.04746716697936211
+  },
+  {
+   "list": "C0096",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.06322701688555347,
+   "teacher": -0.26735459662288935
+  },
+  {
+   "list": "C0096",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.5909943714821764,
+   "teacher": 0.375234521575985
+  },
+  {
+   "list": "C0102",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.20506566604127585,
+   "teacher": 0.23170731707317077
+  },
+  {
+   "list": "C0102",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.04165103189493434,
+   "teacher": -0.225703564727955
+  },
+  {
+   "list": "C0102",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.5150093808630395,
+   "teacher": 0.46941838649155726
+  },
+  {
+   "list": "C0108",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.013508442776735461,
+   "teacher": 0.26735459662288935
+  },
+  {
+   "list": "C0108",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.02382739212007505,
+   "teacher": 0.0075046904315197
+  },
+  {
+   "list": "C0108",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.6185741088180113,
+   "teacher": 0.30187617260787997
+  },
+  {
+   "list": "C0117",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.2711069418386492,
+   "teacher": -0.11969981238273922
+  },
+  {
+   "list": "C0117",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.2654784240150094,
+   "teacher": -0.45966228893058164
+  },
+  {
+   "list": "C0117",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.43039399624765484,
+   "teacher": 0.39812382739212016
+  },
+  {
+   "list": "C0118",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.0804878048780488,
+   "teacher": 0.20018761726078801
+  },
+  {
+   "list": "C0118",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.018386491557223265,
+   "teacher": -0.4621013133208256
+  },
+  {
+   "list": "C0118",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.3298311444652908,
+   "teacher": 0.32270168855534714
+  },
+  {
+   "list": "C0127",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": -0.09587242026266417,
+   "teacher": 0.06566604127579738
+  },
+  {
+   "list": "C0127",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.035459662288930584,
+   "teacher": -0.06848030018761728
+  },
+  {
+   "list": "C0127",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.46454033771106945,
+   "teacher": 0.5508442776735462
+  },
+  {
+   "list": "C0129",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.29455909943714825,
+   "teacher": 0.09099437148217637
+  },
+  {
+   "list": "C0129",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.15909943714821767,
+   "teacher": -0.14727954971857413
+  },
+  {
+   "list": "C0129",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.4281425891181989,
+   "teacher": 0.46285178236397756
+  },
+  {
+   "list": "C0131",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.24502814258911826,
+   "teacher": 0.26735459662288935
+  },
+  {
+   "list": "C0131",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.04052532833020639,
+   "teacher": -0.2527204502814259
+  },
+  {
+   "list": "C0131",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.39493433395872424,
+   "teacher": 0.4611632270168856
+  },
+  {
+   "list": "C0137",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.2641651031894935,
+   "teacher": 0.18705440900562856
+  },
+  {
+   "list": "C0137",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.10093808630393997,
+   "teacher": -0.2547842401500938
+  },
+  {
+   "list": "C0137",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.4793621013133209,
+   "teacher": 0.29399624765478427
+  },
+  {
+   "list": "C0141",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.2589118198874297,
+   "teacher": -0.052908067542213895
+  },
+  {
+   "list": "C0141",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.000375234521575985,
+   "teacher": -0.5166979362101314
+  },
+  {
+   "list": "C0141",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.4727954971857412,
+   "teacher": 0.4782363977485929
+  },
+  {
+   "list": "C0142",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.016135084427767357,
+   "teacher": 0.29962476547842404
+  },
+  {
+   "list": "C0142",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.08461538461538462,
+   "teacher": 0.016697936210131333
+  },
+  {
+   "list": "C0142",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.4086303939962478,
+   "teacher": 0.41294559099437156
+  },
+  {
+   "list": "C0147",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.04033771106941839,
+   "teacher": 0.2981238273921201
+  },
+  {
+   "list": "C0147",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.10938086303939965,
+   "teacher": -0.07129455909943716
+  },
+  {
+   "list": "C0147",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.526454033771107,
+   "teacher": 0.3365853658536586
+  },
+  {
+   "list": "C0149",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.17523452157598501,
+   "teacher": 0.2600375234521577
+  },
+  {
+   "list": "C0149",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.04840525328330207,
+   "teacher": -0.3772983114446529
+  },
+  {
+   "list": "C0149",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.3992495309568481,
+   "teacher": 0.39099437148217636
+  },
+  {
+   "list": "C0153",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.15741088180112572,
+   "teacher": 0.21744840525328332
+  },
+  {
+   "list": "C0153",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.012570356472795498,
+   "teacher": -0.07185741088180113
+  },
+  {
+   "list": "C0153",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.5793621013133209,
+   "teacher": 0.42795497185741094
+  },
+  {
+   "list": "C0163",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.25347091932457794,
+   "teacher": 0.15497185741088182
+  },
+  {
+   "list": "C0163",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.34596622889305817,
+   "teacher": -0.18480300187617263
+  },
+  {
+   "list": "C0163",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.26641651031894936,
+   "teacher": 0.44052532833020647
+  },
+  {
+   "list": "C0165",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.05478424015009382,
+   "teacher": 0.2782363977485929
+  },
+  {
+   "list": "C0165",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.12401500938086307,
+   "teacher": -0.1133208255159475
+  },
+  {
+   "list": "C0165",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.6112570356472796,
+   "teacher": 0.6968105065666043
+  },
+  {
+   "list": "C0176",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.09212007504690432,
+   "teacher": -0.05046904315196998
+  },
+  {
+   "list": "C0176",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.3587242026266417,
+   "teacher": -0.04634146341463415
+  },
+  {
+   "list": "C0176",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.3636022514071295,
+   "teacher": 0.39268292682926836
+  },
+  {
+   "list": "C0180",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.12645403377110695,
+   "teacher": -0.042401500938086305
+  },
+  {
+   "list": "C0180",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.05347091932457786,
+   "teacher": -0.44183864915572235
+  },
+  {
+   "list": "C0180",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.37448405253283307,
+   "teacher": 0.5356472795497187
+  },
+  {
+   "list": "C0183",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.31313320825515956,
+   "teacher": 0.4729831144465291
+  },
+  {
+   "list": "C0183",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.08198874296435274,
+   "teacher": -0.1103189493433396
+  },
+  {
+   "list": "C0183",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.551031894934334,
+   "teacher": 0.38742964352720455
+  },
+  {
+   "list": "C0185",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.13414634146341467,
+   "teacher": 0.2086303939962477
+  },
+  {
+   "list": "C0185",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": 0.01557223264540338,
+   "teacher": -0.46491557223264546
+  },
+  {
+   "list": "C0185",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.39681050656660416,
+   "teacher": 0.3741088180112571
+  },
+  {
+   "list": "C0190",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "civil"
+   ],
+   "judge": 0.20469043151969987,
+   "teacher": 0.15046904315197
+  },
+  {
+   "list": "C0190",
+   "source": "hn_comments",
+   "pair": [
+    "informative",
+    "concise"
+   ],
+   "judge": -0.1328330206378987,
+   "teacher": -0.19155722326454036
+  },
+  {
+   "list": "C0190",
+   "source": "hn_comments",
+   "pair": [
+    "civil",
+    "concise"
+   ],
+   "judge": 0.21519699812382742,
+   "teacher": 0.6178236397748594
+  },
+  {
+   "list": "A0000",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.46885553470919333,
+   "teacher": -0.45984990619136973
+  },
+  {
+   "list": "A0000",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.40769230769230774,
+   "teacher": 0.1420262664165103
+  },
+  {
+   "list": "A0000",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.2105065666041276,
+   "teacher": 0.037335834896810506
+  },
+  {
+   "list": "A0002",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.36322701688555353,
+   "teacher": -0.34596622889305817
+  },
+  {
+   "list": "A0002",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.4960600375234523,
+   "teacher": 0.4140712945590996
+  },
+  {
+   "list": "A0002",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.25647279549718577,
+   "teacher": 0.010318949343339589
+  },
+  {
+   "list": "A0020",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.35347091932457797,
+   "teacher": -0.06566604127579738
+  },
+  {
+   "list": "A0020",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.11838649155722329,
+   "teacher": 0.25497185741088185
+  },
+  {
+   "list": "A0020",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3784240150093809,
+   "teacher": 0.06697936210131332
+  },
+  {
+   "list": "A0025",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.40168855534709197,
+   "teacher": -0.45797373358348975
+  },
+  {
+   "list": "A0025",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.44690431519699814,
+   "teacher": 0.04390243902439025
+  },
+  {
+   "list": "A0025",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.24165103189493436,
+   "teacher": 0.09099437148217637
+  },
+  {
+   "list": "A0026",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.27767354596622895,
+   "teacher": -0.1105065666041276
+  },
+  {
+   "list": "A0026",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.43395872420262666,
+   "teacher": 0.2904315196998124
+  },
+  {
+   "list": "A0026",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.24033771106941842,
+   "teacher": 0.035459662288930584
+  },
+  {
+   "list": "A0028",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.26210131332082554,
+   "teacher": -0.06454033771106943
+  },
+  {
+   "list": "A0028",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.5030018761726079,
+   "teacher": 0.44484052532833024
+  },
+  {
+   "list": "A0028",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.20037523452157602,
+   "teacher": 0.010318949343339589
+  },
+  {
+   "list": "A0030",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.29174484052532834,
+   "teacher": 0.09924953095684805
+  },
+  {
+   "list": "A0030",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.25534709193245786,
+   "teacher": 0.31632270168855536
+  },
+  {
+   "list": "A0030",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3082551594746717,
+   "teacher": 0.30938086303939966
+  },
+  {
+   "list": "A0053",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.27091932457786116,
+   "teacher": -0.2859287054409006
+  },
+  {
+   "list": "A0053",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.4315196998123828,
+   "teacher": 0.350093808630394
+  },
+  {
+   "list": "A0053",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.2968105065666042,
+   "teacher": 0.20712945590994375
+  },
+  {
+   "list": "A0057",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.2660412757973734,
+   "teacher": -0.6086303939962477
+  },
+  {
+   "list": "A0057",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.4454033771106942,
+   "teacher": -0.1986866791744841
+  },
+  {
+   "list": "A0057",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3185741088180113,
+   "teacher": 0.24221388367729837
+  },
+  {
+   "list": "A0061",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.3592870544090057,
+   "teacher": 0.1305816135084428
+  },
+  {
+   "list": "A0061",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.41651031894934337,
+   "teacher": 0.5129455909943715
+  },
+  {
+   "list": "A0061",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.30000000000000004,
+   "teacher": 0.21519699812382742
+  },
+  {
+   "list": "A0064",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.6217636022514073,
+   "teacher": -0.425703564727955
+  },
+  {
+   "list": "A0064",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.15515947467166982,
+   "teacher": 0.11200750469043153
+  },
+  {
+   "list": "A0064",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.22138836772983117,
+   "teacher": 0.23189493433395875
+  },
+  {
+   "list": "A0073",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.39287054409005634,
+   "teacher": -0.1305816135084428
+  },
+  {
+   "list": "A0073",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.2810506566604128,
+   "teacher": 0.23283302063789874
+  },
+  {
+   "list": "A0073",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3311444652908068,
+   "teacher": 0.375797373358349
+  },
+  {
+   "list": "A0080",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.6112570356472796,
+   "teacher": 0.06060037523452158
+  },
+  {
+   "list": "A0080",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.49681050656660425,
+   "teacher": 0.25140712945591
+  },
+  {
+   "list": "A0080",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": -0.21482176360225144,
+   "teacher": 0.2735459662288931
+  },
+  {
+   "list": "A0081",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.4206378986866792,
+   "teacher": -0.09230769230769233
+  },
+  {
+   "list": "A0081",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.3651031894934335,
+   "teacher": 0.38986866791744845
+  },
+  {
+   "list": "A0081",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.275609756097561,
+   "teacher": 0.18198874296435275
+  },
+  {
+   "list": "A0089",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.42345215759849913,
+   "teacher": -0.19268292682926833
+  },
+  {
+   "list": "A0089",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.2741088180112571,
+   "teacher": 0.2741088180112571
+  },
+  {
+   "list": "A0089",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3727954971857412,
+   "teacher": 0.25759849906191373
+  },
+  {
+   "list": "A0091",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.42138836772983124,
+   "teacher": -0.2538461538461539
+  },
+  {
+   "list": "A0091",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.375234521575985,
+   "teacher": 0.23489681050656663
+  },
+  {
+   "list": "A0091",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.22232645403377113,
+   "teacher": 0.251031894934334
+  },
+  {
+   "list": "A0101",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.4409005628517825,
+   "teacher": -0.4247654784240151
+  },
+  {
+   "list": "A0101",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.44146341463414634,
+   "teacher": 0.35440900562851785
+  },
+  {
+   "list": "A0101",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": -0.0013133208255159477,
+   "teacher": -0.15046904315197
+  },
+  {
+   "list": "A0107",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.42551594746716703,
+   "teacher": -0.30000000000000004
+  },
+  {
+   "list": "A0107",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.2853658536585366,
+   "teacher": 0.25853658536585367
+  },
+  {
+   "list": "A0107",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.43602251407129466,
+   "teacher": -0.16454033771106943
+  },
+  {
+   "list": "A0112",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.43621013133208264,
+   "teacher": 0.1307692307692308
+  },
+  {
+   "list": "A0112",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.301313320825516,
+   "teacher": 0.43977485928705445
+  },
+  {
+   "list": "A0112",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.07861163227016886,
+   "teacher": 0.28461538461538466
+  },
+  {
+   "list": "A0115",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.7127579737335836,
+   "teacher": -0.5664165103189495
+  },
+  {
+   "list": "A0115",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.16735459662288932,
+   "teacher": 0.3191369606003753
+  },
+  {
+   "list": "A0115",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.10769230769230771,
+   "teacher": 0.03245778611632271
+  },
+  {
+   "list": "A0125",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.250656660412758,
+   "teacher": -0.009193245778611633
+  },
+  {
+   "list": "A0125",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.3806754221388368,
+   "teacher": 0.5459662288930582
+  },
+  {
+   "list": "A0125",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.15984990619136966,
+   "teacher": 0.05065666041275797
+  },
+  {
+   "list": "A0128",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.5384615384615385,
+   "teacher": -0.17767354596622892
+  },
+  {
+   "list": "A0128",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.4872420262664166,
+   "teacher": 0.5155722326454034
+  },
+  {
+   "list": "A0128",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": -0.02232645403377111,
+   "teacher": 0.4300187617260789
+  },
+  {
+   "list": "A0131",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.48499061913696073,
+   "teacher": 0.16998123827392123
+  },
+  {
+   "list": "A0131",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.50093808630394,
+   "teacher": 0.4585365853658537
+  },
+  {
+   "list": "A0131",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.1530956848030019,
+   "teacher": 0.3915572232645404
+  },
+  {
+   "list": "A0140",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.35684803001876175,
+   "teacher": -0.15403377110694186
+  },
+  {
+   "list": "A0140",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.5726078799249531,
+   "teacher": 0.10956848030018763
+  },
+  {
+   "list": "A0140",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.11388367729831146,
+   "teacher": 0.1277673545966229
+  },
+  {
+   "list": "A0142",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.24052532833020643,
+   "teacher": -0.20731707317073172
+  },
+  {
+   "list": "A0142",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.5547842401500939,
+   "teacher": 0.43189493433395876
+  },
+  {
+   "list": "A0142",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3395872420262665,
+   "teacher": 0.26885553470919327
+  },
+  {
+   "list": "A0146",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.27936210131332084,
+   "teacher": 0.02288930581613509
+  },
+  {
+   "list": "A0146",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.3748592870544091,
+   "teacher": 0.4470919324577862
+  },
+  {
+   "list": "A0146",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.22795497185741093,
+   "teacher": 0.3350844277673547
+  },
+  {
+   "list": "A0150",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.5497185741088181,
+   "teacher": -0.2789868667917449
+  },
+  {
+   "list": "A0150",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.11651031894934337,
+   "teacher": 0.03452157598499063
+  },
+  {
+   "list": "A0150",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.29943714821763606,
+   "teacher": 0.24953095684803006
+  },
+  {
+   "list": "A0153",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.4290806754221389,
+   "teacher": -0.2311444652908068
+  },
+  {
+   "list": "A0153",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.31125703564727963,
+   "teacher": 0.14427767354596627
+  },
+  {
+   "list": "A0153",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.301313320825516,
+   "teacher": 0.25628517823639774
+  },
+  {
+   "list": "A0157",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.3649155722326454,
+   "teacher": -0.6320825515947469
+  },
+  {
+   "list": "A0157",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.3165103189493434,
+   "teacher": -0.02232645403377111
+  },
+  {
+   "list": "A0157",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.3151969981238274,
+   "teacher": 0.2964352720450282
+  },
+  {
+   "list": "A0159",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.35178236397748597,
+   "teacher": -0.1482176360225141
+  },
+  {
+   "list": "A0159",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.6429643527204504,
+   "teacher": 0.7611632270168857
+  },
+  {
+   "list": "A0159",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.20994371482176363,
+   "teacher": 0.1455909943714822
+  },
+  {
+   "list": "A0165",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.4110694183864916,
+   "teacher": -0.08086303939962479
+  },
+  {
+   "list": "A0165",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.14934333958724202,
+   "teacher": 0.1532833020637899
+  },
+  {
+   "list": "A0165",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.16641651031894938,
+   "teacher": 0.4979362101313321
+  },
+  {
+   "list": "A0173",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.6103189493433397,
+   "teacher": -0.4615384615384616
+  },
+  {
+   "list": "A0173",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.3305816135084428,
+   "teacher": 0.5838649155722327
+  },
+  {
+   "list": "A0173",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.1457786116322702,
+   "teacher": -0.10056285178236399
+  },
+  {
+   "list": "A0186",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "clarity"
+   ],
+   "judge": -0.5360225140712945,
+   "teacher": -0.5412757973733585
+  },
+  {
+   "list": "A0186",
+   "source": "arxiv",
+   "pair": [
+    "novelty",
+    "evidence"
+   ],
+   "judge": 0.015196998123827393,
+   "teacher": -0.1812382739212008
+  },
+  {
+   "list": "A0186",
+   "source": "arxiv",
+   "pair": [
+    "clarity",
+    "evidence"
+   ],
+   "judge": 0.31782363977485933,
+   "teacher": 0.5390243902439025
+  }
+ ]
+}

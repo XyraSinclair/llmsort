@@ -1,0 +1,113 @@
+corpus: 651 train lists, 198 eval lists, 29 dropped
+lora: 196 modules, 10.1M params
+init: adapter loaded from scorer-0.6b/latest.pt
+eval@0: rho 0.619 by-source {"arxiv": 0.616, "fable_subtle_1000_elaborated": 0.575, "highdim_elaborated": 0.772, "hn_comments": 0.294, "hn_top": 0.581, "lw": 0.874} struct-absdiff 0.193 struct-corr 0.822 70.8 items/s
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/home/scry1/llmsort-dg/ft_scorer.py:164: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  acc_loss += float(loss); acc_rho += spearman(s.detach().cpu().numpy(), theta)
+step 20/1953  loss 0.6556  rho 0.702  1.69s/step  eta 54m  mem 7.9G
+step 40/1953  loss 0.6536  rho 0.705  1.77s/step  eta 57m  mem 7.9G
+step 60/1953  loss 0.6626  rho 0.619  1.63s/step  eta 51m  mem 7.9G
+step 80/1953  loss 0.6543  rho 0.694  1.60s/step  eta 50m  mem 7.9G
+step 100/1953  loss 0.6528  rho 0.734  1.59s/step  eta 49m  mem 7.9G
+step 120/1953  loss 0.6521  rho 0.760  1.54s/step  eta 47m  mem 7.9G
+step 140/1953  loss 0.6492  rho 0.744  1.64s/step  eta 49m  mem 7.9G
+step 160/1953  loss 0.6567  rho 0.689  1.65s/step  eta 49m  mem 7.9G
+step 180/1953  loss 0.6562  rho 0.683  1.68s/step  eta 50m  mem 7.9G
+step 200/1953  loss 0.6514  rho 0.744  1.65s/step  eta 48m  mem 7.9G
+step 220/1953  loss 0.6482  rho 0.747  1.64s/step  eta 47m  mem 7.9G
+step 240/1953  loss 0.6530  rho 0.722  1.61s/step  eta 46m  mem 7.9G
+step 260/1953  loss 0.6474  rho 0.782  1.59s/step  eta 45m  mem 7.9G
+step 280/1953  loss 0.6534  rho 0.719  1.56s/step  eta 44m  mem 7.9G
+step 300/1953  loss 0.6523  rho 0.725  1.56s/step  eta 43m  mem 7.9G
+step 320/1953  loss 0.6527  rho 0.746  1.54s/step  eta 42m  mem 7.9G
+step 340/1953  loss 0.6504  rho 0.755  1.54s/step  eta 41m  mem 7.9G
+step 360/1953  loss 0.6538  rho 0.706  1.54s/step  eta 41m  mem 7.9G
+step 380/1953  loss 0.6491  rho 0.753  1.52s/step  eta 40m  mem 7.9G
+step 400/1953  loss 0.6511  rho 0.733  1.52s/step  eta 39m  mem 7.9G
+step 420/1953  loss 0.6496  rho 0.762  1.52s/step  eta 39m  mem 7.9G
+step 440/1953  loss 0.6444  rho 0.802  1.52s/step  eta 38m  mem 7.9G
+step 460/1953  loss 0.6461  rho 0.786  1.52s/step  eta 38m  mem 7.9G
+step 480/1953  loss 0.6469  rho 0.773  1.51s/step  eta 37m  mem 7.9G
+step 500/1953  loss 0.6476  rho 0.786  1.52s/step  eta 37m  mem 7.9G
+step 520/1953  loss 0.6530  rho 0.722  1.51s/step  eta 36m  mem 7.9G
+step 540/1953  loss 0.6409  rho 0.817  1.50s/step  eta 35m  mem 7.9G
+step 560/1953  loss 0.6495  rho 0.756  1.50s/step  eta 35m  mem 7.9G
+step 580/1953  loss 0.6613  rho 0.632  1.50s/step  eta 34m  mem 7.9G
+step 600/1953  loss 0.6469  rho 0.794  1.50s/step  eta 34m  mem 7.9G
+step 620/1953  loss 0.6466  rho 0.764  1.50s/step  eta 33m  mem 7.9G
+step 640/1953  loss 0.6429  rho 0.820  1.52s/step  eta 33m  mem 7.9G
+step 660/1953  loss 0.6485  rho 0.764  1.52s/step  eta 33m  mem 7.9G
+step 680/1953  loss 0.6455  rho 0.793  1.52s/step  eta 32m  mem 7.9G
+step 700/1953  loss 0.6498  rho 0.759  1.53s/step  eta 32m  mem 7.9G
+step 720/1953  loss 0.6423  rho 0.805  1.53s/step  eta 31m  mem 7.9G
+step 740/1953  loss 0.6500  rho 0.732  1.52s/step  eta 31m  mem 7.9G
+step 760/1953  loss 0.6478  rho 0.781  1.52s/step  eta 30m  mem 7.9G
+step 780/1953  loss 0.6460  rho 0.796  1.52s/step  eta 30m  mem 7.9G
+step 800/1953  loss 0.6408  rho 0.810  1.52s/step  eta 29m  mem 7.9G
+step 820/1953  loss 0.6419  rho 0.810  1.52s/step  eta 29m  mem 7.9G
+step 840/1953  loss 0.6427  rho 0.805  1.53s/step  eta 28m  mem 7.9G
+step 860/1953  loss 0.6474  rho 0.774  1.53s/step  eta 28m  mem 7.9G
+step 880/1953  loss 0.6402  rho 0.830  1.53s/step  eta 27m  mem 7.9G
+step 900/1953  loss 0.6422  rho 0.822  1.53s/step  eta 27m  mem 7.9G
+step 920/1953  loss 0.6435  rho 0.799  1.53s/step  eta 26m  mem 7.9G
+step 940/1953  loss 0.6452  rho 0.808  1.53s/step  eta 26m  mem 7.9G
+step 960/1953  loss 0.6428  rho 0.805  1.52s/step  eta 25m  mem 7.9G
+step 980/1953  loss 0.6424  rho 0.816  1.52s/step  eta 25m  mem 7.9G
+step 1000/1953  loss 0.6435  rho 0.793  1.53s/step  eta 24m  mem 7.9G
+eval@1000: rho 0.757 by-source {"arxiv": 0.793, "fable_subtle_1000_elaborated": 0.547, "highdim_elaborated": 0.745, "hn_comments": 0.8, "hn_top": 0.793, "lw": 0.867} struct-absdiff 0.181 struct-corr 0.850 70.0 items/s
+step 1020/1953  loss 0.6464  rho 0.771  1.86s/step  eta 29m  mem 7.9G
+step 1040/1953  loss 0.6515  rho 0.742  1.86s/step  eta 28m  mem 7.9G
+step 1060/1953  loss 0.6437  rho 0.794  1.85s/step  eta 28m  mem 7.9G
+step 1080/1953  loss 0.6424  rho 0.803  1.85s/step  eta 27m  mem 7.9G
+step 1100/1953  loss 0.6420  rho 0.822  1.84s/step  eta 26m  mem 7.9G
+step 1120/1953  loss 0.6417  rho 0.808  1.83s/step  eta 25m  mem 7.9G
+step 1140/1953  loss 0.6482  rho 0.763  1.83s/step  eta 25m  mem 7.9G
+step 1160/1953  loss 0.6484  rho 0.761  1.82s/step  eta 24m  mem 7.9G
+step 1180/1953  loss 0.6424  rho 0.801  1.81s/step  eta 23m  mem 7.9G
+step 1200/1953  loss 0.6416  rho 0.816  1.81s/step  eta 23m  mem 7.9G
+step 1220/1953  loss 0.6430  rho 0.795  1.80s/step  eta 22m  mem 7.9G
+step 1240/1953  loss 0.6432  rho 0.791  1.80s/step  eta 21m  mem 7.9G
+step 1260/1953  loss 0.6455  rho 0.793  1.79s/step  eta 21m  mem 7.9G
+step 1280/1953  loss 0.6448  rho 0.774  1.79s/step  eta 20m  mem 7.9G
+step 1300/1953  loss 0.6436  rho 0.802  1.79s/step  eta 19m  mem 7.9G
+step 1320/1953  loss 0.6445  rho 0.805  1.79s/step  eta 19m  mem 7.9G
+step 1340/1953  loss 0.6447  rho 0.809  1.78s/step  eta 18m  mem 7.9G
+step 1360/1953  loss 0.6429  rho 0.818  1.78s/step  eta 18m  mem 7.9G
+step 1380/1953  loss 0.6418  rho 0.801  1.78s/step  eta 17m  mem 7.9G
+step 1400/1953  loss 0.6425  rho 0.821  1.78s/step  eta 16m  mem 7.9G
+step 1420/1953  loss 0.6426  rho 0.811  1.77s/step  eta 16m  mem 7.9G
+step 1440/1953  loss 0.6426  rho 0.817  1.77s/step  eta 15m  mem 7.9G
+step 1460/1953  loss 0.6452  rho 0.785  1.76s/step  eta 14m  mem 7.9G
+step 1480/1953  loss 0.6452  rho 0.790  1.76s/step  eta 14m  mem 7.9G
+step 1500/1953  loss 0.6404  rho 0.833  1.76s/step  eta 13m  mem 7.9G
+step 1520/1953  loss 0.6436  rho 0.795  1.75s/step  eta 13m  mem 7.9G
+step 1540/1953  loss 0.6413  rho 0.807  1.75s/step  eta 12m  mem 7.9G
+step 1560/1953  loss 0.6403  rho 0.845  1.74s/step  eta 11m  mem 7.9G
+step 1580/1953  loss 0.6474  rho 0.783  1.75s/step  eta 11m  mem 7.9G
+step 1600/1953  loss 0.6457  rho 0.778  1.74s/step  eta 10m  mem 7.9G
+step 1620/1953  loss 0.6431  rho 0.818  1.74s/step  eta 10m  mem 7.9G
+step 1640/1953  loss 0.6395  rho 0.841  1.74s/step  eta 9m  mem 7.9G
+step 1660/1953  loss 0.6436  rho 0.799  1.74s/step  eta 8m  mem 7.9G
+step 1680/1953  loss 0.6409  rho 0.811  1.74s/step  eta 8m  mem 7.9G
+step 1700/1953  loss 0.6446  rho 0.790  1.75s/step  eta 7m  mem 7.9G
+step 1720/1953  loss 0.6352  rho 0.844  1.75s/step  eta 7m  mem 7.9G
+step 1740/1953  loss 0.6464  rho 0.783  1.75s/step  eta 6m  mem 7.9G
+step 1760/1953  loss 0.6394  rho 0.830  1.75s/step  eta 6m  mem 7.9G
+step 1780/1953  loss 0.6392  rho 0.825  1.75s/step  eta 5m  mem 7.9G
+step 1800/1953  loss 0.6422  rho 0.827  1.75s/step  eta 4m  mem 7.9G
+step 1820/1953  loss 0.6461  rho 0.782  1.75s/step  eta 4m  mem 7.9G
+step 1840/1953  loss 0.6475  rho 0.769  1.76s/step  eta 3m  mem 7.9G
+step 1860/1953  loss 0.6401  rho 0.825  1.75s/step  eta 3m  mem 7.9G
+step 1880/1953  loss 0.6416  rho 0.827  1.76s/step  eta 2m  mem 7.9G
+step 1900/1953  loss 0.6458  rho 0.776  1.75s/step  eta 2m  mem 7.9G
+step 1920/1953  loss 0.6435  rho 0.795  1.76s/step  eta 1m  mem 7.9G
+step 1940/1953  loss 0.6416  rho 0.813  1.75s/step  eta 0m  mem 7.9G
+eval@1953: rho 0.771 by-source {"arxiv": 0.804, "fable_subtle_1000_elaborated": 0.568, "highdim_elaborated": 0.77, "hn_comments": 0.817, "hn_top": 0.799, "lw": 0.871} struct-absdiff 0.165 struct-corr 0.865 64.8 items/s
+== hn_top: rho~gemma +0.680 / +0.682 / +0.787 | inter-criterion student +0.162 vs gemma +0.074 | 42 items/s
+== hn_comments: rho~gemma +0.838 / +0.856 / +0.867 | inter-criterion student +0.174 vs gemma +0.162 | 182 items/s
+== arxiv: rho~gemma +0.885 / +0.576 / +0.908 | inter-criterion student +0.060 vs gemma +0.131 | 99 items/s
+== lw: rho~gemma +0.879 / +0.931 / +0.908 | inter-criterion student +0.896 vs gemma +0.865 | 50 items/s
+exit 0 2026-09-17T20:59:45Z
+OCR restarted 2026-09-17T20:59:47Z

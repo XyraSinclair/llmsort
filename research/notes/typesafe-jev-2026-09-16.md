@@ -668,3 +668,76 @@ labelling is teacher spend and gates on Xyra; everything after it is scripted
 (`ft_scorer.py --model Qwen/Qwen3-Reranker-0.6B --checkpointing`, then `bench_scorer.py`).
 Artifacts: `research/artifacts/live/fast-judge-2026-09-17/scorer-0.6b/` (train curve, final
 eval rows, bench, probe and run logs); adapter weights on the judge host (`scorer-0.6b/latest.pt`).
+
+### Executed 2026-09-17 (12:41–14:00 PT): teacher corpus 2 and the v2 scorer — the three collapses close, one teacher pass and 1h10m per attribute set
+
+Xyra's "sure" to the labelling. Teacher corpus 2
+(`research/artifacts/live/mc-teacher-corpus2-2026-09-17/`): fresh pools in the three bench
+domains with the bench items excluded — HN stories ≥ 50 points from 2026 with their earliest
+substantive comment, HN comments of 60–200 words from summer 2026, arXiv CS abstracts from
+OpenAlex — 200 lists of 40 per domain under the bench's own triples verbatim, gemma-4-31b joint
+setwise, same design and fit as corpus 1. 600 lists, 8,400 calls, 0.5 % malformed, **$8.40**,
+5.6 minutes wall-clock with the three domains in parallel; teacher flip rates .10–.19, the usual
+band (clarity .19 the least consistent again, evidence .10 the most).
+
+v2 scorer: `ft_scorer.py` grew `--corpus dir[:cap]` (repeatable), per-source held-out sampling,
+and `--init` warm start. Warm-started from the v1 adapter on 501 corpus-2 lists plus 150
+corpus-1 lists as replay (651 lists, 1,953 steps, 1.6–1.8 s/step — the HN items are short),
+198 held-out lists (33 per source across the six sources), evals at 0 / 1,000 / 1,953, then
+the bench. Launch 12:49 PT, bench done 13:59 PT: 1h10m on the shared card, 7.9 GB.
+
+| step | ρ to teacher | lw | highdim | fable-subtle | hn_top | hn_comments | arxiv | structure r |
+|---|---|---|---|---|---|---|---|---|
+| 0 (= v1) | .62 | .87 | .77 | .58 | .58 | .29 | .62 | .82 |
+| 1,000 | .76 | .87 | .75 | .55 | .79 | .80 | .79 | .85 |
+| 1,953 | .77 | .87 | .77 | .57 | .80 | .82 | .80 | .87 |
+
+The step-0 row is the v1 adapter measured on the new held-out lists: the bench's coverage
+story reproduced on 99 fresh lists (hn_comments .29). One epoch brings the three new sources
+to .80–.82, the lw source holds at .87 (the replay works), and the two unseen-criterion
+sources dip .02–.03 at the midpoint and come back by the end.
+
+Bench, ρ to gemma-4-31b's separate-arm fit, 40 items × 3 criteria per cohort:
+
+| cohort | criterion | v2 scorer | v1 scorer | DG+LoRA | gemma reliability | v2 disattenuated |
+|---|---|---|---|---|---|---|
+| lw | novelty | **.88** | .88 | .86 | .91 | .92 |
+| lw | alpha | **.93** | .93 | .92 | .96 | .95 |
+| lw | rigor | **.91** | .90 | .82 | .97 | .92 |
+| hn_top | interesting | .68 | .62 | .84 | .90 | .72 |
+| hn_top | credible | .68 | .57 | .70 | .85 | .74 |
+| hn_top | actionable | .79 | .73 | .85 | .86 | .85 |
+| hn_comments | informative | **.84** | .82 | .83 | — | — |
+| hn_comments | civil | .86 | .26 | .90 | — | — |
+| hn_comments | concise | **.87** | .16 | .83 | — | — |
+| arxiv | novelty | .89 | .76 | .92 | — | — |
+| arxiv | clarity | **.58** | .17 | .45 | — | — |
+| arxiv | evidence | .91 | .83 | .93 | — | — |
+
+Throughput 42 / 182 / 99 / 50 items/s (hn_top / hn_comments / arxiv / lw); mean inter-criterion
+correlation student vs gemma: lw .90 vs .87, hn_comments .17 vs .16, arxiv .06 vs .13, hn_top
+.16 vs .07.
+
+Reading. The three collapses close: concise .16 → .87, civil .26 → .86, clarity .17 → .58 —
+concise and clarity now above DG+LoRA (which read the same lists at ~2 items/s with a 4B
+diffusion decoder), civil within .04 of it. The lw triple is unchanged, so the replay held the
+earlier result while the adapter took on nine new dense attributes. hn_comments and arxiv are
+now at or near DG+LoRA on every criterion (.84–.91 on five of six; clarity at .58 is the
+teacher's own weak attribute, flip .19, and every student sits low there). hn_top is the one
+cohort still short of DG+LoRA (.68/.68/.79 vs .84/.70/.85): the item is a composite —
+title, URL, points, comment count, a top comment — and the student's criteria correlate with
+each other at .16 where gemma's do at .07, so it reads more of a general-quality signal than
+the teacher; more hn_top lists (200 is the thinnest block relative to the item's structure)
+or a second epoch are the obvious levers, not a design change. Overall: eleven of twelve
+bench cells at or above DG+LoRA-minus-.05, at 20–90× its speed, from one $8 teacher pass and
+70 minutes of card time.
+
+What this settles for llmsort. The two-stage recipe is now demonstrated end to end on a new
+attribute set in one sitting: ~$3 of gemma-4-31b per 200-list domain, five minutes of
+labelling, an hour of distillation, a 0.6B judge at 40–180 items/s that tracks the teacher at
+.8–.9 on the criteria it was taught and keeps everything it knew. The per-attribute-set cost
+is the teacher pass, and the teacher pass is cheap enough that "which attributes are
+supported" is a list one appends to, not a research question. Artifacts:
+`research/artifacts/live/fast-judge-2026-09-17/scorer-0.6b-v2/` (eval rows at 0 / 1,000 /
+1,953, bench, run log), `chain2.py` / `launch2.sh` (the unattended teacher-wait → train →
+bench chain); adapter on the judge host (`scorer-0.6b-v2/latest.pt`).
