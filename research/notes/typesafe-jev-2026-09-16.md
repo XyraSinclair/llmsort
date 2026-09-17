@@ -498,8 +498,10 @@ soft observations as its default from the next run on; the artifact copies stay 
 The bet named above, run. Student: DiffusionGemma-26B-A4B-it, one-forward read (256-token canvas,
 letter PMF at each of the k=8 hole slots after a single decoder pass), separate-arm prompt
 unchanged. Teacher: the 1,000-list gemma-4-31b joint-setwise corpus of 2026-09-13
-(`mc-teacher-corpus-2026-09-13`, LW posts, criteria novelty/alpha/rigor, per-item Plackett–Luce
-latents). One example = a random 8-subset of a list under one criterion in a random order; the
+(`mc-teacher-corpus-2026-09-13`, LW posts, per-item Plackett–Luce latents; 500 lists under the LW
+triple novelty/alpha/rigor, 500 under rotating triples from the 765-criterion elaborated attribute
+batteries — each example draws one of its list's three criteria, so half the training criteria are
+the lw triple and half are the diverse set). One example = a random 8-subset of a list under one criterion in a random order; the
 target is the exact PL rank-marginal matrix of those 8 latents (subset DP over 2^8 states,
 doubly stochastic), the loss the per-slot cross-entropy of the letter log-probs under the
 full-vocab softmax against that matrix — full-vocab, because renormalising over letters first
@@ -528,7 +530,7 @@ one-forward and chain rows repeated from the section above for comparison:
 Per criterion, ρ to gemma-4-31b in the separate arm, base → LoRA: hn_top .74/.66/.80 →
 .84/.70/.85; hn_comments .77/.84/.77 → .83/.90/.83; arxiv .82/.34/.82 → .92/.45/.93; lw
 .79/.82/.77 → .86/.92/.82. Two readings of that. The lw gain is the in-distribution number: the
-lists are held out but the criteria texts are the training criteria. hn_top, hn_comments and
+lists are held out but the criteria texts are half the training signal. hn_top, hn_comments and
 arxiv are a different domain under criteria the adapter never saw, and they gained as much
 (+.06 to +.11) — the adapter taught the model the read, how to put a ranking into the slots,
 more than it taught it the criterion. The greedy row says the same thing from the other side:
@@ -554,3 +556,36 @@ spending a second corpus on (a). Artifacts:
 patched `dg_setwise.py --lora`, `run.sh`, `train.jsonl`, `run.log`, bench summaries and
 traces, `refit-lora-one.{txt,json}`); the adapter weights (`lora/step-3200.pt`, 75 MB) stay on
 the judge host.
+
+## Executed 2026-09-17 (06:00 PT): the teacher ceiling, and the fast criterion-conditioned judge
+
+The veto handle above, resolved first. Split-half reliability — fit presentation 0 alone against
+presentation 1 alone, separate arm, Spearman–Brown to the full two-presentation design — on the
+two cohorts with a stored gemma-4-31b trace (`ceiling.py`):
+
+| cohort / criterion | gemma-4-31b split-half (full) | DG+LoRA split-half (full) | ρ observed | ρ disattenuated |
+|---|---|---|---|---|
+| lw / novelty | .83 (.91) | .93 (.96) | .86 | .92 |
+| lw / alpha | .93 (.96) | .97 (.98) | .92 | .94 |
+| lw / rigor | .94 (.97) | .96 (.98) | .82 | .84 |
+| hn_top / interesting | .81 (.90) | .93 (.96) | .84 | .91 |
+| hn_top / credible | .73 (.85) | .81 (.89) | .70 | .81 |
+| hn_top / actionable | .76 (.86) | .90 (.95) | .85 | .94 |
+
+The student is more self-consistent than its teacher on every criterion, and the disattenuated
+agreement is .91–.94 on four of six. The observed .82 is mostly the teacher's own noise; the DG
+line is at the ceiling the corpus can give it, and a second corpus would buy little. What the
+corpus has not yet bought is speed: DG one-forward is ~4 s per 8-item window per criterion,
+about 0.5 s per item-criterion.
+
+The fast line, then: a criterion-conditioned pointwise scorer. Zero-shot first, as doctrine —
+the live Qwen3-Reranker-4B through `judge` (criterion text as the question, item as the state,
+yes-logit as the score) on a fixed stratified sample of 99 corpus lists (33 per criteria source,
+seed 2026, `zs_judge.py`): ρ .23 to the teacher (lw .36, highdim .13, fable-subtle .20) and the
+inter-criterion structure uncorrelated with the teacher's (r .02), at 59 slots/s on the shared
+production engine. A reranker is not a judge zero-shot. The fine-tune (`ft_scorer.py`): the
+same reranker prompt on Qwen3-Reranker-0.6B, score = logit(yes) − logit(no), one step per
+(list, criterion) with all 40 items in one batch, loss = soft RankNet over all 780 pairs against
+sigmoid of the teacher's latent differences; LoRA r=16 on attention and MLP (196 modules,
+10.1M params); eval on the same 99 lists. In the 40-step smoke the 0.6B went from ρ .16 to .81
+on six lw lists.

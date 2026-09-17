@@ -1,0 +1,6 @@
+lw       novelty      gemma split-half +0.828 (full 0.906) | student split-half +0.930 (full 0.964) | rho_obs +0.863 | disattenuated +0.924
+lw       alpha        gemma split-half +0.930 (full 0.964) | student split-half +0.965 (full 0.982) | rho_obs +0.915 | disattenuated +0.941
+lw       rigor        gemma split-half +0.935 (full 0.966) | student split-half +0.958 (full 0.979) | rho_obs +0.820 | disattenuated +0.844
+hn_top   interesting  gemma split-half +0.810 (full 0.895) | student split-half +0.925 (full 0.961) | rho_obs +0.843 | disattenuated +0.909
+hn_top   credible     gemma split-half +0.734 (full 0.847) | student split-half +0.806 (full 0.893) | rho_obs +0.702 | disattenuated +0.807
+hn_top   actionable   gemma split-half +0.757 (full 0.862) | student split-half +0.897 (full 0.946) | rho_obs +0.845 | disattenuated +0.937

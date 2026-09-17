@@ -1,0 +1,1 @@
+{"tier": "fast", "lists": 99, "slots": 11880, "seconds": 202.505446434021, "slots_per_s": 58.66508881217012, "rho_mean": 0.22755636414173003, "rho_by_source": {"fable_subtle_1000_elaborated": 0.19810866640134936, "highdim_elaborated": 0.12715333447040766, "lw": 0.3574070915534331}, "struct_absdiff_mean": 0.41424375082911674, "struct_corr": 0.019685441703321017}
