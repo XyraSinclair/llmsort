@@ -193,7 +193,44 @@ another prompt.
 
 ## Sharpening check
 
-(pending — independent reader)
+An independent reader (a Fable subagent given only the twelve prompts and the names of the
+existing families, no numbers) was asked, for each candidate's closest existing neighbour, for
+one case the two rank in opposite directions, and whether the pair is two attributes or one
+with two wordings. All seven pairs separated:
+
+- source-uniqueness vs novelty-of-insight: six months of the author's own sleep data concluding
+  late caffeine hurts sleep — unique, not novel; a fresh Goodhart reframing three people posted
+  the same month — novel, not unique. Uniqueness is supply of the payload, novelty its age.
+- front-loading vs skimmability: thesis, result and evidence in paragraph one then 4,000 words of
+  unbroken prose — front-loaded, unskimmable; crisp headings whose thesis lands in the
+  conclusion — the reverse. Positional versus structural; they will correlate.
+- read-now-premium vs timelessness: a permanent argument about model evaluation that a live
+  policy consultation is quoting this week — both high, so inverted timelessness ranks it low
+  and read-now ranks it high. A window can be open on non-decaying content.
+- discourse-currency vs timing-relevance / thread-advancement: a late comment in a dead thread
+  that states cleanly the position a dozen other threads are arguing this month — currency high,
+  thread-level attributes low. Community-level versus thread-level.
+- reader-empowerment vs actionability: "sign this by Friday" is actionable and transfers no
+  capability; the inside-view/outside-view distinction with no directive is the reverse. The
+  reader notes empowerment sits close to generality plus explanatory-compression and should be
+  named as transferable skill if kept.
+- compounding-value vs prerequisite-mapping: a post that coins a term the community uses for
+  years with no scaffolding, against a comment that lists what to read first and adds nothing to
+  carry forward. Caveat from the reader: compounding is an ecosystem fact about later texts,
+  which a text-only rater cannot see — it estimates it from foundationality.
+- misleading-if-trusted vs claim-calibration: a post that hedges every sentence correctly and
+  omits the one counterexample that flips its conclusion — calibrated and misleading. Omissions
+  are invisible to calibration.
+
+Among the twelve, the reader predicted a careful human could not separate: regret-if-missed
+from breadth-of-consequence (both "how much does this matter"), canonicality from
+source-uniqueness, portable-payload from effort-to-value and from reader-empowerment,
+compounding-value from canonicality, and regret-if-missed from nearly everything ("a summary
+rating with no independent evidence in the text"). The measured teacher agrees on
+portable-payload ↔ compounding-value/reader-empowerment (.72/.75) and on regret being a summary,
+but not on which summary — for the teacher it was currency (.9), not breadth (.4/.0/.2); and it
+separated canonicality from source-uniqueness (r ≤ .3 in every lens), though canonicality's own
+reliability was too poor to count that as evidence.
 
 ## Whose judgment
 
