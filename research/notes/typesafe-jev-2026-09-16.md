@@ -601,3 +601,70 @@ activations on a 28-layer model is ~60 GB), the checkpointed config trains at 5.
 overlap or fewer than three fitted criteria) → 2,616 (list, criterion) steps, evals at 900 and
 1,800 with weights banked at each, then the four-cohort bench against gemma-4-31b's separate
 arm (`bench_scorer.py`). ETA ~10:15 PT.
+
+### Executed 2026-09-17 (06:17–08:41 PT): the 0.6B scorer, one epoch — at the teacher's ceiling on the attributes it was taught, 25–90× DG's speed
+
+Training: 2,616 (list, criterion) steps in 2h12m on the shared card (2.8–3.1 s/step once the
+card cleared, 7.9 GB), evals on the 99 held-out lists at 900 / 1,800 / 2,616:
+
+| step | ρ to teacher | lw | highdim | fable-subtle | structure r | items/s |
+|---|---|---|---|---|---|---|
+| 0 | .02 | .13 | −.08 | .03 | −.24 | 40 |
+| 900 | .70 | .86 | .73 | .52 | .76 | 49 |
+| 1,800 | .73 | .87 | .75 | .56 | .83 | 48 |
+| 2,616 | .74 | .87 | .77 | .58 | .85 | 51 |
+
+Per-list at the end: lw median ρ .88 (q1 .84, every list above .5), highdim median .81 (93 %
+above .5), fable-subtle median .64 (76 % above .5, min −.27). The ordering follows the teacher's
+own consistency on those sources (ledger flips .105 / .145 / .185) and the per-criterion data
+depth (500 lists over three lw criteria; 250 lists spread over hundreds of battery criteria).
+
+The four-cohort bench, pointwise scores against gemma-4-31b's separate-arm fit
+(`bench_scorer.py`, `scorer-0.6b/bench.json`; DG+LoRA from the previous section for comparison):
+
+| cohort | criterion | 0.6B scorer ρ~gemma | DG+LoRA ρ~gemma | gemma reliability (full design) | disattenuated |
+|---|---|---|---|---|---|
+| lw | novelty | **.88** | .86 | .91 | .93 |
+| lw | alpha | **.93** | .92 | .96 | .94 |
+| lw | rigor | **.90** | .82 | .97 | .92 |
+| hn_top | interesting | .62 | .84 | .90 | .65 |
+| hn_top | credible | .57 | .70 | .85 | .62 |
+| hn_top | actionable | .73 | .85 | .86 | .78 |
+| hn_comments | informative | .82 | .83 | — | — |
+| hn_comments | civil | .26 | .90 | — | — |
+| hn_comments | concise | .16 | .83 | — | — |
+| arxiv | novelty | .76 | .92 | — | — |
+| arxiv | clarity | .17 | .45 | — | — |
+| arxiv | evidence | .83 | .93 | — | — |
+
+(The scorer is deterministic, so its own reliability is 1 and the disattenuation divides by
+√r_gemma only; gemma's hn_comments and arxiv traces were not stored, so no reliability there.)
+Inter-criterion structure on lw: student .84 / .89 / .95 against gemma's .85 / .84 / .90 — the
+same shape. Throughput 51 items/s on lw's long posts, 84–101 on hn_top and arxiv, 188 on
+hn_comments; DG reads at ~2 items/s, so 25–90× faster, in 1.2 GB of weights plus a 10 M-param
+adapter, on a slice of a shared card.
+
+Reading. On the lw triple — the attribute set with real teacher depth — the 0.6B scorer is at
+the teacher's reliability ceiling (disattenuated .92–.94, above DG+LoRA on all three) with the
+teacher's inter-criterion structure, at a twenty-fifth of DG's cost. That is the unambiguous
+result: a criterion-conditioned pointwise scorer distilled from ~500 teacher-ranked lists
+reproduces gemma-4-31b's judgment on those criteria as well as gemma reproduces itself. It also
+transfers, unevenly, to criteria and domains it never saw: hn_comments/informative .82,
+arxiv/evidence .83, arxiv/novelty .76, hn_top .57–.73. The three collapses are a coverage
+story, not a capacity story: "concise" occurs in none of the 765 training criteria and "civil"
+in two (the batteries are quality attributes, not style or length), and arxiv/clarity is the
+teacher's own least-consistent attribute (DG+LoRA .45; gemma's clarity fit was the weak one
+in every earlier run). A bigger student cannot learn an attribute the corpus never scored; a
+1.7B/4B run was therefore not launched.
+
+What this fixes for llmsort. The judge for a meaningful attribute set is a two-stage product:
+teacher-rank a few hundred lists under that set with the strong model (the corpus recipe of
+2026-09-13), distill into the 0.6B reranker scaffold in ~2 h on one card, deploy at 50–200
+items/s. Every attribute set one wants at this speed needs its own teacher pass — the lw
+triple's is done; hn_top / hn_comments / arxiv triples are the obvious next three (the bench
+cohorts are the test set, so the labelling has to be fresh lists in those domains), and a
+style/length battery (concise, civil, clarity-as-readability) closes the coverage hole. That
+labelling is teacher spend and gates on Xyra; everything after it is scripted
+(`ft_scorer.py --model Qwen/Qwen3-Reranker-0.6B --checkpointing`, then `bench_scorer.py`).
+Artifacts: `research/artifacts/live/fast-judge-2026-09-17/scorer-0.6b/` (train curve, final
+eval rows, bench, probe and run logs); adapter weights on the judge host (`scorer-0.6b/latest.pt`).

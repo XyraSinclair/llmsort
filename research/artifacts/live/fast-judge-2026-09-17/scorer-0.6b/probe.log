@@ -1,0 +1,59 @@
+### c40
+corpus: 872 train lists, 1 eval lists, 29 dropped
+lora: 196 modules, 10.1M params
+eval@0: rho 0.099 by-source {"lw": 0.099} struct-absdiff 0.371 struct-corr 0.349 26.6 items/s
+odule.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 82, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+                                           ^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scry1/llmsort-dg/dg_lora.py", line 19, in forward
+    return y + ((x.float() @ self.A.t()) @ self.B.t()).to(y.dtype) * self.scale
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 480.00 MiB. GPU 0 has a total capacity of 94.97 GiB of which 202.94 MiB is free. Process 39645 has 20.47 GiB memory in use. Process 38839 has 2.60 GiB memory in use. Process 206520 has 22.67 GiB memory in use. Process 253543 has 12.69 GiB memory in use. Including non-PyTorch memory, this process has 36.30 GiB memory in use. Of the allocated memory 35.62 GiB is allocated by PyTorch, and 48.47 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+### c40ckpt
+corpus: 872 train lists, 1 eval lists, 29 dropped
+lora: 196 modules, 10.1M params
+eval@0: rho 0.099 by-source {"lw": 0.099} struct-absdiff 0.371 struct-corr 0.349 24.1 items/s
+step 20/20  loss 0.7357  rho 0.324  5.21s/step  eta 0m  mem 7.9G
+eval@20: rho 0.667 by-source {"lw": 0.667} struct-absdiff 0.103 struct-corr 0.985 24.0 items/s
+
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 310/310 [00:00<00:00, 5064.78it/s]
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/home/scry1/llmsort-dg/ft_scorer.py:147: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  acc_loss += float(loss); acc_rho += spearman(s.detach().cpu().numpy(), theta)
+### c40t768
+corpus: 872 train lists, 1 eval lists, 29 dropped
+lora: 196 modules, 10.1M params
+eval@0: rho 0.137 by-source {"lw": 0.137} struct-absdiff 0.412 struct-corr 0.041 30.1 items/s
+odule.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 82, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+                                           ^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/voyage4nano-lab/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scry1/llmsort-dg/dg_lora.py", line 19, in forward
+    return y + ((x.float() @ self.A.t()) @ self.B.t()).to(y.dtype) * self.scale
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 360.00 MiB. GPU 0 has a total capacity of 94.97 GiB of which 148.94 MiB is free. Process 39645 has 20.47 GiB memory in use. Process 38839 has 2.60 GiB memory in use. Process 206520 has 22.67 GiB memory in use. Process 253543 has 12.69 GiB memory in use. Including non-PyTorch memory, this process has 36.36 GiB memory in use. Of the allocated memory 35.66 GiB is allocated by PyTorch, and 58.96 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

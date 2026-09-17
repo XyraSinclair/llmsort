@@ -1,0 +1,153 @@
+free MiB on card: 37385 2026-09-17T13:17:26Z
+probe c40 None
+probe c40ckpt (5.21, 7.9)
+probe c40t768 None
+best c40ckpt
+corpus: 872 train lists, 99 eval lists, 29 dropped
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 16493.74it/s]
+lora: 196 modules, 10.1M params
+eval@0: rho 0.024 by-source {"fable_subtle_1000_elaborated": 0.028, "highdim_elaborated": -0.083, "lw": 0.127} struct-absdiff 0.453 struct-corr -0.235 40.5 items/s
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/home/scry1/llmsort-dg/ft_scorer.py:147: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  acc_loss += float(loss); acc_rho += spearman(s.detach().cpu().numpy(), theta)
+step 20/2616  loss 1.1005  rho 0.032  2.88s/step  eta 125m  mem 7.9G
+step 40/2616  loss 0.7604  rho 0.282  2.86s/step  eta 123m  mem 7.9G
+step 60/2616  loss 0.6757  rho 0.494  2.84s/step  eta 121m  mem 7.9G
+step 80/2616  loss 0.6756  rho 0.423  2.86s/step  eta 121m  mem 7.9G
+step 100/2616  loss 0.6650  rho 0.597  2.85s/step  eta 119m  mem 7.9G
+step 120/2616  loss 0.6674  rho 0.570  2.83s/step  eta 118m  mem 7.9G
+step 140/2616  loss 0.6612  rho 0.621  2.82s/step  eta 117m  mem 7.9G
+step 160/2616  loss 0.6619  rho 0.600  2.82s/step  eta 116m  mem 7.9G
+step 180/2616  loss 0.6556  rho 0.664  2.82s/step  eta 115m  mem 7.9G
+step 200/2616  loss 0.6672  rho 0.548  2.82s/step  eta 114m  mem 7.9G
+step 220/2616  loss 0.6567  rho 0.672  2.82s/step  eta 113m  mem 7.9G
+step 240/2616  loss 0.6645  rho 0.557  2.82s/step  eta 112m  mem 7.9G
+step 260/2616  loss 0.6584  rho 0.630  2.82s/step  eta 111m  mem 7.9G
+step 280/2616  loss 0.6600  rho 0.644  2.82s/step  eta 110m  mem 7.9G
+step 300/2616  loss 0.6527  rho 0.709  2.82s/step  eta 109m  mem 7.9G
+step 320/2616  loss 0.6592  rho 0.655  2.82s/step  eta 108m  mem 7.9G
+step 340/2616  loss 0.6470  rho 0.792  2.81s/step  eta 107m  mem 7.9G
+step 360/2616  loss 0.6600  rho 0.615  2.81s/step  eta 106m  mem 7.9G
+step 380/2616  loss 0.6563  rho 0.641  2.81s/step  eta 105m  mem 7.9G
+step 400/2616  loss 0.6486  rho 0.741  2.81s/step  eta 104m  mem 7.9G
+step 420/2616  loss 0.6485  rho 0.756  2.81s/step  eta 103m  mem 7.9G
+step 440/2616  loss 0.6501  rho 0.716  2.81s/step  eta 102m  mem 7.9G
+step 460/2616  loss 0.6547  rho 0.681  2.81s/step  eta 101m  mem 7.9G
+step 480/2616  loss 0.6518  rho 0.731  2.81s/step  eta 100m  mem 7.9G
+step 500/2616  loss 0.6483  rho 0.764  2.81s/step  eta 99m  mem 7.9G
+step 520/2616  loss 0.6528  rho 0.697  2.81s/step  eta 98m  mem 7.9G
+step 540/2616  loss 0.6483  rho 0.759  2.81s/step  eta 97m  mem 7.9G
+step 560/2616  loss 0.6485  rho 0.729  2.81s/step  eta 96m  mem 7.9G
+step 580/2616  loss 0.6510  rho 0.748  2.81s/step  eta 95m  mem 7.9G
+step 600/2616  loss 0.6599  rho 0.649  2.81s/step  eta 94m  mem 7.9G
+step 620/2616  loss 0.6524  rho 0.700  2.81s/step  eta 94m  mem 7.9G
+step 640/2616  loss 0.6440  rho 0.791  2.81s/step  eta 93m  mem 7.9G
+step 660/2616  loss 0.6439  rho 0.816  2.81s/step  eta 92m  mem 7.9G
+step 680/2616  loss 0.6508  rho 0.727  2.81s/step  eta 91m  mem 7.9G
+step 700/2616  loss 0.6464  rho 0.760  2.81s/step  eta 90m  mem 7.9G
+step 720/2616  loss 0.6520  rho 0.687  2.81s/step  eta 89m  mem 7.9G
+step 740/2616  loss 0.6585  rho 0.680  2.81s/step  eta 88m  mem 7.9G
+step 760/2616  loss 0.6487  rho 0.762  2.81s/step  eta 87m  mem 7.9G
+step 780/2616  loss 0.6504  rho 0.728  2.81s/step  eta 86m  mem 7.9G
+step 800/2616  loss 0.6564  rho 0.656  2.81s/step  eta 85m  mem 7.9G
+step 820/2616  loss 0.6446  rho 0.778  2.81s/step  eta 84m  mem 7.9G
+step 840/2616  loss 0.6491  rho 0.760  2.81s/step  eta 83m  mem 7.9G
+step 860/2616  loss 0.6607  rho 0.643  2.81s/step  eta 82m  mem 7.9G
+step 880/2616  loss 0.6463  rho 0.801  2.81s/step  eta 81m  mem 7.9G
+step 900/2616  loss 0.6505  rho 0.721  2.81s/step  eta 80m  mem 7.9G
+eval@900: rho 0.701 by-source {"fable_subtle_1000_elaborated": 0.519, "highdim_elaborated": 0.725, "lw": 0.86} struct-absdiff 0.272 struct-corr 0.762 49.0 items/s
+step 920/2616  loss 0.6536  rho 0.655  3.08s/step  eta 87m  mem 7.9G
+step 940/2616  loss 0.6502  rho 0.710  3.08s/step  eta 86m  mem 7.9G
+step 960/2616  loss 0.6591  rho 0.643  3.07s/step  eta 85m  mem 7.9G
+step 980/2616  loss 0.6486  rho 0.733  3.07s/step  eta 84m  mem 7.9G
+step 1000/2616  loss 0.6412  rho 0.806  3.06s/step  eta 82m  mem 7.9G
+step 1020/2616  loss 0.6401  rho 0.801  3.06s/step  eta 81m  mem 7.9G
+step 1040/2616  loss 0.6473  rho 0.768  3.05s/step  eta 80m  mem 7.9G
+step 1060/2616  loss 0.6399  rho 0.849  3.05s/step  eta 79m  mem 7.9G
+step 1080/2616  loss 0.6505  rho 0.742  3.04s/step  eta 78m  mem 7.9G
+step 1100/2616  loss 0.6551  rho 0.672  3.04s/step  eta 77m  mem 7.9G
+step 1120/2616  loss 0.6588  rho 0.676  3.04s/step  eta 76m  mem 7.9G
+step 1140/2616  loss 0.6504  rho 0.726  3.03s/step  eta 75m  mem 7.9G
+step 1160/2616  loss 0.6520  rho 0.715  3.03s/step  eta 73m  mem 7.9G
+step 1180/2616  loss 0.6506  rho 0.714  3.03s/step  eta 72m  mem 7.9G
+step 1200/2616  loss 0.6586  rho 0.641  3.02s/step  eta 71m  mem 7.9G
+step 1220/2616  loss 0.6445  rho 0.799  3.02s/step  eta 70m  mem 7.9G
+step 1240/2616  loss 0.6487  rho 0.733  3.02s/step  eta 69m  mem 7.9G
+step 1260/2616  loss 0.6531  rho 0.709  3.01s/step  eta 68m  mem 7.9G
+step 1280/2616  loss 0.6496  rho 0.748  3.01s/step  eta 67m  mem 7.9G
+step 1300/2616  loss 0.6514  rho 0.728  3.01s/step  eta 66m  mem 7.9G
+step 1320/2616  loss 0.6531  rho 0.713  3.00s/step  eta 65m  mem 7.9G
+step 1340/2616  loss 0.6511  rho 0.727  3.00s/step  eta 64m  mem 7.9G
+step 1360/2616  loss 0.6365  rho 0.860  3.00s/step  eta 63m  mem 7.9G
+step 1380/2616  loss 0.6459  rho 0.773  3.00s/step  eta 62m  mem 7.9G
+step 1400/2616  loss 0.6451  rho 0.778  2.99s/step  eta 61m  mem 7.9G
+step 1420/2616  loss 0.6366  rho 0.849  2.99s/step  eta 60m  mem 7.9G
+step 1440/2616  loss 0.6367  rho 0.841  2.99s/step  eta 59m  mem 7.9G
+step 1460/2616  loss 0.6535  rho 0.682  2.98s/step  eta 58m  mem 7.9G
+step 1480/2616  loss 0.6436  rho 0.819  2.98s/step  eta 56m  mem 7.9G
+step 1500/2616  loss 0.6531  rho 0.723  2.98s/step  eta 55m  mem 7.9G
+step 1520/2616  loss 0.6551  rho 0.660  2.98s/step  eta 54m  mem 7.9G
+step 1540/2616  loss 0.6488  rho 0.731  2.97s/step  eta 53m  mem 7.9G
+step 1560/2616  loss 0.6431  rho 0.786  2.97s/step  eta 52m  mem 7.9G
+step 1580/2616  loss 0.6411  rho 0.810  2.98s/step  eta 51m  mem 7.9G
+step 1600/2616  loss 0.6522  rho 0.678  2.98s/step  eta 50m  mem 7.9G
+step 1620/2616  loss 0.6465  rho 0.757  2.98s/step  eta 49m  mem 7.9G
+step 1640/2616  loss 0.6500  rho 0.748  2.98s/step  eta 48m  mem 7.9G
+step 1660/2616  loss 0.6379  rho 0.843  2.98s/step  eta 47m  mem 7.9G
+step 1680/2616  loss 0.6438  rho 0.790  2.97s/step  eta 46m  mem 7.9G
+step 1700/2616  loss 0.6485  rho 0.742  2.97s/step  eta 45m  mem 7.9G
+step 1720/2616  loss 0.6462  rho 0.733  2.97s/step  eta 44m  mem 7.9G
+step 1740/2616  loss 0.6399  rho 0.842  2.97s/step  eta 43m  mem 7.9G
+step 1760/2616  loss 0.6450  rho 0.794  2.97s/step  eta 42m  mem 7.9G
+step 1780/2616  loss 0.6507  rho 0.722  2.97s/step  eta 41m  mem 7.9G
+step 1800/2616  loss 0.6552  rho 0.698  2.97s/step  eta 40m  mem 7.9G
+eval@1800: rho 0.728 by-source {"fable_subtle_1000_elaborated": 0.562, "highdim_elaborated": 0.75, "lw": 0.872} struct-absdiff 0.207 struct-corr 0.826 47.9 items/s
+step 1820/2616  loss 0.6424  rho 0.809  3.11s/step  eta 41m  mem 7.9G
+step 1840/2616  loss 0.6447  rho 0.784  3.11s/step  eta 40m  mem 7.9G
+step 1860/2616  loss 0.6399  rho 0.850  3.10s/step  eta 39m  mem 7.9G
+step 1880/2616  loss 0.6528  rho 0.707  3.10s/step  eta 38m  mem 7.9G
+step 1900/2616  loss 0.6447  rho 0.782  3.10s/step  eta 37m  mem 7.9G
+step 1920/2616  loss 0.6516  rho 0.714  3.09s/step  eta 36m  mem 7.9G
+step 1940/2616  loss 0.6495  rho 0.716  3.09s/step  eta 35m  mem 7.9G
+step 1960/2616  loss 0.6489  rho 0.748  3.09s/step  eta 34m  mem 7.9G
+step 1980/2616  loss 0.6457  rho 0.765  3.08s/step  eta 33m  mem 7.9G
+step 2000/2616  loss 0.6449  rho 0.781  3.08s/step  eta 32m  mem 7.9G
+step 2020/2616  loss 0.6386  rho 0.834  3.08s/step  eta 31m  mem 7.9G
+step 2040/2616  loss 0.6375  rho 0.827  3.08s/step  eta 30m  mem 7.9G
+step 2060/2616  loss 0.6436  rho 0.789  3.08s/step  eta 29m  mem 7.9G
+step 2080/2616  loss 0.6431  rho 0.792  3.08s/step  eta 27m  mem 7.9G
+step 2100/2616  loss 0.6522  rho 0.696  3.08s/step  eta 26m  mem 7.9G
+step 2120/2616  loss 0.6467  rho 0.780  3.07s/step  eta 25m  mem 7.9G
+step 2140/2616  loss 0.6398  rho 0.820  3.07s/step  eta 24m  mem 7.9G
+step 2160/2616  loss 0.6512  rho 0.724  3.07s/step  eta 23m  mem 7.9G
+step 2180/2616  loss 0.6398  rho 0.808  3.07s/step  eta 22m  mem 7.9G
+step 2200/2616  loss 0.6433  rho 0.792  3.06s/step  eta 21m  mem 7.9G
+step 2220/2616  loss 0.6428  rho 0.790  3.06s/step  eta 20m  mem 7.9G
+step 2240/2616  loss 0.6477  rho 0.784  3.06s/step  eta 19m  mem 7.9G
+step 2260/2616  loss 0.6420  rho 0.803  3.06s/step  eta 18m  mem 7.9G
+step 2280/2616  loss 0.6608  rho 0.608  3.06s/step  eta 17m  mem 7.9G
+step 2300/2616  loss 0.6439  rho 0.795  3.05s/step  eta 16m  mem 7.9G
+step 2320/2616  loss 0.6367  rho 0.846  3.05s/step  eta 15m  mem 7.9G
+step 2340/2616  loss 0.6526  rho 0.731  3.05s/step  eta 14m  mem 7.9G
+step 2360/2616  loss 0.6422  rho 0.773  3.05s/step  eta 13m  mem 7.9G
+step 2380/2616  loss 0.6496  rho 0.705  3.05s/step  eta 12m  mem 7.9G
+step 2400/2616  loss 0.6462  rho 0.784  3.05s/step  eta 11m  mem 7.9G
+step 2420/2616  loss 0.6433  rho 0.803  3.05s/step  eta 10m  mem 7.9G
+step 2440/2616  loss 0.6388  rho 0.853  3.04s/step  eta 9m  mem 7.9G
+step 2460/2616  loss 0.6414  rho 0.817  3.04s/step  eta 8m  mem 7.9G
+step 2480/2616  loss 0.6404  rho 0.836  3.04s/step  eta 7m  mem 7.9G
+step 2500/2616  loss 0.6368  rho 0.845  3.04s/step  eta 6m  mem 7.9G
+step 2520/2616  loss 0.6430  rho 0.798  3.04s/step  eta 5m  mem 7.9G
+step 2540/2616  loss 0.6406  rho 0.830  3.04s/step  eta 4m  mem 7.9G
+step 2560/2616  loss 0.6387  rho 0.822  3.03s/step  eta 3m  mem 7.9G
+step 2580/2616  loss 0.6435  rho 0.763  3.03s/step  eta 2m  mem 7.9G
+step 2600/2616  loss 0.6435  rho 0.804  3.03s/step  eta 1m  mem 7.9G
+eval@2616: rho 0.740 by-source {"fable_subtle_1000_elaborated": 0.575, "highdim_elaborated": 0.772, "lw": 0.874} struct-absdiff 0.198 struct-corr 0.845 51.4 items/s
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  60%|██████    | 186/310 [00:00<00:00, 1833.87it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1917.78it/s]
+== hn_top: rho~gemma +0.616 / +0.568 / +0.727 | inter-criterion student +0.362 vs gemma +0.074 | 84 items/s
+== hn_comments: rho~gemma +0.820 / +0.264 / +0.162 | inter-criterion student -0.041 vs gemma +0.162 | 188 items/s
+== arxiv: rho~gemma +0.764 / +0.171 / +0.832 | inter-criterion student -0.046 vs gemma +0.131 | 101 items/s
+== lw: rho~gemma +0.884 / +0.926 / +0.903 | inter-criterion student +0.893 vs gemma +0.865 | 51 items/s
+exit 0 2026-09-17T15:41:32Z
+OCR restarted 2026-09-17T15:41:32Z
