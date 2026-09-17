@@ -1,0 +1,506 @@
+[
+ {
+  "list_id": "PT1",
+  "shard": "cand",
+  "seed": 1,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "front-loading",
+    "text": "Front-loading: how much of the text's value a reader already has after its first fifth \u2014 thesis, key result, and the reason to believe it delivered before the elaboration, so that stopping early costs little."
+   },
+   {
+    "name": "portable-payload",
+    "text": "Portable payload: the text's contribution can be carried away as one or two sentences the reader could state a week later and use, as opposed to value that exists only in the experience of reading the whole."
+   },
+   {
+    "name": "read-now-premium",
+    "text": "Read-now premium: how much a reader loses by reading this a month from now instead of today \u2014 decisions, windows, ongoing work, or conversations it feeds that will have moved on by then."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "PT2",
+  "shard": "cand",
+  "seed": 2,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "canonicality",
+    "text": "Canonicality: this is the text one would send someone to for its point \u2014 the best single statement of it that exists \u2014 rather than a derivative, a partial treatment, or a version that has since been superseded."
+   },
+   {
+    "name": "breadth-of-consequence",
+    "text": "Breadth of consequence: how many kinds of reader would decide or act differently after reading it \u2014 across fields, roles, and levels of expertise \u2014 rather than a narrow few specialists."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "PT3",
+  "shard": "cand",
+  "seed": 3,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   },
+   {
+    "name": "compounding-value",
+    "text": "Compounding value: reading this makes the reader's later reading more valuable \u2014 it supplies a frame, a vocabulary, or a prerequisite that other texts build on."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "PT4",
+  "shard": "cand",
+  "seed": 4,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "effort-to-value",
+    "text": "Effort to value: the value delivered relative to the reading effort demanded \u2014 length, density, prerequisite load, and structure \u2014 so a short clear text with a real payload scores high and a long demanding one with the same payload scores low."
+   },
+   {
+    "name": "discourse-currency",
+    "text": "Discourse currency: how much reading this lets the reader follow or join the conversations happening now around it \u2014 the text a community is actively responding to, rather than one nobody is discussing."
+   },
+   {
+    "name": "regret-if-missed",
+    "text": "Regret if missed: how much a thoughtful reader in this text's intended audience would regret, a year later, never having read it."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "CT1",
+  "shard": "cand",
+  "seed": 5,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "front-loading",
+    "text": "Front-loading: how much of the text's value a reader already has after its first fifth \u2014 thesis, key result, and the reason to believe it delivered before the elaboration, so that stopping early costs little."
+   },
+   {
+    "name": "portable-payload",
+    "text": "Portable payload: the text's contribution can be carried away as one or two sentences the reader could state a week later and use, as opposed to value that exists only in the experience of reading the whole."
+   },
+   {
+    "name": "read-now-premium",
+    "text": "Read-now premium: how much a reader loses by reading this a month from now instead of today \u2014 decisions, windows, ongoing work, or conversations it feeds that will have moved on by then."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "CT2",
+  "shard": "cand",
+  "seed": 6,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "canonicality",
+    "text": "Canonicality: this is the text one would send someone to for its point \u2014 the best single statement of it that exists \u2014 rather than a derivative, a partial treatment, or a version that has since been superseded."
+   },
+   {
+    "name": "breadth-of-consequence",
+    "text": "Breadth of consequence: how many kinds of reader would decide or act differently after reading it \u2014 across fields, roles, and levels of expertise \u2014 rather than a narrow few specialists."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "CT3",
+  "shard": "cand",
+  "seed": 7,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   },
+   {
+    "name": "compounding-value",
+    "text": "Compounding value: reading this makes the reader's later reading more valuable \u2014 it supplies a frame, a vocabulary, or a prerequisite that other texts build on."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "CT4",
+  "shard": "cand",
+  "seed": 8,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "effort-to-value",
+    "text": "Effort to value: the value delivered relative to the reading effort demanded \u2014 length, density, prerequisite load, and structure \u2014 so a short clear text with a real payload scores high and a long demanding one with the same payload scores low."
+   },
+   {
+    "name": "discourse-currency",
+    "text": "Discourse currency: how much reading this lets the reader follow or join the conversations happening now around it \u2014 the text a community is actively responding to, rather than one nobody is discussing."
+   },
+   {
+    "name": "regret-if-missed",
+    "text": "Regret if missed: how much a thoughtful reader in this text's intended audience would regret, a year later, never having read it."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "MT1",
+  "shard": "cand",
+  "seed": 9,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "front-loading",
+    "text": "Front-loading: how much of the text's value a reader already has after its first fifth \u2014 thesis, key result, and the reason to believe it delivered before the elaboration, so that stopping early costs little."
+   },
+   {
+    "name": "portable-payload",
+    "text": "Portable payload: the text's contribution can be carried away as one or two sentences the reader could state a week later and use, as opposed to value that exists only in the experience of reading the whole."
+   },
+   {
+    "name": "read-now-premium",
+    "text": "Read-now premium: how much a reader loses by reading this a month from now instead of today \u2014 decisions, windows, ongoing work, or conversations it feeds that will have moved on by then."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ },
+ {
+  "list_id": "MT2",
+  "shard": "cand",
+  "seed": 10,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "canonicality",
+    "text": "Canonicality: this is the text one would send someone to for its point \u2014 the best single statement of it that exists \u2014 rather than a derivative, a partial treatment, or a version that has since been superseded."
+   },
+   {
+    "name": "breadth-of-consequence",
+    "text": "Breadth of consequence: how many kinds of reader would decide or act differently after reading it \u2014 across fields, roles, and levels of expertise \u2014 rather than a narrow few specialists."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ },
+ {
+  "list_id": "MT3",
+  "shard": "cand",
+  "seed": 11,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   },
+   {
+    "name": "compounding-value",
+    "text": "Compounding value: reading this makes the reader's later reading more valuable \u2014 it supplies a frame, a vocabulary, or a prerequisite that other texts build on."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ },
+ {
+  "list_id": "MT4",
+  "shard": "cand",
+  "seed": 12,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "effort-to-value",
+    "text": "Effort to value: the value delivered relative to the reading effort demanded \u2014 length, density, prerequisite load, and structure \u2014 so a short clear text with a real payload scores high and a long demanding one with the same payload scores low."
+   },
+   {
+    "name": "discourse-currency",
+    "text": "Discourse currency: how much reading this lets the reader follow or join the conversations happening now around it \u2014 the text a community is actively responding to, rather than one nobody is discussing."
+   },
+   {
+    "name": "regret-if-missed",
+    "text": "Regret if missed: how much a thoughtful reader in this text's intended audience would regret, a year later, never having read it."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ }
+]

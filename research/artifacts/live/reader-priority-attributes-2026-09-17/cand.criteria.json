@@ -1,0 +1,50 @@
+[
+ {
+  "name": "front-loading",
+  "prompt": "Front-loading: how much of the text's value a reader already has after its first fifth \u2014 thesis, key result, and the reason to believe it delivered before the elaboration, so that stopping early costs little."
+ },
+ {
+  "name": "portable-payload",
+  "prompt": "Portable payload: the text's contribution can be carried away as one or two sentences the reader could state a week later and use, as opposed to value that exists only in the experience of reading the whole."
+ },
+ {
+  "name": "read-now-premium",
+  "prompt": "Read-now premium: how much a reader loses by reading this a month from now instead of today \u2014 decisions, windows, ongoing work, or conversations it feeds that will have moved on by then."
+ },
+ {
+  "name": "source-uniqueness",
+  "prompt": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+ },
+ {
+  "name": "canonicality",
+  "prompt": "Canonicality: this is the text one would send someone to for its point \u2014 the best single statement of it that exists \u2014 rather than a derivative, a partial treatment, or a version that has since been superseded."
+ },
+ {
+  "name": "breadth-of-consequence",
+  "prompt": "Breadth of consequence: how many kinds of reader would decide or act differently after reading it \u2014 across fields, roles, and levels of expertise \u2014 rather than a narrow few specialists."
+ },
+ {
+  "name": "reader-empowerment",
+  "prompt": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+ },
+ {
+  "name": "misleading-if-trusted",
+  "prompt": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+ },
+ {
+  "name": "compounding-value",
+  "prompt": "Compounding value: reading this makes the reader's later reading more valuable \u2014 it supplies a frame, a vocabulary, or a prerequisite that other texts build on."
+ },
+ {
+  "name": "effort-to-value",
+  "prompt": "Effort to value: the value delivered relative to the reading effort demanded \u2014 length, density, prerequisite load, and structure \u2014 so a short clear text with a real payload scores high and a long demanding one with the same payload scores low."
+ },
+ {
+  "name": "discourse-currency",
+  "prompt": "Discourse currency: how much reading this lets the reader follow or join the conversations happening now around it \u2014 the text a community is actively responding to, rather than one nobody is discussing."
+ },
+ {
+  "name": "regret-if-missed",
+  "prompt": "Regret if missed: how much a thoughtful reader in this text's intended audience would regret, a year later, never having read it."
+ }
+]

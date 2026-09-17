@@ -1,0 +1,14 @@
+cand: 12 lists, 12 to run, parallel 6
+done PT1 rc=0 cost=0.00550528 malformed=0 10s | 1/12 $0.01 0.2m
+done PT2 rc=0 cost=0.005589326 malformed=0 10s | 2/12 $0.01 0.2m
+done PT3 rc=0 cost=0.00601744 malformed=0 10s | 3/12 $0.02 0.2m
+done PT4 rc=0 cost=0.00568987 malformed=0 10s | 4/12 $0.02 0.2m
+done CT1 rc=0 cost=0.00522652 malformed=0 10s | 5/12 $0.03 0.2m
+done CT2 rc=0 cost=0.00542604 malformed=0 10s | 6/12 $0.03 0.2m
+done CT3 rc=0 cost=0.00525292 malformed=0 10s | 7/12 $0.04 0.3m
+done CT4 rc=0 cost=0.00530289 malformed=0 10s | 8/12 $0.04 0.3m
+done MT1 rc=0 cost=0.00519002 malformed=0 10s | 9/12 $0.05 0.3m
+done MT2 rc=0 cost=0.00524781 malformed=0 10s | 10/12 $0.05 0.3m
+done MT3 rc=0 cost=0.00530136 malformed=0 10s | 11/12 $0.06 0.3m
+done MT4 rc=0 cost=0.0053244 malformed=0 10s | 12/12 $0.07 0.3m
+cand finished: 12 lists, $0.07, 0.3m
