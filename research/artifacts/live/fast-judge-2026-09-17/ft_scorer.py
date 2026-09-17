@@ -21,13 +21,23 @@ def eval_lists(coh, per=33):
     by = collections.defaultdict(list)
     for c in coh: by[c["criteria_source"]].append(c)
     rng = random.Random(2026); sel = []
-    for s in ("lw", "highdim_elaborated", "fable_subtle_1000_elaborated"): sel += rng.sample(by[s], 33)[:per]
+    srcs = [s for s in ("lw", "highdim_elaborated", "fable_subtle_1000_elaborated") if s in by] or sorted(by)
+    for s in srcs: sel += rng.sample(by[s], min(33, len(by[s])))[:per]
     return sel
 
 def spearman(a, b):
     ra = np.argsort(np.argsort(a)); rb = np.argsort(np.argsort(b)); return float(np.corrcoef(ra, rb)[0, 1])
 
-def load_corpus(bench_lw, max_chars):
+def load_corpus(corpora, bench_lw, max_chars):
+    """corpora: list of "dir" or "dir:cap" (cap = at most that many train lists, sampled with a fixed seed)."""
+    train, evl, dropped = [], [], 0
+    for spec in corpora:
+        C, _, cap = spec.partition(":"); tr, ev_, dr = load_one(C, bench_lw, max_chars)
+        if cap: tr = random.Random(7).sample(tr, min(int(cap), len(tr)))
+        train += tr; evl += ev_; dropped += dr
+    return train, evl, dropped
+
+def load_one(C, bench_lw, max_chars):
     coh = json.load(open(C + "/cohorts.json")); ev = {c["list_id"] for c in eval_lists(coh)}
     bench_ids = {it["id"] for it in json.load(open(bench_lw))}
     lat = collections.defaultdict(dict)
@@ -113,9 +123,11 @@ def main():
     ap.add_argument("--max-chars", type=int, default=3000); ap.add_argument("--max-tokens", type=int, default=1024)
     ap.add_argument("--chunk", type=int, default=40); ap.add_argument("--seed", type=int, default=11); ap.add_argument("--steps", type=int, default=0)
     ap.add_argument("--checkpointing", action="store_true")
+    ap.add_argument("--corpus", action="append", help="corpus dir[:max_train_lists]; repeatable")
+    ap.add_argument("--init", help="LoRA state (latest.pt) to warm-start from")
     args = ap.parse_args(); os.makedirs(args.out, exist_ok=True)
     torch.manual_seed(args.seed); rng = random.Random(args.seed)
-    train, evl, dropped = load_corpus("bench/lw.json", args.max_chars); evl = evl[:args.eval_lists]
+    train, evl, dropped = load_corpus(args.corpus or [C], "bench/lw.json", args.max_chars); evl = evl[:args.eval_lists]
     print(f"corpus: {len(train)} train lists, {len(evl)} eval lists, {dropped} dropped", flush=True)
     sc = Scorer(args.model, args.max_tokens, "cuda:0")
     if args.checkpointing: sc.model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
@@ -124,6 +136,11 @@ def main():
         for p in sc.model.parameters(): p.requires_grad_(False)
         wrapped = apply_lora(sc.model, args.rank, args.alpha); params = [p for w in wrapped.values() for p in (w.A, w.B)]
         print(f"lora: {len(wrapped)} modules, {sum(p.numel() for p in params)/1e6:.1f}M params", flush=True)
+        if args.init:
+            st = torch.load(args.init); assert set(st) == set(wrapped), "adapter keys differ"
+            with torch.no_grad():
+                for k, w in wrapped.items(): w.A.copy_(st[k]["A"].to(w.A.device, w.A.dtype)); w.B.copy_(st[k]["B"].to(w.B.device, w.B.dtype))
+            print(f"init: adapter loaded from {args.init}", flush=True)
     steps = [(l, ci) for l in train for ci in range(len(l["criteria"]))]
     total = args.steps or int(len(steps) * args.epochs)
     opt = torch.optim.AdamW(params, lr=args.lr, betas=(0.9, 0.99), weight_decay=0.0); warm = max(1, total // 20)
