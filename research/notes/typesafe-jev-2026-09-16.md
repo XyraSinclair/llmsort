@@ -353,3 +353,25 @@ card (a dedicated card and batched reads would take that to ~1 s).
 Not done: the stage PMFs are stored in the traces (`matrix` = k stage vectors per line), so the
 fit can consume the soft chain — each stage as a multinomial over the remaining letters — instead
 of the greedy permutation; that is the offline analysis to run before any fine-tune decision.
+
+### Cost/time–accuracy frontier for an adaptable diffusion judge (2026-09-17 00:05 PT)
+
+The frontier is a pair, not a model: a masked-diffusion MoE base plus a one-forward read
+distilled from the clamped chain. Candidates (8-item window, one dedicated card, batched reads):
+
+| model | active | access | canvas | est. cost/window | judge quality |
+|---|---|---|---|---|---|
+| DiffusionGemma-26B-A4B | 4B (27 GB fp8) | Apache 2.0, transformers, fine-tunable | random-token, no mask | clamped ~1 s (6 s measured on a shared card); one-forward ~0.1 s | measured: ρ .72–.87 to gemma-4-31b, halo passes |
+| LLaDA2.0-mini 16B-A1B / -flash 100B-A6B | 1B / 6B | Apache 2.0, masked diffusion | mask token (native slot read) | ~¼ of DG (mini) | unmeasured; the cost-floor candidate |
+| Dream 7B / LLaDA 8B | 7–8B dense | open, most tooling | mask token | ~2× DG | unmeasured; Qwen2.5-7B class, likely under the halo bar |
+| SDAR Qwen3 block-diffusion (1.7B–30B-A3B) | 1.7–3B | open | mask, block-causal | ≈ DG | unmeasured; canvas read is sequential by construction |
+| Mercury / Gemini Diffusion / Seed Diffusion | — | closed | — | metered | no logits, not adaptable — out |
+
+DiffusionGemma holds the frontier today (only measured-adequate quality, Apache, 4B-active cost);
+its one deficit is the noise canvas. Adaptation that moves the frontier: consistency distillation
+for ranking — seed the template, noise the slots exactly as at inference, and train slot PMFs to
+the Plackett–Luce rank marginals (teacher corpus latents, or our own stored clamped stage PMFs),
+with a Sinkhorn projection so the k×k read is a valid ranking marginal by construction. LoRA on
+the fp8 base fits the card; an epoch over 120K windows is under an hour. Expected: one decoder
+pass per window at the chain's accuracy. Order: (1) refit tonight's stored stage PMFs as soft
+chains, (2) bench LLaDA2.0-mini on the same four cohorts, (3) distill the winner.
