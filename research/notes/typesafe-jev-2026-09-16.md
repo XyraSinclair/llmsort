@@ -314,3 +314,42 @@ best-of-k observation, which the fit can take directly instead of a forced full 
 about 10 s, and turns the mean-field read into a proper Plackett–Luce chain with a PMF at every
 stage; (c) read after the sampler's own denoising trajectory rather than from pure noise.
 (b) is the honest version of the instrument and the one to run next.
+
+### Executed 2026-09-16 (23:28–23:58 PT): sequential clamping, same bench
+
+Artifacts: `research/artifacts/live/diffusiongemma-setwise-2026-09-16/clamp/` (same runner,
+`--reader clamp --reads 2`). Mechanism: encode the prompt once (the decoder never writes into
+the encoder KV cache, so one encoder pass serves every stage); at stage s the slots before s hold
+the letters already chosen, the slots from s on are noise, and slot s is read as a PMF over the
+letters still unused; greedy argmax fixes the slot. k = 8 decoder-only passes per read, 2 reads,
+about 6 s per 8-item window on short items and 8 s at 5k-token prompts. On the magnitude probe
+it is exact with p_top ≈ 1.0 at every stage.
+
+| cohort | agreement ρ | halo | flip separate → joint | ρ vs gemma-4-31b (separate arm) |
+|---|---|---|---|---|
+| hn_top | **.92** / .77 / **.92** | −0.009 | .17/.18/.22 → .17/.24/.26 | .81 / .75 / .72 |
+| hn_comments | **.88** / **.87** / .76 | −0.083 | .10/.15/.20 → .17/.14/.24 | .78 / .82 / .85 |
+| arxiv | .82 / .62 / **.91** | +0.010 | .22/.27/.26 → .29/.32/.17 | .86 / .29 / .87 |
+| lw | .85 / .81 / **.94** | +0.017 | .29/.20/.14 → .34/.20/.20 | .75 / .85 / .78 |
+
+Against the one-forward read: agreement clears the bar on 6 of 12 criteria (was 2), halo now
+passes on all four cohorts (hn_top +0.226 → −0.009), separate-arm flip rates are at gemma's
+level (hn_top .17/.18/.22 vs gemma .15/.24/.12), and ρ against gemma-4-31b rises to .72–.87
+everywhere except arxiv clarity (.29 — this model simply reads clarity differently from gemma;
+both its own arms agree with each other at .62 only, so it is also its least stable criterion).
+
+Per-stage columns (mean over all windows, separate arm): p_top .82 .73 .74 .75 .74 .76 .84 1.0;
+entropy .51 .70 .70 .67 .64 .58 .35 0; label_mass ≥ .97 at every stage (was .31 at slot 8);
+read agreement .90–.95. The chain is a proper Plackett–Luce read: every stage is a confident
+choice among what is left, and the noise-draw spread (stderr .04–.08) is still small.
+
+What still fails, and it is one thing: the joint arm. Flips rise slightly under joint prompting
+on 8 of 12 criteria, and the joint-arm agreement with gemma's joint arm is lower (lw novelty
+.49). For gemma the joint prompt is the better instrument; for this model the separate prompt
+is. So the decision for this model class is: separate criteria, clamped reads — and then it is
+a free local judge at gemma-4-31b's flip level with ρ ≈ .8 to it, at 6 s per window on a shared
+card (a dedicated card and batched reads would take that to ~1 s).
+
+Not done: the stage PMFs are stored in the traces (`matrix` = k stage vectors per line), so the
+fit can consume the soft chain — each stage as a multinomial over the remaining letters — instead
+of the greedy permutation; that is the offline analysis to run before any fine-tune decision.

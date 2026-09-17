@@ -254,6 +254,54 @@ class Reader:
             holes_out.append([{"label_mass": float(mass[:, j].mean()), "entropy": float(ent[j]), "entropy_first_read": float(ent1[j]), "agreement": float(agree[j]), "stderr": float(se[j]), "p_top": float(mean[j, top[j]])} for j in range(self.k)])
         return {"parsed": parsed, "holes": holes_out, "matrix": mats, "argmax_is_perm": perm_ok, "input_tokens": len(pids), "template": text}
 
+    @torch.no_grad()
+    def read_clamp(self, system, user, m):
+        """Sequential clamping: encode the prompt once; at stage s the slots < s hold the letters already
+        chosen, slots >= s are noise, and slot s is read as a PMF over the letters still unused. Greedy
+        argmax fixes the slot. k decoder-only passes per read, R reads averaged per stage."""
+        text, tids, lines = self.template(m)
+        msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+        prompt = self.tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+        pids = self.tok(prompt, add_special_tokens=False).input_ids
+        canvas = tids + self.turn_close + [self.tok.pad_token_id] * (self.canvas_len - len(tids) - 1)
+        R, k, dev = self.reads, self.k, self.model.device
+        keep = len(tids)
+        enc = self.model(input_ids=torch.tensor([pids], device=dev), decoder_input_ids=torch.tensor([canvas], device=dev))
+        cache = enc.past_key_values; del enc; torch.cuda.empty_cache()
+        chosen = [[] for _ in lines]
+        stages = [[] for _ in lines]          # per line: list of k stage PMFs (k-vectors, zeros at used letters)
+        holes_out = [[] for _ in lines]
+        for s in range(k):
+            dec = torch.tensor([canvas] * R)
+            for r in range(R):
+                for li, line in enumerate(lines):
+                    for j, (p, labels) in enumerate(line):
+                        dec[r, p] = labels[chosen[li][j]] if j < s else self.rng.randrange(self.vocab)
+            rows = []
+            for r in range(R):
+                o = self.model(past_key_values=cache, decoder_input_ids=dec[r:r + 1].to(dev))
+                rows.append(o.logits[0, :keep, :].float()); del o
+            logits = torch.stack(rows, 0)                                   # R x keep x V
+            for li, line in enumerate(lines):
+                p, labels = line[s]
+                row = logits[:, p, :]                                       # R x V
+                lse = torch.logsumexp(row, dim=-1)
+                lab = torch.tensor(labels, device=dev)
+                ll = row[:, lab]                                            # R x k
+                mass = torch.exp(ll - lse.unsqueeze(-1)).sum(-1)            # R
+                used = torch.zeros(k, dtype=torch.bool, device=dev); used[chosen[li]] = True
+                ll = ll.masked_fill(used.unsqueeze(0), float("-inf"))
+                pr = torch.softmax(ll, dim=-1)                              # R x k over unused letters
+                mean = pr.mean(0)
+                top = int(mean.argmax())
+                agree = float((pr.argmax(-1) == top).float().mean())
+                se = float(pr[:, top].std(unbiased=True) / math.sqrt(R)) if R > 1 else 0.0
+                ent = float(-(mean * torch.log(mean.clamp_min(1e-30))).sum())
+                chosen[li].append(top)
+                stages[li].append(np.round(mean.cpu().numpy(), 4).tolist())
+                holes_out[li].append({"label_mass": float(mass.mean()), "entropy": ent, "agreement": agree, "stderr": se, "p_top": float(mean[top]), "remaining": k - s})
+        return {"parsed": [list(c) for c in chosen], "holes": holes_out, "matrix": stages, "argmax_is_perm": [True] * m, "input_tokens": len(pids), "template": text}
+
 
 def run_cohort(reader, args, label):
     items = json.load(open(os.path.join(args.bench, f"{label}.json")))
@@ -279,7 +327,7 @@ def run_cohort(reader, args, label):
                     jobs = [(cn, SYSTEM_JOINT, prompt_joint(texts, pres, [prompts[c] for c in cn]), m)]
                 for cn, system, user, mm in jobs:
                     t0 = time.time()
-                    res = reader.read(system, user, mm)
+                    res = (reader.read_clamp if args.reader == "clamp" else reader.read)(system, user, mm)
                     res.update({"arm": arm, "plan": pi, "presentation": pj, "order": pres, "criteria": cn, "secs": time.time() - t0})
                     traces.append(res)
             print(f"[{label}/{arm}] window {pi+1}/{len(plans)}  {traces[-1]['secs']:.1f}s/read-set  tokens={traces[-1]['input_tokens']}", flush=True)
@@ -295,7 +343,7 @@ def run_cohort(reader, args, label):
             for nm in names:
                 for mine in summaries:
                     vs[f"{nm}: dg_{mine['arm']} ~ gemma31b_{arm_s['arm']}"] = spearman(mine["per_criterion"][nm]["scores"], arm_s["per_criterion"][nm]["scores"])
-    out = {"label": label, "model": MODEL, "expert_quant": "fp8_e4m3 per-row", "reads": args.reads, "k": args.k, "overlap": args.overlap, "repeats": args.repeats, "seed": args.seed,
+    out = {"label": label, "model": MODEL, "expert_quant": "fp8_e4m3 per-row", "reader": args.reader, "reads": args.reads, "k": args.k, "overlap": args.overlap, "repeats": args.repeats, "seed": args.seed,
            "ids": [it["id"] for it in items], "criteria": [[c["name"], c["prompt"]] for c in crit], "arms": summaries, "agreement": agreement, "halo_inflation": halo, "vs_gemma31b": vs}
     os.makedirs(args.out, exist_ok=True)
     json.dump(out, open(os.path.join(args.out, f"summary-{label}.json"), "w"), indent=1)
@@ -331,6 +379,8 @@ def smoke(reader):
         print("FWD", variant, "in", [tok.decode([t]) for t in dec[0, :18].tolist()], "->", [tok.decode([t]) for t in am], flush=True)
     r = reader.read(SYSTEM_SINGLE, user, 1)
     print("READ", [texts[order[s]] for s in r["parsed"][0]], "mass", [round(h["label_mass"], 3) for h in r["holes"][0]], flush=True)
+    t0 = time.time(); r = reader.read_clamp(SYSTEM_SINGLE, user, 1)
+    print(f"CLAMP {time.time()-t0:.1f}s", [texts[order[s]] for s in r["parsed"][0]], "p_top", [round(h["p_top"], 2) for h in r["holes"][0]], "mass", [round(h["label_mass"], 2) for h in r["holes"][0]], flush=True)
 
 
 if __name__ == "__main__":
@@ -339,7 +389,7 @@ if __name__ == "__main__":
     ap.add_argument("--cohorts", default="hn_top")
     ap.add_argument("--bench", default="bench"); ap.add_argument("--baselines", default="baselines"); ap.add_argument("--out", default="out")
     ap.add_argument("--k", type=int, default=8); ap.add_argument("--overlap", type=int, default=2); ap.add_argument("--repeats", type=int, default=2)
-    ap.add_argument("--reads", type=int, default=4); ap.add_argument("--seed", type=int, default=7); ap.add_argument("--max-chars", type=int, default=3000)
+    ap.add_argument("--reader", choices=["one", "clamp"], default="one"); ap.add_argument("--reads", type=int, default=4); ap.add_argument("--seed", type=int, default=7); ap.add_argument("--max-chars", type=int, default=3000)
     args = ap.parse_args()
     tok, model = load_model("cuda:0")
     reader = Reader(tok, model, args.k, args.reads, args.seed)
