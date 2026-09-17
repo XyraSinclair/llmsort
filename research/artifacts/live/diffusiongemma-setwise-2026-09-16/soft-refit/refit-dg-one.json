@@ -1,0 +1,368 @@
+{
+ "greedy": [
+  {
+   "cohort": "hn_top",
+   "criterion": "interesting",
+   "agreement": 0.8240150093808631,
+   "flip_sep": 0.23979591836734693,
+   "flip_joint": 0.15816326530612246,
+   "rho_gemma_sep": 0.6960600375234524,
+   "rho_gemma_joint": 0.7185741088180114,
+   "halo": 0.22626641651031904
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "credible",
+   "agreement": 0.701125703564728,
+   "flip_sep": 0.2857142857142857,
+   "flip_joint": 0.21428571428571427,
+   "rho_gemma_sep": 0.6632270168855535,
+   "rho_gemma_joint": 0.529080675422139,
+   "halo": 0.22626641651031904
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "actionable",
+   "agreement": 0.8416510318949344,
+   "flip_sep": 0.22448979591836735,
+   "flip_joint": 0.19387755102040816,
+   "rho_gemma_sep": 0.802063789868668,
+   "rho_gemma_joint": 0.6915572232645404,
+   "halo": 0.22626641651031904
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "informative",
+   "agreement": 0.8427767354596625,
+   "flip_sep": 0.1836734693877551,
+   "flip_joint": 0.1377551020408163,
+   "rho_gemma_sep": 0.7360225140712947,
+   "rho_gemma_joint": 0.6630393996247655,
+   "halo": -0.011006879299562233
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "civil",
+   "agreement": 0.9170731707317074,
+   "flip_sep": 0.14795918367346939,
+   "flip_joint": 0.1326530612244898,
+   "rho_gemma_sep": 0.7564727954971859,
+   "rho_gemma_joint": 0.80093808630394,
+   "halo": -0.011006879299562233
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "concise",
+   "agreement": 0.7883677298311446,
+   "flip_sep": 0.29081632653061223,
+   "flip_joint": 0.24489795918367346,
+   "rho_gemma_sep": 0.727579737335835,
+   "rho_gemma_joint": 0.7196998123827393,
+   "halo": -0.011006879299562233
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "novelty",
+   "agreement": 0.5810506566604129,
+   "flip_sep": 0.22959183673469388,
+   "flip_joint": 0.39285714285714285,
+   "rho_gemma_sep": 0.7347091932457788,
+   "rho_gemma_joint": 0.6514071294559101,
+   "halo": 0.014196372732958151
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "clarity",
+   "agreement": 0.4906191369606004,
+   "flip_sep": 0.2755102040816326,
+   "flip_joint": 0.32653061224489793,
+   "rho_gemma_sep": 0.3461538461538462,
+   "rho_gemma_joint": 0.18480300187617263,
+   "halo": 0.014196372732958151
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "evidence",
+   "agreement": 0.90375234521576,
+   "flip_sep": 0.2755102040816326,
+   "flip_joint": 0.19387755102040816,
+   "rho_gemma_sep": 0.7658536585365855,
+   "rho_gemma_joint": 0.7928705440900563,
+   "halo": 0.014196372732958151
+  },
+  {
+   "cohort": "lw",
+   "criterion": "novelty",
+   "agreement": 0.6013133208255161,
+   "flip_sep": 0.42857142857142855,
+   "flip_joint": 0.28061224489795916,
+   "rho_gemma_sep": 0.7095684803001877,
+   "rho_gemma_joint": 0.5742964352720451,
+   "halo": -0.05059412132582852
+  },
+  {
+   "cohort": "lw",
+   "criterion": "alpha",
+   "agreement": 0.8444652908067544,
+   "flip_sep": 0.20918367346938777,
+   "flip_joint": 0.22448979591836735,
+   "rho_gemma_sep": 0.7746716697936211,
+   "rho_gemma_joint": 0.7621013133208256,
+   "halo": -0.05059412132582852
+  },
+  {
+   "cohort": "lw",
+   "criterion": "rigor",
+   "agreement": 0.6988742964352722,
+   "flip_sep": 0.27040816326530615,
+   "flip_joint": 0.25,
+   "rho_gemma_sep": 0.6784240150093809,
+   "rho_gemma_joint": 0.5575984990619137,
+   "halo": -0.05059412132582852
+  }
+ ],
+ "marginal": [
+  {
+   "cohort": "hn_top",
+   "criterion": "interesting",
+   "agreement": 0.9045028142589119,
+   "flip_sep": 0.1326530612244898,
+   "flip_joint": 0.14285714285714285,
+   "rho_gemma_sep": 0.7367729831144466,
+   "rho_gemma_joint": 0.7855534709193247,
+   "halo": 0.26660412757973734
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "credible",
+   "agreement": 0.8934333958724204,
+   "flip_sep": 0.16326530612244897,
+   "flip_joint": 0.15816326530612246,
+   "rho_gemma_sep": 0.6587242026266418,
+   "rho_gemma_joint": 0.6121951219512195,
+   "halo": 0.26660412757973734
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "actionable",
+   "agreement": 0.8825515947467168,
+   "flip_sep": 0.1989795918367347,
+   "flip_joint": 0.1989795918367347,
+   "rho_gemma_sep": 0.8003752345215761,
+   "rho_gemma_joint": 0.6921200750469045,
+   "halo": 0.26660412757973734
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "informative",
+   "agreement": 0.8855534709193247,
+   "flip_sep": 0.14285714285714285,
+   "flip_joint": 0.12244897959183673,
+   "rho_gemma_sep": 0.7742964352720452,
+   "rho_gemma_joint": 0.6570356472795498,
+   "halo": -0.02407754846779242
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "civil",
+   "agreement": 0.9114446529080676,
+   "flip_sep": 0.1377551020408163,
+   "flip_joint": 0.10714285714285714,
+   "rho_gemma_sep": 0.8365853658536587,
+   "rho_gemma_joint": 0.8742964352720451,
+   "halo": -0.02407754846779242
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "concise",
+   "agreement": 0.8052532833020638,
+   "flip_sep": 0.15816326530612246,
+   "flip_joint": 0.22448979591836735,
+   "rho_gemma_sep": 0.7737335834896811,
+   "rho_gemma_joint": 0.6446529080675423,
+   "halo": -0.02407754846779242
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "novelty",
+   "agreement": 0.8861163227016887,
+   "flip_sep": 0.17346938775510204,
+   "flip_joint": 0.28061224489795916,
+   "rho_gemma_sep": 0.8221388367729832,
+   "rho_gemma_joint": 0.7454033771106942,
+   "halo": 0.27210756722951845
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "clarity",
+   "agreement": 0.6450281425891183,
+   "flip_sep": 0.23979591836734693,
+   "flip_joint": 0.23979591836734693,
+   "rho_gemma_sep": 0.3377110694183865,
+   "rho_gemma_joint": 0.22589118198874303,
+   "halo": 0.27210756722951845
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "evidence",
+   "agreement": 0.9729831144465293,
+   "flip_sep": 0.15306122448979592,
+   "flip_joint": 0.1326530612244898,
+   "rho_gemma_sep": 0.8238273921200752,
+   "rho_gemma_joint": 0.8414634146341464,
+   "halo": 0.27210756722951845
+  },
+  {
+   "cohort": "lw",
+   "criterion": "novelty",
+   "agreement": 0.8838649155722328,
+   "flip_sep": 0.32653061224489793,
+   "flip_joint": 0.30612244897959184,
+   "rho_gemma_sep": 0.7919324577861164,
+   "rho_gemma_joint": 0.6155722326454034,
+   "halo": -0.027704815509693503
+  },
+  {
+   "cohort": "lw",
+   "criterion": "alpha",
+   "agreement": 0.9371482176360226,
+   "flip_sep": 0.20408163265306123,
+   "flip_joint": 0.20408163265306123,
+   "rho_gemma_sep": 0.8196998123827394,
+   "rho_gemma_joint": 0.8596622889305818,
+   "halo": -0.027704815509693503
+  },
+  {
+   "cohort": "lw",
+   "criterion": "rigor",
+   "agreement": 0.9497185741088182,
+   "flip_sep": 0.16326530612244897,
+   "flip_joint": 0.20918367346938777,
+   "rho_gemma_sep": 0.7682926829268295,
+   "rho_gemma_joint": 0.7332082551594749,
+   "halo": -0.027704815509693503
+  }
+ ],
+ "sinkhorn": [
+  {
+   "cohort": "hn_top",
+   "criterion": "interesting",
+   "agreement": 0.8949343339587243,
+   "flip_sep": 0.14285714285714285,
+   "flip_joint": 0.14795918367346939,
+   "rho_gemma_sep": 0.7170731707317074,
+   "rho_gemma_joint": 0.7819887429643527,
+   "halo": 0.25653533458411515
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "credible",
+   "agreement": 0.8874296435272047,
+   "flip_sep": 0.15816326530612246,
+   "flip_joint": 0.1683673469387755,
+   "rho_gemma_sep": 0.6761726078799251,
+   "rho_gemma_joint": 0.604502814258912,
+   "halo": 0.25653533458411515
+  },
+  {
+   "cohort": "hn_top",
+   "criterion": "actionable",
+   "agreement": 0.9105065666041278,
+   "flip_sep": 0.18877551020408162,
+   "flip_joint": 0.1989795918367347,
+   "rho_gemma_sep": 0.8007504690431521,
+   "rho_gemma_joint": 0.7243902439024391,
+   "halo": 0.25653533458411515
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "informative",
+   "agreement": 0.8870544090056287,
+   "flip_sep": 0.1326530612244898,
+   "flip_joint": 0.12244897959183673,
+   "rho_gemma_sep": 0.776547842401501,
+   "rho_gemma_joint": 0.6545966228893059,
+   "halo": -0.015572232645403361
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "civil",
+   "agreement": 0.9268292682926831,
+   "flip_sep": 0.1377551020408163,
+   "flip_joint": 0.11734693877551021,
+   "rho_gemma_sep": 0.8621013133208256,
+   "rho_gemma_joint": 0.8819887429643528,
+   "halo": -0.015572232645403361
+  },
+  {
+   "cohort": "hn_comments",
+   "criterion": "concise",
+   "agreement": 0.8324577861163227,
+   "flip_sep": 0.17346938775510204,
+   "flip_joint": 0.2193877551020408,
+   "rho_gemma_sep": 0.7630393996247656,
+   "rho_gemma_joint": 0.6279549718574109,
+   "halo": -0.015572232645403361
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "novelty",
+   "agreement": 0.9000000000000001,
+   "flip_sep": 0.18877551020408162,
+   "flip_joint": 0.28061224489795916,
+   "rho_gemma_sep": 0.827767354596623,
+   "rho_gemma_joint": 0.751969981238274,
+   "halo": 0.27085678549093195
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "clarity",
+   "agreement": 0.652720450281426,
+   "flip_sep": 0.23469387755102042,
+   "flip_joint": 0.24489795918367346,
+   "rho_gemma_sep": 0.34390243902439027,
+   "rho_gemma_joint": 0.20844277673545966,
+   "halo": 0.27085678549093195
+  },
+  {
+   "cohort": "arxiv",
+   "criterion": "evidence",
+   "agreement": 0.9742964352720452,
+   "flip_sep": 0.14285714285714285,
+   "flip_joint": 0.1377551020408163,
+   "rho_gemma_sep": 0.8382739212007506,
+   "rho_gemma_joint": 0.8510318949343341,
+   "halo": 0.27085678549093195
+  },
+  {
+   "cohort": "lw",
+   "criterion": "novelty",
+   "agreement": 0.8913696060037525,
+   "flip_sep": 0.29591836734693877,
+   "flip_joint": 0.3112244897959184,
+   "rho_gemma_sep": 0.7861163227016887,
+   "rho_gemma_joint": 0.6206378986866793,
+   "halo": -0.02845528455284574
+  },
+  {
+   "cohort": "lw",
+   "criterion": "alpha",
+   "agreement": 0.9399624765478425,
+   "flip_sep": 0.1989795918367347,
+   "flip_joint": 0.2193877551020408,
+   "rho_gemma_sep": 0.827767354596623,
+   "rho_gemma_joint": 0.8626641651031897,
+   "halo": -0.02845528455284574
+  },
+  {
+   "cohort": "lw",
+   "criterion": "rigor",
+   "agreement": 0.9570356472795499,
+   "flip_sep": 0.16326530612244897,
+   "flip_joint": 0.20408163265306123,
+   "rho_gemma_sep": 0.7510318949343341,
+   "rho_gemma_joint": 0.7339587242026268,
+   "halo": -0.02845528455284574
+  }
+ ]
+}

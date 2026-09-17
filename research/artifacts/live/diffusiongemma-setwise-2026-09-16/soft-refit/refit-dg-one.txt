@@ -1,0 +1,39 @@
+greedy    clip=3 | agreement +0.753 [min +0.491] pass 2/12 | halo +0.045 [max +0.226] | flips sep 0.255 -> joint 0.229 | rho~gemma sep +0.699 [+0.346..+0.802] joint +0.637
+   hn_top       interesting    agr +0.824 flip 0.240->0.158 rho~g +0.696/+0.719 halo +0.226
+   hn_top       credible       agr +0.701 flip 0.286->0.214 rho~g +0.663/+0.529 halo +0.226
+   hn_top       actionable     agr +0.842 flip 0.224->0.194 rho~g +0.802/+0.692 halo +0.226
+   hn_comments  informative    agr +0.843 flip 0.184->0.138 rho~g +0.736/+0.663 halo -0.011
+   hn_comments  civil          agr +0.917 flip 0.148->0.133 rho~g +0.756/+0.801 halo -0.011
+   hn_comments  concise        agr +0.788 flip 0.291->0.245 rho~g +0.728/+0.720 halo -0.011
+   arxiv        novelty        agr +0.581 flip 0.230->0.393 rho~g +0.735/+0.651 halo +0.014
+   arxiv        clarity        agr +0.491 flip 0.276->0.327 rho~g +0.346/+0.185 halo +0.014
+   arxiv        evidence       agr +0.904 flip 0.276->0.194 rho~g +0.766/+0.793 halo +0.014
+   lw           novelty        agr +0.601 flip 0.429->0.281 rho~g +0.710/+0.574 halo -0.051
+   lw           alpha          agr +0.844 flip 0.209->0.224 rho~g +0.775/+0.762 halo -0.051
+   lw           rigor          agr +0.699 flip 0.270->0.250 rho~g +0.678/+0.558 halo -0.051
+marginal  clip=3 | agreement +0.880 [min +0.645] pass 10/12 | halo +0.122 [max +0.272] | flips sep 0.183 -> joint 0.194 | rho~gemma sep +0.745 [+0.338..+0.837] joint +0.691
+   hn_top       interesting    agr +0.905 flip 0.133->0.143 rho~g +0.737/+0.786 halo +0.267
+   hn_top       credible       agr +0.893 flip 0.163->0.158 rho~g +0.659/+0.612 halo +0.267
+   hn_top       actionable     agr +0.883 flip 0.199->0.199 rho~g +0.800/+0.692 halo +0.267
+   hn_comments  informative    agr +0.886 flip 0.143->0.122 rho~g +0.774/+0.657 halo -0.024
+   hn_comments  civil          agr +0.911 flip 0.138->0.107 rho~g +0.837/+0.874 halo -0.024
+   hn_comments  concise        agr +0.805 flip 0.158->0.224 rho~g +0.774/+0.645 halo -0.024
+   arxiv        novelty        agr +0.886 flip 0.173->0.281 rho~g +0.822/+0.745 halo +0.272
+   arxiv        clarity        agr +0.645 flip 0.240->0.240 rho~g +0.338/+0.226 halo +0.272
+   arxiv        evidence       agr +0.973 flip 0.153->0.133 rho~g +0.824/+0.841 halo +0.272
+   lw           novelty        agr +0.884 flip 0.327->0.306 rho~g +0.792/+0.616 halo -0.028
+   lw           alpha          agr +0.937 flip 0.204->0.204 rho~g +0.820/+0.860 halo -0.028
+   lw           rigor          agr +0.950 flip 0.163->0.209 rho~g +0.768/+0.733 halo -0.028
+sinkhorn  clip=3 | agreement +0.888 [min +0.653] pass 10/12 | halo +0.121 [max +0.271] | flips sep 0.180 -> joint 0.198 | rho~gemma sep +0.748 [+0.344..+0.862] joint +0.692
+   hn_top       interesting    agr +0.895 flip 0.143->0.148 rho~g +0.717/+0.782 halo +0.257
+   hn_top       credible       agr +0.887 flip 0.158->0.168 rho~g +0.676/+0.605 halo +0.257
+   hn_top       actionable     agr +0.911 flip 0.189->0.199 rho~g +0.801/+0.724 halo +0.257
+   hn_comments  informative    agr +0.887 flip 0.133->0.122 rho~g +0.777/+0.655 halo -0.016
+   hn_comments  civil          agr +0.927 flip 0.138->0.117 rho~g +0.862/+0.882 halo -0.016
+   hn_comments  concise        agr +0.832 flip 0.173->0.219 rho~g +0.763/+0.628 halo -0.016
+   arxiv        novelty        agr +0.900 flip 0.189->0.281 rho~g +0.828/+0.752 halo +0.271
+   arxiv        clarity        agr +0.653 flip 0.235->0.245 rho~g +0.344/+0.208 halo +0.271
+   arxiv        evidence       agr +0.974 flip 0.143->0.138 rho~g +0.838/+0.851 halo +0.271
+   lw           novelty        agr +0.891 flip 0.296->0.311 rho~g +0.786/+0.621 halo -0.028
+   lw           alpha          agr +0.940 flip 0.199->0.219 rho~g +0.828/+0.863 halo -0.028
+   lw           rigor          agr +0.957 flip 0.163->0.204 rho~g +0.751/+0.734 halo -0.028

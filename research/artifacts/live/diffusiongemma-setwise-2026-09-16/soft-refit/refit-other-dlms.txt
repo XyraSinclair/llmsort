@@ -1,0 +1,21 @@
+## nemotron14-clamp
+greedy    clip=3 | agreement +0.725 [min +0.545] pass 2/12 | halo +0.065 [max +0.291] | flips sep 0.473 -> joint 0.476 | rho~gemma sep +0.311 [-0.152..+0.595] joint +0.191
+chain     clip=3 | agreement +0.766 [min +0.555] pass 4/12 | halo +0.082 [max +0.114] | flips sep 0.457 -> joint 0.471 | rho~gemma sep +0.469 [-0.006..+0.641] joint +0.303
+## nemotron14-ar
+greedy    clip=3 | agreement +0.436 [min +0.070] pass 0/12 | halo -0.103 [max +0.021] | flips sep 0.403 -> joint 0.497 | rho~gemma sep +0.365 [-0.148..+0.624] joint +0.154
+chain     clip=3 | agreement +0.546 [min +0.454] pass 0/12 | halo -0.221 [max -0.111] | flips sep 0.382 -> joint 0.481 | rho~gemma sep +0.430 [-0.012..+0.690] joint +0.119
+## sdar8-clamp
+greedy    clip=3 | agreement +0.491 [min +0.097] pass 0/12 | halo +0.030 [max +0.566] | flips sep 0.400 -> joint 0.508 | rho~gemma sep +0.157 [-0.163..+0.457] joint +0.103
+chain     clip=3 | agreement +0.546 [min +0.059] pass 1/12 | halo +0.162 [max +0.266] | flips sep 0.365 -> joint 0.481 | rho~gemma sep +0.246 [-0.131..+0.577] joint +0.108
+## dream7-clamp
+greedy    clip=3 | agreement +0.576 [min +0.220] pass 1/12 | halo +0.260 [max +0.449] | flips sep 0.445 -> joint 0.492 | rho~gemma sep +0.346 [-0.288..+0.582] joint +0.199
+chain     clip=3 | agreement +0.589 [min +0.372] pass 1/12 | halo +0.214 [max +0.357] | flips sep 0.411 -> joint 0.486 | rho~gemma sep +0.463 [-0.154..+0.702] joint +0.204
+## llada22mini-clamp
+greedy    clip=3 | agreement +0.011 [min -0.468] pass 0/9 | halo +0.438 [max +0.546] | flips sep 0.414 -> joint 0.516 | rho~gemma sep +0.127 [-0.103..+0.384] joint +0.085
+chain     clip=3 | agreement +0.296 [min -0.039] pass 0/9 | halo +0.252 [max +0.434] | flips sep 0.355 -> joint 0.514 | rho~gemma sep +0.163 [-0.192..+0.563] joint +0.137
+## nemotron14-one
+greedy    clip=3 | agreement +0.428 [min -0.171] pass 0/12 | halo +0.024 [max +0.368] | flips sep 0.483 -> joint 0.450 | rho~gemma sep +0.223 [-0.270..+0.496] joint +0.287
+marginal  clip=3 | agreement +0.564 [min +0.242] pass 0/12 | halo -0.072 [max +0.087] | flips sep 0.465 -> joint 0.381 | rho~gemma sep +0.293 [-0.242..+0.541] joint +0.410
+## sdar8-one
+greedy    clip=3 | agreement +0.338 [min -0.031] pass 0/12 | halo -0.296 [max -0.218] | flips sep 0.409 -> joint 0.495 | rho~gemma sep +0.164 [-0.095..+0.401] joint +0.051
+marginal  clip=3 | agreement +0.562 [min +0.174] pass 0/12 | halo -0.428 [max -0.319] | flips sep 0.393 -> joint 0.467 | rho~gemma sep +0.182 [-0.084..+0.456] joint +0.075

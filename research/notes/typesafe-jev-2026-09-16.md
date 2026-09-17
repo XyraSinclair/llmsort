@@ -436,3 +436,59 @@ do not). SDAR-8B-Chat was tuned without empty think blocks: with `<think>\n\n</t
 tail it emits eos at .68, with a bare `assistant\n` tail it answers. LLaDA2.2's generate returns
 only the new tokens. Nemotron's `generate` asserts `max_new_tokens % block_length == 0` and its
 `ar_generate` recomputes without a cache (OOM at 2.5k tokens on the shared card).
+
+## Executed 2026-09-17 (01:10–01:35 PT): soft readouts of the stored traces — the distillation premise dissolves
+
+Offline, no GPU. The stored traces carry the full per-slot PMFs (`matrix`: k stage vectors for
+the clamped chain, k slot marginals for the one-forward read), and every number above was fit
+from the greedy permutation with a constant `ln 2.78` per pair. The refit consumes the PMFs
+instead. For the chain, Luce's axiom makes each stage PMF a direct measurement of every remaining
+pair: `log p_s(j) − log p_s(l) = s_j − s_l`, clipped to ±3, into the same Huber-IRLS fit, so a
+window yields up to 7 measurements per pair instead of one sign. For the one-forward read, the
+slot marginals give `P(a before b)` under independent slots (Sinkhorn projection to doubly
+stochastic first changes nothing: +.008 agreement), logit clipped to ±3. Flips are the sign of
+the within-window pair log-odds between the two presentations. The greedy mode reproduces the
+stored summaries to three decimals; the clip is immaterial (2/3/5 move agreement by ≤ .005).
+Script and outputs: `research/artifacts/live/diffusiongemma-setwise-2026-09-16/soft-refit/`.
+
+| DG read × readout | s / call | agreement mean [min], ≥ .85 | halo mean [max] | flips sep → joint | ρ vs gemma-4-31b |
+|---|---|---|---|---|---|
+| chain, greedy permutation (stored) | 7.06 | .84 [.62], 6/12 | −.02 [+.02] | .20 → .23 | .76 |
+| chain, **soft PL** | 7.06 | **.90** [.69], **10/12** | +.03 [+.19] | .20 → .21 | .74 |
+| chain, stage-0 PMF only | ~1.3 | .76 [.52], 4/12 | +.14 [+.23] | .27 → .26 | .57 |
+| one-forward, best permutation (stored) | 3.65 | .75 [.49], 2/12 | +.05 [+.23] | .26 → .23 | .70 |
+| one-forward, **soft marginals** | 3.65 | **.88** [.65], **10/12** | +.12 [+.27] | **.18** → .19 | **.75** |
+
+Three things fall out. First, the agreement bar was a readout artifact: both reads clear it on
+10/12 criteria once the fit sees magnitudes, and the two misses are the same two everywhere
+(arxiv/clarity at ρ .24–.34 to gemma — the criterion the model does not have — and
+hn_comments/concise). Second, the "mean-field one-forward" diagnosis was half right: the slot
+marginals are mean-field, so their argmax is not a permutation and the best-permutation
+decode was throwing the information away; read as pairwise marginals they are exactly as
+consistent as the chain in the separate arm (flips .18 vs .20, ρ .745 vs .741, both at
+gemma's own .12–.24 flip band) at one decoder pass per window instead of eight. Stage-0-only
+is not that: the chain's later stages carry real information (ρ .57 vs .74). Third, soft
+readouts recover the true inter-criterion structure that greedy smeared — on lw the
+separate-arm inter-criterion ρ is .85–.88 under either soft readout against gemma's .865 (greedy
+had it at .70) — and that same sharpness exposes joint-prompt halo the sign readout hid: the
+chain fails halo on arxiv (+.19; joint inter-criterion .48 vs separate .29 vs gemma .13) and
+the one-forward read on hn_top and arxiv (+.27 each). Halo is a property of joint prompting,
+not of the read; separate prompting has none by construction, and the separate arm was already
+the recommendation.
+
+The other four models under the same readouts: Nemotron-14B chain ρ .31 → .47, Dream-7B .35 →
+.46, SDAR-8B .16 → .25, LLaDA2.2-mini .13 → .16, one-forward marginals Nemotron .22 → .29 and
+SDAR .16 → .18; flips stay .36–.47 on every one of them. The readout gives each model its own
+information back; it does not make a judge out of a base that is not one. Verdict above stands.
+
+Consequence for the "go": the consistency distillation (train DG's one-forward read to match its
+own clamped chain) was premised on the one-forward read being the inconsistent one. It is not —
+under the right readout it sits on the chain on every bar in the separate arm at half the wall
+clock. Distilling it toward the chain would train toward a target that is not better, so that
+fine-tune is not run. What the data says to ship is DG one-forward, separate prompting, soft
+marginal readout: 3.65 s per criterion-window on the shared fp8 path, ρ .75 to gemma-4-31b,
+flips .18. The remaining gap is the base (ρ .75, with one criterion the model does not carry);
+the only fine-tune that could move it is a teacher distillation from gemma-4-31b's rankings into
+DG — a 4B-active local judge trained on the 31B judge — which is a different bet on a different
+question and is not part of the diffusion line. The bench code's `summarize` should take the
+soft observations as its default from the next run on; the artifact copies stay as run.
