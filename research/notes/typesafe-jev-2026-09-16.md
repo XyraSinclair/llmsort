@@ -589,3 +589,15 @@ same reranker prompt on Qwen3-Reranker-0.6B, score = logit(yes) − logit(no), o
 sigmoid of the teacher's latent differences; LoRA r=16 on attention and MLP (196 modules,
 10.1M params); eval on the same 99 lists. In the 40-step smoke the 0.6B went from ρ .16 to .81
 on six lw lists.
+
+The 8B reranker zero-shot on the same 99 lists (the `quality` tier, 20 slots/s): ρ .34
+(lw .54, highdim .25, fable-subtle .23), structure r .35. Scale helps the zero-shot read but
+does not make a judge of it; the fine-tune is the line.
+
+Full run launched 06:17 PT on the shared card (`probe.py` under `run.sh`): the two
+no-checkpointing configs OOM in the ~33 GB the OCR service leaves (40 docs × 1,024 tokens of
+activations on a 28-layer model is ~60 GB), the checkpointed config trains at 5.2 s/step in
+7.9 GB. Corpus after drops: 872 train lists (eval99 held out, 29 lists dropped for bench-lw
+overlap or fewer than three fitted criteria) → 2,616 (list, criterion) steps, evals at 900 and
+1,800 with weights banked at each, then the four-cohort bench against gemma-4-31b's separate
+arm (`bench_scorer.py`). ETA ~10:15 PT.
