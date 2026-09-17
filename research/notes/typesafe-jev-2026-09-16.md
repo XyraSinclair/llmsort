@@ -375,3 +375,64 @@ with a Sinkhorn projection so the k×k read is a valid ranking marginal by const
 the fp8 base fits the card; an epoch over 120K windows is under an hour. Expected: one decoder
 pass per window at the chain's accuracy. Order: (1) refit tonight's stored stage PMFs as soft
 chains, (2) bench LLaDA2.0-mini on the same four cohorts, (3) distill the winner.
+
+### Executed 2026-09-17 (00:10–01:00 PT): the other open diffusion LMs on the same bench
+
+Directive: license is irrelevant; find the best, fastest models and test more. Same instrument
+as above (four 40-item cohorts × 3 criteria, ring k=8, two presentations, separate vs joint,
+Huber-IRLS fit), same bars, one GPU host shared with ~46 GB of co-tenants, bf16 weights except
+DiffusionGemma (fp8 experts). Readers in
+`research/artifacts/live/dlm-judges-2026-09-17/dlm_readers.py`; the four new models get a common
+`MaskedReader` (template holes are real mask tokens; `read` = one forward, all holes masked;
+`read_clamp` = k stages, clean prefix + masked suffix, softmax over the unused letters, greedy).
+Summaries per model/read/cohort are in the same directory.
+
+| model | read | cohorts | s/window-call (separate arm) | agreement ρ mean [min] | ≥0.85 | halo mean [max] | flips sep→joint | ρ vs gemma-4-31b (separate) mean [range] |
+|---|---|---|---|---|---|---|---|---|
+| DiffusionGemma-26B-A4B (fp8 experts) | clamp | 4 | 7.06 | 0.84 [0.62] | 6/12 | −0.02 [+0.02] | 0.20→0.23 | 0.76 [0.29–0.87] |
+| DiffusionGemma-26B-A4B (fp8 experts) | one | 4 | 3.65 | 0.75 [0.48] | 2/12 | +0.05 [+0.23] | 0.26→0.23 | 0.70 [0.34–0.80] |
+| Nemotron-Labs-Diffusion-14B | clamp | 4 | 0.53 | 0.73 [0.54] | 2/12 | +0.06 [+0.29] | 0.47→0.48 | 0.31 [−0.16–0.59] |
+| Nemotron-Labs-Diffusion-14B | AR (its own causal mode) | 4 | 0.59 | 0.44 [0.07] | 0/12 | −0.10 [+0.02] | 0.40→0.50 | 0.36 [−0.15–0.62] |
+| Nemotron-Labs-Diffusion-14B | one | 4 | 0.36 | 0.43 [−0.17] | 0/12 | +0.02 [+0.37] | 0.48→0.45 | 0.22 [−0.27–0.49] |
+| LLaDA2.2-mini 16B-A1.4B | clamp | 3 (lw OOM: no KV cache, 5k-token prompts) | 2.35 | 0.01 [−0.47] | 0/9 | +0.44 [+0.55] | 0.41→0.52 | 0.13 [−0.10–0.39] |
+| SDAR-8B-Chat (Qwen3-8B block diffusion) | clamp | 4 | 0.43 | 0.49 [0.09] | 0/12 | +0.03 [+0.56] | 0.40→0.51 | 0.16 [−0.17–0.45] |
+| SDAR-8B-Chat | one | 4 | 0.28 | 0.34 [−0.03] | 0/12 | −0.30 [−0.22] | 0.41→0.49 | 0.16 [−0.09–0.40] |
+| Dream-v0-Instruct-7B (Qwen2.5-7B MDLM) | clamp | 4 | 1.73 | 0.57 [0.22] | 1/12 | +0.26 [+0.45] | 0.44→0.49 | 0.34 [−0.29–0.58] |
+
+Reference points: gemma-4-31b flips .12–.24 on these cohorts; a flip rate of .50 is a coin
+between the two presentations. Seconds are per read-set call on the shared card (a call is one
+window × one criterion × one presentation), averaged over the four cohorts, so arxiv/lw prompts
+(2.5–5k tokens) are inside the number.
+
+Verdict. Every model other than DiffusionGemma is fast (0.3–0.6 s per call for the three dense
+ones — 10–20× DG) and at coin-flip stability: flips .40–.48 in the separate arm, halo up to
++.56, ρ to gemma-4-31b .13–.36. They are not judges on this task, and the failure is not the
+read: Nemotron's own causal mode scores the same as its clamped diffusion read, free generation
+on a real window drops letters (`D A F C B H`, six of eight), and a third of its slot-1 mass wants
+to open with prose (`We`, `The`). Judge quality tracks the base model, not the objective —
+DiffusionGemma is a Gemma-4 derivative and the only one at judge level; the others are
+Ministral-14B / Ling-mini / Qwen3-8B / Qwen2.5-7B derivatives and land at or under their bases.
+
+Two structural facts survive across all five models. One-forward reads are mean-field everywhere
+(DG .75, Nemotron .43, SDAR .34 agreement; slot 1 confident, later slots near-uniform), so the
+diffusion canvas does not buy a consistent single-pass ranking from any of them — the sequential
+chain does, and once the chain is what you run, a diffusion model is an AR model with a worse
+base. So "consistent, well, performant" resolves to: the strongest judge-quality model, driven as
+a Plackett–Luce chain, served properly. Today that is gemma-4-31b (or DG's clamped chain at
+ρ ≈ .8 to it); the 7 s/call DG number is our fp8-dequant path on a shared card, not the model's
+floor — batched reads on a dedicated card are the ~1 s path noted above, and the KV-prefix reuse
+across the two presentations and three criteria of a window is the next 3–6× on any AR-shaped
+chain. The distillation plan (train DG's one-forward read to match its own chain) is the only
+diffusion-side idea still alive, and it is a bet on DG specifically; nothing smaller is worth
+distilling.
+
+Engineering notes for the record. SDAR and Dream ship modeling files against transformers 4.4x–4.5x
+(`LossKwargs`, `ROPE_INIT_FUNCTIONS["default"]`, top-level `flash_attn` import); their weights
+are byte-for-byte Qwen3 / Qwen2 keys, so both run on the stock classes with a custom 4D mask
+(block-causal tril over blocks of 4 from position 0 for SDAR, all-true for Dream, whose logits
+are shifted one left). transformers 5 drops the flat `rope_theta` config key — it must be re-homed
+under `rope_parameters` or the model silently runs at θ=10k (Paris still comes out; long prompts
+do not). SDAR-8B-Chat was tuned without empty think blocks: with `<think>\n\n</think>` in the
+tail it emits eos at .68, with a bare `assistant\n` tail it answers. LLaDA2.2's generate returns
+only the new tokens. Nemotron's `generate` asserts `max_new_tokens % block_length == 0` and its
+`ar_generate` recomputes without a cache (OOM at 2.5k tokens on the shared card).
