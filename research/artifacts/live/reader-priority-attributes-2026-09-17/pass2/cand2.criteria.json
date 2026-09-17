@@ -1,0 +1,26 @@
+[
+ {
+  "name": "reading-pleasure",
+  "prompt": "Reading pleasure: how much a reader would enjoy the act of reading this \u2014 voice, wit, craft, momentum \u2014 independent of anything taken away from it."
+ },
+ {
+  "name": "mistake-prevention",
+  "prompt": "Mistake prevention: how likely a reader who never reads this ends up making a specific costly decision or holding a specific false belief that this text would have prevented."
+ },
+ {
+  "name": "challenge-to-priors",
+  "prompt": "Challenge to priors: how much a reader who currently disagrees with the central claim would be forced to update or sharpen their view after reading it \u2014 the text as the strongest opposing case, not merely new information."
+ },
+ {
+  "name": "reader-empowerment",
+  "prompt": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+ },
+ {
+  "name": "misleading-if-trusted",
+  "prompt": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+ },
+ {
+  "name": "source-uniqueness",
+  "prompt": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+ }
+]

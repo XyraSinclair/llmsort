@@ -1,0 +1,48 @@
+
+## lesswrong-posts (null95 R2@4PC 0.45)
+  reading-pleasure       flip 0.12  R2@4PC 0.70  r(regret) -0.63  r(currency) -0.75
+      nearest pass1: discourse-currency-0.75, regret-if-missed-0.63, front-loading-0.61; pass2: misleading-if-trusted-0.39, source-uniqueness+0.33; families: humor-effectiveness +0.61 | imagery-vividness +0.73
+  mistake-prevention     flip 0.21  R2@4PC 0.64  r(regret) +0.43  r(currency) +0.17
+      nearest pass1: breadth-of-consequence+0.83, portable-payload+0.63, canonicality+0.60; pass2: challenge-to-priors+0.94, reader-empowerment+0.24; families: delta-to-informed-reader +0.35 | importance-of-topic +0.24 | actionability +0.07
+  challenge-to-priors    flip 0.16  R2@4PC 0.68  r(regret) +0.36  r(currency) +0.09
+      nearest pass1: breadth-of-consequence+0.73, portable-payload+0.63, canonicality+0.58; pass2: mistake-prevention+0.94, reader-empowerment+0.31; families: steelman-strength +0.48 | steelmanning +0.64 | novelty-of-insight +0.49 | courage-calibration +0.24
+  reader-empowerment     flip 0.20 repeat-r +0.92 (flip1 0.12)  R2@4PC 0.47  r(regret) +0.02  r(currency) -0.16
+      nearest pass1: misleading-if-trusted-0.79, portable-payload+0.76, compounding-value+0.74; pass2: misleading-if-trusted-0.66, challenge-to-priors+0.31; families: actionability +0.16
+  misleading-if-trusted  flip 0.24 repeat-r +0.89 (flip1 0.14)  R2@4PC 0.44  r(regret) +0.58  r(currency) +0.63
+      nearest pass1: read-now-premium+0.70, reader-empowerment-0.63, discourse-currency+0.63; pass2: reader-empowerment-0.66, reading-pleasure-0.39; families: calibration-display +0.16
+  source-uniqueness      flip 0.17 repeat-r +0.87 (flip1 0.16)  R2@4PC 0.15  r(regret) -0.07  r(currency) -0.05
+      nearest pass1: effort-to-value-0.49, portable-payload-0.44, canonicality-0.37; pass2: reading-pleasure+0.33, mistake-prevention-0.19; families: novelty-of-insight +0.14
+  reading-pleasure top: The Company Man\n\nTo get to the campus, I have to walk past || Orienting Toward Wizard Power\n\nFor months, I had the feeli || LessWrong\'s (first) album: I Have Been A Good Bing\n\ntl;dr
+      bottom: Making Vaccine\n\nBack in December, I [asked](https://www.le || Eliezer and I wrote a book: If Anyone Builds It, Everyone Di || The Best Textbooks on Every Subject\n\nFor years, my self-ed
+  mistake-prevention top: Only Law Can Prevent Extinction\n\nThere\'s a quote I read a || Schelling fences on slippery slopes\n\nSlippery slopes are t || What just happened? A retrospective of AI alignment\n\nThis 
+      bottom: SolidGoldMagikarp (plus, prompt generation)\n\nUPDATE (14th  || The Best Textbooks on Every Subject\n\nFor years, my self-ed || LessWrong\'s (first) album: I Have Been A Good Bing\n\ntl;dr
+  challenge-to-priors top: Schelling fences on slippery slopes\n\nSlippery slopes are t || Only Law Can Prevent Extinction\n\nThere\'s a quote I read a || What just happened? A retrospective of AI alignment\n\nThis 
+      bottom: The Best Textbooks on Every Subject\n\nFor years, my self-ed || Eliezer and I wrote a book: If Anyone Builds It, Everyone Di || LessWrong\'s (first) album: I Have Been A Good Bing\n\ntl;dr
+
+## lesswrong-comments (null95 R2@4PC 0.39)
+  reading-pleasure       flip 0.16  R2@4PC 0.40  r(regret) -0.59  r(currency) -0.73
+      nearest pass1: discourse-currency-0.73, regret-if-missed-0.59, compounding-value-0.54; pass2: misleading-if-trusted+0.42, mistake-prevention-0.37; families: tone-craft -0.62 | audience-service -0.36
+  mistake-prevention     flip 0.10  R2@4PC 0.39  r(regret) +0.50  r(currency) +0.26
+      nearest pass1: front-loading+0.56, regret-if-missed+0.50, portable-payload+0.46; pass2: challenge-to-priors+0.62, source-uniqueness+0.48; families: —
+  challenge-to-priors    flip 0.24  R2@4PC 0.36  r(regret) +0.53  r(currency) +0.30
+      nearest pass1: regret-if-missed+0.53, effort-to-value-0.44, portable-payload+0.41; pass2: mistake-prevention+0.62, source-uniqueness+0.30; families: disagreement-quality +0.18
+  reader-empowerment     flip 0.14 repeat-r +0.83 (flip1 0.14)  R2@4PC 0.22  r(regret) +0.01  r(currency) -0.15
+      nearest pass1: portable-payload+0.80, source-uniqueness-0.72, misleading-if-trusted-0.66; pass2: misleading-if-trusted-0.36, challenge-to-priors+0.28; families: —
+  misleading-if-trusted  flip 0.27 repeat-r +0.73 (flip1 0.18)  R2@4PC 0.34  r(regret) +0.06  r(currency) -0.12
+      nearest pass1: effort-to-value-0.56, reader-empowerment-0.52, compounding-value-0.48; pass2: reading-pleasure+0.42, source-uniqueness+0.42; families: claim-calibration +0.02
+  source-uniqueness      flip 0.13 repeat-r +0.65 (flip1 0.15)  R2@4PC 0.33  r(regret) +0.08  r(currency) -0.01
+      nearest pass1: compounding-value-0.39, breadth-of-consequence+0.37, reader-empowerment-0.37; pass2: mistake-prevention+0.48, misleading-if-trusted+0.42; families: —
+
+## manifund-proposals (null95 R2@4PC 0.47)
+  reading-pleasure       flip 0.21  R2@4PC 0.36  r(regret) +0.10  r(currency) +0.15
+      nearest pass1: effort-to-value+0.71, portable-payload+0.70, front-loading+0.51; pass2: misleading-if-trusted-0.42, reader-empowerment+0.32; families: —
+  mistake-prevention     flip 0.12  R2@4PC 0.37  r(regret) +0.61  r(currency) +0.68
+      nearest pass1: discourse-currency+0.68, read-now-premium+0.67, regret-if-missed+0.61; pass2: challenge-to-priors+0.45, reader-empowerment+0.40; families: —
+  challenge-to-priors    flip 0.12  R2@4PC 0.27  r(regret) +0.74  r(currency) +0.56
+      nearest pass1: regret-if-missed+0.74, source-uniqueness+0.61, discourse-currency+0.56; pass2: source-uniqueness+0.70, misleading-if-trusted-0.61; families: —
+  reader-empowerment     flip 0.21 repeat-r +0.75 (flip1 0.15)  R2@4PC 0.38  r(regret) +0.34  r(currency) +0.43
+      nearest pass1: front-loading+0.73, read-now-premium+0.67, portable-payload+0.62; pass2: misleading-if-trusted-0.72, mistake-prevention+0.40; families: —
+  misleading-if-trusted  flip 0.20 repeat-r +0.31 (flip1 0.15)  R2@4PC 0.57  r(regret) -0.56  r(currency) -0.40
+      nearest pass1: front-loading-0.81, portable-payload-0.67, read-now-premium-0.64; pass2: reader-empowerment-0.72, source-uniqueness-0.71; families: —
+  source-uniqueness      flip 0.23 repeat-r +0.90 (flip1 0.12)  R2@4PC 0.71  r(regret) +0.77  r(currency) +0.63
+      nearest pass1: regret-if-missed+0.77, front-loading+0.66, discourse-currency+0.63; pass2: misleading-if-trusted-0.71, challenge-to-priors+0.70; families: —

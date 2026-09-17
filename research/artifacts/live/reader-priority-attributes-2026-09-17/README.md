@@ -29,4 +29,12 @@ scored on, so differentiation is measured, not asserted. Reading and verdicts in
 - `scripts/neighbors.py` → `neighbors.txt`: r to the semantically nearest existing families
   (composite and best single wording) where those families were rated on the same entities.
 
+- `pass2/` — the second pass (14:25 PT, 6 lists, $0.03, 0 malformed): the three attributes the
+  sharpening reader named (reading-pleasure, mistake-prevention, challenge-to-priors) and
+  reader-empowerment, source-uniqueness, misleading-if-trusted re-rated in a different triple as
+  a repeat-reliability read; `cohorts.json`, `cand2.criteria.json`, `ledger.jsonl`,
+  `teacher-cand2.log`; `scripts/analyze2.py` → `pass2/analysis2.txt` (flip, repeat r to pass 1,
+  R² on the battery's 4 PCs, nearest pass-1/pass-2 candidates and families, top/bottom posts).
+- `existing-axes/lw-entities.tsv` — the 20 post ids with the first 160 chars of text.
+
 Scripts run from this directory with numpy only.

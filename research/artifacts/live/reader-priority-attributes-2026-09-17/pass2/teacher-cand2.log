@@ -1,0 +1,8 @@
+cand2: 6 lists, 6 to run, parallel 6
+done PT5 rc=0 cost=0.00541759 malformed=0 11s | 1/6 $0.01 0.2m
+done PT6 rc=0 cost=0.00902139 malformed=0 10s | 2/6 $0.01 0.2m
+done CT5 rc=0 cost=0.00508146 malformed=0 11s | 3/6 $0.02 0.2m
+done CT6 rc=0 cost=0.004729428 malformed=0 11s | 4/6 $0.02 0.2m
+done MT5 rc=0 cost=0.00510007 malformed=0 19s | 5/6 $0.03 0.3m
+done MT6 rc=0 cost=0.00462126 malformed=0 11s | 6/6 $0.03 0.3m
+cand2 finished: 6 lists, $0.03, 0.3m

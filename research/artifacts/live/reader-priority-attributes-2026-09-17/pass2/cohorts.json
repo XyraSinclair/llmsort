@@ -1,0 +1,254 @@
+[
+ {
+  "list_id": "PT5",
+  "shard": "cand2",
+  "seed": 21,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "reading-pleasure",
+    "text": "Reading pleasure: how much a reader would enjoy the act of reading this \u2014 voice, wit, craft, momentum \u2014 independent of anything taken away from it."
+   },
+   {
+    "name": "mistake-prevention",
+    "text": "Mistake prevention: how likely a reader who never reads this ends up making a specific costly decision or holding a specific false belief that this text would have prevented."
+   },
+   {
+    "name": "challenge-to-priors",
+    "text": "Challenge to priors: how much a reader who currently disagrees with the central claim would be forced to update or sharpen their view after reading it \u2014 the text as the strongest opposing case, not merely new information."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "PT6",
+  "shard": "cand2",
+  "seed": 22,
+  "criteria_source": "lesswrong-posts",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   }
+  ],
+  "ids": [
+   "lesswrong::5CfBDiQNg9upfipWk",
+   "lesswrong::6Xgy6CAf2jqHhynHL",
+   "lesswrong::895quRDaK6gR2rM82",
+   "lesswrong::9RL9MuGZjzm4q3gKG",
+   "lesswrong::CoZhXrhpQxpy9xw9y",
+   "lesswrong::JH6tJhYpnoCfFqAct",
+   "lesswrong::Kbm6QnJv9dgWsPHQP",
+   "lesswrong::PBRWb2Em5SNeWYwwB",
+   "lesswrong::Wg6ptgi2DupFuAnXG",
+   "lesswrong::YMo5PuXnZDwRjhHhE",
+   "lesswrong::aPeJE8bSo6rAFoLqg",
+   "lesswrong::bx3gkHJehRCYZAF3r",
+   "lesswrong::gFMH3Cqw4XxwL69iy",
+   "lesswrong::iNsy7MsbodCyNTwKs",
+   "lesswrong::kipMvuaK3NALvFHc9",
+   "lesswrong::nR3DkyivzF4ve97oM",
+   "lesswrong::niQ3heWwF6SydhS7R",
+   "lesswrong::qc7P2NwfxQMC3hdgm",
+   "lesswrong::uXn3LyA8eNqpvdoZw",
+   "lesswrong::xg3hXCYQPJkwHyik2"
+  ]
+ },
+ {
+  "list_id": "CT5",
+  "shard": "cand2",
+  "seed": 23,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "reading-pleasure",
+    "text": "Reading pleasure: how much a reader would enjoy the act of reading this \u2014 voice, wit, craft, momentum \u2014 independent of anything taken away from it."
+   },
+   {
+    "name": "mistake-prevention",
+    "text": "Mistake prevention: how likely a reader who never reads this ends up making a specific costly decision or holding a specific false belief that this text would have prevented."
+   },
+   {
+    "name": "challenge-to-priors",
+    "text": "Challenge to priors: how much a reader who currently disagrees with the central claim would be forced to update or sharpen their view after reading it \u2014 the text as the strongest opposing case, not merely new information."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "CT6",
+  "shard": "cand2",
+  "seed": 24,
+  "criteria_source": "lesswrong-comments",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   }
+  ],
+  "ids": [
+   "lesswrong::3nsmwGmsAhj28Jhyv",
+   "lesswrong::4ZytaMCQhn9mpfu5j",
+   "lesswrong::4j2GS4yWu6stGvZWs",
+   "lesswrong::6eveBXGHb5KbyHoDE",
+   "lesswrong::AAC8jKeDp6xqsZK2K",
+   "lesswrong::HRDoDnHv8bvoW7oPZ",
+   "lesswrong::Jd478STrjvLnAMvzK",
+   "lesswrong::LM4jSYPQxjLC2vWJj",
+   "lesswrong::LjaBHuCcnfqjBcqJa",
+   "lesswrong::MPNF8uSsi9mvZLxqz",
+   "lesswrong::QMfBRH3rydbukCosb",
+   "lesswrong::WhBHb8hjhDaC3YKCz",
+   "lesswrong::ZkoKnj4nLbScHHHJC",
+   "lesswrong::dk35MPynRbrLs3aqN",
+   "lesswrong::jbD8siv7GMWxRro43",
+   "lesswrong::ms87QuzatZjpf5Bgj",
+   "lesswrong::ofPTrG6wsq7CxuTXk",
+   "lesswrong::pgSg4wfJ256xyz9i6",
+   "lesswrong::u3MgyyP3TDijmGhec",
+   "lesswrong::zyWH2wWZ9gFNAZ4CF"
+  ]
+ },
+ {
+  "list_id": "MT5",
+  "shard": "cand2",
+  "seed": 25,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "reading-pleasure",
+    "text": "Reading pleasure: how much a reader would enjoy the act of reading this \u2014 voice, wit, craft, momentum \u2014 independent of anything taken away from it."
+   },
+   {
+    "name": "mistake-prevention",
+    "text": "Mistake prevention: how likely a reader who never reads this ends up making a specific costly decision or holding a specific false belief that this text would have prevented."
+   },
+   {
+    "name": "challenge-to-priors",
+    "text": "Challenge to priors: how much a reader who currently disagrees with the central claim would be forced to update or sharpen their view after reading it \u2014 the text as the strongest opposing case, not merely new information."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ },
+ {
+  "list_id": "MT6",
+  "shard": "cand2",
+  "seed": 26,
+  "criteria_source": "manifund-proposals",
+  "criteria": [
+   {
+    "name": "reader-empowerment",
+    "text": "Reader empowerment: the reader finishes more capable \u2014 holding a tool, a move, or a distinction they can apply \u2014 rather than merely informed, entertained, or alarmed."
+   },
+   {
+    "name": "source-uniqueness",
+    "text": "Source uniqueness: how hard it would be to get this text's payload anywhere else \u2014 first-hand data, direct experience, or a synthesis no other single text provides \u2014 as opposed to content many other texts also deliver."
+   },
+   {
+    "name": "misleading-if-trusted",
+    "text": "Misleading if trusted: the chance that a reader who takes this text at face value ends up confidently wrong \u2014 through its framing, its omissions, or certainty it has not earned \u2014 regardless of how careful it looks."
+   }
+  ],
+  "ids": [
+   "1d67f7fc-97c6-d6bb-40fe-a10676e21ad9",
+   "2fa29c56-cee7-6395-3a52-f1d8d281419f",
+   "4a1666bb-bc81-20f8-c13d-e7f03bd98885",
+   "4c592df7-94b0-4ead-7643-94fea7937f3f",
+   "4dd4248b-9d7c-994b-a908-78eeca3ce5d1",
+   "57f62aa7-1698-6a77-ce8f-de8e04395fa6",
+   "59230add-f02c-03a6-5dfe-84a907eb72b9",
+   "628ce33c-be38-73e5-25eb-6b4cdf7add75",
+   "660256b6-304b-ed63-43c6-3c8ef07e2321",
+   "73b38c0c-e4d8-8167-6479-6174f034c232",
+   "85ed9800-c407-af5d-6b11-04d0fe6643f1",
+   "97d57d1f-6bb5-c99e-706e-d08928639438",
+   "aa6e1d73-b4d2-e70b-3724-2bd21a4486ee",
+   "ae78618d-dbbd-8045-f973-a916d5d270e5",
+   "c9b5180a-8beb-b1be-56ed-98655db2d1ed",
+   "d4a73b46-9035-91c9-8d95-b0bc547cf2f7",
+   "dfa4cf1d-1c84-94a8-f4b9-d09a1c59046b",
+   "e6f44cfe-b9ea-7244-6609-dc082850c601",
+   "ef690443-d11a-507c-ce3c-98de33105c3c",
+   "f76b67fa-f2ef-f91f-51b9-ec909d4faef0"
+  ]
+ }
+]

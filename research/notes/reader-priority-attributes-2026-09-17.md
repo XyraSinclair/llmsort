@@ -1,7 +1,7 @@
 # Reader-priority attributes: what the battery assumes about the reader, twelve candidates that break those assumptions, and which of them a judge can actually see
 
 Readers: Xyra and agents choosing which attributes to teach the fast judges next. Executed
-2026-09-17 13:30–14:45 PT. Artifact: `../artifacts/live/reader-priority-attributes-2026-09-17/`.
+2026-09-17 13:30–14:35 PT. Artifact: `../artifacts/live/reader-priority-attributes-2026-09-17/`.
 
 ## The question and the denominator
 
@@ -177,7 +177,11 @@ comment) and correlates with breadth-of-consequence (.73) where it is reliable.
 | compounding-value | named gap; overlaps generality on posts (.67) | measured |
 | effort-to-value | named gap; reliability .28 on posts needs the prompt sharpened | measured |
 | discourse-currency | named gap on posts; replayable-unpromoted on comments (timing-relevance, thread-advancement); it is also what regret-if-missed measures | measured |
-| reader-empowerment, misleading-if-trusted | unresolved — one family with compounding-value to this teacher, or a joint-call artefact | rerun in separate triples |
+| reader-empowerment | replayable-unpromoted — one family with compounding-value across separate calls (.74) | measured, pass 2 |
+| misleading-if-trusted | unresolved — co-rated with empowerment both times (−.66/−.36/−.72), repeat .31 on proposals | measured, pass 2 |
+| reading-pleasure | covered on posts (imagery-vividness .73, humor-effectiveness .61); named gap on comments and proposals; the anti-currency axis | measured, pass 2 |
+| mistake-prevention | the usable aggregate on LessWrong (not currency); covered on posts by breadth-of-consequence (.83) | measured, pass 2 |
+| challenge-to-priors | covered (steelmanning .64 on posts; mistake-prevention .94 co-rated) | measured, pass 2 |
 | portable-payload | replayable-unpromoted (generality) | measured |
 | read-now-premium | replayable-unpromoted (timelessness inverted; timing-relevance; time-sensitivity-truth) | measured |
 | breadth-of-consequence | covered (generality, interdisciplinary-reach) and unreliable on comments | measured |
@@ -259,8 +263,32 @@ three; checked against the 2,200 authored prompts, none exists:
   new information; steelman-strength measures the author's handling of the opposing case; this
   measures the text as the strongest opposing case for its reader.
 
-These three go into the same teacher pass as the survivors; mistake-prevention replaces
-regret-if-missed as the aggregate to test.
+## Second pass: the reader's three, and a repeat read
+
+The three were rated the same way at 14:25 PT (6 lists, $0.03, 0 malformed), in one triple, with
+reader-empowerment, source-uniqueness and misleading-if-trusted re-rated in a different triple so
+the joint-call question gets a repeat read. Repeat agreement with pass 1 (same prompt, different
+companions): reader-empowerment .92 / .83 / .75, source-uniqueness .87 / .65 / .90,
+misleading-if-trusted .89 / .73 / .31 — the teacher is stable on the first two and unstable on
+misleading-if-trusted for proposals. reader-empowerment ↔ compounding-value holds across
+separate calls (.74 on posts), so those are one family to this teacher; empowerment ↔
+misleading (−.66 / −.36 / −.72) was co-rated both times and stays unresolved.
+
+| attribute | flip (P/C/M) | R²@4PC (null95 .45/.39/.47) | r regret | r currency | reads as |
+|---|---|---|---|---|---|
+| reading-pleasure | .12/.16/.21 | .70* / .40 / .36 | −.63/−.59/+.10 | −.75/−.73/+.15 | posts: imagery-vividness .73, humor-effectiveness .61; top *The Company Man*, *Orienting Toward Wizard Power*, the album; bottom *Making Vaccine*, the book announcement, *Best Textbooks* |
+| mistake-prevention | .21/.10/.12 | .64* / .39 / .37 | +.43/+.50/+.61 | +.17/+.26/+.68 | posts: breadth-of-consequence .83, challenge-to-priors .94 (co-rated); top *Only Law Can Prevent Extinction*, *Schelling fences*, the alignment retrospective |
+| challenge-to-priors | .16/.24/.12 | .68* / .36 / .27 | +.36/+.53/+.74 | +.09/+.30/+.56 | posts: steelmanning .64, breadth .73; same top three as mistake-prevention |
+
+reading-pleasure is the mirror of currency on LessWrong (−.75 posts, −.73 comments): the texts
+the teacher says a reader would enjoy are exactly the ones it says nobody would regret missing.
+That is the cleanest statement of what the battery's "matters" reading leaves out. On posts the
+battery already has it under other names (imagery-vividness, humor-effectiveness — R² .70), on
+comments and proposals it does not. mistake-prevention does what regret-if-missed was meant to
+do — an aggregate that is not currency on LessWrong (.17 / .26) — but on posts it is the
+battery's breadth/"matters" dimension (R² .64, breadth .83), and it does not separate from
+challenge-to-priors when co-rated (.94); challenge-to-priors adds nothing over steelmanning on
+posts and is the weaker of the pair elsewhere.
 
 ## Whose judgment
 
@@ -270,13 +298,13 @@ reader's (a Fable subagent given the prompts and the existing family names, no n
 
 ## The call
 
-Teach the fast judge four attributes it cannot currently see: source-uniqueness, front-loading,
-compounding-value, effort-to-value, plus discourse-currency for posts, and the three the
-sharpening reader named — reading-pleasure, mistake-prevention, challenge-to-priors — rated on
-the 20-entity sets first (a second $0.07 pass) so they earn their place the same way. That is one teacher pass
+Teach the fast judge six attributes it cannot currently see: source-uniqueness, front-loading,
+compounding-value (carrying reader-empowerment), effort-to-value, reading-pleasure, and
+discourse-currency, with mistake-prevention as the aggregate to calibrate a composition against.
+That is one teacher pass
 per lens on the v2 recipe (200 lists × 40, about $3 and 5 minutes per lens, then about an hour
-of distillation on the shared card), with reader-empowerment and misleading-if-trusted rated in
-separate triples in the same pass so the joint-call question closes for free. Retire
+of distillation on the shared card), with misleading-if-trusted rated apart from empowerment
+in that pass so its one open question closes for free. Retire
 regret-if-missed as a target (mistake-prevention is the counterfactual it was reaching for); the priority score for a human is a weighted composition the
 human sets, over these plus the cost-paid metadata columns. The pass is new spend (about $9 for
 three lenses), so it waits for a word; everything else here is done.
