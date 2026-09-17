@@ -492,3 +492,65 @@ the only fine-tune that could move it is a teacher distillation from gemma-4-31b
 DG — a 4B-active local judge trained on the 31B judge — which is a different bet on a different
 question and is not part of the diffusion line. The bench code's `summarize` should take the
 soft observations as its default from the next run on; the artifact copies stay as run.
+
+## Executed 2026-09-17 (02:49–05:54 PT): teacher distillation — gemma-4-31b's rankings into DG's one-forward read
+
+The bet named above, run. Student: DiffusionGemma-26B-A4B-it, one-forward read (256-token canvas,
+letter PMF at each of the k=8 hole slots after a single decoder pass), separate-arm prompt
+unchanged. Teacher: the 1,000-list gemma-4-31b joint-setwise corpus of 2026-09-13
+(`mc-teacher-corpus-2026-09-13`, LW posts, criteria novelty/alpha/rigor, per-item Plackett–Luce
+latents). One example = a random 8-subset of a list under one criterion in a random order; the
+target is the exact PL rank-marginal matrix of those 8 latents (subset DP over 2^8 states,
+doubly stochastic), the loss the per-slot cross-entropy of the letter log-probs under the
+full-vocab softmax against that matrix — full-vocab, because renormalising over letters first
+let the label mass on letter tokens collapse .96 → .58 in the smoke while the loss fell; under
+the full-vocab loss mass sits at .999–1.000 the whole run. Adapter: LoRA r=16 α=32 on the
+decoder's attention and MLP projections (205 modules, 18.6M params), encoder frozen and run
+without grad, per-layer activation checkpointing that keeps the encoder KV cache; AdamW 2e-4,
+cosine, accumulation 4, 3,200 examples, prompts over 5,600 tokens skipped (409). Lists
+containing any bench lw item were dropped (32), 24 lists held out, 944 trained on. Training
+took 2 h 47 min on one 96 GB card at 35 GB peak (2.9–3.5 s per example with co-tenants),
+the four-cohort bench 18 min after it. Held-out CE over the letters went 2.62 → 2.02 by
+example 400 and then sat at 2.017–2.027 to the end against a target-entropy floor of 1.97
+(uniform 2.08); top-1 .19 → .34. The teacher's marginals are soft, so the CE floor is high and
+the bench is the real test.
+
+The bench, same four cohorts, same baselines, same soft refit (`soft_refit.py`, clip 3), base
+one-forward and chain rows repeated from the section above for comparison:
+
+| read | passes/window | agreement [min], ≥.85 | halo [max] | flips sep → joint | ρ~gemma sep |
+|---|---|---|---|---|---|
+| chain, soft PL (base) | 8 | .90 [.69], 10/12 | +.03 [+.19] | .20 → .21 | .74 |
+| one-forward, soft marginals (base) | 1 | .88 [.65], 10/12 | +.12 [+.27] | .18 → .19 | .75 |
+| one-forward + LoRA, best permutation | 1 | .86 [.51], 8/12 | −.01 [+.16] | **.12** → .17 | .81 |
+| one-forward + LoRA, **soft marginals** | 1 | **.89** [.43], **11/12** | +.05 [+.14] | **.12** → .16 | **.82** [.45..**.93**] |
+
+Per criterion, ρ to gemma-4-31b in the separate arm, base → LoRA: hn_top .74/.66/.80 →
+.84/.70/.85; hn_comments .77/.84/.77 → .83/.90/.83; arxiv .82/.34/.82 → .92/.45/.93; lw
+.79/.82/.77 → .86/.92/.82. Two readings of that. The lw gain is the in-distribution number: the
+lists are held out but the criteria texts are the training criteria. hn_top, hn_comments and
+arxiv are a different domain under criteria the adapter never saw, and they gained as much
+(+.06 to +.11) — the adapter taught the model the read, how to put a ranking into the slots,
+more than it taught it the criterion. The greedy row says the same thing from the other side:
+the argmax over slots is now close to a permutation (greedy agreement .75 → .86, halo +.05 →
+−.01), which is what a mean-field read looks like once the marginals are sharp. Separate-arm
+flips at .12 sit at the low end of gemma-4-31b's own .12–.24 band; the student is now as
+stable as the teacher at one decoder pass and roughly 8× the chain's speed (4.3 s per read-set
+under contention, LoRA unmerged).
+
+What did not move: arxiv/clarity (agreement .43, ρ .45 — the criterion the base does not
+carry, and lw criteria do not supply it) and the joint-arm halo on hn_top (+.14) and arxiv
+(+.12), both still over the .10 bar. Separate prompting remains the configuration; halo is a
+property of the joint prompt, not of the read.
+
+Verdict: the local judge line has a result. DG one-forward + this adapter, separate prompting,
+soft marginal readout: ρ .82 to gemma-4-31b (from .75), flips .12 (from .18), 11/12 on
+agreement, one decoder pass per window. The remaining lever is the teacher corpus, not the
+recipe: (a) a multi-domain, multi-criterion corpus would test whether arxiv/clarity is
+reachable at all, and (b) the teacher's own presentation-to-presentation self-agreement bounds
+ρ~gemma from above — that ceiling should be measured from the stored gemma traces before
+spending a second corpus on (a). Artifacts:
+`research/artifacts/live/dg-teacher-distill-2026-09-17/` (`dg_distill.py`, `dg_lora.py`,
+patched `dg_setwise.py --lora`, `run.sh`, `train.jsonl`, `run.log`, bench summaries and
+traces, `refit-lora-one.{txt,json}`); the adapter weights (`lora/step-3200.pt`, 75 MB) stay on
+the judge host.

@@ -1,0 +1,295 @@
+free MiB on card: 37385 2026-09-17T09:49:29Z
+corpus: 944 train lists, 24 held-out lists, 32 dropped (bench-lw overlap or unfitted)
+Loading weights:   0%|          | 0/1047 [00:00<?, ?it/s]Loading weights:   8%|▊         | 80/1047 [00:00<00:01, 628.75it/s]Loading weights:  14%|█▍        | 146/1047 [00:00<00:01, 625.63it/s]Loading weights:  33%|███▎      | 342/1047 [00:00<00:00, 1189.79it/s]Loading weights:  45%|████▍     | 466/1047 [00:00<00:00, 1152.97it/s]Loading weights:  70%|██████▉   | 728/1047 [00:00<00:00, 1589.95it/s]Loading weights: 100%|██████████| 1047/1047 [00:00<00:00, 1613.95it/s]
+loaded bf16 on cpu in 1s
+experts -> fp8: 22.84B params in 222s
+on cuda:0: 26.9 GiB in 235s
+lora: 205 modules, 18.6M params
+[mem] after load+lora: alloc 26.93G  peak 26.93G
+[mem] after eval@0: alloc 26.94G  peak 35.28G
+eval@0: ce 2.6178 top1 0.191 (uniform ce 2.0794, target entropy 1.9721; eval ce is over the letters, train ce over the full vocab)
+[mem] before example 1: alloc 26.94G  peak 35.28G
+/home/scry1/llmsort-dg/dg_distill.py:95: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  return logq, float(mass), len(pids)
+[mem] after forward 1 (4489 tokens): alloc 28.18G  peak 35.28G
+[mem] after backward 1: alloc 27.02G  peak 35.28G
+[mem] before example 2: alloc 27.02G  peak 35.28G
+[mem] after forward 2 (4419 tokens): alloc 28.24G  peak 35.28G
+[mem] after backward 2: alloc 27.02G  peak 35.28G
+[mem] before example 3: alloc 27.02G  peak 35.28G
+[mem] after forward 3 (4920 tokens): alloc 28.35G  peak 35.28G
+[mem] after backward 3: alloc 27.02G  peak 35.28G
+ex 20/3200  ce 3.9444  mass 0.399  tok 4970  3.10s/ex  eta 164m  skipped 3  mem 35.3G
+ex 40/3200  ce 3.0674  mass 0.667  tok 4948  2.88s/ex  eta 152m  skipped 6  mem 35.3G
+ex 60/3200  ce 2.2681  mass 0.990  tok 5029  2.91s/ex  eta 152m  skipped 8  mem 35.3G
+ex 80/3200  ce 2.1060  mass 0.985  tok 5170  2.91s/ex  eta 151m  skipped 10  mem 35.3G
+ex 100/3200  ce 2.0759  mass 0.987  tok 4919  2.93s/ex  eta 151m  skipped 11  mem 35.3G
+ex 120/3200  ce 2.0525  mass 0.999  tok 5026  2.97s/ex  eta 152m  skipped 13  mem 35.3G
+ex 140/3200  ce 2.0408  mass 1.000  tok 4985  2.91s/ex  eta 149m  skipped 17  mem 35.3G
+ex 160/3200  ce 2.0299  mass 1.000  tok 4912  2.95s/ex  eta 149m  skipped 18  mem 35.3G
+ex 180/3200  ce 2.0239  mass 1.000  tok 5005  2.92s/ex  eta 147m  skipped 21  mem 35.3G
+ex 200/3200  ce 2.0255  mass 1.000  tok 4888  2.92s/ex  eta 146m  skipped 22  mem 35.3G
+ex 220/3200  ce 2.0261  mass 1.000  tok 5105  2.94s/ex  eta 146m  skipped 24  mem 35.3G
+ex 260/3200  ce 2.0204  mass 1.000  tok 4952  2.94s/ex  eta 144m  skipped 30  mem 35.3G
+ex 280/3200  ce 2.0174  mass 1.000  tok 4960  2.92s/ex  eta 142m  skipped 33  mem 35.3G
+ex 300/3200  ce 2.0100  mass 1.000  tok 4980  2.95s/ex  eta 143m  skipped 34  mem 35.3G
+ex 320/3200  ce 2.0189  mass 1.000  tok 4872  2.95s/ex  eta 142m  skipped 37  mem 35.3G
+ex 340/3200  ce 2.0254  mass 1.000  tok 4830  2.94s/ex  eta 140m  skipped 40  mem 35.3G
+ex 360/3200  ce 2.0489  mass 1.000  tok 4944  2.95s/ex  eta 140m  skipped 40  mem 35.3G
+ex 380/3200  ce 2.0235  mass 1.000  tok 4860  2.97s/ex  eta 139m  skipped 42  mem 35.3G
+ex 400/3200  ce 2.0132  mass 1.000  tok 4750  2.94s/ex  eta 137m  skipped 46  mem 35.3G
+eval@400: ce 2.0248 top1 0.297  saved
+ex 420/3200  ce 2.0053  mass 1.000  tok 5017  3.07s/ex  eta 142m  skipped 49  mem 35.4G
+ex 440/3200  ce 2.0302  mass 1.000  tok 4919  3.05s/ex  eta 140m  skipped 51  mem 35.4G
+ex 460/3200  ce 2.0281  mass 1.000  tok 4862  3.02s/ex  eta 138m  skipped 57  mem 35.4G
+ex 480/3200  ce 2.0295  mass 1.000  tok 4974  3.00s/ex  eta 136m  skipped 59  mem 35.4G
+ex 500/3200  ce 2.0239  mass 1.000  tok 4906  2.99s/ex  eta 135m  skipped 61  mem 35.4G
+ex 520/3200  ce 2.0359  mass 1.000  tok 4758  2.98s/ex  eta 133m  skipped 64  mem 35.4G
+ex 560/3200  ce 2.0076  mass 1.000  tok 4836  2.93s/ex  eta 129m  skipped 73  mem 35.4G
+ex 580/3200  ce 2.0100  mass 1.000  tok 4919  2.92s/ex  eta 128m  skipped 73  mem 35.4G
+ex 600/3200  ce 2.0181  mass 1.000  tok 4968  2.92s/ex  eta 126m  skipped 76  mem 35.4G
+ex 620/3200  ce 2.0198  mass 1.000  tok 5035  2.90s/ex  eta 125m  skipped 80  mem 35.4G
+ex 640/3200  ce 2.0267  mass 1.000  tok 4901  2.88s/ex  eta 123m  skipped 84  mem 35.4G
+ex 660/3200  ce 2.0233  mass 1.000  tok 5118  2.87s/ex  eta 121m  skipped 87  mem 35.4G
+ex 680/3200  ce 2.0056  mass 1.000  tok 4986  2.89s/ex  eta 121m  skipped 92  mem 35.4G
+ex 700/3200  ce 2.0079  mass 1.000  tok 4867  2.88s/ex  eta 120m  skipped 98  mem 35.4G
+ex 720/3200  ce 2.0164  mass 1.000  tok 4851  2.87s/ex  eta 119m  skipped 100  mem 35.4G
+ex 740/3200  ce 2.0151  mass 1.000  tok 4908  2.92s/ex  eta 120m  skipped 103  mem 35.4G
+ex 760/3200  ce 2.0207  mass 1.000  tok 5005  2.90s/ex  eta 118m  skipped 109  mem 35.4G
+ex 780/3200  ce 2.0285  mass 1.000  tok 4922  2.90s/ex  eta 117m  skipped 109  mem 35.4G
+ex 800/3200  ce 2.0192  mass 1.000  tok 4933  2.90s/ex  eta 116m  skipped 111  mem 35.4G
+eval@800: ce 2.0231 top1 0.324  saved
+ex 820/3200  ce 2.0097  mass 1.000  tok 5071  2.97s/ex  eta 118m  skipped 113  mem 35.4G
+ex 840/3200  ce 2.0146  mass 1.000  tok 4877  2.98s/ex  eta 117m  skipped 115  mem 35.4G
+ex 860/3200  ce 2.0011  mass 1.000  tok 4810  2.97s/ex  eta 116m  skipped 118  mem 35.4G
+ex 880/3200  ce 2.0371  mass 1.000  tok 5074  2.97s/ex  eta 115m  skipped 120  mem 35.4G
+ex 900/3200  ce 2.0189  mass 1.000  tok 4935  2.96s/ex  eta 114m  skipped 122  mem 35.4G
+ex 920/3200  ce 2.0058  mass 1.000  tok 4887  2.96s/ex  eta 112m  skipped 125  mem 35.4G
+ex 940/3200  ce 2.0230  mass 1.000  tok 4908  2.95s/ex  eta 111m  skipped 131  mem 35.4G
+ex 1000/3200  ce 2.0075  mass 1.000  tok 4772  2.92s/ex  eta 107m  skipped 145  mem 35.4G
+ex 1020/3200  ce 2.0046  mass 1.000  tok 5039  2.92s/ex  eta 106m  skipped 147  mem 35.4G
+ex 1040/3200  ce 2.0133  mass 1.000  tok 4756  2.99s/ex  eta 108m  skipped 151  mem 35.4G
+ex 1060/3200  ce 2.0138  mass 1.000  tok 4892  3.23s/ex  eta 115m  skipped 151  mem 35.4G
+ex 1080/3200  ce 2.0277  mass 1.000  tok 5055  3.28s/ex  eta 116m  skipped 155  mem 35.4G
+ex 1100/3200  ce 2.0075  mass 1.000  tok 4898  3.40s/ex  eta 119m  skipped 157  mem 35.4G
+ex 1120/3200  ce 2.0155  mass 1.000  tok 5018  3.40s/ex  eta 118m  skipped 157  mem 35.4G
+ex 1140/3200  ce 2.0171  mass 1.000  tok 4994  3.39s/ex  eta 116m  skipped 160  mem 35.4G
+ex 1160/3200  ce 2.0210  mass 1.000  tok 4990  3.39s/ex  eta 115m  skipped 160  mem 35.4G
+ex 1200/3200  ce 2.0280  mass 1.000  tok 4975  3.49s/ex  eta 116m  skipped 165  mem 35.4G
+eval@1200: ce 2.0272 top1 0.316  saved
+ex 1220/3200  ce 2.0220  mass 1.000  tok 5120  3.56s/ex  eta 117m  skipped 168  mem 35.4G
+ex 1260/3200  ce 2.0190  mass 1.000  tok 5025  3.54s/ex  eta 115m  skipped 173  mem 35.4G
+ex 1280/3200  ce 2.0031  mass 1.000  tok 4806  3.53s/ex  eta 113m  skipped 175  mem 35.4G
+ex 1300/3200  ce 2.0118  mass 1.000  tok 4998  3.53s/ex  eta 112m  skipped 177  mem 35.4G
+ex 1320/3200  ce 2.0274  mass 1.000  tok 4992  3.52s/ex  eta 110m  skipped 178  mem 35.4G
+ex 1340/3200  ce 2.0037  mass 1.000  tok 5219  3.50s/ex  eta 109m  skipped 181  mem 35.4G
+ex 1360/3200  ce 2.0128  mass 1.000  tok 5056  3.49s/ex  eta 107m  skipped 185  mem 35.4G
+ex 1380/3200  ce 2.0075  mass 1.000  tok 4934  3.47s/ex  eta 105m  skipped 188  mem 35.4G
+ex 1400/3200  ce 2.0042  mass 1.000  tok 5017  3.46s/ex  eta 104m  skipped 192  mem 35.4G
+ex 1420/3200  ce 2.0168  mass 1.000  tok 4987  3.45s/ex  eta 102m  skipped 192  mem 35.4G
+ex 1440/3200  ce 2.0106  mass 1.000  tok 5202  3.44s/ex  eta 101m  skipped 195  mem 35.4G
+ex 1460/3200  ce 2.0132  mass 1.000  tok 4894  3.43s/ex  eta 99m  skipped 197  mem 35.4G
+ex 1480/3200  ce 2.0033  mass 1.000  tok 5020  3.42s/ex  eta 98m  skipped 197  mem 35.4G
+ex 1520/3200  ce 2.0066  mass 1.000  tok 4726  3.40s/ex  eta 95m  skipped 202  mem 35.4G
+ex 1540/3200  ce 1.9993  mass 1.000  tok 4859  3.38s/ex  eta 94m  skipped 206  mem 35.4G
+ex 1560/3200  ce 2.0041  mass 1.000  tok 5056  3.38s/ex  eta 92m  skipped 206  mem 35.4G
+ex 1580/3200  ce 2.0062  mass 1.000  tok 4925  3.36s/ex  eta 91m  skipped 210  mem 35.4G
+ex 1600/3200  ce 2.0097  mass 1.000  tok 5109  3.35s/ex  eta 89m  skipped 212  mem 35.4G
+eval@1600: ce 2.0206 top1 0.309  saved
+ex 1620/3200  ce 2.0167  mass 1.000  tok 4769  3.38s/ex  eta 89m  skipped 214  mem 35.4G
+ex 1660/3200  ce 1.9966  mass 1.000  tok 5035  3.36s/ex  eta 86m  skipped 219  mem 35.4G
+ex 1700/3200  ce 2.0023  mass 1.000  tok 5005  3.34s/ex  eta 84m  skipped 226  mem 35.4G
+ex 1720/3200  ce 2.0039  mass 1.000  tok 5056  3.34s/ex  eta 82m  skipped 227  mem 35.4G
+ex 1760/3200  ce 2.0257  mass 1.000  tok 4882  3.32s/ex  eta 80m  skipped 232  mem 35.4G
+ex 1780/3200  ce 2.0102  mass 1.000  tok 4836  3.32s/ex  eta 79m  skipped 233  mem 35.4G
+ex 1800/3200  ce 2.0185  mass 1.000  tok 5044  3.31s/ex  eta 77m  skipped 236  mem 35.4G
+ex 1820/3200  ce 2.0217  mass 1.000  tok 4770  3.31s/ex  eta 76m  skipped 238  mem 35.4G
+ex 1840/3200  ce 2.0113  mass 1.000  tok 4727  3.30s/ex  eta 75m  skipped 241  mem 35.4G
+ex 1900/3200  ce 2.0089  mass 1.000  tok 5058  3.27s/ex  eta 71m  skipped 253  mem 35.4G
+ex 1920/3200  ce 1.9986  mass 1.000  tok 4820  3.26s/ex  eta 70m  skipped 254  mem 35.4G
+ex 1940/3200  ce 2.0045  mass 1.000  tok 5054  3.25s/ex  eta 68m  skipped 259  mem 35.4G
+ex 1960/3200  ce 2.0262  mass 1.000  tok 4872  3.25s/ex  eta 67m  skipped 259  mem 35.4G
+ex 1980/3200  ce 2.0160  mass 1.000  tok 4896  3.24s/ex  eta 66m  skipped 260  mem 35.4G
+ex 2000/3200  ce 2.0132  mass 1.000  tok 5099  3.24s/ex  eta 65m  skipped 261  mem 35.4G
+eval@2000: ce 2.0225 top1 0.305  saved
+ex 2020/3200  ce 2.0108  mass 1.000  tok 4844  3.26s/ex  eta 64m  skipped 264  mem 35.4G
+ex 2060/3200  ce 2.0104  mass 1.000  tok 5053  3.24s/ex  eta 62m  skipped 269  mem 35.4G
+ex 2080/3200  ce 2.0120  mass 1.000  tok 5004  3.24s/ex  eta 60m  skipped 270  mem 35.4G
+ex 2100/3200  ce 2.0150  mass 1.000  tok 4739  3.23s/ex  eta 59m  skipped 271  mem 35.4G
+ex 2120/3200  ce 2.0059  mass 1.000  tok 4935  3.23s/ex  eta 58m  skipped 272  mem 35.4G
+ex 2140/3200  ce 2.0124  mass 1.000  tok 5097  3.22s/ex  eta 57m  skipped 274  mem 35.4G
+ex 2160/3200  ce 2.0125  mass 1.000  tok 4885  3.21s/ex  eta 56m  skipped 277  mem 35.4G
+ex 2180/3200  ce 2.0104  mass 1.000  tok 5023  3.21s/ex  eta 55m  skipped 280  mem 35.4G
+ex 2220/3200  ce 1.9959  mass 1.000  tok 4829  3.19s/ex  eta 52m  skipped 287  mem 35.4G
+ex 2240/3200  ce 2.0085  mass 1.000  tok 4939  3.18s/ex  eta 51m  skipped 290  mem 35.4G
+ex 2260/3200  ce 1.9928  mass 1.000  tok 4682  3.18s/ex  eta 50m  skipped 291  mem 35.4G
+ex 2280/3200  ce 1.9880  mass 1.000  tok 4983  3.17s/ex  eta 49m  skipped 294  mem 35.4G
+ex 2300/3200  ce 1.9811  mass 1.000  tok 4958  3.16s/ex  eta 47m  skipped 297  mem 35.4G
+ex 2320/3200  ce 2.0128  mass 1.000  tok 5039  3.16s/ex  eta 46m  skipped 297  mem 35.4G
+ex 2340/3200  ce 2.0236  mass 1.000  tok 4856  3.15s/ex  eta 45m  skipped 302  mem 35.4G
+ex 2360/3200  ce 2.0130  mass 1.000  tok 5144  3.14s/ex  eta 44m  skipped 303  mem 35.4G
+ex 2380/3200  ce 2.0144  mass 1.000  tok 5100  3.13s/ex  eta 43m  skipped 306  mem 35.4G
+ex 2400/3200  ce 1.9994  mass 1.000  tok 4776  3.13s/ex  eta 42m  skipped 306  mem 35.4G
+eval@2400: ce 2.0168 top1 0.320  saved
+ex 2420/3200  ce 2.0012  mass 1.000  tok 5131  3.15s/ex  eta 41m  skipped 308  mem 35.4G
+ex 2440/3200  ce 2.0099  mass 1.000  tok 4882  3.14s/ex  eta 40m  skipped 313  mem 35.4G
+ex 2460/3200  ce 2.0268  mass 1.000  tok 4963  3.13s/ex  eta 39m  skipped 317  mem 35.4G
+ex 2480/3200  ce 2.0070  mass 1.000  tok 4970  3.13s/ex  eta 38m  skipped 320  mem 35.4G
+ex 2500/3200  ce 2.0103  mass 1.000  tok 4944  3.12s/ex  eta 36m  skipped 323  mem 35.4G
+ex 2520/3200  ce 2.0146  mass 1.000  tok 4894  3.11s/ex  eta 35m  skipped 326  mem 35.4G
+ex 2540/3200  ce 1.9899  mass 1.000  tok 4946  3.11s/ex  eta 34m  skipped 328  mem 35.4G
+ex 2580/3200  ce 1.9960  mass 1.000  tok 4843  3.10s/ex  eta 32m  skipped 332  mem 35.4G
+ex 2600/3200  ce 2.0108  mass 1.000  tok 4867  3.10s/ex  eta 31m  skipped 335  mem 35.4G
+ex 2620/3200  ce 1.9983  mass 1.000  tok 4914  3.09s/ex  eta 30m  skipped 338  mem 35.4G
+ex 2640/3200  ce 2.0043  mass 1.000  tok 5096  3.09s/ex  eta 29m  skipped 341  mem 35.4G
+ex 2660/3200  ce 2.0207  mass 1.000  tok 5113  3.09s/ex  eta 28m  skipped 342  mem 35.4G
+ex 2680/3200  ce 2.0145  mass 1.000  tok 5179  3.09s/ex  eta 27m  skipped 345  mem 35.4G
+ex 2720/3200  ce 1.9885  mass 1.000  tok 4714  3.08s/ex  eta 25m  skipped 348  mem 35.4G
+ex 2740/3200  ce 1.9911  mass 1.000  tok 4890  3.07s/ex  eta 24m  skipped 351  mem 35.4G
+ex 2760/3200  ce 1.9992  mass 1.000  tok 5005  3.07s/ex  eta 23m  skipped 352  mem 35.4G
+ex 2780/3200  ce 2.0072  mass 1.000  tok 5121  3.06s/ex  eta 21m  skipped 355  mem 35.4G
+ex 2800/3200  ce 2.0026  mass 1.000  tok 4816  3.06s/ex  eta 20m  skipped 358  mem 35.4G
+eval@2800: ce 2.0166 top1 0.352  saved
+ex 2840/3200  ce 2.0008  mass 1.000  tok 5055  3.07s/ex  eta 18m  skipped 365  mem 35.4G
+ex 2880/3200  ce 2.0279  mass 1.000  tok 5047  3.07s/ex  eta 16m  skipped 367  mem 35.4G
+ex 2900/3200  ce 2.0346  mass 1.000  tok 4742  3.06s/ex  eta 15m  skipped 370  mem 35.4G
+ex 2920/3200  ce 2.0032  mass 1.000  tok 4959  3.06s/ex  eta 14m  skipped 372  mem 35.4G
+ex 2960/3200  ce 2.0116  mass 1.000  tok 4885  3.05s/ex  eta 12m  skipped 380  mem 35.4G
+ex 2980/3200  ce 1.9993  mass 1.000  tok 4928  3.05s/ex  eta 11m  skipped 383  mem 35.4G
+ex 3000/3200  ce 2.0180  mass 1.000  tok 4961  3.05s/ex  eta 10m  skipped 383  mem 35.4G
+ex 3020/3200  ce 2.0129  mass 1.000  tok 5022  3.04s/ex  eta 9m  skipped 388  mem 35.4G
+ex 3040/3200  ce 2.0010  mass 1.000  tok 4902  3.04s/ex  eta 8m  skipped 390  mem 35.4G
+ex 3060/3200  ce 2.0088  mass 1.000  tok 5013  3.03s/ex  eta 7m  skipped 390  mem 35.4G
+ex 3080/3200  ce 2.0009  mass 1.000  tok 4875  3.03s/ex  eta 6m  skipped 395  mem 35.4G
+ex 3100/3200  ce 2.0131  mass 1.000  tok 4977  3.02s/ex  eta 5m  skipped 399  mem 35.4G
+ex 3120/3200  ce 2.0060  mass 1.000  tok 5049  3.02s/ex  eta 4m  skipped 402  mem 35.4G
+ex 3140/3200  ce 2.0124  mass 1.000  tok 4909  3.02s/ex  eta 3m  skipped 404  mem 35.4G
+ex 3160/3200  ce 2.0128  mass 1.000  tok 5088  3.01s/ex  eta 2m  skipped 407  mem 35.4G
+ex 3180/3200  ce 2.0039  mass 1.000  tok 5049  3.01s/ex  eta 1m  skipped 408  mem 35.4G
+ex 3200/3200  ce 2.0101  mass 1.000  tok 4976  3.01s/ex  eta 0m  skipped 409  mem 35.4G
+eval@3200: ce 2.0172 top1 0.336  saved
+exit 0 2026-09-17T12:36:18Z
+OCR restarted 2026-09-17T12:36:18Z
+free MiB on card: 37385 2026-09-17T12:36:18Z
+Loading weights:   0%|          | 0/1047 [00:00<?, ?it/s]Loading weights:   8%|▊         | 82/1047 [00:00<00:01, 682.97it/s]Loading weights:  14%|█▍        | 151/1047 [00:00<00:02, 313.79it/s]Loading weights:  20%|██        | 212/1047 [00:00<00:02, 383.65it/s]Loading weights:  25%|██▌       | 264/1047 [00:00<00:01, 413.48it/s]Loading weights:  30%|██▉       | 313/1047 [00:00<00:02, 327.98it/s]Loading weights:  34%|███▎      | 353/1047 [00:01<00:02, 322.64it/s]Loading weights:  39%|███▊      | 405/1047 [00:01<00:01, 365.28it/s]Loading weights:  43%|████▎     | 452/1047 [00:01<00:01, 380.19it/s]Loading weights:  47%|████▋     | 494/1047 [00:01<00:01, 285.55it/s]Loading weights:  50%|█████     | 528/1047 [00:01<00:01, 271.68it/s]Loading weights:  55%|█████▌    | 581/1047 [00:01<00:01, 324.71it/s]Loading weights:  60%|█████▉    | 625/1047 [00:01<00:01, 349.97it/s]Loading weights:  67%|██████▋   | 699/1047 [00:01<00:00, 438.50it/s]Loading weights:  71%|███████▏  | 747/1047 [00:02<00:00, 327.06it/s]Loading weights:  76%|███████▋  | 800/1047 [00:02<00:00, 367.56it/s]Loading weights:  81%|████████  | 849/1047 [00:02<00:00, 395.10it/s]Loading weights:  85%|████████▌ | 894/1047 [00:02<00:00, 361.15it/s]Loading weights:  89%|████████▉ | 935/1047 [00:02<00:00, 309.76it/s]Loading weights:  93%|█████████▎| 970/1047 [00:02<00:00, 230.18it/s]Loading weights: 100%|██████████| 1047/1047 [00:03<00:00, 347.07it/s]
+loaded bf16 on cpu in 3s
+experts -> fp8: 22.84B params in 64s
+on cuda:0: 26.9 GiB in 70s
+GEN 12.1s in torch.Size([1, 19]) keys ['sequences', 'tokens_per_forward', 'past_key_values'] '<|channel>thought\n<channel|>The three primary colours are red, blue, and blue.<eos><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><p'
+GEN 17.8s in torch.Size([1, 308]) keys ['sequences', 'tokens_per_forward', 'past_key_values'] '<|channel>thought\n<channel|>G B E C F A H D D<eos><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>'
+PROMPT TAIL 'om {A, B, C, D, E, F, G, H} from MOST of the attribute to LEAST, every letter exactly once.\nanswer:<turn|>\n<|turn>model\n'
+FWD seeded in ['<|channel>', 'thought', '\n', '<channel|>', ' SUMMER', '忑', ' massacre', 'Do', ' wrath', ' कक्कड़', ' ડો', 'षण', '<turn|>', '<pad>', '<pad>', '<pad>', '<pad>', '<pad>'] -> ['<|channel>', 'thought', '\n', '<channel|>', 'G', ' G', ' B', ' E', ' F', ' F', ' H', ' D', ' D', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+FWD all-noise in ['レーション', '<unused4660>', ' فس', 'ipage', 'ajn', 'ड्डा', 'пень', ' nisk', ' Kirkpatrick', '왈', ' Paren', '壹百', ' پرداخت', ' veliki', ' взять', ' আজও', 'provided', '党的'] -> ['<|channel>', 'thought', '\n', '<channel|>', 'G', ' G', ' G', ' B', ' E', ' E', ' C', ' C', ' F', ' A', ' D', ' D', ' D', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>']
+READ ['The number 100000.', 'The number 9000.', 'The number 700.', 'The number 40.', 'The number 12.', 'The number 3.', 'The number 1.', 'The number 0.5.'] mass [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+CLAMP 9.2s ['The number 100000.', 'The number 9000.', 'The number 700.', 'The number 40.', 'The number 12.', 'The number 3.', 'The number 1.', 'The number 0.5.'] p_top [0.34, 0.35, 0.35, 0.37, 0.42, 0.45, 0.57, 1.0] mass [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[hn_top/separate] window 1/7  2.3s/read-set  tokens=1527
+[hn_top/separate] window 2/7  2.4s/read-set  tokens=1671
+[hn_top/separate] window 3/7  2.3s/read-set  tokens=1738
+[hn_top/separate] window 4/7  5.7s/read-set  tokens=2033
+[hn_top/separate] window 5/7  2.3s/read-set  tokens=1511
+[hn_top/separate] window 6/7  2.4s/read-set  tokens=1327
+[hn_top/separate] window 7/7  2.4s/read-set  tokens=1656
+[hn_top/joint] window 1/7  2.5s/read-set  tokens=1664
+[hn_top/joint] window 2/7  2.5s/read-set  tokens=1808
+[hn_top/joint] window 3/7  4.1s/read-set  tokens=1875
+[hn_top/joint] window 4/7  4.5s/read-set  tokens=2170
+[hn_top/joint] window 5/7  3.9s/read-set  tokens=1648
+[hn_top/joint] window 6/7  2.4s/read-set  tokens=1464
+[hn_top/joint] window 7/7  2.7s/read-set  tokens=1793
+== hn_top: agreement +0.869 / +0.913 / +0.849 | halo +0.163 | flip sep 0.138/0.204/0.097 -> joint 0.158/0.163/0.122
+   interesting: dg_separate ~ gemma31b_separate: +0.823
+   interesting: dg_joint ~ gemma31b_separate: +0.800
+   credible: dg_separate ~ gemma31b_separate: +0.687
+   credible: dg_joint ~ gemma31b_separate: +0.663
+   actionable: dg_separate ~ gemma31b_separate: +0.835
+   actionable: dg_joint ~ gemma31b_separate: +0.736
+   interesting: dg_separate ~ gemma31b_joint: +0.797
+   interesting: dg_joint ~ gemma31b_joint: +0.735
+   credible: dg_separate ~ gemma31b_joint: +0.840
+   credible: dg_joint ~ gemma31b_joint: +0.792
+   actionable: dg_separate ~ gemma31b_joint: +0.879
+   actionable: dg_joint ~ gemma31b_joint: +0.806
+[hn_comments/separate] window 1/7  2.3s/read-set  tokens=1297
+[hn_comments/separate] window 2/7  2.8s/read-set  tokens=1349
+[hn_comments/separate] window 3/7  2.2s/read-set  tokens=1320
+[hn_comments/separate] window 4/7  2.1s/read-set  tokens=1169
+[hn_comments/separate] window 5/7  2.2s/read-set  tokens=1408
+[hn_comments/separate] window 6/7  2.5s/read-set  tokens=1273
+[hn_comments/separate] window 7/7  2.2s/read-set  tokens=1261
+[hn_comments/joint] window 1/7  2.3s/read-set  tokens=1446
+[hn_comments/joint] window 2/7  2.3s/read-set  tokens=1498
+[hn_comments/joint] window 3/7  2.4s/read-set  tokens=1469
+[hn_comments/joint] window 4/7  2.5s/read-set  tokens=1318
+[hn_comments/joint] window 5/7  2.4s/read-set  tokens=1557
+[hn_comments/joint] window 6/7  2.4s/read-set  tokens=1422
+[hn_comments/joint] window 7/7  2.4s/read-set  tokens=1410
+== hn_comments: agreement +0.908 / +0.927 / +0.871 | halo +0.008 | flip sep 0.097/0.077/0.163 -> joint 0.122/0.122/0.230
+   informative: dg_separate ~ gemma31b_separate: +0.822
+   informative: dg_joint ~ gemma31b_separate: +0.734
+   civil: dg_separate ~ gemma31b_separate: +0.819
+   civil: dg_joint ~ gemma31b_separate: +0.817
+   concise: dg_separate ~ gemma31b_separate: +0.819
+   concise: dg_joint ~ gemma31b_separate: +0.857
+   informative: dg_separate ~ gemma31b_joint: +0.841
+   informative: dg_joint ~ gemma31b_joint: +0.754
+   civil: dg_separate ~ gemma31b_joint: +0.865
+   civil: dg_joint ~ gemma31b_joint: +0.874
+   concise: dg_separate ~ gemma31b_joint: +0.821
+   concise: dg_joint ~ gemma31b_joint: +0.859
+[arxiv/separate] window 1/7  4.9s/read-set  tokens=2325
+[arxiv/separate] window 2/7  4.5s/read-set  tokens=2394
+[arxiv/separate] window 3/7  4.5s/read-set  tokens=2231
+[arxiv/separate] window 4/7  4.5s/read-set  tokens=2525
+[arxiv/separate] window 5/7  4.7s/read-set  tokens=2876
+[arxiv/separate] window 6/7  4.5s/read-set  tokens=2660
+[arxiv/separate] window 7/7  4.6s/read-set  tokens=2395
+[arxiv/joint] window 1/7  4.7s/read-set  tokens=2488
+[arxiv/joint] window 2/7  8.8s/read-set  tokens=2557
+[arxiv/joint] window 3/7  5.0s/read-set  tokens=2394
+[arxiv/joint] window 4/7  4.7s/read-set  tokens=2688
+[arxiv/joint] window 5/7  5.7s/read-set  tokens=3039
+[arxiv/joint] window 6/7  4.8s/read-set  tokens=2823
+[arxiv/joint] window 7/7  4.6s/read-set  tokens=2558
+== arxiv: agreement +0.914 / +0.511 / +0.937 | halo -0.016 | flip sep 0.122/0.214/0.087 -> joint 0.189/0.372/0.122
+   novelty: dg_separate ~ gemma31b_separate: +0.898
+   novelty: dg_joint ~ gemma31b_separate: +0.865
+   clarity: dg_separate ~ gemma31b_separate: +0.507
+   clarity: dg_joint ~ gemma31b_separate: +0.383
+   evidence: dg_separate ~ gemma31b_separate: +0.922
+   evidence: dg_joint ~ gemma31b_separate: +0.903
+   novelty: dg_separate ~ gemma31b_joint: +0.856
+   novelty: dg_joint ~ gemma31b_joint: +0.820
+   clarity: dg_separate ~ gemma31b_joint: +0.501
+   clarity: dg_joint ~ gemma31b_joint: +0.427
+   evidence: dg_separate ~ gemma31b_joint: +0.852
+   evidence: dg_joint ~ gemma31b_joint: +0.794
+[lw/separate] window 1/7  6.3s/read-set  tokens=5379
+[lw/separate] window 2/7  6.4s/read-set  tokens=6048
+[lw/separate] window 3/7  8.7s/read-set  tokens=5626
+[lw/separate] window 4/7  5.9s/read-set  tokens=5274
+[lw/separate] window 5/7  6.0s/read-set  tokens=5248
+[lw/separate] window 6/7  6.3s/read-set  tokens=5545
+[lw/separate] window 7/7  5.8s/read-set  tokens=4909
+[lw/joint] window 1/7  6.7s/read-set  tokens=5571
+[lw/joint] window 2/7  7.0s/read-set  tokens=6240
+[lw/joint] window 3/7  6.8s/read-set  tokens=5818
+[lw/joint] window 4/7  6.5s/read-set  tokens=5466
+[lw/joint] window 5/7  6.2s/read-set  tokens=5440
+[lw/joint] window 6/7  6.4s/read-set  tokens=5737
+[lw/joint] window 7/7  7.6s/read-set  tokens=5101
+== lw: agreement +0.835 / +0.946 / +0.832 | halo -0.190 | flip sep 0.061/0.061/0.082 -> joint 0.133/0.143/0.199
+   novelty: dg_separate ~ gemma31b_separate: +0.863
+   novelty: dg_joint ~ gemma31b_separate: +0.680
+   alpha: dg_separate ~ gemma31b_separate: +0.900
+   alpha: dg_joint ~ gemma31b_separate: +0.889
+   rigor: dg_separate ~ gemma31b_separate: +0.803
+   rigor: dg_joint ~ gemma31b_separate: +0.764
+   novelty: dg_separate ~ gemma31b_joint: +0.848
+   novelty: dg_joint ~ gemma31b_joint: +0.659
+   alpha: dg_separate ~ gemma31b_joint: +0.910
+   alpha: dg_joint ~ gemma31b_joint: +0.876
+   rigor: dg_separate ~ gemma31b_joint: +0.888
+   rigor: dg_joint ~ gemma31b_joint: +0.795
+exit 0 2026-09-17T12:54:17Z
+OCR restarted 2026-09-17T12:54:18Z
