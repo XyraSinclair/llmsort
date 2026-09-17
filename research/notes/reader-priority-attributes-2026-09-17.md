@@ -232,6 +232,36 @@ but not on which summary — for the teacher it was currency (.9), not breadth (
 separated canonicality from source-uniqueness (r ≤ .3 in every lens), though canonicality's own
 reliability was too poor to count that as evidence.
 
+Asked why regret collapses onto currency, the reader's diagnosis matches the item read above: a
+text-only judge has no access to reception, so both prompts reduce to the one cue the text
+supplies for "mattering to the community" — recognisability as a central, argument-bearing
+alignment document, famous names and titles seen cited in pretraining — which the album, the
+fiction and the parables fail even though a human might regret missing those most. The currency
+prompt is honest about what it measures; the regret prompt is the mis-worded one, because "a
+thoughtful reader in the intended audience, a year later" is a reception forecast in disguise,
+and the cheapest proxy for reception is prominence. A regret signal that is not currency has to
+be reader-side and counterfactual — what this reader would believe or do wrongly had they not
+read it — with no reference to audience or time.
+
+Asked what neither list has that matters more for choosing what to open first, the reader named
+three; checked against the 2,200 authored prompts, none exists:
+
+- reading-pleasure — "how much a reader would enjoy the act of reading this, independent of
+  anything taken away". Every attribute in both lists is instrumental (the nearest is
+  humor-effectiveness); pleasure is the strongest single driver of what people actually open
+  first, and it is exactly what the teacher scored at the bottom.
+- mistake-prevention — "how likely a reader who never reads this ends up making a specific
+  costly decision or holding a specific false belief that this text would have prevented". The
+  counterfactual loss regret-if-missed was reaching for, stated without routing through the
+  community.
+- challenge-to-priors — "how much a reader who currently disagrees with the central claim would
+  be forced to update or sharpen their view after reading it". delta-to-informed-reader measures
+  new information; steelman-strength measures the author's handling of the opposing case; this
+  measures the text as the strongest opposing case for its reader.
+
+These three go into the same teacher pass as the survivors; mistake-prevention replaces
+regret-if-missed as the aggregate to test.
+
 ## Whose judgment
 
 The numbers are gemma-4-31b's reading of 20 entities per lens against its own reading of the
@@ -241,10 +271,12 @@ reader's (a Fable subagent given the prompts and the existing family names, no n
 ## The call
 
 Teach the fast judge four attributes it cannot currently see: source-uniqueness, front-loading,
-compounding-value, effort-to-value, plus discourse-currency for posts. That is one teacher pass
+compounding-value, effort-to-value, plus discourse-currency for posts, and the three the
+sharpening reader named — reading-pleasure, mistake-prevention, challenge-to-priors — rated on
+the 20-entity sets first (a second $0.07 pass) so they earn their place the same way. That is one teacher pass
 per lens on the v2 recipe (200 lists × 40, about $3 and 5 minutes per lens, then about an hour
 of distillation on the shared card), with reader-empowerment and misleading-if-trusted rated in
 separate triples in the same pass so the joint-call question closes for free. Retire
-regret-if-missed as a target; the priority score for a human is a weighted composition the
+regret-if-missed as a target (mistake-prevention is the counterfactual it was reaching for); the priority score for a human is a weighted composition the
 human sets, over these plus the cost-paid metadata columns. The pass is new spend (about $9 for
 three lenses), so it waits for a word; everything else here is done.
