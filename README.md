@@ -67,6 +67,20 @@ Huber loss), reads uncertainty off the posterior, and plans the next
 comparison by effective resistance on the graph. Default budget is 4·n
 comparisons — O(n), not O(n²).
 
+How much is "how much" worth? For near-tied items there is a closed
+form. Read a comparison as a noisy measurement x ~ N(μ, σ²) of the true
+gap μ: the reading carries Fisher information 1/σ², and its sign alone
+carries (2/π)/σ² as μ → 0. A win/loss verdict keeps 64% of what the judge
+told you; the magnitude is worth π/2 − 1 ≈ 57% more per call, before any
+weighting. Measured on 72,813 production judgements where one call yields
+both readouts, magnitude alone saves 1.3–1.8× the comparisons at small
+budgets (straddling π/2), the per-call variance from the logprob PMF
+saves another ~1.4×, and at full budget verdict-only sorting plateaus at
+split-half Kendall τ 0.16 where the PMF moments reach 0.49 — a pairwise
+reversal rate of 0.39 against 0.24, a gap no verdict budget in range
+closes. One judge, near-tie pools; wide separations shrink the advantage
+([the note](research/notes/logprob-efficiency-2026-09-05/FINDINGS.md)).
+
 ## CLI
 
 ```console

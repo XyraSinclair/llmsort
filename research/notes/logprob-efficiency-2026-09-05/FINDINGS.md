@@ -76,6 +76,26 @@ The variance channel specifically (M over P) is worth ~1.4× at production
 budget and raises the ceiling ~0.14 τ; the magnitude channel (P over S) is
 the larger part of the gap on these pools.
 
+## Theory floor (added 2026-09-16)
+
+The P-over-S gap has a closed form in the near-tie limit. For a reading
+x ~ N(μ, σ²), Fisher information about μ is 1/σ² from x and
+φ(μ/σ)²/(Φ(1−Φ)σ²) → (2/π)/σ² from sign(x) as μ → 0 — the classic
+asymptotic efficiency of the sign test. So a verdict keeps 2/π ≈ 64% of a
+call's information and the magnitude is worth π/2 ≈ 1.57× per call
+(+57%), Gaussian noise assumed; the factor grows with |μ|/σ until signs
+stop flipping and both rails are simply right.
+
+Check against the table above: τ-matched S-vs-P multipliers, linearly
+interpolated, are 1.44 (S at frac 0.20), 1.31 (0.30), 1.78 (0.50) —
+straddling π/2 — then diverge as S saturates. With M-over-P ≈ 1.4× the
+product ≈ 2.2× sits inside the measured 1.4–2.8× S-vs-M range.
+
+Not explained by this model: the saturation. Unbiased Gaussian signs
+would keep improving with budget; a plateau at τ ≈ 0.17 points at
+per-call systematic components that magnitudes let the solver average
+through and signs do not. Unverified.
+
 ## Honest flags
 
 - Reproducibility ≠ external truth; a shared systematic bias reproduces.
