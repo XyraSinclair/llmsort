@@ -251,5 +251,66 @@ gemma-4-31b, flip rate under slot permutation, halo across criteria, plus the
 two new columns `stderr` and `label_mass`. Bars unchanged (agreement > 0.85,
 flip < 0.20, halo < 0.10). If it passes, the fine-tune on the teacher corpus
 becomes a live option; if it fails on `label_mass` or halo, the model class is
-out and the AR one-prefill-M-reads trick stays the control. Proposed, not
-started.
+out and the AR one-prefill-M-reads trick stays the control. Executed the same
+day on all four cohorts with fp8 experts instead of NVFP4 — results below.
+
+### Executed 2026-09-16 (22:30–22:50 PT): one-forward slot marginals on the four-cohort bench
+
+Artifacts: `research/artifacts/live/diffusiongemma-setwise-2026-09-16/` (runner `dg_setwise.py`,
+four `summary-*.json`, four `trace-*.jsonl` with every 8×8 slot×item matrix).
+
+Setup. `google/diffusiongemma-26B-A4B-it` through transformers on our GPU host, experts cast to
+fp8_e4m3 per row (encoder and decoder experts are tied, so one copy: 26.9 GiB resident, 13 s to
+quantize). Same cohorts, criteria, prompts, ring design (n=40, k=8, overlap 2, 2 presentations)
+and Huber-IRLS fit as `multi_criteria_setwise.rs`. Reader: answer template seeded in the canvas,
+label slots filled with uniform-random tokens, ONE denoiser forward, softmax over the eight label
+tokens per slot, mean over 4 noise draws, best permutation of the mean log-matrix as the window's
+order. Two facts the port had to learn: the model turn opens with a 4-token empty thinking
+channel (`<|channel>thought\n<channel|>`), so the template sits at canvas position 4, not 0; and
+free `generate` on a magnitude-ordering probe returns the exactly correct order, so the fp8 cast
+is sound.
+
+Result against the bars (agreement ρ(separate, joint) > 0.85; halo inflation < 0.10; flips not rising):
+
+| cohort | agreement ρ | halo | flip separate → joint | ρ vs gemma-4-31b (separate arm) |
+|---|---|---|---|---|
+| hn_top | .83 / .70 / .84 | **+0.226** | .24/.29/.22 → .16/.21/.19 | .70 / .66 / .80 |
+| hn_comments | .84 / **.92** / .79 | −0.006 | .18/.15/.29 → .14/.13/.25 | .74 / .76 / .73 |
+| arxiv | .58 / .48 / **.90** | +0.016 | .23/.28/.28 → .39/.33/.19 | .73 / .34 / .76 |
+| lw | .60 / .84 / .69 | −0.052 | .43/.21/.27 → .28/.22/.25 | .71 / .78 / .67 |
+
+Fails as a drop-in judge: 2 of 12 criteria clear the agreement bar (gemma-4-31b clears them all
+on hn_top), hn_top halo is over the bar, and flip rates run roughly 1.5–2× the gemma baseline.
+It is nonetheless a real judge — ρ ≈ 0.7–0.8 against gemma-4-31b on 10 of 12 criteria — at
+1.5 s per 8-item window for short items (6 s at 5.5k-token prompts, one read per forward on a
+shared card) and zero marginal dollars.
+
+Why it falls short, from the per-slot columns (mean over all windows, separate arm):
+
+| slot | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| p_top | .82 | .49 | .32 | .26 | .25 | .27 | .28 | .32 |
+| entropy (ln 8 = 2.08) | .52 | 1.35 | 1.77 | 1.89 | 1.91 | 1.86 | 1.81 | 1.76 |
+| label_mass | .97 | .77 | .76 | .70 | .65 | .55 | .41 | .31 |
+| noise-draw stderr | .03 | .05 | .03 | .03 | .02 | .02 | .02 | .03 |
+
+- One forward from noise is a mean-field read. Slot 1 is a confident "which item is first";
+  slots 3–8 are near-uniform because each is conditioned on noise where its predecessors should
+  be. Argmax across slots of the mean matrix was a valid permutation in 0 of 336 window-lines
+  (mean 4.6 distinct letters of 8).
+  The matrix carries a sharp top-1 and a soft rank gradient, not eight rank marginals.
+- The noise-draw dispersion is tiny (stderr ≈ 0.02–0.05) and agreement across draws is 0.7–0.95.
+  So PR #21's `stderr` is NOT the judge's uncertainty; it measures hole-noise sensitivity only.
+  The uncertainty that matters is already in the mean matrix. The proposed variance-inflation
+  use of it is withdrawn.
+- label_mass decays to 0.31 by slot 8: the model wants to end the answer early there (`<turn|>`
+  / repeats). The E10 parallel holds — mass off the label set is a validity signal, per slot.
+- Joint prompts flatten slot 1 further (p_top .67) and hn_top halo rises: reading three criteria
+  lines in one forward couples them, as predicted.
+
+What this points at (not started): (a) use the matrix as it is — a top-1 PMF per window is a
+best-of-k observation, which the fit can take directly instead of a forced full permutation;
+(b) sequential clamping — fix slot 1, re-forward, read slot 2 — is k forwards per window, still
+about 10 s, and turns the mean-field read into a proper Plackett–Luce chain with a PMF at every
+stage; (c) read after the sampler's own denoising trajectory rather than from pure noise.
+(b) is the honest version of the instrument and the one to run next.
