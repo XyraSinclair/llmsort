@@ -1,0 +1,62 @@
+{
+"self-containedness": {
+"elab": 0.832,
+"decomp": 0.86,
+"both": 0.845
+},
+"high-status": {
+"elab": 0.704,
+"decomp": 0.51,
+"both": 0.67
+},
+"low-status": {
+"elab": 0.457,
+"decomp": 0.51,
+"both": 0.461
+},
+"poshness": {
+"elab": 0.751,
+"decomp": 0.673,
+"both": 0.72
+},
+"technical calmness": {
+"elab": 0.723,
+"decomp": 0.46,
+"both": 0.638
+},
+"earnestness": {
+"elab": 0.66,
+"decomp": 0.805,
+"both": 0.784
+},
+"intellectual density": {
+"elab": 0.833,
+"decomp": 0.803,
+"both": 0.849
+},
+"legibility to an outsider": {
+"elab": 0.843,
+"decomp": 0.747,
+"both": 0.83
+},
+"coiled potential energy": {
+"elab": 0.789,
+"decomp": 0.599,
+"both": 0.731
+},
+"craftedness": {
+"elab": 0.82,
+"decomp": 0.756,
+"both": 0.869
+},
+"institutional insiderness": {
+"elab": 0.877,
+"decomp": 0.57,
+"both": 0.799
+},
+"how much it rewards a careful re-read": {
+"elab": 0.641,
+"decomp": 0.577,
+"both": 0.673
+}
+}

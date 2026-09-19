@@ -7,7 +7,7 @@ import step as S
 from step import clip_logit, spearman, fit_items
 sys.path.insert(0, f"{HERE}/../jev-bits-2026-09-19")
 from jevclient import load_trace
-for name in ("arxiv", "manifund"):
+for name in ("arxiv", "manifund", "lw"):
     meta = json.load(open(f"{HERE}/ref-{name}.json")); ids = meta["ids"]; n = len(ids); D = json.load(open(f"{HERE}/decomp10.json"))
     wins = dict(S.windows(n, 3)); obs = {}
     for rec in load_trace(f"{HERE}/trace-{name}.jsonl").values():

@@ -13,6 +13,8 @@ bench = json.load(open(f"{R}/batteries/multi-criteria-bench/arxiv.json"))
 cohorts = {"manifund": rng.sample(mf, 24), "arxiv": rng.sample(bench, 24)}
 # Manifund items carry a short id; manifund.json maps it to the project slug.
 cohorts["manifund"] = [{"id": f"m{k:02d}", "slug": x["id"], "text": x["text"]} for k, x in enumerate(cohorts["manifund"])]
+if os.path.exists(f"{HERE}/lw.json"):  # frozen cohort of LessWrong comments, see fetch_lw.py
+    cohorts["lw"] = json.load(open(f"{HERE}/lw.json"))
 json.dump(attrs, open(f"{HERE}/attributes.json", "w"), indent=1)
 for name, items in cohorts.items():
     json.dump(items, open(f"{HERE}/{name}.json", "w"), indent=1)

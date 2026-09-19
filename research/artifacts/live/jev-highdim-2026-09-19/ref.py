@@ -12,7 +12,7 @@ sys.path.insert(0, f"{HERE}/../jev-bits-2026-09-19")
 from analyze import spearman
 
 attrs = [a["name"] for a in json.load(open(f"{HERE}/attributes.json"))]
-for name in ("manifund", "arxiv"):
+for name in ("manifund", "arxiv", "lw"):
     ids = [it["id"] for it in json.load(open(f"{HERE}/{name}.json"))]
     reps = []
     for rep in (0, 1):
