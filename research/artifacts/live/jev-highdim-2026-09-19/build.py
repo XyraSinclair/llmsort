@@ -11,7 +11,7 @@ attrs = [{"name": a.split(":")[0].strip(), "text": a} for a in attrs]
 mf = [x for x in json.load(open(f"{R}/data/manifund/items/full_noask.json")) if 2500 <= len(x["text"]) <= 6000]
 bench = json.load(open(f"{R}/batteries/multi-criteria-bench/arxiv.json"))
 cohorts = {"manifund": rng.sample(mf, 24), "arxiv": rng.sample(bench, 24)}
-# Manifund items carry an opaque public id; the project slug stays in manifund.json, which is not in the public repo.
+# Manifund items carry a short id; manifund.json maps it to the project slug.
 cohorts["manifund"] = [{"id": f"m{k:02d}", "slug": x["id"], "text": x["text"]} for k, x in enumerate(cohorts["manifund"])]
 json.dump(attrs, open(f"{HERE}/attributes.json", "w"), indent=1)
 for name, items in cohorts.items():

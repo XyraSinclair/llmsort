@@ -24,10 +24,9 @@ attributes. `ref.py` pools log magnitudes. Replica agreement (Spearman) is the r
 - The attributes are not one axis: first principal component 44 % (Manifund), 53 % (arXiv). Near-duplicates:
   re-read ~ intellectual density +.93 to +.95; high-status ~ low-status −.78 to −.94.
 
-Manifund application texts, their slugs, the judge prompts and the Manifund Jev trace are NOT in this repo
-(`research/data/manifund/` is local-only by design). Public files key Manifund items by opaque id `m00`–`m23`;
-the texts and slug map are in `llmsort-private/jev-highdim-2026-09-19`. The first pushed commit of this pack
-(55c63ff) keyed the Fable magnitudes by project slug; the next commit replaced them, history still has them.
+The Manifund half is public here by operator decision (2026-09-19 14:41 PT: the applications are public and the
+judgments are interesting to have alongside them): `manifund.json` carries each item's id `m00`–`m23`, its project
+slug and its text; the Fable magnitudes and Jev results are keyed by that id.
 
 ## Fixed across steps
 
@@ -80,4 +79,4 @@ rho = Spearman of the fitted latents against the Fable reference, mean over the 
 4. A LessWrong comment cohort; gemma as a second reference beside Fable.
 
 Replay: `gunzip -k trace-arxiv.jsonl.gz`, then `ref.py`, `step.py arxiv elab|bare`, `decomp.py arxiv
-[decomp10.json]`, `props_curve.py`, `prune.py` need no key. The Manifund half needs the private files.
+[decomp10.json]`, `props_curve.py`, `prune.py` need no key; the same with `manifund` after `gunzip -k trace-manifund.jsonl.gz`.

@@ -1,7 +1,3 @@
 trace-*.jsonl
 obs-*.jsonl
 __pycache__/
-# Manifund application texts stay out of the public repo (research/data/manifund is local-only):
-manifund.json
-ref/manifund-*.prompt.txt
-trace-manifund.jsonl.gz
