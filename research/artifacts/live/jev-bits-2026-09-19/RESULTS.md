@@ -3,7 +3,7 @@
 Judge: TypeSafe `jev-latest`, `POST /v1/systemone`. 4,660 calls, 52.8M input tokens, $2.22, p50 326 ms,
 p95 886 ms, 12 workers, no 429s, no retries. Executed 12:21–12:35 PT. Replay: `gunzip -k trace-*.jsonl.gz`,
 then `python3 run.py <cohort> [arms]` reads the trace and needs no key; `analyze.py <cohort> [--curves]`,
-`stack.py <cohort> <arm>`.
+`stack.py <cohort> <arm>`, `weight.py`.
 
 Question: llmsort reads a ratio PMF from chat models by logprob side channel. Jev returns a PMF as its
 contract, takes many isolated questions per call, and bills only input. Which question type ("field") and
@@ -100,6 +100,15 @@ reading; observations sharing a state are not independent, so bits do not add ac
    thermo); the graded read is worth +.3 bits against a true cardinal. rivers (true ratios mostly < 1.3):
    .44–.76, a knowledge ceiling; F choice and rate did best (.76, .74).
 
+9. **The PMF's spread is not usable precision** (`weight.py`). Inverse-variance weights from each score9
+   PMF against the unweighted fit, 24 resamples: arxiv W .620/.769/.817 vs .624/.779/.821 at 5/10/20 calls;
+   hn_comments U .678/.809/.872 vs .682/.806/.869. No gain at any budget.
+
+10. **The ratio read is cardinal but compressive.** countries, E[log ratio] against the true log ratio:
+    slope .60–.67 nat per nat at r .95 in P, W and F alike, with observations pinned at the ladder's end
+    rung (2.08 nat for 8×) while true gaps run past 4 nat. Latents from this ladder understate large ratios
+    by about 40 %; an AHP use needs a slope correction or wider rungs.
+
 ## What this says about the instrument to build
 
 The per-pair channel is 0.3–1.4 bits and fixed by the judge; no readout on the same state widens it.
@@ -113,8 +122,7 @@ rounds (n/2 calls) reach the plateau at n=40.
 
 - n=40 only, one seed for windows and labelings, two judged cohorts; rho against gemma is agreement.
   lw and hn_top have no committed gemma summary here and were not run.
-- Precision weighting from the PMF's variance, and fitting rate + choice + score9 jointly, are untested.
+- Fitting rate + choice + score9 jointly is untested.
 - Window size between 8 and 40, and how rounds-to-plateau grows with n, are untested; F's curve is
   confounded by chunking (a chunk is a contiguous block of one labeling's pairs).
-- Cardinal calibration (slope of E[log ratio] against true log ratio) is in the countries trace, unread.
 - Token costs per instrument are estimated (chars/4 + 12 per question, scaled to each call's billed total).
