@@ -741,3 +741,13 @@ supported" is a list one appends to, not a research question. Artifacts:
 `research/artifacts/live/fast-judge-2026-09-17/scorer-0.6b-v2/` (eval rows at 0 / 1,000 /
 1,953, bench, run log), `chain2.py` / `launch2.sh` (the unattended teacher-wait → train →
 bench chain); adapter on the judge host (`scorer-0.6b-v2/latest.pt`).
+
+## Executed 2026-09-19 (12:21–12:35 PT): the key exists — instrument × packing on Jev itself
+
+Pack: `research/artifacts/live/jev-bits-2026-09-19/RESULTS.md` (4,660 calls, $2.22). The P1 and window
+arms of the plan above ran on arxiv and hn_comments plus the countries/rivers truth sets, crossed with
+five question types. Jev sits at gemma-4-31b's own reliability on five of six criteria from any
+instrument; extra fields on one state add ≤ .05 bits per pair (shared error); k=8 windows reach the
+plateau in 20 concurrent calls where pairs need 156; the ratio ladder gains .05–.17 bits per observation
+on soft criteria and inverts on `concise` under "how many times greater" (rho −.6 to −.7), fixed by
+"how strong … relative to" wording (+.87). Halo (joint vs separate criteria) and lw/hn_top were not run.

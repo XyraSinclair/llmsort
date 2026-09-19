@@ -1,0 +1,3 @@
+trace-*.jsonl
+obs-*.jsonl
+__pycache__/
