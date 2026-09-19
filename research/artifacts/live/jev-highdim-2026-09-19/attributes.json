@@ -1,0 +1,50 @@
+[
+ {
+  "name": "self-containedness",
+  "text": "self-containedness: how completely the text stands on its own \u2014 a reader needs no outside context, links, or prior knowledge to fully grasp it. Reward closure and sufficiency; do not reward mere brevity."
+ },
+ {
+  "name": "high-status",
+  "text": "high-status: how much the text signals membership in an elite or prestigious in-group \u2014 credentials, powerful affiliations, insider confidence. Reward markers of social rank; do not reward the underlying quality of the work."
+ },
+ {
+  "name": "low-status",
+  "text": "low-status: how much the text signals marginality or lack of social standing \u2014 hedging, outsider framing, apology, scrappiness. Reward markers of low rank; do not reward genuine humility of a secure author."
+ },
+ {
+  "name": "poshness",
+  "text": "poshness: how upper-class, refined, or genteel the register feels \u2014 polished diction, understatement, cultivated taste. Reward refinement of manner; do not reward wealth of subject matter alone."
+ },
+ {
+  "name": "technical calmness",
+  "text": "technical calmness: how composed and unhurried the technical voice is \u2014 precise, load-bearing claims stated without hype or anxiety. Reward serene mastery; do not reward simplicity or lack of ambition."
+ },
+ {
+  "name": "earnestness",
+  "text": "earnestness: how sincerely and un-ironically the text means what it says \u2014 direct conviction, absence of hedging distance or knowing winks. Reward wholehearted sincerity; do not reward naivety."
+ },
+ {
+  "name": "intellectual density",
+  "text": "intellectual density: how many distinct load-bearing ideas per sentence \u2014 compression of real content, not padding. Reward idea-per-word richness; do not reward jargon or long words."
+ },
+ {
+  "name": "legibility to an outsider",
+  "text": "legibility to an outsider: how easily a smart reader from outside the field grasps the point. Reward clarity across the boundary; do not reward dumbing-down that loses the substance."
+ },
+ {
+  "name": "coiled potential energy",
+  "text": "coiled potential energy: how much latent, not-yet-released force the text implies \u2014 a sense that something big could unfold from it. Reward pent tension and upside; do not reward mere present size."
+ },
+ {
+  "name": "craftedness",
+  "text": "craftedness: how visibly the text was shaped with care \u2014 deliberate structure, chosen words, finished edges. Reward evident craft; do not reward ornament for its own sake."
+ },
+ {
+  "name": "institutional insiderness",
+  "text": "institutional insiderness: how much the author writes from inside an established institution's norms and machinery. Reward fluency in the institutional idiom; do not reward the institution's prestige itself."
+ },
+ {
+  "name": "how much it rewards a careful re-read",
+  "text": "how much it rewards a careful re-read: how much additional meaning a second, slower reading yields. Reward layered depth; do not reward obscurity that hides nothing."
+ }
+]
