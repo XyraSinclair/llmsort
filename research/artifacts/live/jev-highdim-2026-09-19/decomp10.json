@@ -1,0 +1,506 @@
+{
+ "self-containedness": [
+  [
+   "{x} defines every specialised term it uses.",
+   1
+  ],
+  [
+   "{x} can be fully understood without following any link or citation.",
+   1
+  ],
+  [
+   "{x} refers to earlier work, projects or discussions without explaining them.",
+   -1
+  ],
+  [
+   "{x} assumes the reader already knows the author or the project.",
+   -1
+  ],
+  [
+   "A reader who knows nothing else about the subject could summarise {x} accurately.",
+   1
+  ],
+  [
+   "{x} states the problem it addresses before discussing the solution.",
+   1
+  ],
+  [
+   "{x} depends on a figure, table, appendix or document that is not included.",
+   -1
+  ],
+  [
+   "{x} uses names of tools, datasets or organisations without saying what they are.",
+   -1
+  ],
+  [
+   "{x} says what was done, why, and what came of it, all within the text.",
+   1
+  ],
+  [
+   "{x} reads as one part of a larger conversation.",
+   -1
+  ]
+ ],
+ "high-status": [
+  [
+   "{x} names a prestigious university, company, lab or funder the author belongs to.",
+   1
+  ],
+  [
+   "{x} states credentials, titles or past achievements of the author.",
+   1
+  ],
+  [
+   "{x} is written with the confidence of someone who expects to be taken seriously.",
+   1
+  ],
+  [
+   "{x} mentions well-known people or organisations as collaborators or endorsers.",
+   1
+  ],
+  [
+   "{x} asks for the reader's patience, indulgence or benefit of the doubt.",
+   -1
+  ],
+  [
+   "{x} cites the author's own prior publications, funding or track record.",
+   1
+  ],
+  [
+   "{x} takes for granted that resources and collaborators are available.",
+   1
+  ],
+  [
+   "{x} comes from a large, well-funded team.",
+   1
+  ],
+  [
+   "{x} is written by someone early in their career or without a formal position.",
+   -1
+  ],
+  [
+   "{x} refers to large budgets, large-scale compute or large teams as routine.",
+   1
+  ]
+ ],
+ "low-status": [
+  [
+   "{x} apologises for itself or for the author's limitations.",
+   1
+  ],
+  [
+   "{x} presents the author as an outsider to the field or its institutions.",
+   1
+  ],
+  [
+   "{x} hedges its main claims heavily.",
+   1
+  ],
+  [
+   "{x} describes working with scarce money, time or equipment.",
+   1
+  ],
+  [
+   "{x} is written from an established position of authority.",
+   -1
+  ],
+  [
+   "{x} asks for a small amount of money or a modest resource.",
+   1
+  ],
+  [
+   "The author of {x} works alone or without institutional backing.",
+   1
+  ],
+  [
+   "{x} justifies why the author deserves attention at all.",
+   1
+  ],
+  [
+   "{x} uses informal, unpolished language.",
+   1
+  ],
+  [
+   "{x} reports results at a scale only a well-resourced group could reach.",
+   -1
+  ]
+ ],
+ "poshness": [
+  [
+   "{x} uses understatement rather than emphasis.",
+   1
+  ],
+  [
+   "{x} is written in polished, formal diction.",
+   1
+  ],
+  [
+   "{x} contains slang, exclamation marks or casual internet phrasing.",
+   -1
+  ],
+  [
+   "{x} sounds like it was written by someone educated at an old, elite institution.",
+   1
+  ],
+  [
+   "{x} contains spelling, grammar or punctuation slips.",
+   -1
+  ],
+  [
+   "{x} uses long, balanced sentences with subordinate clauses.",
+   1
+  ],
+  [
+   "{x} uses Latinate or literary vocabulary.",
+   1
+  ],
+  [
+   "{x} is blunt or pushy in its phrasing.",
+   -1
+  ],
+  [
+   "{x} shows restraint in describing its own merits.",
+   1
+  ],
+  [
+   "{x} uses capital letters, bold claims or marketing language for emphasis.",
+   -1
+  ]
+ ],
+ "technical calmness": [
+  [
+   "{x} uses promotional words such as revolutionary, groundbreaking or game-changing.",
+   -1
+  ],
+  [
+   "{x} states its technical claims precisely, with exact quantities or conditions.",
+   1
+  ],
+  [
+   "{x} conveys urgency or alarm.",
+   -1
+  ],
+  [
+   "{x} states its limitations plainly and without defensiveness.",
+   1
+  ],
+  [
+   "{x} sounds like an expert explaining something they have fully mastered.",
+   1
+  ],
+  [
+   "{x} describes its method step by step in an even tone.",
+   1
+  ],
+  [
+   "{x} uses superlatives about its own results.",
+   -1
+  ],
+  [
+   "{x} makes claims that go beyond the evidence it presents.",
+   -1
+  ],
+  [
+   "{x} uses measured verbs such as show, find or observe rather than dramatic ones.",
+   1
+  ],
+  [
+   "{x} warns of a crisis, a race or a closing window.",
+   -1
+  ]
+ ],
+ "earnestness": [
+  [
+   "{x} contains irony, sarcasm or jokes.",
+   -1
+  ],
+  [
+   "{x} states a personal conviction or motivation directly.",
+   1
+  ],
+  [
+   "{x} keeps a detached, impersonal distance from its subject.",
+   -1
+  ],
+  [
+   "The author of {x} plainly cares about the outcome described.",
+   1
+  ],
+  [
+   "{x} is written in the first person.",
+   1
+  ],
+  [
+   "{x} says why the work matters to the author personally.",
+   1
+  ],
+  [
+   "{x} makes a moral or heartfelt appeal.",
+   1
+  ],
+  [
+   "{x} is playful or self-mocking in tone.",
+   -1
+  ],
+  [
+   "{x} reads as a routine professional document written out of obligation.",
+   -1
+  ],
+  [
+   "{x} expresses hope, worry or passion openly.",
+   1
+  ]
+ ],
+ "intellectual density": [
+  [
+   "Nearly every sentence of {x} adds a new idea.",
+   1
+  ],
+  [
+   "{x} repeats the same point in different words.",
+   -1
+  ],
+  [
+   "{x} contains boilerplate or filler passages.",
+   -1
+  ],
+  [
+   "{x} could be cut to half its length without losing content.",
+   -1
+  ],
+  [
+   "{x} connects several distinct concepts into one argument.",
+   1
+  ],
+  [
+   "{x} introduces several technical concepts in a short space.",
+   1
+  ],
+  [
+   "Individual sentences in {x} each carry more than one claim.",
+   1
+  ],
+  [
+   "{x} spends many words on background that a reader already knows.",
+   -1
+  ],
+  [
+   "{x} is mostly lists of plans, logistics or budget lines.",
+   -1
+  ],
+  [
+   "Summarising {x} in two sentences would lose important ideas.",
+   1
+  ]
+ ],
+ "legibility to an outsider": [
+  [
+   "{x} uses acronyms or jargon without explaining them.",
+   -1
+  ],
+  [
+   "{x} states its main point in plain language within its first few sentences.",
+   1
+  ],
+  [
+   "{x} gives a concrete example or analogy.",
+   1
+  ],
+  [
+   "A smart reader from a different field could say what {x} is about and why it matters.",
+   1
+  ],
+  [
+   "{x} requires graduate-level background to follow.",
+   -1
+  ],
+  [
+   "{x} explains why the problem matters in everyday terms.",
+   1
+  ],
+  [
+   "{x} is dominated by mathematical notation or formal symbols.",
+   -1
+  ],
+  [
+   "{x} uses short sentences and common words.",
+   1
+  ],
+  [
+   "{x} names the field-specific methods it uses without saying what they do.",
+   -1
+  ],
+  [
+   "A newspaper reader could follow {x} from start to finish.",
+   1
+  ]
+ ],
+ "coiled potential energy": [
+  [
+   "{x} describes an early-stage idea whose consequences would be large if it works.",
+   1
+  ],
+  [
+   "{x} points to applications well beyond its immediate scope.",
+   1
+  ],
+  [
+   "{x} describes an incremental improvement to an existing approach.",
+   -1
+  ],
+  [
+   "{x} opens a new direction rather than completing an existing one.",
+   1
+  ],
+  [
+   "The most important results of the work in {x} are already delivered.",
+   -1
+  ],
+  [
+   "If the central idea of {x} is right, a whole field would change.",
+   1
+  ],
+  [
+   "{x} proposes a general principle or platform rather than a single result.",
+   1
+  ],
+  [
+   "{x} reports a careful measurement or benchmark of existing methods.",
+   -1
+  ],
+  [
+   "{x} hints at more than it states.",
+   1
+  ],
+  [
+   "{x} describes routine, well-understood work.",
+   -1
+  ]
+ ],
+ "craftedness": [
+  [
+   "{x} has a deliberate structure in which each part sets up the next.",
+   1
+  ],
+  [
+   "{x} reads as a first draft.",
+   -1
+  ],
+  [
+   "The word choices in {x} are precise and considered.",
+   1
+  ],
+  [
+   "{x} contains rambling or disorganised passages.",
+   -1
+  ],
+  [
+   "{x} ends cleanly rather than trailing off.",
+   1
+  ],
+  [
+   "{x} has a strong, deliberate opening sentence.",
+   1
+  ],
+  [
+   "{x} uses parallel structure or deliberate rhythm in its sentences.",
+   1
+  ],
+  [
+   "{x} contains typos, broken formatting or leftover template text.",
+   -1
+  ],
+  [
+   "Every paragraph of {x} has a clear job.",
+   1
+  ],
+  [
+   "{x} contains passages that seem pasted in from elsewhere.",
+   -1
+  ]
+ ],
+ "institutional insiderness": [
+  [
+   "{x} uses the standard vocabulary of grant proposals, academic papers or official reports.",
+   1
+  ],
+  [
+   "{x} follows a conventional institutional template or format.",
+   1
+  ],
+  [
+   "{x} refers to formal processes such as review, compliance, deliverables or reporting.",
+   1
+  ],
+  [
+   "{x} is written by an individual working outside any organisation.",
+   -1
+  ],
+  [
+   "{x} positions itself against established institutions.",
+   -1
+  ],
+  [
+   "{x} refers to departments, programmes, committees or official partners.",
+   1
+  ],
+  [
+   "{x} uses the passive, impersonal voice typical of official documents.",
+   1
+  ],
+  [
+   "{x} mentions budgets by line item, overheads or fiscal sponsors.",
+   1
+  ],
+  [
+   "{x} is written in a personal, idiosyncratic voice.",
+   -1
+  ],
+  [
+   "{x} cites standards, regulations or established frameworks.",
+   1
+  ]
+ ],
+ "how much it rewards a careful re-read": [
+  [
+   "{x} contains claims whose implications are not apparent on a first reading.",
+   1
+  ],
+  [
+   "Everything {x} has to say is obvious on a single quick read.",
+   -1
+  ],
+  [
+   "{x} contains subtle distinctions or qualifications that matter to its argument.",
+   1
+  ],
+  [
+   "{x} has several layers of argument that build on one another.",
+   1
+  ],
+  [
+   "{x} is mostly surface description with little underlying argument.",
+   -1
+  ],
+  [
+   "{x} makes a counter-intuitive claim.",
+   1
+  ],
+  [
+   "{x} packs important caveats into short phrases.",
+   1
+  ],
+  [
+   "{x} states a result whose significance depends on details of the setup.",
+   1
+  ],
+  [
+   "{x} says the same simple thing several times.",
+   -1
+  ],
+  [
+   "A skim of {x} would miss something that changes its meaning.",
+   1
+  ]
+ ]
+}
