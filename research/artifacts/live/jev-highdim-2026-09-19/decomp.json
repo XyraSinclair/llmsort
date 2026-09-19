@@ -1,0 +1,86 @@
+{
+ "self-containedness": [
+  ["{x} defines every specialised term it uses.", 1],
+  ["{x} can be fully understood without following any link or citation.", 1],
+  ["{x} refers to earlier work, projects or discussions without explaining them.", -1],
+  ["{x} assumes the reader already knows the author or the project.", -1],
+  ["A reader who knows nothing else about the subject could summarise {x} accurately.", 1]
+ ],
+ "high-status": [
+  ["{x} names a prestigious university, company, lab or funder the author belongs to.", 1],
+  ["{x} states credentials, titles or past achievements of the author.", 1],
+  ["{x} is written with the confidence of someone who expects to be taken seriously.", 1],
+  ["{x} mentions well-known people or organisations as collaborators or endorsers.", 1],
+  ["{x} asks for the reader's patience, indulgence or benefit of the doubt.", -1]
+ ],
+ "low-status": [
+  ["{x} apologises for itself or for the author's limitations.", 1],
+  ["{x} presents the author as an outsider to the field or its institutions.", 1],
+  ["{x} hedges its main claims heavily.", 1],
+  ["{x} describes working with scarce money, time or equipment.", 1],
+  ["{x} is written from an established position of authority.", -1]
+ ],
+ "poshness": [
+  ["{x} uses understatement rather than emphasis.", 1],
+  ["{x} is written in polished, formal diction.", 1],
+  ["{x} contains slang, exclamation marks or casual internet phrasing.", -1],
+  ["{x} sounds like it was written by someone educated at an old, elite institution.", 1],
+  ["{x} contains spelling, grammar or punctuation slips.", -1]
+ ],
+ "technical calmness": [
+  ["{x} uses promotional words such as revolutionary, groundbreaking or game-changing.", -1],
+  ["{x} states its technical claims precisely, with exact quantities or conditions.", 1],
+  ["{x} conveys urgency or alarm.", -1],
+  ["{x} states its limitations plainly and without defensiveness.", 1],
+  ["{x} sounds like an expert explaining something they have fully mastered.", 1]
+ ],
+ "earnestness": [
+  ["{x} contains irony, sarcasm or jokes.", -1],
+  ["{x} states a personal conviction or motivation directly.", 1],
+  ["{x} keeps a detached, impersonal distance from its subject.", -1],
+  ["The author of {x} plainly cares about the outcome described.", 1],
+  ["{x} is written in the first person.", 1]
+ ],
+ "intellectual density": [
+  ["Nearly every sentence of {x} adds a new idea.", 1],
+  ["{x} repeats the same point in different words.", -1],
+  ["{x} contains boilerplate or filler passages.", -1],
+  ["{x} could be cut to half its length without losing content.", -1],
+  ["{x} connects several distinct concepts into one argument.", 1]
+ ],
+ "legibility to an outsider": [
+  ["{x} uses acronyms or jargon without explaining them.", -1],
+  ["{x} states its main point in plain language within its first few sentences.", 1],
+  ["{x} gives a concrete example or analogy.", 1],
+  ["A smart reader from a different field could say what {x} is about and why it matters.", 1],
+  ["{x} requires graduate-level background to follow.", -1]
+ ],
+ "coiled potential energy": [
+  ["{x} describes an early-stage idea whose consequences would be large if it works.", 1],
+  ["{x} points to applications well beyond its immediate scope.", 1],
+  ["{x} describes an incremental improvement to an existing approach.", -1],
+  ["{x} opens a new direction rather than completing an existing one.", 1],
+  ["The most important results of the work in {x} are already delivered.", -1]
+ ],
+ "craftedness": [
+  ["{x} has a deliberate structure in which each part sets up the next.", 1],
+  ["{x} reads as a first draft.", -1],
+  ["The word choices in {x} are precise and considered.", 1],
+  ["{x} contains rambling or disorganised passages.", -1],
+  ["{x} ends cleanly rather than trailing off.", 1]
+ ],
+ "institutional insiderness": [
+  ["{x} uses the standard vocabulary of grant proposals, academic papers or official reports.", 1],
+  ["{x} follows a conventional institutional template or format.", 1],
+  ["{x} refers to formal processes such as review, compliance, deliverables or reporting.", 1],
+  ["{x} is written by an individual working outside any organisation.", -1],
+  ["{x} positions itself against established institutions.", -1]
+ ],
+ "how much it rewards a careful re-read": [
+  ["{x} contains claims whose implications are not apparent on a first reading.", 1],
+  ["Everything {x} has to say is obvious on a single quick read.", -1],
+  ["{x} contains subtle distinctions or qualifications that matter to its argument.", 1],
+  ["{x} has several layers of argument that build on one another.", 1],
+  ["{x} is mostly surface description with little underlying argument.", -1]
+ ]
+}
