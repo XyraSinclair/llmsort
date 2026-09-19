@@ -78,6 +78,15 @@ LessWrong was run after the findings below were first written; it is the out-of-
    it where it is strong (LessWrong). It is a first pass, not a replacement.
 8. **Still hard after every lever:** LessWrong low-status (.41–.51), arXiv poshness (.22–.50) and craftedness (.34–.51), Manifund earnestness
    (.32–.62) and poshness (.50–.63). Fable agrees with itself at .69–.94 on these, so the gap is Jev's.
+9. **Holonomy is nil; the error is bias, not noise** (`holonomy.py`, 16:55 PT, replay only). Inside a window the
+   56 ordered reads are one potential: after antisymmetrizing, a per-item score explains 97–99 % of the pairwise
+   variance on every cohort and instrument, and a triangle's cycle sum has .24–.28 of an edge's sd (independent
+   noise would give 1.73). So a call carries about eight numbers, not fifty-six; extra pairs or readouts of the
+   same window re-read them. The non-transitive part is mention order: L(x,y)+L(y,x) has .45–.73 of an edge's sd
+   and the noul leans yes by +.35 to +.80 sd. Across windows, latents fitted from one round agree with another
+   round at .79–.85 while agreeing with Fable at .59–.72: Jev is more consistent with itself than with the
+   reference, so a fourth round would buy little. Bits per call scale with items per state and distinct
+   questions, which is what findings 4–5 and jev-bits finding 5 already said.
 
 ## What to try next, in order
 
