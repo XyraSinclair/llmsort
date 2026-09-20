@@ -210,7 +210,7 @@ HTML = f"""<!doctype html><html lang="en"><meta charset="utf-8"><meta name="view
 <li>Larger windows. Step 2 says information per call scales with items per state; k = 8 was never varied here.</li></ol>
 
 <h2>Replay</h2>
-<p class="foot">Every Jev response is cached by request hash in <code>trace-&lt;cohort&gt;.jsonl.gz</code>; after <code>gunzip -k</code>, <code>ref.py</code>, <code>step.py</code>, <code>decomp.py</code>, <code>props_curve.py</code>, <code>prune.py</code>, <code>holonomy.py</code> and <code>report.py</code> run with no key and no spend. Item texts, the Fable prompts and raw magnitudes, and the propositions are in the same directory; <code>RESULTS.md</code> is the terse record. Limits: n = 24 per cohort, one window seed, one reference model, propositions by one author.</p>
+<p class="foot">Every Jev response is cached by request hash in <code>trace-&lt;cohort&gt;.jsonl.gz</code>; after <code>gunzip -k</code>, <code>ref.py</code>, <code>step.py</code>, <code>decomp.py</code>, <code>props_curve.py</code>, <code>prune.py</code>, <code>holonomy.py</code> and <code>report.py</code> run with no key and no spend. Item texts, the Fable prompts and raw magnitudes, and the propositions are in the same directory; this page is the record. Limits: n = 24 per cohort, one window seed, one reference model, propositions by one author.</p>
 </html>"""
 open(f"{HERE}/report.html", "w").write(HTML)
 print("report.html", len(HTML), "bytes;", {c: {k: round(v, 3) for k, v in MEANS[c].items() if v is not None} for c, _ in COH})
