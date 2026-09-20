@@ -46,3 +46,19 @@ for name in ("arxiv", "manifund", "lw"):
         if ins == "score9":
             worst = sorted(pa.items(), key=lambda kv: -kv[1][2])[:2]
             print(f"{'':9s} most curl: " + "; ".join(f"{a} {p[2]:.2f}" for a, p in worst))
+
+# Across windows: latents fitted from one round alone, against another round and against the Fable reference.
+sys.path.insert(0, HERE)
+from step import fit_pairs, fit_items, spearman
+print("\nround vs round / one round vs Fable (mean over attributes)")
+for name in ("arxiv", "manifund", "lw"):
+    obs = [json.loads(l) for l in open(f"{HERE}/obs-{name}-{var}.jsonl")]; ref = json.load(open(f"{HERE}/ref-{name}.json")); n = len(ref["ids"]); out = []
+    for ins in ("score9", "noul", "rate"):
+        rr, rf = [], []
+        for a in ref["attrs"]:
+            rows = [[o for o in obs if o["instr"] == ins and o["attr"] == a and f"|r{r}w" in o["call"]] for r in range(3)]
+            lat = [fit_items([(o["call"], o["i"], o["y"]) for o in R], n) if ins == "rate" else fit_pairs([(o["i"], o["j"], o["y"]) for o in R], n) for R in rows]
+            R0 = np.array([ref["ref"][a][i] for i in ref["ids"]])
+            rr.append(np.mean([spearman(lat[i], lat[j]) for i in range(3) for j in range(i)])); rf.append(np.mean([spearman(l, R0) for l in lat]))
+        out.append(f"{ins} {np.mean(rr):.2f} / {np.mean(rf):.2f}")
+    print(f"{name:9s} " + "   ".join(out))
