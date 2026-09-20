@@ -1,4 +1,4 @@
-"""One small Jev step on the hard attributes: python3 step.py <cohort> <variant> [rounds]
+"""One small Jev step on the hard attributes: python3 step.py <cohort> <variant> [rounds] [k]   (k = items per window, default 8; k != 8 suffixes the outputs -k<k>)
 
 Fixed for every variant: the same k=8 windows (seed 7; n=24 -> 3 windows a round), one call per (window, attribute),
 three instruments per call -- noul both mention orders, polarity-safe score9 ratio ladder both orders, 10-level rate.
@@ -48,12 +48,15 @@ def build(items, variant, rounds):
                     if x != y:
                         q[f"noul|{x}>{y}"] = {"type": "noul", "instructions": head + f"Item {x} is stronger on this attribute than item {y}."}
                         q[f"score9|{x}>{y}"] = {"type": "score", "instructions": head + f"On this attribute, how strong is item {x} relative to item {y}?", "criteria": U9}
-            reqs.append({"state": state, "questions": q, "tag": f"{variant}|{wtag}|a{ai}", "mem": mem, "attr": a["name"]})
+            stem = variant if K == 8 else f"{variant}k{K}"
+            reqs.append({"state": state, "questions": q, "tag": f"{stem}|{wtag}|a{ai}", "mem": mem, "attr": a["name"]})
     return reqs
 
 
 def main():
+    global K
     name, variant = sys.argv[1], sys.argv[2]; rounds = int(sys.argv[3]) if len(sys.argv) > 3 else 3
+    K = int(sys.argv[4]) if len(sys.argv) > 4 else 8; sfx = f"-k{K}" if K != 8 else ""
     items = json.load(open(f"{HERE}/{name}.json")); n = len(items)
     meta = json.load(open(f"{HERE}/ref-{name}.json")); ids = meta["ids"]
     assert ids == [it["id"] for it in items]
@@ -70,9 +73,9 @@ def main():
                 x, y = (int(v) for v in rest.split(">"))
                 val = clip_logit(ans["noul"]) if ins == "noul" else sum(p * math.log(r) for p, r in zip(pmf(ans, 9), R9))
                 obs.append({"attr": rq["attr"], "instr": ins, "call": rq["tag"], "i": mem[x - 1], "j": mem[y - 1], "y": val})
-    with open(f"{HERE}/obs-{name}-{variant}.jsonl", "w") as f:
+    with open(f"{HERE}/obs-{name}-{variant}{sfx}.jsonl", "w") as f:
         f.writelines(json.dumps(o) + "\n" for o in obs)
-    print(f"# {name} · {variant}: {len(reqs)} calls, {tok / 1e6:.2f}M tokens (${tok * 0.042 / 1e6:.3f}), p50 {np.median(lat):.0f} ms")
+    print(f"# {name} · {variant} k={K}: {len(reqs)} calls, {tok / 1e6:.2f}M tokens (${tok * 0.042 / 1e6:.3f}), p50 {np.median(lat):.0f} ms")
     print(f"{'attribute':38s} {'fable':>5s} | {'noul':>5s} {'score9':>6s} {'rate':>5s} {'all':>5s}")
     cols = {k: [] for k in ("noul", "score9", "rate", "all")}
     for a in meta["attrs"]:
@@ -86,7 +89,7 @@ def main():
             cols[k].append(r[k])
         print(f"{a:38s} {meta['reliability'][a][1]:5.2f} | {r['noul']:5.2f} {r['score9']:6.2f} {r['rate']:5.2f} {r['all']:5.2f}")
     print(f"{'mean':38s} {np.mean([v[1] for v in meta['reliability'].values()]):5.2f} | " + " ".join(f"{np.mean(cols[k]):{w}.2f}" for k, w in (("noul", 5), ("score9", 6), ("rate", 5), ("all", 5))))
-    json.dump({a: {k: round(cols[k][i], 3) for k in cols} for i, a in enumerate(meta["attrs"])}, open(f"{HERE}/rho-{name}-{variant}.json", "w"), indent=0)
+    json.dump({a: {k: round(cols[k][i], 3) for k in cols} for i, a in enumerate(meta["attrs"])}, open(f"{HERE}/rho-{name}-{variant}{sfx}.json", "w"), indent=0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,236 @@
+{
+  "items": [
+    {
+      "id": "item-0020",
+      "text": "COMMENT ON THE POST: Superintelligence this Christmas\n\nI'm fascinated by how people make sense of a world that seems to become more unpredictable and dangerous. Recently, a young friend wondered why I chose to have children even though I'm aware of AI. In LW culture, the \"feeling the AGI\" meme seems prominent, sometimes almost being a signal of being an insider or taking AI seriously. I think that's a shame. It implies that there is one \"correct\" way of feeling about AI developments. \"Things are going fast, we're losing control, therefore despair.\" Linking object level claims to an emotional conclusion of resignation and despair seems fundamentally off in important ways. This post does just that. I'm a proponent of the attitude Viktor Frankl describes in his \"Man's Search for Meaning\". It (almost) doesn't matter how dire circumstances are. As a matter of subjective experience, there are many ways to make meaning of them.\n\nAshe's comment resonates with me. While reading the post, I indeed experienced a sense of dread. I don't endorse this, however. Object level discourse is useful. Object level discourse implicitly entangled with personal conclusions, however, can end up being a Trojan horse. It can infect readers with particular emotions or narrow interpretations of reality. We should be aware of that.\n\nMy goal here is not to invalidate OP's personal interpretation, whatever it may be. I merely want to present one alternative. Taking AI seriously does not imply having to despair. Personally, I want to build a fulfilling life, regardless of the turns it might take soon or how long it ends up being. I want to cultivate meaningful relationships with my friends and family. I want to find the courage to do the right thing and the determination to persevere in the face of obstacles. I want to have a clear-eyed view of the world. When what I'm seeing scares me, I want to turn towards equanimity or hope.",
+      "rank": 1,
+      "latent_mean": 2.0429044123107567,
+      "latent_std": 0.3698498636002012,
+      "z_score": 1.5216834708532974,
+      "percentile": 0.9791666666666666
+    },
+    {
+      "id": "item-0015",
+      "text": "COMMENT ON THE POST: Jan_Kulveit's Shortform\n\n***Merchants of Cope (crosspost from twitter)*** or how to be profitably wrong about AI  \n  \n*tldr: AI takeoff is generating cognitive dissonance at scale. Relieving it is profitable. Expect merchants of cope*  \n  \nAs far as I understand memetics, widespread cognitive dissonance [creates something like a pond of free energy, useable by cultural evolution](https://www.lesswrong.com/posts/XFDjzKXZqKdvZ2QKL/the-memetics-of-ai-successionism).\n\nAI takeoff causes large amounts of cognitive dissonance: as humans, we mostly [want the world to be \"normal\"](https://en.wikipedia.org/wiki/Normalcy_bias), legible, and predictable, with limited amount of novelty. The evidence that it won't is is literally at everyone's fingertips: open another tab and talk with an AI.  \n  \nSo there is a demand ... for stories, explanations, expert witnesses. Explain it away!  \n  \nWhich makes a lot of what we see in the information space fairly predictable: it is not ex ante clear which professor from which famous school will synthesize the memes, but someone will.  \n  \nYou can get famous and influential, invited talks, nodding, status in some circles,... being a merchant of cope pays, even if not directly in money. It doesn't require bad faith: the best merchant believes their goods. Also comforting story can be true, but notice the evolutionary advantage does not depend on truth.  \n  \nAlso: in a competitive memetic landscape and competitive attention economy, you can expect diversity, an ecology of copes, optimized to bridge specific gaps between what people see and what they can afford to believe. It's a bubble.\" \"Transformative, but a normal technology.\" \"Transformative, but at least my property rights will hold.\" Etc etc, you can try to predict new ones!",
+      "rank": 2,
+      "latent_mean": 1.8505290490588044,
+      "latent_std": 0.41469994840604957,
+      "z_score": 1.2596834873822456,
+      "percentile": 0.9375
+    },
+    {
+      "id": "item-0014",
+      "text": "COMMENT ON THE POST: Julian Bradshaw's Shortform\n\nAny such term will have *some* connotations.\n\n\"Crew\" suggests mutual loyalty due to shared fate: if you're on the same crew, you pull together for the sake of the ship, because you all depend on it. A crew survives or dies together.\n\n\"Team\" suggests the existence of rival teams, and a game in which one group is trying to defeat the other. A team wins or loses together against rivals.\n\n\"Hive\" suggests that the individual is subsumed in a higher level of organization, which may not even be visible to the individual.\n\n\"Conspiracy\" suggests an in-group that conceals what they're doing from powers who would prevent it.",
+      "rank": 3,
+      "latent_mean": 1.7899549378364386,
+      "latent_std": 0.32476384764464233,
+      "z_score": 1.177186353285879,
+      "percentile": 0.8958333333333334
+    },
+    {
+      "id": "item-0003",
+      "text": "COMMENT ON THE POST: The Three Kinds of Evil\n\nThe categorization is helpful in identifying an effective method for preventing evil. Of course, most people aren't in a position to stop the greatest harms, but understanding why you, someone you are close to, or have influence over is acting in a harmful way is very helpful in redirecting those actions and potentially mitigating harm. Convincing George Wallace that African-Americans and Euro-Americans are equal would have been a fruitless endeavor, but making segregation politically poisonous would be, and the reverse is likely true for James Eastland. (This is discussed earlier in the post.)\n\nSocial evil is a form of instrumental evil; I cannot think of an instrumental evil that is not to the ends of power or wealth. This was discussed in the introduction to the post.\n\nYou can look at my methods and analysis in the \"Evil People and Their Motivations\" section.",
+      "rank": 4,
+      "latent_mean": 1.5962479456929115,
+      "latent_std": 0.4330645560667327,
+      "z_score": 0.9133727969035951,
+      "percentile": 0.8541666666666666
+    },
+    {
+      "id": "item-0010",
+      "text": "COMMENT ON THE POST: Burny's Shortform\n\nInteresting that Judea Pearl is AGI takeover scenarios and existential risk believer\n\nIn his book he is adding:  \n\"A word about the dangers of AGI (Artificial General Intelligence, or \"super-intelligent AI systems\"), which have become the target of general public concerns in just the past two weeks. I remain convinced that AGI is achievable, that the road to AGI goes through causal inference, and that the dangers of AGI taking over and enslaving humanity are real. At the same time, I also believe that causal inference may hold the key to controlling AGI systems so as to secure the survival of the human species.\"  \n  \n[https://x.com/yudapearl/status/2100703815091785834](https://x.com/yudapearl/status/2100703815091785834)",
+      "rank": 5,
+      "latent_mean": 1.564962168608325,
+      "latent_std": 0.3697891448479722,
+      "z_score": 0.8707640504379404,
+      "percentile": 0.8125
+    },
+    {
+      "id": "item-0006",
+      "text": "COMMENT ON THE POST: Lukas_Gloor's Shortform\n\n\\[Are security researchers becoming polarized against AI risk concerns?\\]  \n  \nI noticed a bunch of accounts on X with \"security\" in their bios saying stuff like AI risks are overblown and the real problem is companies have bad security, etc. These accounts tend to be very dismissive of AI risks while saying sensible things about security. It might be a coordinated campaign and not representative of the security community as a whole, or it might be that AI risk discourse has struck a particular nerve and now there's a risk that security researchers form an identity of being anti AI risk concerns?  \n  \nI don't know what's going on, but I'd like to draw attention to the possible trend, and I'd feel more reassured if someone with a lot of credentials in security would say something like \"both are true, companies suck at security but also AI risk would be worth taking seriously even if all companies everywhere in the world suddenly stopped sucking at security.\"",
+      "rank": 6,
+      "latent_mean": 1.5010589857859251,
+      "latent_std": 0.32479841704628565,
+      "z_score": 0.7837329849200096,
+      "percentile": 0.7708333333333334
+    },
+    {
+      "id": "item-0023",
+      "text": "COMMENT ON THE POST: rvnnt's Shortform\n\nPossibly important and neglected: What is the plan for the following scenario?\n\n- LLM hyperscalers (OpenAI, Anthropic, etc.) go bankrupt[^1]\n- The lesson decisionmakers and the public take away from that is something like \"See? All that AI stuff was just hype, AI couldn't even make a profit. Stories of existential risks were nonsense (or a marketing strategy) all along.\"\n- The political will to pass any kind of regulation (let alone do international coordination) effectively dies.\n- AGI research continues. (Possibly: lots of researchers looking for a more compute-efficient (and thus dangerous) paradigm.) \n\nSome first-pass thoughts:\n- Probably a good idea to sometimes try to clearly communicate that LLMs are just _one approach_ to building powerful AIs. Beware leading people to equate \"AGI\" with \"what OpenAI/Anthropic/GDM do\". \n- OTOH, don't go fearmongering about possible more efficient/dangerous paradigms; the historical lesson seems to be that warning about world-endingly-dangerous thing X leads lots of Darwin-Award-aspirants going and working on building X.\n\n[^1]: I haven't looked into it much, but IIUC, they have hundreds of billions in purchase commitments (chips/infrastructure), and their continued existence depends on being able to scale up their profits fast enough; which seems somewhat precarious?",
+      "rank": 7,
+      "latent_mean": 1.328650556339505,
+      "latent_std": 0.4162133179336939,
+      "z_score": 0.5489263813006469,
+      "percentile": 0.7291666666666666
+    },
+    {
+      "id": "item-0001",
+      "text": "COMMENT ON THE POST: The Preference Cascade Is Only Getting Started\n\n> nearly two-thirds of Americans now say there is at least a moderate risk that AI will destroy humanity.\r\n\r\nI am suspicious of this poll, though I don't think it's inaccurate per se. I suspect that when pollsters ask \"do you believe there's a risk of AI destroying humanity\", many of the respondents are actually answering \"Do you think AI companies are evil, and that this risk-claim, which offers an apparent argument-as-soldier for their evil-ness, is one you can socially get away with endorsing?\" I don't think they believe AI can kill them for real. Not in the same sense that, say, a Cold War civilian believed nukes could kill them for real.\r\n\r\nI have no idea how one could get this information, but: I'd like to know what proportion of *new* \"this is a real risk\" respondents -- those that supposedly *changed their minds* on recent news -- previously either had no strong opinions on AI, or agreed with only a subset of AI concerns, vs. previously agreed to all then-socially-acceptable negative claims. If it's mostly the latter, then I don't think there's been a real shift in the beliefs of the public, only a shift in the Overton window.\r\n\r\n> with only a small partisan split.\r\n\r\nThis part, on the other hand, is legitimately encouraging. I really hope that lasts.",
+      "rank": 8,
+      "latent_mean": 1.2780636595483026,
+      "latent_std": 0.41459163919764647,
+      "z_score": 0.480031040966508,
+      "percentile": 0.6875
+    },
+    {
+      "id": "item-0009",
+      "text": "COMMENT ON THE POST: Richard Ngo's Shortform\n\nYou could be correct that takeover-capable AI will take longer than short timelines. You are definitely correct that there's a bit of groupthink going on around short timelines in the prosaic alignment and developer crowd.\n\nBut you could also easily be wrong. And you are entirely missing the fact that there's some groupthink going on around longer timelines in the agent foundations crowd.\n\nEveryone is very tempted to sip a little hopium of some sort. The PA folks are hoping maybe alignment is so easy we can do it at a dead run. And the AF folks are hoping LLMs stall out just short of transformative so they have longer to work on alignment if it is, as they tend to believe, quite tricky.\n\nI've written about the empirical evidence for hopium and groupthink in [Motivated reasoning, confirmation bias, and AI risk theory](https://www.lesswrong.com/posts/QpgmEhBvJQxAfFMP2/motivated-reasoning-confirmation-bias-and-ai-risk-theory). I hope you'll read it, at least the intro/summary and section on group biases in alignment thinking.\n\nSo by all means lay plans for the eventuality of longer timelines and difficult alignment. But please don't go projecting confidence when we need to also prepare for short timelines.\n\nYou accuse short timeliners of making decisions based on an emotional stance. I think if you can look at this objectively you will see that your projection of longer timelines is also exactly that. You have reasons. But there are equally good reasons to expect fairly short timelines. The choice of beliefs comes down to preference. There are different merits to the positions that matter, but they aren't enough to confidently predict timelines or alignment difficulty.  \n  \nThe rational move is to say we don't know, and deal with that unfortunate situation as best we can.\n\nI'm working on a more concise post on this point; for now the motivated reasoning post is my attempt to explain current unfortunate epistemic situation.",
+      "rank": 9,
+      "latent_mean": 1.2507727683184322,
+      "latent_std": 0.3248675448145864,
+      "z_score": 0.44286301211776324,
+      "percentile": 0.6458333333333334
+    },
+    {
+      "id": "item-0007",
+      "text": "COMMENT ON THE POST: Richard Ngo's Shortform\n\nTo elaborate on the scientific research part:\n\nAI are at the frontier of math research, solving Millennium Prize problems and other famous problems on a regular bases. AI is bordering on superhuman at math. Where are all the science breakthroughs?\n\nI think current AI models are only superhuman at one half of math. They're really good at chugging along, finding proofs using mostly existing techniques (especially if you consider that existing techniques include private data from chats with mathematicians). But that domain-specific proof-finding ability does not come with an accompanying integrative advancement of the field of mathematics.\n\n[Terrance Tao complains](https://mathstodon.xyz/@tao/117207855800042681) that AI math proofs are huge, complicated artefacts that are impossible to verify by humans. They do nothing to actually advance the field of mathematics conceptually. \n\nWhy? Because AI is not doing the integrative reasoning that would find new connections and develop new insights, the kind of work where new techniques and new discoveries are made along the way that push the field forward, like Isaac Newton inventing calculus in order to solve physics problems. The AI takes care of the busywork of finding technically-correct proofs, but to advance the field, the insight still needs to be supplied by mathematicians.\n\nThe same thing is true in science, but AI is even less helpful because in most domains the busywork cannot yet be carried out by machines, since it happens mostly in the real world. Either way, the insight is being supplied by humans, because AI mostly can't generate meaningful insight, as it lacks the integrative reasoning needed to do so.",
+      "rank": 10,
+      "latent_mean": 1.2128288478284204,
+      "latent_std": 0.43306455606673283,
+      "z_score": 0.39118640252929965,
+      "percentile": 0.6041666666666666
+    },
+    {
+      "id": "item-0019",
+      "text": "COMMENT ON THE POST: Richard Ngo's Shortform\n\n> What happened to software engineering this year will happen to many more domains\n\nThis is interesting because I would say that I have been surprised at the seeming lack of transformation of the software engineering industry this year? I think that in January/February 2026, there was a widespread expectation that we would see major layoffs this year, which don't seem to have materialised (of course there have been layoffs, but they don't seem to have been much greater than in previous years, and below the highs of 2022-23). I still don't really have a good explanation to reconcile the reported transformation of the day-to-day work of SWEs with the fact that the industry doesn't seem to be changing much, except for companies being surprisingly slow to cut headcount. They seem to have been slower to cut headcount in response to this than they were in responding to the Fed raising interest rates in 2022-23, for example.",
+      "rank": 11,
+      "latent_mean": 1.0237825564964347,
+      "latent_std": 0.3535533904496427,
+      "z_score": 0.1337203509155348,
+      "percentile": 0.5625
+    },
+    {
+      "id": "item-0012",
+      "text": "COMMENT ON THE POST: Koopman Theory and Metaethics\n\nI'm not super dialed in on metaethics but a lot of the ideas presented make sense. I could be convinced that we could model reality as a dynamical system based off observables and get something useful out of that. The main leap for me is whether the eigenfunctions could be at all interpretable given a dynamical system as complicated as *reality*.\n\n> If you take your favorite ethics, define everything about it (including, say, what species it runs on and its starting population), and then type that into a supercomputer, you could get out an actual number corresponding to how long that ethics lasts!\n\nLike, back in the 1950s when grammar-based AIs were the paradigm, we got some useful things out of that like compilers. However, it didn't work well for image processing and natural language because the difficulty was in rigorously defining these tasks in the first place. It feels like this suffers from a similar issue. Defining *everything* about a ethical system seems hard. Current AI sidesteps this problem entirely with training.",
+      "rank": 12,
+      "latent_mean": 1.0224509276386422,
+      "latent_std": 0.4145916391976466,
+      "z_score": 0.13190677805031156,
+      "percentile": 0.5208333333333334
+    },
+    {
+      "id": "item-0008",
+      "text": "COMMENT ON THE POST: Grantmakers aren’t afraid to die\n\nI think I broadly agree with this. e.g. I agree that the amount of \"force\" needed gets greater as the timelines get shorter. A rocket can be steered with only a tiny amount of delta-vee very early in the journey, but the amount required gets greater closer to the ending.  \n\nI also think the grantmakers believe in the possibility but not imminence of extinction risk, and I wanted to call that out specifically. I think having that attention focused on on \"use a different strategy now that the game is different\" may help.\n\nIndependently, I think it's valuable to the incoming recruits to increase transparency (which at the moment they definitely *do not* have) and I'm in the fortunate position of being able to go back to industry if everyone hates me for writing this.",
+      "rank": 13,
+      "latent_mean": 0.8287439357019266,
+      "latent_std": 0.3698498636002012,
+      "z_score": -0.13190677805031156,
+      "percentile": 0.4791666666666667
+    },
+    {
+      "id": "item-0017",
+      "text": "COMMENT ON THE POST: If Anyone Builds It, Everyone Dies: One Year Closer\n\nOn politics, the recent tweets by Trump against slowing down AI and against effective altruism are a pretty bad sign. I think you probably should've mentioned it in the post. If the next two years are critical, then we've just failed a pretty important saving throw.\n\nWhat surprised me, personally, abot the huggingface hack was not the hacking (I had been waiting for a hack since I read [this post about how AI found 12 of 12 OpenSSL 0-days in 2025](https://www.lesswrong.com/posts/7aJwgbMEiKq5egQbd/ai-found-12-of-12-openssl-zero-days-while-curl-cancelled-its), and cyber capabilities were getting more and more extreme), but the fact that it involved a thousand agents coordinating. Similarly, the Navier-Stokes solution had 10k agents.\n\nClearly, many many agents can work together, even when there are some individual incentives against cooperation - which I really didn't expect so soon.  \n  \nThis is major negative update on my intuitive-vibes-timeline! Agents run in parallel, so the number scales directly with compute. It also doesn't require a bigger training run to add more agents. Given the recent investments in data centers, that is particularly bad!",
+      "rank": 14,
+      "latent_mean": 0.7036008271864328,
+      "latent_std": 0.3247638476446423,
+      "z_score": -0.30234176415419195,
+      "percentile": 0.4375
+    },
+    {
+      "id": "item-0022",
+      "text": "COMMENT ON THE POST: Pretraining data, not verifiability, is why LLMs are especially good at math (and coding)\n\nLove this: \"In many fields, the research literature is kinda a dumpster fire. There’s plenty of true and valuable stuff, stirred into a sea of such falsehoods and confused ideas that reading them will make you stupider.\"  \n  \nMeanwhile, I am thinking to myself: \"Hmmmmm. . . Steven is standing out from the pack again, with very different ideas, as usual, but it is Steven Byrnes, who seems to tend to be correct on most things within this domain, so perhaps he is right about this, as well.\"  \n  \nI think what you are implying here is that the \"radical new AI paradigms\" research literature is more akin to a \"dumpster fire,\" similar to the research literature within other fields such as, er, psy . . . you know, other fields. I could see this. This kind of makes sense. So, maybe the LLM paradigm will hit a wall in the automated AI research phase, because it will not be able to parse the relevant literature in a truly intelligent, truth-seeking way that allows it to be productive. I hope so. Thanks!!",
+      "rank": 15,
+      "latent_mean": 0.573797018054269,
+      "latent_std": 0.43306455606673283,
+      "z_score": -0.47912425476119214,
+      "percentile": 0.3958333333333333
+    },
+    {
+      "id": "item-0004",
+      "text": "COMMENT ON THE POST: Brockman says HuggingFace incident model had not been alignment-trained; ETA: roon clarifies that it was\n\nYes, agreed on all points, and more you haven't mentioned but on which we probably agree. I've read the sequence posts you link, most recently while writing [Motivated reasoning, confirmation bias, and AI risk theory](https://www.lesswrong.com/posts/QpgmEhBvJQxAfFMP2/motivated-reasoning-confirmation-bias-and-ai-risk-theory). That's my attempt to understand and summarize the empirical literature on those biases, and apply them to the whole general project of good epistemics. You might enjoy it, at least the intro which summarizes conclusions, leaving the lengthy body as reference.  \n  \nI haven't read the humility argument for honesty, but after skimming it, I agree with the main argument and would add another: if you're not meticulously honest, you allow your own motivated reasoning and confirmation bias to confuse you in many ways, including but not limited to the ones covered in the other posts you linked.",
+      "rank": 16,
+      "latent_mean": 0.5724653895105013,
+      "latent_std": 0.41469994840604946,
+      "z_score": -0.4809378271987385,
+      "percentile": 0.3541666666666667
+    },
+    {
+      "id": "item-0000",
+      "text": "COMMENT ON THE POST: Pretraining data, not verifiability, is why LLMs are especially good at math (and coding)\n\nI’m talking about proof-based advanced math in natural language. This activity has never been “verifiable” until Lean-autoformalization became possible. And I claim that the models were already remarkably good at proof-based advanced math in natural language *before* Lean-autoformalization became possible.\n\nIndeed, it seems pretty implausible to me to say that the order of events during training / recent history is that *first* the models become capable of doing Lean-autoformalization of natural-language proofs, and *only then* the models become good at natural-language proofs, thanks to RLVR-via-autoformalization. Is that what you think? To me, that really seems like the wrong order. Lean-autoformalization of a natural-language proof is hard, and seems to require access to a model that is *already* very good at natural-language proofs.",
+      "rank": 17,
+      "latent_mean": 0.5125570933208053,
+      "latent_std": 0.4330645560667329,
+      "z_score": -0.5625281740402015,
+      "percentile": 0.3125
+    },
+    {
+      "id": "item-0013",
+      "text": "COMMENT ON THE POST: Pretraining data, not verifiability, is why LLMs are especially good at math (and coding)\n\n> “easy to verify” only matters for the RL part of LLM training pipelines\n\nI think easy to verify matters for *execution*. I don't see an argument in this post against this (which is fine if you just want to argue against some views).\n\n> LLMs are especially good at math because almost everything in the math literature is correct.\n\nOkay but the reason math training data has low % of false statements is because math is easy to verify. So even if this were true, it would still be downstream of verifiability.\n\nI suspect it's also not true though. If we got rid of the bottom 95% of philosophy papers plus all papers on topic X, I doubt an LLM trained on that corpus could reproduce the good papers on topic X. (Do you think it could?)",
+      "rank": 18,
+      "latent_mean": 0.44599065209943867,
+      "latent_std": 0.4330645560667329,
+      "z_score": -0.6531863862192905,
+      "percentile": 0.2708333333333333
+    },
+    {
+      "id": "item-0016",
+      "text": "COMMENT ON THE POST: Grantmakers aren’t afraid to die\n\n> networks and signals\n\nEA itself is the easiest example here. starting from the common sense position of \"do more good per dollar\" to regularly featuring in conspiracy theory podcasts. for better or worse, reputation is influenced by affiliation, so funders have to be prudent about the affiliations that they choose.\n\nperhaps more concretely in the current AI R&D context is privileged access to confidential information (e.g., provided by the frontier labs). part of the reason to join a particular funding network is to gain such access. if the network develops a reputation for leaking confidential information the access can quickly be lost. note that the reputation doesn't even have to be deserved, so that appearances and subtle signals matter.\n\nmore generally, there is an interesting parallel with the AI alignment problem. many aspects of misalignment that cause concern have a counterpart in the context of alignment with grant maker goals: knowing deception, reward hacking, Goodharting, sandbagging, sycophancy, scheming, oversight subversion, confident misgeneralization, hallucination, gullibility, etc, etc. interesting because if we could make progress on these misalignments in humans, perhaps we could transfer some of the lessons to AI.",
+      "rank": 19,
+      "latent_mean": 0.4147048749789069,
+      "latent_std": 0.36978914484797226,
+      "z_score": -0.6957951327338999,
+      "percentile": 0.22916666666666666
+    },
+    {
+      "id": "item-0002",
+      "text": "COMMENT ON THE POST: Pretraining data, not verifiability, is why LLMs are especially good at math (and coding)\n\n(My bad for not reading the footnotes!)\n\n> but my guess is that there’s some hypothetical philosophy pretraining corpus for which LLMs (post-RLAIF) could do philosophy at vaguely the same level that they’ve been doing math, which is “a very impressive level” in an everyday sense, and certainly a much higher level than how they do at philosophy today. As for “topic X”, no I don’t think LLMs can invent new concepts in the way that humans can, in math or philosophy, regardless of pretraining corpus, but that’s a different topic that I’m putting aside for this post, see footnote 1.\n\nRight, you think that's a qualitatively different category. To me, coming up with a new concept/field is just the central example of progress-on-stuff-that-can't-be-easily-verified, and of a piece with the kind of thing you need to make progress on almost anything. So [doing good philosophy, but only in a known field] feels like an unnatural category (which isn't a critique, I'm just explaining why this view is odd to me). Like where is the line between doing good philosophy and just summarizing the now-very-high-quality-literature?\n\nSo thinking about this, ummmmm so I think it would be able to answer all commonly asked questions correctly plus stuff that takes 1-2 reasoning steps... which probably does look like what you described, like it would look like pretty good philosophy to most people (I doubt many philosophy arguments need more than 1-2 steps), and certainly way way better than what they say now....... so it doesn't look like we disagree much at all there.\n\n... but I still think LLM limitations are very much exactly about verifiability. I would just say the reason LLMs are better at judging math is that math is easier to verify in an objective sense (and figuring out what exactly that means and how humans verify non-math stuff would be an extremely important step toward building AGI, so umm hopefully no one does it anytime soon)",
+      "rank": 20,
+      "latent_mean": 0.38475072672228317,
+      "latent_std": 0.3535533904496427,
+      "z_score": -0.7365903063749571,
+      "percentile": 0.1875
+    },
+    {
+      "id": "item-0021",
+      "text": "COMMENT ON THE POST: Brendan Long's Shortform\n\nMATS mentors should really reconsider requiring (or putting any value on the results of) the \"AI Assisted Coding Assessment\". CodeSignal's \"AI coding assistant\" is [a 2024-era chat bot (GPT-4o) and a text editor](https://support.codesignal.com/hc/en-us/articles/16957386089879-Evaluate-test-takers-AI-skills-with-Cosmo). Using this efficiently is a *very* different skill from both pre-AI coding and using modern reasoning models[^xk3r2s00unr] with standard tooling[^uceekteqz9s].\n\n[^xk3r2s00unr]: The first net-helpful coding agents came out sometime in 2025, and the earliest that can be used anything remotely like modern models was Opus 4.5 in November of that year. GPT-4o isn't even a reasoning model. \n\n[^uceekteqz9s]: Besides not giving the AI write-access to the file system, CodeSignal doesn't even provide a diff viewer!",
+      "rank": 21,
+      "latent_mean": 0.3834190978644908,
+      "latent_std": 0.41459163919764663,
+      "z_score": -0.7384038792401802,
+      "percentile": 0.14583333333333334
+    },
+    {
+      "id": "item-0018",
+      "text": "COMMENT ON THE POST: Thomas Kwa's Shortform\n\nNote I also don't claim that the solution to alignment will be alignment evals or anything that looks like them at all. Also my median conditional on survival is that we muddle through with just enough engineering understanding and are only able to write eliezer's textbook from the future after the fact.\n\nI just think that if we solve alignment and alignment turns out to be hard, we'll be much better at measuring alignment than we are currently. For example with confessions, adversarially constructed evals, production monitoring, interp stuff, and like a dozen other plausible things. But even with regular alignment evals, Anthropic was [able to turn a reconstruction of the HF incident](https://www.lesswrong.com/posts/HE3Styo9vpk7m8zi4/evhub-s-shortform?commentId=fcqxeya5TCnbx5YBa) into a large advance on the SoTA of alignment evals.",
+      "rank": 22,
+      "latent_mean": 0.31685265760084097,
+      "latent_std": 0.41469994840604957,
+      "z_score": -0.8290620901149348,
+      "percentile": 0.10416666666666667
+    },
+    {
+      "id": "item-0011",
+      "text": "COMMENT ON THE POST: Richard Ngo's Shortform\n\nUnfortunately I do not. Jan had an internal presentation at DeepMind around 2019, I might ask him for the slides. My recollection is that in it he aggregated a few different methods, and ended up with 6-ish year timelines, but I could wrong (e.g. maybe the 6-ish year timelines were just one method rather than the all-things-considered prediction, or maybe they were actually 8-year timelines, or...).\n\nI guess there's another question which is: how did the short timelines vibes actually propagate into the community? There was Daniel's What 2026 Looks Like; there was the Big Blob of Compute doc (though I don't think that had dates?) Maybe it was in-person conversations? (From [Daniel's discussion with Ege and Ajeya](https://www.lesswrong.com/posts/K2D45BNxnZjdpSX2j/ai-timelines), he makes this prediction: \"Median Estimate for when 99% of currently fully remote jobs will be automatable: 4 years\". That would be November 2027, maybe with a bit of leeway for rounding.)\n\nPartly I'm indexing on the mental recollection that people had shorter timelines than Shane, and Shane's were always around 2027. But this is all messy and it would be really nice if we had more evidence about Dario's views in particular, since I think they were pretty socially influential in illegible ways.",
+      "rank": 23,
+      "latent_mean": 0.0013316288577923663,
+      "latent_std": 0.3535533904496428,
+      "z_score": -1.258776700749252,
+      "percentile": 0.0625
+    },
+    {
+      "id": "item-0005",
+      "text": "COMMENT ON THE POST: Dalcy's Shortform\n\nI thought it was pretty hard to come by relatively time-bounded (on the order of few hours max) exercises for the skill of coming up with good concepts,[^7b7rfdhqrac] but it seems like stuff from recreational mathematics is potentially a good source for them, eg \"find a simple rule for deciding the winner in a game of Green Hackenbush,\" which will involve inventing (as long as you're not already spoiled!) a bunch of new concepts like how to chunk a given game graph. GPT[^2u7msu6sezr] also recommends Domineering, Chomp, Sprouts.\n\nThough I haven't tried them yet[^3hfwv7r0m5], this is possibly better than 1) \\[learning new boardgame\\] since there is a pretty object natural / objective answer / concept to be discovered for the task (and also easier to evaluate / credit assign success, compared to winning a boardgame), 2) other suggestions I heard like Baba is You which seemed less about concept formation, and 3) much more time-bounded than various versions of \"reinvent a field X from scratch\".\n\n[^7b7rfdhqrac]: For purposes like, 1) training your object-level concept formation skill / taste by drilling such exercises, 2) doing it more deliberately by explicitly recording thought traces via introspecting while doing such exercises and reflecting on the cognitive strategies that come up, and 3) the same as 2 but for getting data on agent foundations-ish questions, and 4) doing all of these myself, or as exercises in workshops or research intensives for others. \n\n[^2u7msu6sezr]: Be careful with getting spoiled though, eg GPT is sooooo eager to explain & give hints to the exercise at every opportunity despite strongly worded instructions against it. I recommend just asking for problem description and nothing else. \n\n[^3hfwv7r0m5]: I intend to, though!",
+      "rank": 24,
+      "latent_mean": 0.0,
+      "latent_std": 0.4145916391976466,
+      "z_score": -1.2605902736144752,
+      "percentile": 0.020833333333333332
+    }
+  ],
+  "gauge": {
+    "subsets_with_repeats": 4,
+    "presentation_pairs": 4,
+    "entity_pairs_compared": 112,
+    "direction_flips": 9,
+    "flip_rate": 0.08035714285714286
+  },
+  "calls": 8,
+  "calls_ok": 8,
+  "calls_malformed": 0,
+  "calls_errored": 0,
+  "components": 1,
+  "input_tokens": 21178,
+  "output_tokens": 72,
+  "cost_nanodollars": 1307940,
+  "model_used": "google/gemma-4-31b-it"
+}

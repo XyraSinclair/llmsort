@@ -1,0 +1,74 @@
+{
+"self-containedness": {
+"noul": 0.708,
+"score9": 0.802,
+"rate": 0.7,
+"all": 0.742
+},
+"high-status": {
+"noul": 0.763,
+"score9": 0.73,
+"rate": 0.769,
+"all": 0.765
+},
+"low-status": {
+"noul": 0.788,
+"score9": 0.806,
+"rate": 0.771,
+"all": 0.8
+},
+"poshness": {
+"noul": 0.62,
+"score9": 0.568,
+"rate": 0.517,
+"all": 0.596
+},
+"technical calmness": {
+"noul": 0.649,
+"score9": 0.652,
+"rate": 0.667,
+"all": 0.674
+},
+"earnestness": {
+"noul": 0.482,
+"score9": 0.47,
+"rate": 0.42,
+"all": 0.399
+},
+"intellectual density": {
+"noul": 0.778,
+"score9": 0.742,
+"rate": 0.77,
+"all": 0.782
+},
+"legibility to an outsider": {
+"noul": 0.822,
+"score9": 0.842,
+"rate": 0.842,
+"all": 0.835
+},
+"coiled potential energy": {
+"noul": 0.747,
+"score9": 0.755,
+"rate": 0.743,
+"all": 0.758
+},
+"craftedness": {
+"noul": 0.587,
+"score9": 0.585,
+"rate": 0.686,
+"all": 0.603
+},
+"institutional insiderness": {
+"noul": 0.67,
+"score9": 0.637,
+"rate": 0.783,
+"all": 0.727
+},
+"how much it rewards a careful re-read": {
+"noul": 0.686,
+"score9": 0.656,
+"rate": 0.618,
+"all": 0.663
+}
+}

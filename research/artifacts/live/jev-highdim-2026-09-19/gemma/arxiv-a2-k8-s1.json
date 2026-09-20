@@ -1,0 +1,236 @@
+{
+  "items": [
+    {
+      "id": "item-0003",
+      "text": "The Potential of Large Language Models in Supply Chain Management: Advancing Decision-Making, Efficiency, and Innovation\n\nThe integration of large language models (LLMs) into supply chain management (SCM) is revolutionizing the industry by improving decision-making, predictive analytics, and operational efficiency. This white paper explores the transformative impact of LLMs on various SCM functions, including demand forecasting, inventory management, supplier relationship management, and logistics optimization. By leveraging advanced data analytics and real-time insights, LLMs enable organizations to optimize resources, reduce costs, and improve responsiveness to market changes. Key findings highlight the benefits of integrating LLMs with emerging technologies such as IoT, blockchain, and robotics, which together create smarter and more autonomous supply chains. Ethical considerations, including bias mitigation and data protection, are taken into account to ensure fair and transparent AI practices. In addition, the paper discusses the need to educate the workforce on how to manage new AI-driven processes and the long-term strategic benefits of adopting LLMs. Strategic recommendations for SCM professionals include investing in high-quality data management, promoting cross-functional collaboration, and aligning LLM initiatives with overall business goals. The findings highlight the potential of LLMs to drive innovation, sustainability, and competitive advantage in the ever-changing supply chain management landscape.",
+      "rank": 1,
+      "latent_mean": 2.1200016009596743,
+      "latent_std": 0.4394963165057076,
+      "z_score": 1.6761894966347337,
+      "percentile": 0.9791666666666666
+    },
+    {
+      "id": "item-0009",
+      "text": "Measuring Large Language Models Dependency: Validating the Arabic Version of the LLM-D12 Scale\n\nThere is an urgent need for reliable, culturally validated instruments to assess psychological responses to AI in general and large language models (LLMs). This need is global issue, but it is especially urgent among Arabic-speaking populations, where AI and LLMs adoption is accelerating, yet psychometric tools remain limited. This study presents the first validation of the LLM-D12, a dual-dimensional scale assessing Instrumental and Relationship Dependency on LLMs, in an Arab sample. A total of 250 Arab participants completed the Arabic version of the LLM-D12. Confirmatory Factor Analysis confirms the original 2-factor structure of LLM-D12 with all items showing good loading of corresponding Instrumental and Relationship Dependency. The scale showed good to excellent internal reliability (Cronbach alpha is 0.90 for Total, 0.85 for Instrumental Dependency, and 0.90 for Relationship Dependency). External validation revealed that Instrumental Dependency was positively associated with AI acceptance and internet addiction, while Relationship Dependency was linked to lower need for cognition and greater trustworthiness of LLM, demonstrating sensitivity of this instrument to different use and personal factors. These findings confirm that Arabic LLM-D12 is a psychometrically sound, culturally appropriate instrument, offering a necessary tool for research, education, and policy concerning AI and LLMs engagement in Arab contexts.",
+      "rank": 2,
+      "latent_mean": 1.7280709061576647,
+      "latent_std": 0.33038357377144056,
+      "z_score": 1.044071221673789,
+      "percentile": 0.9375
+    },
+    {
+      "id": "item-0015",
+      "text": "A survey of textual cyber abuse detection using cutting-edge language models and large language models\n\nThe success of social media platforms has facilitated the emergence of various forms of online abuse within digital communities. This abuse manifests in multiple ways, including hate speech, cyberbullying, emotional abuse, grooming, and sexting. In this paper, we present a comprehensive analysis of the different forms of abuse prevalent in social media, with a particular focus on how emerging technologies, such as Language Models (LMs) and Large Language Models (LLMs), are reshaping both the detection and generation of abusive content within these networks. We delve into the mechanisms through which social media abuse is perpetuated, exploring the psychological and social impact. Additionally, we examine the dual role of advanced language models-highlighting their potential to enhance automated detection systems for abusive behavior while also acknowledging their capacity to generate harmful content. This paper aims to contribute to the ongoing discourse on online safety and ethics, offering insights into the evolving landscape of cyberabuse and the technological innovations that both mitigate and exacerbate it.",
+      "rank": 3,
+      "latent_mean": 1.690448613375293,
+      "latent_std": 0.41919526244033606,
+      "z_score": 0.983392792734504,
+      "percentile": 0.8958333333333334
+    },
+    {
+      "id": "item-0011",
+      "text": "Scaling Pre-training to One Hundred Billion Data for Vision Language Models\n\nWe provide an empirical investigation of the potential of pre-training vision-language models on an unprecedented scale: 100 billion examples. We find that model performance tends to saturate at this scale on many common Western-centric classification and retrieval benchmarks, such as COCO Captions. Nevertheless, tasks of cultural diversity achieve more substantial gains from the 100-billion scale web data, thanks to its coverage of long-tail concepts. Furthermore, we analyze the model's multilinguality and show gains in low-resource languages as well. In addition, we observe that reducing the size of the pretraining dataset via quality filters like using CLIP, typically used to enhance performance, may inadvertently reduce the cultural diversity represented in large-scale datasets. Our results highlight that while traditional benchmarks may not benefit significantly from scaling noisy, raw web data to 100 billion examples, this data scale is vital for building truly inclusive multimodal systems.",
+      "rank": 4,
+      "latent_mean": 1.5483964951562352,
+      "latent_std": 0.3590002555726458,
+      "z_score": 0.7542866239294815,
+      "percentile": 0.8541666666666666
+    },
+    {
+      "id": "item-0016",
+      "text": "Evaluating the Feasibility and Accuracy of Large Language Models for Medical History-Taking in Obstetrics and Gynecology\n\nEffective physician-patient communications in pre-diagnostic environments, and most specifically in complex and sensitive medical areas such as infertility, are critical but consume a lot of time and, therefore, cause clinic workflows to become inefficient. Recent advancements in Large Language Models (LLMs) offer a potential solution for automating conversational medical history-taking and improving diagnostic accuracy. This study evaluates the feasibility and performance of LLMs in those tasks for infertility cases. An AI-driven conversational system was developed to simulate physician-patient interactions with ChatGPT-4o and ChatGPT-4o-mini. A total of 70 real-world infertility cases were processed, generating 420 diagnostic histories. Model performance was assessed using F1 score, Differential Diagnosis (DDs) Accuracy, and Accuracy of Infertility Type Judgment (ITJ). ChatGPT-4o-mini outperformed ChatGPT-4o in information extraction accuracy (F1 score: 0.9258 vs. 0.9029, p = 0.045, d = 0.244) and demonstrated higher completeness in medical history-taking (97.58% vs. 77.11%), suggesting that ChatGPT-4o-mini is more effective in extracting detailed patient information, which is critical for improving diagnostic accuracy. In contrast, ChatGPT-4o performed slightly better in differential diagnosis accuracy (2.0524 vs. 2.0048, p &gt; 0.05). ITJ accuracy was higher in ChatGPT-4o-mini (0.6476 vs. 0.5905) but with lower consistency (Cronbach's $α$ = 0.562), suggesting variability in classification reliability. Both models demonstrated strong feasibility in automating infertility history-taking, with ChatGPT-4o-mini excelling in completeness and extraction accuracy. In future studies, expert validation for accuracy and dependability in a clinical setting, AI model fine-tuning, and larger datasets with a mix of cases of infertility have to be prioritized.",
+      "rank": 5,
+      "latent_mean": 1.5324442328853127,
+      "latent_std": 0.37612151728430904,
+      "z_score": 0.7285583085866016,
+      "percentile": 0.8125
+    },
+    {
+      "id": "item-0007",
+      "text": "Role of Large Language Models and Retrieval-Augmented Generation for Accelerating Crystalline Material Discovery: A Systematic Review\n\nLarge language models (LLMs) have emerged as powerful tools for knowledge-intensive tasks across domains. In materials science, to find novel materials for various energy efficient devices for various real-world applications, requires several time and cost expensive simulations and experiments. In order to tune down the uncharted material search space, minimizing the experimental cost, LLMs can play a bigger role to first provide an accelerated search of promising known material candidates. Furthermore, the integration of LLMs with domain-specific information via retrieval-augmented generation (RAG) is poised to revolutionize how researchers predict materials structures, analyze defects, discover novel compounds, and extract knowledge from literature and databases. In motivation to the potentials of LLMs and RAG in accelerating material discovery, this paper presents a broad and systematic review to examine the recent advancements in applying LLMs and RAG to key materials science problems. We survey state-of-the-art developments in crystal structure prediction, defect analysis, materials discovery, literature mining, database integration, and multi-modal retrieval, highlighting how combining LLMs with external knowledge sources enables new capabilities. We discuss the performance, limitations, and implications of these approaches, and outline future directions for leveraging LLMs to accelerate materials research and discovery for advancement in technologies in the area of electronics, optics, biomedical, and energy storage.",
+      "rank": 6,
+      "latent_mean": 1.4653975015113911,
+      "latent_std": 0.43805001732385374,
+      "z_score": 0.6204232103665889,
+      "percentile": 0.7708333333333334
+    },
+    {
+      "id": "item-0013",
+      "text": "Text-to-SQL based on Large Language Models and Database Keyword Search\n\nText-to-SQL prompt strategies based on Large Language Models (LLMs) achieve remarkable performance on well-known benchmarks. However, when applied to real-world databases, their performance is significantly less than for these benchmarks, especially for Natural Language (NL) questions requiring complex filters and joins to be processed. This paper then proposes a strategy to compile NL questions into SQL queries that incorporates a dynamic few-shot examples strategy and leverages the services provided by a database keyword search (KwS) platform. The paper details how the precision and recall of the schema-linking process are improved with the help of the examples provided and the keyword-matching service that the KwS platform offers. Then, it shows how the KwS platform can be used to synthesize a view that captures the joins required to process an input NL question and thereby simplify the SQL query compilation step. The paper includes experiments with a real-world relational database to assess the performance of the proposed strategy. The experiments suggest that the strategy achieves an accuracy on the real-world relational database that surpasses state-of-the-art approaches. The paper concludes by discussing the results obtained.",
+      "rank": 7,
+      "latent_mean": 1.3481355313709018,
+      "latent_std": 0.4423112059090848,
+      "z_score": 0.43129937988637446,
+      "percentile": 0.7291666666666666
+    },
+    {
+      "id": "item-0018",
+      "text": "Urban Computing in the Era of Large Language Models\n\nUrban computing has emerged as a multidisciplinary field that harnesses data-driven technologies to address challenges and improve urban living. Traditional approaches, while beneficial, often face challenges with generalization, scalability, and contextual understanding. The advent of Large Language Models (LLMs) offers transformative potential in this domain. This survey explores the intersection of LLMs and urban computing, emphasizing the impact of LLMs in processing and analyzing urban data, enhancing decision-making, and fostering citizen engagement. We provide a concise overview of the evolution and core technologies of LLMs. Additionally, we survey their applications across key urban domains, such as transportation, public safety, and environmental monitoring, summarizing essential tasks and prior works in various urban contexts, while highlighting LLMs' functional roles and implementation patterns. Building on this, we propose potential LLM-based solutions to address unresolved challenges. To facilitate in-depth research, we compile a list of available datasets and tools applicable to diverse urban scenarios. Finally, we discuss the limitations of current approaches and outline future directions for advancing LLMs in urban computing.",
+      "rank": 8,
+      "latent_mean": 1.2896739403351671,
+      "latent_std": 0.4212540964422605,
+      "z_score": 0.3370106687262315,
+      "percentile": 0.6875
+    },
+    {
+      "id": "item-0000",
+      "text": "Evaluating Conversational Recommender Systems via Large Language Models: A User-Centric Framework\n\nConversational recommender systems (CRSs) integrate both recommendation and dialogue tasks, making their evaluation uniquely challenging. Existing approaches primarily assess CRS performance by separately evaluating item recommendation and dialogue management using rule-based metrics. However, these methods fail to capture the real human experience, and they cannot draw direct conclusions about the system's overall performance. As conversational recommender systems become increasingly vital in e-commerce, social media, and customer support, the ability to evaluate both recommendation accuracy and dialogue management quality using a single metric, thereby authentically reflecting user experience, has become the principal challenge impeding progress in this field. In this work, we propose a user-centric evaluation framework based on large language models (LLMs) for CRSs, namely Conversational Recommendation Evaluator (CoRE). CoRE consists of two main components: (1) LLM-As-Evaluator. Firstly, we comprehensively summarize 12 key factors influencing user experience in CRSs and directly leverage LLM as an evaluator to assign a score to each factor. (2) Multi-Agent Debater. Secondly, we design a multi-agent debate framework with four distinct roles (common user, domain expert, linguist, and HCI expert) to discuss and synthesize the 12 evaluation factors into a unified overall performance score. Furthermore, we apply the proposed framework to evaluate four CRSs on two benchmark datasets. The experimental results show that CoRE aligns well with human evaluation in most of the 12 factors and the overall assessment. Especially, CoRE's overall evaluation scores demonstrate significantly better alignment with human feedback compared to existing rule-based metrics.",
+      "rank": 9,
+      "latent_mean": 1.112457288199409,
+      "latent_std": 0.4423112059090848,
+      "z_score": 0.0511900225556146,
+      "percentile": 0.6458333333333334
+    },
+    {
+      "id": "item-0001",
+      "text": "BRIDGE: Benchmarking Large Language Models for Understanding Real-world Clinical Practice Text\n\nLarge language models (LLMs) hold great promise for medical applications and are evolving rapidly, with new models being released at an accelerated pace. However, benchmarking on large-scale real-world data such as electronic health records (EHRs) is critical, as clinical decisions are directly informed by these sources, yet current evaluations remain limited. Most existing benchmarks rely on medical exam-style questions or PubMed-derived text, failing to capture the complexity of real-world clinical data. Others focus narrowly on specific application scenarios, limiting their generalizability across broader clinical use. To address this gap, we present BRIDGE, a comprehensive multilingual benchmark comprising 87 tasks sourced from real-world clinical data sources across nine languages. It covers eight major task types spanning the entire continuum of patient care across six clinical stages and 20 representative applications, including triage and referral, consultation, information extraction, diagnosis, prognosis, and billing coding, and involves 14 clinical specialties. We systematically evaluated 95 LLMs (including DeepSeek-R1, GPT-4o, Gemini series, and Qwen3 series) under various inference strategies. Our results reveal substantial performance variation across model sizes, languages, natural language processing tasks, and clinical specialties. Notably, we demonstrate that open-source LLMs can achieve performance comparable to proprietary models, while medically fine-tuned LLMs based on older architectures often underperform versus updated general-purpose models. The BRIDGE and its corresponding leaderboard serve as a foundational resource and a unique reference for the development and evaluation of new LLMs in real-world clinical text understanding. The BRIDGE leaderboard: https://huggingface.co/spaces/YLab-Open/BRIDGE-Medical-Leaderboard",
+      "rank": 10,
+      "latent_mean": 1.1088577473092198,
+      "latent_std": 0.4202517512866205,
+      "z_score": 0.045384568662019426,
+      "percentile": 0.6041666666666666
+    },
+    {
+      "id": "item-0010",
+      "text": "From System 1 to System 2: A Survey of Reasoning Large Language Models\n\nAchieving human-level intelligence requires refining the transition from the fast, intuitive System 1 to the slower, more deliberate System 2 reasoning. While System 1 excels in quick, heuristic decisions, System 2 relies on logical reasoning for more accurate judgments and reduced biases. Foundational Large Language Models (LLMs) excel at fast decision-making but lack the depth for complex reasoning, as they have not yet fully embraced the step-by-step analysis characteristic of true System 2 thinking. Recently, reasoning LLMs like OpenAI's o1/o3 and DeepSeek's R1 have demonstrated expert-level performance in fields such as mathematics and coding, closely mimicking the deliberate reasoning of System 2 and showcasing human-like cognitive abilities. This survey begins with a brief overview of the progress in foundational LLMs and the early development of System 2 technologies, exploring how their combination has paved the way for reasoning LLMs. Next, we discuss how to construct reasoning LLMs, analyzing their features, the core methods enabling advanced reasoning, and the evolution of various reasoning LLMs. Additionally, we provide an overview of reasoning benchmarks, offering an in-depth comparison of the performance of representative reasoning LLMs. Finally, we explore promising directions for advancing reasoning LLMs and maintain a real-time \\href{https://github.com/zzli2022/Awesome-Slow-Reason-System}{GitHub Repository} to track the latest developments. We hope this survey will serve as a valuable resource to inspire innovation and drive progress in this rapidly evolving field.",
+      "rank": 11,
+      "latent_mean": 1.0954180754775276,
+      "latent_std": 0.3757237205271358,
+      "z_score": 0.02370863899648982,
+      "percentile": 0.5625
+    },
+    {
+      "id": "item-0021",
+      "text": "Medical large language models are easily distracted\n\nLarge language models (LLMs) have the potential to transform medicine, but real-world clinical scenarios contain extraneous information that can hinder performance. The rise of assistive technologies like ambient dictation, which automatically generates draft notes from live patient encounters, has the potential to introduce additional noise making it crucial to assess the ability of LLM's to filter relevant data. To investigate this, we developed MedDistractQA, a benchmark using USMLE-style questions embedded with simulated real-world distractions. Our findings show that distracting statements (polysemous words with clinical meanings used in a non-clinical context or references to unrelated health conditions) can reduce LLM accuracy by up to 17.9%. Commonly proposed solutions to improve model performance such as retrieval-augmented generation (RAG) and medical fine-tuning did not change this effect and in some cases introduced their own confounders and further degraded performance. Our findings suggest that LLMs natively lack the logical mechanisms necessary to distinguish relevant from irrelevant clinical information, posing challenges for real-world applications. MedDistractQA and our results highlights the need for robust mitigation strategies to enhance LLM resilience to extraneous information.",
+      "rank": 12,
+      "latent_mean": 1.0819637611283248,
+      "latent_std": 0.4244329034930295,
+      "z_score": 0.002009093413573365,
+      "percentile": 0.5208333333333334
+    },
+    {
+      "id": "item-0020",
+      "text": "Ontology Matching with Large Language Models and Prioritized Depth-First Search\n\nOntology matching (OM) plays a key role in enabling data interoperability and knowledge sharing, but it remains challenging due to the need for large training datasets and limited vocabulary processing in machine learning approaches. Recently, methods based on Large Language Model (LLMs) have shown great promise in OM, particularly through the use of a retrieve-then-prompt pipeline. In this approach, relevant target entities are first retrieved and then used to prompt the LLM to predict the final matches. Despite their potential, these systems still present limited performance and high computational overhead. To address these issues, we introduce MILA, a novel approach that embeds a retrieve-identify-prompt pipeline within a prioritized depth-first search (PDFS) strategy. This approach efficiently identifies a large number of semantic correspondences with high accuracy, limiting LLM requests to only the most borderline cases. We evaluated MILA using the biomedical challenge proposed in the 2023 and 2024 editions of the Ontology Alignment Evaluation Initiative. Our method achieved the highest F-Measure in four of the five unsupervised tasks, outperforming state-of-the-art OM systems by up to 17%. It also performed better than or comparable to the leading supervised OM systems. MILA further exhibited task-agnostic performance, remaining stable across all tasks and settings, while significantly reducing LLM requests. These findings highlight that high-performance LLM-based OM can be achieved through a combination of programmed (PDFS), learned (embedding vectors), and prompting-based heuristics, without the need of domain-specific heuristics or fine-tuning.",
+      "rank": 13,
+      "latent_mean": 1.0794723749156652,
+      "latent_std": 0.3758858493399027,
+      "z_score": -0.002009093413573365,
+      "percentile": 0.4791666666666667
+    },
+    {
+      "id": "item-0014",
+      "text": "Assessing Consistency and Reproducibility in the Outputs of Large Language Models: Evidence Across Diverse Finance and Accounting Tasks\n\nThis study provides the first comprehensive assessment of consistency and reproducibility in Large Language Model (LLM) outputs in finance and accounting research. We evaluate how consistently LLMs produce outputs given identical inputs through extensive experimentation with 50 independent runs across five common tasks: classification, sentiment analysis, summarization, text generation, and prediction. Using three OpenAI models (GPT-3.5-turbo, GPT-4o-mini, and GPT-4o), we generate over 3.4 million outputs from diverse financial source texts and data, covering MD&amp;As, FOMC statements, finance news articles, earnings call transcripts, and financial statements. Our findings reveal substantial but task-dependent consistency, with binary classification and sentiment analysis achieving near-perfect reproducibility, while complex tasks show greater variability. More advanced models do not consistently demonstrate better consistency and reproducibility, with task-specific patterns emerging. LLMs significantly outperform expert human annotators in consistency and maintain high agreement even where human experts significantly disagree. We further find that simple aggregation strategies across 3-5 runs dramatically improve consistency. We also find that aggregation may come with an additional benefit of improved accuracy for sentiment analysis when using newer models. Simulation analysis reveals that despite measurable inconsistency in LLM outputs, downstream statistical inferences remain remarkably robust. These findings address concerns about what we term \"G-hacking,\" the selective reporting of favorable outcomes from multiple generative AI runs, by demonstrating that such risks are relatively low for finance and accounting tasks.",
+      "rank": 14,
+      "latent_mean": 1.0141997645911904,
+      "latent_std": 0.3346673650529737,
+      "z_score": -0.1072828328468885,
+      "percentile": 0.4375
+    },
+    {
+      "id": "item-0005",
+      "text": "Large Language Models are overconfident and amplify human bias\n\nLarge language models (LLMs) are revolutionizing every aspect of society. They are increasingly used in problem-solving tasks to substitute human assessment and reasoning. LLMs are trained on what humans write and are thus exposed to human bias. We evaluate whether LLMs inherit one of the most widespread human biases: overconfidence. We algorithmically construct reasoning problems with known ground truths. We prompt LLMs to answer these problems and assess the confidence in their answers, closely following similar protocols in human experiments. We find that all five LLMs we study are overconfident: they overestimate the probability that their answer is correct between 20% and 60%. Humans have accuracy similar to the more advanced LLMs, but far lower overconfidence. Although humans and LLMs are similarly biased in questions which they are certain they answered correctly, a key difference emerges between them: LLM bias increases sharply relative to humans if they become less sure that their answers are correct. We also show that LLM input has ambiguous effects on human decision making: LLM input leads to an increase in the accuracy, but it more than doubles the extent of overconfidence in the answers.",
+      "rank": 15,
+      "latent_mean": 0.9810513813543895,
+      "latent_std": 0.42025175128662057,
+      "z_score": -0.16074559834928429,
+      "percentile": 0.3958333333333333
+    },
+    {
+      "id": "item-0017",
+      "text": "When Large Language Models are More PersuasiveThan Incentivized Humans, and Why\n\nLarge Language Models (LLMs) have been shown to be highly persuasive, but when and why they outperform humans is still an open question. We compare the persuasiveness of two LLMs (Claude 3.5 Sonnet and DeepSeek v3) against humans who had incentives to persuade, using an interactive, real-time conversational setting. We demonstrate that LLMs persuasive superiority is context-dependent: it depends on whether the persuasion attempt is truthful (towards the right answer) or deceptive (towards the wrong answer) and on the LLM model, and wanes over repeated interactions (unlike human persuasiveness). In our first large-scale experiment, humans vs LLMs (Claude 3.5 Sonnet) interacted with other humans who were completing an online quiz for a reward, attempting to persuade them toward a given (either correct or incorrect) answer. Claude was more persuasive than incentivized human persuaders both in truthful and deceptive contexts and it significantly increased accuracy if persuasion was truthful, but decreased it if persuasion was deceptive. In a follow-up experiment with Deepseek v3, we replicated the findings about accuracy but found greater LLM persuasiveness only if the persuasion was deceptive. Linguistic analyses of the persuaders texts suggest that these effects may be due to LLMs expressing higher conviction than humans.",
+      "rank": 16,
+      "latent_mean": 0.9480692683528708,
+      "latent_std": 0.3299582970034601,
+      "z_score": -0.2139401979343436,
+      "percentile": 0.3541666666666667
+    },
+    {
+      "id": "item-0008",
+      "text": "Mitigating Hallucinations in Large Vision-Language Models with Internal Fact-based Contrastive Decoding\n\nLarge Visual Language Models (LVLMs) integrate visual and linguistic modalities, exhibiting exceptional performance across various multimodal tasks. Nevertheless, LVLMs remain vulnerable to the issue of object hallucinations. Previous efforts to mitigate this issue focus on supervised fine-tuning (SFT) or incorporating external knowledge, both of which entail significant costs related to training and the acquisition of external data. To address these challenges, we propose a novel model-agnostic approach termed Internal Fact-based Contrastive Decoding (IFCD), designed to mitigate and suppress hallucinations during the inference process of LVLMs by exploiting the LVLMs' own hallucinations. IFCD is grounded in experimental observations that alterations to the LVLMs' internal representations tend to amplify hallucinations caused by language bias. By contrasting disturbed distribution, IFCD calibrates the LVLMs' output and effectively removes the hallucinatory logits from the final predictions. Experimental results validate that IFCD significantly alleviates both object-level and attribute-level hallucinations while achieving an average 9% accuracy improvement on POPE and 8% accuracy improvement on MME object hallucinations subset compared with direct decoding, respectively.",
+      "rank": 17,
+      "latent_mean": 0.7378409014982485,
+      "latent_std": 0.37575861700015833,
+      "z_score": -0.5530031862801063,
+      "percentile": 0.3125
+    },
+    {
+      "id": "item-0023",
+      "text": "Scaling Laws of Synthetic Data for Language Models\n\nLarge language models (LLMs) achieve strong performance across diverse tasks, largely driven by high-quality web data used in pre-training. However, recent studies indicate this data source is rapidly depleting. Synthetic data emerges as a promising alternative, but it remains unclear whether synthetic datasets exhibit predictable scalability comparable to raw pre-training data. In this work, we systematically investigate the scaling laws of synthetic data by introducing SynthLLM, a scalable framework that transforms pre-training corpora into diverse, high-quality synthetic datasets. Our approach achieves this by automatically extracting and recombining high-level concepts across multiple documents using a graph algorithm. Key findings from our extensive mathematical experiments on SynthLLM include: (1) SynthLLM generates synthetic data that reliably adheres to the rectified scaling law across various model sizes; (2) Performance improvements plateau near 300B tokens; and (3) Larger models approach optimal performance with fewer training tokens. For instance, an 8B model peaks at 1T tokens, while a 3B model requires 4T. Moreover, comparisons with existing synthetic data generation and augmentation methods demonstrate that SynthLLM achieves superior performance and scalability. Our findings highlight synthetic data as a scalable and reliable alternative to organic pre-training corpora, offering a viable path toward continued improvement in model performance.",
+      "rank": 18,
+      "latent_mean": 0.553078244089164,
+      "latent_std": 0.423020119162394,
+      "z_score": -0.8509942694679895,
+      "percentile": 0.2708333333333333
+    },
+    {
+      "id": "item-0019",
+      "text": "Exploring Information Processing in Large Language Models: Insights from Information Bottleneck Theory\n\nLarge Language Models (LLMs) have demonstrated remarkable performance across a wide range of tasks by understanding input information and predicting corresponding outputs. However, the internal mechanisms by which LLMs comprehend input and make effective predictions remain poorly understood. In this paper, we explore the working mechanism of LLMs in information processing from the perspective of Information Bottleneck Theory. We propose a non-training construction strategy to define a task space and identify the following key findings: (1) LLMs compress input information into specific task spaces (e.g., sentiment space, topic space) to facilitate task understanding; (2) they then extract and utilize relevant information from the task space at critical moments to generate accurate predictions. Based on these insights, we introduce two novel approaches: an Information Compression-based Context Learning (IC-ICL) and a Task-Space-guided Fine-Tuning (TS-FT). IC-ICL enhances reasoning performance and inference efficiency by compressing retrieved example information into the task space. TS-FT employs a space-guided loss to fine-tune LLMs, encouraging the learning of more effective compression and selection mechanisms. Experiments across multiple datasets validate the effectiveness of task space construction. Additionally, IC-ICL not only improves performance but also accelerates inference speed by over 40\\%, while TS-FT achieves superior results with a minimal strategy adjustment.",
+      "rank": 19,
+      "latent_mean": 0.48913237824221834,
+      "latent_std": 0.3584822490569761,
+      "z_score": -0.9541281932615183,
+      "percentile": 0.22916666666666666
+    },
+    {
+      "id": "item-0022",
+      "text": "Privacy Auditing of Large Language Models\n\nCurrent techniques for privacy auditing of large language models (LLMs) have limited efficacy -- they rely on basic approaches to generate canaries which leads to weak membership inference attacks that in turn give loose lower bounds on the empirical privacy leakage. We develop canaries that are far more effective than those used in prior work under threat models that cover a range of realistic settings. We demonstrate through extensive experiments on multiple families of fine-tuned LLMs that our approach sets a new standard for detection of privacy leakage. For measuring the memorization rate of non-privately trained LLMs, our designed canaries surpass prior approaches. For example, on the Qwen2.5-0.5B model, our designed canaries achieve $49.6\\%$ TPR at $1\\%$ FPR, vastly surpassing the prior approach's $4.2\\%$ TPR at $1\\%$ FPR. Our method can be used to provide a privacy audit of $\\varepsilon \\approx 1$ for a model trained with theoretical $\\varepsilon$ of 4. To the best of our knowledge, this is the first time that a privacy audit of LLM training has achieved nontrivial auditing success in the setting where the attacker cannot train shadow models, insert gradient canaries, or access the model at every iteration.",
+      "rank": 20,
+      "latent_mean": 0.29956793824378636,
+      "latent_std": 0.43949631650570764,
+      "z_score": -1.2598637439467715,
+      "percentile": 0.1875
+    },
+    {
+      "id": "item-0006",
+      "text": "Beyond Benchmarks: Dynamic, Automatic And Systematic Red-Teaming Agents For Trustworthy Medical Language Models\n\nEnsuring the safety and reliability of large language models (LLMs) in clinical practice is critical to prevent patient harm. However, LLMs are advancing so rapidly that static benchmarks quickly become obsolete or prone to overfitting, yielding a misleading picture of model trustworthiness. Here we introduce a Dynamic, Automatic, and Systematic (DAS) red-teaming framework that continuously stress-tests LLMs across four safety-critical axes: robustness, privacy, bias/fairness, and hallucination. Validated against board-certified clinicians with high concordance, a suite of adversarial agents autonomously mutates clinical test cases to uncover vulnerabilities in real time. Applying DAS to 15 proprietary and open-source LLMs revealed a profound gap between high static benchmark performance and low dynamic reliability - the ``Benchmarking Gap''. Despite median MedQA accuracy exceeding 80\\%, 94\\% of previously correct answers failed our dynamic robustness tests. Crucially, this brittleness generalized to the realistic, open-ended HealthBench dataset, where top-tier models exhibited failure rates exceeding 70\\% and stark shifts in model rankings across evaluations, suggesting that high scores on established static benchmarks may reflect superficial memorization. We observed similarly high failure rates across other domains: privacy leaks were elicited in 86\\% of scenarios, cognitive-bias priming altered clinical recommendations in 81\\% of fairness tests, and we identified hallucination rates exceeding 74\\% in widely used models. By converting medical LLM safety analysis from a static checklist into a dynamic stress-test, DAS provides a foundational, scalable, and living platform to surface the latent risks that must be addressed before the next generation of medical AI can be safely deployed.",
+      "rank": 21,
+      "latent_mean": 0.2652192526341285,
+      "latent_std": 0.3306793108461569,
+      "z_score": -1.3152623952458773,
+      "percentile": 0.14583333333333334
+    },
+    {
+      "id": "item-0012",
+      "text": "Text Data Augmentation for Large Language Models: A Comprehensive Survey of Methods, Challenges, and Opportunities\n\nThe increasing size and complexity of pre-trained language models have demonstrated superior performance in many applications, but they usually require large training datasets to be adequately trained. Insufficient training sets could unexpectedly make the model overfit and fail to cope with complex tasks. Large language models (LLMs) trained on extensive corpora have prominent text generation capabilities, which improve the quality and quantity of data and play a crucial role in data augmentation. Specifically, distinctive prompt templates are given in personalised tasks to guide LLMs in generating the required content. Recent promising retrieval-based techniques further improve the expressive performance of LLMs in data augmentation by introducing external knowledge to enable them to produce more grounded-truth data. This survey provides an in-depth analysis of data augmentation in LLMs, classifying the techniques into Simple Augmentation, Prompt-based Augmentation, Retrieval-based Augmentation and Hybrid Augmentation. We summarise the post-processing approaches in data augmentation, which contributes significantly to refining the augmented data and enabling the model to filter out unfaithful content. Then, we provide the common tasks and evaluation metrics. Finally, we introduce existing challenges and future opportunities that could bring further improvement to data augmentation.",
+      "rank": 22,
+      "latent_mean": 0.08640681967057762,
+      "latent_std": 0.42025175128662057,
+      "z_score": -1.60365676742841,
+      "percentile": 0.10416666666666667
+    },
+    {
+      "id": "item-0004",
+      "text": "Large Language Models Pass the Turing Test\n\nWe evaluated 4 systems (ELIZA, GPT-4o, LLaMa-3.1-405B, and GPT-4.5) in two randomised, controlled, and pre-registered Turing tests on independent populations. Participants had 5 minute conversations simultaneously with another human participant and one of these systems before judging which conversational partner they thought was human. When prompted to adopt a humanlike persona, GPT-4.5 was judged to be the human 73% of the time: significantly more often than interrogators selected the real human participant. LLaMa-3.1, with the same prompt, was judged to be the human 56% of the time -- not significantly more or less often than the humans they were being compared to -- while baseline models (ELIZA and GPT-4o) achieved win rates significantly below chance (23% and 21% respectively). The results constitute the first empirical evidence that any artificial system passes a standard three-party Turing test. The results have implications for debates about what kind of intelligence is exhibited by Large Language Models (LLMs), and the social and economic impacts these systems are likely to have.",
+      "rank": 23,
+      "latent_mean": 0.045079108070736895,
+      "latent_std": 0.421912695054297,
+      "z_score": -1.6703114135458101,
+      "percentile": 0.0625
+    },
+    {
+      "id": "item-0002",
+      "text": "GeneBreaker: Jailbreak Attacks against DNA Language Models with Pathogenicity Guidance\n\nDNA, encoding genetic instructions for almost all living organisms, fuels groundbreaking advances in genomics and synthetic biology. Recently, DNA Foundation Models have achieved success in designing synthetic functional DNA sequences, even whole genomes, but their susceptibility to jailbreaking remains underexplored, leading to potential concern of generating harmful sequences such as pathogens or toxin-producing genes. In this paper, we introduce GeneBreaker, the first framework to systematically evaluate jailbreak vulnerabilities of DNA foundation models. GeneBreaker employs (1) an LLM agent with customized bioinformatic tools to design high-homology, non-pathogenic jailbreaking prompts, (2) beam search guided by PathoLM and log-probability heuristics to steer generation toward pathogen-like sequences, and (3) a BLAST-based evaluation pipeline against a curated Human Pathogen Database (JailbreakDNABench) to detect successful jailbreaks. Evaluated on our JailbreakDNABench, GeneBreaker successfully jailbreaks the latest Evo series models across 6 viral categories consistently (up to 60\\% Attack Success Rate for Evo2-40B). Further case studies on SARS-CoV-2 spike protein and HIV-1 envelope protein demonstrate the sequence and structural fidelity of jailbreak output, while evolutionary modeling of SARS-CoV-2 underscores biosecurity risks. Our findings also reveal that scaling DNA foundation models amplifies dual-use risks, motivating enhanced safety alignment and tracing mechanisms. Our code is at https://github.com/zaixizhang/GeneBreaker.",
+      "rank": 24,
+      "latent_mean": 0.0,
+      "latent_std": 0.3584708322596318,
+      "z_score": -1.7430164310613356,
+      "percentile": 0.020833333333333332
+    }
+  ],
+  "gauge": {
+    "subsets_with_repeats": 4,
+    "presentation_pairs": 4,
+    "entity_pairs_compared": 112,
+    "direction_flips": 27,
+    "flip_rate": 0.24107142857142858
+  },
+  "calls": 8,
+  "calls_ok": 8,
+  "calls_malformed": 0,
+  "calls_errored": 0,
+  "components": 1,
+  "input_tokens": 21516,
+  "output_tokens": 72,
+  "cost_nanodollars": 1353300,
+  "model_used": "google/gemma-4-31b-it"
+}
