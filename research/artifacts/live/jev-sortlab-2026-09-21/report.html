@@ -20,7 +20,7 @@ ol{padding-left:22px}li{margin-bottom:8px}
 .foot{color:var(--mute);font-size:14px}
 </style>
 <h1>Sorting with Jev: which recipe buys the most information per dollar?</h1>
-<p class="sub">Eleven sorting recipes on hosted Jev (TypeSafe <code>jev-latest</code>, $0.042 per million input tokens), run round by round on 198 countries by population (a true cardinal reference) and 150 arXiv abstracts by novelty (a generating judge as reference), each checkpoint priced; plus the same 324 windows re-asked two days apart. Measured 2026-09-21. $2.05 in total. Written for anyone who ranks things with model judgments and pays per token.</p>
+<p class="sub">Eleven sorting recipes on hosted Jev (TypeSafe <code>jev-latest</code>, $0.042 per million input tokens), run round by round on 198 countries by population (a true cardinal reference) and 150 arXiv abstracts by novelty (a generating judge as reference), each checkpoint priced; plus the same 324 windows re-asked two days apart. Measured 2026-09-21. $1.03 in total. Written for anyone who ranks things with model judgments and pays per token.</p>
 
 <div class="verdict">
 <p><b>How good is Jev at pairwise ratio sorting: as good as the reference it is checked against, transitive, cheap, and cardinal only when anchored.</b> Every recipe reaches the same ceiling — ρ .97–.98 against true population, .88–.91 against gemma-4-31b on abstracts (gemma’s own reliability), self-agreement .99–1.00 and .99–1.00 — so the ratio ladder is not more accurate than a yes/no or a rating; it is one of several ways to read the same latent. Its fitted log-ratios are compressive: .40 nat per nat of true log population on a 1/8…8 ladder, .76 on a 1/100…100 ladder against three pinned anchors.</p>

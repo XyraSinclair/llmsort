@@ -17,7 +17,8 @@ THR = {"countries": ("rho", .97), "arxiv150": ("self", .95)}
 
 def spend():
     t = 0
-    for f in glob.glob(f"{HERE}/trace-*.jsonl*"):
+    fs = glob.glob(f"{HERE}/trace-*.jsonl"); fs = fs or glob.glob(f"{HERE}/trace-*.jsonl.gz")
+    for f in fs:
         import gzip
         for l in (gzip.open(f, "rt") if f.endswith(".gz") else open(f)):
             t += json.loads(l)["usage"]["input_tokens"]
