@@ -279,7 +279,15 @@ async fn run(
     }
     match order {
         "pair" => {}
-        "entity" => units.sort_by_key(|u| (u.0.clone(), u.1, u.2.clone(), u.3, if u.6 { u.4 } else { u.5 })),
+        "entity" => units.sort_by_key(|u| {
+            (
+                u.0.clone(),
+                u.1,
+                u.2.clone(),
+                u.3,
+                if u.6 { u.4 } else { u.5 },
+            )
+        }),
         other => return Err(format!("unknown --order {other:?} (pair|entity)").into()),
     }
     eprintln!(
@@ -441,7 +449,13 @@ fn canonical(r: &CallRecord) -> Option<f64> {
 /// degree-6 ring design is too thin to fold into item scores without either
 /// a shared-neighbour artifact (signed mean) or ring-integrated noise
 /// (least squares), and pair-level needs neither.
-fn pair_means(pack: &Pack, lens: &str, axis: &str, wording: &str, draw: usize) -> BTreeMap<(usize, usize), f64> {
+fn pair_means(
+    pack: &Pack,
+    lens: &str,
+    axis: &str,
+    wording: &str,
+    draw: usize,
+) -> BTreeMap<(usize, usize), f64> {
     let mut by_pair: BTreeMap<(usize, usize), Vec<f64>> = BTreeMap::new();
     for r in &pack.records {
         if r.lens == lens && r.axis == axis && r.wording == wording && r.draw == draw {
@@ -458,7 +472,10 @@ fn pair_means(pack: &Pack, lens: &str, axis: &str, wording: &str, draw: usize) -
 }
 
 /// Spearman over the pairs both maps share.
-fn pair_spearman(a: &BTreeMap<(usize, usize), f64>, b: &BTreeMap<(usize, usize), f64>) -> Option<f64> {
+fn pair_spearman(
+    a: &BTreeMap<(usize, usize), f64>,
+    b: &BTreeMap<(usize, usize), f64>,
+) -> Option<f64> {
     let (mut xs, mut ys) = (Vec::new(), Vec::new());
     for (k, x) in a {
         if let Some(y) = b.get(k) {
@@ -550,12 +567,18 @@ fn cell_stats(pack: &Pack, lens: &str, axis: &str) -> CellStats {
     let slot_abs = mean(&sb.iter().map(|v| v.abs()).collect::<Vec<_>>());
     let s_a0 = pair_means(pack, lens, axis, "a", 0);
     let has = |w: &str, d: usize| rows.iter().any(|r| r.wording == w && r.draw == d);
-    let rho_vs = |w: &str, d: usize| has(w, d).then(|| pair_spearman(&s_a0, &pair_means(pack, lens, axis, w, d))).flatten();
+    let rho_vs = |w: &str, d: usize| {
+        has(w, d)
+            .then(|| pair_spearman(&s_a0, &pair_means(pack, lens, axis, w, d)))
+            .flatten()
+    };
     let retest_rho = rho_vs("a", 1);
     let wording_b_rho = rho_vs("b", 0);
     let wording_c_rho = rho_vs("c", 0);
     let answered: Vec<f64> = rows.iter().filter_map(|r| r.presented_mean).collect();
-    let frac = |pred: &dyn Fn(f64) -> bool| answered.iter().filter(|m| pred(**m)).count() as f64 / answered.len().max(1) as f64;
+    let frac = |pred: &dyn Fn(f64) -> bool| {
+        answered.iter().filter(|m| pred(**m)).count() as f64 / answered.len().max(1) as f64
+    };
     const PARITY_NATS: f64 = 0.03;
     let decisive: Vec<f64> = answered.iter().map(|m| m.abs()).collect();
     let vm: Vec<f64> = rows.iter().filter_map(|r| r.visible_mass).collect();
@@ -586,7 +609,8 @@ fn mean(xs: &[f64]) -> f64 {
 }
 
 fn fmt_rho(r: Option<f64>) -> String {
-    r.map(|v| format!("{v:+.2}")).unwrap_or_else(|| "  n/a".into())
+    r.map(|v| format!("{v:+.2}"))
+        .unwrap_or_else(|| "  n/a".into())
 }
 
 fn cells(pack: &Pack) -> Vec<(String, String)> {
@@ -635,7 +659,9 @@ fn battery_table(pack: &Pack) -> String {
 fn zscore(xs: &[f64]) -> Vec<f64> {
     let m = mean(xs);
     let sd = (xs.iter().map(|x| (x - m).powi(2)).sum::<f64>() / xs.len().max(1) as f64).sqrt();
-    xs.iter().map(|x| if sd > 0.0 { (x - m) / sd } else { 0.0 }).collect()
+    xs.iter()
+        .map(|x| if sd > 0.0 { (x - m) / sd } else { 0.0 })
+        .collect()
 }
 
 fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Error>> {
@@ -651,7 +677,11 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     if packs.is_empty() {
         return Err("no records-*.json in pack".into());
     }
-    let refs: Vec<&str> = reference.split(',').map(str::trim).filter(|s| !s.is_empty()).collect();
+    let refs: Vec<&str> = reference
+        .split(',')
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .collect();
 
     let mut out = String::new();
     out.push_str("# Judge bakeoff report\n\n");
@@ -680,9 +710,16 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
         let mut m = BTreeMap::new();
         for (lens, axis) in &common {
             if p.item_ids[lens] != packs[0].item_ids[lens] {
-                return Err(format!("item ids differ for {lens} between {} and {}", p.model, packs[0].model).into());
+                return Err(format!(
+                    "item ids differ for {lens} between {} and {}",
+                    p.model, packs[0].model
+                )
+                .into());
             }
-            m.insert((lens.clone(), axis.clone()), pair_means(p, lens, axis, "a", 0));
+            m.insert(
+                (lens.clone(), axis.clone()),
+                pair_means(p, lens, axis, "a", 0),
+            );
         }
         scores.push(m);
     }
@@ -714,7 +751,8 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     let consensus_mean = |a: usize| -> Option<f64> {
         let mut rs = Vec::new();
         for cell in &common {
-            let per_cell: Vec<BTreeMap<(usize, usize), f64>> = scores.iter().map(|m| m[cell].clone()).collect();
+            let per_cell: Vec<BTreeMap<(usize, usize), f64>> =
+                scores.iter().map(|m| m[cell].clone()).collect();
             if let Some(r) = consensus_rho(&per_cell, a) {
                 rs.push(r);
             }
@@ -751,7 +789,8 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     for (a, pa) in packs.iter().enumerate() {
         out.push_str(&format!("| {} |", short(&pa.model)));
         for cell in &common {
-            let per_cell: Vec<BTreeMap<(usize, usize), f64>> = scores.iter().map(|m| m[cell].clone()).collect();
+            let per_cell: Vec<BTreeMap<(usize, usize), f64>> =
+                scores.iter().map(|m| m[cell].clone()).collect();
             out.push_str(&format!(" {} |", fmt_rho(consensus_rho(&per_cell, a))));
         }
         out.push('\n');
