@@ -94,15 +94,9 @@ fn rebuild_q(slots: &[usize], pmfs: &[HashMap<String, f64>], kk: usize) -> Vec<f
     q
 }
 
-fn fit_and_report(
-    label: &str,
-    n: usize,
-    obs: &[BiasObservation],
-    truth: &[f64],
-) {
+fn fit_and_report(label: &str, n: usize, obs: &[BiasObservation], truth: &[f64]) {
     let fit = solve_with_additive_offsets(n, obs, 1.0).expect("calibrated solve");
-    let mean_beta: f64 =
-        fit.offsets.iter().map(|(_, g)| g).sum::<f64>() / fit.offsets.len() as f64;
+    let mean_beta: f64 = fit.offsets.iter().map(|(_, g)| g).sum::<f64>() / fit.offsets.len() as f64;
     let betas: Vec<String> = fit
         .offsets
         .iter()
@@ -142,8 +136,7 @@ fn main() {
     for arm in report["pairwise"].as_array().expect("pairwise") {
         let mut latent = vec![f64::NAN; n];
         for row in arm["latents"].as_array().expect("latents") {
-            latent[index[row["id"].as_str().expect("id")]] =
-                row["mean"].as_f64().expect("mean");
+            latent[index[row["id"].as_str().expect("id")]] = row["mean"].as_f64().expect("mean");
         }
         assert!(latent.iter().all(|v| v.is_finite()));
         reference.insert(arm["attribute"].as_str().expect("attr").to_owned(), latent);

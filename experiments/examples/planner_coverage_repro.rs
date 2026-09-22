@@ -93,7 +93,10 @@ async fn main() {
     let entities = (0..n)
         .map(|i| JudgementCandidate {
             id: format!("e{i:02}"),
-            text: format!("Item {i}. score={};  filler text about the item.", (i * 7919) % 97),
+            text: format!(
+                "Item {i}. score={};  filler text about the item.",
+                (i * 7919) % 97
+            ),
         })
         .collect();
     let request = JudgementRunRequest {
@@ -188,6 +191,9 @@ async fn main() {
         let vy: f64 = ry.iter().map(|b| (b - my).powi(2)).sum();
         rows.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap());
         let topk_truth: Vec<f64> = rows.iter().take(k).map(|r| r.1).collect();
-        println!("spearman(recovered, truth) = {:+.3}; top-{k} truth scores = {topk_truth:?}", cov / (vx * vy).sqrt());
+        println!(
+            "spearman(recovered, truth) = {:+.3}; top-{k} truth scores = {topk_truth:?}",
+            cov / (vx * vy).sqrt()
+        );
     }
 }
