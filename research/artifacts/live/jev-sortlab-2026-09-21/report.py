@@ -1,0 +1,204 @@
+"""Renders report.html from res-*.json and drift-*.json. python3 report.py (no key)."""
+import glob, json, math, os
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__)); J = lambda f: json.load(open(f"{HERE}/{f}")); f2 = lambda v: f"{v:.2f}".lstrip("0") if abs(v) < 1 else f"{v:.2f}"
+f3 = lambda v: f"{v:.3f}".lstrip("0"); usd = lambda v: f"${v:.4f}"
+COH = [("countries", "198 countries by population", "vs log population"), ("arxiv150", "150 arXiv abstracts by novelty", "vs gemma-4-31b, 40 items")]
+REC = [("rate", "rate k8", "#2f6f73", ""), ("rate-k24", "rate k24", "#2f6f73", "6 3"), ("rate-k4", "rate k4", "#2f6f73", "2 2"), ("arate", "adaptive rate k8", "#7fb3b5", ""), ("arate-k24", "adaptive rate k24", "#7fb3b5", "6 3"),
+       ("noul", "yes/no all pairs", "#b4552d", ""), ("score9", "ratio all pairs", "#8a2f2f", ""), ("chain", "ratio cycle", "#6b5ca5", ""), ("achain", "adaptive ratio cycle", "#a99bd6", ""),
+       ("anchor", "anchored wide ratio k8", "#3f7d3a", ""), ("anchor-k24", "anchored wide ratio k24", "#3f7d3a", "6 3")]
+RES = {c: {r: J(f"res-{c}-{r}.json") for r, *_ in REC if os.path.exists(f"{HERE}/res-{c}-{r}.json")} for c, *_ in COH}
+DRIFT = {c: J(f"drift-{c}.json") for c in ("arxiv", "manifund", "lw")}
+N = {c: RES[c]["rate"]["n"] for c, *_ in COH}
+THR = {"countries": ("rho", .97), "arxiv150": ("self", .95)}
+
+
+def spend():
+    t = 0
+    for f in glob.glob(f"{HERE}/trace-*.jsonl*"):
+        import gzip
+        for l in (gzip.open(f, "rt") if f.endswith(".gz") else open(f)):
+            t += json.loads(l)["usage"]["input_tokens"]
+    return t * 0.042 / 1e6
+
+
+def reach(c, r, key=None, thr=None):
+    key, thr = THR[c] if key is None else (key, thr)
+    for row in RES[c][r]["rounds"]:
+        v = row[key]
+        if v == v and v >= thr:
+            return row["dollars"], row["round"]
+    return None, None
+
+
+def per_round(c, r):
+    rows = RES[c][r]["rounds"]; return rows[0]["dollars"] if r != "anchor" and r != "anchor-k24" else rows[1]["dollars"] - rows[0]["dollars"]
+
+
+def bits(r):
+    return 0.5 * math.log2(1 / max(1 - r * r, 1e-9))
+
+
+def curves_fig(c, key, ylo, yhi, ticks, title):
+    W, H, L, B, R = 430, 260, 40, 34, 118; rows = RES[c]
+    lo, hi = math.log10(0.001), math.log10(0.07)
+    x = lambda d: L + (math.log10(d) - lo) / (hi - lo) * (W - L - R); y = lambda v: H - B - (v - ylo) / (yhi - ylo) * (H - B - 18)
+    s = f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{title}"><text x="{L}" y="12" class="lab" style="font-weight:600">{title}</text>'
+    for t in ticks: s += f'<line x1="{L}" y1="{y(t):.1f}" x2="{W - R}" y2="{y(t):.1f}" class="grid"/><text x="{L - 5}" y="{y(t) + 4:.1f}" class="tick" text-anchor="end">{f2(t)}</text>'
+    for d in (0.001, 0.003, 0.01, 0.03): s += f'<line x1="{x(d):.1f}" y1="{y(yhi):.1f}" x2="{x(d):.1f}" y2="{H - B}" class="grid"/><text x="{x(d):.1f}" y="{H - B + 13}" class="tick" text-anchor="middle">{d:g}</text>'
+    s += f'<text x="{(L + W - R) / 2:.1f}" y="{H - 4}" class="tick" text-anchor="middle">dollars spent (log)</text>'
+    ends = []
+    for r, lab, col, dash in REC:
+        if r not in rows: continue
+        pts = [(row["dollars"], row[key]) for row in rows[r]["rounds"] if row[key] == row[key] and row["dollars"] >= 0.001]
+        pts = [(d, max(min(v, yhi), ylo)) for d, v in pts]
+        if not pts: continue
+        s += f'<polyline points="{" ".join(f"{x(d):.1f},{y(v):.1f}" for d, v in pts)}" fill="none" stroke="{col}" stroke-width="1.8"' + (f' stroke-dasharray="{dash}"' if dash else "") + "/>"
+        s += "".join(f'<circle cx="{x(d):.1f}" cy="{y(v):.1f}" r="2.2" fill="{col}"/>' for d, v in pts)
+        ends.append((y(pts[-1][1]), x(pts[-1][0]), lab, col))
+    ends.sort(); last = -99
+    for yy, xx, lab, col in ends:  # spread labels
+        yy = max(yy, last + 10.5); last = yy
+        s += f'<text x="{W - R + 4}" y="{yy + 3.5:.1f}" class="tick" style="fill:{col};font-size:9.5px">{lab}</text>'
+    return s + "</svg>"
+
+
+def reach_fig():
+    W, rh = 860, 17; H = 40 + len(REC) * rh; out = ""
+    for c, name, refl in COH:
+        key, thr = THR[c]; vals = [(lab, col, reach(c, r)[0]) for r, lab, col, _ in REC if r in RES[c]]
+        vals = sorted(vals, key=lambda v: (v[2] is None, v[2] or 0))
+        hi = max(v for _, _, v in vals if v) * 1.15; x = lambda d: 200 + d / hi * (W - 260)
+        s = f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="dollars to threshold, {name}"><text x="0" y="12" class="lab" style="font-weight:600">{name}: dollars to {"ρ" if key == "rho" else "self-agreement"} ≥ {f2(thr)} {refl if key == "rho" else ""}</text>'
+        for i, (lab, col, v) in enumerate(vals):
+            yy = 30 + i * rh
+            s += f'<text x="195" y="{yy + 4}" class="tick" text-anchor="end">{lab}</text>'
+            if v: s += f'<rect x="200" y="{yy - 6}" width="{x(v) - 200:.1f}" height="12" fill="{col}"/><text x="{x(v) + 5:.1f}" y="{yy + 4}" class="tick">{usd(v)}</text>'
+            else: s += f'<text x="204" y="{yy + 4}" class="tick">not reached in the budget</text>'
+        out += s + "</svg>"
+    return out
+
+
+def slope_fig():
+    W, rh = 860, 17; rows = RES["countries"]; vals = sorted([(lab, col, rows[r]["rounds"][-1]["slope"]) for r, lab, col, _ in REC if r in rows and not r.startswith(("rate", "arate"))], key=lambda v: -v[2])
+    H = 40 + len(vals) * rh; x = lambda v: 200 + v / 1.0 * (W - 300)
+    s = f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="cardinal slope"><text x="0" y="12" class="lab" style="font-weight:600">countries: fitted log-ratio per nat of true log population (1.0 = calibrated)</text>'
+    s += f'<line x1="{x(1):.1f}" y1="20" x2="{x(1):.1f}" y2="{H - 8}" class="grid" stroke-dasharray="3 3"/><text x="{x(1):.1f}" y="{H - 2}" class="tick" text-anchor="middle">1.0</text>'
+    for i, (lab, col, v) in enumerate(vals):
+        yy = 30 + i * rh
+        s += f'<text x="195" y="{yy + 4}" class="tick" text-anchor="end">{lab}</text><rect x="200" y="{yy - 6}" width="{x(v) - 200:.1f}" height="12" fill="{col}"/><text x="{x(v) + 5:.1f}" y="{yy + 4}" class="tick">{f2(v)}</text>'
+    return s + "</svg>"
+
+
+def table():
+    h = '<table><thead><tr><th>cohort</th><th>recipe</th><th>k</th><th>questions / call</th><th>$ / round</th><th>rounds</th><th>$ total</th><th>final ρ</th><th>final self</th><th>bits / item</th><th>$ to threshold</th><th>slope</th></tr></thead><tbody>'
+    for c, name, refl in COH:
+        first = True
+        for r, lab, col, _ in REC:
+            if r not in RES[c]: continue
+            d = RES[c][r]; last = d["rounds"][-1]; k = d["k"]; q = {"rate": k, "arate": k, "noul": k * (k - 1), "score9": k * (k - 1), "chain": 2 * k, "achain": 2 * k, "anchor": 3 * (k - 3) + 3}[r.split("-")[0]]
+            dt, rt = reach(c, r); b = bits(last["pearson"]) if c == "countries" else bits(math.sqrt(max(last["self"], 0)))
+            h += (f'<tr><td>{name if first else ""}</td><td style="color:{col}">{lab}</td><td>{k}</td><td>{q}</td><td>{usd(per_round(c, r))}</td><td>{last["round"]}</td><td>{usd(last["dollars"])}</td><td>{f3(last["rho"])}</td><td>{f3(last["self"])}</td>'
+                  f'<td>{b:.1f}</td><td>{usd(dt) + f" (round {rt})" if dt else "—"}</td><td>{f2(last["slope"]) if last["slope"] is not None else "—"}</td></tr>'); first = False
+    return h + "</tbody></table>"
+
+
+def drift_table():
+    h = '<table><thead><tr><th>cohort</th><th>calls re-asked</th><th>$</th><th>yes/no p: r day vs day</th><th>mean |Δp|</th><th>moved &gt; .05</th><th>ratio E: r</th><th>mean |ΔE| (levels)</th><th>latents day vs day</th><th>vs Fable, day 1 → 3</th></tr></thead><tbody>'
+    for c, n in (("arxiv", "arXiv abstracts"), ("manifund", "Manifund applications"), ("lw", "LessWrong comments")):
+        d = DRIFT[c]; l = d["latent"]
+        h += (f'<tr><td>{n}</td><td>{d["calls"]}</td><td>{d["tokens"] * 0.042 / 1e6:.3f}</td><td>{f3(d["noul"]["pearson"])}</td><td>{d["noul"]["mad"]:.3f}</td><td>{d["noul"]["moved05"] * 100:.1f} %</td><td>{f3(d["score"]["pearson"])}</td><td>{d["score"]["mad"]:.2f}</td>'
+              f'<td>{" / ".join(f3(l[i]["day_vs_day"]) for i in ("noul", "score9", "rate"))}</td><td>{" / ".join(f2(l[i]["fable_day1"]) + "→" + f2(l[i]["fable_day3"]) for i in ("noul", "score9", "rate"))}</td></tr>')
+    return h + "</tbody></table>"
+
+
+CSS = """
+:root{--bg:#faf7f1;--ink:#1c1a17;--mute:#6d675d;--rule:#d9d2c4;--card:#f2ede3;--acc:#2f6f73}
+@media(prefers-color-scheme:dark){:root{--bg:#15161a;--ink:#e8e4da;--mute:#9a9487;--rule:#33353c;--card:#1d1f25;--acc:#6fb7bb}}
+*{box-sizing:border-box}html{background:var(--bg);color:var(--ink);font:16px/1.55 Charter,'Iowan Old Style','Palatino Linotype',Georgia,serif;-webkit-text-size-adjust:100%}
+body{margin:0 auto;padding:56px 28px 96px;max-width:920px}
+h1{font-size:34px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em;font-weight:600}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-family:ui-sans-serif,-apple-system,'Helvetica Neue',sans-serif;color:var(--mute);font-weight:600;margin:52px 0 14px;padding-top:14px;border-top:1px solid var(--rule)}
+p{margin:0 0 12px}.sub{color:var(--mute);font-size:15px;margin-bottom:26px}
+.verdict{background:var(--card);border-left:3px solid var(--acc);padding:16px 20px;margin:22px 0}.verdict p:last-child{margin:0}
+.so{color:var(--mute);font-style:italic}.so b{font-style:normal;color:var(--ink);font-weight:600}
+code{font:13px/1.4 ui-monospace,'SF Mono',Menlo,monospace;background:var(--card);padding:1px 5px;border-radius:3px}
+table{border-collapse:collapse;font:12.5px/1.3 ui-sans-serif,-apple-system,'Helvetica Neue',sans-serif;font-variant-numeric:tabular-nums;width:100%;margin:12px 0 6px}
+th,td{padding:5px 6px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}thead th{color:var(--mute);font-weight:600;font-size:11px;letter-spacing:.03em}
+figure{margin:18px 0 22px}figcaption{font:13px/1.45 ui-sans-serif,-apple-system,sans-serif;color:var(--mute);margin-top:6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.two{grid-template-columns:1fr}}
+svg{width:100%;height:auto;display:block;font-family:ui-sans-serif,-apple-system,'Helvetica Neue',sans-serif}
+svg .grid{stroke:var(--rule);stroke-width:1}svg .tick{fill:var(--mute);font-size:11.5px}svg .lab{fill:var(--ink);font-size:13.5px}
+ol{padding-left:22px}li{margin-bottom:8px}
+.foot{color:var(--mute);font-size:14px}
+"""
+
+TOTAL = spend()
+rc = {r: reach("countries", r) for r in RES["countries"]}; ra = {r: reach("arxiv150", r) for r in RES["arxiv150"]}
+fin = lambda c, r, k: RES[c][r]["rounds"][-1][k]
+cheap_c = min(rc, key=lambda r: rc[r][0] or 9); cheap_a = min(ra, key=lambda r: ra[r][0] or 9)
+ratio_x = rc["score9"][0] / rc["rate"][0]
+c_rho = [fin("countries", r, "rho") for r in RES["countries"]]; c_self = [fin("countries", r, "self") for r in RES["countries"] if r != "arate-k24"]
+a_rho = [fin("arxiv150", r, "rho") for r in RES["arxiv150"]]; a_self = [fin("arxiv150", r, "self") for r in RES["arxiv150"] if r != "arate-k24"]
+slopes = {r: fin("countries", r, "slope") for r in RES["countries"]}
+r1 = lambda c, r: RES[c][r]["rounds"][0]
+bpd = lambda c, r: N[c] * bits(r1(c, r)["pearson"]) / r1(c, r)["dollars"]  # bits about the reference per dollar, first round, countries
+drift_r = [DRIFT[c]["noul"]["pearson"] for c in DRIFT] + [DRIFT[c]["score"]["pearson"] for c in DRIFT]; drift_l = [DRIFT[c]["latent"][i]["day_vs_day"] for c in DRIFT for i in ("noul", "score9", "rate")]
+
+HTML = f"""<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sorting with Jev: which recipe buys the most information per dollar?</title><style>{CSS}</style>
+<h1>Sorting with Jev: which recipe buys the most information per dollar?</h1>
+<p class="sub">Eleven sorting recipes on hosted Jev (TypeSafe <code>jev-latest</code>, $0.042 per million input tokens), run round by round on 198 countries by population (a true cardinal reference) and 150 arXiv abstracts by novelty (a generating judge as reference), each checkpoint priced; plus the same 324 windows re-asked two days apart. Measured 2026-09-21. ${TOTAL:.2f} in total. Written for anyone who ranks things with model judgments and pays per token.</p>
+
+<div class="verdict">
+<p><b>How good is Jev at pairwise ratio sorting: as good as the reference it is checked against, transitive, cheap, and cardinal only when anchored.</b> Every recipe reaches the same ceiling — ρ {f2(min(c_rho))}–{f2(max(c_rho))} against true population, {f2(min(a_rho))}–{f2(max(a_rho))} against gemma-4-31b on abstracts (gemma’s own reliability), self-agreement {f2(min(c_self))}–{f2(max(c_self))} and {f2(min(a_self))}–{f2(max(a_self))} — so the ratio ladder is not more accurate than a yes/no or a rating; it is one of several ways to read the same latent. Its fitted log-ratios are compressive: {f2(slopes["score9"])} nat per nat of true log population on a 1/8…8 ladder, {f2(slopes["anchor"])} on a 1/100…100 ladder against three pinned anchors.</p>
+<p><b>The recipe that buys the most information per dollar is the plainest one: k items in a window, one ten-level rating each, random windows, repeat.</b> ρ ≥ .97 on countries costs {usd(rc["rate-k24"][0])} at k = 24 and {usd(rc["rate"][0])} at k = 8; self-agreement ≥ .95 on 150 abstracts costs {usd(ra[cheap_a][0])}. The all-pairs ratio ladder reaches the same numbers at {ratio_x:.0f}× the price; yes/no on all pairs at {rc["noul"][0] / rc["rate"][0]:.1f}×; a ratio cycle (2k questions) at {rc["chain"][0] / rc["rate"][0]:.0f}×. Adaptive windows (sort, then compare neighbours) bought nothing here because the ceiling is reached in two or three random rounds.</p>
+<p><b>Pinned anchors with a wide ladder are the recipe for a cardinal answer,</b> and the most self-consistent one (self {f3(fin("arxiv150", "anchor", "self"))} on abstracts, {f3(fin("countries", "anchor", "self"))} on countries); a round costs {per_round("countries", "anchor") / per_round("countries", "rate"):.1f}× a rating round, but it clears the accuracy threshold in its first, so the cost to threshold ({usd(rc["anchor"][0])}) is within 1.5× of the rating’s. <b>Time drift is nil:</b> the same request two days later returns the same probabilities (r {f3(min(drift_r))}–{f3(max(drift_r))} over 39,000 answers), and the sorts fitted from each day agree at {f3(min(drift_l))}+, so a cached answer is a permanent measurement.</p>
+</div>
+
+<h2>Setup</h2>
+<p><b>Cohorts.</b> <i>countries</i>: 198 sovereign states from Wikidata with their latest population; the reference is log population, so Spearman measures accuracy against a fact and the fitted slope measures cardinal calibration. <i>arxiv150</i>: 150 arXiv abstracts scored on a one-paragraph definition of novelty; the reference is gemma-4-31b’s pooled z-score on the 40 that overlap the multi-criteria benchmark, so ρ is judge–judge and self-agreement is the precision statistic for all 150.</p>
+<p><b>Recipes.</b> A round shows every item once, in windows of k. <i>rate</i>: one ten-level standing question per item (“where does item x stand among those shown”), k questions a call. <i>yes/no all pairs</i>: “x is stronger than y” for every ordered pair, k(k−1). <i>ratio all pairs</i>: the polarity-safe nine-rung ladder (“far weaker: 1/8 or less” … “far stronger: 8 times or more”) for every ordered pair. <i>ratio cycle</i>: the same ladder on a random Hamiltonian cycle only, both orders, 2k. <i>adaptive</i> variants re-fit after each round and window consecutive blocks of the current order with a random offset. <i>anchored wide ratio</i>: three items pinned at the 10 / 50 / 90 % points of a one-round rating pilot (charged) sit in every window beside k−3 targets, each target against each anchor and the anchors against each other on a 1/100 … 100 ladder.</p>
+<p><b>Fit and score.</b> Pairs are least squares on the directed log-ratio (ladder expectation) or logit (yes/no); ratings are least squares with a window fixed effect, which is what makes sorted windows usable. After every round: Spearman and Pearson against the reference, split-half by round parity stepped up by Spearman–Brown (<i>self</i>), bits per item as ½ log₂ 1/(1−r²), and the dollars billed so far. The first round of adaptive recipes is random by construction.</p>
+
+<h2>1 · Agreement against dollars</h2>
+<div class="two">{curves_fig("countries", "rho", .85, 1.0, (.85, .9, .95, 1.0), "countries: ρ vs true log population")}{curves_fig("arxiv150", "rho", .7, .95, (.7, .75, .8, .85, .9, .95), "arxiv150: ρ vs gemma-4-31b (40 items)")}</div>
+<div class="two">{curves_fig("countries", "self", .85, 1.0, (.85, .9, .95, 1.0), "countries: self-agreement")}{curves_fig("arxiv150", "self", .85, 1.0, (.85, .9, .95, 1.0), "arxiv150: self-agreement")}</div>
+<figure><figcaption>One point per round; the x axis is cumulative dollars, log scale. Self-agreement is undefined at round 1 and depressed at rounds 2–3, where one half is a single round of disjoint windows (the fit connects them only through the window effect); the anchored recipes are connected from round 1, which is part of their self-agreement lead. Teal: rating family; orange and red: all-pairs yes/no and ratio; purple: ratio cycles; green: anchored. Dashed: k = 24, dotted: k = 4.</figcaption></figure>
+<p>On countries every recipe climbs to the same ceiling and the x position of the climb is the whole result: rating at k = 24 is at ρ .97 after {rc["rate-k24"][1]} rounds and {usd(rc["rate-k24"][0])}, rating at k = 8 after {rc["rate"][1]} rounds, the all-pairs ratio after {rc["score9"][1]} rounds but {usd(rc["score9"][0])}, because a round of 56 ladder questions on 8 items costs {per_round("countries", "score9") / per_round("countries", "rate"):.0f}× a round of 8 ratings and carries no more about the order. Yes/no on all pairs is the cheap all-pairs form (a yes/no question is a third of a ladder question in tokens) and is the second-cheapest recipe overall. On abstracts the same ordering holds against a softer ceiling: everything sits at ρ .88–.91 against gemma from round 3 on, and the self-agreement panel is where the recipes separate — rating reaches .95 first, the anchored ladder reaches the highest final value.</p>
+<p class="so"><b>So:</b> the information per dollar is set by the number of questions a call needs to place its items, not by their form. A rating places k items with k questions; every pairwise design spends at least 2k and gets the same latent.</p>
+
+<h2>2 · Dollars to a threshold</h2>
+<figure>{reach_fig()}<figcaption>Cumulative dollars at the first round whose statistic clears the threshold. Countries: accuracy against truth; abstracts: split-half self-agreement of the full 150-item sort (the 40-item ρ is too noisy to threshold). Anchored recipes include the pilot round that picks the anchors.</figcaption></figure>
+<p>Read as bits: at its first round the k = 24 rating carries {bpd("countries", "rate-k24") / 1e3:.0f}k bits of population information per dollar ({N["countries"]} items × {bits(r1("countries", "rate-k24")["pearson"]):.1f} bits per item for {usd(r1("countries", "rate-k24")["dollars"])}), k = 8 rating {bpd("countries", "rate") / 1e3:.0f}k, yes/no all pairs {bpd("countries", "noul") / 1e3:.0f}k, the ratio cycle {bpd("countries", "chain") / 1e3:.0f}k, the all-pairs ratio {bpd("countries", "score9") / 1e3:.0f}k. The metric saturates by design — bits per item is bounded by what the judge knows, so past the ceiling every added dollar buys zero — which is why the threshold cost is the operational number.</p>
+
+<h2>3 · Cardinal calibration</h2>
+<figure>{slope_fig()}<figcaption>Slope of the fitted latent on true log population, countries, final round; rating recipes are on a level scale and are omitted. A calibrated ratio judge would read 1.0.</figcaption></figure>
+<p>The 1/8 … 8 ladder compresses to {f2(slopes["score9"])}–{f2(slopes["chain"])} nat per nat whether asked on all pairs or a cycle, adaptive or not: a country ten times as populous is called “about 2 times” on average. The wide ladder against pinned anchors recovers {f2(slopes["anchor"])} at k = 8 and {f2(slopes["anchor-k24"])} at k = 24, and it is the only recipe whose ratio answers can be read as magnitudes without a calibration step. Yes/no logits are on their own scale ({f2(slopes["noul"])} logit per nat) and are ordinal in practice.</p>
+<p class="so"><b>So:</b> for an ordinal answer any recipe is calibrated enough; for a cardinal one, pin anchors, widen the ladder to the range the truth spans, and still expect a quarter of the dynamic range to be missing.</p>
+
+<h2>4 · Adaptive windows</h2>
+<p>Sorting after each round and comparing neighbours is the classic way to spend comparisons where the order is uncertain. Here it bought little: adaptive rating reaches the threshold at the same round and price as random windows on both cohorts, and adaptive ratio cycles clear the countries threshold one round earlier ({usd(rc["achain"][0])} against {usd(rc["chain"][0])}), still {rc["achain"][0] / rc["rate"][0]:.0f}× the rating. Two reasons are visible in the data. The ceiling arrives in two or three random rounds, before an adaptive design has anything to exploit. And at k = 24 the adaptive rating’s self-agreement falls to {f3(fin("countries", "arate-k24", "self"))} on countries and {f3(fin("arxiv150", "arate-k24", "self"))} on abstracts against {f3(fin("countries", "rate-k24", "self"))} and {f3(fin("arxiv150", "rate-k24", "self"))} for random windows: windows of near-equal items give a rating question nothing to spread its levels over, and the window fixed effect then absorbs most of what it does say.</p>
+<p class="so"><b>So:</b> random windows, repeated, are the design; adaptive refinement is worth revisiting only for a cohort where the plateau takes more than five rounds.</p>
+
+<h2>5 · Time drift</h2>
+<figure>{drift_table()}<figcaption>The 108 k = 8 windows per cohort from the 2026-09-19 consistency study (twelve attributes, 24 items, three rounds; 6,048 yes/no and 6,912 ratio answers each) re-issued 2026-09-21 with a cache-busting salt. Latents fitted from each day’s answers; Fable 5.1 is the reference from that study.</figcaption></figure>
+<p>Two days apart, a yes/no probability moves on average {np.mean([DRIFT[c]["noul"]["mad"] for c in DRIFT]):.3f} and a nine-level expectation {np.mean([DRIFT[c]["score"]["mad"] for c in DRIFT]):.2f} of a level; the fitted sorts agree at {f3(min(drift_l))} or better and agree with Fable to the same third decimal. That is bf16 batching wobble (the .03 already known), not drift. A cached answer can be reused indefinitely; there is no reason to re-ask a question for freshness.</p>
+
+<h2>Recipes llmsort should endorse</h2>
+<ol>
+<li><b>Ordinal sort, any size:</b> random windows of 8–24 items, one ten-level standing question per item, window fixed effect in the fit, two or three rounds. About {usd(rc["rate-k24"][0])}–{usd(rc["rate"][0])} for 200 items with a fact behind them, {usd(ra["rate"][0])} to self-agreement .95 on 150 abstracts.</li>
+<li><b>When a per-pair read is wanted</b> (a specific comparison must be defensible, or the criterion may be unstated): yes/no on all ordered pairs in the window, logit fit. Second-cheapest recipe; both orders repair the yes-lean.</li>
+<li><b>Cardinal answer:</b> three pinned anchors from a one-round rating pilot, wide ladder spanning the true range, every target against every anchor. Highest self-agreement, slope {f2(slopes["anchor"])} against truth.</li>
+<li><b>Do not spend on:</b> all-pairs ratio ladders for an ordinal answer ({ratio_x:.0f}× the price for the same rank information); adaptive windows before the random plateau is measured; re-asking for freshness.</li>
+</ol>
+
+<h2>Every number</h2>
+<figure>{table()}<figcaption>Questions per call at the recipe’s k. Bits per item: countries against true log population (Pearson); abstracts from self-agreement, an upper bound. Threshold: countries ρ ≥ .97, abstracts self ≥ .95. Slope in nats of fitted log-ratio per nat of true log population, rating recipes omitted.</figcaption></figure>
+
+<h2>Replay</h2>
+<p class="foot">Every Jev response is cached by request hash in <code>trace-&lt;cohort&gt;.jsonl.gz</code> and <code>trace-drift-&lt;cohort&gt;.jsonl.gz</code>; <code>lab.py &lt;cohort&gt; &lt;recipe&gt; [rounds] [k]</code>, <code>drift.py</code> and <code>report.py</code> then run with no key. <code>run_countries.sh</code>, <code>run_arxiv.sh</code>, <code>run_more.sh</code> are the batteries. Limits: two cohorts, one window seed, one wording per question form, one judge; the abstracts reference is a 31B generating judge on 40 items, so ρ there is bounded by its reliability and self-agreement carries the comparison.</p>
+</html>"""
+open(f"{HERE}/report.html", "w").write(HTML)
+print("report.html", len(HTML), f"${TOTAL:.2f}")

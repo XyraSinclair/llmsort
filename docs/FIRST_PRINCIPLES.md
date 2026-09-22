@@ -36,7 +36,7 @@ An instrument is a point in **arity × scale × output-form**:
 | pairwise · ordinal · PMF | ✓ `ordinal_letter_v1` | 3-token alphabet; cheapest instrument |
 | pairwise · interval · any | ✗ | "how much more, additively" — meaningful only for bounded attributes; low priority, ratio subsumes on log scale |
 | pointwise · ordinal/ratio (rubric) | ◐ scalar control | seriate `scalar` digit-PMF; a baseline, not a path — anchor drift is the documented disease |
-| pointwise · ratio **to fixed anchors** | ✗ | classic magnitude estimation with pinned anchor entities; fixes anchor drift; cheap O(n); worth building |
+| pointwise · ratio **to fixed anchors** | ◐ measured on Jev | classic magnitude estimation with pinned anchor entities; fixes anchor drift; cheap O(n). Measured on hosted Jev (`research/artifacts/live/jev-sortlab-2026-09-21`): three anchors from a one-round rating pilot, wide 1/100…100 ladder, slope .76 vs true log population where the free 1/8…8 ladder reads .40; highest self-agreement of eleven recipes; the recipe for a cardinal answer. Not yet an llmsort verb |
 | k-wise · nominal ("which is most") | ◐ | seriate `kwise` + lowering; not exposed in cardinal |
 | k-wise · **best–worst** (MaxDiff) | ◐ measured, refuted as built | `setwise_cached --answer bw`: 2k−3 ordinal pairs per call; live on deepseek-v4-flash (pack `best-worst-2026-08-22`) ρ vs pairwise median 0.25, test–retest 0.46–0.85 — the worst pick is a weak, last-slot-biased signal |
 | k-wise · full order of k (point) | ✓ graduated: `rerank::setwise` | `--answer order`: k(k−1)/2 ordinal pairs per call lowered into the solver; same pack: 9 calls/attribute reach the pairwise sort's own test–retest ceiling at ~¼ its dollars per item; last slot ranked last 2.2× fair share (measured). Robustness matrix 2026-08-23: holds across 3 delimiters (free parameter), entity sizes 400–8000 chars, 3 model families, 2 corpora; the r=2 flip-rate gauge is a one-sided screen (flip<0.20 ⇒ ρ≥0.64 over 38 live cells). Graduation gate stated in PROGRAM.md E6 |
@@ -85,7 +85,7 @@ stated as an impossibility result for the alternative.
 | pre-run worst-case pricing | ✓ `--estimate` (per-template honest: $0.011 vs $1.19) |
 | budget defaults O(n), not O(n²) | ✓ 4·n |
 | planner vs baseline measured | ✓ regret benchmark; wins scarce-budget, pinned two-sided |
-| **bits-per-dollar as a formal efficiency metric** | ✗ — we showed 3× separation/dollar informally; entropy-of-posterior-reduction per nanodollar is computable from what we already store |
+| **bits-per-dollar as a formal efficiency metric** | ◐ — measured on Jev (`jev-sortlab-2026-09-21`): ½ log₂ 1/(1−r²) per item against a true cardinal, per dollar billed; k ratings per window carry 170k bits/$ at the first round, all-pairs ratio 26k. It saturates at the judge's knowledge, so *dollars to a threshold* is the operational form. Not yet computed inside llmsort |
 | best–worst call efficiency | ✗ (see grid) |
 
 ## 5. Stability: the invariance group of a belief
@@ -130,7 +130,7 @@ a computable diagnostic:
 | **Susceptibility** | response to a small applied field: framing spin | ✓ `judge --spin` (secant) and `judge --sweep` (response function over f ∈ −3…+3: odd slope, linear R², even component) |
 | **Temperature/entropy** | PMF spread per judgement; annealing across sampling temperature | ◐ entropy computable from stored PMFs; sweep unmeasured |
 | **Ground state** | the solved scores: minimum-energy potential for the field | ✓ the solver itself |
-| **Relaxation** | drift of the same judgement re-asked over time | ✗ |
+| **Relaxation** | drift of the same judgement re-asked over time | ◐ nil on Jev: 324 windows re-asked two days apart, answer-level r .995–.998, fitted sorts .99+ (`jev-sortlab-2026-09-21` § 5); a cached typed answer is permanent. Generating judges untested |
 
 **Finding from shipping susceptibility** (2026-07-05, live,
 `research/artifacts/live/spin-probe-2026-07-05/`): χ is state-dependent, not a model
