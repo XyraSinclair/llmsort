@@ -112,7 +112,7 @@ fn design(
     for _ in 0..rounds {
         let mut pool: Vec<usize> = (0..n).collect();
         pool.shuffle(rng);
-        let windows = if n > k { (n + stride - 1) / stride } else { 1 };
+        let windows = if n > k { n.div_ceil(stride) } else { 1 };
         for g in 0..windows {
             let order: Vec<usize> = if n > k {
                 (0..k).map(|j| pool[(g * stride + j) % n]).collect()
@@ -213,14 +213,11 @@ fn parse_joint(raw: &str, k: usize, m: usize) -> Vec<Option<Vec<usize>>> {
     let mut out: Vec<Option<Vec<usize>>> = vec![None; m];
     let mut bare = 0usize;
     for line in raw.lines() {
-        let line = line
-            .trim()
-            .trim_start_matches(|c| c == '*' || c == '-' || c == '`')
-            .trim();
+        let line = line.trim().trim_start_matches(['*', '-', '`']).trim();
         if line.is_empty() {
             continue;
         }
-        let (idx, rest) = match line.find(|c: char| c == ':' || c == '.' || c == ')') {
+        let (idx, rest) = match line.find([':', '.', ')']) {
             Some(p) if line[..p].trim().parse::<usize>().is_ok() => {
                 (line[..p].trim().parse::<usize>().unwrap(), &line[p + 1..])
             }
@@ -400,6 +397,7 @@ struct CallTrace {
     error: Option<String>,
 }
 
+#[allow(clippy::too_many_arguments)]
 async fn call(
     client: &reqwest::Client,
     base: &str,
@@ -596,6 +594,9 @@ fn summarize(
 }
 
 #[tokio::main]
+/// One setwise call to schedule: (plan, presentation, window items, texts, prompt, arm, max_tokens).
+type Job<'a> = (usize, usize, Vec<usize>, Vec<String>, String, &'a str, u32);
+
 async fn main() {
     let args = Args::parse();
     let key =
@@ -643,7 +644,7 @@ async fn main() {
     let mut all_traces: Vec<CallTrace> = Vec::new();
     for arm in arms {
         let arm_name = format!("{arm:?}").to_lowercase();
-        let mut jobs: Vec<(usize, usize, Vec<usize>, Vec<String>, String, &str, u32)> = Vec::new();
+        let mut jobs: Vec<Job<'_>> = Vec::new();
         for (pi, plan) in plans.iter().enumerate() {
             for (pj, pres) in plan.presentations.iter().enumerate() {
                 match arm {
