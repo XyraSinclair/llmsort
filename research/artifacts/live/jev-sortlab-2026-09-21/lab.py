@@ -45,6 +45,11 @@ def cohort(name):
         idx = [pos[i] for i in r["ids"]]
         return items, np.array([r["ref"]["novelty"][i] for i in r["ids"]]), idx, ("Novelty: how much genuinely new understanding the work contributes — a new problem, method, "
                                                             "or finding a well-read researcher in the area would not already possess — rather than incremental variation on known work."), "item"
+    man = json.load(open(f"{HERE}/cohorts.json")) if os.path.exists(f"{HERE}/cohorts.json") else {}
+    if name in man:
+        m = man[name]; rows = list(csv.DictReader(open(f"{HERE}/{name}.csv")))
+        items = [{"id": r["label"], "text": r["label"]} for r in rows]; v = np.array([float(r["value"]) for r in rows])
+        return items, (np.log(v) if m["scale"] == "log" else v), list(range(len(items))), m["attr"], m["noun"]
     raise SystemExit(name)
 
 
@@ -160,7 +165,7 @@ def main():
             h = [fit([o for rr, o in obs if rr % 2 == s], n) for s in (0, 1)]; sh = spearman(h[0], h[1]); sb = 2 * sh / (1 + sh)
         else:
             sh = sb = float("nan")
-        slope = float(np.polyfit(ref, u[ridx], 1)[0]) if name == "countries" else None
+        slope = float(np.polyfit(ref, u[ridx], 1)[0]) if name != "arxiv150" else None
         log.append({"round": r + 1, "calls": calls, "tokens": tok, "dollars": tok * PRICE, "rho": rho, "pearson": pear, "bits_ref": bits(pear),
                     "split_half": sh, "self": sb, "bits_self": bits(math.sqrt(max(sb, 0))), "slope": slope})
         print(f"{name} {stem} round {r + 1:2d} calls {calls:4d} tokens {tok / 1e3:7.1f}K ${tok * PRICE:.4f} rho {rho:.3f} pearson {pear:.3f} self {sb:.3f} bits_ref {bits(pear):.2f}" + (f" slope {slope:.2f}" if slope is not None else ""), flush=True)

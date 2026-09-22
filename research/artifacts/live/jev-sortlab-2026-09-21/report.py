@@ -11,6 +11,8 @@ REC = [("rate", "rate k8", "#2f6f73", ""), ("rate-k24", "rate k24", "#2f6f73", "
 RES = {c: {r: J(f"res-{c}-{r}.json") for r, *_ in REC if os.path.exists(f"{HERE}/res-{c}-{r}.json")} for c, *_ in COH}
 DRIFT = {c: J(f"drift-{c}.json") for c in ("arxiv", "manifund", "lw")}
 CAS = J("cascade.json")
+TRUTH = [("countries", "countries · population"), ("elements", "elements · atomic number"), ("films", "films · box office"), ("mountains", "mountains · elevation"), ("cities", "cities · population"), ("rivers", "rivers · length"), ("companies", "companies · revenue")]
+TR = {c: {r: J(f"res-{c}-{r}.json") for r in ("rate-k24", "noul", "anchor")} for c, _ in TRUTH}
 N = {c: RES[c]["rate"]["n"] for c, *_ in COH}
 THR = {"countries": ("rho", .97), "arxiv150": ("self", .95)}
 
@@ -115,6 +117,18 @@ def drift_table():
     return h + "</tbody></table>"
 
 
+def ceiling_fig():
+    W, rh = 860, 22; H = 44 + len(TRUTH) * rh; x = lambda v: 230 + (v - .5) / .5 * (W - 300)
+    s = f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="knowledge ceiling by cohort"><text x="0" y="12" class="lab" style="font-weight:600">ρ against the fact, final round (filled) and self-agreement (hollow), seven cohorts</text>'
+    for t in (.5, .6, .7, .8, .9, 1.0): s += f'<line x1="{x(t):.1f}" y1="20" x2="{x(t):.1f}" y2="{H - 14}" class="grid"/><text x="{x(t):.1f}" y="{H - 2}" class="tick" text-anchor="middle">{f2(t) if t < 1 else "1.0"}</text>'
+    for i, (c, lab) in enumerate(TRUTH):
+        yy = 34 + i * rh; s += f'<text x="222" y="{yy + 4}" class="tick" text-anchor="end">{lab}</text>'
+        for r, col, dy in (("rate-k24", "#2f6f73", -4), ("noul", "#b4552d", 0), ("anchor", "#3f7d3a", 4)):
+            l = TR[c][r]["rounds"][-1]
+            s += f'<circle cx="{x(l["rho"]):.1f}" cy="{yy + dy}" r="4" fill="{col}"/><circle cx="{x(l["self"]):.1f}" cy="{yy + dy}" r="3.5" fill="var(--bg)" stroke="{col}" stroke-width="1.5"/>'
+    return s + "</svg>"
+
+
 def cascade_table():
     qs = ["0", "2", "4", "6", "8", "12", "16", "24"]; h = '<table><thead><tr><th>cohort</th><th>signal</th>' + "".join(f"<th>q = {q}</th>" for q in qs) + '</tr></thead><tbody>'
     for c, n in (("arxiv", "arXiv abstracts"), ("manifund", "Manifund applications"), ("lw", "LessWrong comments")):
@@ -203,11 +217,17 @@ HTML = f"""<!doctype html><html lang="en"><meta charset="utf-8"><meta name="view
 <p>A system that uses Jev where it can and a stronger model where it cannot needs a signal for “cannot”. Jev does not carry one per item: the rank correlation between its own uncertainty and its error against Fable is {f2(min(CAS[c]["pred_sd"] for c in CAS))}–{f2(max(CAS[c]["pred_conf"] for c in CAS))}, and escalating by it is the random curve. The information exists — an oracle handing over six of 24 items closes most of the gap to Fable — but Jev’s errors are systematic opinions it holds with the same confidence as its correct ones, which is the same fact as “more consistent than right” seen from the other side. Disagreement with a second cheap judge (gemma) is a slightly better signal ({f2(min(CAS[c]["pred_gem"] for c in CAS))}–{f2(max(CAS[c]["pred_gem"] for c in CAS))}) and beats random by a few hundredths on the prose cohorts. At the level of a whole attribute the picture is better: Jev–gemma agreement predicts Jev–Fable agreement at r {CAS_ATTR_R:.2f} over the 36 cells.</p>
 <p class="so"><b>So:</b> decide Jev-or-frontier per attribute, from a small pilot against the strong judge, not per item from Jev’s confidence; a second cheap judge is worth more as a disagreement detector than as a second vote.</p>
 
+<h2>7 · Where the ceiling is: seven facts</h2>
+<figure>{ceiling_fig()}<figcaption class="key"><span><i style="background:#2f6f73"></i>rating, k = 24, six rounds</span><span><i style="background:#b4552d"></i>yes/no all pairs, k = 8, three rounds</span><span><i style="background:#3f7d3a"></i>anchored wide ratio, k = 8, three rounds</span> ~200 well-known Wikidata entities per cohort (118 elements), label only, reference log value (atomic number raw). Total for the six new cohorts {usd(sum(TR[c][r]["rounds"][-1]["dollars"] for c, _ in TRUTH if c != "countries" for r in TR[c]))}.</figcaption></figure>
+<p>Self-agreement is {f2(min(TR[c]["rate-k24"]["rounds"][-1]["self"] for c, _ in TRUTH))}+ on every cohort; accuracy runs from {f2(TR["companies"]["rate-k24"]["rounds"][-1]["rho"])} (company revenue) to {f2(TR["countries"]["rate-k24"]["rounds"][-1]["rho"])} (country population), and the three recipes agree on the ordering of the cohorts. That is the knowledge-ceiling map the attribute-level switch of § 6 needs: the gap between what Jev repeats and what is true is a property of the fact, not of the recipe, and it is visible in one cheap round. Where the ceiling is low the anchored recipe earns its price early — on cities, mountains and films its first round ({usd(TR["cities"]["anchor"]["rounds"][0]["dollars"])}) is where the rating gets after six — because the pinned anchors connect every window to an absolute reference from the start. The wide ladder’s slope is near 1 where the truth spans about the ladder’s range (mountains {f2(TR["mountains"]["anchor"]["rounds"][-1]["slope"])}, rivers {f2(TR["rivers"]["anchor"]["rounds"][-1]["slope"])}) and compresses where the truth spans more (companies {f2(TR["companies"]["anchor"]["rounds"][-1]["slope"])}): match the ladder to the range.</p>
+<p class="so"><b>So:</b> one rating round on 24-item windows tells you the domain’s ceiling for about a tenth of a cent; a ceiling under .85 is where a stronger model or a richer state (facts in the text, not a bare label) belongs.</p>
+
 <h2>Recipes llmsort should endorse</h2>
 <ol>
 <li><b>Ordinal sort, any size:</b> random windows of 8–24 items, one ten-level standing question per item, window fixed effect in the fit, two or three rounds. About {usd(rc["rate-k24"][0])}–{usd(rc["rate"][0])} for 200 items with a fact behind them, {usd(ra["rate"][0])} to self-agreement .95 on 150 abstracts.</li>
 <li><b>When a per-pair read is wanted</b> (a specific comparison must be defensible, or the criterion may be unstated): yes/no on all ordered pairs in the window, logit fit. Second-cheapest recipe; both orders repair the yes-lean.</li>
 <li><b>Cardinal answer:</b> three pinned anchors from a one-round rating pilot, wide ladder spanning the true range, every target against every anchor. Highest self-agreement, slope {f2(slopes["anchor"])} against truth.</li>
+<li><b>Weak-knowledge domains:</b> anchored wide ratio, one round, ladder matched to the range of the truth — the best first-round number wherever the ceiling is under .9.</li>
 <li><b>Escalation:</b> pilot each new attribute on ~24 items against a frontier judge; keep Jev where it agrees, hand the attribute (not individual items) to the stronger model where it does not.</li>
 <li><b>Do not spend on:</b> all-pairs ratio ladders for an ordinal answer ({ratio_x:.0f}× the price for the same rank information); adaptive windows before the random plateau is measured; re-asking for freshness.</li>
 </ol>
@@ -216,7 +236,7 @@ HTML = f"""<!doctype html><html lang="en"><meta charset="utf-8"><meta name="view
 <figure>{table()}<figcaption>Questions per call at the recipe’s k. Bits per item: countries against true log population (Pearson); abstracts from self-agreement, an upper bound. Threshold: countries ρ ≥ .97, abstracts self ≥ .95. Slope in nats of fitted log-ratio per nat of true log population, rating recipes omitted.</figcaption></figure>
 
 <h2>Replay</h2>
-<p class="foot">Every Jev response is cached by request hash in <code>trace-&lt;cohort&gt;.jsonl.gz</code> and <code>trace-drift-&lt;cohort&gt;.jsonl.gz</code>; <code>lab.py &lt;cohort&gt; &lt;recipe&gt; [rounds] [k]</code>, <code>drift.py</code> and <code>report.py</code> then run with no key. <code>run_countries.sh</code>, <code>run_arxiv.sh</code>, <code>run_more.sh</code> are the batteries. Limits: two cohorts, one window seed, one wording per question form, one judge; the abstracts reference is a 31B generating judge on 40 items, so ρ there is bounded by its reliability and self-agreement carries the comparison.</p>
+<p class="foot">Every Jev response is cached by request hash in <code>trace-&lt;cohort&gt;.jsonl.gz</code> and <code>trace-drift-&lt;cohort&gt;.jsonl.gz</code>; <code>lab.py &lt;cohort&gt; &lt;recipe&gt; [rounds] [k]</code>, <code>drift.py</code> and <code>report.py</code> then run with no key. <code>run_countries.sh</code>, <code>run_arxiv.sh</code>, <code>run_more.sh</code>, <code>run_truth.sh</code> are the batteries; <code>cohorts.py</code> fetches the Wikidata cohorts; <code>cascade.py</code> is § 6. Limits: two cohorts, one window seed, one wording per question form, one judge; the abstracts reference is a 31B generating judge on 40 items, so ρ there is bounded by its reliability and self-agreement carries the comparison.</p>
 </html>"""
 open(f"{HERE}/report.html", "w").write(HTML)
 print("report.html", len(HTML), f"${TOTAL:.2f}")

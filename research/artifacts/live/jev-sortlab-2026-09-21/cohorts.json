@@ -1,0 +1,38 @@
+{
+ "cities": {
+  "attr": "Population: how many people live in the city proper (latest estimate).",
+  "noun": "city",
+  "scale": "log",
+  "n": 200
+ },
+ "mountains": {
+  "attr": "Elevation: the height of the summit above sea level, in metres.",
+  "noun": "mountain",
+  "scale": "log",
+  "n": 200
+ },
+ "rivers": {
+  "attr": "Length: the length of the river from source to mouth, in kilometres.",
+  "noun": "river",
+  "scale": "log",
+  "n": 200
+ },
+ "companies": {
+  "attr": "Revenue: the company's most recent annual revenue, in US dollars.",
+  "noun": "company",
+  "scale": "log",
+  "n": 185
+ },
+ "films": {
+  "attr": "Box office: the film's worldwide theatrical gross, in US dollars.",
+  "noun": "film",
+  "scale": "log",
+  "n": 200
+ },
+ "elements": {
+  "attr": "Atomic number: the number of protons in the nucleus.",
+  "noun": "chemical element",
+  "scale": "raw",
+  "n": 118
+ }
+}
