@@ -10,6 +10,7 @@ REC = [("rate", "rate k8", "#2f6f73", ""), ("rate-k24", "rate k24", "#2f6f73", "
        ("anchor", "anchored wide ratio k8", "#3f7d3a", ""), ("anchor-k24", "anchored wide ratio k24", "#3f7d3a", "6 3")]
 RES = {c: {r: J(f"res-{c}-{r}.json") for r, *_ in REC if os.path.exists(f"{HERE}/res-{c}-{r}.json")} for c, *_ in COH}
 DRIFT = {c: J(f"drift-{c}.json") for c in ("arxiv", "manifund", "lw")}
+CAS = J("cascade.json")
 N = {c: RES[c]["rate"]["n"] for c, *_ in COH}
 THR = {"countries": ("rho", .97), "arxiv150": ("self", .95)}
 
@@ -113,6 +114,15 @@ def drift_table():
     return h + "</tbody></table>"
 
 
+def cascade_table():
+    qs = ["0", "2", "4", "6", "8", "12", "16", "24"]; h = '<table><thead><tr><th>cohort</th><th>signal</th>' + "".join(f"<th>q = {q}</th>" for q in qs) + '</tr></thead><tbody>'
+    for c, n in (("arxiv", "arXiv abstracts"), ("manifund", "Manifund applications"), ("lw", "LessWrong comments")):
+        d = CAS[c]; first = True
+        for k, lab in (("cascade", "Jev round-spread"), ("gem_cascade", "gemma disagreement"), ("random", "random"), ("oracle", "oracle")):
+            h += f'<tr><td>{n if first else ""}</td><td>{lab}</td>' + "".join(f"<td>{f2(d[k][q])}</td>" for q in qs) + "</tr>"; first = False
+    return h + "</tbody></table>"
+
+
 CSS = """
 :root{--bg:#faf7f1;--ink:#1c1a17;--mute:#6d675d;--rule:#d9d2c4;--card:#f2ede3;--acc:#2f6f73}
 @media(prefers-color-scheme:dark){:root{--bg:#15161a;--ink:#e8e4da;--mute:#9a9487;--rule:#33353c;--card:#1d1f25;--acc:#6fb7bb}}
@@ -135,6 +145,7 @@ ol{padding-left:22px}li{margin-bottom:8px}
 """
 
 TOTAL = spend()
+_jg = [v for c in CAS.values() for v in c["attr_jg"]]; _jB = [v for c in CAS.values() for v in c["attr_jB"]]; CAS_ATTR_R = float(np.corrcoef(_jg, _jB)[0, 1])
 rc = {r: reach("countries", r) for r in RES["countries"]}; ra = {r: reach("arxiv150", r) for r in RES["arxiv150"]}
 fin = lambda c, r, k: RES[c][r]["rounds"][-1][k]
 cheap_c = min(rc, key=lambda r: rc[r][0] or 9); cheap_a = min(ra, key=lambda r: ra[r][0] or 9)
@@ -186,11 +197,17 @@ HTML = f"""<!doctype html><html lang="en"><meta charset="utf-8"><meta name="view
 <figure>{drift_table()}<figcaption>The 108 k = 8 windows per cohort from the 2026-09-19 consistency study (twelve attributes, 24 items, three rounds; 6,048 yes/no and 6,912 ratio answers each) re-issued 2026-09-21 with a cache-busting salt. Latents fitted from each day’s answers; Fable 5.1 is the reference from that study.</figcaption></figure>
 <p>Two days apart, a yes/no probability moves on average {np.mean([DRIFT[c]["noul"]["mad"] for c in DRIFT]):.3f} and a nine-level expectation {np.mean([DRIFT[c]["score"]["mad"] for c in DRIFT]):.2f} of a level; the fitted sorts agree at {f3(min(drift_l))} or better and agree with Fable to the same third decimal. That is bf16 batching wobble (the .03 already known), not drift. A cached answer can be reused indefinitely; there is no reason to re-ask a question for freshness.</p>
 
+<h2>6 · Can Jev tell when to hand off?</h2>
+<figure>{cascade_table()}<figcaption>jev-highdim data (three cohorts × twelve attributes, 24 items, k = 8, three rounds), no new spend. Escalation: the q items Jev is least sure of are re-placed by an independent Fable read (replica A) on Jev’s scale; the merged order is scored against Fable replica B. <i>oracle</i> escalates the q items that are actually most wrong. Jev’s own signals: the spread of an item’s latent across single-round fits, and low yes/no confidence; <i>gemma</i> escalates where a gemma-4-31b setwise sort disagrees with Jev most.</figcaption></figure>
+<p>A system that uses Jev where it can and a stronger model where it cannot needs a signal for “cannot”. Jev does not carry one per item: the rank correlation between its own uncertainty and its error against Fable is {f2(min(CAS[c]["pred_sd"] for c in CAS))}–{f2(max(CAS[c]["pred_conf"] for c in CAS))}, and escalating by it is the random curve. The information exists — an oracle handing over six of 24 items closes most of the gap to Fable — but Jev’s errors are systematic opinions it holds with the same confidence as its correct ones, which is the same fact as “more consistent than right” seen from the other side. Disagreement with a second cheap judge (gemma) is a slightly better signal ({f2(min(CAS[c]["pred_gem"] for c in CAS))}–{f2(max(CAS[c]["pred_gem"] for c in CAS))}) and beats random by a few hundredths on the prose cohorts. At the level of a whole attribute the picture is better: Jev–gemma agreement predicts Jev–Fable agreement at r {CAS_ATTR_R:.2f} over the 36 cells.</p>
+<p class="so"><b>So:</b> decide Jev-or-frontier per attribute, from a small pilot against the strong judge, not per item from Jev’s confidence; a second cheap judge is worth more as a disagreement detector than as a second vote.</p>
+
 <h2>Recipes llmsort should endorse</h2>
 <ol>
 <li><b>Ordinal sort, any size:</b> random windows of 8–24 items, one ten-level standing question per item, window fixed effect in the fit, two or three rounds. About {usd(rc["rate-k24"][0])}–{usd(rc["rate"][0])} for 200 items with a fact behind them, {usd(ra["rate"][0])} to self-agreement .95 on 150 abstracts.</li>
 <li><b>When a per-pair read is wanted</b> (a specific comparison must be defensible, or the criterion may be unstated): yes/no on all ordered pairs in the window, logit fit. Second-cheapest recipe; both orders repair the yes-lean.</li>
 <li><b>Cardinal answer:</b> three pinned anchors from a one-round rating pilot, wide ladder spanning the true range, every target against every anchor. Highest self-agreement, slope {f2(slopes["anchor"])} against truth.</li>
+<li><b>Escalation:</b> pilot each new attribute on ~24 items against a frontier judge; keep Jev where it agrees, hand the attribute (not individual items) to the stronger model where it does not.</li>
 <li><b>Do not spend on:</b> all-pairs ratio ladders for an ordinal answer ({ratio_x:.0f}× the price for the same rank information); adaptive windows before the random plateau is measured; re-asking for freshness.</li>
 </ol>
 
