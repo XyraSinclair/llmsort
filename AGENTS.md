@@ -64,6 +64,11 @@ invisibly through a green default test run).
   exopriors-core `sites/`.
 - Evidence packs are replayable and content-addressed; a published
   number without its pack is slop.
+- Judgement runs on hosted, per-call rails billed to user account
+  credits — OpenRouter for the LLM judges, Jev for typed-probability
+  reads (operator 2026-09-22). Self-hosted GPU inference (the 0.6B
+  student, diffusion judges) is a measured research rung, never a
+  production dependency; a Scry path must not assume a warm card.
 
 ## Core invariants (the embarrass-us list)
 
