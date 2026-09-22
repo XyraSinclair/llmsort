@@ -593,10 +593,10 @@ fn summarize(
     }
 }
 
-#[tokio::main]
 /// One setwise call to schedule: (plan, presentation, window items, texts, prompt, arm, max_tokens).
 type Job<'a> = (usize, usize, Vec<usize>, Vec<String>, String, &'a str, u32);
 
+#[tokio::main]
 async fn main() {
     let args = Args::parse();
     let key =

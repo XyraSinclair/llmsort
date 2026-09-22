@@ -13,6 +13,8 @@ fn make_trace(comparison_index: usize) -> ComparisonTrace {
         prompt_template_slug: "canonical_v2".to_string(),
         template_hash: "template_hash".to_string(),
         rendered_prompt_digest: "rendered_digest".to_string(),
+        rendered_prompt: None,
+        completion: None,
         engine_spec_id: "engine_spec".to_string(),
         entity_a_id: "a".to_string(),
         entity_b_id: "b".to_string(),
