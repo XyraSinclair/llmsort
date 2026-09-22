@@ -56,7 +56,7 @@ def cohort(name):
 def chunks(order, k):
     w = [order[i:i + k] for i in range(0, len(order), k)]
     if len(w) > 1 and len(w[-1]) < max(2, k // 2):
-        w[-2] += w.pop()
+        tail = w.pop(); w[-1] += tail
     return w
 
 
