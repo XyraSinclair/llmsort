@@ -347,7 +347,7 @@ async fn run(
                 .await;
                 let latency_ms = t0.elapsed().as_millis() as u64;
                 let k = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
-                if k % 200 == 0 || k == total {
+                if k.is_multiple_of(200) || k == total {
                     eprintln!("  {k}/{total} calls, {:.1}s", started.elapsed().as_secs_f64());
                 }
                 let base = CallRecord {
@@ -394,7 +394,7 @@ async fn run(
                         }
                     }
                     Err(err) => {
-                        if k <= 5 || k % 500 == 0 {
+                        if k <= 5 || k.is_multiple_of(500) {
                             eprintln!("call failed ({lens}/{axis_id} {i}-{j}): {err}");
                         }
                         CallRecord {
@@ -664,6 +664,9 @@ fn zscore(xs: &[f64]) -> Vec<f64> {
         .collect()
 }
 
+/// Per-lens pairwise scores keyed by `(lens, axis)` then item pair.
+type LensScores = BTreeMap<(String, String), BTreeMap<(usize, usize), f64>>;
+
 fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Error>> {
     let mut packs: Vec<Pack> = Vec::new();
     for entry in std::fs::read_dir(pack_dir)? {
@@ -705,7 +708,7 @@ fn report(pack_dir: &Path, reference: &str) -> Result<(), Box<dyn std::error::Er
     }
     let common: Vec<(String, String)> = common.unwrap_or_default().into_iter().collect();
     // Item alignment: require identical item id lists per lens.
-    let mut scores: Vec<BTreeMap<(String, String), BTreeMap<(usize, usize), f64>>> = Vec::new();
+    let mut scores: Vec<LensScores> = Vec::new();
     for p in &packs {
         let mut m = BTreeMap::new();
         for (lens, axis) in &common {
