@@ -37,7 +37,7 @@ def call(state, questions, trace_path, seen, salt="", tag=None):
     api_key = os.environ["TYPESAFE_API_KEY"]
     for attempt in range(7):
         req = urllib.request.Request(URL, data=body, method="POST",
-                                     headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"})
+                                     headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json", "User-Agent": "llmsort-jevclient/1"})
         t0 = time.time()
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
