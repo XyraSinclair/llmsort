@@ -7,6 +7,13 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+- **Typed-judge program indexed (docs only).** PROGRAM.md E16 and a catalog
+  row, the README method table, and FIRST_PRINCIPLES §2 cells now carry
+  the hosted-Jev sorting result: a 24-item ten-level rating in a window is
+  the measured winner across 29 judgment designs (pack
+  `research/artifacts/live/jev-sortlab-2026-09-21/`). No crate change; no
+  typed-judge gateway yet.
+
 - **`rank risk` relabelled.** The error-budget line printed it as "(top-k flip
   probability)"; the value is Σ inversion probability over incumbent ×
   challenger pairs at the top-k boundary — an expected count, routinely above

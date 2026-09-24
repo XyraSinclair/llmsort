@@ -172,6 +172,14 @@ Every row below was run head-to-head on the same pools, models, and seeds
 | Funnel (setwise screen → pairwise `top_k` refine on the top-3k slice) | Brackets the pairwise path's own top-10 reproducibility at 0.3–0.6× its cost; pointwise screens disqualified (tie blocks silently drop up to 70% of the true top-10 at the slice cut) | "Best k of many" — but read the next row first |
 | Pairwise ratio (`sort` default) | The flagship: cardinal scores ± σ, counterbalancing, certification. Its own top-10-of-150 reproducibility across seeds is 0.3–0.7 at the default budget — the honest ceiling every cheaper method is judged against | When magnitudes, error bars, or certification matter |
 
+One row is measured on a different kind of judge and is not yet in the
+crate: on a prefill-only typed judge (hosted Jev, $0.042 per million
+tokens, no generation), **one ten-level rating per item among 24 labelled
+peers, random windows, window fixed effect** beats every pairwise, triple,
+choice and yes/no design across 29 designs × four cohorts × every budget
+(never behind by more than .027 ρ; ρ .97 on 198 countries for $0.0024) —
+PROGRAM.md E16, pack `research/artifacts/live/jev-sortlab-2026-09-21/`.
+
 The cross-cutting rule: elicit with an instrument that measures its own
 trustworthiness (gauge, counterbalancing, certification), and treat any
 top-k claim without a stability number as unmeasured.

@@ -42,6 +42,7 @@ shape:
 | **Setwise ratio with cached prefix** (E1) | k−1 independent log-ratios per call; entities cached, attribute swapped | shared-call correlation; provider cache thresholds | prefix paid once per subset, then attribute-only |
 | Active pair selection (effective resistance) | spend the next comparison where it buys the most order information | must beat uniform random — measured, not assumed | planner overhead only |
 | Attribute health probes (`--two-sided`, `--also-by`) | evidence the attribute even coheres for this judge | extra runs | ×2–3 |
+| **Rating in a window on a typed judge** (E16) | one level per item among 24 labelled peers, window fixed effect; the whole PMF per item, no generation | the judge's knowledge ceiling, invisible per item; soft attributes of bare labels | O(n) per round, $.0012 per 200 items, ceiling in two rounds |
 
 ## 2. The grok gauge — when a model sufficiently groks a transitive attribute
 
@@ -397,6 +398,43 @@ RESULTS.md with denominators) and one page here.
   read ±σ before trusting adjacent-pair distinctions. Anomaly logged:
   luna dup cells lost 4–24% of calls to transport errors (unattributed);
   para/stub clean.
+
+- **E16 — the typed judge: what a 0.6B prefill-only reranker (hosted Jev,
+  TypeSafe `jev-latest`, $0.042 per million input tokens, no generation)
+  can sort, and the one recipe that wins.** Three packs, $4.2 in total.
+  `research/artifacts/live/jev-bits-2026-09-19/` (bits per dollar per
+  question form), `jev-highdim-2026-09-19/` (three prose cohorts × twelve
+  attributes against two independent Fable reads and a gemma-4-31b setwise
+  judge: Jev +.10 on abstracts, within .07 on prose; the definition beside
+  the question is worth +.1–.2 ρ), and `jev-sortlab-2026-09-21/` —
+  `report.html` is the one document, `report.py` regenerates it with no
+  key from the committed traces. **EXECUTED** 2026-09-21 → 22. Sortlab
+  ran eleven recipes round by round on 198 countries by true population
+  and 150 arXiv abstracts by novelty, then six more fact cohorts, a
+  two-day re-ask, eight wordings, 169 first names by four perceived
+  attributes, and closed with a grid of 29 judgment designs × four cohorts
+  × every budget: pairwise yes/no and ratio (all pairs, cycles, two-item
+  states), triples, choice of highest / highest+lowest, per-item yes/no,
+  ratings at 3–10 levels, k 2–48, two formats. Verdict: **a 24-item
+  labelled state with one ten-level standing question per item, random
+  windows, window fixed effect in the fit, repeated** — ρ .97 on countries
+  for $.0024, composite .837 at $.005 over the grid, never beaten by more
+  than .027 ρ anywhere (inside the judge's .03 wobble) while every other
+  family loses to it by .05–.35 somewhere, worst on soft attributes, where
+  pairwise forms ceiling .4–.6 against its .75. Level count is ordinally
+  irrelevant (3 ≈ 10) and sets the cardinal slope; k = 48 adds nothing over
+  24; choice-of-one collapses past k = 8; two-item states are the worst
+  dollar. Anchored wide ratio (three pinned anchors, 1/100…100 ladder) is
+  the cardinal recipe (slope .76 vs .40 free) and the best first round
+  where the ceiling is under .9. Answers do not drift (r .995+ two days
+  apart): cache forever. Jev cannot flag its own wrong items
+  (confidence→error .02–.24): choose Jev or a frontier judge per attribute
+  from a 24-item pilot; bare-name social attributes ceiling .6–.75 against
+  Fable and escalate whole. Wording: one definition-carrying wording
+  repeated; rewordings are a validity probe, never a way to buy accuracy;
+  negation is not read, a persona replaces the construct. Not in the crate:
+  llmsort has no typed-judge gateway; the recipe lives in the pack
+  (`grid.py`, `lab.py`) until one graduates.
 
 ## 4. E1 design: setwise ratio, cached prefix
 
