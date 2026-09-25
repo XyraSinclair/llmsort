@@ -2,6 +2,7 @@
 top vs full-PMF likelihood), fit (least squares vs PMF-variance weights vs Huber IRLS), and slot position bias inside
 the window. Replays the committed trace; no key, no spend. python3 refit.py -> refit.json"""
 import json, math, random, sys
+from collections import Counter
 import numpy as np
 
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
@@ -87,7 +88,7 @@ for name in ("countries", "films", "companies", "names-aura"):
     # slot bias: residual of the baseline fit against slot index
     A, y = design(rows, n, 4); b = solve(A, y, None, n); resid = y - A.dot(b); slot = np.array([r[3] for r in rows]); assert np.isfinite(resid).all()
     sl = float(np.polyfit(slot, resid, 1)[0]); by = [float(resid[slot == s].mean()) for s in range(slot.max() + 1)]; se = float(resid.std() / math.sqrt((slot == 0).sum()))
-    res["slot"] = {"window_sizes": sorted({int(x) for x in np.bincount([hash(r[2]) % 10**9 for r in rows]) if x} or {0}), "levels_per_slot": round(sl, 4), "first": round(by[0], 3), "last": round(by[-1], 3), "range": round(max(by) - min(by), 3), "se_slot_mean": round(se, 3), "sd_resid": round(float(resid.std()), 3), "rows_per_slot": int((slot == 0).sum())}
+    res["slot"] = {"window_sizes": sorted(set(Counter(r[2] for r in rows).values())), "levels_per_slot": round(sl, 4), "first": round(by[0], 3), "last": round(by[-1], 3), "range": round(max(by) - min(by), 3), "se_slot_mean": round(se, 3), "sd_resid": round(float(resid.std()), 3), "rows_per_slot": int((slot == 0).sum())}
     for R in (1, 2):  # where a slot effect would bite: few rounds, so each item sat in few slots
         rs = [r for r in rows if r[0] < R]
         res["slot"][f"r{R}_rho_ls/slotfe"] = [round(score(rs, n, ref, ridx, fitters[f](rs)), 4) for f in ("ls-expectation", "ls-slotfe")]
