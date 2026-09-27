@@ -89,7 +89,13 @@ Fast direct-to-main: commit small coherent changes, push promptly, rebase
 not merge, stage only intended paths, never force-push main. Publishing to
 crates.io ships only the root package (`cargo publish -p llmsort`; the
 include-list excludes `experiments/` and `research/` — verify with
-`cargo package -p llmsort --list` when touching packaging). When changing
+`cargo package -p llmsort --list` when touching packaging). A release is
+one commit "llmsort X.Y.Z" (Cargo.toml, Cargo.lock, CITATION.cff,
+CHANGELOG cut), CI green, then the `vX.Y.Z` tag: the tag builds the six
+release binaries under version-less names (`llmsort-<target>.tar.gz`,
+`.zip` on Windows) that `install.sh`, `releases/latest/download`, and
+`[package.metadata.binstall]` all depend on — keep the three in step.
+When changing
 public request/response shapes or CLI behavior, update examples, tests,
 and docs in the same change — including llmsorting.com (`exopriors-core`
 `sites/llmsorting.com/`): `methods.html` quotes `sort` flags and the
