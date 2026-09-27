@@ -20,37 +20,93 @@ what the run cost: comparisons, tokens, dollars, stop reason, and an
 optional per-judgement trace.
 
 ```console
-$ llmsort sort ideas.txt --by "expected impact on retention"
+$ curl -fsSL https://raw.githubusercontent.com/XyraSinclair/llmsort/main/install.sh | sh
+$ export OPENROUTER_API_KEY=...
+$ llmsort sort ideas.txt --by "usefulness as startup advice" --scores
+2.186±0.230	Talk to ten users before writing any code
+1.883±0.178	Ship a rough version this week and fix it live
+1.835±0.193	Charge money from day one
+0.486±0.176	Rewrite the backend in a faster language
+0.187±0.183	Add a dark mode
+0.000±0.230	Design a logo before the product exists
 ```
+
+Scores are natural-log magnitudes: a gap of 1.0 means about 2.7× as
+much of the attribute in the judge's reading, and ± is one standard
+deviation. The top three are close; the fourth is a real step down.
+
+## Rows in, rows out
+
+llmsort is a filter. Results go to stdout in the shape they came in,
+and the progress and cost summary go to stderr, so it sits in a pipe
+next to `jq`, `head`, and `sort`. JSONL and CSV rows keep every field
+and gain their scores:
+
+```console
+$ llmsort sort grants.jsonl --by "expected good done per dollar" > ranked.jsonl
+$ jq -r '"\(.llmsort.rank)  \(.title)"' ranked.jsonl
+1  Deworming in Kenyan schools
+2  Malaria nets for Kano State
+3  Open-source vaccine cold-chain sensors
+4  Office plants for a think tank
+5  A podcast about the history of fonts
+6  Luxury yacht refit for a donor retreat
+
+$ llmsort sort backlog.csv --by "user pain if unfixed" --field title --field notes
+id,title,notes,llmsort_rank,llmsort_latent_mean,llmsort_latent_std,llmsort_z_score,llmsort_percentile
+1,Login fails on Safari,"Users cannot sign in; ""blank screen"" after submit",1,4.570811,0.454564,0.674491,0.900000
+5,Payments double-charge,Some cards are charged twice,2,4.360191,0.433434,0.388191,0.700000
+3,Export to CSV drops rows,Rows with commas vanish silently,3,4.074614,0.411624,0.000000,0.500000
+4,Dark mode button misaligned,Off by 2px on settings,4,0.225386,0.436597,-5.232328,0.300000
+2,Typo in footer,The word privacy is misspelled,5,0.000000,0.454564,-5.538700,0.100000
+
+$ git log --format=%s -n 40 | llmsort sort --by "risk of breaking users" | head -n 5
+```
+
+- **Input shapes.** One item per line, a JSON array (strings or
+  `{id, text}` objects), JSONL objects, or CSV with a header. A `.csv`,
+  `.jsonl`, or `.ndjson` name decides; otherwise a leading `{` reads
+  as JSONL, a leading `[` as a JSON array, anything else as lines.
+  `--input lines|json|jsonl|csv` overrides the guess.
+- **What the judge reads.** The whole row, as `field: value` lines.
+  `--field` (repeatable) narrows it to the named JSONL keys or CSV
+  columns.
+- **What comes back.** Every row, whole and best first: JSONL keeps
+  key order and writes each value back verbatim. The scores land in an `llmsort`
+  object (JSONL) or five `llmsort_*` columns (CSV): `rank`,
+  `latent_mean`, `latent_std`, `z_score`, `percentile`. Sorting
+  llmsort output again replaces the old scores, and the judge never
+  sees them.
+- **Converting.** `--format jsonl|csv` switches shape (nested JSON
+  becomes JSON text in a CSV cell), `--format text` prints what the
+  judge read, and `--format json` prints the full run report.
+- **Top of a long list.** `--top-k 10` spends the comparisons on
+  settling the top ten; `head -n 10` then cuts the list there.
 
 ## Install
 
 ```console
-$ cargo install llmsort          # CLI
-$ cargo add llmsort              # library
-$ export OPENROUTER_API_KEY=...  # any OpenRouter model slug works
+$ curl -fsSL https://raw.githubusercontent.com/XyraSinclair/llmsort/main/install.sh | sh
+$ cargo binstall llmsort   # the same prebuilt binary, through cargo-binstall
+$ cargo install llmsort    # build from source
+$ cargo add llmsort        # the library
 ```
 
-The default judge is `openai/gpt-5.6-terra`; the setwise path
-(`--setwise`, below) defaults to the cheaper `openai/gpt-5.6-luna`, and
-`--model` / `SortOptions.model` takes any OpenRouter slug. For scale: a
-measured n=8 sort at the default 4·n budget is 32 comparisons ≈ $0.11
-on the default judge (the `--no-cache` quality-gate cells in
-`research/artifacts/live/sigma-eps-knobs-2026-08-31/`).
+The install script puts a checksum-verified binary for macOS or Linux
+(x86_64 or arm64) in `~/.local/bin`; `LLMSORT_INSTALL_DIR` and
+`LLMSORT_VERSION` override the directory and the release. Windows
+builds are on the [releases page](https://github.com/XyraSinclair/llmsort/releases/latest).
 
-This repo is the one home of the whole effort; every earlier repo
-(`cardinal-harness`, `ratiometer`, `llmsorting`, `llmsort-lab`,
-`seriate`) redirects here or is grafted into this history. It keeps
-three compartments of deliberately different polish:
-
-| Compartment | Polish | Promises |
-|---|---|---|
-| the crate (root, [crates.io `llmsort`](https://crates.io/crates/llmsort)) | engineered | API stability, CI green, shape mandate |
-| [`experiments/`](experiments/) | research code | compiles, tested, never published; instruments graduate into the crate only on evidence |
-| [`research/`](research/) | the raw record | none — replayable evidence packs, dated notes, analysis scripts, kept honest rather than pretty |
-
-If a link brought you here from `cardinal-harness`, `ratiometer`, or
-`llmsorting`, this is where development continues.
+The judge runs through [OpenRouter](https://openrouter.ai), so
+`OPENROUTER_API_KEY` must be set. The default judge is
+`openai/gpt-5.6-terra`; the setwise path (`--setwise`, below) defaults
+to the cheaper `openai/gpt-5.6-luna`, and `--model` /
+`SortOptions.model` takes any OpenRouter slug. For scale: a measured
+n=8 sort at the default 4·n budget is 32 comparisons ≈ $0.11 on the
+default judge (the `--no-cache` quality-gate cells in
+`research/artifacts/live/sigma-eps-knobs-2026-08-31/`). Judgements are
+cached locally, so re-running the same sort replays them instead of
+paying again.
 
 ## Why not just ask the model to sort?
 
@@ -81,20 +137,18 @@ reversal rate of 0.39 against 0.24, a gap no verdict budget in range
 closes. One judge, near-tie pools; wide separations shrink the advantage
 ([the note](research/notes/logprob-efficiency-2026-09-05/FINDINGS.md)).
 
-## CLI
+## Judge: the audit instrument
 
 ```console
-$ llmsort sort ideas.txt --by "expected impact on retention"
-$ llmsort sort backlog.txt --by "user pain if unfixed" --top-k 5 --format csv
 $ llmsort judge "plan A" "plan B" --by "execution risk"
 $ llmsort judge @a.md @b.md --by "clarity" --spin     # does the belief survive framing?
 $ llmsort judge @a.md @b.md --by "clarity" --orbit    # order × polarity × wording group
 ```
 
-`judge` is the audit instrument: one pairwise reading, plus probes that
-test whether the judgement is a *belief* (survives presentation order,
-polarity, paraphrase, who's asking) or an echo of how you asked. The
-probes report the invariant component and every named bias separately.
+`judge` gives one pairwise reading, plus probes that test whether the
+judgement is a *belief* (it survives presentation order, polarity,
+paraphrase, and who is asking) or an echo of how you asked. The probes
+report the invariant component and every named bias separately.
 
 ## Library
 
@@ -206,6 +260,20 @@ First `cardinal-harness`, then `ratiometer`, then `llmsorting`, now
 name redirects here, and the full pre-extraction history (plus seriate's)
 is grafted into this repo's ancestry, so `git log` reaches all the way
 back.
+
+This repo is the one home of the whole effort; every earlier repo
+(`cardinal-harness`, `ratiometer`, `llmsorting`, `llmsort-lab`,
+`seriate`) redirects here or is grafted into this history. It keeps
+three compartments of deliberately different polish:
+
+| Compartment | Polish | Promises |
+|---|---|---|
+| the crate (root, [crates.io `llmsort`](https://crates.io/crates/llmsort)) | engineered | API stability, CI green, shape mandate |
+| [`experiments/`](experiments/) | research code | compiles, tested, never published; instruments graduate into the crate only on evidence |
+| [`research/`](research/) | the raw record | none — replayable evidence packs, dated notes, analysis scripts, kept honest rather than pretty |
+
+If a link brought you here from `cardinal-harness`, `ratiometer`, or
+`llmsorting`, this is where development continues.
 
 ## License
 

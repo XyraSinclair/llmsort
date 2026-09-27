@@ -105,6 +105,10 @@ llmsort sort ideas.txt --by "expected impact" --setwise
 # Best 10 of many (setwise screen → certified pairwise refine):
 llmsort sort ideas.txt --by "expected impact" --setwise --top-k 10
 
+# Rows in, rows out: JSONL or CSV, every field kept, scores attached:
+llmsort sort grants.jsonl --by "expected impact" | jq -r '.title' | head -n 10
+llmsort sort backlog.csv --by "user pain if unfixed" --field title > ranked.csv
+
 # Sharpen the criterion, probe whether it coheres, sort with full-PMF evidence:
 llmsort sort ideas.txt --by "expected impact" --elaborate --two-sided \
   --also-by "how much this would move retention" --template ratio_letter_v1
