@@ -7,6 +7,35 @@ Versioning once it reaches `1.0.0`.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-09-27
+
+- **Rows in, rows out.** `llmsort sort` reads JSONL and CSV rows and
+  writes them back whole, best first, so it composes with `jq`, `head`,
+  and spreadsheets. JSONL rows keep key order and verbatim values and
+  gain an `llmsort` object {rank, latent_mean, latent_std, z_score,
+  percentile}; CSV rows gain the same five as `llmsort_*` columns
+  (the reader takes RFC 4180 quoting, embedded newlines, CRLF line
+  ends, and a leading BOM).
+  The judge reads the whole row as `field: value` lines, or only the
+  columns named by the repeatable `--field`. `--format` now defaults to
+  the input's own shape and converts between them; `--format text`
+  shows what the judge read. Sorting llmsort output again replaces the
+  old scores, and the judge never sees them. Shape is sniffed from a
+  `.csv`/`.jsonl`/`.ndjson` name or the first byte; `--input
+  lines|json|jsonl|csv` forces it. One behavior change: a plain-text
+  file whose first line starts with `{` now reads as JSONL, and the
+  parse error names `--input lines` as the way back.
+- **Errors print as messages.** CLI failures print `error: <message>`
+  and any cause chain, then exit 1, instead of a Debug-quoted string.
+- **Install without a toolchain.** `install.sh` fetches the
+  checksum-verified release binary for macOS or Linux (x86_64, arm64)
+  into `~/.local/bin`. Release assets drop the version from their names
+  (`llmsort-<target>.tar.gz`, `.zip` on Windows) so
+  `releases/latest/download` links stay stable, and `cargo binstall
+  llmsort` resolves them through `[package.metadata.binstall]`.
+- **README front door.** It opens with install and pipe examples taken
+  from live runs; the repository-history notes moved to Lineage.
+
 - **Typed-judge program indexed (docs only).** PROGRAM.md E16 and a catalog
   row, the README method table, and FIRST_PRINCIPLES §2 cells now carry
   the hosted-Jev sorting result: a 24-item ten-level rating in a window is

@@ -6,8 +6,8 @@ authors:
   - family-names: Sinclair
     given-names: Xyra
 repository-code: "https://github.com/XyraSinclair/llmsort"
-version: 0.14.0
-date-released: 2026-08-18
+version: 0.15.0
+date-released: 2026-09-27
 license: MIT
 keywords:
   - llm-as-judge
