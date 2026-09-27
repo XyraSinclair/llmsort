@@ -53,7 +53,7 @@ serde = { version = "1", features = ["derive"] }
 # float_roundtrip: vendored seriate judgement records are content-addressed
 # over their JSON serialization; exact float parse-roundtrip is load-bearing
 # for id stability (src/seriate/record.rs json_round_trip_preserves_id).
-serde_json = { version = "1", features = ["float_roundtrip"] }
+serde_json = { version = "1", features = ["float_roundtrip", "raw_value"] }
 sha2 = "0.10"
 statrs = "0.18"
 tempfile = "3"

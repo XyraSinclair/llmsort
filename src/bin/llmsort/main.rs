@@ -22,24 +22,33 @@ mod judge;
 mod research;
 mod sort;
 
-use cli::{Cli, Commands, PolicyCommands, ReportFormatArg, SortFormatArg};
+use cli::{Cli, Commands, PolicyCommands, ReportFormatArg, SortFormatArg, SortInputArg};
 use helpers::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> std::process::ExitCode {
     let cli = Cli::parse();
 
-    match cli.command {
-        command @ Commands::Sort { .. } => sort::run(command).await?,
-        command @ Commands::Judge { .. } => judge::run(command).await?,
+    let outcome = match cli.command {
+        command @ Commands::Sort { .. } => sort::run(command).await,
+        command @ Commands::Judge { .. } => judge::run(command).await,
         command @ (Commands::Explain { .. }
         | Commands::CacheExport { .. }
         | Commands::CachePrune { .. }
         | Commands::Policy { .. }
         | Commands::Report { .. }
         | Commands::Validate { .. }
-        | Commands::Rerank { .. }) => research::run(command).await?,
-    }
+        | Commands::Rerank { .. }) => research::run(command).await,
+    };
 
-    Ok(())
+    let Err(err) = outcome else {
+        return std::process::ExitCode::SUCCESS;
+    };
+    eprintln!("error: {err}");
+    let mut cause = err.source();
+    while let Some(inner) = cause {
+        eprintln!("  caused by: {inner}");
+        cause = inner.source();
+    }
+    std::process::ExitCode::FAILURE
 }

@@ -5,6 +5,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
         Commands::Sort {
             file,
             by,
+            input,
+            fields,
             model,
             policy,
             policy_config,
@@ -37,7 +39,9 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 return Err("--cache-only and --no-cache are mutually exclusive".into());
             }
             let raw = read_sort_input(file.as_deref())?;
-            let documents = parse_sort_items(&raw)?;
+            let parsed = parse_sort_input(&raw, file.as_deref(), input, &fields)?;
+            let format = format.unwrap_or_else(|| parsed.default_format());
+            let SortInput { documents, rows } = parsed;
             if documents.is_empty() {
                 return Err("no items to sort: input is empty".into());
             }
@@ -65,8 +69,8 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                     || estimate
                 {
                     return Err("--setwise supports --model, --k, --top-k, --seed, \
-                                --concurrency, --format, --scores, --reverse, \
-                                --elaborate, and --quiet only; the pairwise path owns \
+                                --concurrency, --input, --field, --format, --scores, \
+                                --reverse, --elaborate, and --quiet only; the pairwise path owns \
                                 budgets, policies, caches, probes, and traces"
                         .into());
                 }
@@ -179,7 +183,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
                 }
                 let stdout = io::stdout();
                 let mut out = stdout.lock();
-                render_setwise(&mut out, &sorted, format, scores)?;
+                render_setwise(&mut out, &sorted, format, scores, rows.as_ref())?;
                 if !quiet {
                     let cost_usd = sorted.cost_nanodollars as f64 / 1e9;
                     let gauge = match &sorted.gauge {
@@ -382,7 +386,7 @@ pub(super) async fn run(command: Commands) -> Result<(), Box<dyn std::error::Err
             }
             let stdout = io::stdout();
             let mut out = stdout.lock();
-            render_sorted(&mut out, &sorted, format, scores)?;
+            render_sorted(&mut out, &sorted, format, scores, rows.as_ref())?;
 
             if !quiet {
                 let meta = &sorted.meta;

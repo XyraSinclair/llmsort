@@ -30,21 +30,49 @@ pub(super) enum SortFormatArg {
     Csv,
 }
 
+/// Sort input shape. `auto` sniffs; the others force a reading.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
+pub(super) enum SortInputArg {
+    Auto,
+    Lines,
+    Json,
+    Jsonl,
+    Csv,
+}
+
 #[derive(Subcommand)]
 pub(super) enum Commands {
     /// Sort a list of items by a natural-language criterion
     ///
-    /// Reads newline-delimited items (or a JSON array) from FILE or stdin and
-    /// prints them sorted best-first. Requires OPENROUTER_API_KEY unless
-    /// --cache-only is set and the cache already holds every judgement.
+    /// Reads items from FILE or stdin and prints them sorted best-first, in
+    /// the shape they came in: one item per line, a JSON array, JSONL rows,
+    /// or CSV rows. Rows keep every field and gain the scores — JSONL rows an
+    /// `llmsort` object {rank, latent_mean, latent_std, z_score, percentile},
+    /// CSV rows the same five as `llmsort_*` columns — so the output pipes
+    /// straight into jq, a spreadsheet, or another llmsort (a re-sort
+    /// replaces the scores). Requires OPENROUTER_API_KEY unless --cache-only
+    /// is set and the cache already holds every judgement.
     ///
-    /// Example: llmsort sort examples/sort-demo.txt --by "usefulness as advice"
+    /// Examples:
+    ///   llmsort sort ideas.txt --by "usefulness as advice"
+    ///   llmsort sort grants.jsonl --by "expected impact" | jq -r 'select(.llmsort.rank <= 10) | .title'
+    ///   llmsort sort backlog.csv --by "user pain if unfixed" --field title --field notes > ranked.csv
     Sort {
         /// Input file; '-' or omitted reads stdin
         file: Option<PathBuf>,
         /// Criterion to sort by, e.g. "clarity of explanation"
         #[arg(long)]
         by: String,
+        /// Input shape. auto: a JSON array when the input starts with `[`,
+        /// JSONL rows when it starts with `{` (or FILE ends in .jsonl/.ndjson),
+        /// CSV rows with a header line when FILE ends in .csv, else one item
+        /// per line
+        #[arg(long, value_enum, default_value = "auto")]
+        input: SortInputArg,
+        /// Row field the judge reads (repeatable; JSONL keys or CSV header
+        /// names). Default: the whole row, as `field: value` lines
+        #[arg(long = "field", value_name = "NAME")]
+        fields: Vec<String>,
         /// Model slug (OpenRouter), e.g. anthropic/claude-sonnet-4.6
         #[arg(long)]
         model: Option<String>,
@@ -68,9 +96,12 @@ pub(super) enum Commands {
         /// Certify only the top K items (default: whole list)
         #[arg(long)]
         top_k: Option<usize>,
-        /// Output format
-        #[arg(long, value_enum, default_value = "text")]
-        format: SortFormatArg,
+        /// Output format. Default: the input's own shape — text for lines or
+        /// a JSON array, JSONL rows for JSONL, CSV rows for CSV. For row
+        /// input, jsonl and csv carry the whole rows; text prints what the
+        /// judge read
+        #[arg(long, value_enum)]
+        format: Option<SortFormatArg>,
         /// In text mode, prefix each line with `mean±std<TAB>`
         #[arg(long)]
         scores: bool,
@@ -80,7 +111,8 @@ pub(super) enum Commands {
         /// Use the setwise (k-at-a-time listwise) instrument instead of the
         /// pairwise path: ~1/4 the cost at adequate quality, order-sensitivity
         /// gauge printed on stderr. Supports --model/--k/--rounds/--seed/
-        /// --concurrency/--format/--scores/--reverse/--elaborate/--quiet only.
+        /// --concurrency/--input/--field/--format/--scores/--reverse/--elaborate/
+        /// --quiet only.
         #[arg(long)]
         setwise: bool,
         /// Setwise slots per call (measured band: 6-8)

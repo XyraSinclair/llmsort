@@ -29,54 +29,426 @@ pub(super) fn read_sort_input(
 pub(super) fn parse_sort_items(
     raw: &str,
 ) -> Result<Vec<llmsort::rerank::RerankDocument>, Box<dyn std::error::Error>> {
+    if raw.trim_start().starts_with('[') {
+        json_array_items(raw)
+    } else {
+        Ok(line_items(raw))
+    }
+}
+
+fn json_array_items(
+    raw: &str,
+) -> Result<Vec<llmsort::rerank::RerankDocument>, Box<dyn std::error::Error>> {
     use llmsort::rerank::RerankDocument;
 
-    if raw.trim_start().starts_with('[') {
-        let value: serde_json::Value = serde_json::from_str(raw)
-            .map_err(|err| format!("input looks like JSON but failed to parse: {err}"))?;
-        let arr = value
-            .as_array()
-            .ok_or("JSON input must be an array of strings or {id, text} objects")?;
-        let mut documents = Vec::with_capacity(arr.len());
-        for (idx, elem) in arr.iter().enumerate() {
-            if let Some(text) = elem.as_str() {
-                documents.push(RerankDocument {
-                    id: format!("item-{idx:04}"),
-                    text: text.to_string(),
-                });
-            } else if let Some(obj) = elem.as_object() {
-                let text = obj
-                    .get("text")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| format!("JSON element {idx} needs a string \"text\" field"))?;
-                let id = obj
-                    .get("id")
-                    .and_then(|v| v.as_str())
-                    .map(str::to_string)
-                    .unwrap_or_else(|| format!("item-{idx:04}"));
-                documents.push(RerankDocument {
-                    id,
-                    text: text.to_string(),
-                });
-            } else {
-                return Err(format!(
-                    "JSON element {idx} must be a string or an object with a \"text\" field"
-                )
-                .into());
+    let value: serde_json::Value = serde_json::from_str(raw)
+        .map_err(|err| format!("input looks like JSON but failed to parse: {err}"))?;
+    let arr = value
+        .as_array()
+        .ok_or("JSON input must be an array of strings or {id, text} objects")?;
+    let mut documents = Vec::with_capacity(arr.len());
+    for (idx, elem) in arr.iter().enumerate() {
+        if let Some(text) = elem.as_str() {
+            documents.push(RerankDocument {
+                id: format!("item-{idx:04}"),
+                text: text.to_string(),
+            });
+        } else if let Some(obj) = elem.as_object() {
+            let text = obj
+                .get("text")
+                .and_then(|v| v.as_str())
+                .ok_or_else(|| format!("JSON element {idx} needs a string \"text\" field"))?;
+            let id = obj
+                .get("id")
+                .and_then(|v| v.as_str())
+                .map(str::to_string)
+                .unwrap_or_else(|| format!("item-{idx:04}"));
+            documents.push(RerankDocument {
+                id,
+                text: text.to_string(),
+            });
+        } else {
+            return Err(format!(
+                "JSON element {idx} must be a string or an object with a \"text\" field"
+            )
+            .into());
+        }
+    }
+    Ok(documents)
+}
+
+fn line_items(raw: &str) -> Vec<llmsort::rerank::RerankDocument> {
+    raw.lines()
+        .map(|line| line.strip_suffix('\r').unwrap_or(line))
+        .filter(|line| !line.trim().is_empty())
+        .enumerate()
+        .map(|(idx, line)| llmsort::rerank::RerankDocument {
+            id: format!("item-{idx:04}"),
+            text: line.to_string(),
+        })
+        .collect()
+}
+
+/// Items to sort plus, for row input (JSONL or CSV), the rows themselves:
+/// document `item-<n>` is row n, carried whole to the output.
+pub(super) struct SortInput {
+    pub(super) documents: Vec<llmsort::rerank::RerankDocument>,
+    pub(super) rows: Option<Rows>,
+}
+
+impl SortInput {
+    /// Output mirrors input: lines and JSON arrays print text, rows print rows.
+    pub(super) fn default_format(&self) -> SortFormatArg {
+        match &self.rows {
+            None => SortFormatArg::Text,
+            Some(rows) if rows.csv => SortFormatArg::Csv,
+            Some(_) => SortFormatArg::Jsonl,
+        }
+    }
+}
+
+/// Row input: every row's fields in source order. JSONL values stay raw JSON
+/// (nested bytes pass through untouched); CSV cells stay text.
+pub(super) struct Rows {
+    csv: bool,
+    rows: Vec<Vec<(String, Cell)>>,
+}
+
+enum Cell {
+    Json(Box<serde_json::value::RawValue>),
+    Text(String),
+}
+
+impl Cell {
+    /// Reading form: JSON strings unquoted, null empty, other JSON verbatim.
+    fn text(&self) -> std::borrow::Cow<'_, str> {
+        use std::borrow::Cow;
+        match self {
+            Cell::Text(text) => Cow::Borrowed(text),
+            Cell::Json(raw) if raw.get().starts_with('"') => Cow::Owned(
+                serde_json::from_str(raw.get()).expect("a raw JSON string parses as a string"),
+            ),
+            Cell::Json(raw) if raw.get() == "null" => Cow::Borrowed(""),
+            Cell::Json(raw) => Cow::Borrowed(raw.get()),
+        }
+    }
+
+    fn json(&self) -> std::borrow::Cow<'_, str> {
+        match self {
+            Cell::Json(raw) => std::borrow::Cow::Borrowed(raw.get()),
+            Cell::Text(text) => serde_json::to_string(text)
+                .expect("a string serializes")
+                .into(),
+        }
+    }
+}
+
+/// The key (JSONL) and column prefix (CSV) llmsort owns on rows. Input
+/// fields under these names are dropped, so a re-sort replaces the scores.
+const ROW_KEY: &str = "llmsort";
+const ROW_STATS: [&str; 5] = ["rank", "latent_mean", "latent_std", "z_score", "percentile"];
+
+#[derive(serde::Serialize)]
+struct RowScores {
+    rank: usize,
+    latent_mean: f64,
+    latent_std: f64,
+    z_score: f64,
+    percentile: f64,
+}
+
+/// A JSONL line read as its fields in source order (serde_json's map sorts).
+struct JsonRow(Vec<(String, Box<serde_json::value::RawValue>)>);
+
+impl<'de> serde::Deserialize<'de> for JsonRow {
+    fn deserialize<D: serde::Deserializer<'de>>(de: D) -> Result<Self, D::Error> {
+        struct Fields;
+        impl<'de> serde::de::Visitor<'de> for Fields {
+            type Value = JsonRow;
+            fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+                f.write_str("a JSON object")
+            }
+            fn visit_map<A: serde::de::MapAccess<'de>>(
+                self,
+                mut map: A,
+            ) -> Result<JsonRow, A::Error> {
+                let mut fields = Vec::new();
+                while let Some(field) = map.next_entry()? {
+                    fields.push(field);
+                }
+                Ok(JsonRow(fields))
             }
         }
-        Ok(documents)
-    } else {
-        Ok(raw
-            .lines()
-            .map(|line| line.strip_suffix('\r').unwrap_or(line))
-            .filter(|line| !line.trim().is_empty())
-            .enumerate()
-            .map(|(idx, line)| RerankDocument {
-                id: format!("item-{idx:04}"),
-                text: line.to_string(),
+        de.deserialize_map(Fields)
+    }
+}
+
+/// Resolve the input shape and parse it. Row shapes keep their rows for the
+/// output; `fields` names what the judge reads from each row.
+pub(super) fn parse_sort_input(
+    raw: &str,
+    file: Option<&std::path::Path>,
+    input: SortInputArg,
+    fields: &[String],
+) -> Result<SortInput, Box<dyn std::error::Error>> {
+    // Spreadsheet and Windows exports lead with a byte-order mark.
+    let raw = raw.strip_prefix('\u{feff}').unwrap_or(raw);
+    let extension = file
+        .and_then(|path| path.extension())
+        .map(|ext| ext.to_string_lossy().to_ascii_lowercase());
+    let shape = match input {
+        SortInputArg::Auto => match (extension.as_deref(), raw.trim_start().bytes().next()) {
+            (Some("csv"), _) => SortInputArg::Csv,
+            (Some("jsonl" | "ndjson"), _) | (_, Some(b'{')) => SortInputArg::Jsonl,
+            (_, Some(b'[')) => SortInputArg::Json,
+            _ => SortInputArg::Lines,
+        },
+        forced => forced,
+    };
+    let rows = match shape {
+        SortInputArg::Jsonl => jsonl_rows(raw)?,
+        SortInputArg::Csv => csv_rows(raw)?,
+        _ if !fields.is_empty() => {
+            return Err("--field picks from rows: it needs JSONL or CSV input".into())
+        }
+        SortInputArg::Json => {
+            return Ok(SortInput {
+                documents: json_array_items(raw)?,
+                rows: None,
             })
-            .collect())
+        }
+        _ => {
+            return Ok(SortInput {
+                documents: line_items(raw),
+                rows: None,
+            })
+        }
+    };
+    let documents = rows
+        .iter()
+        .enumerate()
+        .map(|(idx, row)| {
+            Ok(llmsort::rerank::RerankDocument {
+                id: format!("item-{idx:04}"),
+                text: judged_text(row, fields, idx + 1)?,
+            })
+        })
+        .collect::<Result<_, String>>()?;
+    Ok(SortInput {
+        documents,
+        rows: Some(Rows {
+            csv: shape == SortInputArg::Csv,
+            rows,
+        }),
+    })
+}
+
+fn jsonl_rows(raw: &str) -> Result<Vec<Vec<(String, Cell)>>, String> {
+    raw.lines()
+        .enumerate()
+        .filter(|(_, line)| !line.trim().is_empty())
+        .map(|(idx, line)| {
+            let JsonRow(fields) = serde_json::from_str(line).map_err(|err| {
+                format!(
+                    "line {} is not a JSON object ({err}); JSONL input is one object per \
+                     line - pass --input lines to sort the lines as plain text",
+                    idx + 1
+                )
+            })?;
+            Ok(fields
+                .into_iter()
+                .filter(|(key, _)| key != ROW_KEY)
+                .map(|(key, value)| (key, Cell::Json(value)))
+                .collect())
+        })
+        .collect()
+}
+
+fn csv_rows(raw: &str) -> Result<Vec<Vec<(String, Cell)>>, String> {
+    let mut records = csv_records(raw)?.into_iter();
+    let header = records
+        .next()
+        .ok_or("CSV input is empty: it needs a header line")?;
+    let owned: Vec<String> = ROW_STATS.iter().map(|s| format!("{ROW_KEY}_{s}")).collect();
+    records
+        .enumerate()
+        .map(|(idx, record)| {
+            if record.len() != header.len() {
+                return Err(format!(
+                    "CSV row {} has {} cells; the header has {}",
+                    idx + 1,
+                    record.len(),
+                    header.len()
+                ));
+            }
+            Ok(header
+                .iter()
+                .zip(record)
+                .filter(|(key, _)| !owned.contains(key))
+                .map(|(key, cell)| (key.clone(), Cell::Text(cell)))
+                .collect())
+        })
+        .collect()
+}
+
+/// RFC 4180 records: `,`-separated cells, `"`-quoted cells with `""`
+/// escapes and embedded newlines, `\n` or `\r\n` line ends, blank lines
+/// skipped.
+fn csv_records(raw: &str) -> Result<Vec<Vec<String>>, String> {
+    let mut records = Vec::new();
+    let mut record = Vec::new();
+    let mut cell = String::new();
+    let (mut quoted, mut open) = (false, false);
+    let mut chars = raw.chars().peekable();
+    while let Some(c) = chars.next() {
+        if quoted {
+            match c {
+                '"' if chars.peek() == Some(&'"') => {
+                    chars.next();
+                    cell.push('"');
+                }
+                '"' => quoted = false,
+                _ => cell.push(c),
+            }
+            continue;
+        }
+        match c {
+            '"' if cell.is_empty() => (quoted, open) = (true, true),
+            ',' => {
+                record.push(std::mem::take(&mut cell));
+                open = true;
+            }
+            '\r' if chars.peek() == Some(&'\n') => {}
+            '\n' => {
+                if open || !cell.is_empty() {
+                    record.push(std::mem::take(&mut cell));
+                    records.push(std::mem::take(&mut record));
+                }
+                open = false;
+            }
+            _ => cell.push(c),
+        }
+    }
+    if quoted {
+        return Err("CSV input ends inside a quoted cell (unbalanced `\"`)".into());
+    }
+    if open || !cell.is_empty() {
+        record.push(cell);
+        records.push(record);
+    }
+    Ok(records)
+}
+
+/// What the judge reads from a row: the named fields (one field: its bare
+/// value), else every field, as `field: value` lines, empty values skipped.
+fn judged_text(row: &[(String, Cell)], fields: &[String], n: usize) -> Result<String, String> {
+    let picked: Vec<(&str, std::borrow::Cow<'_, str>)> = if fields.is_empty() {
+        row.iter()
+            .map(|(key, cell)| (key.as_str(), cell.text()))
+            .collect()
+    } else {
+        fields
+            .iter()
+            .map(|name| {
+                row.iter()
+                    .find(|(key, _)| key == name)
+                    .map(|(key, cell)| (key.as_str(), cell.text()))
+                    .ok_or_else(|| {
+                        let keys: Vec<&str> = row.iter().map(|(key, _)| key.as_str()).collect();
+                        format!(
+                            "row {n} has no field {name:?} (fields: {})",
+                            keys.join(", ")
+                        )
+                    })
+            })
+            .collect::<Result<_, _>>()?
+    };
+    let text = match picked.as_slice() {
+        [(_, value)] if fields.len() == 1 => value.to_string(),
+        _ => picked
+            .iter()
+            .filter(|(_, value)| !value.trim().is_empty())
+            .map(|(key, value)| format!("{key}: {value}"))
+            .collect::<Vec<_>>()
+            .join("\n"),
+    };
+    if text.trim().is_empty() {
+        return Err(format!(
+            "row {n} gives the judge nothing to read: its fields are empty"
+        ));
+    }
+    Ok(text)
+}
+
+impl Rows {
+    fn row(&self, item: &llmsort::rerank::SortedItem) -> &[(String, Cell)] {
+        let idx = item
+            .id
+            .strip_prefix("item-")
+            .and_then(|n| n.parse::<usize>().ok())
+            .expect("row documents carry item-<n> ids");
+        &self.rows[idx]
+    }
+
+    /// The rows in `items` order with their scores: JSONL rows gain an
+    /// `llmsort` object, CSV rows the `llmsort_*` columns (header: every
+    /// field in first-seen order).
+    fn render(
+        &self,
+        out: &mut impl Write,
+        items: &[llmsort::rerank::SortedItem],
+        csv: bool,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        if !csv {
+            for item in items {
+                out.write_all(b"{")?;
+                for (key, cell) in self.row(item) {
+                    write!(out, "{}:{},", serde_json::to_string(key)?, cell.json())?;
+                }
+                let scores = RowScores {
+                    rank: item.rank,
+                    latent_mean: item.latent_mean,
+                    latent_std: item.latent_std,
+                    z_score: item.z_score,
+                    percentile: item.percentile,
+                };
+                writeln!(out, "\"{ROW_KEY}\":{}}}", serde_json::to_string(&scores)?)?;
+            }
+            return Ok(());
+        }
+        let mut header: Vec<&str> = Vec::new();
+        for (key, _) in self.rows.iter().flatten() {
+            if !header.contains(&key.as_str()) {
+                header.push(key);
+            }
+        }
+        let names = header
+            .iter()
+            .map(|key| csv_field(key))
+            .chain(ROW_STATS.iter().map(|stat| format!("{ROW_KEY}_{stat}")));
+        writeln!(out, "{}", names.collect::<Vec<_>>().join(","))?;
+        for item in items {
+            let row = self.row(item);
+            let mut cells: Vec<String> = header
+                .iter()
+                .map(|name| {
+                    row.iter()
+                        .find(|(key, _)| key == name)
+                        .map_or_else(String::new, |(_, cell)| csv_field(&cell.text()))
+                })
+                .collect();
+            cells.push(item.rank.to_string());
+            for stat in [
+                item.latent_mean,
+                item.latent_std,
+                item.z_score,
+                item.percentile,
+            ] {
+                cells.push(format!("{stat:.6}"));
+            }
+            writeln!(out, "{}", cells.join(","))?;
+        }
+        Ok(())
     }
 }
 
@@ -164,13 +536,14 @@ pub(super) fn render_sorted(
     sorted: &llmsort::rerank::SortedTexts,
     format: SortFormatArg,
     scores: bool,
+    rows: Option<&Rows>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if matches!(format, SortFormatArg::Json) {
         serde_json::to_writer_pretty(&mut *out, sorted)?;
         writeln!(out)?;
         return Ok(());
     }
-    render_items(out, &sorted.items, format, scores)
+    render_items(out, &sorted.items, format, scores, rows)
 }
 
 /// Setwise result rendering: same item shape, setwise accounting in Json.
@@ -179,13 +552,14 @@ pub(super) fn render_setwise(
     sorted: &llmsort::rerank::SetwiseSorted,
     format: SortFormatArg,
     scores: bool,
+    rows: Option<&Rows>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if matches!(format, SortFormatArg::Json) {
         serde_json::to_writer_pretty(&mut *out, sorted)?;
         writeln!(out)?;
         return Ok(());
     }
-    render_items(out, &sorted.items, format, scores)
+    render_items(out, &sorted.items, format, scores, rows)
 }
 
 fn render_items(
@@ -193,7 +567,11 @@ fn render_items(
     items: &[llmsort::rerank::SortedItem],
     format: SortFormatArg,
     scores: bool,
+    rows: Option<&Rows>,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if let (Some(rows), SortFormatArg::Jsonl | SortFormatArg::Csv) = (rows, format) {
+        return rows.render(out, items, matches!(format, SortFormatArg::Csv));
+    }
     match format {
         SortFormatArg::Text => {
             for item in items {
