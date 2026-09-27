@@ -111,35 +111,19 @@ impl SortInput {
 /// (nested bytes pass through untouched); CSV cells stay text.
 pub(super) struct Rows {
     csv: bool,
-    rows: Vec<Vec<(String, Cell)>>,
+    rows: Vec<Row>,
 }
 
-enum Cell {
-    Json(Box<serde_json::value::RawValue>),
-    Text(String),
-}
-
-impl Cell {
-    /// Reading form: JSON strings unquoted, null empty, other JSON verbatim.
-    fn text(&self) -> std::borrow::Cow<'_, str> {
-        use std::borrow::Cow;
-        match self {
-            Cell::Text(text) => Cow::Borrowed(text),
-            Cell::Json(raw) if raw.get().starts_with('"') => Cow::Owned(
-                serde_json::from_str(raw.get()).expect("a raw JSON string parses as a string"),
-            ),
-            Cell::Json(raw) if raw.get() == "null" => Cow::Borrowed(""),
-            Cell::Json(raw) => Cow::Borrowed(raw.get()),
+/// A cell as the judge and CSV read it: JSON strings unquoted, null
+/// empty, other JSON verbatim.
+fn cell_text(raw: &serde_json::value::RawValue) -> std::borrow::Cow<'_, str> {
+    use std::borrow::Cow;
+    match raw.get() {
+        text if text.starts_with('"') => {
+            Cow::Owned(serde_json::from_str(text).expect("a raw JSON string parses as a string"))
         }
-    }
-
-    fn json(&self) -> std::borrow::Cow<'_, str> {
-        match self {
-            Cell::Json(raw) => std::borrow::Cow::Borrowed(raw.get()),
-            Cell::Text(text) => serde_json::to_string(text)
-                .expect("a string serializes")
-                .into(),
-        }
+        "null" => Cow::Borrowed(""),
+        other => Cow::Borrowed(other),
     }
 }
 
@@ -157,26 +141,24 @@ struct RowScores {
     percentile: f64,
 }
 
-/// A JSONL line read as its fields in source order (serde_json's map sorts).
-struct JsonRow(Vec<(String, Box<serde_json::value::RawValue>)>);
+/// A row: its fields in source order (serde_json's map would sort), each
+/// value raw JSON. CSV cells are read as JSON strings.
+struct Row(Vec<(String, Box<serde_json::value::RawValue>)>);
 
-impl<'de> serde::Deserialize<'de> for JsonRow {
+impl<'de> serde::Deserialize<'de> for Row {
     fn deserialize<D: serde::Deserializer<'de>>(de: D) -> Result<Self, D::Error> {
         struct Fields;
         impl<'de> serde::de::Visitor<'de> for Fields {
-            type Value = JsonRow;
+            type Value = Row;
             fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
                 f.write_str("a JSON object")
             }
-            fn visit_map<A: serde::de::MapAccess<'de>>(
-                self,
-                mut map: A,
-            ) -> Result<JsonRow, A::Error> {
+            fn visit_map<A: serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Row, A::Error> {
                 let mut fields = Vec::new();
                 while let Some(field) = map.next_entry()? {
                     fields.push(field);
                 }
-                Ok(JsonRow(fields))
+                Ok(Row(fields))
             }
         }
         de.deserialize_map(Fields)
@@ -243,28 +225,27 @@ pub(super) fn parse_sort_input(
     })
 }
 
-fn jsonl_rows(raw: &str) -> Result<Vec<Vec<(String, Cell)>>, String> {
+fn jsonl_rows(raw: &str) -> Result<Vec<Row>, String> {
     raw.lines()
         .enumerate()
         .filter(|(_, line)| !line.trim().is_empty())
         .map(|(idx, line)| {
-            let JsonRow(fields) = serde_json::from_str(line).map_err(|err| {
+            let Row(fields) = serde_json::from_str(line).map_err(|err| {
                 format!(
                     "line {} is not a JSON object ({err}); JSONL input is one object per \
                      line - pass --input lines to sort the lines as plain text",
                     idx + 1
                 )
             })?;
-            Ok(fields
+            Ok(Row(fields
                 .into_iter()
                 .filter(|(key, _)| key != ROW_KEY)
-                .map(|(key, value)| (key, Cell::Json(value)))
-                .collect())
+                .collect()))
         })
         .collect()
 }
 
-fn csv_rows(raw: &str) -> Result<Vec<Vec<(String, Cell)>>, String> {
+fn csv_rows(raw: &str) -> Result<Vec<Row>, String> {
     let mut records = csv_records(raw)?.into_iter();
     let header = records
         .next()
@@ -281,12 +262,15 @@ fn csv_rows(raw: &str) -> Result<Vec<Vec<(String, Cell)>>, String> {
                     header.len()
                 ));
             }
-            Ok(header
+            Ok(Row(header
                 .iter()
                 .zip(record)
                 .filter(|(key, _)| !owned.contains(key))
-                .map(|(key, cell)| (key.clone(), Cell::Text(cell)))
-                .collect())
+                .map(|(key, cell)| {
+                    let json = serde_json::value::to_raw_value(&cell).expect("a string serializes");
+                    (key.clone(), json)
+                })
+                .collect()))
         })
         .collect()
 }
@@ -341,20 +325,22 @@ fn csv_records(raw: &str) -> Result<Vec<Vec<String>>, String> {
 
 /// What the judge reads from a row: the named fields (one field: its bare
 /// value), else every field, as `field: value` lines, empty values skipped.
-fn judged_text(row: &[(String, Cell)], fields: &[String], n: usize) -> Result<String, String> {
+fn judged_text(row: &Row, fields: &[String], n: usize) -> Result<String, String> {
     let picked: Vec<(&str, std::borrow::Cow<'_, str>)> = if fields.is_empty() {
-        row.iter()
-            .map(|(key, cell)| (key.as_str(), cell.text()))
+        row.0
+            .iter()
+            .map(|(key, cell)| (key.as_str(), cell_text(cell)))
             .collect()
     } else {
         fields
             .iter()
             .map(|name| {
-                row.iter()
+                row.0
+                    .iter()
                     .find(|(key, _)| key == name)
-                    .map(|(key, cell)| (key.as_str(), cell.text()))
+                    .map(|(key, cell)| (key.as_str(), cell_text(cell)))
                     .ok_or_else(|| {
-                        let keys: Vec<&str> = row.iter().map(|(key, _)| key.as_str()).collect();
+                        let keys: Vec<&str> = row.0.iter().map(|(key, _)| key.as_str()).collect();
                         format!(
                             "row {n} has no field {name:?} (fields: {})",
                             keys.join(", ")
@@ -381,7 +367,7 @@ fn judged_text(row: &[(String, Cell)], fields: &[String], n: usize) -> Result<St
 }
 
 impl Rows {
-    fn row(&self, item: &llmsort::rerank::SortedItem) -> &[(String, Cell)] {
+    fn row(&self, item: &llmsort::rerank::SortedItem) -> &Row {
         let idx = item
             .id
             .strip_prefix("item-")
@@ -402,8 +388,8 @@ impl Rows {
         if !csv {
             for item in items {
                 out.write_all(b"{")?;
-                for (key, cell) in self.row(item) {
-                    write!(out, "{}:{},", serde_json::to_string(key)?, cell.json())?;
+                for (key, cell) in &self.row(item).0 {
+                    write!(out, "{}:{},", serde_json::to_string(key)?, cell.get())?;
                 }
                 let scores = RowScores {
                     rank: item.rank,
@@ -417,7 +403,7 @@ impl Rows {
             return Ok(());
         }
         let mut header: Vec<&str> = Vec::new();
-        for (key, _) in self.rows.iter().flatten() {
+        for (key, _) in self.rows.iter().flat_map(|row| &row.0) {
             if !header.contains(&key.as_str()) {
                 header.push(key);
             }
@@ -432,9 +418,10 @@ impl Rows {
             let mut cells: Vec<String> = header
                 .iter()
                 .map(|name| {
-                    row.iter()
+                    row.0
+                        .iter()
                         .find(|(key, _)| key == name)
-                        .map_or_else(String::new, |(_, cell)| csv_field(&cell.text()))
+                        .map_or_else(String::new, |(_, cell)| csv_field(&cell_text(cell)))
                 })
                 .collect();
             cells.push(item.rank.to_string());
