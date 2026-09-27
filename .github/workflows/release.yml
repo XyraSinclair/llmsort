@@ -74,7 +74,7 @@ jobs:
         id: package_unix
         shell: bash
         run: |
-          asset="llmsort-${GITHUB_REF_NAME}-${{ matrix.target }}.tar.gz"
+          asset="llmsort-${{ matrix.target }}.tar.gz"
           tar -C "target/${{ matrix.target }}/release" -czf "$asset" llmsort
           shasum -a 256 "$asset" > "$asset.sha256"
           echo "asset=$asset" >> "$GITHUB_OUTPUT"
@@ -94,7 +94,7 @@ jobs:
         id: package_windows
         shell: pwsh
         run: |
-          $asset = "llmsort-$env:GITHUB_REF_NAME-${{ matrix.target }}.zip"
+          $asset = "llmsort-${{ matrix.target }}.zip"
           Compress-Archive -Path "target/${{ matrix.target }}/release/llmsort.exe" -DestinationPath $asset -Force
           $hash = (Get-FileHash -Algorithm SHA256 $asset).Hash.ToLower()
           "$hash  $(Split-Path $asset -Leaf)" | Out-File -FilePath "$asset.sha256" -Encoding ascii
