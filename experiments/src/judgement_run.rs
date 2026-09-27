@@ -745,6 +745,16 @@ impl JudgementRunStore {
 
     pub fn persist(&self, record: &JudgementRunRecord) -> Result<(), JudgementRunError> {
         validate_record(record)?;
+        // Birth invariant, never re-checked on load: normalization moves
+        // between harness versions (e996766 capped pair repeats), and a
+        // stored instrument records what ran, not what today's code builds.
+        if serde_json::to_value(build_rerank_request(&record.request))?
+            != serde_json::to_value(&record.instrument.rerank_request)?
+        {
+            return Err(JudgementRunError::InvalidRecord(
+                "instrument request does not match normalized request".to_string(),
+            ));
+        }
         fs::create_dir_all(&self.root)?;
         let destination = self.record_path(&record.run_ref)?;
         let mut temporary = tempfile::NamedTempFile::new_in(&self.root)?;
@@ -1556,15 +1566,6 @@ fn validate_record(record: &JudgementRunRecord) -> Result<(), JudgementRunError>
                 "external trace does not match its zero-cost provenance".to_string(),
             ));
         }
-    }
-
-    let expected_request = build_rerank_request(&record.request);
-    if serde_json::to_value(&expected_request)?
-        != serde_json::to_value(&record.instrument.rerank_request)?
-    {
-        return Err(JudgementRunError::InvalidRecord(
-            "instrument request does not match normalized request".to_string(),
-        ));
     }
 
     for (expected_sequence, call) in record.provider_calls.iter().enumerate() {
