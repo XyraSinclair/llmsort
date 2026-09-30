@@ -71,7 +71,7 @@ happening; see probes; it cannot fix it).
 4. **It applies the same skepticism to itself.** The planner's efficiency
    claim was benchmarked against uniform random pair selection, FAILED,
    got fixed (anchor-diverse exploration), and the fix cycle is pinned
-   two-sided in `tests/planner_regret.rs` with history. The test suite is
+   two-sided in `experiments/tests/planner_regret.rs` with history. The test suite is
    adversarial; honest negatives are kept, dated, and load-bearing.
 5. **Everything is accounted for.** Comparisons, tokens, dollars, stop reasons,
    evidence health, and per-judgement traces that bind the exact solver input

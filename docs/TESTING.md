@@ -32,7 +32,7 @@ packs live in `research/artifacts/live/`.
 
 ## A bug the battery found (fixed)
 
-**Huber MAD degeneracy collapse** (`src/rating_engine.rs`). The outlier
+**Huber MAD degeneracy collapse** (`src/rating_engine/math.rs`). The outlier
 scale used `mad(residuals)` with an absolute `<= 1e-18` zero-guard. When
 most residuals are tied up to floating-point noise (~1e-12, e.g. duplicate
 anchor observations), the MAD passes the guard, `delta = huber_k × (fp

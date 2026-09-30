@@ -92,7 +92,7 @@ another:
 
 **These are not hypotheticals — they are the test suite.** Six scripted
 judges (oracle, constant, position-biased, sycophant, cyclic, avalanche-hash)
-run the full benchmark in-process (`tests/judge_bench.rs`); each pathology must land in
+run the full benchmark in-process (`experiments/tests/judge_bench.rs`); each pathology must land in
 exactly the dimension that names it, and the oracle must lead the board.
 A benchmark that can't separate scripted pathologies has no business
 ranking labs.

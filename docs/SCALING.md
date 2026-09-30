@@ -1,6 +1,6 @@
 # Scaling
 
-`examples/bench_scaling.rs` is a lightweight scaling probe for the public `RatingEngine` solve and planner path. It avoids a benchmark framework so the command works anywhere the crate builds, but it is still only a local measurement: one process, one run per row, no warmup, and no portability claim.
+`experiments/examples/bench_scaling.rs` is a lightweight scaling probe for the public `RatingEngine` solve and planner path. It avoids a benchmark framework so the command works anywhere the crate builds, but it is still only a local measurement: one process, one run per row, no warmup, and no portability claim.
 
 Default bounded run:
 

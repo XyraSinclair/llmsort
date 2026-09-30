@@ -1,6 +1,6 @@
 # cardinald — the judgement-run daemon
 
-`cardinald` (`src/bin/cardinald.rs`) is an HTTP daemon for portable
+`cardinald` (`experiments/src/bin/cardinald.rs`) is an HTTP daemon for portable
 single-axis judgement runs. It accepts a finite candidate set, runs the
 `cardinal.judgement-run.v1` flow, and persists each run to disk. If you
 configure ClickHouse landing, it also lands completed runs there. This

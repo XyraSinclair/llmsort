@@ -60,7 +60,7 @@ calibration against ground truth.
 |---|---|---|---|
 | Order invariance | same pair, slots swapped: direction agreement; mean \|Δ ln r\| | 50% agreement (coin flip) | counterbalanced pairs; openpriors "order agreement" |
 | Reciprocity | "how many times more" vs "how many times less": ln r₊ + ln r₋ ≈ 0 | drift ≫ 0 | JCB reciprocity |
-| Direction transitivity | over triads with repeat draws: WST/MST/SST violations deeper than 2 SE | cycles beyond sampling noise | `rerank/transitivity.rs` |
+| Direction transitivity | over triads with repeat draws: WST/MST/SST violations deeper than 2 SE | cycles beyond sampling noise | `experiments/src/transitivity.rs` |
 | Multiplicative closure | triangles: ln r_ab + ln r_bc + ln r_ca ≈ 0 — cyclic residual fraction (Hodge curl), frustration | curl mass ≫ noise floor | `rating_engine` Hodge split |
 | Polarity | negated attribute: correlation of latents ≈ −1 | ≈ 0 (attribute ignored) or > 0 | JCB polarity |
 | Paraphrase | reworded attribute: rank correlation ≈ +1 | low | JCB paraphrase / `--also-by` |
@@ -91,7 +91,7 @@ RESULTS.md with denominators) and one page here.
   and compare against the canonical pairwise sort on the same items; report
   cache_read_tokens fraction, pairwise-equivalent observations per dollar,
   Spearman/top-k agreement. Design in §4. **EXECUTED** 2026-08-15
-  (llmsorting `examples/setwise_cached.rs`, pack
+  (llmsorting `experiments/examples/setwise_cached.rs`, pack
   `research/artifacts/live/setwise-cached-2026-08-15/`, llmsorting@412bd3d):
   gpt-4.1-mini, 372/372 calls parsed, $0.209. Caching confirmed — 75–78%
   cached fraction on tail-attribute calls; 5,370 pairwise-equivalent
@@ -163,7 +163,7 @@ RESULTS.md with denominators) and one page here.
   rail); opt-in repeat mode in sort.
 - **E2 — grok gauge calibration on anchors.** Anchor entity pools with true
   ratios; several models; the gauge's bands tuned where truth exists.
-  **EXECUTED** 2026-08-15 (llmsorting `examples/anchor_gauge.rs`, pack
+  **EXECUTED** 2026-08-15 (llmsorting `experiments/examples/anchor_gauge.rs`, pack
   `research/artifacts/live/anchor-gauge-2026-08-15/`, llmsorting@2927642):
   3 pools x 16 entities x {gpt-4.1-mini, gpt-5.4-nano}, 768/768 calls,
   $0.107. Bands separate models (mini partial everywhere, nano not

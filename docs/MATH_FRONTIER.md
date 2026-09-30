@@ -24,7 +24,7 @@ CUSUM), #49 (JCB v2 scale-up) — so the frontier survives sessions.
 
 The cyclic residual splits w-orthogonally over the filled triangles:
 `cycle space = im(curl*) ⊕ H`. `compute_hodge_split` in
-`rating_engine.rs` reports `local_curl_frac` (triangle-auditable
+`src/rating_engine/diagnostics.rs` reports `local_curl_frac` (triangle-auditable
 disagreement) and `harmonic_frac` (cycles whose closing chords were never
 elicited — invisible to every triad audit BY CONSTRUCTION), plus
 `harmonic_dim = cycle_dim − rank(curl)`. Pythagoras invariant
@@ -38,13 +38,13 @@ exactly where frustration hides from triad spot-checks. And a design
 fact computed before building (exact rational rank): the JCB stride
 graph has harmonic_dim = 0 — its triangles span the whole cycle space,
 so harmonic diagnostics there are zero by construction, not by judge
-virtue. Pinned in `tests/hodge_split.rs`; any pair-design change that
+virtue. Pinned in `experiments/tests/hodge_split.rs`; any pair-design change that
 alters this surfaces. Measuring harmonic structure in real judges needs
 a mixed design (triangle-rich block + chordless-cycle block).
 
 ## 2. Spectral identifiability diagnostics — SHIPPED (2026-07-05)
 
-`spectral_diagnostics` in `rating_engine.rs`, populated in every solve up to
+`spectral_diagnostics` in `src/rating_engine/diagnostics.rs`, populated in every solve up to
 the dense-eigen cap: the **Fiedler value** (algebraic connectivity — the
 standing "how well-posed was this solve" number; posterior variance along
 the worst-identified direction scales as 1/fiedler) and the **Foster
@@ -53,7 +53,7 @@ Foster's theorem — a free correctness invariant over the same effective
 resistances the planner optimizes; nonzero means broken linear algebra,
 not a bad judge). Pinned on hand-computed spectra (P3, weighted triangle,
 disconnected graph) and end-to-end through IRLS
-(`tests/program_equivalence.rs`). Still open in this thread: Rank
+(`experiments/tests/program_equivalence.rs`). Still open in this thread: Rank
 Centrality (Negahban–Oh–Shah) as a near-minimax spectral cross-check.
 
 ## 3. Program equivalence for elicitation types — SHIPPED (2026-07-05)
@@ -65,7 +65,7 @@ enforces this — the theory names it). The free structure: a commutative
 monoid of sufficient statistics under evidence-fusion; two elicitation
 programs are equivalent iff they fuse to identical statistics.
 
-Pinned in `tests/program_equivalence.rs` — with a CORRECTION to the
+Pinned in `experiments/tests/program_equivalence.rs` — with a CORRECTION to the
 theory notes, decided by the machine: arrival-order/batching invariance
 holds (≤1e-9), and same-pair weight re-partition is invariant **even
 under active Huber clipping** — the notes claimed a boundary there, but
@@ -101,7 +101,7 @@ Two instruments in the classical styles:
   the robustifier crushed — the diagnostic must see what the robustifier
   saw. Pinned: planted corruption flagged at |z| > 3 and nothing else;
   clean data unflagged; bridges counted as unaudited, never scored.
-- **Enumerated designs, not intuited ones** (`examples/design_atlas.rs`,
+- **Enumerated designs, not intuited ones** (`experiments/examples/design_atlas.rs`,
   docs/DESIGN_ATLAS.md): all circulants at n ∈ {8,10,12} scored by
   (edges, triangles, harmonic_dim, Fiedler). Headline: C₈(1,3,4)
   strictly dominates the hand-picked v1 graph — same 20 edges, same 16
@@ -111,8 +111,8 @@ Two instruments in the classical styles:
 
 ## 3⅞. Judge portfolio theory — SHIPPED (2026-07-06)
 
-The ensemble question made exact (`src/rerank/ensemble.rs`,
-`examples/judge_portfolio.rs`): judges as a portfolio under correlated
+The ensemble question made exact (`experiments/src/ensemble.rs`,
+`experiments/examples/judge_portfolio.rs`): judges as a portfolio under correlated
 errors. Spearman-triad loadings (1904) on the z-scored latent
 correlations; full error covariance Ψ = R − llᵀ projected to the PSD
 cone; minimum-variance weights Ψ⁻¹l; total precision lᵀΨ⁻¹l; marginal
@@ -159,7 +159,7 @@ and the two-party live demo from the pilot map's cache.
 Weak/moderate/strong stochastic transitivity (WST ⊂ MST ⊂ SST) on
 repeat-sampled choice probabilities catches inconsistency that Hodge
 curl structurally cannot (probabilistic intransitivity with zero mean
-curl). The diagnostic is implemented (`src/rerank/transitivity.rs`,
+curl). The diagnostic is implemented (`experiments/src/transitivity.rs`,
 WST/MST/SST over repeat-sampled pairs) with a live study pack at
 `research/artifacts/live/transitivity-2026-07-08/`. Still open: whether it is
 promoted into the JCB composite headline.
@@ -197,7 +197,7 @@ satisfied by construction (independent calls, fixed presentation).
 the DerSimonian–Laird moment estimator adapted to graph fits (Cochran's Q
 over weighted solve residuals, df = cycle dimension), then a floored
 re-solve with Var(m̄) = σ_b² + σ_w²/k — pooled precision is capped at
-1/σ_b² no matter how many draws. Pinned (`tests/repeat_pooling.rs`):
+1/σ_b² no matter how many draws. Pinned (`experiments/tests/repeat_pooling.rs`):
 planted (σ_w, σ_b) recovered; zero heterogeneity yields no phantom floor
 and matches the naive solve; and the misranking pin — a 200-draw
 frustrated pair flips the naive k/σ² order while the floored solve holds

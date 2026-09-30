@@ -117,7 +117,7 @@ antisymmetry, frustration, spin, polarity, paraphrase, null calibration,
 and nuisance perturbation as a standardized 194-call battery per model,
 × a signal axis, → one leaderboard number labs can hill-climb without
 ground-truth labels. The benchmark validates itself against six scripted
-pathological judges in `tests/judge_bench.rs`.
+pathological judges in `experiments/tests/judge_bench.rs`.
 
 ## 5½. The physics of a judge (measurements, not metaphors)
 
@@ -166,7 +166,7 @@ scripted judges where marked: flat, linear-odd, step (R² < 0.9, pinned).
 **Finding from shipping frustration** (2026-07-05): a directionally
 transitive judge still shows ~0.13 curl — quantization frustration. First
 hypothesis blamed the ladder's non-constant log step; the controlled test
-(`tests/ladder_curl.rs`, same planted-transitive judge, full ladder)
+(`experiments/tests/ladder_curl.rs`, same planted-transitive judge, full ladder)
 REFUTED the emphasis: repo ladder floor 0.00198 vs constant-log-step
 0.00155 — the uneven step is real but third-order. The ~0.13 floor comes
 from **rung usage coarseness**: a judge that expresses everything as two
