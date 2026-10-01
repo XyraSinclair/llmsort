@@ -42,6 +42,22 @@ virtue. Pinned in `experiments/tests/hodge_split.rs`; any pair-design change tha
 alters this surfaces. Measuring harmonic structure in real judges needs
 a mixed design (triangle-rich block + chordless-cycle block).
 
+**The whole holonomy budget (2026-10-01).** When the presentation varies
+too (mention order, which items share the window), the Hodge split is one
+term of a longer exact budget. Nested least-squares fits split a judge's
+energy five ways, summing to 1 by assertion: a mention offset per call
+(*bias*, the only correctable term), the rest of the swap-and-return
+mismatch (*order*), cycles inside a window (*curl*), windows that are each
+integrable but disagree on shared items (*gluing*), and one score per item
+(*gradient*). Holonomy = 1 − gradient. On the Jev high-dimensional pack
+(deterministic prefill reads, 3 cohorts × 12 attributes, k = 2…12) holonomy
+is 7–43% of energy. After the offset, the remaining incoherence is 8–22% at
+k ≥ 4, led by pair-specific order (4–10%), then gluing (2–4%), then curl
+(1–2%). Gluing exceeds curl at every k ≥ 4: windows are nearly flat inside
+and disagree with each other, so the failure is mostly global, which no
+in-window triad audit sees. Replay:
+`research/artifacts/live/jev-highdim-2026-09-19/holonomy_budget.py`.
+
 ## 2. Spectral identifiability diagnostics — SHIPPED (2026-07-05)
 
 `spectral_diagnostics` in `src/rating_engine/diagnostics.rs`, populated in every solve up to
