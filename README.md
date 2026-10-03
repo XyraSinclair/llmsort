@@ -129,7 +129,8 @@ form. Read a comparison as a noisy measurement x ~ N(μ, σ²) of the true
 gap μ: the reading carries Fisher information 1/σ², and its sign alone
 carries (2/π)/σ² as μ → 0. A win/loss verdict keeps 64% of what the judge
 told you; the magnitude is worth π/2 − 1 ≈ 57% more per call, before any
-weighting. Measured on 72,813 production judgements where one call yields
+weighting. Measured on 72,813 judgements from a private production
+ledger (the scripts are public, the rows are not) where one call yields
 both readouts, magnitude alone saves 1.3–1.8× the comparisons at small
 budgets (straddling π/2), the per-call variance from the logprob PMF
 saves another ~1.4×, and at full budget verdict-only sorting plateaus at
