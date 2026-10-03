@@ -1,0 +1,54 @@
+name: Drift
+
+# Things that change under an unchanged tree: the RustSec advisory database
+# and the next stable toolchain. Kept out of CI so a commit is red only for
+# what it changed; red here means act now (bump a dependency, or bump the
+# rust-toolchain.toml pin with its fixes).
+
+on:
+  schedule:
+    - cron: "17 13 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - Cargo.lock
+      - rust-toolchain.toml
+  pull_request:
+    paths:
+      - Cargo.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install cargo-audit
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+
+      - name: Security audit
+        run: cargo audit
+
+  latest-stable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install latest stable
+        run: rustup toolchain install stable --profile minimal --component clippy
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Clippy on latest stable
+        run: cargo +stable clippy --workspace --all-targets --all-features --locked -- -D warnings
+
+      - name: Tests on latest stable
+        run: cargo +stable test --workspace --all-targets --all-features --locked

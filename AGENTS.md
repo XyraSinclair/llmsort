@@ -51,6 +51,12 @@ experiments binaries consume needs `cargo check --workspace` before
 landing (2026-08-30: a parameter deletion broke `cardinald.rs`
 invisibly through a green default test run).
 
+CI is a pure function of the tree: `rust-toolchain.toml` pins the exact
+toolchain, and time-varying checks (RustSec audit, latest-stable clippy)
+live in `.github/workflows/drift.yml`, never in CI (2026-10-01: a
+docs-only commit went red when Rust 1.99 added a clippy lint). Drift red
+means bump the pin, with its fixes, in one commit.
+
 ## Research norms
 
 - `docs/PRINCIPLES.md` is the anti-slop discipline: refutability,

@@ -4,12 +4,15 @@ on:
   push:
     tags:
       - "v*"
+  # Manual run = preflight: builds and packages every target, uploads nothing.
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   create-release:
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub release
@@ -20,6 +23,7 @@ jobs:
 
   rust:
     needs: create-release
+    if: ${{ !cancelled() && needs.create-release.result != 'failure' }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -46,10 +50,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.target }}
+      - name: Install pinned toolchain (rust-toolchain.toml)
+        shell: bash
+        run: |
+          rustup toolchain install
+          rustup target add "${{ matrix.target }}"
 
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
@@ -80,7 +85,7 @@ jobs:
           echo "asset=$asset" >> "$GITHUB_OUTPUT"
 
       - name: Upload release assets
-        if: runner.os != 'Windows'
+        if: runner.os != 'Windows' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
@@ -101,7 +106,7 @@ jobs:
           "asset=$asset" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
       - name: Upload release assets
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}

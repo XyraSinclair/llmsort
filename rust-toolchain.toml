@@ -1,5 +1,8 @@
+# Pinned: CI, release and local builds use exactly this toolchain, so a new
+# stable (and its new clippy lints) cannot turn an unchanged tree red.
+# `.github/workflows/drift.yml` checks the tree on latest stable daily;
+# when it goes red, bump this pin in one commit with the fixes.
 [toolchain]
-channel = "stable"
+channel = "1.99.0"
 profile = "minimal"
 components = ["rustfmt", "clippy"]
-

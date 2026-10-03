@@ -1105,8 +1105,8 @@ fn scrub_provider_error(error: ProviderError, secret: &str) -> ProviderError {
     let scrub = |value: String| value.replace(secret, "[REDACTED]");
     let scrub_context = |context: Option<ErrorContext>| {
         context.map(|mut context| {
-            context.provider_code = context.provider_code.map(&scrub);
-            context.request_id = context.request_id.map(&scrub);
+            context.provider_code = context.provider_code.map(scrub);
+            context.request_id = context.request_id.map(scrub);
             context
         })
     };
