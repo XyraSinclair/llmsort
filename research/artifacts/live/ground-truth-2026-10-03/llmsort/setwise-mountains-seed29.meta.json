@@ -1,0 +1,19 @@
+{
+  "wall_seconds": 3.9975882080000034,
+  "command": [
+    "/private/tmp/llmsort-v0150.n86wrj/llmsort",
+    "sort",
+    "/Users/xyra/x/jev/llmsort-bench/research/artifacts/live/ground-truth-2026-10-03/llmsort/setwise-mountains-seed29.input.jsonl",
+    "--by",
+    "summit elevation above mean sea level in metres",
+    "--field",
+    "text",
+    "--format",
+    "jsonl",
+    "--model",
+    "openai/gpt-5.6-terra",
+    "--seed",
+    "29",
+    "--setwise"
+  ]
+}

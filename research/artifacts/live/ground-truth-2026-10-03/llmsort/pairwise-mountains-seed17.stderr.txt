@@ -1,0 +1,4 @@
+sorted 20 items by "summit elevation above mean sea level in metres" · ratio_letter_2p_v1 · 64 comparisons (0 cached, 0 refused) · $0.2020 · order flips: 0/32 · evidence: 64/64 logprob-mode, visible 1.00, order-residual 0.268 nats · frustration 0.016 · stop: tolerated_error_met
+resolution: 16 of 19 adjacent ranks are within 1σ, and ~14 would remain so even at 4× budget — the judge reads those neighbors as nearly tied on this criterion; a sharper criterion (--rubric) or a different judge will move more than budget
+consistency: an independent rerun would reproduce ~84% of this order's pairwise calls (61% between adjacent neighbors; noise-scaled estimate)
+error budget: stat ±0.215 (posterior incl sigma_w, mean) · noise sigma_w 0.238 nats/call · syst order 0.268 nats/pair · syst cyclic 1.6% of energy · rank risk 4.056 (expected top-k boundary inversions)

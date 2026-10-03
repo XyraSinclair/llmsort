@@ -1,0 +1,1 @@
+sorted 20 items by "summit elevation above mean sea level in metres" · setwise k=8 · 8 calls (8 ok, 0 malformed, 0 errored) · $0.0049 · openai/gpt-5.6-terra · gauge: flip 0.02 — trust (measured: flip < 0.20 ⇒ ρ ≥ 0.64 vs pairwise)

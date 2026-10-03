@@ -1,0 +1,20 @@
+{"id":"lhotse","text":"Lhotse","truth":8516,"llmsort":{"rank":1,"latent_mean":2.4816111266966714,"latent_std":0.14975778367521225,"z_score":1.381228337683352,"percentile":0.975}}
+{"id":"kangchenjunga","text":"Kangchenjunga","truth":8586,"llmsort":{"rank":2,"latent_mean":2.2302199307671122,"latent_std":0.19225670492806052,"z_score":0.8430907857975715,"percentile":0.925}}
+{"id":"cho-oyu","text":"Cho Oyu","truth":8188,"llmsort":{"rank":3,"latent_mean":2.1555024186417473,"latent_std":0.196762417542995,"z_score":0.6831476385864554,"percentile":0.875}}
+{"id":"dhaulagiri-i","text":"Dhaulagiri I","truth":8167,"llmsort":{"rank":4,"latent_mean":2.1474142888139025,"latent_std":0.14878147963309304,"z_score":0.665833880366735,"percentile":0.825}}
+{"id":"everest","text":"Mount Everest","truth":8848.86,"llmsort":{"rank":5,"latent_mean":2.129614636146993,"latent_std":0.2168245076208372,"z_score":0.6277312671261668,"percentile":0.775}}
+{"id":"manaslu","text":"Manaslu","truth":8163,"llmsort":{"rank":6,"latent_mean":2.1104070604632024,"latent_std":0.2849842889136464,"z_score":0.5866148003465099,"percentile":0.725}}
+{"id":"annapurna-i","text":"Annapurna I","truth":8091,"llmsort":{"rank":7,"latent_mean":2.032193212359812,"latent_std":0.2758545407872039,"z_score":0.4191872634103373,"percentile":0.675}}
+{"id":"k2","text":"K2","truth":8611,"llmsort":{"rank":8,"latent_mean":1.9924859836465891,"latent_std":0.20781179405353345,"z_score":0.33418845996023616,"percentile":0.625}}
+{"id":"nanga-parbat","text":"Nanga Parbat","truth":8126,"llmsort":{"rank":9,"latent_mean":1.9798229054077,"latent_std":0.19615309972728645,"z_score":0.30708139323255573,"percentile":0.575}}
+{"id":"makalu","text":"Makalu","truth":8485,"llmsort":{"rank":10,"latent_mean":1.9660662266551423,"latent_std":0.21232451121751722,"z_score":0.27763332366668747,"percentile":0.525}}
+{"id":"kilimanjaro","text":"Mount Kilimanjaro","truth":5895,"llmsort":{"rank":11,"latent_mean":1.7066731661936017,"latent_std":0.2196522041586943,"z_score":-0.27763332366668697,"percentile":0.475}}
+{"id":"elbrus","text":"Mount Elbrus","truth":5642,"llmsort":{"rank":12,"latent_mean":1.577371831019283,"latent_std":0.21077550576432721,"z_score":-0.5544206777702402,"percentile":0.425}}
+{"id":"denali","text":"Denali","truth":6190.5,"llmsort":{"rank":13,"latent_mean":1.5586340191888264,"latent_std":0.1829013770438294,"z_score":-0.5945315501850553,"percentile":0.375}}
+{"id":"vinson","text":"Mount Vinson","truth":4892,"llmsort":{"rank":14,"latent_mean":1.4692089263545078,"latent_std":0.2849842889136464,"z_score":-0.7859583038431392,"percentile":0.325}}
+{"id":"whitney","text":"Mount Whitney","truth":4421,"llmsort":{"rank":15,"latent_mean":1.4206661539348668,"latent_std":0.25643942528529984,"z_score":-0.8898708080780683,"percentile":0.275}}
+{"id":"mont-blanc","text":"Mont Blanc","truth":4805.59,"llmsort":{"rank":16,"latent_mean":1.4133893999964844,"latent_std":0.19217695930236728,"z_score":-0.9054477042203405,"percentile":0.225}}
+{"id":"matterhorn","text":"Matterhorn","truth":4478,"llmsort":{"rank":17,"latent_mean":1.256868775215854,"latent_std":0.1763075664828339,"z_score":-1.2405017045310067,"percentile":0.175}}
+{"id":"fuji","text":"Mount Fuji","truth":3776.24,"llmsort":{"rank":18,"latent_mean":1.1203700204836844,"latent_std":0.227454154560037,"z_score":-1.5326961285855778,"percentile":0.125}}
+{"id":"kosciuszko","text":"Mount Kosciuszko","truth":2228,"llmsort":{"rank":19,"latent_mean":0.5691778597158412,"latent_std":0.2349652750225428,"z_score":-2.712599024219815,"percentile":0.075}}
+{"id":"ben-nevis","text":"Ben Nevis","truth":1344.527,"llmsort":{"rank":20,"latent_mean":0.0,"latent_std":0.23920378711976242,"z_score":-3.9310027908373875,"percentile":0.025}}

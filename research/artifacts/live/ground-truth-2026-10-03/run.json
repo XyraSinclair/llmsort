@@ -1,0 +1,39 @@
+{
+  "binary": {
+    "version": "llmsort 0.15.0",
+    "sha256": "406e38da3677ef8ba6e6c3e5959711bee895426000f25c4f853a8b1df463da18",
+    "release_asset": "https://github.com/XyraSinclair/llmsort/releases/download/v0.15.0/llmsort-aarch64-apple-darwin.tar.gz"
+  },
+  "preflight": {
+    "auth_probe": {
+      "limit_remaining_was_sufficient": true
+    },
+    "pricing": {
+      "model": "openai/gpt-5.6-terra",
+      "prompt_per_token": 2e-06,
+      "completion_per_token": 1.2e-05
+    },
+    "cells": {
+      "countries": {
+        "pairwise_typical_per_seed": 0.3724,
+        "binary_output": "estimate: 80 comparisons · ~710 input + ~192 output tokens each · ~$0.3724 typical · $2.02 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      },
+      "rivers": {
+        "pairwise_typical_per_seed": 0.3708,
+        "binary_output": "estimate: 80 comparisons · ~702 input + ~192 output tokens each · ~$0.3708 typical · $2.02 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      },
+      "mountains": {
+        "pairwise_typical_per_seed": 0.374,
+        "binary_output": "estimate: 80 comparisons · ~718 input + ~192 output tokens each · ~$0.3740 typical · $2.03 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      }
+    },
+    "projected_pairwise": 2.2344,
+    "projected_direct_upper": 0.13837499999999994,
+    "projected_setwise_upper": 0.10608000000000001,
+    "projected_with_20pct_margin": 2.9746259999999998,
+    "hard_cap": 4.0
+  }
+}

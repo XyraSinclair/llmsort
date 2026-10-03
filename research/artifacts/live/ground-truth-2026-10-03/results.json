@@ -1,0 +1,933 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-03T20:16:36.935683+00:00",
+  "claim": "Direct 1-10 ratings cluster and one-prompt sorts lose items; pairwise ratio fitting recovers order and gaps.",
+  "model": "openai/gpt-5.6-terra",
+  "seeds": [
+    17,
+    29
+  ],
+  "hard_cap_usd": 4.0,
+  "total_dollars": 1.53018,
+  "binary": {
+    "version": "llmsort 0.15.0",
+    "sha256": "406e38da3677ef8ba6e6c3e5959711bee895426000f25c4f853a8b1df463da18",
+    "release_asset": "https://github.com/XyraSinclair/llmsort/releases/download/v0.15.0/llmsort-aarch64-apple-darwin.tar.gz"
+  },
+  "preflight": {
+    "auth_probe": {
+      "limit_remaining_was_sufficient": true
+    },
+    "pricing": {
+      "model": "openai/gpt-5.6-terra",
+      "prompt_per_token": 2e-06,
+      "completion_per_token": 1.2e-05
+    },
+    "cells": {
+      "countries": {
+        "pairwise_typical_per_seed": 0.3724,
+        "binary_output": "estimate: 80 comparisons · ~710 input + ~192 output tokens each · ~$0.3724 typical · $2.02 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      },
+      "rivers": {
+        "pairwise_typical_per_seed": 0.3708,
+        "binary_output": "estimate: 80 comparisons · ~702 input + ~192 output tokens each · ~$0.3708 typical · $2.02 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      },
+      "mountains": {
+        "pairwise_typical_per_seed": 0.374,
+        "binary_output": "estimate: 80 comparisons · ~718 input + ~192 output tokens each · ~$0.3740 typical · $2.03 hard max (provider output cap)",
+        "setwise_projected_per_seed": 0.01768
+      }
+    },
+    "projected_pairwise": 2.2344,
+    "projected_direct_upper": 0.13837499999999994,
+    "projected_setwise_upper": 0.10608000000000001,
+    "projected_with_20pct_margin": 2.9746259999999998,
+    "hard_cap": 4.0
+  },
+  "metric_definitions": {
+    "spearman_rho": "Pearson correlation of average tie ranks against numeric truth",
+    "kendall_tau_b": "Kendall tau-b, including ties",
+    "pointwise_modal_score_fraction": "largest 1-10 score-bin count divided by n",
+    "listwise_dropped_or_duplicated": "missing valid ids; repeated valid ids after first",
+    "pearson_latent_vs_log_truth": "Pearson correlation of llmsort latent_mean with natural log(truth)"
+  },
+  "cells": [
+    {
+      "spearman_rho": 0.591250701272523,
+      "kendall_tau_b": 0.4986963614684072,
+      "pool": "countries",
+      "method": "pointwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.7,
+      "score_counts": {
+        "5": 1,
+        "8": 3,
+        "9": 2,
+        "10": 14
+      },
+      "parse_failures": 0,
+      "dollars": 0.0054459999999999995,
+      "cost_is_estimate": false,
+      "wall_seconds": 4.0194592920000005,
+      "raw": "raw/pointwise-countries-seed17.jsonl"
+    },
+    {
+      "spearman_rho": 0.9867543820659301,
+      "kendall_tau_b": 0.9597148699373931,
+      "pool": "countries",
+      "method": "listwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 6,
+      "dropped_ids": [
+        "australia",
+        "france",
+        "italy",
+        "kenya",
+        "netherlands",
+        "new-zealand"
+      ],
+      "items_duplicated": 0,
+      "unknown_ids": [
+        "philippines",
+        "egypt",
+        "vietnam",
+        "turkey",
+        "iran",
+        "thailand"
+      ],
+      "dollars": 0.001538,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.7212231670000007,
+      "raw": "raw/listwise-countries-seed17.json"
+    },
+    {
+      "spearman_rho": 0.5485176355112891,
+      "kendall_tau_b": 0.45326176129946466,
+      "pool": "countries",
+      "method": "pointwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.6,
+      "score_counts": {
+        "5": 1,
+        "8": 4,
+        "9": 3,
+        "10": 12
+      },
+      "parse_failures": 0,
+      "dollars": 0.0054459999999999995,
+      "cost_is_estimate": false,
+      "wall_seconds": 3.5128505420000007,
+      "raw": "raw/pointwise-countries-seed29.jsonl"
+    },
+    {
+      "spearman_rho": 0.9787209698591859,
+      "kendall_tau_b": 0.9431191251430151,
+      "pool": "countries",
+      "method": "listwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 7,
+      "dropped_ids": [
+        "australia",
+        "france",
+        "italy",
+        "kenya",
+        "netherlands",
+        "new-zealand",
+        "united-kingdom"
+      ],
+      "items_duplicated": 0,
+      "unknown_ids": [
+        "philippines",
+        "egypt",
+        "vietnam",
+        "democratic-republic-of-the-congo",
+        "iran",
+        "turkey",
+        "thailand"
+      ],
+      "dollars": 0.001574,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.7948795839999985,
+      "raw": "raw/listwise-countries-seed29.json"
+    },
+    {
+      "spearman_rho": 0.3449200810752435,
+      "kendall_tau_b": 0.2743153899140003,
+      "pool": "rivers",
+      "method": "pointwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.9,
+      "score_counts": {
+        "3": 1,
+        "8": 1,
+        "10": 18
+      },
+      "parse_failures": 0,
+      "dollars": 0.005666,
+      "cost_is_estimate": false,
+      "wall_seconds": 13.645908499999999,
+      "raw": "raw/pointwise-rivers-seed17.jsonl"
+    },
+    {
+      "spearman_rho": 0.9894736842105263,
+      "kendall_tau_b": 0.9578947368421052,
+      "pool": "rivers",
+      "method": "listwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 0,
+      "dropped_ids": [],
+      "items_duplicated": 0,
+      "unknown_ids": [],
+      "dollars": 0.00153,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.6578460419999992,
+      "raw": "raw/listwise-rivers-seed17.json"
+    },
+    {
+      "spearman_rho": 0.3449200810752435,
+      "kendall_tau_b": 0.2743153899140003,
+      "pool": "rivers",
+      "method": "pointwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.9,
+      "score_counts": {
+        "1": 1,
+        "9": 1,
+        "10": 18
+      },
+      "parse_failures": 0,
+      "dollars": 0.005666,
+      "cost_is_estimate": false,
+      "wall_seconds": 6.238342916999997,
+      "raw": "raw/pointwise-rivers-seed29.jsonl"
+    },
+    {
+      "spearman_rho": 0.9819548872180451,
+      "kendall_tau_b": 0.9473684210526315,
+      "pool": "rivers",
+      "method": "listwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 0,
+      "dropped_ids": [],
+      "items_duplicated": 0,
+      "unknown_ids": [],
+      "dollars": 0.00153,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.6832159170000054,
+      "raw": "raw/listwise-rivers-seed29.json"
+    },
+    {
+      "spearman_rho": -0.3973597071195132,
+      "kendall_tau_b": -0.33245498310218435,
+      "pool": "mountains",
+      "method": "pointwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.7,
+      "score_counts": {
+        "9": 6,
+        "10": 14
+      },
+      "parse_failures": 0,
+      "dollars": 0.005414,
+      "cost_is_estimate": false,
+      "wall_seconds": 3.8327275830000005,
+      "raw": "raw/pointwise-mountains-seed17.jsonl"
+    },
+    {
+      "spearman_rho": 0.9984962406015038,
+      "kendall_tau_b": 0.9894736842105263,
+      "pool": "mountains",
+      "method": "listwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 0,
+      "dropped_ids": [],
+      "items_duplicated": 0,
+      "unknown_ids": [],
+      "dollars": 0.001834,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.783789917,
+      "raw": "raw/listwise-mountains-seed17.json"
+    },
+    {
+      "spearman_rho": -0.32783314166642513,
+      "kendall_tau_b": -0.2742848850053806,
+      "pool": "mountains",
+      "method": "pointwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "modal_score_fraction": 0.85,
+      "score_counts": {
+        "9": 3,
+        "10": 17
+      },
+      "parse_failures": 0,
+      "dollars": 0.005402,
+      "cost_is_estimate": false,
+      "wall_seconds": 3.6801428750000014,
+      "raw": "raw/pointwise-mountains-seed29.jsonl"
+    },
+    {
+      "spearman_rho": 0.9834586466165414,
+      "kendall_tau_b": 0.9263157894736842,
+      "pool": "mountains",
+      "method": "listwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "items_dropped": 0,
+      "dropped_ids": [],
+      "items_duplicated": 0,
+      "unknown_ids": [],
+      "dollars": 0.001834,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.73844725,
+      "raw": "raw/listwise-mountains-seed29.json"
+    },
+    {
+      "spearman_rho": 0.9221512498690846,
+      "kendall_tau_b": 0.7651741674574085,
+      "pool": "countries",
+      "method": "setwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.847198803684771,
+      "dollars": 0.0048,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.9877472499999982,
+      "output": "llmsort/setwise-countries-seed17.jsonl",
+      "stderr": "llmsort/setwise-countries-seed17.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.14,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.968421052631579,
+      "kendall_tau_b": 0.8842105263157894,
+      "pool": "countries",
+      "method": "setwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.9187938733266635,
+      "dollars": 0.0048,
+      "cost_is_estimate": false,
+      "wall_seconds": 2.0901275829999975,
+      "output": "llmsort/setwise-countries-seed29.jsonl",
+      "stderr": "llmsort/setwise-countries-seed29.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.06,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.8857142857142857,
+      "kendall_tau_b": 0.7684210526315789,
+      "pool": "rivers",
+      "method": "setwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.7709377088410565,
+      "dollars": 0.0048,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.8623319589999952,
+      "output": "llmsort/setwise-rivers-seed17.jsonl",
+      "stderr": "llmsort/setwise-rivers-seed17.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.22,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.6711815293557403,
+      "kendall_tau_b": 0.5079436178602621,
+      "pool": "rivers",
+      "method": "setwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.6617280218614415,
+      "dollars": 0.0048,
+      "cost_is_estimate": false,
+      "wall_seconds": 1.6382166249999983,
+      "output": "llmsort/setwise-rivers-seed29.jsonl",
+      "stderr": "llmsort/setwise-rivers-seed29.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.36,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.9567507258021823,
+      "kendall_tau_b": 0.8390530525912272,
+      "pool": "mountains",
+      "method": "setwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.854988299122074,
+      "dollars": 0.0049,
+      "cost_is_estimate": false,
+      "wall_seconds": 2.765931166999998,
+      "output": "llmsort/setwise-mountains-seed17.jsonl",
+      "stderr": "llmsort/setwise-mountains-seed17.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.07,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.98796992481203,
+      "kendall_tau_b": 0.9263157894736842,
+      "pool": "mountains",
+      "method": "setwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.8441847915607085,
+      "dollars": 0.0049,
+      "cost_is_estimate": false,
+      "wall_seconds": 3.9975882080000034,
+      "output": "llmsort/setwise-mountains-seed29.jsonl",
+      "stderr": "llmsort/setwise-mountains-seed29.stderr.txt",
+      "trace": null,
+      "setwise_flip_rate": 0.02,
+      "calls": 8
+    },
+    {
+      "spearman_rho": 0.9939849624060151,
+      "kendall_tau_b": 0.9578947368421052,
+      "pool": "countries",
+      "method": "pairwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.998549889870548,
+      "dollars": 0.2458,
+      "cost_is_estimate": false,
+      "wall_seconds": 42.758583333000004,
+      "output": "llmsort/pairwise-countries-seed17.jsonl",
+      "stderr": "llmsort/pairwise-countries-seed17.stderr.txt",
+      "trace": "llmsort/pairwise-countries-seed17.trace.jsonl",
+      "comparisons": 80
+    },
+    {
+      "spearman_rho": 0.9954887218045113,
+      "kendall_tau_b": 0.968421052631579,
+      "pool": "countries",
+      "method": "pairwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.9883026643477704,
+      "dollars": 0.2478,
+      "cost_is_estimate": false,
+      "wall_seconds": 60.720034916,
+      "output": "llmsort/pairwise-countries-seed29.jsonl",
+      "stderr": "llmsort/pairwise-countries-seed29.stderr.txt",
+      "trace": "llmsort/pairwise-countries-seed29.trace.jsonl",
+      "comparisons": 80
+    },
+    {
+      "spearman_rho": 0.5067669172932331,
+      "kendall_tau_b": 0.3263157894736842,
+      "pool": "rivers",
+      "method": "pairwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.6070288731353932,
+      "dollars": 0.2577,
+      "cost_is_estimate": false,
+      "wall_seconds": 66.83445950000001,
+      "output": "llmsort/pairwise-rivers-seed17.jsonl",
+      "stderr": "llmsort/pairwise-rivers-seed17.stderr.txt",
+      "trace": "llmsort/pairwise-rivers-seed17.trace.jsonl",
+      "comparisons": 80
+    },
+    {
+      "spearman_rho": 0.7157894736842105,
+      "kendall_tau_b": 0.5157894736842106,
+      "pool": "rivers",
+      "method": "pairwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.7717520509849348,
+      "dollars": 0.2598,
+      "cost_is_estimate": false,
+      "wall_seconds": 42.66619670900002,
+      "output": "llmsort/pairwise-rivers-seed29.jsonl",
+      "stderr": "llmsort/pairwise-rivers-seed29.stderr.txt",
+      "trace": "llmsort/pairwise-rivers-seed29.trace.jsonl",
+      "comparisons": 80
+    },
+    {
+      "spearman_rho": 0.9022556390977443,
+      "kendall_tau_b": 0.7789473684210526,
+      "pool": "mountains",
+      "method": "pairwise",
+      "seed": 17,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.980473376518475,
+      "dollars": 0.202,
+      "cost_is_estimate": false,
+      "wall_seconds": 28.646580667000023,
+      "output": "llmsort/pairwise-mountains-seed17.jsonl",
+      "stderr": "llmsort/pairwise-mountains-seed17.stderr.txt",
+      "trace": "llmsort/pairwise-mountains-seed17.trace.jsonl",
+      "comparisons": 64
+    },
+    {
+      "spearman_rho": 0.9609022556390977,
+      "kendall_tau_b": 0.8736842105263158,
+      "pool": "mountains",
+      "method": "pairwise",
+      "seed": 29,
+      "n": 20,
+      "model": "openai/gpt-5.6-terra",
+      "pearson_latent_vs_log_truth": 0.9652894916213373,
+      "dollars": 0.2452,
+      "cost_is_estimate": false,
+      "wall_seconds": 36.100947958000006,
+      "output": "llmsort/pairwise-mountains-seed29.jsonl",
+      "stderr": "llmsort/pairwise-mountains-seed29.stderr.txt",
+      "trace": "llmsort/pairwise-mountains-seed29.trace.jsonl",
+      "comparisons": 78
+    }
+  ],
+  "aggregates": [
+    {
+      "pool": "countries",
+      "method": "listwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.982737675962558,
+        "min": 0.9787209698591859,
+        "max": 0.9867543820659301
+      },
+      "kendall_tau_b": {
+        "mean": 0.951416997540204,
+        "min": 0.9431191251430151,
+        "max": 0.9597148699373931
+      },
+      "items_dropped": {
+        "mean": 6.5,
+        "min": 6,
+        "max": 7
+      },
+      "items_duplicated": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "dollars": {
+        "mean": 0.001556,
+        "min": 0.001538,
+        "max": 0.001574
+      },
+      "wall_seconds": {
+        "mean": 1.7580513754999996,
+        "min": 1.7212231670000007,
+        "max": 1.7948795839999985
+      }
+    },
+    {
+      "pool": "countries",
+      "method": "pairwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9947368421052631,
+        "min": 0.9939849624060151,
+        "max": 0.9954887218045113
+      },
+      "kendall_tau_b": {
+        "mean": 0.9631578947368421,
+        "min": 0.9578947368421052,
+        "max": 0.968421052631579
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.9934262771091592,
+        "min": 0.9883026643477704,
+        "max": 0.998549889870548
+      },
+      "dollars": {
+        "mean": 0.2468,
+        "min": 0.2458,
+        "max": 0.2478
+      },
+      "wall_seconds": {
+        "mean": 51.739309124500004,
+        "min": 42.758583333000004,
+        "max": 60.720034916
+      }
+    },
+    {
+      "pool": "countries",
+      "method": "pointwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.569884168391906,
+        "min": 0.5485176355112891,
+        "max": 0.591250701272523
+      },
+      "kendall_tau_b": {
+        "mean": 0.4759790613839359,
+        "min": 0.45326176129946466,
+        "max": 0.4986963614684072
+      },
+      "modal_score_fraction": {
+        "mean": 0.6499999999999999,
+        "min": 0.6,
+        "max": 0.7
+      },
+      "dollars": {
+        "mean": 0.0054459999999999995,
+        "min": 0.0054459999999999995,
+        "max": 0.0054459999999999995
+      },
+      "wall_seconds": {
+        "mean": 3.7661549170000006,
+        "min": 3.5128505420000007,
+        "max": 4.0194592920000005
+      }
+    },
+    {
+      "pool": "countries",
+      "method": "setwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9452861512503318,
+        "min": 0.9221512498690846,
+        "max": 0.968421052631579
+      },
+      "kendall_tau_b": {
+        "mean": 0.824692346886599,
+        "min": 0.7651741674574085,
+        "max": 0.8842105263157894
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.8829963385057172,
+        "min": 0.847198803684771,
+        "max": 0.9187938733266635
+      },
+      "dollars": {
+        "mean": 0.0048,
+        "min": 0.0048,
+        "max": 0.0048
+      },
+      "wall_seconds": {
+        "mean": 2.038937416499998,
+        "min": 1.9877472499999982,
+        "max": 2.0901275829999975
+      }
+    },
+    {
+      "pool": "mountains",
+      "method": "listwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9909774436090226,
+        "min": 0.9834586466165414,
+        "max": 0.9984962406015038
+      },
+      "kendall_tau_b": {
+        "mean": 0.9578947368421052,
+        "min": 0.9263157894736842,
+        "max": 0.9894736842105263
+      },
+      "items_dropped": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "items_duplicated": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "dollars": {
+        "mean": 0.001834,
+        "min": 0.001834,
+        "max": 0.001834
+      },
+      "wall_seconds": {
+        "mean": 1.7611185835,
+        "min": 1.73844725,
+        "max": 1.783789917
+      }
+    },
+    {
+      "pool": "mountains",
+      "method": "pairwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9315789473684211,
+        "min": 0.9022556390977443,
+        "max": 0.9609022556390977
+      },
+      "kendall_tau_b": {
+        "mean": 0.8263157894736842,
+        "min": 0.7789473684210526,
+        "max": 0.8736842105263158
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.9728814340699061,
+        "min": 0.9652894916213373,
+        "max": 0.980473376518475
+      },
+      "dollars": {
+        "mean": 0.22360000000000002,
+        "min": 0.202,
+        "max": 0.2452
+      },
+      "wall_seconds": {
+        "mean": 32.373764312500015,
+        "min": 28.646580667000023,
+        "max": 36.100947958000006
+      }
+    },
+    {
+      "pool": "mountains",
+      "method": "pointwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": -0.36259642439296913,
+        "min": -0.3973597071195132,
+        "max": -0.32783314166642513
+      },
+      "kendall_tau_b": {
+        "mean": -0.3033699340537825,
+        "min": -0.33245498310218435,
+        "max": -0.2742848850053806
+      },
+      "modal_score_fraction": {
+        "mean": 0.7749999999999999,
+        "min": 0.7,
+        "max": 0.85
+      },
+      "dollars": {
+        "mean": 0.005408,
+        "min": 0.005402,
+        "max": 0.005414
+      },
+      "wall_seconds": {
+        "mean": 3.756435229000001,
+        "min": 3.6801428750000014,
+        "max": 3.8327275830000005
+      }
+    },
+    {
+      "pool": "mountains",
+      "method": "setwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9723603253071063,
+        "min": 0.9567507258021823,
+        "max": 0.98796992481203
+      },
+      "kendall_tau_b": {
+        "mean": 0.8826844210324557,
+        "min": 0.8390530525912272,
+        "max": 0.9263157894736842
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.8495865453413912,
+        "min": 0.8441847915607085,
+        "max": 0.854988299122074
+      },
+      "dollars": {
+        "mean": 0.0049,
+        "min": 0.0049,
+        "max": 0.0049
+      },
+      "wall_seconds": {
+        "mean": 3.3817596875000007,
+        "min": 2.765931166999998,
+        "max": 3.9975882080000034
+      }
+    },
+    {
+      "pool": "rivers",
+      "method": "listwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.9857142857142858,
+        "min": 0.9819548872180451,
+        "max": 0.9894736842105263
+      },
+      "kendall_tau_b": {
+        "mean": 0.9526315789473684,
+        "min": 0.9473684210526315,
+        "max": 0.9578947368421052
+      },
+      "items_dropped": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "items_duplicated": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "dollars": {
+        "mean": 0.00153,
+        "min": 0.00153,
+        "max": 0.00153
+      },
+      "wall_seconds": {
+        "mean": 1.6705309795000023,
+        "min": 1.6578460419999992,
+        "max": 1.6832159170000054
+      }
+    },
+    {
+      "pool": "rivers",
+      "method": "pairwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.6112781954887219,
+        "min": 0.5067669172932331,
+        "max": 0.7157894736842105
+      },
+      "kendall_tau_b": {
+        "mean": 0.4210526315789474,
+        "min": 0.3263157894736842,
+        "max": 0.5157894736842106
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.6893904620601641,
+        "min": 0.6070288731353932,
+        "max": 0.7717520509849348
+      },
+      "dollars": {
+        "mean": 0.25875,
+        "min": 0.2577,
+        "max": 0.2598
+      },
+      "wall_seconds": {
+        "mean": 54.750328104500014,
+        "min": 42.66619670900002,
+        "max": 66.83445950000001
+      }
+    },
+    {
+      "pool": "rivers",
+      "method": "pointwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.3449200810752435,
+        "min": 0.3449200810752435,
+        "max": 0.3449200810752435
+      },
+      "kendall_tau_b": {
+        "mean": 0.2743153899140003,
+        "min": 0.2743153899140003,
+        "max": 0.2743153899140003
+      },
+      "modal_score_fraction": {
+        "mean": 0.9,
+        "min": 0.9,
+        "max": 0.9
+      },
+      "dollars": {
+        "mean": 0.005666,
+        "min": 0.005666,
+        "max": 0.005666
+      },
+      "wall_seconds": {
+        "mean": 9.942125708499997,
+        "min": 6.238342916999997,
+        "max": 13.645908499999999
+      }
+    },
+    {
+      "pool": "rivers",
+      "method": "setwise",
+      "seeds": [
+        17,
+        29
+      ],
+      "spearman_rho": {
+        "mean": 0.778447907535013,
+        "min": 0.6711815293557403,
+        "max": 0.8857142857142857
+      },
+      "kendall_tau_b": {
+        "mean": 0.6381823352459205,
+        "min": 0.5079436178602621,
+        "max": 0.7684210526315789
+      },
+      "pearson_latent_vs_log_truth": {
+        "mean": 0.7163328653512491,
+        "min": 0.6617280218614415,
+        "max": 0.7709377088410565
+      },
+      "dollars": {
+        "mean": 0.0048,
+        "min": 0.0048,
+        "max": 0.0048
+      },
+      "wall_seconds": {
+        "mean": 1.7502742919999967,
+        "min": 1.6382166249999983,
+        "max": 1.8623319589999952
+      }
+    }
+  ]
+}

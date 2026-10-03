@@ -1,0 +1,4 @@
+sorted 20 items by "length from source to mouth in kilometres" · ratio_letter_2p_v1 · 80 comparisons (0 cached, 0 refused) · $0.2577 · order flips: 2/36 · evidence: 80/80 logprob-mode, visible 0.98, order-residual 0.779 nats · frustration 0.170 · stop: budget_exhausted
+resolution: 19 of 19 adjacent ranks are within 1σ, and ~18 would remain so even at 4× budget — the judge reads those neighbors as nearly tied on this criterion; a sharper criterion (--rubric) or a different judge will move more than budget
+consistency: an independent rerun would reproduce ~70% of this order's pairwise calls (54% between adjacent neighbors; noise-scaled estimate)
+error budget: stat ±0.635 (posterior incl sigma_w, mean) · noise sigma_w 0.691 nats/call · syst order 0.779 nats/pair · syst cyclic 17.0% of energy · rank risk 9.322 (expected top-k boundary inversions)

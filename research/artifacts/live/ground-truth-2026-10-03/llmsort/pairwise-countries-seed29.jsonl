@@ -1,0 +1,20 @@
+{"id":"india","text":"India","truth":1450935791,"llmsort":{"rank":1,"latent_mean":6.8798463234264755,"latent_std":0.17322199470083285,"z_score":2.3069595897164064,"percentile":0.975}}
+{"id":"china","text":"China","truth":1419321278,"llmsort":{"rank":2,"latent_mean":6.16972533242773,"latent_std":0.29211915682038403,"z_score":1.683637869167007,"percentile":0.925}}
+{"id":"indonesia","text":"Indonesia","truth":283487931,"llmsort":{"rank":3,"latent_mean":5.261077735501305,"latent_std":0.41527254867415514,"z_score":0.8860557801026138,"percentile":0.875}}
+{"id":"united-states","text":"United States","truth":345426571,"llmsort":{"rank":4,"latent_mean":5.179504046668315,"latent_std":0.23313866002087252,"z_score":0.8144529790032857,"percentile":0.825}}
+{"id":"pakistan","text":"Pakistan","truth":251269164,"llmsort":{"rank":5,"latent_mean":4.984265019864271,"latent_std":0.24986100443315162,"z_score":0.6430783433447516,"percentile":0.775}}
+{"id":"nigeria","text":"Nigeria","truth":232679478,"llmsort":{"rank":6,"latent_mean":4.908829015684883,"latent_std":0.2569485488478793,"z_score":0.5768630074900324,"percentile":0.725}}
+{"id":"brazil","text":"Brazil","truth":211998573,"llmsort":{"rank":7,"latent_mean":4.72777247048853,"latent_std":0.15541476438536558,"z_score":0.4179373051110695,"percentile":0.675}}
+{"id":"bangladesh","text":"Bangladesh","truth":173562364,"llmsort":{"rank":8,"latent_mean":4.604139670167962,"latent_std":0.22132716940378003,"z_score":0.30941634771228615,"percentile":0.625}}
+{"id":"russia","text":"Russia","truth":144820423,"llmsort":{"rank":9,"latent_mean":4.416258146868295,"latent_std":0.21025914768472334,"z_score":0.14449989566109303,"percentile":0.575}}
+{"id":"mexico","text":"Mexico","truth":130861007,"llmsort":{"rank":10,"latent_mean":4.281508144844999,"latent_std":0.18674696339738694,"z_score":0.02622061062395394,"percentile":0.525}}
+{"id":"ethiopia","text":"Ethiopia","truth":132059767,"llmsort":{"rank":11,"latent_mean":4.221764338758914,"latent_std":0.18423200370295353,"z_score":-0.02622061062395316,"percentile":0.475}}
+{"id":"japan","text":"Japan","truth":123753041,"llmsort":{"rank":12,"latent_mean":4.18242941536011,"latent_std":0.23954226111008547,"z_score":-0.060747560878074806,"percentile":0.425}}
+{"id":"germany","text":"Germany","truth":84552242,"llmsort":{"rank":13,"latent_mean":3.7040816887207155,"latent_std":0.23105505044317567,"z_score":-0.4806260488670151,"percentile":0.375}}
+{"id":"united-kingdom","text":"United Kingdom","truth":69138192,"llmsort":{"rank":14,"latent_mean":3.606640374894102,"latent_std":0.2272277096931876,"z_score":-0.5661569487515195,"percentile":0.325}}
+{"id":"france","text":"France","truth":66548530,"llmsort":{"rank":15,"latent_mean":3.4474341001368174,"latent_std":0.22461125230310133,"z_score":-0.705903175608439,"percentile":0.275}}
+{"id":"kenya","text":"Kenya","truth":56432944,"llmsort":{"rank":16,"latent_mean":3.3599132568289196,"latent_std":0.23328710651903578,"z_score":-0.7827262005944862,"percentile":0.225}}
+{"id":"italy","text":"Italy","truth":59342867,"llmsort":{"rank":17,"latent_mean":3.35031096607534,"latent_std":0.21426195281937602,"z_score":-0.7911547873699859,"percentile":0.175}}
+{"id":"australia","text":"Australia","truth":26713205,"llmsort":{"rank":18,"latent_mean":2.5473793771747872,"latent_std":0.23556278694646546,"z_score":-1.4959427119925943,"percentile":0.125}}
+{"id":"netherlands","text":"Netherlands","truth":18228742,"llmsort":{"rank":19,"latent_mean":2.1142340143998015,"latent_std":0.24774497130200712,"z_score":-1.8761439962739865,"percentile":0.075}}
+{"id":"new-zealand","text":"New Zealand","truth":5213944,"llmsort":{"rank":20,"latent_mean":0.0,"latent_std":0.41527254867415514,"z_score":-3.731951668775357,"percentile":0.025}}

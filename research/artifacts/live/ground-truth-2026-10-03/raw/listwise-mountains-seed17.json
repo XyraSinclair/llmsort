@@ -1,0 +1,70 @@
+{
+  "request": {
+    "model": "openai/gpt-5.6-terra",
+    "temperature": 0,
+    "seed": 17,
+    "max_tokens": 512,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "Sort every supplied item from MOST to LEAST on the criterion. Return only JSON: {\"order\":[\"id\",...]}. Include every id exactly once."
+      },
+      {
+        "role": "user",
+        "content": "Criterion: summit elevation above mean sea level in metres\nItems:\n[{\"id\": \"manaslu\", \"item\": \"Manaslu\"}, {\"id\": \"dhaulagiri-i\", \"item\": \"Dhaulagiri I\"}, {\"id\": \"matterhorn\", \"item\": \"Matterhorn\"}, {\"id\": \"mont-blanc\", \"item\": \"Mont Blanc\"}, {\"id\": \"cho-oyu\", \"item\": \"Cho Oyu\"}, {\"id\": \"lhotse\", \"item\": \"Lhotse\"}, {\"id\": \"denali\", \"item\": \"Denali\"}, {\"id\": \"everest\", \"item\": \"Mount Everest\"}, {\"id\": \"k2\", \"item\": \"K2\"}, {\"id\": \"makalu\", \"item\": \"Makalu\"}, {\"id\": \"nanga-parbat\", \"item\": \"Nanga Parbat\"}, {\"id\": \"kosciuszko\", \"item\": \"Mount Kosciuszko\"}, {\"id\": \"ben-nevis\", \"item\": \"Ben Nevis\"}, {\"id\": \"elbrus\", \"item\": \"Mount Elbrus\"}, {\"id\": \"kangchenjunga\", \"item\": \"Kangchenjunga\"}, {\"id\": \"fuji\", \"item\": \"Mount Fuji\"}, {\"id\": \"kilimanjaro\", \"item\": \"Mount Kilimanjaro\"}, {\"id\": \"annapurna-i\", \"item\": \"Annapurna I\"}, {\"id\": \"vinson\", \"item\": \"Mount Vinson\"}, {\"id\": \"whitney\", \"item\": \"Mount Whitney\"}]"
+      }
+    ]
+  },
+  "response": {
+    "id": "gen-1791058297-GfnPxuXEPTUdb3XnwTB4",
+    "object": "chat.completion",
+    "created": 1791058297,
+    "model": "openai/gpt-5.6-terra",
+    "provider": "Azure",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "{\"order\":[\"everest\",\"k2\",\"kangchenjunga\",\"lhotse\",\"makalu\",\"cho-oyu\",\"dhaulagiri-i\",\"manaslu\",\"annapurna-i\",\"nanga-parbat\",\"denali\",\"kilimanjaro\",\"elbrus\",\"vinson\",\"mont-blanc\",\"matterhorn\",\"whitney\",\"fuji\",\"kosciuszko\",\"ben-nevis\"]}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 377,
+      "completion_tokens": 90,
+      "total_tokens": 467,
+      "cost": 0.001834,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001834,
+        "upstream_inference_prompt_cost": 0.000754,
+        "upstream_inference_completions_cost": 0.00108
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

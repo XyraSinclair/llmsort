@@ -1,0 +1,19 @@
+{
+  "wall_seconds": 1.6382166249999983,
+  "command": [
+    "/private/tmp/llmsort-v0150.n86wrj/llmsort",
+    "sort",
+    "/Users/xyra/x/jev/llmsort-bench/research/artifacts/live/ground-truth-2026-10-03/llmsort/setwise-rivers-seed29.input.jsonl",
+    "--by",
+    "length from source to mouth in kilometres",
+    "--field",
+    "text",
+    "--format",
+    "jsonl",
+    "--model",
+    "openai/gpt-5.6-terra",
+    "--seed",
+    "29",
+    "--setwise"
+  ]
+}

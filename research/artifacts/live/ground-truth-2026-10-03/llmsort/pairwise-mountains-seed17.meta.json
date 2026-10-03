@@ -1,0 +1,23 @@
+{
+  "wall_seconds": 28.646580667000023,
+  "command": [
+    "/private/tmp/llmsort-v0150.n86wrj/llmsort",
+    "sort",
+    "/Users/xyra/x/jev/llmsort-bench/research/artifacts/live/ground-truth-2026-10-03/llmsort/pairwise-mountains-seed17.input.jsonl",
+    "--by",
+    "summit elevation above mean sea level in metres",
+    "--field",
+    "text",
+    "--format",
+    "jsonl",
+    "--model",
+    "openai/gpt-5.6-terra",
+    "--seed",
+    "17",
+    "--no-cache",
+    "--trace",
+    "/Users/xyra/x/jev/llmsort-bench/research/artifacts/live/ground-truth-2026-10-03/llmsort/pairwise-mountains-seed17.trace.jsonl",
+    "--max-dollars",
+    "2.897020"
+  ]
+}

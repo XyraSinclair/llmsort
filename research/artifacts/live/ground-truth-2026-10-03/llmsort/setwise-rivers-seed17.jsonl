@@ -1,0 +1,20 @@
+{"id":"nile","text":"Nile","truth":6650,"llmsort":{"rank":1,"latent_mean":1.851207380653597,"latent_std":0.37068616701568935,"z_score":2.268561623927989,"percentile":0.975}}
+{"id":"amazon","text":"Amazon","truth":6400,"llmsort":{"rank":2,"latent_mean":1.553430101429786,"latent_std":0.32406689953127316,"z_score":1.708197061391492,"percentile":0.925}}
+{"id":"mississippi","text":"Mississippi","truth":6275,"llmsort":{"rank":3,"latent_mean":1.4611638121704567,"latent_std":0.3710829819777169,"z_score":1.5345681030222074,"percentile":0.875}}
+{"id":"yangtze","text":"Yangtze","truth":6300,"llmsort":{"rank":4,"latent_mean":1.3399819168183,"latent_std":0.3706861670156894,"z_score":1.3065250503307484,"percentile":0.825}}
+{"id":"yenisei","text":"Yenisei","truth":5539,"llmsort":{"rank":5,"latent_mean":1.1551190668779372,"latent_std":0.37110650276835305,"z_score":0.958645620758077,"percentile":0.775}}
+{"id":"ob","text":"Ob","truth":5410,"llmsort":{"rank":6,"latent_mean":1.1171318191023072,"latent_std":0.4135274033246754,"z_score":0.88716028938141,"percentile":0.725}}
+{"id":"congo","text":"Congo","truth":4700,"llmsort":{"rank":7,"latent_mean":1.006564162690514,"latent_std":0.4118250818823452,"z_score":0.6790913709690282,"percentile":0.675}}
+{"id":"amur","text":"Amur","truth":4444,"llmsort":{"rank":8,"latent_mean":0.8959965062787207,"latent_std":0.41352740332467547,"z_score":0.4710224525566462,"percentile":0.625}}
+{"id":"niger","text":"Niger","truth":4200,"llmsort":{"rank":9,"latent_mean":0.7143877256387808,"latent_std":0.32436470888075225,"z_score":0.12926661013188614,"percentile":0.575}}
+{"id":"yellow","text":"Yellow River","truth":5464,"llmsort":{"rank":10,"latent_mean":0.6591164942204392,"latent_std":0.32623897615690894,"z_score":0.025255855868416117,"percentile":0.525}}
+{"id":"mekong","text":"Mekong","truth":4350,"llmsort":{"rank":11,"latent_mean":0.6322746111044779,"latent_std":0.3768642935345148,"z_score":-0.025255855868416326,"percentile":0.475}}
+{"id":"lena","text":"Lena","truth":4400,"llmsort":{"rank":12,"latent_mean":0.48815034021195675,"latent_std":0.3645903048982328,"z_score":-0.29647243162629316,"percentile":0.425}}
+{"id":"mackenzie","text":"Mackenzie","truth":4241,"llmsort":{"rank":13,"latent_mean":0.46686097229356327,"latent_std":0.3245721202438674,"z_score":-0.33653528454564763,"percentile":0.375}}
+{"id":"danube","text":"Danube","truth":2850,"llmsort":{"rank":14,"latent_mean":0.4586324381876185,"latent_std":0.3559645122015011,"z_score":-0.3520199411541485,"percentile":0.325}}
+{"id":"parana","text":"Parana","truth":4880,"llmsort":{"rank":15,"latent_mean":0.3125676366180045,"latent_std":0.4138606317873989,"z_score":-0.6268882549720688,"percentile":0.275}}
+{"id":"irtysh","text":"Irtysh","truth":4248,"llmsort":{"rank":16,"latent_mean":0.312567635992937,"latent_std":0.3539622922069095,"z_score":-0.6268882561483361,"percentile":0.225}}
+{"id":"madeira","text":"Madeira","truth":3380,"llmsort":{"rank":17,"latent_mean":0.28971646515089267,"latent_std":0.37334362047059527,"z_score":-0.6698901479841622,"percentile":0.175}}
+{"id":"purus","text":"Purus","truth":3211,"llmsort":{"rank":18,"latent_mean":0.2319507911139542,"latent_std":0.3632011917984516,"z_score":-0.7785950053383244,"percentile":0.125}}
+{"id":"yukon","text":"Yukon","truth":3185,"llmsort":{"rank":19,"latent_mean":0.05539418481421898,"latent_std":0.3537582304083531,"z_score":-1.1108435426006948,"percentile":0.075}}
+{"id":"rhine","text":"Rhine","truth":1230,"llmsort":{"rank":20,"latent_mean":0.0,"latent_std":0.4138606317873989,"z_score":-1.2150856735698448,"percentile":0.025}}

@@ -1,0 +1,70 @@
+{
+  "request": {
+    "model": "openai/gpt-5.6-terra",
+    "temperature": 0,
+    "seed": 17,
+    "max_tokens": 512,
+    "reasoning": {
+      "enabled": false
+    },
+    "response_format": {
+      "type": "json_object"
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "Sort every supplied item from MOST to LEAST on the criterion. Return only JSON: {\"order\":[\"id\",...]}. Include every id exactly once."
+      },
+      {
+        "role": "user",
+        "content": "Criterion: current resident population: how many people live in the country\nItems:\n[{\"id\": \"mexico\", \"item\": \"Mexico\"}, {\"id\": \"japan\", \"item\": \"Japan\"}, {\"id\": \"new-zealand\", \"item\": \"New Zealand\"}, {\"id\": \"netherlands\", \"item\": \"Netherlands\"}, {\"id\": \"nigeria\", \"item\": \"Nigeria\"}, {\"id\": \"indonesia\", \"item\": \"Indonesia\"}, {\"id\": \"united-kingdom\", \"item\": \"United Kingdom\"}, {\"id\": \"china\", \"item\": \"China\"}, {\"id\": \"india\", \"item\": \"India\"}, {\"id\": \"brazil\", \"item\": \"Brazil\"}, {\"id\": \"germany\", \"item\": \"Germany\"}, {\"id\": \"russia\", \"item\": \"Russia\"}, {\"id\": \"ethiopia\", \"item\": \"Ethiopia\"}, {\"id\": \"kenya\", \"item\": \"Kenya\"}, {\"id\": \"united-states\", \"item\": \"United States\"}, {\"id\": \"bangladesh\", \"item\": \"Bangladesh\"}, {\"id\": \"italy\", \"item\": \"Italy\"}, {\"id\": \"france\", \"item\": \"France\"}, {\"id\": \"australia\", \"item\": \"Australia\"}, {\"id\": \"pakistan\", \"item\": \"Pakistan\"}]"
+      }
+    ]
+  },
+  "response": {
+    "id": "gen-1791058263-FfqVhLm4kAPQjU5fNY4l",
+    "object": "chat.completion",
+    "created": 1791058263,
+    "model": "openai/gpt-5.6-terra",
+    "provider": "Azure",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "message": {
+          "role": "assistant",
+          "content": "{\"order\":[\"india\",\"china\",\"united-states\",\"indonesia\",\"pakistan\",\"nigeria\",\"brazil\",\"bangladesh\",\"russia\",\"ethiopia\",\"mexico\",\"japan\",\"philippines\",\"egypt\",\"vietnam\",\"germany\",\"turkey\",\"iran\",\"thailand\",\"united-kingdom\"]}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 331,
+      "completion_tokens": 73,
+      "total_tokens": 404,
+      "cost": 0.001538,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001538,
+        "upstream_inference_prompt_cost": 0.000662,
+        "upstream_inference_completions_cost": 0.000876
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

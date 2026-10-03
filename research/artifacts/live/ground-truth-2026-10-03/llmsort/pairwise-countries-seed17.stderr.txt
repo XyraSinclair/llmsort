@@ -1,0 +1,4 @@
+sorted 20 items by "current resident population: how many people live in the country" · ratio_letter_2p_v1 · 80 comparisons (0 cached, 0 refused) · $0.2458 · order flips: 0/39 · evidence: 80/80 logprob-mode, visible 0.99, order-residual 0.168 nats · frustration 0.005 · stop: budget_exhausted
+resolution: 11 of 19 adjacent ranks are within 1σ — ~4× --budget would resolve about 6 of them (or set --top-k to focus spend)
+consistency: an independent rerun would reproduce ~97% of this order's pairwise calls (80% between adjacent neighbors; noise-scaled estimate)
+error budget: stat ±0.107 (posterior incl sigma_w, mean) · noise sigma_w 0.149 nats/call · syst order 0.168 nats/pair · syst cyclic 0.5% of energy · rank risk 0.977 (expected top-k boundary inversions)
