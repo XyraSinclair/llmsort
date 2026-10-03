@@ -129,23 +129,6 @@ impl<U: UsageSinkTrait> ProviderGateway<U> {
         }
     }
 
-    pub fn with_adapters(
-        openrouter: OpenRouterAdapter,
-        claude_code: ClaudeCodeAdapter,
-        usage_sink: Arc<U>,
-        config: GatewayConfig,
-    ) -> Self {
-        Self {
-            openrouter: Some(openrouter),
-            claude_code,
-            codex: CodexAdapter::default(),
-            gemini_cli: GeminiCliAdapter::default(),
-            usage_sink,
-            config,
-            cooldown_until: Mutex::new(None),
-        }
-    }
-
     pub fn codex(codex: CodexAdapter, usage_sink: Arc<U>) -> Self {
         Self {
             openrouter: None,

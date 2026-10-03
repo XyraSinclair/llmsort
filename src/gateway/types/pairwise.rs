@@ -204,10 +204,6 @@ impl SignedLogRatioDistribution {
         )
     }
 
-    pub fn modeled_probability(&self) -> f64 {
-        self.distribution.support_probability()
-    }
-
     pub fn total_probability(&self) -> f64 {
         self.distribution.total_probability() + self.abstain_probability
     }
@@ -226,12 +222,6 @@ impl SignedLogRatioDistribution {
 
     pub fn probability_negative(&self) -> f64 {
         self.distribution.probability_of(|value| *value < 0.0)
-    }
-
-    pub fn probability_within(&self, delta: f64) -> f64 {
-        let radius = delta.abs();
-        self.distribution
-            .probability_of(|value| value.abs() <= radius)
     }
 
     pub fn scale(&self, factor: f64) -> Self {

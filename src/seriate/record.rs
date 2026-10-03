@@ -30,8 +30,6 @@ pub enum AcquisitionMode {
     Logprob,
     /// PMF estimated from sampled completions.
     Sampled,
-    /// Weighted mixture of both.
-    Fused,
 }
 
 /// Versioned parser identity. Re-parsing an old capture under a new parser

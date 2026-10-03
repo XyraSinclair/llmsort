@@ -68,16 +68,6 @@ pub enum MultiRerankError {
 // Billing helpers
 // =============================================================================
 
-/// Apply 20% markup to provider cost, rounding up.
-pub fn apply_rerank_markup(provider_cost_nanodollars: i64) -> i64 {
-    if provider_cost_nanodollars <= 0 {
-        return 0;
-    }
-    // ceil(cost * 6/5)
-    (provider_cost_nanodollars.saturating_mul(RERANK_MARKUP_NUM) + (RERANK_MARKUP_DEN - 1))
-        / RERANK_MARKUP_DEN
-}
-
 /// Conservative reservation estimate for a rerank request.
 ///
 /// Reserves enough credits to cover the worst case (comparison_budget comparisons),
@@ -228,7 +218,13 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
         provider_cost_per_comparison.saturating_mul(comparison_budget as i64);
     let provider_cost_typical_nanodollars =
         provider_cost_typical_per_comparison.saturating_mul(comparison_budget as i64);
-    let user_charge_max_nanodollars = apply_rerank_markup(provider_cost_max_nanodollars);
+    let user_charge_max_nanodollars = if provider_cost_max_nanodollars <= 0 {
+        0
+    } else {
+        // ceil(cost * 6/5)
+        (provider_cost_max_nanodollars.saturating_mul(RERANK_MARKUP_NUM) + (RERANK_MARKUP_DEN - 1))
+            / RERANK_MARKUP_DEN
+    };
 
     RerankChargeEstimate {
         comparison_budget,

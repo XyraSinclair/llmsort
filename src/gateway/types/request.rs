@@ -279,11 +279,4 @@ impl ReasoningConfig {
             exclude: None,
         }
     }
-
-    pub fn low_with_excluded_trace() -> Self {
-        Self {
-            exclude: Some(true),
-            ..Self::low()
-        }
-    }
 }

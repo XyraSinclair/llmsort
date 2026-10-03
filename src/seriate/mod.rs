@@ -28,8 +28,8 @@ pub mod record;
 
 pub use atom::{interpolate_ratio, AnswerAtom, Side, RATIO_LADDER};
 pub use evidence::{
-    evidence_from_logprobs, evidence_from_resamples, fused_evidence, jsd, AnswerEvidence,
-    AtomLogprob, AtomProb, EvidenceError, PmfCompleteness,
+    evidence_from_logprobs, evidence_from_resamples, AnswerEvidence, AtomLogprob, AtomProb,
+    EvidenceError, PmfCompleteness,
 };
 pub use ontology::{
     Attribute, AttributeId, CaptureId, ContentId, Entity, EntityId, JudgementId, PairKey,

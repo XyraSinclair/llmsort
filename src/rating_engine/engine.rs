@@ -1,8 +1,7 @@
 use super::diagnostics::{compute_hcr, compute_loo, compute_pcr_lite};
 use super::math::{build_pos_map, normalize_per_component, pin_nodes, solve_irls_huber};
 use super::ranking::{
-    compute_calibration_evidence, compute_rank_stability, pair_prob_and_flip, pair_rank_weight,
-    RankCache,
+    compute_calibration_evidence, compute_rank_stability, pair_rank_weight, RankCache,
 };
 use super::*;
 
@@ -501,24 +500,6 @@ impl RatingEngine {
             cycle_dim,
             calibration_evidence: cal_evidence,
             degraded,
-        }
-    }
-
-    pub fn pair_probability(&self, i: usize, j: usize) -> Result<(f64, f64), &'static str> {
-        match (&self.last_scores, &self.last_diag_cov) {
-            (Some(scores), Some(diag_cov)) => {
-                Ok(pair_prob_and_flip(scores, diag_cov, i, j, &self.cfg))
-            }
-            _ => Err("No solve() results available"),
-        }
-    }
-
-    pub fn rank_stability(&self) -> Result<(f64, f64, f64), &'static str> {
-        match (&self.last_scores, &self.last_diag_cov) {
-            (Some(scores), Some(diag_cov)) => {
-                Ok(compute_rank_stability(scores, diag_cov, &self.cfg))
-            }
-            _ => Err("No solve() results available"),
         }
     }
 }

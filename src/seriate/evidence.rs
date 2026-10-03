@@ -3,13 +3,9 @@
 //!
 //! Every judgement in seriate is a distribution, not a point. Logprob mode
 //! yields the model's prior directly (top-k logprobs at the answer token);
-//! sampled mode yields an empirical PMF; fused mode mixes both and records
-//! that it did. `PmfCompleteness` travels with every PMF so downstream
+//! sampled mode yields an empirical PMF. `PmfCompleteness` travels with every PMF so downstream
 //! weighting can distinguish "the model's full prior" from "the top-5 shadow
 //! of it".
-//!
-//! Salvaged (redesigned) from the diamond2 quarry; the fused completeness
-//! placeholder (`Bounded{-inf,+inf}`) is replaced by an honest variant.
 
 use crate::seriate::atom::AnswerAtom;
 use serde::{Deserialize, Serialize};
@@ -29,14 +25,6 @@ pub enum PmfCompleteness {
     },
     /// PMF is an empirical frequency over `samples` independent draws.
     Empirical { samples: u32 },
-    /// PMF is a weighted mixture of a (possibly truncated) logprob PMF and
-    /// an empirical PMF. Both provenance figures are kept.
-    Fused {
-        logprob_shown_mass: f64,
-        samples: u32,
-        logprob_weight: f64,
-        resample_weight: f64,
-    },
 }
 
 /// One (atom, probability) support point.
@@ -66,8 +54,6 @@ pub enum EvidenceError {
     ZeroMass,
     #[error("visible mass out of range or inconsistent with shown support")]
     InvalidMass,
-    #[error("invalid weight")]
-    InvalidWeight,
 }
 
 /// A normalized PMF over the answer space, plus completeness provenance.
@@ -292,80 +278,6 @@ pub fn evidence_from_resamples(samples: &[AnswerAtom]) -> Result<AnswerEvidence,
     )
 }
 
-/// Weighted fusion of logprob and resample evidence.
-pub fn fused_evidence(
-    atom_logprobs: &[AtomLogprob],
-    visible_mass: Option<f64>,
-    samples: &[AnswerAtom],
-    logprob_weight: f64,
-    resample_weight: f64,
-) -> Result<AnswerEvidence, EvidenceError> {
-    if !logprob_weight.is_finite()
-        || !resample_weight.is_finite()
-        || logprob_weight < 0.0
-        || resample_weight < 0.0
-    {
-        return Err(EvidenceError::InvalidWeight);
-    }
-    let mut support = Vec::new();
-    let mut logprob_shown = 0.0;
-    if logprob_weight > 0.0 {
-        let lp = evidence_from_logprobs(atom_logprobs, visible_mass)?;
-        logprob_shown = match lp.completeness {
-            PmfCompleteness::Complete => 1.0,
-            PmfCompleteness::Truncated { shown_mass, .. } => shown_mass,
-            _ => unreachable!("evidence_from_logprobs only emits Complete/Truncated"),
-        };
-        support.extend(lp.support().iter().map(|x| AtomProb {
-            atom: x.atom,
-            p: x.p * logprob_weight,
-        }));
-    }
-    if resample_weight > 0.0 && !samples.is_empty() {
-        let per = resample_weight / samples.len() as f64;
-        support.extend(samples.iter().map(|atom| AtomProb {
-            atom: *atom,
-            p: per,
-        }));
-    }
-    AnswerEvidence::new(
-        support,
-        PmfCompleteness::Fused {
-            logprob_shown_mass: logprob_shown,
-            samples: samples.len() as u32,
-            logprob_weight,
-            resample_weight,
-        },
-    )
-}
-
-/// Jensen–Shannon divergence between two evidences over their joint support
-/// (base-2, in [0, 1]). The agreement receipt between what the model's
-/// logprobs claim and what its samples do.
-pub fn jsd(a: &AnswerEvidence, b: &AnswerEvidence) -> f64 {
-    let mut atoms: Vec<AnswerAtom> = a
-        .support()
-        .iter()
-        .chain(b.support().iter())
-        .map(|x| x.atom)
-        .collect();
-    atoms.sort();
-    atoms.dedup();
-    let mut d = 0.0;
-    for atom in atoms {
-        let pa = a.p(atom);
-        let pb = b.p(atom);
-        let m = 0.5 * (pa + pb);
-        if pa > 0.0 {
-            d += 0.5 * pa * (pa / m).log2();
-        }
-        if pb > 0.0 {
-            d += 0.5 * pb * (pb / m).log2();
-        }
-    }
-    d.clamp(0.0, 1.0)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -549,28 +461,6 @@ mod tests {
     }
 
     #[test]
-    fn fused_evidence_mixes_by_weight_and_keeps_provenance() {
-        let logs = [lp(AnswerAtom::A(1), 1.0)];
-        let samples = [AnswerAtom::B(1), AnswerAtom::B(1)];
-        let ev = fused_evidence(&logs, Some(1.0), &samples, 0.5, 0.5).unwrap();
-        assert!((ev.p(AnswerAtom::A(1)) - 0.5).abs() < 1e-9);
-        assert!((ev.p(AnswerAtom::B(1)) - 0.5).abs() < 1e-9);
-        match ev.completeness {
-            PmfCompleteness::Fused {
-                logprob_shown_mass,
-                samples,
-                logprob_weight,
-                resample_weight,
-            } => {
-                assert!((logprob_shown_mass - 1.0).abs() < 1e-9);
-                assert_eq!(samples, 2);
-                assert_eq!((logprob_weight, resample_weight), (0.5, 0.5));
-            }
-            other => panic!("expected Fused, got {other:?}"),
-        }
-    }
-
-    #[test]
     fn reflection_is_an_involution_preserving_mass() {
         let ev = evidence_from_logprobs(
             &[
@@ -613,13 +503,5 @@ mod tests {
         assert!((ev.informative_mass() - 0.5).abs() < 1e-9);
         let (mean, _) = ev.log_ratio_moments().unwrap();
         assert!((mean - RATIO_LADDER[0].ln()).abs() < 1e-9);
-    }
-
-    #[test]
-    fn jsd_zero_on_identical_and_one_on_disjoint() {
-        let a = evidence_from_resamples(&[AnswerAtom::A(1)]).unwrap();
-        let b = evidence_from_resamples(&[AnswerAtom::B(1)]).unwrap();
-        assert!(jsd(&a, &a) < 1e-12);
-        assert!((jsd(&a, &b) - 1.0).abs() < 1e-12);
     }
 }

@@ -234,9 +234,6 @@ impl SqlitePairwiseCache {
     }
 
     pub fn default_path() -> PathBuf {
-        if let Ok(path) = std::env::var("CARDINAL_CACHE_PATH") {
-            return PathBuf::from(path);
-        }
         PathBuf::from(".cardinal_pairwise_cache.sqlite")
     }
 

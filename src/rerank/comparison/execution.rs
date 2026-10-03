@@ -353,13 +353,6 @@ pub(super) fn ledger_logprobs_require_effort_none(model: &str) -> bool {
 }
 
 pub(super) fn should_use_json_mode(model: &str) -> bool {
-    if std::env::var("CARDINAL_FORCE_JSON_MODE")
-        .ok()
-        .is_some_and(|value| value == "1" || value.eq_ignore_ascii_case("true"))
-    {
-        return true;
-    }
-
     model.starts_with("openai/") || !model.contains('/')
 }
 
