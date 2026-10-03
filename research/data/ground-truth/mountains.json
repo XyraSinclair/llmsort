@@ -3,10 +3,10 @@
   "attribute": "summit elevation above mean sea level in metres",
   "unit": "metres",
   "source": {
-    "title": "Wikidata elevation above sea level (P2044), cross-checked against the linked public mountain pages",
-    "url": "https://www.wikidata.org/wiki/Property:P2044",
+    "title": "Wikipedia, List of mountains by elevation, with the linked public mountain pages",
+    "url": "https://en.wikipedia.org/wiki/List_of_mountains_by_elevation",
     "checked": "2026-10-03",
-    "notes": "Values fix one public elevation per summit. Survey revisions and vertical datums can move the last metre; those small systematics do not affect the benchmark ordering except potentially among near-ties."
+    "notes": "Values fix one commonly published elevation per summit, cross-checked against the linked mountain pages. Survey revisions and vertical datums can move the last metre; those small systematics do not affect the benchmark ordering except potentially among near-ties."
   },
   "items": [
     {"id": "everest", "text": "Mount Everest", "truth": 8848.86},
