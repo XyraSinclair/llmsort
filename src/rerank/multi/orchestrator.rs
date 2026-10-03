@@ -23,7 +23,7 @@ use super::request::{
     MultiRerankError, DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
 };
 use super::response::{build_response, BuiltResponse, ResponseContext};
-use super::task::{TaskBatch, TaskPlanner, TraceFields};
+use super::task::{TaskPlanner, TraceFields};
 
 const CONSECUTIVE_FAILURE_LIMIT: usize = 5;
 /// Run a multi-attribute reranking session, reusing and updating the cache
@@ -242,7 +242,7 @@ pub(crate) async fn multi_rerank_with_failures(
             break 'rerank RerankStopReason::NoProposals;
         }
 
-        let TaskBatch { tasks, drawn_tasks } = TaskPlanner::new(
+        let (tasks, drawn_tasks) = TaskPlanner::new(
             &req,
             &attr_id_to_index,
             &refused_pairs,

@@ -218,13 +218,12 @@ pub fn estimate_max_rerank_charge(req: &MultiRerankRequest) -> RerankChargeEstim
         provider_cost_per_comparison.saturating_mul(comparison_budget as i64);
     let provider_cost_typical_nanodollars =
         provider_cost_typical_per_comparison.saturating_mul(comparison_budget as i64);
-    let user_charge_max_nanodollars = if provider_cost_max_nanodollars <= 0 {
-        0
-    } else {
-        // ceil(cost * 6/5)
-        (provider_cost_max_nanodollars.saturating_mul(RERANK_MARKUP_NUM) + (RERANK_MARKUP_DEN - 1))
-            / RERANK_MARKUP_DEN
-    };
+    // ceil(max(cost, 0) * 6/5)
+    let user_charge_max_nanodollars = provider_cost_max_nanodollars
+        .max(0)
+        .saturating_mul(RERANK_MARKUP_NUM)
+        .saturating_add(RERANK_MARKUP_DEN - 1)
+        / RERANK_MARKUP_DEN;
 
     RerankChargeEstimate {
         comparison_budget,

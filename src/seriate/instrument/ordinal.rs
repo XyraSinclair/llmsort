@@ -71,7 +71,7 @@ fn render_user(attribute: &Attribute, entity_a: &str, entity_b: &str) -> String 
 }
 
 /// The three tokens whose logprobs constitute the answer PMF.
-pub fn ordinal_alphabet() -> Vec<String> {
+fn ordinal_alphabet() -> Vec<String> {
     vec![
         TOKEN_A.to_string(),
         TOKEN_B.to_string(),

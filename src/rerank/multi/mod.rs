@@ -45,11 +45,6 @@ mod task {
         pub(super) swapped: bool,
     }
 
-    pub(super) struct TaskBatch {
-        pub(super) tasks: Vec<CompareTask>,
-        pub(super) drawn_tasks: Vec<(CompareTask, Option<String>)>,
-    }
-
     pub(super) struct TaskPlanner<'a, 'rng> {
         req: &'a MultiRerankRequest,
         attr_id_to_index: &'a HashMap<&'a str, usize>,
@@ -86,7 +81,7 @@ mod task {
             ranked: &[usize],
             nonce_draws: usize,
             comparisons_attempted: usize,
-        ) -> TaskBatch {
+        ) -> (Vec<CompareTask>, Vec<(CompareTask, Option<String>)>) {
             let mut batch_seen = HashSet::new();
             for proposal in proposals {
                 let Some(&attr_idx) = self.attr_id_to_index.get(proposal.attribute_id.as_str())
@@ -158,10 +153,7 @@ mod task {
             } else {
                 self.tasks.iter().map(|task| (*task, None)).collect()
             };
-            TaskBatch {
-                tasks: self.tasks,
-                drawn_tasks,
-            }
+            (self.tasks, drawn_tasks)
         }
 
         fn at_repeat_cap(&self, key: PairKey) -> bool {

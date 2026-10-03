@@ -83,7 +83,12 @@ impl PolicyRegistry {
     }
 }
 
-pub fn policy_from_spec(spec: &PolicySpec) -> Result<Arc<dyn ModelPolicy>, String> {
+pub fn load_policy_from_path(path: impl AsRef<Path>) -> Result<Arc<dyn ModelPolicy>, String> {
+    let raw = std::fs::read_to_string(path.as_ref())
+        .map_err(|e| format!("failed to read policy config: {e}"))?;
+    let config: PolicyConfig =
+        serde_json::from_str(&raw).map_err(|e| format!("failed to parse policy config: {e}"))?;
+    let spec = &config.policy;
     validate_policy_spec(spec)?;
     Ok(match spec {
         PolicySpec::Fixed { model } => Arc::new(FixedPolicy::new(model)),
@@ -121,14 +126,6 @@ pub fn policy_from_spec(spec: &PolicySpec) -> Result<Arc<dyn ModelPolicy>, Strin
             Arc::new(policy)
         }
     })
-}
-
-pub fn load_policy_from_path(path: impl AsRef<Path>) -> Result<Arc<dyn ModelPolicy>, String> {
-    let raw = std::fs::read_to_string(path.as_ref())
-        .map_err(|e| format!("failed to read policy config: {e}"))?;
-    let config: PolicyConfig =
-        serde_json::from_str(&raw).map_err(|e| format!("failed to parse policy config: {e}"))?;
-    policy_from_spec(&config.policy)
 }
 
 fn validate_policy_spec(spec: &PolicySpec) -> Result<(), String> {

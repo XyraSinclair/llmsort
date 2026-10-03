@@ -224,7 +224,7 @@ json:"#,
 /// This asks for a discrete ratio bucket instead of a decimal ratio so output
 /// logprobs can be mapped onto the ratio ladder without reconstructing
 /// multi-token decimal continuations.
-pub const PROMPT_BUCKET_V1: PromptTemplate = PromptTemplate {
+const PROMPT_BUCKET_V1: PromptTemplate = PromptTemplate {
     slug: "canonical_bucket_v1",
     system: r#"You are an expert subjective evaluator. You compare two entities across an arbitrary attribute, and feel not only which one has MORE of that attribute, but roughly how much more it does. You feel along this indexed ratio ladder:
 0=1.0, 1=1.05, 2=1.1, 3=1.2, 4=1.3, 5=1.5, 6=1.75, 7=2.1, 8=2.5, 9=3.1, 10=3.9, 11=5.1, 12=6.8, 13=9.2, 14=12.7, 15=18.0, 16=26.0.
@@ -239,7 +239,7 @@ Example:
 ///
 /// This keeps the same prompt surface and refusal channel as the ratio
 /// templates, but asks only for direction plus confidence.
-pub const PROMPT_ORDINAL_V1: PromptTemplate = PromptTemplate {
+const PROMPT_ORDINAL_V1: PromptTemplate = PromptTemplate {
     slug: "ordinal_v1",
     system: r#"You are an expert subjective evaluator. You compare two entities across an arbitrary attribute and decide which one has MORE of that attribute. Focus on direction only, not magnitude. Judge only from the provided content; the labels A and B are arbitrary and should not affect your choice.
 
@@ -267,7 +267,7 @@ json:"#,
 /// Exists for the wording-invariance check — a coherent judge must give
 /// the mirror of its "times more" answer. The parser lowers the answer to
 /// the same (winner, ratio) shape as every other template.
-pub const PROMPT_LESS_V1: PromptTemplate = PromptTemplate {
+const PROMPT_LESS_V1: PromptTemplate = PromptTemplate {
     slug: "less_v1",
     system: r#"You are an expert subjective evaluator. You compare two entities across an arbitrary attribute, and feel not only which one has LESS of that attribute, but roughly how many times less it has. You feel along the ratio ladder: `[1.0, 1.05, 1.1, 1.2, 1.3, 1.5, 1.75, 2.1, 2.5, 3.1, 3.9, 5.1, 6.8, 9.2, 12.7, 18.0, 26.0]`.
 
@@ -294,7 +294,7 @@ json:"#,
 /// The fractional wording: "what fraction of the greater one's level does
 /// the lesser reach". Same invariance purpose as [`PROMPT_LESS_V1`]: a
 /// coherent judge's fraction must be the reciprocal of its ratio.
-pub const PROMPT_FRACTION_V1: PromptTemplate = PromptTemplate {
+const PROMPT_FRACTION_V1: PromptTemplate = PromptTemplate {
     slug: "fraction_v1",
     system: r#"You are an expert subjective evaluator. You compare two entities across an arbitrary attribute: decide which one has MORE of it, and what fraction of the greater entity's level the lesser entity reaches (1.0 = equal, 0.5 = half, 0.1 = a tenth; never below 0.038).
 
@@ -325,7 +325,7 @@ json:"#,
 /// tokenizers the integer part is a single token, '.' its own token, and
 /// the fraction one digit token. Elicited at temperature 1 across K
 /// redraws; per-draw exact chosen-token logprobs are the measurement.
-pub const PROMPT_DECIMAL_LEDGER_V1: PromptTemplate = PromptTemplate {
+const PROMPT_DECIMAL_LEDGER_V1: PromptTemplate = PromptTemplate {
     slug: "decimal_ledger_v1",
     system: r#"You are an expert subjective evaluator. You compare two entities across an arbitrary attribute, and feel not only which one has MORE of that attribute, but roughly how many times more.
 
@@ -335,7 +335,7 @@ Example:
     user: PROMPT_V2.user,
 };
 
-pub const DEFAULT_PROMPT: PromptTemplate = PROMPT_V2;
+pub(crate) const DEFAULT_PROMPT: PromptTemplate = PROMPT_V2;
 
 /// Look up the supported prompt template by slug.
 pub fn prompt_by_slug(slug: &str) -> Option<PromptTemplate> {

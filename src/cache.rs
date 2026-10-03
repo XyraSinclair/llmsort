@@ -410,27 +410,27 @@ impl CacheLock {
 
 #[cfg(feature = "sqlite-store")]
 #[derive(Debug, Serialize)]
-pub struct CacheExportRow {
-    pub key_hash: String,
-    pub model: String,
-    pub prompt_template_slug: String,
-    pub template_hash: String,
-    pub attribute_id: String,
-    pub attribute_prompt_hash: String,
-    pub entity_a_id: String,
-    pub entity_b_id: String,
-    pub entity_a_hash: String,
-    pub entity_b_hash: String,
-    pub higher_ranked: Option<String>,
-    pub ratio: Option<f64>,
-    pub confidence: Option<f64>,
-    pub refused: bool,
-    pub input_tokens: Option<u32>,
-    pub output_tokens: Option<u32>,
-    pub provider_cost_nanodollars: Option<i64>,
-    pub created_at: i64,
-    pub updated_at: i64,
-    pub hit_count: i64,
+struct CacheExportRow {
+    key_hash: String,
+    model: String,
+    prompt_template_slug: String,
+    template_hash: String,
+    attribute_id: String,
+    attribute_prompt_hash: String,
+    entity_a_id: String,
+    entity_b_id: String,
+    entity_a_hash: String,
+    entity_b_hash: String,
+    higher_ranked: Option<String>,
+    ratio: Option<f64>,
+    confidence: Option<f64>,
+    refused: bool,
+    input_tokens: Option<u32>,
+    output_tokens: Option<u32>,
+    provider_cost_nanodollars: Option<i64>,
+    created_at: i64,
+    updated_at: i64,
+    hit_count: i64,
 }
 
 #[cfg(feature = "sqlite-store")]

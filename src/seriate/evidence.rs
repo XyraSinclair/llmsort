@@ -3,9 +3,9 @@
 //!
 //! Every judgement in seriate is a distribution, not a point. Logprob mode
 //! yields the model's prior directly (top-k logprobs at the answer token);
-//! sampled mode yields an empirical PMF. `PmfCompleteness` travels with every PMF so downstream
-//! weighting can distinguish "the model's full prior" from "the top-5 shadow
-//! of it".
+//! sampled mode yields an empirical PMF. `PmfCompleteness` travels with every
+//! PMF so downstream weighting can distinguish "the model's full prior" from
+//! "the top-5 shadow of it".
 
 use crate::seriate::atom::AnswerAtom;
 use serde::{Deserialize, Serialize};

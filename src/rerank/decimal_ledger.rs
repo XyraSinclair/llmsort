@@ -41,7 +41,7 @@ pub const GRAMMAR_VERSION: &str = "decimal-ratio-v1";
 /// Enumerated-mass threshold above which midpoint imputation is the point
 /// estimate; below it the cross-fit head+residual estimator takes over
 /// (SHOOTOUT.md finding 4).
-pub const ENUM_MASS_POINT_THRESHOLD: f64 = 0.9;
+const ENUM_MASS_POINT_THRESHOLD: f64 = 0.9;
 
 const BOOTSTRAP_REPS: usize = 200;
 
