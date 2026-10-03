@@ -4,10 +4,11 @@
 # Usage: ops/gate.sh [rev]   (default HEAD). Wired as .githooks/pre-push.
 set -eu
 rev=$(git rev-parse "${1:-HEAD}")
-gate='cargo fmt --all -- --check &&
+gate='quiet() { out=$("$@" 2>&1) || { printf "%s\n" "$out"; return 1; }; }
+  cargo fmt --all -- --check &&
   cargo clippy --workspace --all-targets --all-features --locked -q -- -D warnings &&
-  cargo test --workspace --all-targets --all-features --locked -q &&
-  cargo test --workspace --doc --locked -q &&
+  quiet cargo test --workspace --all-targets --all-features --locked -q &&
+  quiet cargo test --workspace --doc --locked -q &&
   RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps --locked -q'
 if [ "$(uname)" != Darwin ]; then
     dir=$(mktemp -d); trap 'git worktree remove --force "$dir"' EXIT
