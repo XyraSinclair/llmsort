@@ -24,7 +24,8 @@ VARIANTS = [("k=2", "elab-k2"), ("k=4", "elab-k4"), ("k=8", "elab"), ("k=12", "e
 
 
 def budget(obs):
-    """obs: list of (call, i, j, y) for one attribute. Returns energies (bias, order, curl, gluing, gradient)."""
+    """obs: list of (call, i, j, y) for one attribute.
+    Returns energies (bias, order, curl, gluing, gradient) and the shared potential {item: score}, mean zero."""
     calls = defaultdict(dict)
     for c, i, j, y in obs:
         calls[c][(i, j)] = y
@@ -53,39 +54,44 @@ def budget(obs):
         fit = (B * u).sum(axis=1)  # elementwise: numpy 2.0 on Accelerate warns spuriously in matmul
         res = a - fit
         assert abs(float(fit @ res)) <= 1e-9 * total_anti, "projection residual not orthogonal"
-        return 2 * float(res @ res), 2 * float(fit @ fit)
+        return 2 * float(res @ res), 2 * float(fit @ fit), u
 
     items = sorted({e[1] for e in edges} | {e[2] for e in edges})
     item_ix = {v: k for k, v in enumerate(items)}
     call_items = sorted({(c, i) for c, i, _, _ in edges} | {(c, j) for c, _, j, _ in edges})
     ci_ix = {v: k for k, v in enumerate(call_items)}
-    res_window, _ = residual_energy(len(call_items), lambda c, i: ci_ix[(c, i)])
-    res_global, grad = residual_energy(len(items), lambda c, i: item_ix[i])
+    res_window, _, _ = residual_energy(len(call_items), lambda c, i: ci_ix[(c, i)])
+    res_global, grad, u = residual_energy(len(items), lambda c, i: item_ix[i])
     e = np.array([bias, order, res_window, res_global - res_window, grad])
     total = sum(y * y for d in calls.values() for y in d.values())
     assert abs(e.sum() - total) <= 1e-9 * total and (e >= -1e-12 * total).all(), "budget does not close"
-    return e
+    return e, dict(zip(items, u - u.mean()))
 
 
-print("share of judgement energy (mean over 12 attributes); holonomy = 1 - gradient;")
-print("after bias = holonomy once the mention offset is corrected, as a share of what remains (range over attributes)\n")
-print(f"{'cohort':9s} {'instr':6s} {'k':>4s}  {'bias':>6s} {'order':>6s} {'curl':>6s} {'gluing':>7s} {'gradient':>9s}  {'holonomy':>9s}  {'after bias':>10s}")
-for name in ("arxiv", "manifund", "lw"):
-    for ins in ("score9", "noul"):
-        for k_label, var in VARIANTS:
-            path = f"{HERE}/obs-{name}-{var}.jsonl"
-            if not os.path.exists(path):
-                continue
-            by_attr = defaultdict(list)
-            for line in open(path):
-                o = json.loads(line)
-                if o["instr"] == ins:
-                    by_attr[o["attr"]].append((o["call"], o["i"], o["j"], o["y"]))
-            if not by_attr:
-                continue
-            shares = np.array([(e := budget(v)) / e.sum() for v in by_attr.values()])
-            m = shares.mean(axis=0)
-            h = 1 - shares[:, 4]
-            hb = (shares[:, 1:4].sum(axis=1)) / (1 - shares[:, 0])
-            print(f"{name:9s} {ins:6s} {k_label[2:]:>4s}  {m[0]:6.3f} {m[1]:6.3f} {m[2]:6.3f} {m[3]:7.3f} {m[4]:9.3f}  {h.mean():9.3f}  {hb.mean():10.3f} [{hb.min():.2f}–{hb.max():.2f}]")
-    print()
+def main():
+    print("share of judgement energy (mean over 12 attributes); holonomy = 1 - gradient;")
+    print("after bias = holonomy once the mention offset is corrected, as a share of what remains (range over attributes)\n")
+    print(f"{'cohort':9s} {'instr':6s} {'k':>4s}  {'bias':>6s} {'order':>6s} {'curl':>6s} {'gluing':>7s} {'gradient':>9s}  {'holonomy':>9s}  {'after bias':>10s}")
+    for name in ("arxiv", "manifund", "lw"):
+        for ins in ("score9", "noul"):
+            for k_label, var in VARIANTS:
+                path = f"{HERE}/obs-{name}-{var}.jsonl"
+                if not os.path.exists(path):
+                    continue
+                by_attr = defaultdict(list)
+                for line in open(path):
+                    o = json.loads(line)
+                    if o["instr"] == ins:
+                        by_attr[o["attr"]].append((o["call"], o["i"], o["j"], o["y"]))
+                if not by_attr:
+                    continue
+                shares = np.array([(e := budget(v)[0]) / e.sum() for v in by_attr.values()])
+                m = shares.mean(axis=0)
+                h = 1 - shares[:, 4]
+                hb = (shares[:, 1:4].sum(axis=1)) / (1 - shares[:, 0])
+                print(f"{name:9s} {ins:6s} {k_label[2:]:>4s}  {m[0]:6.3f} {m[1]:6.3f} {m[2]:6.3f} {m[3]:7.3f} {m[4]:9.3f}  {h.mean():9.3f}  {hb.mean():10.3f} [{hb.min():.2f}–{hb.max():.2f}]")
+        print()
+
+
+if __name__ == "__main__":
+    main()
