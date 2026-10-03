@@ -101,7 +101,8 @@ on a later one)
 1. **E9 — head-to-head**: ratio_letter_v1 vs canonical_v2, fixed corpus,
    logprob-serving model: cost/judgement, agreement, and per-template
    family-sweep reliability axes. The decree's premise, measured.
-2. **E10 — family sweep instrument** (`cardinal family`): pair ×
+2. **E10 — family sweep experiment** (one-off research path; no current CLI
+   verb): pair ×
    {A, A′, ¬A} × orders over a shared prefix; report cached-token
    fraction, pairwise-equivalent obs/$, and the reliability reading.
    Mechanical gate, found 2026-08-19: `ratio_letter`'s user prompt

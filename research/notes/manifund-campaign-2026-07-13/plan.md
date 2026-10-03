@@ -119,7 +119,7 @@ Each phase gates the next; measured cost replaces estimates at every step.
 Total ≤ $47, inside the $50 ceiling with measurement replacing estimates at
 each gate.
 
-## Discipline (per docs/PRINCIPLES.md)
+## Discipline (per research/notes/PRINCIPLES.md)
 
 - Every judged score links to its packet/trace; no naked numbers in the atlas.
 - Denominators on every claim (n judged / n corpus, comparisons spent, $).

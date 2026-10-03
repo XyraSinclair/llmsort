@@ -11,7 +11,7 @@ temperature 0, vs ≤0.10 for every other model). See
 
 Six models, 114 comparisons each, canonical_v2 point instrument, fixed
 public corpus (8 aphorisms × "depth of insight about living well" + its
-negation + a paraphrase), full battery per `docs/BENCHMARK.md`. Total cost
+negation + a paraphrase), full battery per `research/notes/BENCHMARK.md`. Total cost
 **$0.46**. Raw per-call receipts: `reports.jsonl` (one line per model,
 every judgement included). Console stats blocks: `run.stderr`. The
 composite here is the v1 formula (reciprocity axes merged, curl
@@ -56,7 +56,7 @@ coverage-gated).
    the v2 spec calls for.
 
 CIs are wide (20 pairs) by design — this run is the standardized instrument
-demo, not the reputational leaderboard; see `docs/BENCHMARK.md` §Adversarial
+demo, not the reputational leaderboard; see `research/notes/BENCHMARK.md` §Adversarial
 review for the v2 scale-up spec. Reproduce:
 
 ```bash

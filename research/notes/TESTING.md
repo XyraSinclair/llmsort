@@ -1,8 +1,8 @@
 # The test battery
 
-406 tests across the workspace (`cargo test --workspace`): the engine's
-15 integration suites under `tests/` plus the research suites in
-`experiments/tests/` (never published, held to the same green-CI bar). The core suites were authored and then adversarially reviewed as
+`cargo test --workspace` runs the engine integration suites under `tests/`
+plus the research suites in `experiments/tests/` (never published, held to the
+same green-CI bar). The core suites were authored and then adversarially reviewed as
 a deliberate exercise: every assertion had to be falsifiable by a plausible
 implementation bug, every statistical claim had to hold over seeded
 ensembles (never a single draw), every suite had to survive a reviewer

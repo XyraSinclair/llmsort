@@ -1,7 +1,7 @@
 # North-star ontology (LOCKED 2026-08-12)
 
 Status: LOCKED by the operator 2026-08-12 ("sure, yolo"). Canonized in
-`docs/WHAT_WHY_HOW.md` § "What we are building"; naming map executed the
+`README.md` § "What we are building"; naming map executed the
 same day (crate/repo renamed to ratiometer at 0.12.0). This note is the
 decision record.
 

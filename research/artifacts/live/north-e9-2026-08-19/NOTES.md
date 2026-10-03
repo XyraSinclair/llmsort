@@ -1,6 +1,6 @@
 # E9 — head-to-head: ratio_letter_v1 (single-token PMF) vs canonical_v2 (JSON) (2026-08-19)
 
-First gate of the NORTH migration (docs/NORTH.md): measure the decree's
+First gate of the NORTH migration (research/notes/NORTH.md): measure the decree's
 premise — is the logprob-native single-token rail already at least as
 good, per dollar, as the JSON rail it would replace?
 

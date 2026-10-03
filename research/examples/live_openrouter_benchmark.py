@@ -40,7 +40,7 @@ LIVE_CASES: tuple[LiveCase, ...] = (
             },
             {
                 "id": "evaluation_doc",
-                "text": "docs/EVALUATION.md: checked-in evidence surface. Separates synthetic/offline studies from live LLM claims, lists reproducible commands, metric definitions, current cardinal-vs-Likert table, known gaps, and next empirical proof target.",
+                "text": "research/notes/EVALUATION.md: checked-in evidence surface. Separates synthetic/offline studies from live LLM claims, lists reproducible commands, metric definitions, current cardinal-vs-Likert table, known gaps, and next empirical proof target.",
             },
             {
                 "id": "prompts_doc",

@@ -31,7 +31,7 @@
 //! `vendor/model:free` shape); freelane refuses to start on a duplicate.
 //!
 //! Config is environment-only (systemd `EnvironmentFile` is the intended
-//! carrier): see `docs/FREELANE.md`.
+//! carrier): see `research/notes/FREELANE.md`.
 
 use std::collections::HashMap;
 use std::collections::HashSet;

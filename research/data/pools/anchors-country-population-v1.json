@@ -1,6 +1,6 @@
 {
   "slug": "anchors-country-population-v1",
-  "_comment": "Anchors tier (docs/PUBLIC_BENCH.md): the only tier with ground truth. truth = resident population in millions (2024 UN-flavored estimates, rounded — used only for the magnitude-calibration sidebar, never the headline). Items descending by truth. Memorizable by design; clearly labeled; never the headline. Harmonic block: four countries closely matched in population (48–55M) so the chordless-cycle judgments are genuinely hard.",
+  "_comment": "Anchors tier (research/notes/PUBLIC_BENCH.md): the only tier with ground truth. truth = resident population in millions (2024 UN-flavored estimates, rounded — used only for the magnitude-calibration sidebar, never the headline). Items descending by truth. Memorizable by design; clearly labeled; never the headline. Harmonic block: four countries closely matched in population (48–55M) so the chordless-cycle judgments are genuinely hard.",
   "attribute": {
     "primary": "current resident population (how many people live there)",
     "opposite": "population smallness: how few people live there",

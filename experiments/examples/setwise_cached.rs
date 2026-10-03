@@ -1,5 +1,5 @@
 //! Setwise ratio elicitation with a cached entity prefix — the instrument-grid
-//! row "k-wise · ratio · point" (docs/FIRST_PRINCIPLES.md §2, currently ✗).
+//! row "k-wise · ratio · point" (research/notes/FIRST_PRINCIPLES.md §2, currently ✗).
 //!
 //! Geometry: k ∈ {3,4} entities per call. The prompt is ordered for provider
 //! prompt caching: the system message and an `<entities>` block (entity texts

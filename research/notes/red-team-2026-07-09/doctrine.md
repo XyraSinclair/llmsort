@@ -1,6 +1,6 @@
 # Red team: the doctrine itself (2026-07-09)
 
-Target: `docs/PRINCIPLES.md` and the cultural rules around it — not the work
+Target: `research/notes/PRINCIPLES.md` and the cultural rules around it — not the work
 they govern. Question: is the operating system refutable, Goodhart-resistant,
 and worth its cost? Method: doctrine text vs its own receipts (artifact packs,
 commit log, notes). Six findings, ranked. Survivors listed at the end.
@@ -13,7 +13,7 @@ carry errata; doctrine is 12 principles, ~110 lines.
 
 ## Finding 1 — §8 dogfooding has no exit: the validation loop closes through one person
 
-**Receipt.** `docs/PRINCIPLES.md:72-75`: "Choose judges by our own coherence
+**Receipt.** `research/notes/PRINCIPLES.md:72-75`: "Choose judges by our own coherence
 benchmark; prioritize our roadmap with our own ANP; audit our own sessions
 with our own probes' discipline." The flagship validation,
 `artifacts/live/corpus-map-500-2026-07-08/README.md:15`: "validation vs 2026
@@ -52,7 +52,7 @@ of 28 packs qualify.
 
 ## Finding 2 — §9's "Distribution > capability" is decoration: it lost a direct conflict with §10 for three days and nobody logged the loss
 
-**Receipt.** `docs/PRINCIPLES.md:84-85`: "Distribution > capability once the
+**Receipt.** `research/notes/PRINCIPLES.md:84-85`: "Distribution > capability once the
 capability exists." `notes/ideation-2026-07-05/differentiation.md:194`: "No
 new instrument variants before the artifact layer ships." What actually
 shipped between that sentence and the artifact layer (receipt viewer,
@@ -89,7 +89,7 @@ counterweight, not a better sentence.
 
 ## Finding 3 — §1's "session health metric: self-refutation count" is an uncounted metric that has already colonized the prose register
 
-**Receipt.** `docs/PRINCIPLES.md:12-13`: "**Session health metric:
+**Receipt.** `research/notes/PRINCIPLES.md:12-13`: "**Session health metric:
 self-refutation count.**" No session log, pack, or commit anywhere records
 that count — the metric has never been computed. Meanwhile 15 of 131 commit
 messages perform self-correction as narrative drama: "the test lost the
@@ -128,7 +128,7 @@ was never leaning on the sentence and deleting it was free.
 
 ## Finding 4 — §4 is selectively enforced: stories about models are contamination, stories about our instruments are branding
 
-**Receipt.** `docs/PRINCIPLES.md:40-41`: "never the personality
+**Receipt.** `research/notes/PRINCIPLES.md:40-41`: "never the personality
 ('stiffens', 'follows the asker') ... never as decoration." Versus
 `artifacts/live/spin-probe-2026-07-05/README.md:29`: "The magnet analogy
 lands exactly" — asserted in the same pack that says "n = 1 pair" about
@@ -173,7 +173,7 @@ pretending there is one.
 (slate), "$0.0010" (nonce), "$0.0135" (transitivity): four-sig-fig costs
 on runs three orders of magnitude below any decision threshold, plus
 §12's "worst-case pricing before every run" performed on $0.003 runs.
-**Receipt (errata).** `docs/PRINCIPLES.md:54`: "errata on top, never
+**Receipt (errata).** `research/notes/PRINCIPLES.md:54`: "errata on top, never
 rewrites." Actual placement: judge-bench erratum at line 82 of 88
 (bottom); v1.1 at 52 of 56 (bottom); retest at 23 of 39 (mid). Zero of
 three errata are on top. Nobody noticed, including the sessions that

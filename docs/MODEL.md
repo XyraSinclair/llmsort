@@ -92,13 +92,13 @@ Only the first two reasons are convergence-like stops. Budget and latency stops 
 
 ## Model routing and cost accounting
 
-The solver is model-agnostic: a rater can be a fixed model, a ladder policy, a cache hit, or a human-compatible implementation behind the same pairwise judgement contract. The CLI examples under `examples/model-policy-*.json` currently cover:
+The solver is model-agnostic: a rater can be a fixed model, a ladder policy, a cache hit, or a human-compatible implementation behind the same pairwise judgement contract. The research examples under `research/examples/model-policy-*.json` currently cover:
 
 - quality-only routing with `anthropic/claude-opus-4.6`,
 - cost-aware/fast routing with `deepseek/deepseek-v4-flash`,
 - a frontier ladder that starts on `anthropic/claude-opus-4.6`, falls back through `google/gemini-3.1-pro-preview`, and uses `openai/gpt-5.4-mini` once uncertainty is low enough.
 
-Model slugs prefixed `claude-code/` route through a subscription-billed Claude Code adapter instead of OpenRouter (`src/gateway/types.rs`, `src/gateway/claude_code.rs`) — same pairwise judgement contract, $0 marginal provider cost, measured 21/21 decisive-pair agreement with the API rail (`research/notes/claudecode-vs-api-2026-08-06/RESULTS.md`).
+Model slugs prefixed `claude-code/` route through a subscription-billed Claude Code adapter instead of OpenRouter (`src/gateway/types/mod.rs`, `src/gateway/claude_code.rs`) — same pairwise judgement contract, $0 marginal provider cost, measured 21/21 decisive-pair agreement with the API rail (`research/notes/claudecode-vs-api-2026-08-06/RESULTS.md`).
 
 Pricing is separate from ranking. Reports distinguish exact local/provider cost from fallback cost estimates; an estimated cost is operational telemetry, not evidence that the provider actually charged that amount.
 
@@ -133,4 +133,4 @@ This crate does not claim:
 - Distribution-derived precision depends on provider logprob behavior and tokenization details.
 - Dense covariance and planner work bound the current practical scale.
 
-The evaluation study record in `docs/EVALUATION.md` shows current strengths and embarrassment cases from the synthetic harness.
+The evaluation study record in `research/notes/EVALUATION.md` shows current strengths and embarrassment cases from the synthetic harness.

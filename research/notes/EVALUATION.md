@@ -9,19 +9,19 @@ Run from the repository root. These commands are offline; they use the determini
 ```bash
 mkdir -p research/artifacts/eval
 
-cargo run --bin cardinal -- eval \
+cargo run -p llmsort-experiments --bin cardinal -- eval \
   --out research/artifacts/eval/synthetic_eval.jsonl \
   --curve-csv research/artifacts/eval/synthetic_curves.csv
 
-cargo run --bin cardinal -- eval-likert \
+cargo run -p llmsort-experiments --bin cardinal -- eval-likert \
   --out research/artifacts/eval/likert_eval.jsonl \
   --curve-csv research/artifacts/eval/likert_curves.csv
 
-cargo run --bin cardinal -- eval-compare \
+cargo run -p llmsort-experiments --bin cardinal -- eval-compare \
   --mode ratio \
   --out research/artifacts/eval/comparison_summary.json
 
-python3 examples/offline_eval_delta.py \
+python3 research/examples/offline_eval_delta.py \
   --cardinal research/artifacts/eval/synthetic_eval.jsonl \
   --likert research/artifacts/eval/likert_eval.jsonl \
   --csv research/artifacts/eval/offline-workflow/cardinal_vs_likert_delta.csv \
@@ -40,7 +40,7 @@ Checked-in outputs:
 
 Optional generated aid:
 
-- `cargo run --bin cardinal -- eval-compare --mode ordinal --out research/artifacts/eval/comparison_summary_ordinal.json` compares the same active-comparison loop using ordinal "which item is higher?" judgements instead of ratio magnitudes.
+- `cargo run -p llmsort-experiments --bin cardinal -- eval-compare --mode ordinal --out research/artifacts/eval/comparison_summary_ordinal.json` compares the same active-comparison loop using ordinal "which item is higher?" judgements instead of ratio magnitudes.
 
 Do not compare the two curve CSV `error` columns directly. `synthetic_curves.csv` records the cardinal model's estimated top-k boundary error and can exceed 1. `likert_curves.csv` records observed `1 - topk_precision`. They are trajectories with different semantics, not a shared y-axis.
 
@@ -63,9 +63,9 @@ Across the three policy runs, the pack used 459 fresh provider comparisons, 0 ca
 Re-run one policy:
 
 ```bash
-python3 examples/live_openrouter_benchmark.py \
+python3 research/examples/live_openrouter_benchmark.py \
   --out-dir research/artifacts/live/openrouter-benchmark-2026-06-30/quality_only \
-  --policy-config examples/model-policy-quality-only.json
+  --policy-config research/examples/model-policy-quality-only.json
 ```
 
 Refresh `combined-summary.json` and this directory's `README.md` after re-running policy directories; they are aggregate reports, not source data.
@@ -94,7 +94,7 @@ The reference is still an LLM regime, not human ground truth or a hidden exhaust
 Re-run the comparison:
 
 ```bash
-python3 examples/live_method_comparison.py \
+python3 research/examples/live_method_comparison.py \
   --out-dir research/artifacts/live/method-comparison-2026-06-30-suite-v1 \
   --candidate-model openai/gpt-5.4-mini \
   --reference-model anthropic/claude-sonnet-4.6 \
@@ -102,8 +102,6 @@ python3 examples/live_method_comparison.py \
 ```
 
 `summary.json` is the machine-readable aggregate. `summary.md` and `README.md` are generated views of the same data. `research/examples/live-method-suite.json` is the frozen suite input. Each case directory also preserves `case.json`, one JSON result per method, and per-call request/response/parsed/usage records under `calls/`.
-
-`tests/live_method_evidence.rs` is the local conformance guard for that pack. It checks the summary schema version, the pinned suite SHA-256, case and method JSON consistency, per-call request/response/parsed/usage completeness, aggregate usage totals, budget-normalized rows, and absence of checked-in provider keys or local absolute paths.
 
 ## Method
 

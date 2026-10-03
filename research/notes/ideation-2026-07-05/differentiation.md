@@ -1,7 +1,7 @@
 # Differentiation scouting: cardinal-harness / seriate
 
-Read: cardinal README, docs/FIRST_PRINCIPLES.md, docs/WHAT_WHY_HOW.md,
-docs/COMPARISON.md, seriate README, src/bin/cardinal.rs (full subcommand
+Read: cardinal README, research/notes/FIRST_PRINCIPLES.md, README.md,
+research/notes/COMPARISON.md, seriate README, src/bin/cardinal.rs (full subcommand
 surface: sort, weigh, distinguish, calibrate, judge [+spin], elaborate,
 explain, cache-export/prune, policy, eval/eval-likert/eval-compare, report,
 experiment-expand, validate, rerank).

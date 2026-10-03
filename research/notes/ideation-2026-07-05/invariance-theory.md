@@ -46,7 +46,7 @@ So: three flavors, not one.
    that can be falsified. (susceptibility properly measured, IIA/context-set
    effects, attribute-importance stated-vs-revealed consistency.)
 
-The repo's current grid (`docs/FIRST_PRINCIPLES.md` §5) has excellent
+The repo's current grid (`research/notes/FIRST_PRINCIPLES.md` §5) has excellent
 coverage of category 1 axes and one instrumented category-3 axis (spin), and
 zero coverage of category 2. Category 2 is the cheapest gap to close because
 it reuses 100% of existing plumbing — no new entities, no new probe
@@ -328,7 +328,7 @@ correspondence, flagged as absent otherwise.
 ## 3. Where the repo's own framing is subtly wrong or shallow
 
 **(a) "Gauge pinning" is claimed as solving anchor dependence, but it solves
-a different problem than the one it's credited for.** `docs/COMPARISON.md`
+a different problem than the one it's credited for.** `research/notes/COMPARISON.md`
 lists "Baseline / anchor dependence" as "implemented" via "full comparison
 graph, global fit, gauge pinning." That's true for a specific, narrower
 claim: the *solver* has a free additive constant in log-score space (any

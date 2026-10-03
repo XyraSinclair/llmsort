@@ -173,7 +173,7 @@ and define v2:
 ## Scaling: battery-as-data (v2 machinery, 2026-08-19)
 
 The battery is no longer compile-time constants. `experiments/src/battery.rs`
-carries the machinery the public version (`docs/PUBLIC_BENCH.md`) needs:
+carries the machinery the public version (`research/notes/PUBLIC_BENCH.md`) needs:
 
 - **`BatterySpec`** — corpus, attributes, and every pair block as a value;
   serializable, so a generated battery ships inside its evidence pack.

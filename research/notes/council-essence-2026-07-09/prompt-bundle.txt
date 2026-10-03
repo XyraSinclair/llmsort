@@ -1,6 +1,6 @@
 You are consulted as a first-rank theorist-engineer (the register sought: Feynman's distillation instinct, von Neumann's architectural inevitability). cardinal-harness is a Rust engine for structured LLM judgment: pairwise ratio elicitation -> robust IRLS solve -> cardinal scores with uncertainty; an invariance-probe suite (order, paraphrase, framing spin) that tests whether a judgment is a BELIEF (fixed point of transformations that should not matter) or an echo; a self-validating judge-coherence benchmark; content-addressed judgment packets that fuse byte-identically (a real G-Set CRDT as of yesterday); variance-component pooling; judge-portfolio theory over correlated errors. Everything below is real, receipted, and was adversarially red-teamed yesterday (synthesis included).
 
---- docs/PRINCIPLES.md ---
+--- research/notes/PRINCIPLES.md ---
 # Principles: staying ahead of slop
 
 How this repo keeps shipping profound work in its canonical flavor —
@@ -115,8 +115,8 @@ unpaid-for cannot be trusted.
 --- notes/ideation-2026-07-05/differentiation.md ---
 # Differentiation scouting: cardinal-harness / seriate
 
-Read: cardinal README, docs/FIRST_PRINCIPLES.md, docs/WHAT_WHY_HOW.md,
-docs/COMPARISON.md, seriate README, src/bin/cardinal.rs (full subcommand
+Read: cardinal README, research/notes/FIRST_PRINCIPLES.md, README.md,
+research/notes/COMPARISON.md, seriate README, src/bin/cardinal.rs (full subcommand
 surface: sort, weigh, distinguish, calibrate, judge [+spin], elaborate,
 explain, cache-export/prune, policy, eval/eval-likert/eval-compare, report,
 experiment-expand, validate, rerank).
@@ -508,7 +508,7 @@ The session health claim is left as the receipts above rather than a
 count — one of the panel's own findings is that counting them is the
 wrong frame, and that finding is pending operator adjudication.
 
---- docs/FIRST_PRINCIPLES.md (opening: the seven nouns + instrument grid) ---
+--- research/notes/FIRST_PRINCIPLES.md (opening: the seven nouns + instrument grid) ---
 # First principles: the type system of structured LLM judgement
 
 Permute the smallest words and see what the space actually is; then check,
@@ -608,7 +608,7 @@ The stability axes we cover, we cover with receipts; the remaining ✗ rows
 (parameter sweeps, time drift) are the cheapest untouched science in the repo.
 
 The invariance group is now also an INSTRUMENT: `cardinal bench` (the Judge
-Coherence Benchmark, docs/BENCHMARK.md) runs order swap, reciprocal
+Coherence Benchmark, research/notes/BENCHMARK.md) runs order swap, reciprocal
 antisymmetry, frustration, spin, polarity, paraphrase, null calibration,
 and nuisance perturbation as a standardized 138-call battery per model,
 × a signal axis, → one leaderboard number labs can hill-climb without

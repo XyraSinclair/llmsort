@@ -16,7 +16,7 @@ grounded against the repo state below. Every claim about the repo cites the file
   gemma-4-12b ordinal, entity-ordered, one 5090 — fp8 full 6.6 calls/s @ +0.98, fp8 4K
   chars 11 @ +0.96, NVFP4 4K 20.4 @ +0.93. Fidelity is Spearman vs the same model's
   full-text pack, not vs truth.
-- **Attribute-last is a measured loss.** `docs/NORTH.md` E10 (2026-08-29): putting the
+- **Attribute-last is a measured loss.** `research/notes/NORTH.md` E10 (2026-08-29): putting the
   attribute after the entities caches 38.5% of input (−29% cost on long entities) but
   roughly halves truth accuracy and drops paraphrase coherence. The working baseline is
   attribute-first grouped by first entity (cache hit 28%→44%), which
@@ -47,7 +47,7 @@ Three, with the third as a floor rather than a summed objective:
    speculation; its job is to keep exciting nonsense off the board, not to rank.
 
 Rubrics adapt from `research/batteries/judge_bakeoff_axes.json`. Each axis is elicited
-with the wording family (`docs/NORTH.md`: A, A′, ¬A, both orders, nulls) so reliability
+with the wording family (`research/notes/NORTH.md`: A, A′, ¬A, both orders, nulls) so reliability
 and slot bias are measured per axis, not assumed.
 
 ## Pipeline

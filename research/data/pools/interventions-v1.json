@@ -1,6 +1,6 @@
 {
   "slug": "interventions-v1",
-  "_comment": "Interventions tier (docs/PUBLIC_BENCH.md): global-health interventions with real stakes. No truth values — GiveWell-class CEAs are a semi-ground-truth SIDEBAR with external-validity caveats, never the score. Item order is a rough descending cost-effectiveness prior (GiveWell-flavored); it drives spin-pair selection only and is never shown to the judged model. Harmonic block: four closely-matched interventions.",
+  "_comment": "Interventions tier (research/notes/PUBLIC_BENCH.md): global-health interventions with real stakes. No truth values — GiveWell-class CEAs are a semi-ground-truth SIDEBAR with external-validity caveats, never the score. Item order is a rough descending cost-effectiveness prior (GiveWell-flavored); it drives spin-pair selection only and is never shown to the judged model. Harmonic block: four closely-matched interventions.",
   "attribute": {
     "primary": "expected deaths averted per $1 million spent",
     "opposite": "cost-ineffectiveness at saving lives: how few deaths $1 million spent would avert",

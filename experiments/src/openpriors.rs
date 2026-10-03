@@ -4,7 +4,7 @@
 //! externalized LLM beliefs: anyone runs structured judgements through it,
 //! under one absolute rule — full disclosure of how every number was made.
 //! This module is the type-level derivation of that platform, extending the
-//! locked five-noun ontology (`docs/WHAT_WHY_HOW.md`: attribute → magnitude
+//! locked five-noun ontology (`research/notes/FIRST_PRINCIPLES.md`: attribute → magnitude
 //! → instrument → evidence → scaling) with the sixth noun collaboration
 //! requires: the **account**.
 //!

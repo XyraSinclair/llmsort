@@ -147,12 +147,12 @@ repo's own artifacts already show how much that noise matters.**
   stable point estimate; report a **bootstrap CI over triangles** (resample
   edges with replacement, ≥100 resamples — matching the discipline the
   repo's own test battery uses for its statistical claims,
-  `docs/TESTING.md`), and additionally replicate across **≥5 independent
+  `research/notes/TESTING.md`), and additionally replicate across **≥5 independent
   item-sets per domain** so the CI reflects corpus-sampling variance, not
   just one graph's internal resampling variance.
 - **Framing-spin susceptibility (χ).** The repo's own live finding is the
   strongest available warning here: on gpt-5.4-mini, χ measured **−0.18 on
-  one pair and +0.64 on another** (`docs/FIRST_PRINCIPLES.md` §5½,
+  one pair and +0.64 on another** (`research/notes/FIRST_PRINCIPLES.md` §5½,
   spin-probe-2026-07-05 receipt) — a swing of 0.82 nats between two single
   pairs of the *same model*. A leaderboard number built from one or a
   handful of pairs' χ is not measuring the model, it is measuring which
@@ -214,7 +214,7 @@ repo's own artifacts already show how much that noise matters.**
   the right target on the clear stratum; on the contested stratum, some
   curl is the *epistemically honest* signature — the repo's own note that
   the ratio ladder's quantization alone injects a ≈0.13 curl floor even for
-  a fully transitive judge (`docs/FIRST_PRINCIPLES.md` §5½) means "curl = 0"
+  a fully transitive judge (`research/notes/FIRST_PRINCIPLES.md` §5½) means "curl = 0"
   was never the achievable target in the first place; the benchmark must
   calibrate its notion of "good" against a measured noise floor per
   stratum, not against zero. This stratification is the single most

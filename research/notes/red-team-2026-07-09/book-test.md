@@ -6,8 +6,8 @@ current design is it, approximates it, or diverges. Ranked by
 depth × feasibility. Where the current design already IS the Book form,
 that verdict is stated in one line and left alone.
 
-Read for this review: docs/PRINCIPLES.md, docs/MATH_FRONTIER.md,
-docs/MODEL.md, docs/FIRST_PRINCIPLES.md (§5–5⅝), README.md,
+Read for this review: research/notes/PRINCIPLES.md, research/notes/MATH_FRONTIER.md,
+docs/MODEL.md, research/notes/FIRST_PRINCIPLES.md (§5–5⅝), README.md,
 notes/ideation-2026-07-05/{invariance-theory,differentiation}.md, module
 headers of src/{rating_engine,repeat_pooling,packet}.rs,
 src/rerank/{spin,ensemble,orbit}.rs, src/prompts.rs, issues #43–#50.
@@ -19,7 +19,7 @@ src/rerank/{spin,ensemble,orbit}.rs, src/prompts.rs, issues #43–#50.
 This is the single deepest jump the repo has not conceived. Verified by
 grep: "probit", "censored", "cut-point", "graded response" appear nowhere
 in docs/, notes/, or src/; Thurstone appears only as a row in the
-comparison table (docs/COMPARISON.md:57).
+comparison table (research/notes/COMPARISON.md:57).
 
 **(a) Current form.** A rung answer is converted to a point observation:
 `y = ln(rung)` with Gaussian noise (docs/MODEL.md:19, and the clamp at
@@ -35,7 +35,7 @@ facts:
    (`tests/ladder_curl.rs`) refuted the ladder-geometry hypothesis —
    repo-ladder floor 0.00198 vs constant-log-step 0.00155, coarse rung
    *usage* injects two orders of magnitude more
-   (docs/FIRST_PRINCIPLES.md:145–155).
+   (research/notes/FIRST_PRINCIPLES.md:145–155).
 3. The pinned honest negative: "ordinal beats ratio under heavy noise"
    (README.md:320).
 

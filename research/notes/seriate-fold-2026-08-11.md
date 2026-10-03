@@ -61,7 +61,7 @@ instrument/scalar.rs 291.
    AcquisitionMode, Instrument, RatioLetterInstrument, OrdinalInstrument.
 4. Cargo.toml: remove `seriate` dep (serde already present).
 5. Full suite green via `~/.cargo/bin/cargo test`.
-6. Docs scrub: README + `docs/WHAT_WHY_HOW.md` sibling-project link;
+6. Docs scrub: README + `README.md` sibling-project link;
    changelog entry. Move seriate's
    `artifacts/live/logprob-reality-2026-07-04/` (DeepSeek JSD 0.81 reality
    map, cited by WHAT_WHY_HOW) into `notes/`.

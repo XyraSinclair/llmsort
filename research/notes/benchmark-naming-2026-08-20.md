@@ -85,5 +85,5 @@ site headline "Does the judgment survive?" already owns this register.
 Pick one: **Holonomy** (elegance, truth, distinctiveness) or **RIGOR**
 (model-card pragmatism). Either way: voir dire/cross-examination stay as
 copy; JCB stays the technical slug; propagate the chosen name to
-`docs/PUBLIC_BENCH.md` §Naming and the pairwiseratio.org copy when
+`research/notes/PUBLIC_BENCH.md` §Naming and the pairwiseratio.org copy when
 decided.

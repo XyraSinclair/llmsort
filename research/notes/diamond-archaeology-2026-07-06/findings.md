@@ -5,7 +5,7 @@ predecessor repo containing crates `cardinal-harness-v2` and
 `canonical-pairwise-ratio-harness`, plus a real executed $100 live campaign
 under `runs/`) and `~/Documents/shelf/warm/openpriors` (the live Postgres
 custody service). Baseline for "already absorbed" is
-`docs/FIRST_PRINCIPLES.md` and `docs/MATH_FRONTIER.md` in the current
+`research/notes/FIRST_PRINCIPLES.md` and `research/notes/MATH_FRONTIER.md` in the current
 cardinal-harness. Three sub-agents did the reading in parallel (docs/design
 language, crate code, runs+openpriors); this document synthesizes their
 reports with file paths and verbatim quotes preserved. Nothing in either

@@ -72,10 +72,10 @@ site/).
 
 ## THE DOCTRINE
 
-docs/PRINCIPLES.md: refutability is the product; validate instruments on
+research/notes/PRINCIPLES.md: refutability is the product; validate instruments on
 scripted pathologies; no claim without denominator and noise class;
 mathematics is the register, stories are contamination; errata on top.
-docs/canonicality.md precommits a coverage denominator. Red-team 07-09
+AGENTS.md precommits a coverage denominator. Red-team 07-09
 found the doctrine's own gaps (validation loop closes through one person;
 nothing can retire an instrument).
 
@@ -92,13 +92,13 @@ the `cardinal` CLI sort verb, judgement-run.v1 packets, cardinald.
 
 - Feynman: notes/axis-research-2026-07-24/ (RESULTS.md, RESULTS-WAVE2.md,
   WAVE2_SPEC.md, sort-*.json), notes/manifund-campaign-2026-07-13/,
-  docs/EVALUATION.md, docs/LOGPROBS.md.
+  research/notes/EVALUATION.md, docs/LOGPROBS.md.
 - Dijkstra: src/rerank/sort.rs, src/packet.rs, src/bin/cardinal.rs,
   src/rating_engine.rs (skim), docs/ALGORITHM.md, docs/MODEL.md, README.md.
-- Leveson: docs/PRINCIPLES.md, notes/red-team-2026-07-09/, docs/PUBLIC_BENCH.md,
+- Leveson: research/notes/PRINCIPLES.md, notes/red-team-2026-07-09/, research/notes/PUBLIC_BENCH.md,
   site/index.html, CHANGELOG.md.
-- Hamming: docs/WHAT_WHY_HOW.md, docs/PUBLIC_BENCH.md, docs/canonicality.md,
-  docs/FIRST_PRINCIPLES.md, notes/red-team-2026-07-09/, notes/ideation-2026-07-05/,
+- Hamming: README.md, research/notes/PUBLIC_BENCH.md, AGENTS.md,
+  research/notes/FIRST_PRINCIPLES.md, notes/red-team-2026-07-09/, notes/ideation-2026-07-05/,
   git log, plus a look across ~/projects for consumers.
 
 ## OUTPUT CONTRACT (each seat)

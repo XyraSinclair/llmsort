@@ -67,8 +67,8 @@ Theory: a noiseless binary comparison yields ≤1 bit; full order of n needs
 up to log₂(52) ≈ 5.7 bits per call at the same price as a point.
 
 The sharpest form of the case for graded evidence is the **zero-information
-tournament argument** (nanojudge, `docs/zero-information-paradox.md`, mined
-2026-09-05): run a single-elimination tournament on binary verdicts and the
+tournament argument** ([nanojudge](https://github.com/nanojudge/nanojudge/blob/main/docs/zero-information-paradox.md),
+mined 2026-09-05): run a single-elimination tournament on binary verdicts and the
 win/loss *shape* — one undefeated item, one finalist, two semifinalists — has
 probability 1 before a single judgement runs, so conditioning on it moves no
 posterior over magnitudes. Only the *identities* filling the slots carry
@@ -112,7 +112,7 @@ The stability axes we cover, we cover with evidence; the remaining ✗ rows
 (parameter sweeps, time drift) are the cheapest untouched science in the repo.
 
 The invariance group is now also an INSTRUMENT: `cardinal bench` (the Judge
-Coherence Benchmark, docs/BENCHMARK.md) runs order swap, reciprocal
+Coherence Benchmark, research/notes/BENCHMARK.md) runs order swap, reciprocal
 antisymmetry, frustration, spin, polarity, paraphrase, null calibration,
 and nuisance perturbation as a standardized 194-call battery per model,
 × a signal axis, → one leaderboard number labs can hill-climb without

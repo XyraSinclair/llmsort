@@ -86,8 +86,8 @@ matchmaking, and an early stop. The load-bearing difference is the
 **scale of the elicitation**: nanojudge elicits win probabilities
 (interval scale — logprob mass on a verdict token, or a one-hot text
 verdict), while this repo elicits ratio magnitudes (ratio scale). Their
-own `docs/zero-information-paradox.md` makes the cardinal argument
-crisply: binary tournament outcomes carry zero information about *how
+own [zero-information argument](https://github.com/nanojudge/nanojudge/blob/main/docs/zero-information-paradox.md)
+makes the cardinal case crisply: binary tournament outcomes carry zero information about *how
 much* stronger the winner is; only graded verdicts do.
 
 | | nanojudge | llmsort |

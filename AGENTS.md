@@ -61,7 +61,7 @@ once per clone (`ops/gate.sh [rev]` by hand).
 
 ## Research norms
 
-- `docs/PRINCIPLES.md` is the anti-slop discipline: refutability,
+- `research/notes/PRINCIPLES.md` is the anti-slop discipline: refutability,
   scripted-pathology validation, denominators, mathematical register,
   errata-on-top. Read it before substantial research work.
 - `research/notes/OPERATOR-QUEUE.md` caps operator decisions at five

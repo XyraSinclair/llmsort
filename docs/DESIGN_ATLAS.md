@@ -1,6 +1,6 @@
 # The design atlas: comparison graphs chosen by enumeration, not taste
 
-`cargo run --example design_atlas` enumerates every circulant design
+`cargo run -p llmsort-experiments --example design_atlas` enumerates every circulant design
 C_n(S) for n ∈ {8, 10, 12} and scores its invariant profile: edges
 (budget), filled triangles (support for the LOCAL curl diagnostic),
 harmonic dimension (support for the GLOBAL, triad-invisible diagnostic —

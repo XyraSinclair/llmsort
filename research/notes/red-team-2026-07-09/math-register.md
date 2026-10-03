@@ -28,7 +28,7 @@ recomputed directly from committed receipts.
 > "claude-sonnet-4.6 … the structure is in the EVEN part:
 > (m(+3)+m(−3))/2 − m(0) = +0.31 nats"
 
-and `docs/FIRST_PRINCIPLES.md` §5½: "claude-sonnet-4.6 slope −0.014
+and `research/notes/FIRST_PRINCIPLES.md` §5½: "claude-sonnet-4.6 slope −0.014
 with R² 0.02 and a positive even component … the response is in the
 even part, not the odd part."
 
@@ -110,7 +110,7 @@ excerpt-asymmetry artifact — in addition to any genuine |f| response.
 The two are algebraically indistinguishable in one sweep. This is
 *exactly* the asymmetry critique the ideation note leveled at the
 secant (`notes/ideation-2026-07-05/invariance-theory.md` §3(c) problem
-2), which `docs/FIRST_PRINCIPLES.md` §5½ declares "CLOSED as
+2), which `research/notes/FIRST_PRINCIPLES.md` §5½ declares "CLOSED as
 instrumentation." The sweep closed problem 1 (no intensity sweep); it
 inherited problem 2 and gave the artifact a new name (the even
 component).

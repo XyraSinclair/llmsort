@@ -3,7 +3,7 @@
 //! v1 hardwired the battery as compile-time constants (8 texts, fixed pair
 //! arrays) — which capped the benchmark at 194 comparisons and made the
 //! public-tier design (entity pools, procedural rotation, dev/held-out
-//! splits, ~600–1000 comparisons; `docs/PUBLIC_BENCH.md`) unbuildable. This
+//! splits, ~600–1000 comparisons; `research/notes/PUBLIC_BENCH.md`) unbuildable. This
 //! module makes the battery a value: [`BatterySpec`] carries everything the
 //! runner needs, [`EntityPool`] is a JSON-loadable pool of meaningful
 //! entities, and [`BatterySpec::generate`] deterministically expands a pool
@@ -301,7 +301,7 @@ impl BatterySpec {
     /// `(pool, scale, seed)` → the same battery, forever (splitmix64, no
     /// external RNG). Different seeds rotate the corpus subset, null/spin
     /// positions, and the paraphrase wording — the anti-memorization
-    /// mechanism of `docs/PUBLIC_BENCH.md`.
+    /// mechanism of `research/notes/PUBLIC_BENCH.md`.
     pub fn generate(
         pool: &EntityPool,
         scale: &BatteryScale,

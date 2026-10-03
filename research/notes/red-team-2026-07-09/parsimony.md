@@ -216,7 +216,7 @@ purpose (which is not its current stated purpose).
 - 21 CLI verbs, several (weigh/distinguish/explain/canonize) already
   compositions of sort/multi in code — the sprawl is surface (per-verb
   report structs), not implementation; WATCH with the existing §9 rule.
-- `docs/BENCHMARK.md` vs `docs/BENCHMARKS.md`: near-colliding names, one
+- `research/notes/BENCHMARK.md` vs `docs/BENCHMARKS.md`: near-colliding names, one
   is the JCB, the other a 3.9K scaling receipt — fold the latter into
   BENCHMARK or TESTING, delete the file; MERGE, low stake.
 - Issue queue imports frameworks (#46 sheaves, #48 Cooke + Rank

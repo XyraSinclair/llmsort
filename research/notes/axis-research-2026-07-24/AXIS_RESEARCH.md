@@ -96,7 +96,7 @@ frozen).
 
 ## Prior art this builds on
 
-- `docs/FIRST_PRINCIPLES.md` §8 — canonical-attribute loop; `canonize`
+- `research/notes/FIRST_PRINCIPLES.md` §8 — canonical-attribute loop; `canonize`
   transmissibility (cross-judge Spearman) already shipped.
 - `notes/ideation-2026-07-05/differentiation.md` — cross-model belief
   cartography; taste vectors as first-class objects.

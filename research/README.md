@@ -10,4 +10,4 @@ with denominators, errata stay on top, failed methods stay in the record.
 Nothing here is API, nothing is promised, nothing ships in the published
 crate. The engineered surface is the crate at the repo root; the living
 research code is `experiments/`. `PROGRAM.md` at the root indexes every
-method as a rung with its pack. Discipline: `docs/PRINCIPLES.md`.
+method as a rung with its pack. Discipline: `research/notes/PRINCIPLES.md`.

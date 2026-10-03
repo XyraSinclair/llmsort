@@ -10,7 +10,7 @@ when the two disagree.
 ## Start the daemon
 
 ```bash
-cargo run --bin cardinald
+cargo run -p llmsort-experiments --bin cardinald
 ```
 
 Configuration comes from environment variables:

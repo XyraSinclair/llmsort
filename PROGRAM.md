@@ -24,7 +24,7 @@ committed).
 ## 1. The book of tricks (methods catalog)
 
 Every method is a point in arity × scale × output-form (llmsorting,
-`docs/FIRST_PRINCIPLES.md` §2). What each yields, what breaks, and its cost
+`research/notes/FIRST_PRINCIPLES.md` §2). What each yields, what breaks, and its cost
 shape:
 
 | Method | Yields | What breaks | Cost shape |
@@ -126,7 +126,7 @@ RESULTS.md with denominators) and one page here.
   recover attr-first accuracy at attr-last prices; negation-coherence
   cell on a stronger judge.
 - **E9 — NORTH head-to-head: single-token PMF vs JSON rail.** The 10x-core
-  decree's premise, measured (design: docs/NORTH.md). `llmsort sort` on 6
+  decree's premise, measured (design: research/notes/NORTH.md). `llmsort sort` on 6
   items x 24 comparisons, gpt-4.1-mini, both templates, pack-local
   replayable caches. **EXECUTED** 2026-08-19 (pack
   `research/artifacts/live/north-e9-2026-08-19/`): at identical cost
@@ -509,9 +509,9 @@ What the data is FOR (the fascinating part — each lands as an analysis over
 4. **Grok-gauge distribution.** Curl, order-invariance, and WST (from the
    seed-2/3 repeat draws) per attribute — the E2 gauge applied over a
    thousand attributes instead of six cells.
-5. **Ground truth.** `research/data/manifund/ground_truth.csv` (funding outcomes):
-   which subtle attributes predict what actually got funded — and where the
-   judges and the funders disagree.
+5. **Ground truth (pending).** Funding outcomes are not checked in. Until they
+   are, the campaign cannot claim which subtle attributes predict funding or
+   where judges and funders disagree.
 
 Public surface: **openpriors.com/manifund** (exopriors-core route
 `web/src/routes/manifund/+page.svelte`) renders the 40-pool slate re-rankable

@@ -86,7 +86,7 @@ experiments/, www/), pairwiseratio.org redeployed. Binaries `cardinal`/
 rail unaffected (builds from shipped src, names unchanged).
 
 - **C2 (2026-08-10). Q1 closed — all six 07-09 doctrine edits ACCEPTED
-  and landed in docs/PRINCIPLES.md**, adjudicated on the 30-day test
+  and landed in research/notes/PRINCIPLES.md**, adjudicated on the 30-day test
   evidence recorded above (operator directive: make the calls, ship).
   Per-edit grounds: §8 external-reference clause (F1 passed via C1 — the
   clause codifies what already worked); "Distribution > capability"

@@ -1,6 +1,6 @@
 # Judge Coherence Benchmark: the public ratio-consistency benchmark
 
-Design for taking the Judge Coherence Benchmark (JCB, `docs/BENCHMARK.md`)
+Design for taking the Judge Coherence Benchmark (JCB, `research/notes/BENCHMARK.md`)
 public as a lab-facing, hill-climbable benchmark with meaningful real-world
 entities, a website, and an honest monetization story. Drafted 2026-07-18.
 
@@ -30,7 +30,7 @@ battery-as-data (`experiments/src/battery.rs`), entity pools under
 `research/data/pools/` (anchors/interventions/funders dev pools), seeded
 procedural generation (`--pool/--battery-seed/--battery-out` on
 `cardinal bench`), and the anchors magnitude-calibration sidebar — see
-`docs/BENCHMARK.md` § Scaling. What the public version still adds:
+`research/notes/BENCHMARK.md` § Scaling. What the public version still adds:
 
 1. ~~Meaningful entity pools~~ — dev pools landed; held-out pools and
    quarterly Manifund refresh remain.
@@ -54,7 +54,7 @@ should carry real stakes; pools must refresh to resist memorization.
 |---|---|---|---|
 | **Funders** | Open Philanthropy, Gates Foundation, ACX Grants, EA Funds, Emergent Ventures, DARPA, NIH, Wellcome, Sloan, HHMI (~20) | expected impact per marginal dollar, epistemic transparency, risk appetite, decision speed | Provocative, press-legible, squarely OpenPriors' domain |
 | **Interventions** | bednets, unconditional cash, deworming, vitamin A, measles campaigns, psychotherapy, lead abatement, TB screening (~16) | lives saved per $1M, DALYs averted per $1M, evidence strength | GiveWell CEAs give a semi-ground-truth *sidebar* (external validity), never the score |
-| **Manifund live** | live projects from `research/data/manifund/items/` with existing rubrics (`impact_per_dollar`, `theory_of_change`, `team_evidence`, `epistemic_integrity`) | the four canonized rubrics | Real allocation problem; refreshes naturally every quarter — built-in anti-memorization |
+| **Manifund live** | projects from `research/data/manifund_full.txt`, with attribute weights in `research/data/manifund_ahp.json` | the canonized rubrics | Real allocation problem; refreshes resist memorization |
 | **Anchors** | countries, cities, rivers (population, GDP, length) | known true ratios | The only tier with ground truth: adds an *accuracy/magnitude-calibration* axis so the leaderboard is legible to non-experts. Clearly labeled; memorizable by design; never the headline |
 
 Headline score stays the JCB composite (signal × coherence) over the
@@ -128,52 +128,9 @@ infrastructure for everything OpenPriors wants to exist.
 
 ## Website: pairwiseratio.org
 
-`site/index.html` is a self-contained static page. It has no framework or
-build step. Review it from `site/` with a local HTTP server.
-
-The visual system is a scientific instrument readout:
-
-- Source Serif 4 supplies the display and text roles.
-- IBM Plex Mono supplies labels, navigation, and data.
-- Paper, ink, and rules make the base palette.
-- Signal red identifies measured violations only.
-- The belief trace shows one recorded order contradiction in the hero.
-
-The page uses this information order:
-
-1. **Thesis and evidence** — the hero states the test and shows the recorded
-   gpt-5.4-nano order contradiction for pair (1,3).
-2. **Leaderboard** — the primary table shows six columns. The full 14-column
-   table stays available in a disclosure; a group header row types its
-   columns as substance, semantic fidelity, and scale coherence. Column
-   order changed only; no score changed. Mobile devices show metric lists.
-3. **Battery** — the eight probes appear under the law each one audits:
-   I substance (signal, coverage), II semantic fidelity (paraphrase,
-   polarity, nuisance, spin), III scale coherence (null, order, cycles),
-   IV composition (orbit). One line above the groups states the root
-   claim: `m(A,B) = s(A) − s(B)`. Each probe row carries its law word
-   (invariance, equivariance, identity, reciprocity, integrability, …).
-4. **Evidence** — disclosures contain the exact calls, prompt, diffs, JSONL
-   link, and method link.
-5. **Run and limits** — one command and three visible limits close the page.
-
-The page keeps all 15 models and all committed board values. It also keeps
-the retest-noise statement and evidence links on the primary surface.
-
-### Hosting (live 2026-07-19)
-
-**https://pairwiseratio.org** — Cloudflare-proxied DNS (already pointed at
-the pivotality box, 37.27.92.21) → Caddy vhost `pairwiseratio.org` (`tls
-internal`; Cloudflare terminates public TLS) → static root
-`/opt/pivotality/sites/pairwiseratio.org/public/`. Deploy = `scp
-site/index.html pivotality:/opt/pivotality/sites/pairwiseratio.org/public/`.
-
-Ops note: Caddy reloads on that box hung until `grace_period 5s` was added
-to the Caddyfile global options (reload drains eternally otherwise and
-systemd kills it, silently keeping the old config); log files under
-`/var/log/caddy/` must be pre-created `chown caddy:caddy` before a vhost
-referencing them loads. The .org is the only domain; the .com is out of
-scope (operator, 2026-07-19).
+The public site now lives in exopriors-core. This repository holds the
+benchmark machinery, public dev pools, and replayable evidence; it does not
+contain or deploy the site.
 
 ### Naming
 
@@ -191,9 +148,9 @@ with "the voir dire for AI judges" as press copy either way. Full spread,
 collision checks, domain checks, and surface test-fits:
 `research/notes/benchmark-naming-2026-08-20.md`.
 
-Naming map (locked 2026-08-12, full record in
+Naming map (full record in
 `research/notes/north-star-ontology-2026-08-11.md`): the engine crate/repo is
-**llmsorting** (renamed from cardinal-harness at 0.12.0); the former
+**llmsort**; the former
 product sentence "Readings, not rankings" was retired 2026-08-20 as a
 verbless contrast slogan (the copy now leads with the declarative "a
 reading keeps the gaps a ranking deletes"); the working vocabulary stays

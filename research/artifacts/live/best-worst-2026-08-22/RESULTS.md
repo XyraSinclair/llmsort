@@ -76,7 +76,7 @@ the fix if a later regime needs it.
    instrument needed" answers **no** in this regime — the listwise arm that
    the climb kept as the efficiency denominator is the winner.
 2. Best–worst — the "highest-value missing cell" of the instrument grid
-   (docs/FIRST_PRINCIPLES.md §2) — is refuted as built: 13 observations per
+   (research/notes/FIRST_PRINCIPLES.md §2) — is refuted as built: 13 observations per
    call vs 28 for `order` at the same input cost, and the worst pick is a
    weak, biased signal. The grid entry should carry this pack, not the
    prior.

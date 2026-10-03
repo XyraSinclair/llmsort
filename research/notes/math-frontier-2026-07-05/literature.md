@@ -2,8 +2,8 @@
 
 Literature survey for cardinal-harness: what the broader math of cardinal
 elicitation and stable preference/prior estimation has that this repo has not
-yet absorbed. Cross-referenced against `docs/FIRST_PRINCIPLES.md` (primitives,
-instrument grid, invariance table) and `docs/PRINCIPLES.md` (refutability,
+yet absorbed. Cross-referenced against `research/notes/FIRST_PRINCIPLES.md` (primitives,
+instrument grid, invariance table) and `research/notes/PRINCIPLES.md` (refutability,
 denominators, register discipline). Each thread ends with the precise result,
 its citation, and one buildable receipt.
 
@@ -466,7 +466,7 @@ most missing surface).**
    free elaboration, measure the shift in nats, same protocol as the
    existing prestige-halo receipt.
 2. State the impossibility ceiling as a documented limitation in
-   `docs/FIRST_PRINCIPLES.md` §5½ (one paragraph, one citation): "surviving
+   `research/notes/FIRST_PRINCIPLES.md` §5½ (one paragraph, one citation): "surviving
    the invariance battery is necessary, not sufficient, evidence of a true
    belief; arXiv:2606.12268 gives the formal reason no behavioral battery
    can close this gap." A one-paragraph addition that upgrades the repo's

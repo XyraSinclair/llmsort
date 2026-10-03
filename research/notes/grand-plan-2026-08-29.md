@@ -3,7 +3,7 @@
 > **Operator redirect (2026-08-29, same day):** the distribution-first
 > framing below is dropped — the mandate is the artifact itself: the most
 > useful, powerful, landscape-descriptive, parsimonious LLM sorting /
-> annotation / prior-elicitation API (docs/NORTH.md is the governing
+> annotation / prior-elicitation API (research/notes/NORTH.md is the governing
 > derivation). The §6 freeze is dissolved; the send/concierge material
 > stays as record, not plan.
 

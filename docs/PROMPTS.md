@@ -1,9 +1,9 @@
 # Prompt Contract
 
 `llmsort` supports five JSON prompt templates — `canonical_v2`,
-`canonical_bucket_v1`, `ordinal_v1`, `less_v1`, `fraction_v1` — plus two
-single-token letter templates (`ratio_letter_v1`, `ordinal_letter_v1`) that
-route through the seriate logprob evidence path.
+`canonical_bucket_v1`, `ordinal_v1`, `less_v1`, and `fraction_v1` — plus four
+logprob instruments: `ratio_letter_v1`, `ratio_letter_2p_v1`,
+`ratio_letter_attrlast_v1`, and `ordinal_letter_v1`.
 
 ## Slugs
 
@@ -15,9 +15,14 @@ route through the seriate logprob evidence path.
 | `less_v1` | `lower_ranked` plus decimal `ratio` ("how many times less") | The group-inverse wording, for the wording-invariance check: a coherent judge must mirror its "times more" answer. The parser lowers the answer to the same (winner, ratio) shape as every other template. |
 | `fraction_v1` | `higher_ranked` plus `fraction` in `(0, 1]` | The fractional wording ("what fraction of the greater one's level does the lesser reach"); a coherent judge's fraction must be the reciprocal of its ratio. Same invariance purpose as `less_v1`. |
 | `ratio_letter_v1` | ONE letter from a 52-token alphabet (case = winner, letter = ladder rung, `A` = parity, `!` = refuse) | The logprob evidence path: a single completion position's top-k logprobs are the model's full judgement PMF, so the solver weights each observation by measured variance. Rendering, parsing, and mass accounting delegated to seriate. Degrades loudly to sampled mode where a provider hides logprobs. |
+| `ratio_letter_2p_v1` | Written analysis, then one ratio letter | Default for reasoning-native judges: the first call analyzes without emitting a verdict; the second reads the letter PMF with reasoning disabled. |
+| `ratio_letter_attrlast_v1` | ONE ratio letter, with the attribute after the entities | Research instrument for prefix-cache family sweeps. It saved input cost but reduced measured accuracy, so it is never selected by default. |
 | `ordinal_letter_v1` | ONE letter, direction only | Evidence-path counterpart of `ordinal_v1`. Use it for any judge under ~30B: the 2026-09-06 bakeoff (`research/artifacts/live/judge-bakeoff-2026-09-06/RESULTS.md`) found most 7–14B models and even qwen3.7-flash never emit the lowercase half of the ratio alphabet, which reads as a stable sign flip; under this template gemma-4-12b-it agrees with gemma-4-31b at +0.88 and the usable small Qwens at +0.40. |
 
-Unknown slugs are rejected. Omit `prompt_template_slug` only when you want the default `canonical_v2`.
+Unknown slugs are rejected. When `prompt_template_slug` is omitted, llmsort
+chooses the measured default for the selected model: the two-phase ratio-letter
+instrument for reasoning-native models, the single-phase ratio-letter instrument
+for other logprob-capable models, and `canonical_v2` elsewhere.
 
 Counterbalancing is a separate, orthogonal default: every planned pair is
 asked in both presentation orders, the per-pair position bias cancels, and
@@ -75,44 +80,43 @@ Refusal for either template:
 
 - Multi-attribute CLI request: [`../examples/multi-rerank-request.json`](../examples/multi-rerank-request.json)
 - Simple single-attribute request shape for library/API callers: [`../examples/simple-rerank-request.json`](../examples/simple-rerank-request.json)
-- Prompt/attribute variant specs for request expansion: [`../examples/prompt-experiment-variants.json`](../examples/prompt-experiment-variants.json)
-- Model policy recipes: [`../examples/model-policy-quality-only.json`](../examples/model-policy-quality-only.json), [`../examples/model-policy-cost-aware-fast.json`](../examples/model-policy-cost-aware-fast.json), [`../examples/model-policy-frontier-ladder.json`](../examples/model-policy-frontier-ladder.json)
 
 Run the multi-rerank example with:
 
 ```bash
 export OPENROUTER_API_KEY=your_key_here
-cargo run --bin llmsort -- rerank \
+llmsort rerank \
   --request examples/multi-rerank-request.json \
   --out output.json \
   --trace trace.jsonl \
   --report report.md
 ```
 
-Use an explicit current model policy when you want reproducible routing:
+Research policy examples live under `research/examples/`. For reproducible
+routing, pass one explicitly:
 
 ```bash
 # Quality-only frontier run.
-cargo run --bin llmsort -- rerank \
+llmsort rerank \
   --request examples/multi-rerank-request.json \
-  --policy-config examples/model-policy-quality-only.json \
+  --policy-config research/examples/model-policy-quality-only.json \
   --out output.json \
   --trace trace.jsonl \
   --report report.md
 
 # Cost-aware/fast run.
-cargo run --bin llmsort -- rerank \
+llmsort rerank \
   --request examples/multi-rerank-request.json \
-  --policy-config examples/model-policy-cost-aware-fast.json \
+  --policy-config research/examples/model-policy-cost-aware-fast.json \
   --out output.json \
   --trace trace.jsonl \
   --report report.md
 
 # Frontier ladder: start with Opus 4.6, step through Gemini 3.1 Pro preview,
 # then use GPT-5.4 Mini for low-uncertainty near-tie checks.
-cargo run --bin llmsort -- rerank \
+llmsort rerank \
   --request examples/multi-rerank-request.json \
-  --policy-config examples/model-policy-frontier-ladder.json \
+  --policy-config research/examples/model-policy-frontier-ladder.json \
   --out output.json \
   --trace trace.jsonl \
   --report report.md
@@ -122,15 +126,8 @@ The checked-in policy files use live OpenRouter model IDs from the 2026-06 refre
 If a model is newer than the local pricing table, reports use OpenRouter's provider-reported upstream cost when available; otherwise they label the local fallback cost as an estimate instead of pretending it is exact.
 
 
-Generate a local prompt-surface experiment request without touching the network:
-
-```bash
-# Prompt-wording experiment expansion lives in experiments/:
-# the `experiment-expand` research verb (`cardinal` CLI).
-```
-
 The current CLI accepts the multi-rerank request shape. The simple request shape is converted through the library API.
 
 ## Notes
 
-- Keep large prompt experiments and archived comparisons in `openpriors-research`; keep small, reproducible request expansion examples here.
+- Prompt experiments and archived comparisons live under `research/`.

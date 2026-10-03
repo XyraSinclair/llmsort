@@ -5,13 +5,13 @@
 Default bounded run:
 
 ```bash
-cargo run --example bench_scaling
+cargo run -p llmsort-experiments --example bench_scaling
 ```
 
 The default writes `research/artifacts/bench/scaling.jsonl` with `--max-n 250`. Use an explicit larger `--max-n` only when you are deliberately measuring the dense solver at larger scale:
 
 ```bash
-cargo run --release --example bench_scaling -- --out research/artifacts/bench/scaling.jsonl --max-n 500
+cargo run --release -p llmsort-experiments --example bench_scaling -- --out research/artifacts/bench/scaling.jsonl --max-n 500
 ```
 
 For a public comparison, do not reuse the debug measurement below. Regenerate a release-profile JSONL on the target machine, keep the raw file, and publish the exact command and the first row's `build`, `limits`, and `measurement` fields next to any table derived from it.
@@ -45,7 +45,7 @@ Raw output: `research/artifacts/bench/scaling.jsonl`.
 
 The dense solver is acceptable for small and medium active sets in this debug measurement, but the curve is still the important evidence: larger production runs need sparse linear algebra or smaller active frontiers.
 
-Debug rows should not be used as release-performance estimates. For release measurements, regenerate the JSONL with `cargo run --release --example bench_scaling -- --max-n N`, keep the generated `build.profile`/`debug_assertions` fields with the table, and compare only runs with matching measurement scope.
+Debug rows should not be used as release-performance estimates. For release measurements, regenerate the JSONL with `cargo run --release -p llmsort-experiments --example bench_scaling -- --max-n N`, keep the generated `build.profile`/`debug_assertions` fields with the table, and compare only runs with matching measurement scope.
 
 The planner candidate cap is visible once the full pair set exceeds `50,000`; at that point only the capped prefix of candidate pairs is scored. Treat benchmark rows as local measurements, not portable performance promises.
 

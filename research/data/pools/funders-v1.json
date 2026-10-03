@@ -1,6 +1,6 @@
 {
   "slug": "funders-v1",
-  "_comment": "Funders tier (docs/PUBLIC_BENCH.md): provocative, press-legible, squarely OpenPriors' domain. DEV POOL ONLY. Item order is a coarse internal prior on the primary attribute — it drives spin-pair selection only, is never shown to the judged model, and is NOT a published ranking. PUBLIC_BENCH open question stands: this tier may be too spicy for lab partnerships; Interventions can take the headline. Harmonic block: four closely-matched basic-science philanthropies.",
+  "_comment": "Funders tier (research/notes/PUBLIC_BENCH.md): provocative, press-legible, squarely OpenPriors' domain. DEV POOL ONLY. Item order is a coarse internal prior on the primary attribute — it drives spin-pair selection only, is never shown to the judged model, and is NOT a published ranking. PUBLIC_BENCH open question stands: this tier may be too spicy for lab partnerships; Interventions can take the headline. Harmonic block: four closely-matched basic-science philanthropies.",
   "attribute": {
     "primary": "expected positive impact on the world per marginal dollar it grants",
     "opposite": "impact-per-dollar deadweight: how little good each additional dollar it grants does",

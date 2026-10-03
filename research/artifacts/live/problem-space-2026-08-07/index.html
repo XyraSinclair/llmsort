@@ -249,7 +249,7 @@
 <div class="ladder">ratio ladder&nbsp;&nbsp;[1.0&nbsp;1.05&nbsp;1.1&nbsp;1.2&nbsp;1.3&nbsp;1.5&nbsp;1.75&nbsp;2.1&nbsp;2.5&nbsp;3.1&nbsp;3.9&nbsp;5.1&nbsp;6.8&nbsp;9.2&nbsp;12.7&nbsp;18.0&nbsp;26.0]&nbsp;&nbsp;— geometric in log space, dense near parity</div>
 <p>The solve is robust least squares (IRLS with Huber loss): outlier judgements are down-weighted rather than believed or discarded, and the posterior yields a per-item uncertainty, not just a rank. Where the PMF instrument runs, each observation enters at its <em>measured</em> variance — the model’s own expressed uncertainty — instead of a stated confidence.</p>
 <p>Inconsistency itself is decomposed, not averaged away. The Hodge split separates the judgement flow into a gradient part (explainable by scores), a local curl (triangle-auditable cycles: A&gt;B&gt;C&gt;A), and a harmonic part invisible to every triad audit. Each run then reports an experimentalist’s error budget: <span class="mono">stat ± posterior · syst order (nats/pair) · syst cyclic (% of energy)</span> — statistical and systematic uncertainty side by side, never silently pooled. A belief whose systematics dominate is not improved by more sampling; it names the transformation to fix.</p>
-<span class="evline"><b>pinned</b> · six scripted pathological judges — oracle, constant, position-biased, sycophant, cyclic, avalanche-hash — run the full pipeline in the test suite, and each must be caught by exactly the diagnostic that names it; 364 tests, two real solver bugs found and fixed by the battery · docs/TESTING.md</span>
+<span class="evline"><b>pinned</b> · six scripted pathological judges — oracle, constant, position-biased, sycophant, cyclic, avalanche-hash — run the full pipeline in the test suite, and each must be caught by exactly the diagnostic that names it; 364 tests, two real solver bugs found and fixed by the battery · research/notes/TESTING.md</span>
 </section>
 
 <!-- ================================================================ -->
@@ -280,9 +280,9 @@
 <caption>Standing negatives, kept in the record</caption>
 <tr><th>Claim that failed or remains unproven</th><th>Where it is pinned</th></tr>
 <tr><td>On a memorized ceiling domain, direct estimates beat the pairwise instrument outright (perfect vs 0.947/0.892) — with ratio-ladder span compression (slope 0.52/0.27) measured on the way</td><td class="n">notes/best-library-2026-08-07</td></tr>
-<tr><td>Offline method comparison is mixed: 10 cardinal wins, 12 Likert wins, 18 ties; ordinal beats ratio under heavy noise</td><td class="n">artifacts/eval · docs/EVALUATION.md</td></tr>
-<tr><td>Budget-efficiency (early stopping saves money) remains unproven — all synthetic runs stop at budget_exhausted</td><td class="n">docs/EVALUATION.md</td></tr>
-<tr><td>Temperature and reasoning-effort sweeps: never run; one JSD data point is a hint, not a map</td><td class="n">docs/FIRST_PRINCIPLES.md §6</td></tr>
+<tr><td>Offline method comparison is mixed: 10 cardinal wins, 12 Likert wins, 18 ties; ordinal beats ratio under heavy noise</td><td class="n">artifacts/eval · research/notes/EVALUATION.md</td></tr>
+<tr><td>Budget-efficiency (early stopping saves money) remains unproven — all synthetic runs stop at budget_exhausted</td><td class="n">research/notes/EVALUATION.md</td></tr>
+<tr><td>Temperature and reasoning-effort sweeps: never run; one JSD data point is a hint, not a map</td><td class="n">research/notes/FIRST_PRINCIPLES.md §6</td></tr>
 </table></div>
 <p>The refutations are not embarrassments; they are the calibration of the instrument that produced the positive claims. A benchmark that has never caught its own method failing measures nothing.</p>
 </section>
@@ -302,7 +302,7 @@ cardinal sort ideas.txt --by "expected impact on retention" --scores<br>
 <footer>
   <span><b>repo</b> github.com/XyraSinclair/cardinal-harness</span>
   <span><b>board</b> pairwiseratio.org</span>
-  <span><b>method</b> docs/FIRST_PRINCIPLES.md · docs/BENCHMARK.md · docs/PRINCIPLES.md</span>
+  <span><b>method</b> research/notes/FIRST_PRINCIPLES.md · research/notes/BENCHMARK.md · research/notes/PRINCIPLES.md</span>
 </footer>
 
 </div>

@@ -2,8 +2,8 @@
 
 This document explains not just *what* llmsort does, but *why* each design choice was made.
 
-This is the core engine document. Research notes and archived derivations were
-moved out of this repo to keep it focused.
+This is the core engine document. Dated derivations and experiment records live
+under `research/`; this page keeps only the rationale needed to use the engine.
 
 ## Why pairwise comparisons instead of direct scoring?
 
@@ -149,9 +149,9 @@ The planner operates on the combined utility, targeting pairs that reduce uncert
 
 ## Research layers
 
-ANP-typed contexts, training/export workflows, and orchestration layers were
-intentionally moved out of this repo. This repo stays focused on the canonical
-pairwise-ratio engine.
+ANP-typed contexts, training/export workflows, and orchestration layers stay in
+the experimental and research parts of the repository. The published crate
+remains focused on the pairwise-ratio engine.
 
 ## Caching
 

@@ -1,7 +1,7 @@
 # Red team: the strategy, 2026-07-09
 
 Adversarial review of the stake list, not the code. Ground truth gathered
-before attacking: README.md, AGENTS.md, docs/PRINCIPLES.md,
+before attacking: README.md, AGENTS.md, research/notes/PRINCIPLES.md,
 notes/ideation-2026-07-05/differentiation.md,
 artifacts/live/corpus-map-500-2026-07-08/README.md,
 artifacts/live/slate-2026-07-07/README.md,
