@@ -1,9 +1,10 @@
 # North-star ontology (LOCKED 2026-08-12)
 
-Status: LOCKED by the operator 2026-08-12 ("sure, yolo"). Canonized in
-`README.md` § "What we are building"; naming map executed the
-same day (crate/repo renamed to ratiometer at 0.12.0). This note is the
-decision record.
+Status: LOCKED by the operator 2026-08-12 ("sure, yolo"). The original
+one-page introduction has since been consolidated into `README.md`,
+`docs/ALGORITHM.md`, and `docs/MODEL.md`; this note remains the decision record.
+The naming map executed the same day (crate/repo renamed to ratiometer at
+0.12.0).
 
 **One-liner:** the instrument that turns an LLM's felt sense into
 calibrated measurement. Sorting is the demo; measurement is the product.

@@ -216,9 +216,8 @@ purpose (which is not its current stated purpose).
 - 21 CLI verbs, several (weigh/distinguish/explain/canonize) already
   compositions of sort/multi in code — the sprawl is surface (per-verb
   report structs), not implementation; WATCH with the existing §9 rule.
-- `research/notes/BENCHMARK.md` vs `docs/BENCHMARKS.md`: near-colliding names, one
-  is the JCB, the other a 3.9K scaling receipt — fold the latter into
-  BENCHMARK or TESTING, delete the file; MERGE, low stake.
+- `research/notes/BENCHMARK.md` once competed with a near-colliding scaling
+  benchmark doc; the latter has since been folded away. MERGE closed.
 - Issue queue imports frameworks (#46 sheaves, #48 Cooke + Rank
   Centrality + CUmulative..., #50 bounty underwriting): gate each on
   "deletes ≥1 existing mechanism" — #46 in particular risks being a
