@@ -4,8 +4,10 @@
 
 ## Result
 
-llmsort does not win every order cell: mountains seed 17: listwise had the highest order rho (1.00); rivers seed 17: listwise had the highest order rho (0.99); rivers seed 29: listwise had the highest order rho (0.98).
-The pairwise latent/log-truth Pearson r spans 0.61–1.00; this is the direct test of recovered gaps, not only order.
+- Pointwise 1–10 fails: mean ρ 0.57 / 0.34 / −0.37 (countries / rivers / mountains), with 60–90% of items sharing the modal score. This confirms the README claim.
+- The one-prompt listwise sort orders all three pools at ρ 0.98–1.00 for about $0.002, but it dropped 6 and 7 of 20 countries. The drop claim holds (2 of 6 runs); the claim that listwise orders poorly does not hold on these well-known facts.
+- Pairwise `sort` recovers magnitudes where it works (latent vs log-truth r 0.99 countries, 0.98 mountains) but loses on rivers (ρ 0.51/0.72, r 0.61/0.77), below both listwise and setwise, at ~100× listwise cost. Rivers is an open failure, not explained here.
+- `sort --setwise` costs $0.005 and lands between listwise and pairwise (ρ 0.67–0.99).
 
 ## Protocol
 

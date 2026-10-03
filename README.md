@@ -160,6 +160,29 @@ The promised surface is `sort_texts`, `sort_documents`, their setwise siblings,
 the `sort` and `judge` CLI verbs, and the content-addressed judgement-packet
 format. Other public modules support composition but may change before 1.0.
 
+## Against ground truth
+
+Three 20-item pools with public numeric truth (countries by population, rivers
+by length, mountains by height), one judge (`openai/gpt-5.6-terra`), two seeds,
+v0.15.0 binary. Mean Spearman ρ against truth:
+
+| Method | Countries | Rivers | Mountains | $ per run | What went wrong |
+|---|---:|---:|---:|---:|---|
+| Pointwise 1–10 | 0.57 | 0.34 | −0.37 | 0.006 | 60–90% of items got the same score |
+| One-prompt listwise | 0.99 | 0.99 | 0.99 | 0.002 | dropped 6–7 of 20 countries in both runs (counted as tied last) |
+| `sort --setwise` | 0.95 | 0.78 | 0.98 | 0.005 | — |
+| `sort` (pairwise ratio) | 0.99 | 0.62 | 0.93 | 0.25 | lost on rivers |
+
+Only pairwise returns magnitudes: its scores correlate with log truth at Pearson
+r 0.99 (countries), 0.98 (mountains), and 0.69 (rivers). When a single prompt
+returns every item, it orders well-known facts as well as anything else at about
+1/100 the cost. Pairwise is worth its price when you need the gaps, the error
+bars, or a guarantee that no item is lost. Rivers, whose lengths depend on
+measurement convention, is its open failure. Raw responses, outputs, and the
+rerun command are in the
+[evidence pack](research/artifacts/live/ground-truth-2026-10-03/FINDINGS.md)
+($1.53 total).
+
 ## Method and evidence
 
 Each ratio answer becomes a noisy log-space measurement. llmsort fits the
