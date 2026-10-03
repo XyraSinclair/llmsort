@@ -4,7 +4,7 @@ use std::sync::Arc;
 use std::time::{Duration, Instant};
 
 use futures::stream::{self, StreamExt};
-use rand::{rngs::StdRng, Rng, SeedableRng};
+use rand::{rngs::StdRng, SeedableRng};
 
 use crate::rating_engine::{AttributeParams, Observation, PlannerMode, RaterParams, RatingEngine};
 use crate::trait_search::TraitSearchManager;
@@ -23,13 +23,11 @@ use super::request::{
     MultiRerankError, DEFAULT_COMPARISON_CONCURRENCY, DEFAULT_MODEL, EVIDENCE_VAR_FLOOR,
 };
 use super::response::{build_response, BuiltResponse, ResponseContext};
-use super::task::{CompareTask, TraceFields};
+use super::task::{TaskBatch, TaskPlanner, TraceFields};
 
 const CONSECUTIVE_FAILURE_LIMIT: usize = 5;
-/// Run a multi-attribute reranking session.
-///
-/// If a cache is provided, cached pairwise judgements are reused and new
-/// judgements are written back to the cache.
+/// Run a multi-attribute reranking session, reusing and updating the cache
+/// when one is provided.
 pub(crate) async fn multi_rerank_with_failures(
     mut req: MultiRerankRequest,
     execution: RerankExecution<'_>,
@@ -56,8 +54,6 @@ pub(crate) async fn multi_rerank_with_failures(
     let comparison_concurrency = req
         .comparison_concurrency
         .unwrap_or(DEFAULT_COMPARISON_CONCURRENCY);
-    let max_pair_repeats = req.max_pair_repeats;
-
     let (config, topk_cfg) = build_trait_search_config(&req);
 
     let mut engines: HashMap<String, RatingEngine> = HashMap::new();
@@ -117,9 +113,7 @@ pub(crate) async fn multi_rerank_with_failures(
         .map(|(idx, a)| (a.id.as_str(), idx))
         .collect();
     let mut warm_start_observations = 0usize;
-    // Complete per-attribute observation log, mirroring everything ingested
-    // incrementally. The end-of-run honest-σ refit re-ingests from here with
-    // context noise folded into each evidence observation's variance.
+    // Full log for the end-of-run context-noise refit.
     let mut observation_log: HashMap<String, Vec<Observation>> = HashMap::new();
 
     if let Some(provider) = execution.warm_start {
@@ -176,21 +170,16 @@ pub(crate) async fn multi_rerank_with_failures(
 
     let mut refused_pairs: HashSet<(usize, usize, usize)> = HashSet::new();
     let mut models_used: HashSet<String> = HashSet::new();
-    // Counterbalancing diagnostics: first decisive direction observed per
-    // (attribute, pair) in each presentation order; a pair counts once.
+    // First decisive direction per pair and presentation order.
     let mut counterbalance_dirs: HashMap<(usize, usize, usize), [Option<HigherRanked>; 2]> =
         HashMap::new();
     let mut counterbalance_done: HashSet<(usize, usize, usize)> = HashSet::new();
     let mut pairs_counterbalanced: usize = 0;
     let mut position_flips: usize = 0;
-    // Evidence-mode accounting (ratio-letter path).
     let mut evidence_judgements: usize = 0;
     let mut logprob_mode_judgements: usize = 0;
     let mut visible_mass_sum: f64 = 0.0;
-    // PMF-level counterbalance residuals: for a pair asked in both orders,
-    // an unbiased judge's presented-coordinate means sum to zero; the sum
-    // measures position bias in log-ratio units, per pair — strictly
-    // richer than binary direction flips.
+    // Presented-coordinate means sum to zero absent position bias.
     let mut evidence_order_means: HashMap<(usize, usize, usize), [Option<f64>; 2]> = HashMap::new();
     let mut evidence_order_residual_sum_abs: f64 = 0.0;
     let mut evidence_order_residual_pairs: usize = 0;
@@ -235,9 +224,7 @@ pub(crate) async fn multi_rerank_with_failures(
         ) else {
             break 'rerank RerankStopReason::CostBudgetExhausted;
         };
-        // Budget and batch size are denominated in CALLS. With nonce draws,
-        // each planned comparison costs `nonce_draws` calls, so the planned
-        // batch shrinks accordingly (floor 2: a counterbalanced pair).
+        // Budget is in calls; nonce draws shrink the distinct-pair batch.
         let nonce_draws = req.nonce_draws.unwrap_or(1).max(1) as usize;
         let batch_size = if nonce_draws > 1 {
             (batch_size / nonce_draws).max(2)
@@ -245,7 +232,6 @@ pub(crate) async fn multi_rerank_with_failures(
             batch_size
         };
         if req.counterbalance_pairs && batch_size < 2 {
-            // A counterbalanced pair needs two calls; one slot cannot start one.
             break 'rerank RerankStopReason::BudgetExhausted;
         }
         let proposal_request_size = (batch_size.saturating_mul(3)).max(batch_size);
@@ -256,183 +242,24 @@ pub(crate) async fn multi_rerank_with_failures(
             break 'rerank RerankStopReason::NoProposals;
         }
 
-        let mut batch_seen: HashSet<(usize, usize, usize)> = HashSet::new();
-        let mut tasks: Vec<CompareTask> = Vec::with_capacity(batch_size);
-
-        for proposal in proposals {
-            let attr_id = proposal.attribute_id.as_str();
-            let Some(&attr_idx) = attr_id_to_index.get(attr_id) else {
-                continue;
-            };
-
-            let i = proposal.i;
-            let j = proposal.j;
-            if i >= req.entities.len() || j >= req.entities.len() {
-                continue;
-            }
-
-            let (a, b) = if i <= j { (i, j) } else { (j, i) };
-            let key = (attr_idx, a, b);
-
-            if refused_pairs.contains(&key) {
-                continue;
-            }
-            if !batch_seen.insert(key) {
-                continue;
-            }
-            if let Some(max) = max_pair_repeats {
-                if pair_repeats.get(&key).copied().unwrap_or(0.0) >= max as f64 {
-                    continue;
-                }
-            }
-
-            if req.counterbalance_pairs {
-                // Both presentation orders, deterministically. Two calls per
-                // pair; presentation randomization is subsumed.
-                if tasks.len() + 2 > batch_size {
-                    break;
-                }
-                for swapped in [false, true] {
-                    tasks.push(CompareTask {
-                        key,
-                        attr_idx,
-                        i,
-                        j,
-                        swapped,
-                    });
-                }
-            } else {
-                let swapped = if req.randomize_presentation_order {
-                    if let Some(rng) = presentation_rng.as_mut() {
-                        rng.gen_bool(0.5)
-                    } else {
-                        rand::thread_rng().gen_bool(0.5)
-                    }
-                } else {
-                    false
-                };
-                tasks.push(CompareTask {
-                    key,
-                    attr_idx,
-                    i,
-                    j,
-                    swapped,
-                });
-            }
-
-            if tasks.len() >= batch_size {
-                break;
-            }
-        }
-
-        if tasks.is_empty() {
-            // Coverage fallback. The frontier planner only proposes pairs
-            // around the k-boundary; once every one of those is refused or
-            // at its repeat cap it has nothing left, even with budget in
-            // hand and most pairs never asked. Spend the remainder sorting
-            // the list: rank-neighbour pairs first (stride 1), then wider
-            // strides, skipping anything refused or capped. Presentation
-            // follows the same counterbalance/randomization rules as the
-            // planned batch.
-            let ranked = manager.ranked_indices();
-            let mut coverage_seen: HashSet<(usize, usize, usize)> = HashSet::new();
-            'coverage: for stride in 1..ranked.len().max(1) {
-                for pos in 0..ranked.len().saturating_sub(stride) {
-                    let (i, j) = (ranked[pos], ranked[pos + stride]);
-                    let (a, b) = if i <= j { (i, j) } else { (j, i) };
-                    for attr_idx in 0..req.attributes.len() {
-                        let key = (attr_idx, a, b);
-                        if refused_pairs.contains(&key) || !coverage_seen.insert(key) {
-                            continue;
-                        }
-                        if let Some(max) = max_pair_repeats {
-                            if pair_repeats.get(&key).copied().unwrap_or(0.0) >= max as f64 {
-                                continue;
-                            }
-                        }
-                        if req.counterbalance_pairs {
-                            if tasks.len() + 2 > batch_size {
-                                break 'coverage;
-                            }
-                            for swapped in [false, true] {
-                                tasks.push(CompareTask {
-                                    key,
-                                    attr_idx,
-                                    i,
-                                    j,
-                                    swapped,
-                                });
-                            }
-                        } else {
-                            let swapped = if req.randomize_presentation_order {
-                                match presentation_rng.as_mut() {
-                                    Some(rng) => rng.gen_bool(0.5),
-                                    None => rand::thread_rng().gen_bool(0.5),
-                                }
-                            } else {
-                                false
-                            };
-                            tasks.push(CompareTask {
-                                key,
-                                attr_idx,
-                                i,
-                                j,
-                                swapped,
-                            });
-                        }
-                        if tasks.len() >= batch_size {
-                            break 'coverage;
-                        }
-                    }
-                }
-            }
-        }
+        let TaskBatch { tasks, drawn_tasks } = TaskPlanner::new(
+            &req,
+            &attr_id_to_index,
+            &refused_pairs,
+            &pair_repeats,
+            batch_size,
+            &mut presentation_rng,
+        )
+        .plan(
+            proposals,
+            &manager.ranked_indices(),
+            nonce_draws,
+            comparisons_attempted,
+        );
 
         if tasks.is_empty() {
             break 'rerank RerankStopReason::NoNewPairs;
         }
-
-        // Execution order only: group the batch by (attribute, first-presented
-        // entity) so consecutive requests share their prompt prefix (template +
-        // attribute + entity A) and engine-side prefix caches can reuse the
-        // prefill. buffer_unordered issues in stream order, so sorted order is
-        // issue order. The SET of comparisons — counterbalancing included — is
-        // untouched, and the fit is order-independent within a batch.
-        tasks.sort_by_key(|task| {
-            let first = if task.swapped { task.j } else { task.i };
-            (task.attr_idx, first)
-        });
-
-        // Nonce-draw expansion (after the sort so draws of one comparison
-        // run adjacently: they share the ENTIRE prompt above the trailing
-        // draw-token line, so the engine's prefix cache serves draws 2..n
-        // almost free). draws == 1 keeps the legacy shape: no nonce, the
-        // pairwise SQLite cache stays live. draws > 1 nonces EVERY call so
-        // all draws uniformly bypass that cache — a cached copy is the
-        // opposite of an independent draw.
-        let drawn_tasks: Vec<(CompareTask, Option<String>)> = if nonce_draws > 1 {
-            tasks
-                .iter()
-                .flat_map(|task| {
-                    (0..nonce_draws).map(|draw| {
-                        use std::hash::{Hash, Hasher};
-                        let mut h = std::collections::hash_map::DefaultHasher::new();
-                        (
-                            task.attr_idx,
-                            task.i,
-                            task.j,
-                            task.swapped,
-                            draw,
-                            comparisons_attempted,
-                        )
-                            .hash(&mut h);
-                        (*task, Some(format!("{:016x}", h.finish())))
-                    })
-                })
-                .collect()
-        } else {
-            tasks.iter().map(|task| (*task, None)).collect()
-        };
 
         let mut score_cache: HashMap<String, Vec<f64>> = HashMap::new();
         let mut std_cache: HashMap<String, Vec<f64>> = HashMap::new();
@@ -461,8 +288,7 @@ pub(crate) async fn multi_rerank_with_failures(
             let attribution = execution.attribution.clone();
             let policy = execution.model_policy.clone();
             let attr = &req.attributes[task.attr_idx];
-            // When swapped, present entity j as "A" and entity i as "B"
-            // to counteract position bias.
+            // A swapped task presents j as A and i as B.
             let (entity_a, entity_b) = if task.swapped {
                 (&req.entities[task.j], &req.entities[task.i])
             } else {
@@ -552,24 +378,7 @@ pub(crate) async fn multi_rerank_with_failures(
                         text: &trace_entity_b.text,
                     },
                 };
-                let cache_key = comparison.cache_key();
-                // Render once; the digest and the retained bytes are the
-                // same render, so they correspond by construction.
-                let prompt_instance = comparison.prompt_instance();
-                let rendered_prompt_digest = prompt_instance.rendered_digest();
-                Some(TraceFields {
-                    attribute_prompt_hash: cache_key.attribute_prompt_hash,
-                    prompt_template_slug: cache_key.prompt_template_slug.clone(),
-                    template_hash: cache_key.template_hash.clone(),
-                    rendered_prompt_digest,
-                    rendered_prompt: crate::rerank::trace::RenderedPromptBytes {
-                        system: prompt_instance.system,
-                        user: prompt_instance.user,
-                    },
-                    entity_a_hash: cache_key.entity_a_hash,
-                    entity_b_hash: cache_key.entity_b_hash,
-                    cache_key_hash: cache_key.key_hash,
-                })
+                Some(TraceFields::new(comparison))
             } else {
                 None
             };
@@ -584,10 +393,7 @@ pub(crate) async fn multi_rerank_with_failures(
                 let fields = trace_fields
                     .as_ref()
                     .expect("trace_fields set when trace active");
-                // Retain bytes only when this row's digest is the spec
-                // render we hold — a row whose bytes we cannot reproduce
-                // (nonce draws, path-specific renderings) stays honestly
-                // bare rather than carrying near-miss bytes.
+                // Keep bytes only when they match the row's digest.
                 let row_digest = rendered_prompt_digest.unwrap_or(&fields.rendered_prompt_digest);
                 let rendered_prompt = (row_digest == fields.rendered_prompt_digest)
                     .then(|| fields.rendered_prompt.clone());
@@ -706,8 +512,7 @@ pub(crate) async fn multi_rerank_with_failures(
                     provider_cost_nanodollars =
                         provider_cost_nanodollars.saturating_add(usage.provider_cost_nanodollars);
                     provider_cost_is_estimate |= usage.provider_cost_is_estimate;
-                    // When presentation was swapped, "A" in the LLM
-                    // response actually refers to entity j, not i.
+                    // Map a swapped response back to entity coordinates.
                     let effective = if task.swapped {
                         match higher_ranked {
                             HigherRanked::A => HigherRanked::B,
@@ -734,11 +539,7 @@ pub(crate) async fn multi_rerank_with_failures(
                         HigherRanked::A => (task.i, task.j),
                         HigherRanked::B => (task.j, task.i),
                     };
-                    // PMF-derived moments (ratio-letter path): the solver
-                    // gets the measured mean and variance directly, with
-                    // stated confidence out of the loop. Moments arrive in
-                    // PRESENTED coordinates; a swapped presentation flips
-                    // the sign (reflection is exact for the letter algebra).
+                    // PMF moments arrive in presented coordinates.
                     let obs = if let Some(moments) = usage.evidence_moments {
                         evidence_judgements += 1;
                         if moments.logprob_mode {
@@ -752,8 +553,6 @@ pub(crate) async fn multi_rerank_with_failures(
                             if entry[slot].is_none() {
                                 entry[slot] = Some(moments.log_ratio_mean);
                                 if let [Some(unswapped), Some(swapped)] = *entry {
-                                    // Both presented-coordinate means; an
-                                    // unbiased judge gives sum == 0.
                                     evidence_order_residual_sum_abs += (unswapped + swapped).abs();
                                     evidence_order_residual_pairs += 1;
                                 }
@@ -773,10 +572,7 @@ pub(crate) async fn multi_rerank_with_failures(
                             1.0,
                         )
                     } else {
-                        // Point-path order residual: same diagnostic as the
-                        // PMF path, from the presented-coordinate signed
-                        // log-ratio. An unbiased judge's two orders sum to
-                        // zero; the residual is position bias in nats.
+                        // Apply the same order-residual diagnostic to point evidence.
                         if req.counterbalance_pairs {
                             let toward_presented_a = match effective {
                                 HigherRanked::A => 1.0,
@@ -910,25 +706,9 @@ pub(crate) async fn multi_rerank_with_failures(
         }
     };
 
-    // Honest-σ refit. PMF-internal variance understates true per-observation
-    // uncertainty: the phase-1 analysis is stochastic even at temperature 0,
-    // and that within-call noise never shows up inside a single verdict PMF
-    // (slot-hetero pack, 2026-08-30: σε = 0.215 nats/call on the terra 2p
-    // rail, ~1× signal scale, while the PMF-weighted posterior reported
-    // ±0.050). The run's own counterbalance residual is a self-calibrating
-    // estimate: with slot bias ≈ 0 (measured), m_fwd + m_rev ~ N(0, 2σε²)
-    // per pair at one draw each, so σε = mean|m_fwd + m_rev| · √π / 2
-    // (validated: 0.245 predicted vs 0.215 measured directly). Where real
-    // slot bias exists the residual includes it and the refit over-widens —
-    // conservative, never overconfident. Evidence observations get
-    // var + σ_w²; point observations keep unit precision (their weighting
-    // never claimed calibration). Without counterbalancing there is no
-    // estimator: σ_w stays None and nothing is inflated. In a
-    // mixed-instrument run the residual pools evidence and point pairs
-    // (matching `evidence_order_residual_mean_abs`'s declared "ANY
-    // instrument" semantics), so σ_w is then partly estimated from
-    // point-path residuals while applied only to evidence observations —
-    // homogeneous pools, the normal case, are unaffected.
+    // Counterbalance residual estimates context noise:
+    // σ_w = mean|m_fwd + m_rev| · √π / 2. Add σ_w² only to explicit-
+    // precision evidence; real position bias therefore widens conservatively.
     let evidence_sigma_w = (evidence_order_residual_pairs > 0 && evidence_judgements > 0)
         .then(|| {
             (evidence_order_residual_sum_abs / evidence_order_residual_pairs as f64)
@@ -936,14 +716,8 @@ pub(crate) async fn multi_rerank_with_failures(
                 / 2.0
         })
         .filter(|sigma| sigma.is_finite() && *sigma > 0.0);
-    // Companion to sigma_w: the RMS total per-observation sigma. The ratio
-    // sigma_w / obs_sigma_rms is the aleatoric share of each observation's
-    // model variance — the part that actually resamples on an independent
-    // rerun (the PMF component is the judge's reproducible expressed
-    // spread; measured on luna seeds 11-15: posterior-based rerun-agreement
-    // predictions ran 54-69% while measured cross-run agreement held at
-    // 74%, and empirical rerun sigma was ~0.3x posterior sigma — the
-    // consistency surface needs this split to be honest).
+    // RMS total sigma lets the response separate resampling noise from the
+    // judge's reproducible expressed spread.
     let evidence_obs_sigma_rms = evidence_sigma_w.and_then(|sigma_w| {
         let (sum_var, n) = observation_log
             .values()
