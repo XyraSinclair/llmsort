@@ -52,6 +52,8 @@ def read_json(path):
 
 
 def load_key():
+    if os.environ.get("OPENROUTER_API_KEY"):
+        return os.environ["OPENROUTER_API_KEY"]
     proc = subprocess.run(
         ["zsh", "-lc", 'print -rn -- "$OPENROUTER_API_KEY"'],
         stdout=subprocess.PIPE,
