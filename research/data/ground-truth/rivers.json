@@ -1,0 +1,33 @@
+{
+  "slug": "rivers",
+  "attribute": "length from source to mouth in kilometres",
+  "unit": "kilometres",
+  "source": {
+    "title": "Wikipedia, List of river systems by length",
+    "url": "https://en.wikipedia.org/wiki/List_of_river_systems_by_length",
+    "checked": "2026-10-03",
+    "notes": "The original 16-item E2 rivers anchor is retained; four cited river systems extend it to n=20. Published river lengths depend on source, tributary, and mouth conventions; the cited table's values are fixed benchmark truth, not claims of metrological exactness."
+  },
+  "items": [
+    {"id": "nile", "text": "Nile", "truth": 6650},
+    {"id": "amazon", "text": "Amazon", "truth": 6400},
+    {"id": "yangtze", "text": "Yangtze", "truth": 6300},
+    {"id": "mississippi", "text": "Mississippi", "truth": 6275},
+    {"id": "yenisei", "text": "Yenisei", "truth": 5539},
+    {"id": "yellow", "text": "Yellow River", "truth": 5464},
+    {"id": "ob", "text": "Ob", "truth": 5410},
+    {"id": "parana", "text": "Parana", "truth": 4880},
+    {"id": "congo", "text": "Congo", "truth": 4700},
+    {"id": "amur", "text": "Amur", "truth": 4444},
+    {"id": "lena", "text": "Lena", "truth": 4400},
+    {"id": "mekong", "text": "Mekong", "truth": 4350},
+    {"id": "mackenzie", "text": "Mackenzie", "truth": 4241},
+    {"id": "niger", "text": "Niger", "truth": 4200},
+    {"id": "danube", "text": "Danube", "truth": 2850},
+    {"id": "rhine", "text": "Rhine", "truth": 1230},
+    {"id": "irtysh", "text": "Irtysh", "truth": 4248},
+    {"id": "madeira", "text": "Madeira", "truth": 3380},
+    {"id": "purus", "text": "Purus", "truth": 3211},
+    {"id": "yukon", "text": "Yukon", "truth": 3185}
+  ]
+}

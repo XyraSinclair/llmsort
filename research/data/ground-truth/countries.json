@@ -1,0 +1,34 @@
+{
+  "slug": "countries",
+  "attribute": "current resident population: how many people live in the country",
+  "unit": "people",
+  "source": {
+    "title": "United Nations, World Population Prospects 2024, 2024 estimates",
+    "url": "https://population.un.org/wpp/Download/Standard/MostUsed/",
+    "published": "2024-07-11",
+    "checked": "2026-10-03",
+    "notes": "The original 16-item E2 countries anchor is retained; four WPP 2024 countries extend it to n=20. Values are the WPP 2024 mid-year estimates used by the E2 pack."
+  },
+  "items": [
+    {"id": "china", "text": "China", "truth": 1419321278},
+    {"id": "india", "text": "India", "truth": 1450935791},
+    {"id": "united-states", "text": "United States", "truth": 345426571},
+    {"id": "indonesia", "text": "Indonesia", "truth": 283487931},
+    {"id": "brazil", "text": "Brazil", "truth": 211998573},
+    {"id": "nigeria", "text": "Nigeria", "truth": 232679478},
+    {"id": "japan", "text": "Japan", "truth": 123753041},
+    {"id": "mexico", "text": "Mexico", "truth": 130861007},
+    {"id": "germany", "text": "Germany", "truth": 84552242},
+    {"id": "france", "text": "France", "truth": 66548530},
+    {"id": "united-kingdom", "text": "United Kingdom", "truth": 69138192},
+    {"id": "italy", "text": "Italy", "truth": 59342867},
+    {"id": "kenya", "text": "Kenya", "truth": 56432944},
+    {"id": "australia", "text": "Australia", "truth": 26713205},
+    {"id": "netherlands", "text": "Netherlands", "truth": 18228742},
+    {"id": "new-zealand", "text": "New Zealand", "truth": 5213944},
+    {"id": "pakistan", "text": "Pakistan", "truth": 251269164},
+    {"id": "bangladesh", "text": "Bangladesh", "truth": 173562364},
+    {"id": "russia", "text": "Russia", "truth": 144820423},
+    {"id": "ethiopia", "text": "Ethiopia", "truth": 132059767}
+  ]
+}
