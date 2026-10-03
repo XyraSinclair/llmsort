@@ -3,7 +3,7 @@
 use tiktoken_rs::cl100k_base;
 
 /// Count tokens in text using the cl100k_base tokenizer.
-pub fn count_tokens(text: &str) -> usize {
+pub(crate) fn count_tokens(text: &str) -> usize {
     let bpe = cl100k_base().expect("Failed to load cl100k_base tokenizer");
     bpe.encode_with_special_tokens(text).len()
 }
