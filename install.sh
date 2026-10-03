@@ -65,4 +65,4 @@ case ":$PATH:" in
     *":$dir:"*) ;;
     *) printf 'note: %s is not on your PATH; add it to run llmsort by name\n' "$dir" ;;
 esac
-printf 'next: export OPENROUTER_API_KEY=... and try: llmsort sort ideas.txt --by "usefulness"\n'
+printf 'next: export OPENROUTER_API_KEY=... and try:\n  curl -fsSLO https://raw.githubusercontent.com/XyraSinclair/llmsort/main/examples/ideas.txt\n  llmsort sort ideas.txt --by "usefulness as startup advice" --scores\n'

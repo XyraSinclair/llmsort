@@ -11,11 +11,10 @@ pub(super) enum ReportFormatArg {
 #[command(
     name = "llmsort",
     version,
-    about = "Canonical pairwise ratio CLI",
+    about = "Score a list by any fuzzy attribute with an LLM judge: pairwise ratio questions fitted into consistent scores with error bars, at a known cost.",
     after_help = "The stability-promised verbs are `sort` and `judge` (plus the judgment-packet \
 format they emit). Verbs marked (research) are honest, provenanced instruments \
-that are free to change shape without notice (AGENTS.md: canonical vs \
-research-grade surface)."
+that are free to change shape without notice. Docs: https://llmsorting.com"
 )]
 pub(super) struct Cli {
     #[command(subcommand)]
@@ -52,11 +51,10 @@ pub(super) enum Commands {
     /// straight into jq, a spreadsheet, or another llmsort (a re-sort
     /// replaces the scores). Requires OPENROUTER_API_KEY unless --cache-only
     /// is set and the cache already holds every judgement.
-    ///
-    /// Examples:
-    ///   llmsort sort ideas.txt --by "usefulness as advice"
-    ///   llmsort sort grants.jsonl --by "expected impact" | jq -r 'select(.llmsort.rank <= 10) | .title'
-    ///   llmsort sort backlog.csv --by "user pain if unfixed" --field title --field notes > ranked.csv
+    #[command(after_long_help = "Examples:
+  llmsort sort ideas.txt --by \"usefulness as advice\"
+  llmsort sort grants.jsonl --by \"expected impact\" | jq -r 'select(.llmsort.rank <= 10) | .title'
+  llmsort sort backlog.csv --by \"user pain if unfixed\" --field title --field notes > ranked.csv")]
     Sort {
         /// Input file; '-' or omitted reads stdin
         file: Option<PathBuf>,
@@ -109,10 +107,10 @@ pub(super) enum Commands {
         #[arg(long)]
         reverse: bool,
         /// Use the setwise (k-at-a-time listwise) instrument instead of the
-        /// pairwise path: ~1/4 the cost at adequate quality, order-sensitivity
+        /// pairwise path: ~1/3 the cost at adequate quality, order-sensitivity
         /// gauge printed on stderr. Supports --model/--k/--rounds/--seed/
-        /// --concurrency/--input/--field/--format/--scores/--reverse/--elaborate/
-        /// --quiet only.
+        /// --top-k/--concurrency/--input/--field/--format/--scores/--reverse/
+        /// --elaborate/--quiet only.
         #[arg(long)]
         setwise: bool,
         /// Setwise slots per call (measured band: 6-8)

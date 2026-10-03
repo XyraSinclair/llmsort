@@ -22,6 +22,7 @@ optional per-judgement trace.
 ```console
 $ curl -fsSL https://raw.githubusercontent.com/XyraSinclair/llmsort/main/install.sh | sh
 $ export OPENROUTER_API_KEY=...
+$ curl -fsSLO https://raw.githubusercontent.com/XyraSinclair/llmsort/main/examples/ideas.txt
 $ llmsort sort ideas.txt --by "usefulness as startup advice" --scores
 2.186±0.230	Talk to ten users before writing any code
 1.883±0.178	Ship a rough version this week and fix it live
@@ -237,6 +238,10 @@ PROGRAM.md E16, pack `research/artifacts/live/jev-sortlab-2026-09-21/`.
 The cross-cutting rule: elicit with an instrument that measures its own
 trustworthiness (gauge, counterbalancing, certification), and treat any
 top-k claim without a stability number as unmeasured.
+
+How llmsort stands against RankGPT, PRP, setwise rankers, LOTUS,
+pairwiseLLM and rating systems, feature by feature:
+<https://llmsorting.com/compare.html>.
 
 ## Evidence and experiments
 

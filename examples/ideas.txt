@@ -1,0 +1,6 @@
+Talk to ten users before writing any code
+Ship a rough version this week and fix it live
+Charge money from day one
+Rewrite the backend in a faster language
+Add a dark mode
+Design a logo before the product exists
