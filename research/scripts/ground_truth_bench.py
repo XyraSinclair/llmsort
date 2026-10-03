@@ -333,7 +333,7 @@ def cli_estimate(binary, pool):
     return float(match.group(1)), proc.stdout.strip()
 
 
-def preflight(binary, pools, key, pricing):
+def preflight(binary, pools, auth, pricing):
     estimates = {}
     pairwise = 0.0
     direct = 0.0
@@ -354,7 +354,6 @@ def preflight(binary, pools, key, pricing):
         setwise += pool_setwise
         estimates[pool["slug"]]["setwise_projected_per_seed"] = pool_setwise / len(SEEDS)
     projected = 1.20 * (pairwise + direct + setwise)
-    auth = auth_snapshot(key)
     remaining = as_float(auth.get("limit_remaining"))
     if projected >= SPEND_CAP:
         raise RuntimeError(
@@ -711,9 +710,10 @@ def main():
 
     binary_info = validate_binary(binary)
     key = load_key()
+    auth = auth_snapshot(key)
     pricing = model_pricing()
-    print("preflight: probing OpenRouter limit and shipped-binary estimates", flush=True)
-    preflight_data = preflight(binary, pools, key, pricing)
+    print("preflight: OpenRouter limit probed; estimating shipped-binary run", flush=True)
+    preflight_data = preflight(binary, pools, auth, pricing)
     print("preflight: projected ${:.3f} under ${:.2f} cap".format(preflight_data["projected_with_20pct_margin"], SPEND_CAP), flush=True)
     output.mkdir(parents=True, exist_ok=True)
     raw_dir = output / "raw"
