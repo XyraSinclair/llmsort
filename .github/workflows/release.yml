@@ -129,3 +129,53 @@ jobs:
             ${{ steps.package_windows.outputs.asset }}.sha256
           fail_on_unmatched_files: true
 
+
+  wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64
+          - os: ubuntu-latest
+            target: aarch64
+          - os: macos-14
+            target: x86_64
+          - os: macos-14
+            target: aarch64
+          - os: windows-latest
+            target: x64
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          maturin-version: "1.15.0"
+          target: ${{ matrix.target }}
+          manylinux: auto
+          args: --release --locked --out dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.target }}
+          path: dist/*.whl
+
+  # Publishes through PyPI trusted publishing once the repo variable
+  # PYPI_PUBLISH is "true" (set after the publisher is registered on PyPI).
+  pypi:
+    needs: wheels
+    if: startsWith(github.ref, 'refs/tags/') && vars.PYPI_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheel-*
+          merge-multiple: true
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@release/v1

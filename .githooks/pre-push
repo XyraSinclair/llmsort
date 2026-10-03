@@ -1,0 +1,15 @@
+#!/bin/sh
+# Runs ops/gate.sh on each pushed commit that touches Rust, the README
+# (doctests) or CI, when pushing to GitHub. Enable once per clone: git config core.hooksPath .githooks
+case "$2" in *github.com*XyraSinclair/llmsort*) ;; *) exit 0 ;; esac
+zero=0000000000000000000000000000000000000000
+while read -r _ local _ remote; do
+    [ "$local" = "$zero" ] && continue
+    range=$local; [ "$remote" = "$zero" ] || range=$remote..$local
+    git diff --name-only $range -- '*.rs' '*.toml' Cargo.lock README.md .github \
+        | grep -q . || continue
+    "$(git rev-parse --show-toplevel)/ops/gate.sh" "$local" || {
+        echo "pre-push: gate failed for $local; fix it, or push with --no-verify only if CI is already known red for another reason" >&2
+        exit 1
+    }
+done

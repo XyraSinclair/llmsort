@@ -55,7 +55,9 @@ CI is a pure function of the tree: `rust-toolchain.toml` pins the exact
 toolchain, and time-varying checks (RustSec audit, latest-stable clippy)
 live in `.github/workflows/drift.yml`, never in CI (2026-10-01: a
 docs-only commit went red when Rust 1.99 added a clippy lint). Drift red
-means bump the pin, with its fixes, in one commit.
+means bump the pin, with its fixes, in one commit. Before pushing, the
+gate runs the same checks on colo2: `git config core.hooksPath .githooks`
+once per clone (`ops/gate.sh [rev]` by hand).
 
 ## Research norms
 

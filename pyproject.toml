@@ -1,0 +1,28 @@
+# `pip install llmsort` installs the prebuilt CLI binary (maturin bin wheel);
+# the version is read from Cargo.toml. Wheels build in release.yml.
+[build-system]
+requires = ["maturin==1.15.0"]
+build-backend = "maturin"
+
+[project]
+name = "llmsort"
+dynamic = ["version"]
+description = "Score a list by any fuzzy attribute with an LLM judge: pairwise ratio questions fitted into consistent scores with error bars, at a known cost."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+keywords = ["llm", "ranking", "sorting", "pairwise", "llm-as-a-judge"]
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://llmsorting.com"
+Repository = "https://github.com/XyraSinclair/llmsort"
+
+[tool.maturin]
+bindings = "bin"
+locked = true
