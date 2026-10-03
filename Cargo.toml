@@ -54,12 +54,10 @@ async-trait = "0.1"
 blake3 = "1"
 clap = { version = "4", features = ["derive"] }
 chrono = { version = "0.4", features = ["serde"] }
-fancy-regex = "0.17"
 fs2 = { version = "0.4", optional = true }
 futures = "0.3"
 nalgebra = "0.34"
 rand = "0.8"
-regex = "1"
 reqwest = { version = "0.13", features = ["json", "gzip", "stream"] }
 rusqlite = { version = "0.38", features = ["bundled"], optional = true }
 serde = { version = "1", features = ["derive"] }
