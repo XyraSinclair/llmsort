@@ -2,23 +2,48 @@
 
 //! # llmsort
 //!
-//! Score a list by any fuzzy attribute with an LLM judge: pairwise ratio
-//! questions fitted into consistent scores with error bars, at a known cost.
+//! Sort a list by any fuzzy attribute with an LLM judge. llmsort asks pairwise
+//! ratio questions, fits the answers into one robust score scale, and returns
+//! the order, gap sizes, uncertainty, and provider cost.
 //!
-//! Instead of asking an LLM to "rate this 1–10" (unreliable, miscalibrated),
-//! llmsort asks pairwise ratio questions: "how many times more attribute
-//! does A have than B?" A robust statistical solver (IRLS with Huber loss)
-//! combines these noisy observations into globally consistent scores with
-//! uncertainty estimates. The system selects the most informative pairs to
-//! query and stops when the top-K ranking is sufficiently certain.
+//! ## Quickstart
 //!
-//! The ontology, in five nouns: an **attribute** (any nameable dimension) over
-//! entities, each holding a latent **magnitude** (only ratios are observable);
-//! **instruments** (elicitation modes) emit **evidence** in one currency —
-//! (E\[log-ratio\], honest variance) — which the solver fuses into a
-//! **scaling**: every entity placed on a shared log-ratio scale with a
-//! *reading* (magnitude ± uncertainty). A ranking is a scaling with the
-//! spacing deleted.
+//! Set `OPENROUTER_API_KEY`, then:
+//!
+//! ```no_run
+//! use std::sync::Arc;
+//!
+//! use llmsort::gateway::NoopUsageSink;
+//! use llmsort::rerank::{sort_texts, RerankExecution, SortOptions};
+//! use llmsort::{Attribution, ProviderGateway};
+//!
+//! # async fn demo() -> Result<(), Box<dyn std::error::Error>> {
+//! let gateway = ProviderGateway::from_env(Arc::new(NoopUsageSink))?;
+//! let execution =
+//!     RerankExecution::new(Arc::new(gateway), Attribution::new("app::sort"));
+//! let sorted = sort_texts(
+//!     vec![
+//!         "First proposal...".into(),
+//!         "Second proposal...".into(),
+//!         "Third proposal...".into(),
+//!     ],
+//!     "expected impact",
+//!     execution,
+//!     SortOptions::default(),
+//! )
+//! .await?;
+//!
+//! for item in sorted.items {
+//!     println!("{}. {:.3} ± {:.3}  {}", item.rank, item.latent_mean, item.latent_std, item.text);
+//! }
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! The stability-promised library surface is [`sort_texts`] and
+//! [`sort_documents`] (plus their setwise siblings). The CLI promises `sort`
+//! and `judge`; the judgement-packet format is also stable. Other public
+//! modules support composition but may change before 1.0.
 //!
 //! ## The map
 //!
@@ -32,14 +57,14 @@
 //! | gateway | [`gateway`] | provider adapters, pricing, usage accounting |
 //! | run | [`mod@rerank`], [`cache`], [`trait_search`], [`text_chunking`] | orchestration: sort, multi-attribute runs, traces, reports |
 //!
-//! The stability-promised surface is [`sort_texts`] / [`sort_documents`],
-//! the `llmsort sort` and `llmsort judge` CLI verbs, and the packet format.
-//! Everything else is exposed for composition but may move.
-//!
-//! Lineage: `cardinal-harness` → `ratiometer` → `llmsorting` → `llmsort`;
-//! the research program that produced this engine lives in this repo's
-//! `experiments/` crate and `research/` record. See `docs/ALGORITHM.md`
-//! for the design rationale.
+//! Design rationale:
+//! <https://github.com/XyraSinclair/llmsort/blob/main/docs/ALGORITHM.md>.
+//! Mathematical contract:
+//! <https://github.com/XyraSinclair/llmsort/blob/main/docs/MODEL.md>.
+//! Complete walkthrough:
+//! <https://github.com/XyraSinclair/llmsort/blob/main/docs/WORKED_EXAMPLE.md>.
+//! Research claims and replayable evidence:
+//! <https://github.com/XyraSinclair/llmsort/blob/main/PROGRAM.md>.
 
 pub mod bias_calibration;
 pub mod cache;

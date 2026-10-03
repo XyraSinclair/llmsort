@@ -9,231 +9,61 @@ Versioning once it reaches `1.0.0`.
 
 ## [0.15.0] - 2026-09-27
 
-- **Rows in, rows out.** `llmsort sort` reads JSONL and CSV rows and
-  writes them back whole, best first, so it composes with `jq`, `head`,
-  and spreadsheets. JSONL rows keep key order and verbatim values and
-  gain an `llmsort` object {rank, latent_mean, latent_std, z_score,
-  percentile}; CSV rows gain the same five as `llmsort_*` columns
-  (the reader takes RFC 4180 quoting, embedded newlines, CRLF line
-  ends, and a leading BOM).
-  The judge reads the whole row as `field: value` lines, or only the
-  columns named by the repeatable `--field`. `--format` now defaults to
-  the input's own shape and converts between them; `--format text`
-  shows what the judge read. Sorting llmsort output again replaces the
-  old scores, and the judge never sees them. Shape is sniffed from a
-  `.csv`/`.jsonl`/`.ndjson` name or the first byte; `--input
-  lines|json|jsonl|csv` forces it. One behavior change: a plain-text
-  file whose first line starts with `{` now reads as JSONL, and the
-  parse error names `--input lines` as the way back.
-- **Errors print as messages.** CLI failures print `error: <message>`
-  and any cause chain, then exit 1, instead of a Debug-quoted string.
-- **Install without a toolchain.** `install.sh` fetches the
-  checksum-verified release binary for macOS or Linux (x86_64, arm64)
-  into `~/.local/bin`. Release assets drop the version from their names
-  (`llmsort-<target>.tar.gz`, `.zip` on Windows) so
-  `releases/latest/download` links stay stable, and `cargo binstall
-  llmsort` resolves them through `[package.metadata.binstall]`.
-- **README front door.** It opens with install and pipe examples taken
-  from live runs; the repository-history notes moved to Lineage.
+### Added
 
-- **Typed-judge program indexed (docs only).** PROGRAM.md E16 and a catalog
-  row, the README method table, and FIRST_PRINCIPLES §2 cells now carry
-  the hosted-Jev sorting result: a 24-item ten-level rating in a window is
-  the measured winner across 29 judgment designs (pack
-  `research/artifacts/live/jev-sortlab-2026-09-21/`). No crate change; no
-  typed-judge gateway yet.
+- **Rows in, rows out.** `llmsort sort` now reads JSONL and RFC 4180 CSV,
+  preserves every field, and writes the same shape best-first with rank,
+  latent mean/std, z-score, and percentile attached. Repeatable `--field`
+  selects what the judge sees; `--input` overrides shape detection; `--format`
+  converts among text, JSON, JSONL, and CSV. Re-sorting replaces prior llmsort
+  scores before judging. A text file beginning with `{` is now detected as
+  JSONL; use `--input lines` to override it.
+- Pairwise runs accept `--max-dollars` and `--max-seconds`.
+  `RerankRequest`/`MultiRerankRequest` expose `max_cost_nanodollars`, and
+  `SortOptions` exposes `latency_budget_ms`. Cost-cap overshoot is bounded by
+  one counterbalanced pair and stops with `cost_budget_exhausted`; wall time is
+  checked between batches.
+- `judge --draws` now measures JSON, single-token PMF, attribute-last, and
+  two-phase instruments through their real execution paths. Unknown evidence
+  slugs fail instead of silently measuring `canonical_v2`.
+- `install.sh` installs checksum-verified macOS and Linux binaries; release
+  assets use stable version-less names and `cargo binstall llmsort` resolves
+  them through package metadata.
 
-- **`rank risk` relabelled.** The error-budget line printed it as "(top-k flip
-  probability)"; the value is Σ inversion probability over incumbent ×
-  challenger pairs at the top-k boundary — an expected count, routinely above
-  1 — so the label now reads "(expected top-k boundary inversions)". Output
-  string only; no numbers changed.
-- **Consistency line calibrated against reality — and made honest about
-  what it measures.** 11 independent luna reruns of one cell measured 74%
-  cross-run pairwise agreement where the posterior plug-in predicted
-  54–69%. Two fixes: the correct fresh-vs-this-run form
-  (Φ(|gap|/(√2·σ)), not p²+(1−p)²), and the correct σ — posterior stds
-  mix the judge's reproducible expressed PMF spread (which re-renders
-  identically on rerun, errors included) with the σ_w context noise that
-  actually resamples (empirical rerun σ ≈ 0.3× posterior). The line now
-  rescales by κ = σ_w / obs_sigma_rms (`evidence_obs_sigma_rms` joins
-  the meta beside the refit) and says "reproduce", not "agree": it
-  certifies reproducibility, never correctness — stat±/resolution keep
-  correctness. Validated on a fresh seed: 66% predicted vs 74% measured;
-  remaining conservatism is σ_w's own small-sample noise (pack
-  consistency-calibration-2026-08-31).
+### Changed
 
-- **The sort summary now answers the user's actual questions.** A
-  `consistency:` line states expected agreement with an independent rerun
-  (plug-in posterior estimate, all pairs + adjacent neighbors) — the
-  number people mean by "is the LLM consistent at this". The
-  `resolution:` line now separates three regimes instead of always
-  advising more budget: noise-dominated (raise --budget), budget-fixable
-  (~4× resolves about k neighbors), and converged near-ties — where the
-  judge reads neighbors as equal and the honest advice is a sharper
-  criterion (--rubric) or a different judge, not more spend. The guard is
-  the measured per-call noise floor (σ_w, else the order residual): a
-  starved sparse graph can never be mislabeled judge-blind.
+- The default judge is `openai/gpt-5.6-terra`. Models with measured logprob
+  support default to a single-token PMF instrument; reasoning-native 5.5/5.6
+  families use the two-phase `ratio_letter_2p_v1` path. The analysis turn now
+  disables hidden reasoning, charge estimates include both calls, and
+  `--two-sided`/`--also-by` inherit the selected instrument. Policy ladders now
+  use Fable 5, Opus 4.6, and gpt-5.6-luna; `fast_only` uses luna.
+- Posterior error bars now include the counterbalance-derived per-call context
+  noise σ_w. Run metadata adds `evidence_sigma_w` and
+  `evidence_obs_sigma_rms`; `--no-counterbalance` cannot estimate this term and
+  leaves it unset.
+- The summary reports independent-rerun reproducibility and distinguishes
+  budget-limited resolution from converged near-ties. `rank risk` is correctly
+  labelled as expected top-k boundary inversions, not a probability.
+- CLI failures print a readable cause chain. Pairwise runs stop after five
+  consecutive non-retryable failures (`consecutive_failures`) and expose
+  `comparisons_failed` plus `first_error`; `SetwiseSorted` adds `first_error`
+  and `malformed_samples`.
+- Provider 429 cooldown is shared across workers and honors `retry_after`.
+  `--estimate` reports a typical cost alongside the hard maximum, and
+  `ComparisonUsage` now records `cache_read_tokens`.
 
-- **2p analysis turn now runs with reasoning disabled** — measured with
-  the new evidence-rail draws instrument (sigma-eps-knobs pack): on terra
-  the phase-1 hidden reasoning was the rail's dominant noise source
-  (σε 0.260 → 0.181 nats/call disabled; paired 3-seed sort cells: order
-  residual −41%, flips 14/48 → 6/48, rank risk 3.9 → 2.4, −13% cost,
-  frustration better 2/3), while luna is unchanged within noise. The
-  verdict-forbidden written analysis is what carries the two-phase
-  quality win; reasoning on top of it only jitters the verdict.
+### Research (docs only)
 
-- **`judge --draws` now speaks the evidence rails** (`ratio_letter_v1`,
-  attr-last, and the two-phase protocol): a draw nonce threads through
-  `PairwiseComparisonRequest` into the real comparison path — identical
-  bytes to sort's own calls plus one `draw-token` line after every stable
-  byte, pairwise SQLite cache bypassed both directions — so a draws cell
-  measures the rail it names (the slot-hetero incident class, closed at
-  the seam). Live: terra 2p σ_w 0.146 (n=4, consistent with the measured
-  0.215), and the single-phase rail measures σ_w 0.004 — direct
-  confirmation the 2p rail's noise lives in the stochastic analysis turn,
-  not the verdict read. Evidence draws run the rail's native temperature
-  and unpadded prompts (fidelity over cache savings; short pairs bill
-  fresh under the ~1024-token provider floor).
-
-- **Honest-σ refit (σ_w): posterior stds now include measured per-call
-  context noise.** The counterbalance residual the run already computes is
-  a self-calibrating noise estimator (σ_w = mean|m_fwd + m_rev|·√π/2, exact
-  when slot bias ≈ 0 — measured true on terra's 2p and JSON rails,
-  slot-hetero pack; conservative where real bias exists, since the residual
-  then includes it and the refit only widens). At end of run every evidence
-  observation is re-ingested with `var + σ_w²`, so `latent_std` and the
-  error-budget `stat` line stop understating uncertainty the PMF cannot
-  see (the 2p rail reported ±0.050 while true per-call noise was 0.215
-  nats). Reported as `noise sigma_w … nats/call` in the error budget and
-  `evidence_sigma_w` in meta; traces keep the raw per-comparison PMF
-  variance; `--no-counterbalance` runs have no estimator and are left
-  un-widened (σ_w = None). No new knobs.
-
-- **`judge --draws` rejects evidence-rail slugs loudly** instead of silently
-  measuring `canonical_v2`: `nonce_draws` used to fall back to
-  `DEFAULT_PROMPT` for any slug `prompt_by_slug` didn't know, so a draws run
-  with `--template ratio_letter_2p_v1` quietly characterized the wrong rail
-  (caught 2026-08-30 when a slot-bias cell's numbers didn't match the rail
-  it claimed; slot-hetero pack). Measuring an evidence rail's sigma_w =
-  repeat plain `judge` calls.
-- **Measured (slot-hetero pack): the 2p rail's order residual is per-call
-  noise, not position bias** — global slot bias +0.013 nats, per-pair
-  slot-bias variance 0.0000, within-call σε 0.215 nats/call explains the
-  whole 0.277; symmetrization instruments are dead, counterbalancing stays
-  (it is repeat-averaging plus a free noise gauge), and the honest
-  per-observation σ on this rail needs a σ_w term (docs/NORTH.md).
-
-- **Two-phase PMF rail (`ratio_letter_2p_v1`), default for reasoning-native
-  judges**: turn 1 elicits a brief reasoned analysis with the verdict token
-  forbidden (a visible verdict collapses the answer PMF — docs/LOGPROBS.md);
-  turn 2 re-sends the conversation with the analysis as an assistant
-  message and reads the single ladder letter at reasoning-off with clamped
-  answer logprobs (same system+user bytes, so the provider prefix cache
-  serves the re-sent turn warm). Measured on gpt-5.6-terra (8×32, seed 7):
-  cyclic energy 21.6% → 2.4% and frustration 0.216 → 0.024 vs the
-  single-phase rail — beating the JSON rail's consistency (7.6%/0.076)
-  while keeping PMF precision (stat ±0.050) — at $0.124 vs $0.034. The
-  default follows the measured line: families whose logprobs REQUIRE
-  effort none (5.5/5.6, reasoning-native) get the two-phase read;
-  families where unset effort also serves logprobs measured worse under
-  it (5.4-mini: cyclic 11.7% vs 2.9%) and keep the plain rail; the
-  charge estimate prices the two-call protocol. Empty analysis degrades
-  loudly to the single-phase verdict.
-- **Default judge is now `openai/gpt-5.6-terra`** (was gpt-5.4-mini; the
-  current family's mid class, at gpt-5.4's price). One constant
-  (`llmsort::rerank::DEFAULT_MODEL`) now feeds sort/rerank, `judge`,
-  `research`, and criterion elaboration; policy ladders move to
-  claude-fable-5 / opus-4.6 / gpt-5.6-luna and `fast_only` to luna.
-  Typical-output-token estimate re-measured on terra (74 mean / 96 max on
-  canonical_v2; constant sized to 96). Terra on the PMF rail: stat
-  ±0.061 vs JSON ±0.491, rank risk 0.95 vs 6.59, but order residual
-  0.391 vs 0.120 nats and cyclic 21.6% vs 7.6% — the reasoning-off rail
-  exposes judge inconsistency the JSON rail's reasoning smooths over;
-  see docs/NORTH.md spine 3.
-- **Default instrument flip (NORTH spine 3)**: when no prompt template is
-  chosen, `sort`/rerank now resolve it per model (`default_template_slug`)
-  — `ratio_letter_v1`, the single-token PMF rail, wherever the measured
-  logprob matrix (docs/LOGPROBS.md) serves answer alternatives
-  (gpt-4.1/gpt-4o: 20; gpt-5.1/5.2/5.4/5.5/5.6 families: 5 at reasoning
-  off), `canonical_v2` JSON elsewhere. The default is materialized into
-  the request before validation, so cache keys, trace rows, dispatch, and
-  the charge estimate all carry the instrument that actually runs, and
-  the CLI summary names it. The seriate call now clamps `top_logprobs`
-  to the route's cap — over-cap on OpenRouter returned 200 with
-  `logprobs: null`, silently discarding the whole PMF on 5.x models —
-  and pins reasoning off where required (5.5/5.6 400 otherwise; a
-  16-token single-letter budget burns as hidden reasoning). Consistency
-  probes (`--two-sided`, `--also-by`) inherit the criterion's instrument
-  instead of always running canonical JSON. Live A/B on the default
-  model (gpt-5.4-mini, 32 comparisons, identical cost): stat error
-  ±0.019 vs ±0.521, order residual 0.031 vs 0.192 nats, frustration
-  0.029 vs 0.107.
-- The family-sweep rail (NORTH E10): `ratio_letter_attrlast_v1` — the
-  attribute-LAST twin of the ratio-letter instrument (entities first, so
-  the pair prefix is byte-stable across attribute variants and provider
-  prefix caches serve {A, A′, ¬A} sweeps at cached-input prices; same
-  alphabet, parser, and evidence currency; pair-keyed cache routing).
-  `ComparisonUsage` gains `cache_read_tokens` so cache economics are
-  measurable per call. Measured (E10, 960 calls): 38.5% cached input and
-  −29% cost on long entities — at a real accuracy price on this judge
-  (truth ρ roughly halves); the trade is documented in docs/NORTH.md and
-  the default template is unchanged.
-- Hard spend and wall caps in the run loop: `RerankRequest` /
-  `MultiRerankRequest` gain `max_cost_nanodollars` (serde-defaulted,
-  validated ≥ 1) and the CLI gains `--max-dollars` / `--max-seconds`
-  (pairwise path; `SortOptions` also exposes `latency_budget_ms`). The
-  orchestrator sizes each batch to the remaining cost cap using the
-  measured mean cost per comparison (typical estimate before any data),
-  so overshoot is bounded by one counterbalanced pair — not a full
-  32-comparison batch — and stops with `stop_reason:
-  cost_budget_exhausted` (verified live: $0.004 cap → 12 of 32
-  comparisons, $0.0047). `--estimate` names the cap it will honor.
-  `--max-seconds` still checks between batches only; a long in-flight
-  batch can overshoot the wall cap.
-- 429 backpressure is shared and `retry_after` is honored: a rate-limited
-  worker extends one gateway-wide cooldown (never shortens it) that every
-  dispatch waits out, instead of each worker retrying independently;
-  retry delay is `max(backoff, retry_after)` capped at 30s.
-- Setwise error parity: `SetwiseSorted` gains `first_error` and up to
-  three truncated `malformed_samples`; the CLI summary appends them when
-  nonzero, and an all-failed run says why ("no usable judge calls …;
-  first error: openrouter error: User not found.") instead of bare
-  counts.
-- First-run honesty (measured 2026-08-29 on the 8-item demo): `sort`
-  reports the first comparison error in its failure message and stops after
-  five consecutive non-retryable failures (`stop_reason:
-  consecutive_failures`; `RerankMeta` gains `comparisons_failed` and
-  `first_error`, both serde-defaulted); `--estimate` prints a typical cost
-  (48 output tokens/comparison, measured 27 mean) beside the hard max it
-  used to print alone (the cap-based figure overquoted the demo 94x); the
-  run summary gains a `resolution:` line counting adjacent ranks inside
-  joint 1σ, so an order that is statistically noise says so.
-- One repo, all names, all history (operator decisions 2026-08-19):
-  the GitHub repo is `llmsort`; the legacy names `cardinal-harness`,
-  `ratiometer`, and `llmsorting` all redirect here (each was walked
-  through this repo to capture its redirect — downstream pointers land
-  on the maintained state of the art, never a tombstone). The full
-  pre-extraction history and seriate's history are grafted into this
-  repo's ancestry via ours-merges; the llmsort-lab and seriate
-  satellite repos are deleted (colo2 bare mirrors retained).
-
-- The repo is now a workspace: `experiments/` (`llmsort-experiments`,
-  never published) carries the research side folded in from llmsort-lab —
-  the `cardinal` research CLI, the `cardinald` daemon, live batteries, and
-  the research test suites. The published crate is unchanged apart from a
-  handful of `#[doc(hidden)] pub` seams (`rerank::gates` application frame,
-  judgement-run instrumentation hooks, config builders) that the
-  experiments crate consumes; these are not public API.
-- Everything is llmsort: the measured record folded in as `research/` —
-  replayable evidence packs (`research/artifacts/live/`), dated notes,
-  campaign definitions, and python analysis — with `PROGRAM.md` at the
-  root and the program docs (FIRST_PRINCIPLES, MATH_FRONTIER, PRINCIPLES,
-  …) merged into `docs/`. None of this ships in the published package
-  (the crates.io include-list is unchanged). The llmsort-lab repo's
-  history is grafted into this repo's ancestry and the satellite repo
-  is deleted.
+- PROGRAM.md E16 records the hosted-Jev result: ten-level ratings in 24-item
+  windows led 29 tested designs across four cohorts and every budget. No typed
+  judge gateway ships in this release.
+- The attribute-last family sweep measured 38.5% cached input and 29% lower
+  cost on long entities, but roughly halved truth correlation; the default
+  prompt remains attribute-first.
+- Research code and records were consolidated under `experiments/` and
+  `research/`, with predecessor histories grafted here. The published package
+  changed only through hidden seams consumed by the experiments crate.
 
 ## [0.14.0] - 2026-08-18
 
@@ -285,7 +115,7 @@ Versioning once it reaches `1.0.0`.
 
 - **Renamed the crate and repository: `cardinal-harness` → `ratiometer`**
   (operator decision 2026-08-12; north-star ontology and naming map in
-  `notes/north-star-ontology-2026-08-11.md`). A ratiometer measures the
+  `research/notes/north-star-ontology-2026-08-11.md`). A ratiometer measures the
   ratio of two signals; ratiometric measurement — no absolute anchor,
   every reading taken against a paired reference — is this engine's
   epistemics. Public type paths move from `cardinal_harness::X` to
@@ -300,9 +130,11 @@ Versioning once it reaches `1.0.0`.
   cache key and packet id.
 - Data-plane label: the default landing provenance (`landing.rs` HARNESS)
   now writes `ratiometer`; rows landed earlier carry `cardinal-harness`.
-- Docs: `docs/WHAT_WHY_HOW.md` gains the locked "What we are building"
-  section (attribute → magnitude → instrument → evidence → scaling of
-  readings; "readings, not rankings").
+
+### Research (docs only)
+
+- `README.md` recorded the attribute → magnitude → instrument → evidence →
+  scaling ontology used by the research program at this release.
 
 ## [0.11.0] - 2026-08-11
 
@@ -324,7 +156,7 @@ Versioning once it reaches `1.0.0`.
   ontology, atoms, evidence PMFs, judgement records, the `Instrument`
   trait with `ratio_letter`/`ordinal`, and the `TokenLogprob` transport
   shape (seriate @ `ba32ca0`, decision record in
-  `notes/seriate-fold-2026-08-11.md`). The standalone crate's CLI,
+  `research/notes/seriate-fold-2026-08-11.md`). The standalone crate's CLI,
   gateway, sqlite evidence log, posterior compiler, and unused
   `kwise`/`scalar` instruments were culled (~4.4k lines; history stays in
   the tombstoned repo). BREAKING for type identity: what was
@@ -335,11 +167,14 @@ Versioning once it reaches `1.0.0`.
   float parse-roundtrip is load-bearing for id stability (caught by the
   vendored `json_round_trip_preserves_id` test under cardinal's default
   serde_json).
-- The logprob reality map (DeepSeek logprobs vs own sampling at JSD 0.81)
-  moved from the seriate repo to `notes/logprob-reality-2026-07-04/`.
 - Two `TokenLogprob` types now coexist (cardinal's `gateway::TokenLogprob`
   and the vendored `seriate::gateway::TokenLogprob`); unification is a
   known follow-up seam cleanup, deliberately out of the fold's scope.
+
+### Research (docs only)
+
+- The logprob reality map (DeepSeek logprobs vs own sampling at JSD 0.81)
+  moved from the seriate repo to `research/notes/logprob-reality-2026-07-04/`.
 
 ## [0.9.0] - 2026-08-10
 
@@ -358,13 +193,13 @@ the next release.
   byte-identically for any partition of the same evidence in any order,
   pinned with `to_bits` equality. The pin forced a real solver fix (HashMap
   fuse buckets randomized edge order; now BTreeMap).
-- `cardinal.judgement-run.v1` (`src/judgement_run.rs`): the portable
+- `cardinal.judgement-run.v1` (`experiments/src/judgement_run.rs`): the portable
   judgment atom for finite-candidate single-axis runs — execute, persist,
   reload, reproduce.
-- `cardinald` (`src/bin/cardinald.rs`): localhost judgement-run daemon with
+- `cardinald` (`experiments/src/bin/cardinald.rs`): localhost judgement-run daemon with
   ClickHouse provenance landing. Endpoints: `/healthz`, `POST /v1/estimate`
   (worst-case spend bound), `POST /v1/runs` (adaptive), `GET
-  /v1/runs/{ref}`. Contract in `docs/CARDINALD.md`.
+  /v1/runs/{ref}`. Contract in `research/notes/CARDINALD.md`.
 - cardinald external-harness lane: `POST /v1/schedule` returns a stateless
   counterbalanced comparison plan (prompts rendered by the same
   `canonical_v2` code as the adaptive path); `mode=external` on `POST
@@ -373,14 +208,11 @@ the next release.
   2026-08-10 independent review: `schedule_digest` binds results to the
   issued rendering, coverage floors reject partial result sets, and
   `GET /v1/runs/{ref}` carries `entity_ids` + `entity_text_hashes`.
-- The public JCB board site (`site/index.html`) at pairwiseratio.org —
-  one static committed HTML file, every row recomputable from committed
-  evidence packs.
 - Codex gateway adapter (`gateway::codex`): `codex/<model>` slugs route
   through the subscription-billed Codex exec CLI (pooled shim, scratch-cwd
   isolation, zero marginal cost). Smoke-verified; no rail-fitness study
   yet — the claude-code rail has one (21/21 decisive-pair agreement,
-  notes/claudecode-vs-api-2026-08-06).
+  `research/notes/claudecode-vs-api-2026-08-06/`).
 - Native Claude Code gateway adapter (`gateway::claude_code`): chat
   completions through local `claude -p` print mode, billed to the operator's
   subscription at zero marginal API cost. `ChatModel::ClaudeCode` routes
@@ -388,15 +220,15 @@ the next release.
   subscription quota errors are a non-retryable rate-limit class
   (`RateLimitSource::Subscription`) so callers control rescheduling around
   the CLI-named reset. `ClaudeCodeConfig::config_dir` points calls at a
-  scratch `CLAUDE_CONFIG_DIR` (prepared by `scripts/claude_code_judge.py
+  scratch `CLAUDE_CONFIG_DIR` (prepared by `research/scripts/claude_code_judge.py
   --pure`) for isolated judging context. Live smoke in
-  `examples/claude_code_chat.rs`: fable served, cost 0 nanodollars,
+  `experiments/examples/claude_code_chat.rs`: fable served, cost 0 nanodollars,
   ~7s latency.
 - `ChatResponse::served_model`: the model the provider reports it actually
   served (OpenRouter response `model`; Claude Code `modelUsage`), so
   measurement runs can assert served-vs-requested instead of trusting the
   request.
-- `scripts/claude_code_judge.py`: subscription-billed structured-judgment
+- `research/scripts/claude_code_judge.py`: subscription-billed structured-judgment
   elicitation through Claude Code print mode (`--json-schema` →
   server-validated `structured_output`, zero marginal API cost). `--pure`
   runs each judgment in a scratch `CLAUDE_CONFIG_DIR` (Keychain mirror
@@ -447,6 +279,11 @@ the next release.
   the blocker, seriate being git-only, dissolved when seriate 0.1.2 was
   published to crates.io the same day.)
 
+### Research (docs only)
+
+- Published the pairwiseratio.org JCB board with every row recomputable from
+  committed evidence packs.
+
 ## [0.9.0-dev] - 2026-07-05
 
 Internal version bump, never separately released — included in the 0.9.0
@@ -462,7 +299,10 @@ crates.io release above.
 - Hodge curl fraction of the judgement edge field surfaced per attribute
   and in run meta; transitive-vs-cyclic judge test pins the
   quantization-curl floor and planted-cycle detection.
-- `docs/FIRST_PRINCIPLES.md`: the instrument type grid, invariance group,
+
+### Research (docs only)
+
+- `research/notes/FIRST_PRINCIPLES.md`: the instrument type grid, invariance group,
   and efficiency theory matched cell-by-cell against the repo.
 
 ## [0.8.1] - 2026-07-05
@@ -513,10 +353,10 @@ crates.io release above.
   provider dollars before any network or cache touch — with per-template
   honesty (single-letter evidence calls cap at 16 output tokens, ~100x
   cheaper worst case than the JSON path).
-- Planner regret benchmark (`tests/planner_regret.rs`): comparisons-to-
+- Planner regret benchmark (`experiments/tests/planner_regret.rs`): comparisons-to-
   answer for the active planner vs uniform random pair selection.
 
-### Findings (measured, pinned two-sided)
+### Research (docs only)
 - HONEST NEGATIVE: the current planner LOSES to uniform random pair
   selection at n=20 under a noisy simulated judge — on top-5
   identification (~134.7 vs ~86.7 comparisons) and global tau (~51.3 vs
@@ -556,7 +396,7 @@ crates.io release above.
   pathological-judge taxonomy (position-biased, intransitive, compressed,
   refusing, gaslighting, format-vandal), method head-to-heads vs Likert and
   ordinal baselines, and planner/pruning/stopping efficiency. Authored and
-  adversarially reviewed by independent agents; see docs/TESTING.md.
+  adversarially reviewed by independent agents; see research/notes/TESTING.md.
 
 ### Fixed
 - `solve_irls_huber`: MAD outlier-scale estimate collapsed when residuals
@@ -586,8 +426,11 @@ crates.io release above.
   `--prune-below` on `sort`) stops spending forced-exploration comparisons on
   items whose posterior chance of reaching the top-k is negligible;
   `entities_pruned` count in response meta.
+
+### Research (docs only)
+
 - Live taste-tooling study pack under
-  `artifacts/live/taste-tools-demo-2026-07-02/` showing attribute recovery:
+  `research/artifacts/live/taste-tools-demo-2026-07-02/` showing attribute recovery:
   explain identifies the criterion that actually generated a ranking (ρ=+0.98,
   weight 0.85) against three LLM-proposed decoys.
 
@@ -605,8 +448,11 @@ crates.io release above.
 - Natural ordinal prompt template `ordinal_v1` (direction + confidence only),
   entering the solver as a fixed modest log-ratio shared with the synthetic
   ordinal mode (`ORDINAL_OBSERVATION_RATIO`).
+
+### Research (docs only)
+
 - Live healthy-elicitation study pack under
-  `artifacts/live/healthy-sort-demo-2026-07-02/`: a real Sonnet 4.6 run
+  `research/artifacts/live/healthy-sort-demo-2026-07-02/`: a real Sonnet 4.6 run
   measuring 11/51 order flips, +0.81 opposite-side consistency, and a +0.35
   (shaky) paraphrase.
 
@@ -626,8 +472,6 @@ crates.io release above.
   with sha256 checksums.
 - Tight crates.io packaging (explicit `include`, ~50 files), docs.rs metadata,
   and `CITATION.cff`.
-- Live `cardinal sort` demo study pack under
-  `artifacts/live/sort-demo-2026-07-02/`.
 - Fixed CI checks under current stable toolchain (rustfmt/clippy/rustdoc).
 - Updated transitive dependency `bytes` to address RUSTSEC-2026-0007.
 - Added a Likert baseline synthetic eval runner (`cardinal eval-likert`) for comparisons.
@@ -637,6 +481,11 @@ crates.io release above.
   comprehensive prompt layout sweep (4 variants × 7 models × 8 attributes) and
   found to offer no advantage over `canonical_v2`. The slug still resolves to
   `canonical_v2` for backward compatibility but is no longer a distinct template.
+
+### Research (docs only)
+
+- Live `cardinal sort` demo study pack under
+  `research/artifacts/live/sort-demo-2026-07-02/`.
 
 ## [0.1.0] - 2026-01-31
 

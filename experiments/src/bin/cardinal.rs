@@ -46,11 +46,10 @@ impl From<PairwiseModeArg> for llmsort_experiments::evaluation::SyntheticPairwis
 #[command(
     name = "cardinal",
     version,
-    about = "Canonical pairwise ratio CLI",
-    after_help = "The stability-promised verbs are `sort` and `judge` (plus the judgment-packet \
-format they emit). Verbs marked (research) are honest, provenanced instruments \
-that are free to change shape without notice (AGENTS.md: canonical vs \
-research-grade surface)."
+    about = "Experimental research instruments for llmsort",
+    after_help = "For the stable CLI, use `llmsort sort` and `llmsort judge`. \
+cardinal commands are research instruments and may change without notice. \
+Research record: https://github.com/XyraSinclair/llmsort/tree/main/research"
 )]
 struct Cli {
     #[command(subcommand)]
@@ -395,10 +394,14 @@ enum Commands {
         #[arg(long)]
         cache: Option<PathBuf>,
     },
-    /// constant judge cannot hide in perfect consistency. Headline score =
-    /// signal × coherence. Default battery: the fixed v1.2 corpus, 202
-    /// comparisons per model; scale up with --pool (entity-pool JSON →
-    /// procedurally generated battery, deterministic in --battery-seed).
+    /// (research) Score judge coherence without ground-truth labels
+    ///
+    /// Measures consistency under meaning-preserving transformations plus a
+    /// signal axis, so a constant judge cannot hide in perfect consistency.
+    /// Headline score = signal × coherence. Default battery: the fixed v1.2
+    /// corpus, 202 comparisons per model; scale up with --pool (entity-pool
+    /// JSON → procedurally generated battery, deterministic in
+    /// --battery-seed).
     Bench {
         /// Model slug(s), comma-separated
         #[arg(long)]

@@ -5,19 +5,15 @@
 [![docs.rs](https://img.shields.io/docsrs/llmsort)](https://docs.rs/llmsort)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-You have a list and a fuzzy criterion: fifty grant proposals by
-expected impact, a backlog by user pain, ideas by upside. An LLM can
-judge these, but asked directly it gives answers you cannot trust:
-"rate each 1–10" clusters at 7 with no error bars, and one-prompt
-sorts drop items. llmsort asks the model many small pairwise questions
-("how many times more of X does A have than B?") and fits the answers
-into one consistent set of scores, so you get the order, the size of
-every gap, and how sure the model is about each.
+You have a list and a fuzzy criterion: grant proposals by expected impact, a
+backlog by user pain, ideas by upside. Direct 1–10 ratings cluster around 7 and
+one-prompt sorts can drop items. llmsort instead asks many small pairwise ratio
+questions, fits one consistent score scale, and reports the size and uncertainty
+of every gap.
 
-It spends each comparison where it buys the most information, stops
-when the top-k is certain enough or the budget runs out, and reports
-what the run cost: comparisons, tokens, dollars, stop reason, and an
-optional per-judgement trace.
+It spends comparisons where they are most informative, stops when the requested
+top-k is certain enough or the budget runs out, and reports comparisons, tokens,
+dollars, and the stop reason.
 
 ```console
 $ curl -fsSL https://raw.githubusercontent.com/XyraSinclair/llmsort/main/install.sh | sh
@@ -32,16 +28,13 @@ $ llmsort sort ideas.txt --by "usefulness as startup advice" --scores
 0.000±0.230	Design a logo before the product exists
 ```
 
-Scores are natural-log magnitudes: a gap of 1.0 means about 2.7× as
-much of the attribute in the judge's reading, and ± is one standard
-deviation. The top three are close; the fourth is a real step down.
+Scores are natural-log magnitudes: a gap of 1.0 means about 2.7× as much of the
+attribute in the judge's reading; ± is one standard deviation.
 
 ## Rows in, rows out
 
-llmsort is a filter. Results go to stdout in the shape they came in,
-and the progress and cost summary go to stderr, so it sits in a pipe
-next to `jq`, `head`, and `sort`. JSONL and CSV rows keep every field
-and gain their scores:
+Results go to stdout in the input shape; progress and cost go to stderr. JSONL
+and CSV rows keep every field and gain scores:
 
 ```console
 $ llmsort sort grants.jsonl --by "expected good done per dollar" > ranked.jsonl
@@ -64,98 +57,74 @@ id,title,notes,llmsort_rank,llmsort_latent_mean,llmsort_latent_std,llmsort_z_sco
 $ git log --format=%s -n 40 | llmsort sort --by "risk of breaking users" | head -n 5
 ```
 
-- **Input shapes.** One item per line, a JSON array (strings or
-  `{id, text}` objects), JSONL objects, or CSV with a header. A `.csv`,
-  `.jsonl`, or `.ndjson` name decides; otherwise a leading `{` reads
-  as JSONL, a leading `[` as a JSON array, anything else as lines.
-  `--input lines|json|jsonl|csv` overrides the guess.
-- **What the judge reads.** The whole row, as `field: value` lines.
-  `--field` (repeatable) narrows it to the named JSONL keys or CSV
-  columns.
-- **What comes back.** Every row, whole and best first: JSONL keeps
-  key order and writes each value back verbatim. The scores land in an `llmsort`
-  object (JSONL) or five `llmsort_*` columns (CSV): `rank`,
-  `latent_mean`, `latent_std`, `z_score`, `percentile`. Sorting
-  llmsort output again replaces the old scores, and the judge never
-  sees them.
-- **Converting.** `--format jsonl|csv` switches shape (nested JSON
-  becomes JSON text in a CSV cell), `--format text` prints what the
-  judge read, and `--format json` prints the full run report.
-- **Top of a long list.** `--top-k 10` spends the comparisons on
-  settling the top ten; `head -n 10` then cuts the list there.
+- A `.csv`, `.jsonl`, or `.ndjson` filename selects that input; otherwise a
+  leading `{` means JSONL, `[` means a JSON array, and anything else means one
+  item per line. `--input lines|json|jsonl|csv` overrides detection.
+- `--field` is repeatable and limits which JSONL keys or CSV columns the judge
+  reads. Without it, the judge sees the whole row as `field: value` lines.
+- JSONL gains an `llmsort` object. CSV gains `llmsort_rank`,
+  `llmsort_latent_mean`, `llmsort_latent_std`, `llmsort_z_score`, and
+  `llmsort_percentile`. Re-sorting replaces old scores before judging.
+- `--format jsonl|csv` converts row shape, `--format text` prints what the judge
+  read, and `--format json` prints the full run report.
+- `--top-k 10` focuses the comparison budget on settling the top ten.
 
 ## Install
 
 ```console
 $ curl -fsSL https://raw.githubusercontent.com/XyraSinclair/llmsort/main/install.sh | sh
-$ cargo binstall llmsort   # the same prebuilt binary, through cargo-binstall
+$ cargo binstall llmsort   # the same prebuilt binary
 $ cargo install llmsort    # build from source
-$ cargo add llmsort        # the library
+$ cargo add llmsort        # use the library
 ```
 
-The install script puts a checksum-verified binary for macOS or Linux
-(x86_64 or arm64) in `~/.local/bin`; `LLMSORT_INSTALL_DIR` and
-`LLMSORT_VERSION` override the directory and the release. Windows
-builds are on the [releases page](https://github.com/XyraSinclair/llmsort/releases/latest).
+The install script places a checksum-verified macOS or Linux binary in
+`~/.local/bin`; Windows builds are on the
+[releases page](https://github.com/XyraSinclair/llmsort/releases/latest).
+`LLMSORT_INSTALL_DIR` and `LLMSORT_VERSION` override the destination and release.
 
-The judge runs through [OpenRouter](https://openrouter.ai), so
-`OPENROUTER_API_KEY` must be set. The default judge is
-`openai/gpt-5.6-terra`; the setwise path (`--setwise`, below) defaults
-to the cheaper `openai/gpt-5.6-luna`, and `--model` /
-`SortOptions.model` takes any OpenRouter slug. For scale: a measured
-n=8 sort at the default 4·n budget is 32 comparisons ≈ $0.11 on the
-default judge (the `--no-cache` quality-gate cells in
-`research/artifacts/live/sigma-eps-knobs-2026-08-31/`). Judgements are
-cached locally, so re-running the same sort replays them instead of
-paying again.
+The judge uses [OpenRouter](https://openrouter.ai), so set
+`OPENROUTER_API_KEY`. Pairwise sorting defaults to `openai/gpt-5.6-terra`;
+setwise sorting defaults to `openai/gpt-5.6-luna`. `--model` accepts any
+OpenRouter slug. Judgements are cached locally, so an identical rerun does not
+pay for the same calls again.
 
-## Why not just ask the model to sort?
+## Choosing a method
 
-| Approach | What breaks |
-|---|---|
-| "Rate each item 1–10" | Miscalibrated, anchor-dependent; scores cluster at 7–8; no error bars |
-| "Sort this list" in one prompt | Position bias, context limits, silently dropped or hallucinated items |
-| "Which is better, A or B?" over pairs | Ordinal only — throws away *how much* better; naive schedules cost O(n²) |
-| Elo / Bradley–Terry over wins | Better aggregation, but still magnitude-blind and passive about which pair to ask next |
+These methods were run head-to-head on the same pools, models, and seeds. See
+[PROGRAM.md](PROGRAM.md) E12–E16 and the linked evidence packs for denominators
+and limits.
 
-llmsort treats each ratio answer as a noisy log-space measurement, fits
-latent scores over the whole comparison graph with a robust solver (IRLS,
-Huber loss), reads uncertainty off the posterior, and plans the next
-comparison by effective resistance on the graph. Default budget is 4·n
-comparisons — O(n), not O(n²).
+| Method | What the measurements say | Use when |
+|---|---|---|
+| Pointwise 0–100 | Cheapest per item, but close pools collapse into tie blocks; one 16-item run produced three distinct scores and truth-ρ −0.19 | A rough full-list order where top-k and magnitudes do not matter |
+| Single-call listwise | Fast for small lists, but one malformed answer loses the run and the implementation is capped at 26 items | A one-shot sort you will inspect manually |
+| Setwise (`--setwise`) | At ring k=8 with two rounds, matched the pairwise path's test–retest band at about one-third the cost; the flip-rate gauge flags unstable pools | Adequate orders for reranking, triage, and queues |
+| Funnel (setwise screen, pairwise top-k refinement) | Reached the pairwise path's own top-10 reproducibility at 0.3–0.6× its cost | Finding the best few of many |
+| Pairwise ratio (default) | Returns cardinal scores ±σ, counterbalances presentation order, and targets the requested boundary | Magnitudes, error bars, or certification matter |
+| Typed ten-level rating in a 24-item window | On hosted Jev, led 29 tested designs across four cohorts and every budget; it is not yet a crate instrument | Research with a typed-probability judge |
 
-How much is "how much" worth? For near-tied items there is a closed
-form. Read a comparison as a noisy measurement x ~ N(μ, σ²) of the true
-gap μ: the reading carries Fisher information 1/σ², and its sign alone
-carries (2/π)/σ² as μ → 0. A win/loss verdict keeps 64% of what the judge
-told you; the magnitude is worth π/2 − 1 ≈ 57% more per call, before any
-weighting. Measured on 72,813 judgements from a private production
-ledger (the scripts are public, the rows are not) where one call yields
-both readouts, magnitude alone saves 1.3–1.8× the comparisons at small
-budgets (straddling π/2), the per-call variance from the logprob PMF
-saves another ~1.4×, and at full budget verdict-only sorting plateaus at
-split-half Kendall τ 0.16 where the PMF moments reach 0.49 — a pairwise
-reversal rate of 0.39 against 0.24, a gap no verdict budget in range
-closes. One judge, near-tie pools; wide separations shrink the advantage
-([the note](research/notes/logprob-efficiency-2026-09-05/FINDINGS.md)).
+Setwise order is not evidence that near-duplicates differ: read adjacent error
+bars before trusting their relative positions. The general rule is to choose an
+instrument that measures its own trustworthiness and to treat any top-k claim
+without a stability number as unmeasured.
 
-## Judge: the audit instrument
+## Judge one pair
 
 ```console
 $ llmsort judge "plan A" "plan B" --by "execution risk"
-$ llmsort judge @a.md @b.md --by "clarity" --spin     # does the belief survive framing?
-$ llmsort judge @a.md @b.md --by "clarity" --orbit    # order × polarity × wording group
+$ llmsort judge @a.md @b.md --by "clarity" --spin
+$ llmsort judge @a.md @b.md --by "clarity" --orbit
 ```
 
-`judge` gives one pairwise reading, plus probes that test whether the
-judgement is a *belief* (it survives presentation order, polarity,
-paraphrase, and who is asking) or an echo of how you asked. The probes
-report the invariant component and every named bias separately.
+`judge` exposes one comparison and optional probes for presentation order,
+polarity, wording, and requester framing.
 
 ## Library
 
 ```rust,no_run
 use std::sync::Arc;
+
 use llmsort::gateway::NoopUsageSink;
 use llmsort::rerank::{sort_texts, RerankExecution, SortOptions};
 use llmsort::{Attribution, ProviderGateway};
@@ -177,109 +146,40 @@ let sorted = sort_texts(
 .await?;
 
 for item in &sorted.items {
-    println!("{:>2}. {:.3} ± {:.3}  {}", item.rank, item.latent_mean, item.latent_std, item.text);
+    println!(
+        "{:>2}. {:.3} ± {:.3}  {}",
+        item.rank, item.latent_mean, item.latent_std, item.text
+    );
 }
 println!("cost: ${:.4}", sorted.meta.provider_cost_nanodollars as f64 / 1e9);
 # Ok(())
 # }
 ```
 
-## How it works
+The promised surface is `sort_texts`, `sort_documents`, their setwise siblings,
+the `sort` and `judge` CLI verbs, and the content-addressed judgement-packet
+format. Other public modules support composition but may change before 1.0.
 
-Five nouns: an **attribute** (any nameable dimension) over entities, each
-holding a latent **magnitude** (only ratios are observable);
-**instruments** (elicitation modes) emit **evidence** in one currency —
-(E[log-ratio], honest variance) — which the solver fuses into a
-**scaling**: every entity placed on a shared log-ratio scale with a
-*reading* (magnitude ± uncertainty). A ranking is a scaling with the
-spacing deleted. `docs/ALGORITHM.md` has the rationale; `docs/MODEL.md`
-the observation model; `docs/WORKED_EXAMPLE.md` a full walkthrough.
+## Method and evidence
 
-## What is promised
+Each ratio answer becomes a noisy log-space measurement. llmsort fits the
+comparison graph with Huber IRLS, derives score uncertainty from the posterior,
+and chooses new pairs by their expected value near the top-k boundary.
 
-The stability-promised surface is deliberately small: `sort_texts` /
-`sort_documents` (library), their setwise siblings `sort_texts_setwise` /
-`sort_documents_setwise`, the CLI `sort` and `judge` verbs, and the
-judgement-packet format (`src/packet.rs` — content-addressed evidence
-that fuses byte-identically). Everything else is exposed for composition
-and may change shape.
+The cost trade is measured rather than assumed. On 72,813 private production
+judgements, with public analysis scripts and no published rows, ratio magnitude
+needed 1.3–1.8× fewer calls than direction alone at small budgets; probability
+mass from answer logprobs added about 1.4× efficiency. At full measured budget,
+direction-only sorting plateaued at split-half Kendall τ 0.16 while PMF moments
+reached 0.49. Scope and method are in the
+[analysis note](research/notes/logprob-efficiency-2026-09-05/FINDINGS.md).
 
-Use the pairwise sort for list work where "how much better?" carries
-information: prompts, research ideas, candidate plans, reviewer notes,
-backlog items. Use the setwise sort when an adequate *order* under a
-custom criterion is the bar — reranking search results, triaging a
-queue — at roughly a third of the pairwise cost (CLI: `llmsort sort
---setwise`); it measures its own
-trustworthiness first (the order-sensitivity gauge; thresholds and the
-evidence in `src/rerank/setwise.rs` docs and PROGRAM.md E6). Do not use
-either for deterministic rankings, scalar metrics, or attributes too
-incoherent to compare.
-
-### Choosing a method — measured, not asserted
-
-Every row below was run head-to-head on the same pools, models, and seeds
-(PROGRAM.md E12–E14; evidence packs in `research/artifacts/live/`):
-
-| Method | Verdict | Use when |
-|---|---|---|
-| Pointwise "rate 0–100" (one item per call) | Cheapest per item, but scores collapse into tie blocks (down to 3 distinct values over 16 close-packed items, truth-ρ −0.19); top-k selection through a tie block is a coin flip | Never for top-k. Acceptable for a rough full-list ordering on a strong model when magnitudes and top-k don't matter |
-| Single-call listwise ("paste the whole list") | The k=n special case of setwise minus the safety design: fine when the gauge would be clean, one malformed answer loses everything, hard-capped at 26 items | Quick one-shot sorts of small lists you'd eyeball anyway |
-| Setwise (`--setwise`, ring k=8, repeats 2) | Matches the pairwise sort's own test–retest band at ~⅓ the cost; the flip-rate gauge is a measured one-sided screen (flip < 0.20 ⇒ ρ ≥ 0.64, every bad cell flagged); for n ≫ k use `rounds: 2` — at n=150 it lands within 0.02–0.07 of the pairwise ceiling at ~⅙ its cost | Default for adequate orders: reranking, triage, queues. Precondition (E15): the gauge certifies pool-level order only — near-duplicates get arbitrary relative ranks (inside joint 2σ); read ±σ before trusting adjacent-pair distinctions |
-| Funnel (setwise screen → pairwise `top_k` refine on the top-3k slice) | Brackets the pairwise path's own top-10 reproducibility at 0.3–0.6× its cost; pointwise screens disqualified (tie blocks silently drop up to 70% of the true top-10 at the slice cut) | "Best k of many" — but read the next row first |
-| Pairwise ratio (`sort` default) | The flagship: cardinal scores ± σ, counterbalancing, certification. Its own top-10-of-150 reproducibility across seeds is 0.3–0.7 at the default budget — the honest ceiling every cheaper method is judged against | When magnitudes, error bars, or certification matter |
-
-One row is measured on a different kind of judge and is not yet in the
-crate: on a prefill-only typed judge (hosted Jev, $0.042 per million
-tokens, no generation), **one ten-level rating per item among 24 labelled
-peers, random windows, window fixed effect** beats every pairwise, triple,
-choice and yes/no design across 29 designs × four cohorts × every budget
-(never behind by more than .027 ρ; ρ .97 on 198 countries for $0.0024) —
-PROGRAM.md E16, pack `research/artifacts/live/jev-sortlab-2026-09-21/`.
-
-The cross-cutting rule: elicit with an instrument that measures its own
-trustworthiness (gauge, counterbalancing, certification), and treat any
-top-k claim without a stability number as unmeasured.
-
-How llmsort stands against RankGPT, PRP, setwise rankers, LOTUS,
-pairwiseLLM and rating systems, feature by feature:
-<https://llmsorting.com/compare.html>.
-
-## Evidence and experiments
-
-The trade is explicit: this costs more than one-shot scoring, saves
-comparisons versus exhaustive pairwise judging, and returns uncertainty
-plus evidence instead of only a sorted list. The research side lives
-here too: [`experiments/`](experiments/) is a never-published workspace
-crate with the experimental verbs, live batteries, and instruments whose
-evidence is not yet in — an instrument graduates into the crate only
-after its evidence earns it — and [`research/`](research/) is the
-measured record itself: method comparisons, planner-regret benchmarks
-(which the planner has lost and then won), judge-coherence batteries,
-and every published number's replayable pack. [`PROGRAM.md`](PROGRAM.md)
-indexes every method as a rung with its pack. The evidence culture
-applies to our own planner first.
-
-## Lineage
-
-First `cardinal-harness`, then `ratiometer`, then `llmsorting`, now
-`llmsort`. The parked crates.io names keep resolving; every former GitHub
-name redirects here, and the full pre-extraction history (plus seriate's)
-is grafted into this repo's ancestry, so `git log` reaches all the way
-back.
-
-This repo is the one home of the whole effort; every earlier repo
-(`cardinal-harness`, `ratiometer`, `llmsorting`, `llmsort-lab`,
-`seriate`) redirects here or is grafted into this history. It keeps
-three compartments of deliberately different polish:
-
-| Compartment | Polish | Promises |
-|---|---|---|
-| the crate (root, [crates.io `llmsort`](https://crates.io/crates/llmsort)) | engineered | API stability, CI green, shape mandate |
-| [`experiments/`](experiments/) | research code | compiles, tested, never published; instruments graduate into the crate only on evidence |
-| [`research/`](research/) | the raw record | none — replayable evidence packs, dated notes, analysis scripts, kept honest rather than pretty |
-
-If a link brought you here from `cardinal-harness`, `ratiometer`, or
-`llmsorting`, this is where development continues.
+[ALGORITHM.md](docs/ALGORITHM.md) explains the design,
+[MODEL.md](docs/MODEL.md) states the mathematical contract, and
+[WORKED_EXAMPLE.md](docs/WORKED_EXAMPLE.md) walks through a complete run.
+[PROGRAM.md](PROGRAM.md) indexes every research claim by its replayable evidence
+pack. `experiments/` contains instruments that have not graduated into the
+published crate; `research/` holds dated notes, analysis, and evidence packs.
 
 ## License
 
