@@ -115,7 +115,15 @@ def call(prompt, schema, effort, model, timeout, pure_env=None):
                        cwd=str(PURE_DIR) if pure_env is not None else None)
     line = r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""
     try:
-        return json.loads(line)
+        d = json.loads(line)
+        # CLI 2.1.311 emits the whole transcript as one JSON array; the
+        # verdict is the `type: "result"` element (2026-10-27). Older CLIs
+        # printed that element alone.
+        if isinstance(d, list):
+            results = [m for m in d if isinstance(m, dict)
+                       and m.get("type") == "result"]
+            d = results[-1] if results else (d[-1] if d else {})
+        return d
     except json.JSONDecodeError:
         return {"is_error": True, "result": f"unparseable output: "
                 f"{r.stdout[-300:]!r} stderr: {r.stderr[-300:]!r}"}
